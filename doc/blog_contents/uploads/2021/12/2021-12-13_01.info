@@ -1,5 +1,5 @@
 {
-    "Title":"(7/30)大家一起学Blazor系列：生命周期(Lifetime)",
+    "Title":"(7/30)跟我一起学Blazor：生命周期(Lifetime)",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_05.png",
     "BriefDescription":"自己建立的Service都必须在Startup.cs(Blazor Server)或Program.cs(Blazor WebAssemlby)注册，但有些基本Service就不用自己做了。",
     "Categories":["Blazor Server"],
