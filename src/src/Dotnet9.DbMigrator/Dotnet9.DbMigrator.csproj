@@ -21,14 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Autofac" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="5.0.1" />
     <ProjectReference Include="..\Dotnet9.Application.Contracts\Dotnet9.Application.Contracts.csproj" />
     <ProjectReference Include="..\Dotnet9.EntityFrameworkCore\Dotnet9.EntityFrameworkCore.csproj" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Dotnet9.Localization;
+using Dotnet9.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
@@ -12,6 +12,7 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Volo.CmsKit;
 
 namespace Dotnet9
 {
@@ -25,6 +26,7 @@ namespace Dotnet9
         typeof(AbpSettingManagementDomainSharedModule),
         typeof(AbpTenantManagementDomainSharedModule)
         )]
+    [DependsOn(typeof(CmsKitDomainSharedModule))]
     public class Dotnet9DomainSharedModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)

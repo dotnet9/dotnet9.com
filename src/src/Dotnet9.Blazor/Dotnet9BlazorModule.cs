@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using Blazorise.Bootstrap5;
@@ -41,6 +41,7 @@ using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.CmsKit.Web;
 
 namespace Dotnet9.Blazor
 {
@@ -59,6 +60,7 @@ namespace Dotnet9.Blazor
         typeof(AbpTenantManagementBlazorServerModule),
         typeof(AbpSettingManagementBlazorServerModule)
        )]
+    [DependsOn(typeof(CmsKitWebModule))]
     public class Dotnet9BlazorModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
