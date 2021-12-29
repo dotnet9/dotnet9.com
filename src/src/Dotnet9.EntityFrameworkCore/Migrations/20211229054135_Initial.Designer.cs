@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Dotnet9.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    [Migration("20211229040638_Initial")]
+    [Migration("20211229054135_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

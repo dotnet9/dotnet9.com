@@ -2,6 +2,21 @@
 # yarn lockfile v1
 
 
+"@abp/aspnetcore.components.server.basictheme@^4.4.4":
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.components.server.basictheme/-/aspnetcore.components.server.basictheme-4.4.4.tgz#532072f508ba70850d5cc5811781c6755b1a18e1"
+  integrity sha512-11wTVJGWvBwfIY5rrN/e3mAbxfhy6Zq0IdHKGpjIDzkamB5jr5vjUNRoNH6ZM5GRg6R9iyr9iy9UCqogVg5Gug==
+  dependencies:
+    "@abp/aspnetcore.components.server.theming" "~4.4.4"
+
+"@abp/aspnetcore.components.server.theming@~4.4.4":
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/@abp/aspnetcore.components.server.theming/-/aspnetcore.components.server.theming-4.4.4.tgz#999d3c8338e57e465a13f8d7da57ff61bd1e89fc"
+  integrity sha512-4NPNr/KbYmGBqVVQ85zP+sw9qHyM2qwEjAKQ3yESfn56zMQx0uTTd6ytRDqDidI81UwTCZpVsPCxfne4IWHNxA==
+  dependencies:
+    "@abp/bootstrap" "~4.4.4"
+    "@abp/font-awesome" "~4.4.4"
+
 "@abp/aspnetcore.mvc.ui.theme.basic@^4.4.4":
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.basic/-/aspnetcore.mvc.ui.theme.basic-4.4.4.tgz#ecaaee9d8af8e14a1c9fa65bf3cb6e56c6a82e99"
