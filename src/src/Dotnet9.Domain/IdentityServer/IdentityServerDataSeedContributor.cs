@@ -161,6 +161,25 @@ namespace Dotnet9.IdentityServer
                 );
             }
             
+
+            // Blazor Client
+            var blazorClientId = configurationSection["Dotnet9_Blazor:ClientId"];
+            if (!blazorClientId.IsNullOrWhiteSpace())
+            {
+                var blazorRootUrl = configurationSection["Dotnet9_Blazor:RootUrl"].TrimEnd('/');
+
+                await CreateClientAsync(
+                    name: blazorClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] { "authorization_code" },
+                    secret: configurationSection["Dotnet9_Blazor:ClientSecret"]?.Sha256(),
+                    requireClientSecret: false,
+                    redirectUri: $"{blazorRootUrl}/authentication/login-callback",
+                    postLogoutRedirectUri: $"{blazorRootUrl}/authentication/logout-callback",
+                    corsOrigins: new[] { blazorRootUrl.RemovePostFix("/") }
+                );
+            }
+            
             
             
             // Swagger Client

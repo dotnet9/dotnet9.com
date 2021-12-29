@@ -3,24 +3,22 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://localhost:44307",
-      "sslPort": 44307
+      "applicationUrl": "https://localhost:44331",
+      "sslPort": 44331
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Dotnet9.Blazor": {
+    "Dotnet9.HttpApi.Host": {
       "commandName": "Project",
       "launchBrowser": true,
-      "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
-      "applicationUrl": "https://localhost:44307",
+      "applicationUrl": "https://localhost:44331",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

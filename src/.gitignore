@@ -256,7 +256,7 @@ src/Dotnet9.Web/Logs/*
 src/Dotnet9.Web.Host/Logs/*
 src/Dotnet9.IdentityServer/Logs/*
 src/Dotnet9.HttpApi.Host/Logs/*
-src/Dotnet9.HttpApi.HostWithIds/Logs/*
+src/Dotnet9.HttpApi.Host/Logs/*
 src/Dotnet9.DbMigrator/Logs/*
-src/Dotnet9.Blazor/Logs/*
-src/Dotnet9.Blazor.Tiered/Logs/*
+src/Dotnet9.Blazor.Server/Logs/*
+src/Dotnet9.Blazor.Server.Tiered/Logs/*
