@@ -1,18 +1,17 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using Blazorise.Bootstrap5;
+﻿using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
+using Dotnet9.Blazor.Menus;
+using Dotnet9.EntityFrameworkCore;
+using Dotnet9.Localization;
+using Dotnet9.MultiTenancy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Dotnet9.Blazor.Menus;
-using Dotnet9.EntityFrameworkCore;
-using Dotnet9.Localization;
-using Dotnet9.MultiTenancy;
+using System;
+using System.IO;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Authentication.JwtBearer;
@@ -21,13 +20,9 @@ using Volo.Abp.AspNetCore.Components.Server.BasicTheme.Bundling;
 using Volo.Abp.AspNetCore.Components.Web.Theming.Routing;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
-using Volo.Abp.AspNetCore.Mvc.UI;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
@@ -37,7 +32,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.SettingManagement.Blazor.Server;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Blazor.Server;
-using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
@@ -58,7 +52,7 @@ namespace Dotnet9.Blazor
         typeof(AbpIdentityBlazorServerModule),
         typeof(AbpTenantManagementBlazorServerModule),
         typeof(AbpSettingManagementBlazorServerModule)
-       )]
+    )]
     public class Dotnet9BlazorModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -110,10 +104,7 @@ namespace Dotnet9.Blazor
                 // MVC UI
                 options.StyleBundles.Configure(
                     BasicThemeBundles.Styles.Global,
-                    bundle =>
-                    {
-                        bundle.AddFiles("/global-styles.css");
-                    }
+                    bundle => { bundle.AddFiles("/global-styles.css"); }
                 );
 
                 //BLAZOR UI
@@ -146,10 +137,18 @@ namespace Dotnet9.Blazor
             {
                 Configure<AbpVirtualFileSystemOptions>(options =>
                 {
-                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9DomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dotnet9.Domain.Shared"));
-                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9DomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dotnet9.Domain"));
-                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9ApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dotnet9.Application.Contracts"));
-                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9ApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dotnet9.Application"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9DomainSharedModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}Dotnet9.Domain.Shared"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9DomainModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}Dotnet9.Domain"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9ApplicationContractsModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}Dotnet9.Application.Contracts"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9ApplicationModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}Dotnet9.Application"));
                     options.FileSets.ReplaceEmbeddedByPhysical<Dotnet9BlazorModule>(hostingEnvironment.ContentRootPath);
                 });
             }
@@ -202,18 +201,12 @@ namespace Dotnet9.Blazor
 
         private void ConfigureMenu(ServiceConfigurationContext context)
         {
-            Configure<AbpNavigationOptions>(options =>
-            {
-                options.MenuContributors.Add(new Dotnet9MenuContributor());
-            });
+            Configure<AbpNavigationOptions>(options => { options.MenuContributors.Add(new Dotnet9MenuContributor()); });
         }
 
         private void ConfigureRouter(ServiceConfigurationContext context)
         {
-            Configure<AbpRouterOptions>(options =>
-            {
-                options.AppAssembly = typeof(Dotnet9BlazorModule).Assembly;
-            });
+            Configure<AbpRouterOptions>(options => { options.AppAssembly = typeof(Dotnet9BlazorModule).Assembly; });
         }
 
         private void ConfigureAutoApiControllers()
@@ -226,10 +219,7 @@ namespace Dotnet9.Blazor
 
         private void ConfigureAutoMapper()
         {
-            Configure<AbpAutoMapperOptions>(options =>
-            {
-                options.AddMaps<Dotnet9BlazorModule>();
-            });
+            Configure<AbpAutoMapperOptions>(options => { options.AddMaps<Dotnet9BlazorModule>(); });
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -265,10 +255,7 @@ namespace Dotnet9.Blazor
             app.UseIdentityServer();
             app.UseAuthorization();
             app.UseSwagger();
-            app.UseAbpSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnet9 API");
-            });
+            app.UseAbpSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnet9 API"); });
             app.UseConfiguredEndpoints();
         }
     }
