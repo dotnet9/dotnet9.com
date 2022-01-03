@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dotnet9.Localization;
 using Dotnet9.MultiTenancy;
+using Dotnet9.Permissions;
 using Volo.Abp.Identity.Blazor;
 using Volo.Abp.SettingManagement.Blazor.Menus;
 using Volo.Abp.TenantManagement.Blazor.Navigation;
@@ -18,9 +19,8 @@ namespace Dotnet9.Blazor.Menus
             }
         }
 
-        private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+        private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
         {
-            var administration = context.Menu.GetAdministration();
             var l = context.GetLocalizer<Dotnet9Resource>();
 
             context.Menu.Items.Insert(
@@ -33,20 +33,16 @@ namespace Dotnet9.Blazor.Menus
                     order: 0
                 )
             );
-            
-            if (MultiTenancyConsts.IsEnabled)
-            {
-                administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-            }
-            else
-            {
-                administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-            }
 
-            administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-            administration.SetSubItemOrder(SettingManagementMenus.GroupName, 3);
+            var dotnet9Menu = new ApplicationMenuItem("Blog", l["Menu:Blog"], icon: "fa fa-book"
+            );
 
-            return Task.CompletedTask;
+            context.Menu.AddItem(dotnet9Menu);
+
+            if (await context.IsGrantedAsync(Dotnet9Permissions.Tags.Default))
+            {
+                dotnet9Menu.AddItem(new ApplicationMenuItem("Dotnet9.Tags", l["Menu:Tags"], "/admin/tags"));
+            }
         }
     }
 }

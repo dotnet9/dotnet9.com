@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+*.jwk
+src/src/Dotnet9.EntityFrameworkCore/Migrations/

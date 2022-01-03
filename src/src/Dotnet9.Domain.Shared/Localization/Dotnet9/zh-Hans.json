@@ -1,8 +1,29 @@
 {
-    "culture": "zh-Hans",
-    "texts": {
-      "Menu:Home": "首页",
-      "Welcome": "欢迎",
-      "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io."
-    }
+  "culture": "zh-Hans",
+  "texts": {
+    "Menu:Home": "首页",
+    "Welcome": "欢迎",
+    "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
+    "Menu:Blog": "Blog",
+    "Menu:Tags": "标签",
+    "Menu:Actions": "操作",
+    "SearchText": "查询关键字",
+    "Close": "关闭",
+    "Delete": "删除",
+    "Edit": "编辑",
+    "Tags": "标签",
+    "NewTag": "新增标签",
+    "Name": "名称",
+    "Description": "描述",
+    "CreationTime": "添加时间",
+    "LastModificationTime": "最后修改时间",
+    "AreYouSure": "您确定吗?",
+    "AreYouSureToDelete": "您确定需要删除选择的项吗？?",
+    "Permission:Dotnet9": "Dotnet9",
+    "Permission:Tags": "标签管理",
+    "Permission:Tags.Create": "创建",
+    "Permission:Tags.Edit": "编辑",
+    "Permission:Tags.Delete": "删除",
+    "TagDeletionConfirmationMessage": "确定删除选择的标签 '{0}'?"
   }
+}

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dotnet9.Tags;
 
 namespace Dotnet9
 {
@@ -6,9 +7,8 @@ namespace Dotnet9
     {
         public Dotnet9ApplicationAutoMapperProfile()
         {
-            /* You can configure your AutoMapper mapping configuration here.
-             * Alternatively, you can split your mapping configurations
-             * into multiple profile classes for a better organization. */
+            CreateMap<Tag, TagDto>();
+            CreateMap<CreateTagDto, Tag>();
         }
     }
 }

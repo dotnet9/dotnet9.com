@@ -1,0 +1,12 @@
+﻿using AutoMapper;
+using Dotnet9.Tags;
+
+namespace Dotnet9.Blazor;
+
+public class Dotnet9BlazorAutoMapperProfile : Profile
+{
+    public Dotnet9BlazorAutoMapperProfile()
+    {
+        CreateMap<TagDto, UpdateTagDto>();
+    }
+}

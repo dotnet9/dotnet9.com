@@ -3,6 +3,27 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Menu:Blog": "Blog",
+    "Menu:Tags": "Tags",
+    "Menu:Actions": "Actions",
+    "SearchText": "Search text",
+    "Close": "Close",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "Tags": "Tags",
+    "NewTag": "NewTag",
+    "Name": "Name",
+    "Description": "Description",
+    "CreationTime": "Creation Time",
+    "LastModificationTime": "Last Modification Time",
+    "AreYouSure": "Are you sure?",
+    "AreYouSureToDelete": "Are you sure you want to delete this item?",
+    "Permission:Dotnet9": "Dotnet9",
+    "Permission:Tags": "Tag Management",
+    "Permission:Tags.Create": "Create",
+    "Permission:Tags.Edit": "Edit",
+    "Permission:Tags.Delete": "Delete",
+    "TagDeletionConfirmationMessage": "Are you sure to delete the tag '{0}'?"
   }
 }
