@@ -1,0 +1,31 @@
+﻿@page "/admin/aboutmrg"
+@using Dotnet9.Abouts
+@inject IAboutAppService AboutAppService
+<Row>
+    <Column ColumnSize="ColumnSize.Is12">
+        <Markdown Value="@_markdownValue" ValueChanged="@OnMarkdownValueChanged"/>
+    </Column>
+</Row>
+
+@code{
+    private string _markdownValue = string.Empty;
+
+    private string _markdownHtml = string.Empty;
+
+    protected override async void OnInitialized()
+    {
+        var about = await AboutAppService.GetAsync();
+        _markdownValue = about.Details;
+        _markdownHtml = Markdig.Markdown.ToHtml(_markdownValue ?? string.Empty);
+
+        await base.OnInitializedAsync();
+    }
+
+    private async Task OnMarkdownValueChanged(string value)
+    {
+        _markdownValue = value;
+        _markdownHtml = Markdig.Markdown.ToHtml(_markdownValue ?? string.Empty);
+        await AboutAppService.UpdateAsync(new UpdateAboutDto() { Details = _markdownValue });
+    }
+
+}

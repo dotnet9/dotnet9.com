@@ -6,6 +6,8 @@
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
     "Menu:Blog": "Blog",
     "Menu:Tags": "标签",
+    "Menu:Abouts": "关于",
+    "Menu:About": "关于",
     "Menu:Actions": "操作",
     "SearchText": "查询关键字",
     "Close": "关闭",
@@ -19,11 +21,13 @@
     "LastModificationTime": "最后修改时间",
     "AreYouSure": "您确定吗?",
     "AreYouSureToDelete": "您确定需要删除选择的项吗？?",
-    "Permission:Dotnet9": "Dotnet9",
+    "Permission:Blog": "Blog",
     "Permission:Tags": "标签管理",
     "Permission:Tags.Create": "创建",
     "Permission:Tags.Edit": "编辑",
     "Permission:Tags.Delete": "删除",
-    "TagDeletionConfirmationMessage": "确定删除选择的标签 '{0}'?"
+    "TagDeletionConfirmationMessage": "确定删除选择的标签 '{0}'?",
+    "Permission:Abouts": "关于",
+    "Permission:Abouts.Edit": "编辑"
   }
 }

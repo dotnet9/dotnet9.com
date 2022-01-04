@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using Dotnet9.Localization;
-using Dotnet9.MultiTenancy;
+﻿using Dotnet9.Localization;
 using Dotnet9.Permissions;
-using Volo.Abp.Identity.Blazor;
-using Volo.Abp.SettingManagement.Blazor.Menus;
-using Volo.Abp.TenantManagement.Blazor.Navigation;
+using System.Threading.Tasks;
 using Volo.Abp.UI.Navigation;
 
 namespace Dotnet9.Blazor.Menus
@@ -34,15 +30,23 @@ namespace Dotnet9.Blazor.Menus
                 )
             );
 
-            var dotnet9Menu = new ApplicationMenuItem("Blog", l["Menu:Blog"], icon: "fa fa-book"
+            var dotnet9Menu = new ApplicationMenuItem(Dotnet9Menus.Blog, l["Menu:Blog"], icon: "fa fa-book"
             );
 
             context.Menu.AddItem(dotnet9Menu);
 
             if (await context.IsGrantedAsync(Dotnet9Permissions.Tags.Default))
             {
-                dotnet9Menu.AddItem(new ApplicationMenuItem("Dotnet9.Tags", l["Menu:Tags"], "/admin/tags"));
+                dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminTag, l["Menu:Tags"], "/admin/tag"));
             }
+
+            if (await context.IsGrantedAsync(Dotnet9Permissions.Abouts.Default))
+            {
+                dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminAbout, l["Menu:Abouts"], "/admin/about"));
+            }
+
+            context.Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.PublicAbout, l["Menu:About"], icon: "fa fa-book",
+                url: "/about"));
         }
     }
 }

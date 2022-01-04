@@ -1,0 +1,16 @@
+﻿@page "/public/about"
+@using Dotnet9.Abouts
+@inject IAboutAppService AboutAppService
+@_markdownHtml
+
+@code{
+    private string _markdownHtml = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var about = AboutAppService.GetAsync().Result;
+        _markdownHtml = Markdig.Markdown.ToHtml(about.Details ?? string.Empty);
+        base.OnInitializedAsync();
+    }
+
+}
