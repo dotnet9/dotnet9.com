@@ -13,6 +13,7 @@ public class AboutAppService : Dotnet9AppService, IAboutAppService
         _aboutRepository = aboutRepository;
     }
 
+
     public async Task<AboutDto> GetAsync()
     {
         var about = await _aboutRepository.GetAsync();
