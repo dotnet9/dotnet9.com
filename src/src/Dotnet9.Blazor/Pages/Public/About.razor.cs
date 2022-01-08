@@ -12,7 +12,7 @@ public partial class About
     {
         _aboutAppService = aboutAppService;
     }
-
+    
     protected override async Task OnInitializedAsync()
     {
         var about = await _aboutAppService.GetAsync();

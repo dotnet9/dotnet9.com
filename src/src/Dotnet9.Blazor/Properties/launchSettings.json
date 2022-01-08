@@ -17,9 +17,7 @@
     },
     "Dotnet9.Blazor": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:44313/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
