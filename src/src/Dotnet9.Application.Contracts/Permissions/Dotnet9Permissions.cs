@@ -11,6 +11,15 @@
             public const string Edit = Default + ".Edit";
             public const string Delete = Default + ".Delete";
         }
+
+        public static class Albums
+        {
+            public const string Default = GroupName + ".Albums";
+            public const string Create = Default + ".Create";
+            public const string Edit = Default + ".Edit";
+            public const string Delete = Default + ".Delete";
+        }
+
         public static class Abouts
         {
             public const string Default = GroupName + ".Abouts";

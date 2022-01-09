@@ -7,5 +7,9 @@
         {
             public const string TagAlreadyExist = "Dotnet9:Tag:0001";
         }
+        public static class Albums
+        {
+            public const string AlbumAlreadyExist = "Dotnet9:Album:0001";
+        }
     }
 }

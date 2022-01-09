@@ -6,7 +6,7 @@ namespace Dotnet9.Blazor.Pages.Admin;
 public partial class About
 {
     private readonly IAboutAppService _aboutAppService;
-    private string _markdownValue { get; set; }
+    private string _markdownValue;
     private string _markdownHtml;
 
     public About(IAboutAppService aboutAppService)
@@ -20,7 +20,8 @@ public partial class About
         _markdownValue = about.Details;
         _markdownHtml = Markdig.Markdown.ToHtml(_markdownValue ?? string.Empty);
     }
-    async Task OnMarkdownValueChanged(string value)
+
+    private async Task OnMarkdownValueChanged(string value)
     {
         _markdownValue = value;
         _markdownHtml = Markdig.Markdown.ToHtml(_markdownValue ?? string.Empty);

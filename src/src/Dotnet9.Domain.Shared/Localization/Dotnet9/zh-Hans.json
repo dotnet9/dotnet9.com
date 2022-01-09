@@ -6,6 +6,7 @@
     "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
     "Menu:Blog": "Blog",
     "Menu:Tags": "标签",
+    "Menu:Albums": "专辑",
     "Menu:Abouts": "关于",
     "Menu:About": "关于",
     "Menu:Actions": "操作",
@@ -28,6 +29,16 @@
     "Permission:Tags.Delete": "删除",
     "TagDeletionConfirmationMessage": "确定删除选择的标签 '{0}'?",
     "Permission:Abouts": "关于",
-    "Permission:Abouts.Edit": "编辑"
+    "Permission:Abouts.Edit": "编辑",
+    "Dotnet9:Tag:0001": "已经存在同名标签: {0}",
+    "Dotnet9:Album:0001": "已经存在同名专辑: {0}",
+    "Permission:Albums": "专辑管理",
+    "Permission:Albums.Create": "创建",
+    "Permission:Albums.Edit": "编辑",
+    "Permission:Albums.Delete": "删除",
+    "AlbumDeletionConfirmationMessage": "确定删除选择的专辑 '{0}'?",
+    "Albums": "专辑",
+    "NewAlbum": "新增专辑",
+    "CoverImageUrl": "封面"
   }
 }

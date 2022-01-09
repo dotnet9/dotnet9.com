@@ -20,8 +20,8 @@ public sealed class TagAppServiceTests : Dotnet9ApplicationTestBase
         var result = await _tagAppService.GetListAsync(new GetTagListDto());
 
         result.TotalCount.ShouldBeGreaterThanOrEqualTo(2);
-        result.Items.ShouldContain(author => author.Name == "C#");
-        result.Items.ShouldContain(author => author.Name == "C++");
+        result.Items.ShouldContain(tag => tag.Name == "C#");
+        result.Items.ShouldContain(tag => tag.Name == "C++");
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public sealed class TagAppServiceTests : Dotnet9ApplicationTestBase
             new GetTagListDto { Filter = "C#" });
 
         result.TotalCount.ShouldBeGreaterThanOrEqualTo(1);
-        result.Items.ShouldContain(author => author.Name == "C#");
+        result.Items.ShouldContain(tag => tag.Name == "C#");
     }
 
     [Fact]

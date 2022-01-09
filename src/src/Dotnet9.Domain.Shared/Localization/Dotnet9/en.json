@@ -6,6 +6,7 @@
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     "Menu:Blog": "Blog",
     "Menu:Tags": "Tags",
+    "Menu:Albums": "Albums",
     "Menu:Abouts": "About",
     "Menu:About": "About",
     "Menu:Actions": "Actions",
@@ -14,7 +15,7 @@
     "Delete": "Delete",
     "Edit": "Edit",
     "Tags": "Tags",
-    "NewTag": "NewTag",
+    "NewTag": "New Tag",
     "Name": "Name",
     "Description": "Description",
     "CreationTime": "Creation Time",
@@ -28,6 +29,16 @@
     "Permission:Tags.Delete": "Delete",
     "TagDeletionConfirmationMessage": "Are you sure to delete the tag '{0}'?",
     "Permission:Abouts": "About",
-    "Permission:Abouts.Edit": "Edit"
+    "Permission:Abouts.Edit": "Edit",
+    "Dotnet9:Tag:0001": "There is already an tag with the same name: {0}",
+    "Dotnet9:Album:0001": "There is already an album with the same name: {0}",
+    "Permission:Albums": "Album Management",
+    "Permission:Albums.Create": "Create",
+    "Permission:Albums.Edit": "Edit",
+    "Permission:Albums.Delete": "Delete",
+    "AlbumDeletionConfirmationMessage": "Are you sure to delete the album '{0}'?",
+    "Albums": "Albums",
+    "NewAlbum": "New Album",
+    "CoverImageUrl": "Cover image"
   }
 }

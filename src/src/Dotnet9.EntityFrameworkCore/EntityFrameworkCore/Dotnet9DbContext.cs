@@ -1,4 +1,5 @@
 ﻿using Dotnet9.Abouts;
+using Dotnet9.Albums;
 using Dotnet9.Tags;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace Dotnet9.EntityFrameworkCore
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Album> Albums { get; set; }
         public DbSet<About> About { get; set; }
 
         #region Entities from the modules
@@ -85,6 +87,15 @@ namespace Dotnet9.EntityFrameworkCore
                 b.ConfigureByConvention();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(TagConsts.MaxNameLength);
                 b.Property(x => x.Description).IsRequired().HasMaxLength(TagConsts.MaxDescriptionLength);
+                b.HasIndex(x => x.Name);
+            });
+            builder.Entity<Album>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Albums", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(AlbumConsts.MaxNameLength);
+                b.Property(x => x.CoverImageUrl).IsRequired().HasMaxLength(AlbumConsts.MaxCoverImageUrlLength);
+                b.Property(x => x.Description).IsRequired().HasMaxLength(AlbumConsts.MaxDescriptionLength);
                 b.HasIndex(x => x.Name);
             });
             builder.Entity<About>(b =>

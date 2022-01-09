@@ -6,6 +6,7 @@
         public const string Home = Prefix + ".Home";
         public const string Blog = Prefix + ".Blog";
         public const string AdminTag = Prefix + "Admin.Tag";
+        public const string AdminAlbum = Prefix + "Admin.Album";
         public const string AdminAbout = Prefix + "Admin.About";
         public const string PublicAbout = Prefix + "Public.About";
 

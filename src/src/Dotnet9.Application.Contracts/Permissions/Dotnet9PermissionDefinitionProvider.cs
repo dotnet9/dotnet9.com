@@ -15,6 +15,11 @@ public class Dotnet9PermissionDefinitionProvider : PermissionDefinitionProvider
         tagsPermission.AddChild(Dotnet9Permissions.Tags.Edit, L("Permission:Tags.Edit"));
         tagsPermission.AddChild(Dotnet9Permissions.Tags.Delete, L("Permission:Tags.Delete"));
 
+        var albumsPermission = dotnet9Group.AddPermission(Dotnet9Permissions.Albums.Default, L("Permission:Albums"));
+        albumsPermission.AddChild(Dotnet9Permissions.Albums.Create, L("Permission:Albums.Create"));
+        albumsPermission.AddChild(Dotnet9Permissions.Albums.Edit, L("Permission:Albums.Edit"));
+        albumsPermission.AddChild(Dotnet9Permissions.Albums.Delete, L("Permission:Albums.Delete"));
+
         var aboutsPermission =
             dotnet9Group.AddPermission(Dotnet9Permissions.Abouts.Default, L("Permission:Abouts"));
         aboutsPermission.AddChild(Dotnet9Permissions.Abouts.Edit, L("Permission:Abouts.Edit"));
