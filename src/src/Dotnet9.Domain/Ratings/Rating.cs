@@ -5,5 +5,5 @@ namespace Dotnet9.Ratings;
 
 public class Rating : FullAuditedAggregateRoot<Guid>
 {
-    public virtual short StarCount { get; protected set; }
+    public short StarCount { get; set; }
 }
