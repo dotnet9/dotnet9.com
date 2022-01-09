@@ -134,23 +134,47 @@ public partial class Tags
 
     private async Task CreateTagAsync()
     {
-        if (await _createValidationsRef.ValidateAll())
+        try
         {
-            await TagAppService.CreateAsync(NewTag);
+            if (await _createValidationsRef.ValidateAll())
+            {
+                await TagAppService.CreateAsync(NewTag);
 
-            await GetTagsAsync();
-            await CreateTagModal.Hide();
+                await GetTagsAsync();
+                await CreateTagModal.Hide();
+            }
+        }
+        catch (TagAlreadyExistsException)
+        {
+            await Message.Warn(message: L[Dotnet9DomainErrorCodes.Tags.TagAlreadyExist, NewTag.Name]);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 
     private async Task UpdateTagAsync()
     {
-        if (await _editValidationsRef.ValidateAll())
+        try
         {
-            await TagAppService.UpdateAsync(EditingTagId, EditingTag);
+            if (await _editValidationsRef.ValidateAll())
+            {
+                await TagAppService.UpdateAsync(EditingTagId, EditingTag);
 
-            await GetTagsAsync();
-            await EditTagModal.Hide();
+                await GetTagsAsync();
+                await EditTagModal.Hide();
+            }
+        }
+        catch (TagAlreadyExistsException)
+        {
+            await Message.Warn(message: L[Dotnet9DomainErrorCodes.Tags.TagAlreadyExist, EditingTag.Name]);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }
