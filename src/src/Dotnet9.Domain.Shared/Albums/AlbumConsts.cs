@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dotnet9.Albums;
 
-    public static class AlbumConsts
+public static class AlbumConsts
 {
     public const int MaxNameLength = 32;
 

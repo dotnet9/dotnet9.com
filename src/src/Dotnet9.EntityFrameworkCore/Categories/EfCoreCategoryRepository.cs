@@ -8,28 +8,29 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Dotnet9.Albums;
+namespace Dotnet9.Categories;
 
-public class EfCoreAlbumRepository : EfCoreRepository<Dotnet9DbContext, Album, Guid>, IAlbumRepository
+public class EfCoreCategoryRepository : EfCoreRepository<Dotnet9DbContext, Category, Guid>, ICategoryRepository
 {
-    public EfCoreAlbumRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider) : base(dbContextProvider)
+    public EfCoreCategoryRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider) : base(dbContextProvider)
     {
     }
 
-    public async Task<Album> FindByNameAsync(string name)
+    public async Task<Category> FindByNameAsync(string name)
     {
         var dbSet = await GetDbSetAsync();
         return await dbSet.FirstOrDefaultAsync(tag => tag.Name == name);
     }
 
-    public async Task<List<Album>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null)
+    public async Task<List<Category>> GetListAsync(int skipCount, int maxResultCount, string sorting,
+        string filter = null)
     {
         var dbSet = await GetDbSetAsync();
         return await dbSet
             .WhereIf(
                 !filter.IsNullOrWhiteSpace(),
-                album => album.Name.Contains(filter)
-                         || album.Description.Contains(filter)
+                category => category.Name.Contains(filter)
+                            || category.Description.Contains(filter)
             )
             .OrderBy(sorting)
             .Skip(skipCount)

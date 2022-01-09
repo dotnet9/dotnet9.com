@@ -2,11 +2,22 @@
 
 public static class BlogPostConsts
 {
-    public static int MaxTitleLength { get; set; } = 64;
+    public const int MaxTitleLength = 64;
 
-    public static int MaxShortDescriptionLength { get; set; } = 256;
+    public const int MaxSlugLength = 128;
 
-    public static int MaxContentLength { get; set; } = int.MaxValue;
+    public const int MaxShortDescriptionLength = 256;
 
-    public const string EntityType = "BlogPost";
+    public const int MaxContentLength = int.MaxValue;
+
+    public const int MaxCoverImageUrlLength = 128;
+
+
+    public const int MaxOriginalLength = 128;
+
+
+    public const int MaxOriginalTitleLength = 128;
+
+
+    public const int MaxOriginalLinkLength = 128;
 }

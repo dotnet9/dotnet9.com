@@ -1,6 +1,13 @@
 ﻿using Dotnet9.Abouts;
 using Dotnet9.Albums;
+using Dotnet9.Blogs;
+using Dotnet9.Categories;
+using Dotnet9.Comments;
+using Dotnet9.Contacts;
+using Dotnet9.Privacies;
+using Dotnet9.Ratings;
 using Dotnet9.Tags;
+using Dotnet9.UrlLinks;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -28,9 +35,16 @@ namespace Dotnet9.EntityFrameworkCore
         ITenantManagementDbContext
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<About> Abouts { get; set; }
         public DbSet<Album> Albums { get; set; }
-        public DbSet<About> About { get; set; }
+        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Privacy> Privacies { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<UrlLink> UruLinks { get; set; }
 
         #region Entities from the modules
 
@@ -81,6 +95,85 @@ namespace Dotnet9.EntityFrameworkCore
 
             /* Configure your own tables/entities inside here */
 
+            builder.Entity<About>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Abouts", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Details).IsRequired().HasMaxLength(AboutConsts.MaxDetailsLength);
+            });
+
+            builder.Entity<Album>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Albums", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(AlbumConsts.MaxNameLength);
+                b.Property(x => x.CoverImageUrl).HasMaxLength(AlbumConsts.MaxCoverImageUrlLength);
+                b.Property(x => x.Description).HasMaxLength(AlbumConsts.MaxDescriptionLength);
+                b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<BlogPost>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPosts", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Title).IsRequired().HasMaxLength(BlogPostConsts.MaxTitleLength);
+                b.Property(x => x.Slug).IsRequired().HasMaxLength(BlogPostConsts.MaxSlugLength);
+                b.Property(x => x.ShortDescription).HasMaxLength(BlogPostConsts.MaxShortDescriptionLength);
+                b.Property(x => x.Content).IsRequired().HasMaxLength(BlogPostConsts.MaxContentLength);
+                b.Property(x => x.CoverImageUrl).HasMaxLength(BlogPostConsts.MaxCoverImageUrlLength);
+                b.Property(x => x.BlogCopyrightType);
+                b.Property(x => x.Original).HasMaxLength(BlogPostConsts.MaxOriginalLength);
+                b.Property(x => x.OriginalTitle).HasMaxLength(BlogPostConsts.MaxOriginalTitleLength);
+                b.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);
+                b.HasIndex(x => x.Title);
+                b.HasIndex(x => x.Slug);
+            });
+
+            builder.Entity<Category>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Categories", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(CategoryConsts.MaxNameLength);
+                b.Property(x => x.CoverImageUrl).HasMaxLength(CategoryConsts.MaxCoverImageUrlLength);
+                b.Property(x => x.Description).HasMaxLength(CategoryConsts.MaxDescriptionLength);
+                b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<Comment>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Comments", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Text).IsRequired().HasMaxLength(CommentConsts.MaxTextLength);
+                b.Property(x => x.RepliedCommentId);
+                b.HasIndex(x => x.Text);
+            });
+
+            builder.Entity<Contact>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Contacts", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(ContactConsts.MaxNameLength);
+                b.Property(x => x.Email).IsRequired().HasMaxLength(ContactConsts.MaxEmailLength);
+                b.Property(x => x.Subject).IsRequired().HasMaxLength(ContactConsts.MaxSubjectLength);
+                b.Property(x => x.Message).IsRequired().HasMaxLength(ContactConsts.MaxMessageLength);
+                b.HasIndex(x => x.Name);
+                b.HasIndex(x => x.Email);
+            });
+
+            builder.Entity<Privacy>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Privacies", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Details).IsRequired().HasMaxLength(PrivacyConsts.MaxDetailsLength);
+            });
+
+            builder.Entity<Rating>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Ratings", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.StarCount);
+            });
+
             builder.Entity<Tag>(b =>
             {
                 b.ToTable($"{Dotnet9Consts.DbTablePrefix}Tags", Dotnet9Consts.DbSchema);
@@ -89,20 +182,17 @@ namespace Dotnet9.EntityFrameworkCore
                 b.Property(x => x.Description).IsRequired().HasMaxLength(TagConsts.MaxDescriptionLength);
                 b.HasIndex(x => x.Name);
             });
-            builder.Entity<Album>(b =>
+
+            builder.Entity<UrlLink>(b =>
             {
-                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Albums", Dotnet9Consts.DbSchema);
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}UrlLinks", Dotnet9Consts.DbSchema);
                 b.ConfigureByConvention();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(AlbumConsts.MaxNameLength);
-                b.Property(x => x.CoverImageUrl).IsRequired().HasMaxLength(AlbumConsts.MaxCoverImageUrlLength);
-                b.Property(x => x.Description).IsRequired().HasMaxLength(AlbumConsts.MaxDescriptionLength);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(UrlLinkConsts.MaxNameLength);
+                b.Property(x => x.Url).HasMaxLength(UrlLinkConsts.MaxUrlLength);
+                b.Property(x => x.Description).HasMaxLength(UrlLinkConsts.MaxDescriptionLength);
+                b.Property(x => x.Index);
                 b.HasIndex(x => x.Name);
-            });
-            builder.Entity<About>(b =>
-            {
-                b.ToTable($"{Dotnet9Consts.DbTablePrefix}Abouts", Dotnet9Consts.DbSchema);
-                b.ConfigureByConvention();
-                b.Property(x => x.Details).IsRequired().HasMaxLength(AboutConsts.MaxDetailsLength);
+                b.HasIndex(x => x.Url);
             });
         }
     }
