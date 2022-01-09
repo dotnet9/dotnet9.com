@@ -2,5 +2,5 @@
 
 public static class CommentConsts
 {
-    public static int MaxTextLength { get; set; } = 512;
+    public const int MaxTextLength = 512;
 }

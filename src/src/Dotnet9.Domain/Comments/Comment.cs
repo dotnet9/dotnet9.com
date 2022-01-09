@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Dotnet9.Comments;
 
 public class Comment : FullAuditedAggregateRoot<Guid>
 {
-    [NotNull] public virtual string Text { get; protected set; }
+    [NotNull] public string Text { get; set; }
 
-    public virtual Guid? RepliedCommentId { get; protected set; }
+    public Guid? RepliedCommentId { get; set; }
 }
