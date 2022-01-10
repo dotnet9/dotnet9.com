@@ -26,7 +26,7 @@ public class CategoryManager : DomainService
         var existingAlbum = await _categoryRepository.FindByNameAsync(name);
         if (existingAlbum != null)
         {
-            throw new AlbumAlreadyExistsException(name);
+            throw new CategoryAlreadyExistsException(name);
         }
 
         return new Category(GuidGenerator.Create(), name, coverImageUrl, description);

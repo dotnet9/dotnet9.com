@@ -5,5 +5,5 @@ namespace Dotnet9.Ratings;
 
 public class RatingDto : EntityDto<Guid>
 {
-    public short StartCount { get; set; }
+    public short StarCount { get; set; }
 }

@@ -34,12 +34,21 @@ public class ContactAppService : Dotnet9AppService, IContactAppService
 
         var queryable = await _contactRepository.GetQueryableAsync();
 
-        var query = from contact in queryable.AsQueryable()
-            where (contact.Name.Contains(input.Filter)
-                   || contact.Email.Contains(input.Filter)
-                   || contact.Subject.Contains(input.Filter)
-                   || contact.Message.Contains(input.Filter))
-            select contact;
+
+        IQueryable<Contact> query = default;
+        if (input.Filter.IsNullOrWhiteSpace())
+        {
+            query = from contact in queryable select contact;
+        }
+        else
+        {
+            query = from contact in queryable
+                where (contact.Name.Contains(input.Filter)
+                       || contact.Email.Contains(input.Filter)
+                       || contact.Subject.Contains(input.Filter)
+                       || contact.Message.Contains(input.Filter))
+                select contact;
+        }
 
         query = query
             .OrderBy(input.Sorting)

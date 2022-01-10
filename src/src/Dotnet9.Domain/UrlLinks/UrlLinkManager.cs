@@ -18,7 +18,7 @@ public class UrlLinkManager : DomainService
         [NotNull] string name,
         [NotNull] string url,
         string description,
-        int index)
+        int index = 1)
     {
         Check.NotNullOrWhiteSpace(name, nameof(name));
         Check.NotNullOrWhiteSpace(url, nameof(url));

@@ -4,5 +4,5 @@ namespace Dotnet9.Ratings;
 
 public class CreateRatingDto
 {
-    public short StartCount { get; set; }
+    public short StarCount { get; set; }
 }

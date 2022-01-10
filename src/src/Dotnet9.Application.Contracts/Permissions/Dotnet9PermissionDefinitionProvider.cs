@@ -25,9 +25,9 @@ public class Dotnet9PermissionDefinitionProvider : PermissionDefinitionProvider
         blogPostsPermission.AddChild(Dotnet9Permissions.BlogPosts.Delete, L("Permission:BlogPosts.Delete"));
 
         var categoriesPermission = dotnet9Group.AddPermission(Dotnet9Permissions.Categories.Default, L("Permission:Categories"));
-        categoriesPermission.AddChild(Dotnet9Permissions.Tags.Create, L("Permission:Categories.Create"));
-        categoriesPermission.AddChild(Dotnet9Permissions.Tags.Edit, L("Permission:Categories.Edit"));
-        categoriesPermission.AddChild(Dotnet9Permissions.Tags.Delete, L("Permission:Categories.Delete"));
+        categoriesPermission.AddChild(Dotnet9Permissions.Categories.Create, L("Permission:Categories.Create"));
+        categoriesPermission.AddChild(Dotnet9Permissions.Categories.Edit, L("Permission:Categories.Edit"));
+        categoriesPermission.AddChild(Dotnet9Permissions.Categories.Delete, L("Permission:Categories.Delete"));
 
         var commentsPermission = dotnet9Group.AddPermission(Dotnet9Permissions.Comments.Default, L("Permission:Comments"));
         commentsPermission.AddChild(Dotnet9Permissions.Comments.Create, L("Permission:Comments.Create"));
@@ -54,9 +54,9 @@ public class Dotnet9PermissionDefinitionProvider : PermissionDefinitionProvider
         tagsPermission.AddChild(Dotnet9Permissions.Tags.Delete, L("Permission:Tags.Delete"));
 
         var urlLinksPermission = dotnet9Group.AddPermission(Dotnet9Permissions.UrlLinks.Default, L("Permission:UrlLinks"));
-        urlLinksPermission.AddChild(Dotnet9Permissions.Tags.Create, L("Permission:UrlLinks.Create"));
-        urlLinksPermission.AddChild(Dotnet9Permissions.Tags.Edit, L("Permission:UrlLinks.Edit"));
-        urlLinksPermission.AddChild(Dotnet9Permissions.Tags.Delete, L("Permission:UrlLinks.Delete"));
+        urlLinksPermission.AddChild(Dotnet9Permissions.UrlLinks.Create, L("Permission:UrlLinks.Create"));
+        urlLinksPermission.AddChild(Dotnet9Permissions.UrlLinks.Edit, L("Permission:UrlLinks.Edit"));
+        urlLinksPermission.AddChild(Dotnet9Permissions.UrlLinks.Delete, L("Permission:UrlLinks.Delete"));
     }
 
     private static LocalizableString L(string name)

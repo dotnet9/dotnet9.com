@@ -22,9 +22,9 @@ public class BlogPostManager : DomainService
         [NotNull] string content,
         string coverImageUrl,
         CopyrightType blogCopyrightType,
-        string original,
-        string originalTitle,
-        string originalLink)
+        string original = default,
+        string originalTitle = default,
+        string originalLink = default)
     {
         Check.NotNullOrWhiteSpace(title, nameof(title));
         Check.NotNullOrWhiteSpace(slug, nameof(slug));
