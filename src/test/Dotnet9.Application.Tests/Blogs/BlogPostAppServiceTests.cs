@@ -45,7 +45,7 @@ public sealed class BlogPostAppServiceTests : Dotnet9ApplicationTestBase
                 ShortDescription = "A beautiful and generous maui design",
                 Content = "This is a test article",
                 CoverImageUrl = "https://img1.dotnet9.com/2022/01/10/cover_03.jpeg",
-                BlogCopyrightTypeEnum = CopyrightType.Default
+                CopyrightType = CopyrightType.Default
             }
         );
 
@@ -66,7 +66,7 @@ public sealed class BlogPostAppServiceTests : Dotnet9ApplicationTestBase
                     ShortDescription = "A beautiful and generous maui design",
                     Content = "This is a test article",
                     CoverImageUrl = "https://img1.dotnet9.com/2022/01/10/cover_03.jpeg",
-                    BlogCopyrightTypeEnum = CopyrightType.Default
+                    CopyrightType = CopyrightType.Default
                 }
             );
         });

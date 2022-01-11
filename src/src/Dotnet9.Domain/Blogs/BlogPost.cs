@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
-using Dotnet9.Albums;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -20,7 +18,7 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         string shortDescription,
         [NotNull] string content,
         string coverImageUrl,
-        CopyrightType blogCopyrightType,
+        CopyrightType copyrightType,
         string original,
         string originalTitle,
         string originalLink
@@ -31,7 +29,7 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         ShortDescription = shortDescription;
         SetContent(content);
         CoverImageUrl = coverImageUrl;
-        BlogCopyrightTypeEnum = blogCopyrightType;
+        CopyrightType = copyrightType;
         Original = original;
         OriginalTitle = originalTitle;
         OriginalLink = originalLink;
@@ -75,27 +73,8 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
     [NotNull] public string Content { get; set; }
 
     public string CoverImageUrl { get; set; }
-
-    // Used for EF Core
-    public int BlogCopyrightType { get; set; }
-
-    // Used for code
-    [NotMapped]
-    public CopyrightType? BlogCopyrightTypeEnum
-    {
-        get => (CopyrightType?)Enum.Parse(typeof(CopyrightType), BlogCopyrightType.ToString());
-        set
-        {
-            if (value.HasValue)
-            {
-                BlogCopyrightType = (int)value.Value;
-            }
-            else
-            {
-                BlogCopyrightType = (int)CopyrightType.Default;
-            }
-        }
-    }
+    
+    public CopyrightType CopyrightType { get; set; }
 
     public string Original { get; set; }
 

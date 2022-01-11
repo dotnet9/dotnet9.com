@@ -1,0 +1,335 @@
+﻿@page "/admin/blogpost"
+@using Dotnet9.Blogs
+@using Dotnet9.Localization
+@using Microsoft.AspNetCore.Components
+@using Volo.Abp.AspNetCore.Components.Web
+@inherits Dotnet9ComponentBase
+@inject IBlogPostAppService BlogPostAppService
+@inject AbpBlazorMessageLocalizerHelper<Dotnet9Resource> LH
+<Card>
+    <CardHeader>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6">
+                <h2>@L["BlogPosts"]</h2>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is5">
+                <TextEdit Text="@Filter" TextChanged="@OnFilterChanged" Placeholder="@L["SearchText"]"></TextEdit>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is1">
+                <Paragraph TextAlignment="TextAlignment.End">
+                    @if (CanCreateBlogPost)
+                    {
+                        <Button Color="Color.Primary"
+                                Clicked="OpenCreateBlogPostModal">
+                            @L["NewBlogPost"]
+                        </Button>
+                    }
+                </Paragraph>
+            </Column>
+        </Row>
+    </CardHeader>
+    <CardBody>
+        <DataGrid TItem="BlogPostDto"
+                  Data="BlogPostList"
+                  ReadData="OnDataGridReadAsync"
+                  TotalItems="TotalCount"
+                  ShowPager="true"
+                  PageSize="PageSize">
+            <DataGridColumns>
+                <DataGridColumn Width="150px"
+                                TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.Id)"
+                                Sortable="false"
+                                Caption="@L["Actions"]">
+                    <DisplayTemplate>
+                        @if (CanEditBlogPost)
+                        {
+                            <Button Color="Color.Secondary" Clicked="() => OpenEditBlogPostModal(context)">
+                                @L["Edit"]
+                            </Button>
+                        }
+                        @if (CanDeleteBlogPost)
+                        {
+                            <Button Color="Color.Danger" Clicked="() => DeleteBlogPostAsync(context)">
+                                @L["Delete"]
+                            </Button>
+                        }
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.Title)"
+                                Caption="@L["Title"]">
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.Slug)"
+                                Caption="@L["Slug"]">
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.ShortDescription)"
+                                Caption="@L["ShortDescription"]">
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.CopyrightType)"
+                                Caption="@L["CopyrightType"]">
+                    <DisplayTemplate>
+                        @L[$"Enum:CopyrightType:{(int)context.CopyrightType}"]
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.Original)"
+                                Caption="@L["Original"]">
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.OriginalTitle)"
+                                Caption="@L["OriginalTitle"]">
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.OriginalLink)"
+                                Caption="@L["OriginalLink"]">
+                </DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>
+
+<Modal @ref="CreateBlogPostModal">
+    <ModalBackdrop/>
+    <ModalContent IsCentered="true">
+        <Form>
+            <ModalHeader>
+                <ModalTitle>@L["NewBlogPost"]</ModalTitle>
+                <CloseButton Clicked="CloseCreateBlogPostModal"/>
+            </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@_createValidationsRef" Model="@NewBlogPost" ValidateOnLoad="false">
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Title"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.Title">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Slug"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.Slug">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["ShortDescription"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.ShortDescription">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Content"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.Content">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["CoverImageUrl"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.CoverImageUrl">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["CopyrightType"]</FieldLabel>
+                            <Select TValue="CopyrightType" @bind-SelectedValue="@NewBlogPost.CopyrightType">
+                                @foreach (int copyrightType in Enum.GetValues(typeof(CopyrightType)))
+                                {
+                                    <SelectItem TValue="CopyrightType" Value="@((CopyrightType)copyrightType)">
+                                        @L[$"Enum:CopyrightType:{copyrightType}"]
+                                    </SelectItem>
+                                }
+                            </Select>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Original"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.Original">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["OriginalTitle"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.OriginalTitle">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["OriginalLink"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewBlogPost.OriginalLink">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseCreateBlogPostModal">
+                    @L["Cancel"]
+                </Button>
+                <Button Color="Color.Primary"
+                        Type="@ButtonType.Submit"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="CreateBlogPostAsync">
+                    @L["Save"]
+                </Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="EditBlogPostModal">
+    <ModalBackdrop/>
+    <ModalContent IsCentered="true">
+        <Form>
+            <ModalHeader>
+                <ModalTitle>@EditingBlogPost.Title</ModalTitle>
+                <CloseButton Clicked="CloseEditBlogPostModal"/>
+            </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@_editValidationsRef" Model="@EditingBlogPost" ValidateOnLoad="false">
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Title"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.Title">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Slug"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.Slug">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["ShortDescription"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.ShortDescription">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Content"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.Content">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["CoverImageUrl"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.CoverImageUrl">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["CopyrightType"]</FieldLabel>
+                            <Select TValue="CopyrightType" @bind-SelectedValue="@EditingBlogPost.CopyrightType">
+                                @foreach (int copyrightType in Enum.GetValues(typeof(CopyrightType)))
+                                {
+                                    <SelectItem TValue="CopyrightType" Value="@((CopyrightType)copyrightType)">
+                                        @L[$"Enum:CopyrightType:{copyrightType}"]
+                                    </SelectItem>
+                                }
+                            </Select>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Original"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.Original">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["OriginalTitle"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.OriginalTitle">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["OriginalLink"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingBlogPost.OriginalLink">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseEditBlogPostModal">
+                    @L["Cancel"]
+                </Button>
+                <Button Color="Color.Primary"
+                        Type="@ButtonType.Submit"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="UpdateBlogPostAsync">
+                    @L["Save"]
+                </Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>

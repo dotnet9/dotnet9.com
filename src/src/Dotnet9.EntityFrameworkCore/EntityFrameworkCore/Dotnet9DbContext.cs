@@ -121,7 +121,7 @@ namespace Dotnet9.EntityFrameworkCore
                 b.Property(x => x.ShortDescription).HasMaxLength(BlogPostConsts.MaxShortDescriptionLength);
                 b.Property(x => x.Content).IsRequired().HasMaxLength(BlogPostConsts.MaxContentLength);
                 b.Property(x => x.CoverImageUrl).HasMaxLength(BlogPostConsts.MaxCoverImageUrlLength);
-                b.Property(x => x.BlogCopyrightType);
+                b.Property(x => x.CopyrightType);
                 b.Property(x => x.Original).HasMaxLength(BlogPostConsts.MaxOriginalLength);
                 b.Property(x => x.OriginalTitle).HasMaxLength(BlogPostConsts.MaxOriginalTitleLength);
                 b.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);

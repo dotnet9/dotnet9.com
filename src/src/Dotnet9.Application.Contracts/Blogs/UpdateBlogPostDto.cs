@@ -22,7 +22,7 @@ public class UpdateBlogPostDto
     [StringLength(BlogPostConsts.MaxCoverImageUrlLength)]
     public string CoverImageUrl { get; set; }
 
-    public CopyrightType? BlogCopyrightTypeEnum { get; set; }
+    public CopyrightType CopyrightType { get; set; }
 
     [StringLength(BlogPostConsts.MaxOriginalLength)]
     public string Original { get; set; }

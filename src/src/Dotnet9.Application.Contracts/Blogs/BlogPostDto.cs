@@ -15,7 +15,7 @@ public class BlogPostDto : EntityDto<Guid>
 
     public string CoverImageUrl { get; set; }
 
-    public CopyrightType? BlogCopyrightTypeEnum { get; set; }
+    public CopyrightType CopyrightType { get; set; }
 
     public string Original { get; set; }
 

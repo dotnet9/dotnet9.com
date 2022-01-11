@@ -55,7 +55,7 @@ public class BlogPostAppService : Dotnet9AppService, IBlogPostAppService
             input.ShortDescription,
             input.Content,
             input.CoverImageUrl,
-            input.BlogCopyrightTypeEnum,
+            input.CopyrightType,
             input.Original,
             input.OriginalTitle,
             input.OriginalLink);
@@ -83,7 +83,7 @@ public class BlogPostAppService : Dotnet9AppService, IBlogPostAppService
         blogPost.ShortDescription = input.ShortDescription;
         blogPost.Content = input.Content;
         blogPost.CoverImageUrl = input.CoverImageUrl;
-        blogPost.BlogCopyrightTypeEnum = input.BlogCopyrightTypeEnum;
+        blogPost.CopyrightType = input.CopyrightType;
         blogPost.Original = input.Original;
         blogPost.OriginalTitle = input.OriginalTitle;
         blogPost.OriginalLink = input.OriginalLink;

@@ -35,6 +35,11 @@ namespace Dotnet9.Blazor.Menus
 
             context.Menu.AddItem(dotnet9Menu);
 
+            if (await context.IsGrantedAsync(Dotnet9Permissions.BlogPosts.Default))
+            {
+                dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminBlogPost, l["Menu:BlogPosts"], "/admin/blogpost"));
+            }
+
             if (await context.IsGrantedAsync(Dotnet9Permissions.Tags.Default))
             {
                 dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminTag, l["Menu:Tags"], "/admin/tag"));
