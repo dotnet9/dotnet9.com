@@ -1,4 +1,4 @@
-﻿using Blazorise.Bootstrap5;
+using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Dotnet9.Blazor.Menus;
 using Dotnet9.EntityFrameworkCore;
@@ -35,6 +35,7 @@ using Volo.Abp.TenantManagement.Blazor.Server;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.AspNetCore.Components.Web.BasicTheme;
 
 namespace Dotnet9.Blazor
 {
@@ -53,6 +54,7 @@ namespace Dotnet9.Blazor
         typeof(AbpTenantManagementBlazorServerModule),
         typeof(AbpSettingManagementBlazorServerModule)
     )]
+    [DependsOn(typeof(AbpAspNetCoreComponentsWebBasicThemeModule))]
     public class Dotnet9BlazorModule : AbpModule
     {
         public override void PreConfigureServices(ServiceConfigurationContext context)

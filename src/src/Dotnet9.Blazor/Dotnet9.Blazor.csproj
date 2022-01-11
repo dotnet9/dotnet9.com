@@ -19,6 +19,7 @@
     <PackageReference Include="Markdig" Version="0.26.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <ProjectReference Include="..\..\BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,7 +31,7 @@
     <PackageReference Include="Volo.Abp.Swashbuckle" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.AspNetCore.Authentication.JwtBearer" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="5.0.1" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Components.Server.BasicTheme" Version="5.0.1" />
+    <ProjectReference Include="..\..\BasicTheme\Volo.Abp.AspNetCore.Components.Server.BasicTheme\Volo.Abp.AspNetCore.Components.Server.BasicTheme.csproj" />
     <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.Identity.Blazor.Server" Version="5.0.1" />
     <PackageReference Include="Volo.Abp.TenantManagement.Blazor.Server" Version="5.0.1" />
