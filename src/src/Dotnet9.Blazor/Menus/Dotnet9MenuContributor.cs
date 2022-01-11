@@ -44,6 +44,10 @@ namespace Dotnet9.Blazor.Menus
             {
                 dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminAlbum, l["Menu:Albums"], "/admin/album"));
             }
+            if (await context.IsGrantedAsync(Dotnet9Permissions.Categories.Default))
+            {
+                dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminCategory, l["Menu:Categories"], "/admin/category"));
+            }
 
             if (await context.IsGrantedAsync(Dotnet9Permissions.Abouts.Default))
             {
