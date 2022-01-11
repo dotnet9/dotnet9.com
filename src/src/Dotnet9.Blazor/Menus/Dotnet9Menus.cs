@@ -10,6 +10,8 @@
         public const string AdminCategory = Prefix + "Admin.Category";
         public const string AdminAbout = Prefix + "Admin.About";
         public const string PublicAbout = Prefix + "Public.About";
+        public const string AdminPrivacy = Prefix + "Admin.Privacy";
+        public const string PublicPrivacy = Prefix + "Public.Privacy";
 
         //Add your menu items here...
 

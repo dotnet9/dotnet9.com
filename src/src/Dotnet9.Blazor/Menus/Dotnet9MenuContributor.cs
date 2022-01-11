@@ -54,8 +54,15 @@ namespace Dotnet9.Blazor.Menus
                 dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminAbout, l["Menu:Abouts"], "/admin/about"));
             }
 
+            if (await context.IsGrantedAsync(Dotnet9Permissions.Privacies.Default))
+            {
+                dotnet9Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.AdminPrivacy, l["Menu:Privacies"], "/admin/privacy"));
+            }
+
             context.Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.PublicAbout, l["Menu:About"], icon: "fa fa-book",
                 url: "/about"));
+            context.Menu.AddItem(new ApplicationMenuItem(Dotnet9Menus.PublicPrivacy, l["Menu:Privacy"], icon: "fa fa-book",
+                url: "/privacy"));
         }
     }
 }

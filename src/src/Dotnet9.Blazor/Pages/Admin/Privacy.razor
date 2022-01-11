@@ -1,0 +1,10 @@
+﻿@page "/admin/privacy"
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is6">
+        <Markdown Value="@_markdownValue" ValueChanged="@OnMarkdownValueChanged"/>
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6">
+    @(new MarkupString(_markdownHtml))
+    </Column>
+</Row>
