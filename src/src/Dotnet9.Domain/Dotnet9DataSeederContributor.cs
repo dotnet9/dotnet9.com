@@ -1,5 +1,8 @@
 ﻿using Dotnet9.Tags;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Dotnet9.Abouts;
 using Dotnet9.Albums;
@@ -10,6 +13,7 @@ using Dotnet9.Contacts;
 using Dotnet9.Privacies;
 using Dotnet9.Ratings;
 using Dotnet9.UrlLinks;
+using Newtonsoft.Json;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
@@ -77,33 +81,129 @@ public class Dotnet9DataSeederContributor
                 { Details = "This is the content of the \"about\" page, which is actually saved as markdown text;" });
         }
 
+        var albums = new List<Album>();
         if (await _albumRepository.GetCountAsync() <= 0)
         {
-            await _albumRepository.InsertAsync(
-                await _albumManager.CreateAsync("WPF", "https://img1.dotnet9.com/album_wpf.png",
-                    "WPF open source project")
-            );
-            await _albumRepository.InsertAsync(
-                await _albumManager.CreateAsync("Winform", "https://img1.dotnet9.com/album_winform.png",
-                    "Winform open source project")
-            );
+            if (File.Exists(ConfigurationConst.BlogBaseFilePath))
+            {
+                var baseInfo =
+                    JsonConvert.DeserializeObject<BlogBaseDto>(
+                        await File.ReadAllTextAsync(ConfigurationConst.BlogBaseFilePath));
+                if (baseInfo is { Albums: { } })
+                {
+                    foreach (var album in baseInfo.Albums)
+                    {
+                        var albumFromManager = await _albumManager.CreateAsync(album.Name, album.Cover,
+                            album.Name);
+                        await _albumRepository.InsertAsync(albumFromManager);
+                        albums.Add(albumFromManager);
+                    }
+                }
+            }
+            else
+            {
+                await _albumRepository.InsertAsync(
+                    await _albumManager.CreateAsync("WPF", "https://img1.dotnet9.com/album_wpf.png",
+                        "WPF open source project")
+                );
+                await _albumRepository.InsertAsync(
+                    await _albumManager.CreateAsync("Winform", "https://img1.dotnet9.com/album_winform.png",
+                        "Winform open source project")
+                );
+            }
         }
 
+        var categories = new List<Category>();
+        var tags = new List<Tag>();
         if (await _blogPostRepository.GetCountAsync() <= 0)
         {
-            await _blogPostRepository.InsertAsync(
-                await _blogPostManager.CreateAsync("WPF UI Design", "wpf-ui-design",
-                    "A beautiful and generous WPF design", "This is a test article",
-                    "https://img1.dotnet9.com/2022/01/10/cover_01.jpeg", CopyrightType.Default));
+            var blogPostFiles =
+                Directory.GetFiles(ConfigurationConst.BlogPostDirPath, "*.info", SearchOption.AllDirectories);
+            if (blogPostFiles.Length > 0)
+            {
+                foreach (var blogInfoPath in blogPostFiles)
+                {
+                    var blogInfoText = await File.ReadAllTextAsync(blogInfoPath);
+                    var blogInfoDto = JsonConvert.DeserializeObject<BlogSeedDto>(blogInfoText);
+                    blogInfoDto!.Content = await File.ReadAllTextAsync(blogInfoPath.Replace("info", "md"));
 
-            await _blogPostRepository.InsertAsync(
-                await _blogPostManager.CreateAsync("Winform UI Design", "winform-ui-design",
-                    "A beautiful and generous winform design", "This is a test article",
-                    "https://img1.dotnet9.com/2022/01/10/cover_02.jpeg", CopyrightType.Reprint, "lequ.co",
-                    "Winform UI Design", "https://lequ.co/?p=2277"));
+                    await _blogPostRepository.InsertAsync(
+                        await _blogPostManager.CreateAsync(blogInfoDto!.Title, blogInfoDto!.Title,
+                            blogInfoDto!.BriefDescription, blogInfoDto.Content,
+                            blogInfoDto!.Cover, (CopyrightType)Enum.Parse(typeof(CopyrightType),
+                                blogInfoDto.CopyrightType ??= CopyrightType.Default.ToString())));
+
+                    if (blogInfoDto.Albums != null && blogInfoDto.Albums.Any())
+                    {
+                        foreach (var albumName in blogInfoDto.Albums)
+                        {
+                            var existAlbum = albums.FirstOrDefault(album =>
+                                album.Name.ToLower() == albumName.ToLower());
+                            if (existAlbum != null)
+                            {
+                                continue;
+                            }
+
+                            existAlbum =
+                                await _albumManager.CreateAsync(albumName, string.Empty, string.Empty);
+                            albums.Add(existAlbum);
+                            await _albumRepository.InsertAsync(existAlbum);
+                        }
+                    }
+
+                    if (blogInfoDto.Categories != null && blogInfoDto.Categories.Any())
+                    {
+                        foreach (var categoryName in blogInfoDto.Categories)
+                        {
+                            var existCategory = categories.FirstOrDefault(category =>
+                                category.Name.ToLower() == categoryName.ToLower());
+                            if (existCategory != null)
+                            {
+                                continue;
+                            }
+
+                            existCategory =
+                                await _categoryManager.CreateAsync(categoryName, string.Empty, string.Empty);
+                            categories.Add(existCategory);
+                            await _categoryRepository.InsertAsync(existCategory);
+                        }
+                    }
+
+                    if (blogInfoDto.Tags != null && blogInfoDto.Tags.Any())
+                    {
+                        foreach (var tagName in blogInfoDto.Tags)
+                        {
+                            var existTag = tags.FirstOrDefault(tag =>
+                                tag.Name.ToLower() == tagName.ToLower());
+                            if (existTag != null)
+                            {
+                                continue;
+                            }
+
+                            existTag =
+                                await _tagManager.CreateAsync(tagName, string.Empty);
+                            tags.Add(existTag);
+                            await _tagRepository.InsertAsync(existTag);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                await _blogPostRepository.InsertAsync(
+                    await _blogPostManager.CreateAsync("WPF UI Design", "wpf-ui-design",
+                        "A beautiful and generous WPF design", "This is a test article",
+                        "https://img1.dotnet9.com/2022/01/10/cover_01.jpeg", CopyrightType.Default));
+
+                await _blogPostRepository.InsertAsync(
+                    await _blogPostManager.CreateAsync("Winform UI Design", "winform-ui-design",
+                        "A beautiful and generous winform design", "This is a test article",
+                        "https://img1.dotnet9.com/2022/01/10/cover_02.jpeg", CopyrightType.Reprint, "lequ.co",
+                        "Winform UI Design", "https://lequ.co/?p=2277"));
+            }
         }
 
-        if (await _categoryRepository.GetCountAsync() <= 0)
+        if (await _categoryRepository.GetCountAsync() <= 0 && categories.Count = 0)
         {
             await _categoryRepository.InsertAsync(
                 await _categoryManager.CreateAsync("WPF", "https://img1.dotnet9.com/album_wpf.png",
@@ -141,7 +241,7 @@ public class Dotnet9DataSeederContributor
             await _ratingRepository.InsertAsync(new Rating() { StarCount = 3 });
         }
 
-        if (await _tagRepository.GetCountAsync() <= 0)
+        if (await _tagRepository.GetCountAsync() <= 0 && tags.Count <= 0)
         {
             await _tagRepository.InsertAsync(
                 await _tagManager.CreateAsync("C#", "Language")
