@@ -6,7 +6,9 @@ public static class BlogPostConsts
 {
     public const int MaxTitleLength = 64;
 
-    public const int MaxSlugLength = 128;
+    public const int MaxSlugLength = 256;
+
+    public const int MinSlugLength = 2;
 
     public const int MaxShortDescriptionLength = 256;
 

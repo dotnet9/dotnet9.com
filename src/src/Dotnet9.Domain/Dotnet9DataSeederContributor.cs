@@ -203,7 +203,7 @@ public class Dotnet9DataSeederContributor
             }
         }
 
-        if (await _categoryRepository.GetCountAsync() <= 0 && categories.Count = 0)
+        if (await _categoryRepository.GetCountAsync() <= 0 && categories.Count <= 0)
         {
             await _categoryRepository.InsertAsync(
                 await _categoryManager.CreateAsync("WPF", "https://img1.dotnet9.com/album_wpf.png",

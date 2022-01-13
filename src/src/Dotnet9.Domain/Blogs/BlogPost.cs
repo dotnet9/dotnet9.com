@@ -55,7 +55,9 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
 
     private void SetSlug([NotNull] string slug)
     {
-        Slug = Check.NotNullOrWhiteSpace(slug, nameof(slug), BlogPostConsts.MaxSlugLength);
+        Check.NotNullOrWhiteSpace(slug, nameof(slug), BlogPostConsts.MaxSlugLength, BlogPostConsts.MinSlugLength);
+
+        Slug = SlugNormalizer.Normalize(slug);
     }
 
     private void SetContent([NotNull] string content)
@@ -73,7 +75,7 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
     [NotNull] public string Content { get; set; }
 
     public string CoverImageUrl { get; set; }
-    
+
     public CopyrightType CopyrightType { get; set; }
 
     public string Original { get; set; }
