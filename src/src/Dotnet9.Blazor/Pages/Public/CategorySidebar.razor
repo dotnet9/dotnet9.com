@@ -1,0 +1,25 @@
+﻿@using Dotnet9.Categories
+@using JetBrains.Annotations
+@inject ICategoryAppService _categoryAppService
+<Alert Color="Color.Secondary" Visible="true">
+    @if (_categoryDtos != null)
+    {
+        <ul>
+            @foreach (var category in _categoryDtos)
+            {
+                <li>@category.Name</li>
+            }
+        </ul>
+    }
+</Alert>
+
+@code {
+    [CanBeNull] private List<CategoryDto> _categoryDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _categoryDtos = await _categoryAppService.GetListAsync();
+    }
+
+}
+

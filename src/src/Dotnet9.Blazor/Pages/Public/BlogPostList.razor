@@ -1,0 +1,27 @@
+﻿@using Dotnet9.Blogs
+@using Dotnet9.Categories
+@using JetBrains.Annotations
+@using Volo.Abp.Application.Dtos
+@inject IBlogPostAppService _blogPostAppService
+
+<Alert Color="Color.Primary" Visible="true">
+    @if (_blogPostDtos is {Items: { } })
+    {
+        <ul>
+            @foreach (var blogPostDto in _blogPostDtos.Items)
+            {
+                <li>@blogPostDto.Title</li>
+            }
+        </ul>
+    }
+</Alert>
+
+@code {
+    [CanBeNull] private PagedResultDto<BlogPostDto> _blogPostDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _blogPostDtos = await _blogPostAppService.GetListAsync(new GetBlogPostListDto());
+    }
+
+}

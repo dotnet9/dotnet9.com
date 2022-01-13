@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -8,6 +9,8 @@ namespace Dotnet9.Categories;
 public interface ICategoryAppService : IApplicationService
 {
     Task<CategoryDto> GetAsync(Guid id);
+
+    Task<List<CategoryDto>> GetListAsync();
 
     Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListDto input);
 

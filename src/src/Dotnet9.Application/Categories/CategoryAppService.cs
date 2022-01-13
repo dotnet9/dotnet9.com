@@ -25,6 +25,13 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
         return ObjectMapper.Map<Category, CategoryDto>(category);
     }
 
+    public async Task<List<CategoryDto>> GetListAsync()
+    {
+        var categories = await _categoryRepository.GetListAsync(0, int.MaxValue, nameof(Category.Name));
+
+        return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+    }
+
     public async Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListDto input)
     {
         if (input.Sorting.IsNullOrWhiteSpace())
@@ -32,7 +39,7 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
             input.Sorting = nameof(Category.Name);
         }
 
-        var categorys = await _categoryRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting,
+        var categories = await _categoryRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting,
             input.Filter);
 
         var totalCount = input.Filter == null
@@ -40,7 +47,7 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
             : await _categoryRepository.CountAsync(category => category.Name.Contains(input.Filter));
 
         return new PagedResultDto<CategoryDto>(totalCount,
-            ObjectMapper.Map<List<Category>, List<CategoryDto>>(categorys));
+            ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories));
     }
 
     [Authorize(Dotnet9Permissions.Categories.Create)]
