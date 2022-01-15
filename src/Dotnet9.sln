@@ -1,13 +1,12 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Domain", "src\Dotnet9.Domain\Dotnet9.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volo.Abp.AspNetCore.Components.Web.BasicTheme", "BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme\\Volo.Abp.AspNetCore.Components.Web.BasicTheme.csproj", "{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volo.Abp.AspNetCore.Components.Web.BasicTheme", "BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme.csproj", "{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volo.Abp.AspNetCore.Components.Server.BasicTheme", "BasicTheme\Volo.Abp.AspNetCore.Components.Server.BasicTheme\\Volo.Abp.AspNetCore.Components.Server.BasicTheme.csproj", "{9fa4d6d9-f80c-4318-a3b3-adb8151d7817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volo.Abp.AspNetCore.Components.Server.BasicTheme", "BasicTheme\Volo.Abp.AspNetCore.Components.Server.BasicTheme\Volo.Abp.AspNetCore.Components.Server.BasicTheme.csproj", "{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Application", "src\Dotnet9.Application\Dotnet9.Application.csproj", "{1A94A50E-06DC-43C1-80B5-B662820EC3EB}"
 EndProject
@@ -47,18 +46,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9fa4d6d9-f80c-4318-a3b3-adb8151d7817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9fa4d6d9-f80c-4318-a3b3-adb8151d7817}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9fa4d6d9-f80c-4318-a3b3-adb8151d7817}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9fa4d6d9-f80c-4318-a3b3-adb8151d7817}.Release|Any CPU.Build.0 = Release|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -120,9 +119,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{d8a57ea3-cdd4-4cf3-bcca-630ccff0373f} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
-		{9fa4d6d9-f80c-4318-a3b3-adb8151d7817} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
+		{D8A57EA3-CDD4-4CF3-BCCA-630CCFF0373F} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
+		{9FA4D6D9-F80C-4318-A3B3-ADB8151D7817} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{C956DD76-69C8-4A9C-83EA-D17DF83340FD} = {CA9AC87F-097E-4F15-8393-4BC07735A5B0}
 		{50B2631D-129C-47B3-A587-029CCD6099BC} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}

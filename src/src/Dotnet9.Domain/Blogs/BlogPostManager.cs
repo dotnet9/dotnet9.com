@@ -1,4 +1,5 @@
-﻿using Dotnet9.Albums;
+﻿using System;
+using Dotnet9.Albums;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -24,7 +25,8 @@ public class BlogPostManager : DomainService
         CopyrightType blogCopyrightType,
         string original = default,
         string originalTitle = default,
-        string originalLink = default)
+        string originalLink = default,
+        DateTime creationTime = default)
     {
         Check.NotNullOrWhiteSpace(title, nameof(title));
         Check.NotNullOrWhiteSpace(slug, nameof(slug));
@@ -44,7 +46,7 @@ public class BlogPostManager : DomainService
 
         return new BlogPost(GuidGenerator.Create(), title, slug, shortDescription, content, coverImageUrl,
             blogCopyrightType,
-            original, originalTitle, originalLink);
+            original, originalTitle, originalLink, creationTime);
     }
 
     public async Task ChangeTitleAsync([NotNull] BlogPost blogPost, [NotNull] string newTitle)

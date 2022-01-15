@@ -21,7 +21,8 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         CopyrightType copyrightType,
         string original,
         string originalTitle,
-        string originalLink
+        string originalLink,
+        DateTime creationTime
     ) : base(id)
     {
         SetTitle(title);
@@ -33,6 +34,7 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         Original = original;
         OriginalTitle = originalTitle;
         OriginalLink = originalLink;
+        CreationTime = creationTime;
     }
 
     internal BlogPost ChangeTitle([NotNull] string title)

@@ -126,12 +126,31 @@ public class Dotnet9DataSeederContributor
                     var blogInfoText = await File.ReadAllTextAsync(blogInfoPath);
                     var blogInfoDto = JsonConvert.DeserializeObject<BlogSeedDto>(blogInfoText);
                     blogInfoDto!.Content = await File.ReadAllTextAsync(blogInfoPath.Replace("info", "md"));
+                    if (blogInfoDto.BriefDescription.IsNullOrWhiteSpace())
+                    {
+                        if (blogInfoDto.Content.Length < BlogPostConsts.MaxShortDescriptionLength)
+                        {
+                            blogInfoDto.BriefDescription = blogInfoDto.Content;
+                        }
+                        else
+                        {
+                            blogInfoDto.BriefDescription =
+                                blogInfoDto.Content.Substring(0, BlogPostConsts.MaxShortDescriptionLength - 5) + "...";
+                        }
+                    }
 
                     await _blogPostRepository.InsertAsync(
-                        await _blogPostManager.CreateAsync(blogInfoDto!.Title, blogInfoDto!.Title,
-                            blogInfoDto!.BriefDescription, blogInfoDto.Content,
-                            blogInfoDto!.Cover, (CopyrightType)Enum.Parse(typeof(CopyrightType),
-                                blogInfoDto.CopyrightType ??= CopyrightType.Default.ToString())));
+                        await _blogPostManager.CreateAsync(blogInfoDto!.Title,
+                            blogInfoDto!.Slug,
+                            blogInfoDto!.BriefDescription,
+                            blogInfoDto.Content,
+                            blogInfoDto!.Cover,
+                            (CopyrightType)Enum.Parse(typeof(CopyrightType),
+                                blogInfoDto.CopyrightType ??= CopyrightType.Default.ToString()),
+                            original: blogInfoDto.Original,
+                            originalTitle: blogInfoDto.Title,
+                            originalLink: blogInfoDto.OriginalLink,
+                            creationTime: blogInfoDto.CreateDate));
 
                     if (blogInfoDto.Albums != null && blogInfoDto.Albums.Any())
                     {
@@ -163,7 +182,7 @@ public class Dotnet9DataSeederContributor
                             }
 
                             existCategory =
-                                await _categoryManager.CreateAsync(categoryName, string.Empty, string.Empty);
+                                await _categoryManager.CreateAsync(null, categoryName, string.Empty, string.Empty);
                             categories.Add(existCategory);
                             await _categoryRepository.InsertAsync(existCategory);
                         }
@@ -206,11 +225,11 @@ public class Dotnet9DataSeederContributor
         if (await _categoryRepository.GetCountAsync() <= 0 && categories.Count <= 0)
         {
             await _categoryRepository.InsertAsync(
-                await _categoryManager.CreateAsync("WPF", "https://img1.dotnet9.com/album_wpf.png",
+                await _categoryManager.CreateAsync(null, "WPF", "https://img1.dotnet9.com/album_wpf.png",
                     "WPF open source project")
             );
             await _categoryRepository.InsertAsync(
-                await _categoryManager.CreateAsync("Winform", "https://img1.dotnet9.com/album_winform.png",
+                await _categoryManager.CreateAsync(null, "Winform", "https://img1.dotnet9.com/album_winform.png",
                     "Winform open source project")
             );
         }

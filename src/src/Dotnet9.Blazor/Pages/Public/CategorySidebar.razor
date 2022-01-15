@@ -1,25 +1,57 @@
 ﻿@using Dotnet9.Categories
 @using JetBrains.Annotations
+@using Castle.Components.DictionaryAdapter
 @inject ICategoryAppService _categoryAppService
-<Alert Color="Color.Secondary" Visible="true">
-    @if (_categoryDtos != null)
-    {
-        <ul>
-            @foreach (var category in _categoryDtos)
-            {
-                <li>@category.Name</li>
-            }
-        </ul>
-    }
-</Alert>
+
+
+<Card>
+    <TreeView Nodes="_items"
+              GetChildNodes="@(item => item.Children)"
+              HasChildNodes="@(item => item.Children?.Any() == true)"
+              @bind-SelectedNode="_selectedNode"
+              @bind-ExpandedNodes="_expandedNodes">
+        <NodeContent>@context.Text</NodeContent>
+    </TreeView>
+</Card>
 
 @code {
-    [CanBeNull] private List<CategoryDto> _categoryDtos;
+
+    public class Item
+    {
+        public string Text { get; set; }
+        public List<Item> Children { get; set; }
+    }
+
+    List<Item> _items = new List<Item>();
+
+    IList<Item> _expandedNodes = new List<Item>();
+    Item _selectedNode;
 
     protected override async Task OnInitializedAsync()
     {
-        _categoryDtos = await _categoryAppService.GetListAsync();
+        var categoryDtos = await _categoryAppService.GetListAsync();
+        _items.Clear();
+        ReadChildren(categoryDtos, null, _items);
     }
 
-}
+    private void ReadChildren(List<CategoryDto> sources, Guid? parentId, List<Item> parentChildren)
+    {
+        var children = sources.FindAll(x => x.ParentId == parentId);
+        if (children is not {Count: > 0 }) return;
+        foreach (var child in children)
+        {
+            var currentItem = new Item
+            {
+                Text = child.Name,
+                Children = new EditableList<Item>()
+            };
+            parentChildren.Add(currentItem);
+            ReadChildren(sources, child.Id, currentItem.Children);
+        }
+    }
 
+    private void SelectedNodeChanged(Item item)
+    {
+
+    }
+}

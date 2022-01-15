@@ -23,12 +23,14 @@ public static class BlogPostConsts
     public const int MaxOriginalTitleLength = 128;
 
 
-    public const int MaxOriginalLinkLength = 128;
+    public const int MaxOriginalLinkLength = 256;
 }
 
 public class BlogSeedDto
 {
     public string Title { get; set; }
+
+    public string Slug { get; set; }
     public string BriefDescription { get; set; }
     public string Cover { get; set; }
     public bool InBanner { get; set; }

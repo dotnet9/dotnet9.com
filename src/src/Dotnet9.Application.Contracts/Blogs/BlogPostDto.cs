@@ -22,4 +22,6 @@ public class BlogPostDto : EntityDto<Guid>
     public string OriginalTitle { get; set; }
 
     public string OriginalLink { get; set; }
+
+    public DateTime CreationTime { get; set; }
 }

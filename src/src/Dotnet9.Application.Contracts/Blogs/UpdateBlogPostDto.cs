@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dotnet9.Blogs;
 
@@ -32,4 +33,6 @@ public class UpdateBlogPostDto
 
     [StringLength(BlogPostConsts.MaxOriginalLinkLength)]
     public string OriginalLink { get; set; }
+
+    public DateTime CreationTime { get; set; }
 }

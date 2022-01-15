@@ -1,0 +1,18 @@
+﻿@page "/{Slug}"
+@using JetBrains.Annotations
+@inject NavigationManager _navigationManager
+<h3>BlogPost @Slug</h3>
+
+@code {
+    [Parameter]
+    [CanBeNull] public string Slug { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (Slug == null)
+        {
+            _navigationManager.NavigateTo("/");
+        }
+    }
+
+}
