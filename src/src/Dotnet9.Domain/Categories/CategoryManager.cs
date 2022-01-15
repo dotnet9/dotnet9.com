@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Dotnet9.Albums;
 using Volo.Abp;
 using Volo.Abp.Domain.Services;
 
@@ -19,7 +15,8 @@ public class CategoryManager : DomainService
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<Category> CreateAsync([NotNull] string name, string coverImageUrl, string description)
+    public async Task<Category> CreateAsync(Guid? parentId, [NotNull] string name, string coverImageUrl,
+        string description)
     {
         Check.NotNullOrWhiteSpace(name, nameof(name));
 
@@ -29,7 +26,7 @@ public class CategoryManager : DomainService
             throw new CategoryAlreadyExistsException(name);
         }
 
-        return new Category(GuidGenerator.Create(), name, coverImageUrl, description);
+        return new Category(GuidGenerator.Create(), parentId, name, coverImageUrl, description);
     }
 
     public async Task ChangeNameAsync([NotNull] Category category, [NotNull] string newName)

@@ -53,7 +53,8 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
     [Authorize(Dotnet9Permissions.Categories.Create)]
     public async Task<CategoryDto> CreateAsync(CreateCategoryDto input)
     {
-        var category = await _categoryManager.CreateAsync(input.Name, input.CoverImageUrl, input.Description);
+        var category =
+            await _categoryManager.CreateAsync(input.ParentId, input.Name, input.CoverImageUrl, input.Description);
 
         await _categoryRepository.InsertAsync(category);
 

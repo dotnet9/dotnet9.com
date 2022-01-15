@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dotnet9.Categories;
 
 public class UpdateCategoryDto
 {
+    public Guid? ParentId { get; set; }
+
     [Required]
     [StringLength(CategoryConsts.MaxNameLength)]
     public virtual string Name { get; set; }

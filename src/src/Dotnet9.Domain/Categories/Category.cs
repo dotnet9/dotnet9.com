@@ -15,10 +15,12 @@ public class Category : FullAuditedAggregateRoot<Guid>
 
     internal Category(
         Guid id,
+        Guid? parentId,
         [NotNull] string name,
         string coverImageUrl,
         string description) : base(id)
     {
+        ParentId = parentId;
         SetName(name);
         CoverImageUrl = coverImageUrl;
         Description = description;
@@ -34,6 +36,8 @@ public class Category : FullAuditedAggregateRoot<Guid>
     {
         Name = Check.NotNullOrWhiteSpace(name, nameof(name), CategoryConsts.MaxNameLength);
     }
+
+    public Guid? ParentId { get; set; }
 
     [NotNull] public string Name { get; set; }
 
