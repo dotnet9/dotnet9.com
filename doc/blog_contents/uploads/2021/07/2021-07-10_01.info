@@ -1,7 +1,7 @@
 {
     "Title":"一套Flutter代码多端运行",
+    "Slug":"a-set-of-flutter-code-runs-at-multiple-ends",
     "Cover":"https://img1.dotnet9.com/2021/07/cover_02.png",
-    "BriefDescription":"Flutter",
     "Categories":["Flutter"],
     "Tags": ["Flutter", "Mac", "iOS", "Android", "Web", "Desktop"],
     "Albums": ["开源Flutter"],

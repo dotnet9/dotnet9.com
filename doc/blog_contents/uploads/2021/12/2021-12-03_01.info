@@ -1,7 +1,7 @@
 {
     "Title":"MAUI 跨平台播客应用程序(Conf 2021)",
+    "Slug":"maui-cross-platform-podcasting-app-conf-2021",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_01.png",
-    "BriefDescription":"MAUI",
     "Categories":["MAUI", "开源项目"],
     "Tags": ["MAUI", "开源MAUI", "Conf 2021"],
     "Albums": ["开源MAUI"],

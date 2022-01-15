@@ -1,5 +1,6 @@
 {
     "Title":"Flurl使用Polly实现重试Policy",
+    "Slug":"flurl-uses-policy-to-implement-retry-policy",
     "Cover":"https://img1.dotnet9.com/2021/03/cover_03.jpg",
     "BriefDescription":"在使用Flurl作为HttpClient向Server请求时，由于网络或者其它一些原因导致请求会有失败的情况",
     "Categories":["C#"],

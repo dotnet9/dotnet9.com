@@ -1,5 +1,6 @@
 {
     "Title":".NET类库“Vanara”：简单易用的Windows API封装库",
+    "Slug":"dotnet-classlibrary-vanara-an-easy-to-use-windows-api-encapsulation-library",
     "Cover":"https://img1.dotnet9.com/2021/06/cover_01.png",
     "BriefDescription":"一系列非常简单易用，对Windows API做了极好封装的.NET类库，几乎不用再写繁琐的Windows API转换函数了。",
     "Categories":[".NET"],

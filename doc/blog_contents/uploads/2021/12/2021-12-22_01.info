@@ -1,5 +1,6 @@
 {
     "Title":"你在 Docker 中跑 MySQL？恭喜你，好下岗了！",
+    "Slug":"are-you-running-mysql-in-docker-congratulations-you-are-well-laid-off",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_31.png",
     "Categories":["Docker", "MySQL"],
     "Tags": ["Docker", "MySQL"],

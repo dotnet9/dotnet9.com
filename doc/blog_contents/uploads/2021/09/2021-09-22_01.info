@@ -1,7 +1,7 @@
 {
     "Title":"WPF 通过多进程实现异常隔离的客户端",
+    "Slug":"wpf-is-a-client-that-implements-exception-isolation-through-multiple-processes",
     "Cover":"https://img1.dotnet9.com/2021/09/cover_01.jpeg",
-    "BriefDescription":"对WPF 客户端实现插件系统的异常隔离研究",
     "Categories":["WPF"],
     "Tags": ["WPF", "插件系统", "模块化", "Win32"],
     "CopyrightType": "Reprint",

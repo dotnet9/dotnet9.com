@@ -1,7 +1,7 @@
 {
     "Title":"创建可维护和可测试的 Windows 窗体应用程序的 10 种方法(译)",
+    "Slug":"10-ways-to-create-maintainable-and-testable-windows-forms-applications",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_09.jpeg",
-    "BriefDescription":"创建可维护和可测试的 Windows 窗体应用程序的十个技巧。",
     "Categories":["Winform", "单元测试"],
     "Tags": ["Winform", "单元测试"],
     "CopyrightType": "Reprint",

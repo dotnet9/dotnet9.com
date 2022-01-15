@@ -1,7 +1,7 @@
 {
     "Title":"SwiftUI @State @Published @ObservedObject 深入理解和使用",
+    "Slug":"swiftui-state-published-observadobject-in-depth-understanding-and-use",
     "Cover":"https://img1.dotnet9.com/2021/10/cover_04.jpeg",
-    "BriefDescription":"对 @State @Published @ObservedObject 理解",
     "Categories":["SwiftUI"],
     "Tags": ["State", "Published", "ObservedObject"],
     "CopyrightType": "Reprint",

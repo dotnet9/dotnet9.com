@@ -1,8 +1,8 @@
 {
     "Title":"WPF开源项目：WPF-ControlBase",
+    "Slug":"wpf-open-source-project-wpf-controlbase",
     "Cover":"https://img1.dotnet9.com/2021/11/cover_09.png",
     "InBanner": true,
-    "BriefDescription":"开源WPF控件库",
     "Categories":["WPF"],
     "Tags": ["WPF"],
     "Albums": ["开源WPF"],

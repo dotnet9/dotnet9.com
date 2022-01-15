@@ -1,7 +1,7 @@
 {
     "Title":"Blazor创建TabControl组件",
+    "Slug":"blazor-creates-tabcontrol-component",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_03.jpeg",
-    "BriefDescription":"Blazor TabControl组件",
     "Categories":["Blazor", "C#"],
     "Tags": ["前端", "Blazor"],
     "CopyrightType": "Reprint",

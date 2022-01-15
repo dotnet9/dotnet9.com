@@ -1,7 +1,7 @@
 {
     "Title":"(6/30)大家一起学Blazor：抽离C#代码",
+    "Slug":"6-of-30-let-us-learn-blazor-together-extract-csharp-code",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_05.png",
-    "BriefDescription":"代码太长了，为求方便",
     "Categories":["Blazor Server"],
     "Tags": ["Blazor Server"],
     "Albums": ["大家一起学Blazor"],

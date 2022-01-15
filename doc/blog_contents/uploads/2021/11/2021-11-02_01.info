@@ -1,7 +1,7 @@
 {
     "Title":"ASP.NET (Core)使用Markdown",
+    "Slug":"asp-dotnet--uses-markdown",
     "Cover":"https://img1.dotnet9.com/2021/11/cover_04.jpeg",
-    "BriefDescription":"研究如何使用Markdown",
     "Categories":["ASP.NET", "ASP.NET Core"],
     "Tags": ["Markdown"],
     "CopyrightType": "Reprint",

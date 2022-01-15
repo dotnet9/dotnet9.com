@@ -1,7 +1,7 @@
 {
     "Title":"SwiftUI图片处理(缩放、拼图)",
+    "Slug":"swiftui-image-processing-zoom-jigsaw-puzzle",
     "Cover":"https://img1.dotnet9.com/2021/08/cover_01.jpeg",
-    "BriefDescription":"缩放、拼图",
     "Categories":["SwiftUI"],
     "Tags": ["SwiftUI", "缩放", "拼图"],
     "CopyrightType": "Default",

@@ -1,7 +1,7 @@
 {
     "Title":".NET Core 简单且高级的库 csredis",
+    "Slug":"dotnet-simple-and-advanced-library-csredis",
     "Cover":"https://img1.dotnet9.com/2021/04/cover_05.png",
-    "BriefDescription":"简单且高级的库Redis库",
     "Categories":[".NET"],
     "Tags": [".NET", "Redis", "csredis"],
     "CopyrightType": "Reprint",

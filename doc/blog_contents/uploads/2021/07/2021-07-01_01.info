@@ -1,7 +1,7 @@
 {
     "Title":"WPF牛逼的动画库：XamlFlair",
+    "Slug":"one-wpf-awesome-animation-library-xamlflair",
     "Cover":"https://img1.dotnet9.com/2021/07/cover_05.jpg",
-    "BriefDescription":"WPF动画库介绍",
     "Categories":["WPF"],
     "Tags": ["WPF", "动画库", "开源"],
     "Albums": ["开源WPF"],

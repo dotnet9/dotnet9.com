@@ -1,7 +1,7 @@
 {
     "Title":"最近遇到的问题记录：UrlEncode、UrlDecode",
+    "Slug":"recent-problem-records-urlencode-and-urldecode",
     "Cover":"https://img1.dotnet9.com/2021/01/cover_01.jpeg",
-    "BriefDescription":"UrlEncode、UrlDecode",
     "Categories":["C#"],
     "Tags": ["Web API", "UrlEncode", "UrlDecode"],
     "CopyrightType": "Default",

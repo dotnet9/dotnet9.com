@@ -1,7 +1,7 @@
 {
     "Title":"实现一个登录：Mac+.NET 5+Identity+JWT+VS Code",
+    "Slug":"implement-a-login-mac-dotnet-5-identity-jwt-vs-code",
     "Cover":"https://img1.dotnet9.com/2021/10/cover_05.jpg",
-    "BriefDescription":"分享学习的一个登录小案例",
     "Categories":["ASP.NET Core"],
     "Tags": ["Web API", "Mac", "Identity", "JWT", "Visual Studio Code"],
     "CopyrightType": "Reprint",

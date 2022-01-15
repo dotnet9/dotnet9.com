@@ -1,7 +1,7 @@
 {
     "Title":"后续来啦：Winform/WPF中快速搭建日志面板",
+    "Slug":"follow-up-quickly-build-the-log-panel-in-wWinForm-or-wpf",
     "Cover":"https://img1.dotnet9.com/2021/04/cover_02.jpg",
-    "BriefDescription":"Winform客户端的程序能用LogDashboard不",
     "Categories":["Winform", "WPF"],
     "Tags": ["Winform", "WPF", "日志面板", "LogDashboard"],
     "CopyrightType": "Default",

@@ -1,7 +1,7 @@
 {
     "Title":"Prism For WPF Login对话框又简单又合理的方案之一",
+    "Slug":"one-of-the-simple-and-reasonable-solutions-of-prism-for-wpf-login-dialog",
     "Cover":"https://img1.dotnet9.com/2022/01/cover_01.jpeg",
-    "BriefDescription":"Prism实现对话框",
     "Categories":["C#", "WPF", "Prism"],
     "Tags": ["C#", "WPF", "Prism"],
     "CopyrightType": "Default",

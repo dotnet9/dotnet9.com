@@ -1,5 +1,6 @@
 {
     "Title":"C#开源项目：SiMay远程控制管理系统",
+    "Slug":"csharp-open-source-project-simay-remote-control-management-system",
     "Cover":"https://img1.dotnet9.com/2020/12/cover_02.jpg",
     "BriefDescription":"一个底层基于IOCP异步通信模型的Windows远程控制系统",
     "InBanner": true,

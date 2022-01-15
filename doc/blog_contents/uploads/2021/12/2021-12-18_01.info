@@ -1,5 +1,6 @@
 {
     "Title":"使用 WPF 做个 PowerPoint 系列 基于 OpenXML 解析实现 PPT 文本描边效果",
+    "Slug":"use-wpf-to-be-a-powerpoint-series-implement-ppt-text-stroke-effect-based-on-openxml-parsing",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_23.jpg",
     "Categories":["WPF", "OpenXML"],
     "Tags": ["WPF", "OpenXML"],

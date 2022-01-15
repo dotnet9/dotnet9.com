@@ -1,7 +1,7 @@
 {
     "Title":"如何处理EF Core的多对多关系？",
+    "Slug":"how-to-handle-many-to-many-relationships-with-ef-Core",
     "Cover":"https://img1.dotnet9.com/2021/11/cover_05.jpeg",
-    "BriefDescription":"展示如何创建多对多关系以及如何在 EF Core 中使用它们",
     "Categories":["EF Core"],
     "Tags": ["ORM", "EF Core"],
     "CopyrightType": "Reprint",

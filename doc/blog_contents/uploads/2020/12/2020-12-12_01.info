@@ -1,7 +1,7 @@
 {
     "Title":"WPF开源控件库：MahApps.Metro",
+    "Slug":"wpf-open-source-control-library-mahapps-metro",
     "Cover":"https://img1.dotnet9.com/2020/12/cover_01.jpg",
-    "BriefDescription":"很多网友对它的褒奖",
     "InBanner": true,
     "Categories":["WPF"],
     "Tags": ["WPF", "MahApps.Metro", "开源WPF", "控件库", "WPF控件库", "开源WPF控件库"],
