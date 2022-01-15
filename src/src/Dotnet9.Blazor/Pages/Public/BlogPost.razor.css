@@ -1,0 +1,14 @@
+﻿.bloginfo {
+    margin-top: 20px;
+    overflow: hidden;
+    color: #999;
+    line-height: 34px;
+}
+
+.bloginfo span {
+    margin: 0 5px;
+}
+
+.bloginfo span a {
+    color: #096;
+}

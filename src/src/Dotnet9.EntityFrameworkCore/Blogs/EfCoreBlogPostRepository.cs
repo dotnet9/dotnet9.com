@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Dotnet9.EntityFrameworkCore;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -22,10 +23,10 @@ public class EfCoreBlogPostRepository : EfCoreRepository<Dotnet9DbContext, BlogP
         return await dbSet.FirstOrDefaultAsync(blogPost => blogPost.Title == title);
     }
 
-    public async Task<BlogPost> FindBySlugAsync(string slug)
+    public async Task<BlogPost> FindBySlugAsync([NotNull] string slug)
     {
         var dbSet = await GetDbSetAsync();
-        return await dbSet.FirstOrDefaultAsync(blogPost => blogPost.Slug == slug);
+        return await dbSet.FirstOrDefaultAsync(blogPost => blogPost.Slug.ToLower() == slug.ToLower());
     }
 
     public async Task<List<BlogPost>> GetListAsync(int skipCount, int maxResultCount, string sorting,

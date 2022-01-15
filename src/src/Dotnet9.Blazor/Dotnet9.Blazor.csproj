@@ -10,6 +10,8 @@
     <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
     <UserSecretsId>Dotnet9-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +20,7 @@
     <PackageReference Include="Blazorise.Markdown" Version="0.9.5.4" />
     <PackageReference Include="Blazorise.TreeView" Version="0.9.5.4" />
     <PackageReference Include="Markdig" Version="0.26.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
     <ProjectReference Include="..\..\BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme\Volo.Abp.AspNetCore.Components.Web.BasicTheme.csproj" />

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 
@@ -22,6 +23,12 @@ public class BlogPostAppService : Dotnet9AppService, IBlogPostAppService
     public async Task<BlogPostDto> GetAsync(Guid id)
     {
         var blogPost = await _blogPostRepository.GetAsync(id);
+        return ObjectMapper.Map<BlogPost, BlogPostDto>(blogPost);
+    }
+    
+    public async Task<BlogPostDto> GetAsync([NotNull] string blogPostSlug)
+    {
+        var blogPost = await _blogPostRepository.FindBySlugAsync(blogPostSlug);
         return ObjectMapper.Map<BlogPost, BlogPostDto>(blogPost);
     }
 

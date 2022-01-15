@@ -1,17 +1,57 @@
 ﻿@page "/{Slug}"
 @using JetBrains.Annotations
+@using Dotnet9.Blogs
 @inject NavigationManager _navigationManager
-<h3>BlogPost @Slug</h3>
+@inject IBlogPostAppService _blogPostAppService
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is3">
+        <CategorySidebar />
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6">
+        <h3>@_blogPostDto?.Title</h3>
+        <p class="bloginfo">
+            <Icon Name="IconName.User"/>
+            <span>Admin</span>
+            <Icon Name="IconName.Clock"/>
+            <small style="opacity: .65;">@_blogPostDto?.CreationTime.ToLocalTime()</small>
+            <span>
+                【
+                <a href="/">最热</a>
+                】
+            </span>
+        </p>
+        @(new MarkupString(_markdownHtml))
+    </Column>
+    <Column ColumnSize="ColumnSize.Is3">
+        <HomeRightSidebar />
+    </Column>
+</Row>
+<Row>
+    <Column ColumnSize="ColumnSize.Is12">
+        <Footer />
+    </Column>
+</Row>
 
 @code {
-    [Parameter]
-    [CanBeNull] public string Slug { get; set; }
 
-    protected override void OnInitialized()
+    [Parameter]
+    [CanBeNull]
+    public string Slug { get; set; }
+
+    [CanBeNull] private BlogPostDto _blogPostDto;
+    private string _markdownHtml;
+
+    protected override async Task OnInitializedAsync()
     {
         if (Slug == null)
         {
             _navigationManager.NavigateTo("/");
+        }
+        else
+        {
+            _blogPostDto = await _blogPostAppService.GetAsync(Slug);
+            _markdownHtml = Markdig.Markdown.ToHtml(_blogPostDto?.Content ?? string.Empty);
         }
     }
 
