@@ -19,10 +19,13 @@ public class Dotnet9ApplicationAutoMapperProfile : Profile
         CreateMap<About, AboutDto>();
         CreateMap<UpdateAboutDto, About>();
         CreateMap<Album, AlbumDto>();
+        CreateMap<Album, AlbumLookupDto>();
         CreateMap<CreateAlbumDto, Album>();
         CreateMap<BlogPost, BlogPostDto>();
+        CreateMap<BlogPostWithDetails, BlogPostDto>();
         CreateMap<CreateBlogPostDto, BlogPost>();
         CreateMap<Category, CategoryDto>();
+        CreateMap<Category, CategoryLookupDto>();
         CreateMap<CreateCategoryDto, Category>();
         CreateMap<Comment, CommentDto>();
         CreateMap<CreateCommentDto, Comment>();
@@ -33,6 +36,7 @@ public class Dotnet9ApplicationAutoMapperProfile : Profile
         CreateMap<Rating, RatingDto>();
         CreateMap<CreateRatingDto, Rating>();
         CreateMap<Tag, TagDto>();
+        CreateMap<Tag, TagLookupDto>();
         CreateMap<CreateTagDto, Tag>();
         CreateMap<UrlLink, UrlLinkDto>();
         CreateMap<CreateUrlLinkDto, UrlLink>();

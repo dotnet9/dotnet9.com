@@ -139,8 +139,82 @@ public class Dotnet9DataSeederContributor
                         }
                     }
 
-                    await _blogPostRepository.InsertAsync(
-                        await _blogPostManager.CreateAsync(blogInfoDto!.Title,
+
+                    if (blogInfoDto.Albums != null && blogInfoDto.Albums.Any())
+                    {
+                        foreach (var albumName in blogInfoDto.Albums)
+                        {
+                            try
+                            {
+                                var existAlbum = albums.FirstOrDefault(album =>
+                                    album.Name.ToLower() == albumName.ToLower());
+                                if (existAlbum != null)
+                                {
+                                    continue;
+                                }
+
+                                existAlbum =
+                                    await _albumManager.CreateAsync(albumName, string.Empty, string.Empty);
+                                albums.Add(existAlbum);
+                                await _albumRepository.InsertAsync(existAlbum);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    if (blogInfoDto.Categories != null && blogInfoDto.Categories.Any())
+                    {
+                        foreach (var categoryName in blogInfoDto.Categories)
+                        {
+                            try
+                            {
+                                var existCategory = categories.FirstOrDefault(category =>
+                                    category.Name.ToLower() == categoryName.ToLower());
+                                if (existCategory != null)
+                                {
+                                    continue;
+                                }
+
+                                existCategory =
+                                    await _categoryManager.CreateAsync(null, categoryName, string.Empty, string.Empty);
+                                categories.Add(existCategory);
+                                await _categoryRepository.InsertAsync(existCategory);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    if (blogInfoDto.Tags != null && blogInfoDto.Tags.Any())
+                    {
+                        foreach (var tagName in blogInfoDto.Tags)
+                        {
+                            try
+                            {
+                                var existTag = tags.FirstOrDefault(tag =>
+                                    tag.Name.ToLower() == tagName.ToLower());
+                                if (existTag != null)
+                                {
+                                    continue;
+                                }
+
+                                existTag =
+                                    await _tagManager.CreateAsync(tagName, string.Empty);
+                                tags.Add(existTag);
+                                await _tagRepository.InsertAsync(existTag);
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+
+                    try
+                    {
+                        await _blogPostRepository.InsertAsync(await _blogPostManager.CreateAsync(blogInfoDto!.Title,
                             blogInfoDto!.Slug,
                             blogInfoDto!.BriefDescription,
                             blogInfoDto.Content,
@@ -150,60 +224,14 @@ public class Dotnet9DataSeederContributor
                             original: blogInfoDto.Original,
                             originalTitle: blogInfoDto.Title,
                             originalLink: blogInfoDto.OriginalLink,
+                            albumNames: blogInfoDto.Albums,
+                            categoryNames: blogInfoDto.Categories,
+                            tagNames: blogInfoDto.Tags,
                             creationTime: blogInfoDto.CreateDate));
-
-                    if (blogInfoDto.Albums != null && blogInfoDto.Albums.Any())
-                    {
-                        foreach (var albumName in blogInfoDto.Albums)
-                        {
-                            var existAlbum = albums.FirstOrDefault(album =>
-                                album.Name.ToLower() == albumName.ToLower());
-                            if (existAlbum != null)
-                            {
-                                continue;
-                            }
-
-                            existAlbum =
-                                await _albumManager.CreateAsync(albumName, string.Empty, string.Empty);
-                            albums.Add(existAlbum);
-                            await _albumRepository.InsertAsync(existAlbum);
-                        }
                     }
-
-                    if (blogInfoDto.Categories != null && blogInfoDto.Categories.Any())
+                    catch (Exception ex)
                     {
-                        foreach (var categoryName in blogInfoDto.Categories)
-                        {
-                            var existCategory = categories.FirstOrDefault(category =>
-                                category.Name.ToLower() == categoryName.ToLower());
-                            if (existCategory != null)
-                            {
-                                continue;
-                            }
-
-                            existCategory =
-                                await _categoryManager.CreateAsync(null, categoryName, string.Empty, string.Empty);
-                            categories.Add(existCategory);
-                            await _categoryRepository.InsertAsync(existCategory);
-                        }
-                    }
-
-                    if (blogInfoDto.Tags != null && blogInfoDto.Tags.Any())
-                    {
-                        foreach (var tagName in blogInfoDto.Tags)
-                        {
-                            var existTag = tags.FirstOrDefault(tag =>
-                                tag.Name.ToLower() == tagName.ToLower());
-                            if (existTag != null)
-                            {
-                                continue;
-                            }
-
-                            existTag =
-                                await _tagManager.CreateAsync(tagName, string.Empty);
-                            tags.Add(existTag);
-                            await _tagRepository.InsertAsync(existTag);
-                        }
+                        Console.WriteLine(ex.ToString());
                     }
                 }
             }

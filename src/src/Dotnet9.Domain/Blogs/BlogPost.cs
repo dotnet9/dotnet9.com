@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -7,6 +11,30 @@ namespace Dotnet9.Blogs;
 
 public class BlogPost : FullAuditedAggregateRoot<Guid>
 {
+    [NotNull] public string Title { get; set; }
+
+    [NotNull] public string Slug { get; set; }
+
+    public string ShortDescription { get; set; }
+
+    [NotNull] public string Content { get; set; }
+
+    public string CoverImageUrl { get; set; }
+
+    public CopyrightType CopyrightType { get; set; }
+
+    public string Original { get; set; }
+
+    public string OriginalTitle { get; set; }
+
+    public string OriginalLink { get; set; }
+
+    public ICollection<BlogPostCategory> Categories { get; private set; }
+
+    public ICollection<BlogPostAlbum> Albums { get; private set; }
+
+    public ICollection<BlogPostTag> Tags { get; private set; }
+
     private BlogPost()
     {
     }
@@ -35,6 +63,10 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         OriginalTitle = originalTitle;
         OriginalLink = originalLink;
         CreationTime = creationTime;
+
+        Albums = new List<BlogPostAlbum>();
+        Categories = new Collection<BlogPostCategory>();
+        Tags = new List<BlogPostTag>();
     }
 
     internal BlogPost ChangeTitle([NotNull] string title)
@@ -67,22 +99,139 @@ public class BlogPost : FullAuditedAggregateRoot<Guid>
         Content = Check.NotNullOrWhiteSpace(content, nameof(content), BlogPostConsts.MaxContentLength);
     }
 
+    #region album
 
-    [NotNull] public string Title { get; set; }
+    public void AddAlbum(Guid albumId)
+    {
+        Check.NotNull(albumId, nameof(albumId));
 
-    [NotNull] public string Slug { get; set; }
+        if (IsInAlbum(albumId))
+        {
+            return;
+        }
 
-    public string ShortDescription { get; set; }
+        Albums.Add(new BlogPostAlbum(blogPostId: Id, albumId));
+    }
 
-    [NotNull] public string Content { get; set; }
+    public void RemoveAlbum(Guid albumId)
+    {
+        Check.NotNull(albumId, nameof(albumId));
 
-    public string CoverImageUrl { get; set; }
+        if (!IsInAlbum(albumId))
+        {
+            return;
+        }
 
-    public CopyrightType CopyrightType { get; set; }
+        Albums.RemoveAll(x => x.AlbumId == albumId);
+    }
 
-    public string Original { get; set; }
+    public void RemoveAllAlbumsExceptGivenIds(List<Guid> albumIds)
+    {
+        Check.NotNullOrEmpty(albumIds, nameof(albumIds));
 
-    public string OriginalTitle { get; set; }
+        Albums.RemoveAll(x => !albumIds.Contains(x.AlbumId));
+    }
 
-    public string OriginalLink { get; set; }
+    public void RemoveAllAlbums()
+    {
+        Albums.RemoveAll(x => x.BlogPostId == Id);
+    }
+
+    private bool IsInAlbum(Guid categoryId)
+    {
+        return Albums.Any(x => x.AlbumId == categoryId);
+    }
+
+    #endregion algum
+
+    #region category
+
+    public void AddCategory(Guid categoryId)
+    {
+        Check.NotNull(categoryId, nameof(categoryId));
+
+        if (IsInCategory(categoryId))
+        {
+            return;
+        }
+
+        Categories.Add(new BlogPostCategory(blogPostId: Id, categoryId));
+        Console.WriteLine($"{Id}==={categoryId}");
+    }
+
+    public void RemoveCategory(Guid categoryId)
+    {
+        Check.NotNull(categoryId, nameof(categoryId));
+
+        if (!IsInCategory(categoryId))
+        {
+            return;
+        }
+
+        Categories.RemoveAll(x => x.CategoryId == categoryId);
+    }
+
+    public void RemoveAllCategoriesExceptGivenIds(List<Guid> categoryIds)
+    {
+        Check.NotNullOrEmpty(categoryIds, nameof(categoryIds));
+
+        Categories.RemoveAll(x => !categoryIds.Contains(x.CategoryId));
+    }
+
+    public void RemoveAllCategories()
+    {
+        Categories.RemoveAll(x => x.BlogPostId == Id);
+    }
+
+    private bool IsInCategory(Guid categoryId)
+    {
+        return Categories.Any(x => x.CategoryId == categoryId);
+    }
+
+    #endregion
+
+    #region tag
+
+    public void AddTag(Guid tagId)
+    {
+        Check.NotNull(tagId, nameof(tagId));
+
+        if (IsInTag(tagId))
+        {
+            return;
+        }
+
+        Tags.Add(new BlogPostTag(blogPostId: Id, tagId));
+    }
+
+    public void RemoveTag(Guid tagId)
+    {
+        Check.NotNull(tagId, nameof(tagId));
+
+        if (!IsInTag(tagId))
+        {
+            return;
+        }
+
+        Tags.RemoveAll(x => x.TagId == tagId);
+    }
+
+    public void RemoveAllTagsExceptGivenIds(List<Guid> tagIds)
+    {
+        Check.NotNullOrEmpty(tagIds, nameof(tagIds));
+
+        Tags.RemoveAll(x => !tagIds.Contains(x.TagId));
+    }
+
+    public void RemoveAllTags()
+    {
+        Tags.RemoveAll(x => x.BlogPostId == Id);
+    }
+
+    private bool IsInTag(Guid tagId)
+    {
+        return Tags.Any(x => x.TagId == tagId);
+    }
+
+    #endregion
 }

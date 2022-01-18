@@ -69,6 +69,27 @@
                                 Caption="@L["ShortDescription"]">
                 </DataGridColumn>
                 <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.AlbumNames)"
+                                Caption="@L["AlbumNames"]">
+                    <DisplayTemplate>
+                        @(string.Join(",", context.AlbumNames))
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.CategoryNames)"
+                                Caption="@L["CategoryNames"]">
+                    <DisplayTemplate>
+                        @(string.Join(",", context.CategoryNames))
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
+                                Field="@nameof(BlogPostDto.TagNames)"
+                                Caption="@L["TagNames"]">
+                    <DisplayTemplate>
+                        @(string.Join(",", context.TagNames))
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BlogPostDto"
                                 Field="@nameof(BlogPostDto.CopyrightType)"
                                 Caption="@L["CopyrightType"]">
                     <DisplayTemplate>
@@ -142,6 +163,18 @@
                             </TextEdit>
                         </Field>
                     </Validation>
+                    @*<Field>
+                        <FieldLabel>@L["CategoryNames"]</FieldLabel>
+                        <Select TValue="string[]" @bind-SelectedValue="@NewBlogPost.CategoryNames">
+                            <SelectItem TValue="string[]" Value="Guid.Empty">@L["PickAnCategory"]</SelectItem>
+                            @foreach (var album in AlbumLookupList)
+                            {
+                                <SelectItem TValue="Guid" Value="@author.Id">
+                                    @author.Name
+                                </SelectItem>
+                            }
+                        </Select>
+                    </Field>*@
                     <Validation MessageLocalizer="@LH.Localize">
                         <Field>
                             <FieldLabel>@L["CoverImageUrl"]</FieldLabel>

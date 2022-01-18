@@ -23,5 +23,11 @@ public class BlogPostDto : EntityDto<Guid>
 
     public string OriginalLink { get; set; }
 
+    public string[] AlbumNames { get; set; }
+
+    public string[] CategoryNames { get; set; }
+
+    public string[] TagNames { get; set; }
+
     public DateTime CreationTime { get; set; }
 }

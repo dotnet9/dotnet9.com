@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dotnet9.Albums;
 using Dotnet9.Blogs;
+using Dotnet9.Categories;
+using Dotnet9.Tags;
 using Volo.Abp.Application.Dtos;
 
 namespace Dotnet9.Blazor.Pages.Admin;
@@ -24,6 +27,9 @@ public partial class BlogPosts
     }
 
     private IReadOnlyList<BlogPostDto> BlogPostList { get; set; }
+    private IReadOnlyList<AlbumLookupDto> AlbumLookupList { get; set;}
+    private IReadOnlyList<CategoryLookupDto> CategoryLookupList { get; set; }
+    private IReadOnlyList<TagLookupDto> TagLookupList { get; set; }
 
     private string Filter { get; set; }
     private int PageSize { get; } = LimitedResultRequestDto.DefaultMaxResultCount;
@@ -47,6 +53,9 @@ public partial class BlogPosts
     {
         await SetPermissionsAsync();
         await GetBlogPostsAsync();
+        AlbumLookupList = (await BlogPostAppService.GetAlbumLookupAsync()).Items;
+        CategoryLookupList = (await BlogPostAppService.GetCategoryLookupAsync()).Items;
+        TagLookupList = (await BlogPostAppService.GetTagLookupAsync()).Items;
     }
 
     private async Task SetPermissionsAsync()

@@ -10,9 +10,9 @@ public class Dotnet9BlazorAutoMapperProfile : Profile
 {
     public Dotnet9BlazorAutoMapperProfile()
     {
-        CreateMap<BlogPostDto, UpdateBlogPostDto>();
-        CreateMap<TagDto, UpdateTagDto>();
         CreateMap<AlbumDto, UpdateAlbumDto>();
+        CreateMap<BlogPostDto, UpdateBlogPostDto>();
         CreateMap<CategoryDto, UpdateCategoryDto>();
+        CreateMap<TagDto, UpdateTagDto>();
     }
 }

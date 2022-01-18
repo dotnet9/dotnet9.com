@@ -8,9 +8,13 @@ namespace Dotnet9.Blogs;
 
 public interface IBlogPostRepository : IRepository<BlogPost, Guid>
 {
-    Task<BlogPost> FindByTitleAsync(string title);
+    Task<BlogPostWithDetails> FindByTitleAsync(string title);
 
-    Task<BlogPost> FindBySlugAsync([NotNull] string slug);
+    Task<BlogPostWithDetails> FindBySlugAsync([NotNull] string slug);
 
-    Task<List<BlogPost>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null);
+    Task<List<BlogPostWithDetails>> GetListAsync(int skipCount, int maxResultCount, string sorting,
+        [CanBeNull] string filter, [CanBeNull] string album, [CanBeNull] string category, [CanBeNull] string tag);
+
+    Task<int> GetCountAsync([CanBeNull] string filter, [CanBeNull] string album, [CanBeNull] string category,
+        [CanBeNull] string tag);
 }

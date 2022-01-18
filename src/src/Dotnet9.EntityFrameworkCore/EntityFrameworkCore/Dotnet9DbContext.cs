@@ -127,6 +127,19 @@ namespace Dotnet9.EntityFrameworkCore
                 b.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);
                 b.HasIndex(x => x.Title);
                 b.HasIndex(x => x.Slug);
+                b.HasMany(x => x.Albums).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
+                b.HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
+                b.HasMany(x => x.Tags).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
+            });
+
+            builder.Entity<BlogPostAlbum>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostAlbums", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.HasKey(x => new { x.BlogPostId, x.AlbumId });
+                b.HasOne<BlogPost>().WithMany(x => x.Albums).HasForeignKey(x => x.BlogPostId).IsRequired();
+                b.HasOne<Album>().WithMany().HasForeignKey(x => x.AlbumId).IsRequired();
+                b.HasIndex(x => new { x.BlogPostId, x.AlbumId });
             });
 
             builder.Entity<Category>(b =>
@@ -137,6 +150,16 @@ namespace Dotnet9.EntityFrameworkCore
                 b.Property(x => x.CoverImageUrl).HasMaxLength(CategoryConsts.MaxCoverImageUrlLength);
                 b.Property(x => x.Description).HasMaxLength(CategoryConsts.MaxDescriptionLength);
                 b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<BlogPostCategory>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostCategories", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.HasKey(x => new { x.BlogPostId, x.CategoryId });
+                b.HasOne<BlogPost>().WithMany(x => x.Categories).HasForeignKey(x => x.BlogPostId).IsRequired();
+                b.HasOne<Category>().WithMany().HasForeignKey(x => x.CategoryId).IsRequired();
+                b.HasIndex(x => new { x.BlogPostId, x.CategoryId });
             });
 
             builder.Entity<Comment>(b =>
@@ -181,6 +204,16 @@ namespace Dotnet9.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(TagConsts.MaxNameLength);
                 b.Property(x => x.Description).IsRequired().HasMaxLength(TagConsts.MaxDescriptionLength);
                 b.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<BlogPostTag>(b =>
+            {
+                b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostTags", Dotnet9Consts.DbSchema);
+                b.ConfigureByConvention();
+                b.HasKey(x => new { x.BlogPostId, x.TagId });
+                b.HasOne<BlogPost>().WithMany(x => x.Tags).HasForeignKey(x => x.BlogPostId).IsRequired();
+                b.HasOne<Tag>().WithMany().HasForeignKey(x => x.TagId).IsRequired();
+                b.HasIndex(x => new { x.BlogPostId, x.TagId });
             });
 
             builder.Entity<UrlLink>(b =>

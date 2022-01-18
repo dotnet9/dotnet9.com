@@ -5,19 +5,4 @@
 @inject ICurrentTenant CurrentTenant
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<Row>
-    <Column ColumnSize="ColumnSize.Is3">
-        <CategorySidebar />
-    </Column>
-    <Column ColumnSize="ColumnSize.Is6">
-        <BlogPostList />
-    </Column>
-    <Column ColumnSize="ColumnSize.Is3">
-        <HomeRightSidebar />
-    </Column>
-</Row>
-<Row>
-    <Column ColumnSize="ColumnSize.Is12">
-        <Footer />
-    </Column>
-</Row>
+<BlogPostList />

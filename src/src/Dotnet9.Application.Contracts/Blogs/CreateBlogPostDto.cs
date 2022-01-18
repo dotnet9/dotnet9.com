@@ -34,5 +34,11 @@ public class CreateBlogPostDto
     [StringLength(BlogPostConsts.MaxOriginalLinkLength)]
     public string OriginalLink { get; set; }
 
+    public string[] AlbumNames { get; set; }
+
+    public string[] CategoryNames { get; set; }
+
+    public string[] TagNames { get; set; }
+
     public DateTime CreationTime { get; set; }
 }

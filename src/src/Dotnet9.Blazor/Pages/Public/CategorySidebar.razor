@@ -1,14 +1,18 @@
 ﻿@using Dotnet9.Categories
 @using JetBrains.Annotations
 @using Castle.Components.DictionaryAdapter
+@using System.Text
+@using Microsoft.AspNetCore.Http.Extensions
+@using System.Net
+@using Microsoft.AspNetCore.WebUtilities
 @inject ICategoryAppService _categoryAppService
-
+@inject NavigationManager _navigationManager
 
 <Card>
     <TreeView Nodes="_items"
               GetChildNodes="@(item => item.Children)"
               HasChildNodes="@(item => item.Children?.Any() == true)"
-              @bind-SelectedNode="_selectedNode"
+              @bind-SelectedNode="@SelectedItem"
               @bind-ExpandedNodes="_expandedNodes">
         <NodeContent>@context.Text</NodeContent>
     </TreeView>
@@ -25,7 +29,18 @@
     List<Item> _items = new List<Item>();
 
     IList<Item> _expandedNodes = new List<Item>();
-    Item _selectedNode;
+
+    Item _selectedItem;
+
+    Item SelectedItem
+    {
+        get => _selectedItem;
+        set
+        {
+            _selectedItem = value;
+            _navigationManager.NavigateTo($"/cat/{System.Web.HttpUtility.UrlEncode(value.Text)}/m", true);
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,10 +63,5 @@
             parentChildren.Add(currentItem);
             ReadChildren(sources, child.Id, currentItem.Children);
         }
-    }
-
-    private void SelectedNodeChanged(Item item)
-    {
-
     }
 }
