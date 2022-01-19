@@ -38,7 +38,7 @@
         set
         {
             _selectedItem = value;
-            _navigationManager.NavigateTo($"/cat/{System.Web.HttpUtility.UrlEncode(value.Text)}/m", true);
+            _navigationManager.NavigateTo($"/cat/{System.Web.HttpUtility.UrlEncode(value.Text)}", true);
         }
     }
 

@@ -14,6 +14,10 @@ namespace Dotnet9.Blazor
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.InitializeApplication();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapFallbackToPage("/cat/{Category}", "/_Host");
+            });
         }
     }
 }

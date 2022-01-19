@@ -1,9 +1,10 @@
-﻿@page "/cat/{Category}/m"
+﻿@page "/cat/{Category}"
 @using Dotnet9.Blogs
 @using Dotnet9.Categories
 @using JetBrains.Annotations
 @using Volo.Abp.Application.Dtos
 @using System.Net
+@using Castle.Components.DictionaryAdapter
 @inject IBlogPostAppService _blogPostAppService
 
 <Row>
@@ -12,10 +13,10 @@
     </Column>
     <Column ColumnSize="ColumnSize.Is6">
         <div class="whitebg bloglist">
-            @if (_blogPostDtos is {Items: { } })
+            @if (BlogPostListItems != null)
             {
                 <ul>
-                    @foreach (var blogPostDto in _blogPostDtos.Items)
+                    @foreach (var blogPostDto in BlogPostListItems)
                     {
                         <li>
                             <h3 class="blogtitle">
@@ -48,6 +49,18 @@
                     }
                 </ul>
             }
+            @if (((TotalCount + PageSize - 1) / PageSize) > CurrentPage)
+            {
+                <Button Color="Color.Primary" Loading="@_isLoading" Clicked="ReadDataAsync">
+                    Load more
+                </Button>
+            }
+            else
+            {
+                <Button Color="Color.Secondary">
+                    No more data!
+                </Button>
+            }
         </div>
     </Column>
     <Column ColumnSize="ColumnSize.Is3">
@@ -67,13 +80,40 @@
     [Parameter]
     public string Category { get; set; }
 
-    [CanBeNull] private PagedResultDto<BlogPostDto> _blogPostDtos;
+    private int PageSize { get; } = LimitedResultRequestDto.DefaultMaxResultCount;
+
+    private int CurrentPage { get; set; }
+
+    private int TotalCount { get; set; }
+
+    private bool _isLoading;
+
+    [CanBeNull]
+    private List<BlogPostDto> BlogPostListItems { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
+        CurrentPage = 0;
+        BlogPostListItems?.Clear();
+
+        await ReadDataAsync();
+    }
+
+    private async Task ReadDataAsync()
+    {
         var key = Category == null ? "" : System.Web.HttpUtility.UrlDecode(Category).ToLower();
-        _blogPostDtos = await _blogPostAppService.GetListAsync(new GetBlogPostListDto() { Category = key, Sorting = nameof(BlogPostDto.CreationTime) });
+        _isLoading = true;
+        var result = await _blogPostAppService.GetListAsync(new GetBlogPostListDto() { Category = key, Sorting = nameof(BlogPostDto.CreationTime), MaxResultCount = PageSize, SkipCount = CurrentPage * PageSize });
+        _isLoading = false;
+        CurrentPage++;
+
+        BlogPostListItems ??= new EditableList<BlogPostDto>();
+        if (result.Items is {Count: > 0 })
+        {
+            BlogPostListItems.AddRange(result.Items);
+        }
+        TotalCount = (int)result.TotalCount;
     }
 
 }
