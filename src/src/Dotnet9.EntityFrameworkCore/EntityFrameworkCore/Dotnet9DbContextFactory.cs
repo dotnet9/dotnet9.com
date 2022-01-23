@@ -16,7 +16,7 @@ namespace Dotnet9.EntityFrameworkCore
             var configuration = BuildConfiguration();
 
             var builder = new DbContextOptionsBuilder<Dotnet9DbContext>()
-                .UseSqlServer(configuration.GetConnectionString("Default"));
+                .UseMySql(configuration.GetConnectionString("Default"), MySqlServerVersion.LatestSupportedServerVersion);
 
             return new Dotnet9DbContext(builder.Options);
         }

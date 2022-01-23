@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.25" />
-        <PackageReference Include="Volo.Abp.BlobStoring" Version="5.0.1" />
+        <PackageReference Include="Tencent.QCloud.Cos.Sdk" Version="5.4.26" />
+        <PackageReference Include="Volo.Abp.BlobStoring" Version="5.1.2" />
     </ItemGroup>
 
 </Project>
