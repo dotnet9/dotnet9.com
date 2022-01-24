@@ -1,5 +1,29 @@
-﻿<Alert Color="Color.Secondary" class="text-center" Visible="true">
-    <div>Links:<a href="https://lequ.co">乐趣课堂</a></div>
+﻿@using Dotnet9.UrlLinks
+@using JetBrains.Annotations
+@inject IUrlLinkAppService _urlLinkAppService
+<Alert Color="Color.Secondary" class="text-center" Visible="true">
+    <div>
+        Links:
+        @if (_urlinksDtos != null)
+        {
+            @foreach (var url in _urlinksDtos)
+            {
+                <a href="@url.Url" alt="@url.Description" target="_blank" rel=noopener noreferrer>@url.Name</a>
+                <span>&nbsp;|&nbsp;</span>
+            }
+        }
+    </div>
     <div>Contact Us | Albums | User List</div>
     <div>Copyright © 2019-2022 Dotnet9.COM all rights reserved<a href="https://beian.miit.gov.cn/">蜀ICP备19038256号-1</a></div>
 </Alert>
+
+@code
+{
+
+    [CanBeNull] private IReadOnlyList<UrlLinkDto> _urlinksDtos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _urlinksDtos = await _urlLinkAppService.GetListAsync();
+    }
+}

@@ -1,12 +1,5 @@
 ﻿@using Dotnet9.Categories
-@using JetBrains.Annotations
-@using Castle.Components.DictionaryAdapter
-@using System.Text
-@using Microsoft.AspNetCore.Http.Extensions
-@using System.Net
-@using Microsoft.AspNetCore.WebUtilities
-@inject ICategoryAppService _categoryAppService
-@inject NavigationManager _navigationManager
+@inherits OwningComponentBase
 
 <Card>
     <TreeView Nodes="_items"
@@ -17,51 +10,3 @@
         <NodeContent>@context.Text</NodeContent>
     </TreeView>
 </Card>
-
-@code {
-
-    public class Item
-    {
-        public string Text { get; set; }
-        public List<Item> Children { get; set; }
-    }
-
-    List<Item> _items = new List<Item>();
-
-    IList<Item> _expandedNodes = new List<Item>();
-
-    Item _selectedItem;
-
-    Item SelectedItem
-    {
-        get => _selectedItem;
-        set
-        {
-            _selectedItem = value;
-            _navigationManager.NavigateTo($"/cat/{System.Web.HttpUtility.UrlEncode(value.Text)}", true);
-        }
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var categoryDtos = await _categoryAppService.GetListAsync();
-        _items.Clear();
-        ReadChildren(categoryDtos, null, _items);
-    }
-
-    private void ReadChildren(List<CategoryDto> sources, Guid? parentId, List<Item> parentChildren)
-    {
-        var children = sources.FindAll(x => x.ParentId == parentId);
-        if (children is not {Count: > 0 }) return;
-        foreach (var child in children)
-        {
-            var currentItem = new Item
-            {
-                Text = child.Name,
-                Children = new EditableList<Item>()
-            };
-            parentChildren.Add(currentItem);
-            ReadChildren(sources, child.Id, currentItem.Children);
-        }
-    }
-}

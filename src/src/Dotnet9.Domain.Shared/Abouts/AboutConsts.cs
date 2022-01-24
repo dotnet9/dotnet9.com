@@ -9,9 +9,9 @@ public static class AboutConsts
 
 public class ConfigurationConst
 {
-    public const string AboutFilePath = "F://github_gitee/dotnet9.com//doc/blog_contents/about.md";
-    public const string BlogBaseFilePath = "F://github_gitee/dotnet9.com/doc/blog_contents/base.info";
-    public const string BlogPostDirPath = "F://github_gitee/dotnet9.com/doc/blog_contents/uploads";
+    public const string AboutFilePath = "C://doc/blog_contents/about.md";
+    public const string BlogBaseFilePath = "C://doc/blog_contents/base.info";
+    public const string BlogPostDirPath = "C://doc/blog_contents/uploads";
 }
 
 public class BaseItem

@@ -25,6 +25,11 @@ public class UrlLinkAppService : Dotnet9AppService, IUrlLinkAppService
         return ObjectMapper.Map<UrlLink, UrlLinkDto>(urlLink);
     }
 
+    public async Task<IReadOnlyList<UrlLinkDto>> GetListAsync()
+    {
+        return (await GetListAsync(new GetUrlLinkListDto { MaxResultCount = int.MaxValue })).Items;
+    }
+
     public async Task<PagedResultDto<UrlLinkDto>> GetListAsync(GetUrlLinkListDto input)
     {
         if (input.Sorting.IsNullOrWhiteSpace())
