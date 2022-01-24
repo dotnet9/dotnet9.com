@@ -12,4 +12,6 @@ public interface IUrlLinkRepository : IRepository<UrlLink, Guid>
     Task<UrlLink> FindByUrlAsync(string url);
 
     Task<List<UrlLink>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null);
+
+    Task<int> CountAsync(string filter = null);
 }

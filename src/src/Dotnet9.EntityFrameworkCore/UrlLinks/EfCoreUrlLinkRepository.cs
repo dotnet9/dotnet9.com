@@ -5,14 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 namespace Dotnet9.UrlLinks;
 
 public class EfCoreUrlLinkRepository : EfCoreRepository<Dotnet9DbContext, UrlLink, Guid>, IUrlLinkRepository
 {
-    public EfCoreUrlLinkRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider) : base(dbContextProvider)
+    private readonly Dotnet9DbContext _context;
+
+    public EfCoreUrlLinkRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider, Dotnet9DbContext context) : base(dbContextProvider)
     {
+        _context = context;
     }
 
     public async Task<UrlLink> FindByNameAsync(string name)
@@ -30,7 +34,7 @@ public class EfCoreUrlLinkRepository : EfCoreRepository<Dotnet9DbContext, UrlLin
     public async Task<List<UrlLink>> GetListAsync(int skipCount, int maxResultCount, string sorting,
         string filter = null)
     {
-        var dbSet = await GetDbSetAsync();
+        var dbSet = _context.UrlLinks;
         return await dbSet
             .WhereIf(
                 !filter.IsNullOrWhiteSpace(),
@@ -42,5 +46,18 @@ public class EfCoreUrlLinkRepository : EfCoreRepository<Dotnet9DbContext, UrlLin
             .Skip(skipCount)
             .Take(maxResultCount)
             .ToListAsync();
+    }
+
+    public async Task<int> CountAsync(string filter)
+    {
+        var dbSet = _context.UrlLinks;
+        return await dbSet
+            .WhereIf(
+                !filter.IsNullOrWhiteSpace(),
+                blogPost => blogPost.Name.Contains(filter)
+                            || blogPost.Url.Contains(filter) ||
+                            blogPost.Description.Contains(filter)
+            )
+            .CountAsync();
     }
 }

@@ -12,8 +12,11 @@ namespace Dotnet9.Categories;
 
 public class EfCoreCategoryRepository : EfCoreRepository<Dotnet9DbContext, Category, Guid>, ICategoryRepository
 {
-    public EfCoreCategoryRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider) : base(dbContextProvider)
+    private readonly Dotnet9DbContext _context;
+
+    public EfCoreCategoryRepository(IDbContextProvider<Dotnet9DbContext> dbContextProvider, Dotnet9DbContext context) : base(dbContextProvider)
     {
+        _context = context;
     }
 
     public async Task<Category> FindByNameAsync(string name)
@@ -25,7 +28,7 @@ public class EfCoreCategoryRepository : EfCoreRepository<Dotnet9DbContext, Categ
     public async Task<List<Category>> GetListAsync(int skipCount, int maxResultCount, string sorting,
         string filter = null)
     {
-        var dbSet = await GetDbSetAsync();
+        var dbSet = _context.Categories;
         return await dbSet
             .WhereIf(
                 !filter.IsNullOrWhiteSpace(),

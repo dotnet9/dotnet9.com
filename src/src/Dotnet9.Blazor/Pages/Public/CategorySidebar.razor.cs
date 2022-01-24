@@ -20,9 +20,10 @@ public partial class CategorySidebar
 
     private Item _selectedItem;
 
-    public CategorySidebar(NavigationManager navigationManager)
+    public CategorySidebar(NavigationManager navigationManager, ICategoryAppService categoryAppService)
     {
         _navigationManager = navigationManager;
+        _categoryAppService = categoryAppService;
     }
 
     private Item SelectedItem
@@ -37,10 +38,10 @@ public partial class CategorySidebar
 
     protected override async Task OnInitializedAsync()
     {
-        _categoryAppService = ScopedServices.GetRequiredService<ICategoryAppService>();
         var categoryDtos = await _categoryAppService.GetListAsync();
         _items.Clear();
         ReadChildren(categoryDtos, null, _items);
+        await base.OnInitializedAsync();
     }
 
     private void ReadChildren(List<CategoryDto> sources, Guid? parentId, List<Item> parentChildren)

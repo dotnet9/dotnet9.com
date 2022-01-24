@@ -42,9 +42,7 @@ public class UrlLinkAppService : Dotnet9AppService, IUrlLinkAppService
 
         var totalCount = input.Filter == null
             ? await _urlLinkRepository.CountAsync()
-            : await _urlLinkRepository.CountAsync(
-                urlLink => urlLink.Name.Contains(input.Filter)
-                           || urlLink.Url.Contains(input.Filter));
+            : await _urlLinkRepository.CountAsync(input.Filter);
 
         return new PagedResultDto<UrlLinkDto>(totalCount,
             ObjectMapper.Map<List<UrlLink>, List<UrlLinkDto>>(urlLinks));

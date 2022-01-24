@@ -44,7 +44,7 @@ namespace Dotnet9.EntityFrameworkCore
         public DbSet<Privacy> Privacies { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<UrlLink> UruLinks { get; set; }
+        public DbSet<UrlLink> UrlLinks { get; set; }
 
         #region Entities from the modules
 
