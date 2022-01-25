@@ -5,10 +5,11 @@
 @inject IBlogPostAppService _blogPostAppService
 
 <Row>
-    <Column ColumnSize="ColumnSize.Is3">
-        <CategorySidebar />
+    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
+        <CategorySidebar/>
     </Column>
-    <Column ColumnSize="ColumnSize.Is6">
+    <Column ColumnSize="ColumnSize.Is8.OnDesktop.Is12.OnMobile">
+        <BlogSearch/>
         <h3>@_blogPostDto?.Title</h3>
         <p class="bloginfo">
             <Icon Name="IconName.User"/>
@@ -21,15 +22,91 @@
                 】
             </span>
         </p>
-        @(new MarkupString(_markdownHtml))
+        <Card Padding="Padding.Is2">
+            @(new MarkupString(_markdownHtml))
+        </Card>
+        <Card Margin="Margin.Is2.FromTop.Is2.FromBottom" Padding="Padding.Is2">
+            @switch (_blogPostDto?.CopyrightType)
+            {
+                case CopyrightType.Contribution:
+                {
+                    <p>本文来自投稿：</p>
+                    <p>
+                        本文观点不代表
+                        <u>
+                            <a href='https://dotnet9.com' target='_blank'>Dotnet9</a>
+                        </u> 立场，如若转载，请注明出处：
+                        <u>
+                            <a href='https://dotnet9.com/@_blogPostDto?.Slug' target='_blank'>https://dotnet9.com/@_blogPostDto?.Slug</a>
+                        </u>
+                    </p>
+                }
+                    break;
+                case CopyrightType.Reprint:
+                {
+                    <p>本文来自转载：</p>
+                    <p>
+                        原文出处：
+                        <u>
+                            <a href='@_blogPostDto.Original' target='_blank'>@_blogPostDto.Original</a>
+                        </u>
+                    </p>
+                    <p>
+                        原文标题：
+                        <u>
+                            <a href='@_blogPostDto.Title' target='_blank'>@_blogPostDto.Title</a>
+                        </u>
+                    </p>
+                    <p>
+                        原文链接：
+                        <u>
+                            <a href='@_blogPostDto.OriginalLink' target='_blank'>@_blogPostDto.OriginalLink</a>
+                        </u>
+                    </p>
+                    <p>
+                        本文观点不代表
+                        <u>
+                            <a href='https://dotnet9.com' target='_blank'>Dotnet9</a>
+                        </u> 立场，转载请联系原作者【
+                        <u>
+                            <a href='@_blogPostDto.OriginalLink' target='_blank'>@_blogPostDto.OriginalLink</a>
+                        </u>】，如有侵权请联系站长删除。
+                    </p>
+                }
+                    break;
+                default:
+                {
+                    <p>
+                        除非注明，文章均由
+                        <u>
+                            <a href='https://dotnet9.com' target='_blank'>Dotnet9</a>
+                        </u> 整理发布，欢迎转载。
+                    </p>
+                    <p>转载请注明：</p>
+                    <p>原文作者：沙漠尽头的狼</p>
+                    <p>原文标题：@_blogPostDto?.Title</p>
+                    <p>
+                        原文链接：
+                        <span>
+                            <u>
+                                <a href='https://dotnet9.com/@_blogPostDto?.Slug' target='_blank'>https://dotnet9.com/@_blogPostDto?.Slug</a>
+                            </u>
+                        </span>
+                    </p>
+                    <p>来源：<a href="https://dotnet9.com" target='_blank'>https://dotnet9.com</a></p>
+                    <p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+                }
+                    break;
+            }
+        </Card>
     </Column>
-    <Column ColumnSize="ColumnSize.Is3">
-        <HomeRightSidebar />
+    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
+        <HomeRightSidebar/>
     </Column>
 </Row>
 <Row>
     <Column ColumnSize="ColumnSize.Is12">
-        <Footer />
+        <Footer/>
     </Column>
 </Row>
 

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Dotnet9.Blazor.Pages.Public;
 

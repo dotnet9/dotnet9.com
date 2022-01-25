@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using Volo.Abp.Application.Dtos;
 
 namespace Dotnet9.Blogs;
@@ -18,19 +19,22 @@ public class BlogPostAppService : Dotnet9AppService, IBlogPostAppService
     private readonly IAlbumRepository _albumRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly ITagRepository _tagRepository;
+    private readonly IMemoryCache _memoryCache;
 
     public BlogPostAppService(
         IBlogPostRepository blogPostRepository,
         BlogPostManager blogPostManager,
         IAlbumRepository albumRepository,
         ICategoryRepository categoryRepository,
-        ITagRepository tagRepository)
+        ITagRepository tagRepository,
+        IMemoryCache memoryCache)
     {
         _blogPostRepository = blogPostRepository;
         _blogPostManager = blogPostManager;
         _albumRepository = albumRepository;
         _categoryRepository = categoryRepository;
         _tagRepository = tagRepository;
+        _memoryCache = memoryCache;
     }
 
     public async Task<BlogPostDto> GetAsync(Guid id)
@@ -41,24 +45,32 @@ public class BlogPostAppService : Dotnet9AppService, IBlogPostAppService
 
     public async Task<BlogPostDto> GetAsync([NotNull] string blogPostSlug)
     {
-        var blogPost = await _blogPostRepository.FindBySlugAsync(blogPostSlug);
-        return ObjectMapper.Map<BlogPostWithDetails, BlogPostDto>(blogPost);
+        return await _memoryCache.GetOrCreateAsync(blogPostSlug, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
+            var blogPost = await _blogPostRepository.FindBySlugAsync(blogPostSlug);
+            return ObjectMapper.Map<BlogPostWithDetails, BlogPostDto>(blogPost);
+        });
     }
 
     public async Task<PagedResultDto<BlogPostDto>> GetListAsync(GetBlogPostListDto input)
     {
-        if (input.Sorting.IsNullOrWhiteSpace())
+        return await _memoryCache.GetOrCreateAsync($"{input.Filter}_{input.Category}_{input.Sorting}_{input.MaxResultCount}_{input.SkipCount}", async e =>
         {
-            input.Sorting = nameof(BlogPost.Title);
-        }
+            e.SetOptions(new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
+            if (input.Sorting.IsNullOrWhiteSpace())
+            {
+                input.Sorting = nameof(BlogPost.Title);
+            }
 
-        var blogPosts = await _blogPostRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting,
-            input.Filter, input.Album, input.Category, input.Tag);
+            var blogPosts = await _blogPostRepository.GetListAsync(input.SkipCount, input.MaxResultCount, input.Sorting,
+                input.Filter, input.Album, input.Category, input.Tag);
 
-        var totalCount = await _blogPostRepository.GetCountAsync(input.Filter, input.Album, input.Category, input.Tag);
+            var totalCount = await _blogPostRepository.GetCountAsync(input.Filter, input.Album, input.Category, input.Tag);
 
-        return new PagedResultDto<BlogPostDto>(totalCount,
-            ObjectMapper.Map<List<BlogPostWithDetails>, List<BlogPostDto>>(blogPosts));
+            return new PagedResultDto<BlogPostDto>(totalCount,
+                ObjectMapper.Map<List<BlogPostWithDetails>, List<BlogPostDto>>(blogPosts));
+        });
     }
 
     [Authorize(Dotnet9Permissions.BlogPosts.Create)]

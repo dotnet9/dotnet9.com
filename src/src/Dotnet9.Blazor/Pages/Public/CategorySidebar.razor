@@ -1,7 +1,7 @@
 ﻿@using Dotnet9.Categories
 @inherits OwningComponentBase
 
-<Card>
+<Card Padding="Padding.Is2">
     <TreeView Nodes="_items"
               GetChildNodes="@(item => item.Children)"
               HasChildNodes="@(item => item.Children?.Any() == true)"

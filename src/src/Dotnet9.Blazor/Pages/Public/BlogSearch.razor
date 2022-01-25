@@ -1,0 +1,21 @@
+﻿@using System.Web
+@using JetBrains.Annotations
+@inject NavigationManager _navigationManager
+
+<TextEdit Placeholder="Seach..." Size="Size.Large" Text="@Filter" TextChanged="@OnFilterChanged" Margin="Margin.Is1.FromBottom"/>
+
+@code {
+
+    [CanBeNull]
+    [Parameter]
+    public string Filter { get; set; }
+
+    Task OnFilterChanged(string value)
+    {
+        Filter = value;
+        _navigationManager.NavigateTo($"/s/{HttpUtility.UrlEncode(Filter)}", true);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+}

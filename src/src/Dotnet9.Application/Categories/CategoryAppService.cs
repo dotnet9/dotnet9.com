@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 
@@ -12,11 +13,14 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly CategoryManager _categoryManager;
+    private readonly IMemoryCache _memoryCache;
 
-    public CategoryAppService(ICategoryRepository categoryRepository, CategoryManager categoryManager)
+    public CategoryAppService(ICategoryRepository categoryRepository, CategoryManager categoryManager,
+        IMemoryCache memoryCache)
     {
         _categoryRepository = categoryRepository;
         _categoryManager = categoryManager;
+        _memoryCache = memoryCache;
     }
 
     public async Task<CategoryDto> GetAsync(Guid id)
@@ -27,9 +31,14 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
 
     public async Task<List<CategoryDto>> GetListAsync()
     {
-        var categories = await _categoryRepository.GetListAsync(0, int.MaxValue, nameof(Category.Name));
+        return await _memoryCache.GetOrCreateAsync("AllCategory", async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
 
-        return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+            var categories = await _categoryRepository.GetListAsync(0, int.MaxValue, nameof(Category.Name));
+
+            return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+        });
     }
 
     public async Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListDto input)

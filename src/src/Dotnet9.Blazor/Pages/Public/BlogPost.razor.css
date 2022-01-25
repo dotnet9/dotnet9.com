@@ -56,7 +56,8 @@ h2:after {
 
 /* 三级标题 */
 
-h3 { }
+h3 {
+}
 
 /* 三级标题内容 */
 
@@ -199,7 +200,7 @@ table tr td { }
 
 .inline-equation svg { }
 
-h3 {
+::deep h3 {
     border-bottom: 1px solid #eee;
     margin-top: 50px;
     padding-bottom: 10px;
@@ -207,7 +208,7 @@ h3 {
 
 /* vs2015 theme specific*/
 
-pre {
+::deep pre {
     background: #1E1E1E;
     color: #eee;
     overflow-x: auto;
@@ -217,10 +218,10 @@ pre {
     word-wrap: normal;
 }
 
-img, video, source {
+::deep img, video, source {
     max-width: 100%
 }
 
-pre > code {
+::deep pre > code {
     white-space: pre;
 }

@@ -1,4 +1,6 @@
 ﻿@page "/cat/{Category}"
+@page "/s/{Filter}"
+
 @using Dotnet9.Blogs
 @using Dotnet9.Categories
 @using JetBrains.Annotations
@@ -8,10 +10,11 @@
 @inject IBlogPostAppService _blogPostAppService
 
 <Row>
-    <Column ColumnSize="ColumnSize.Is3">
+    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
         <CategorySidebar/>
     </Column>
-    <Column ColumnSize="ColumnSize.Is6">
+    <Column ColumnSize="ColumnSize.Is8.OnDesktop.Is12.OnMobile">
+        <BlogSearch Filter="@Filter"/>
         <div class="whitebg bloglist">
             @if (BlogPostListItems != null)
             {
@@ -20,11 +23,11 @@
                     {
                         <li>
                             <h3 class="blogtitle">
-                                <a href="/@blogPostDto.Slug" target="_blank">@blogPostDto.Title</a>
+                                <a href="/@blogPostDto.Slug">@blogPostDto.Title</a>
                             </h3>
                             <span class="blogpic imgscale">
                                 <i>
-                                    <a href="/">WPF</a>
+                                    <a href="#">WPF</a>
                                 </i>
                                 <a href="/@blogPostDto.Slug" title="@blogPostDto.Title">
                                     <img src="@blogPostDto.CoverImageUrl" alt="@blogPostDto.Title"/>
@@ -40,11 +43,11 @@
                                 <small style="opacity: .65;">@blogPostDto.CreationTime.ToLocalTime()</small>
                                 <span>
                                     【
-                                    <a href="/">最热</a>
+                                    <a href="#">最热</a>
                                     】
                                 </span>
                             </p>
-                            <a href="/@blogPostDto.Slug" class="viewmore">阅读更多</a>
+                            <a href="#" class="viewmore">阅读更多</a>
                         </li>
                     }
                 </ul>
@@ -63,7 +66,7 @@
             }
         </div>
     </Column>
-    <Column ColumnSize="ColumnSize.Is3">
+    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
         <HomeRightSidebar/>
     </Column>
 </Row>
@@ -74,7 +77,10 @@
 </Row>
 
 @code {
-    private string Filter { get; set; }
+
+    [CanBeNull]
+    [Parameter]
+    public string Filter { get; set; }
 
     [CanBeNull]
     [Parameter]
@@ -104,7 +110,7 @@
     {
         var key = Category == null ? "" : System.Web.HttpUtility.UrlDecode(Category).ToLower();
         _isLoading = true;
-        var result = await _blogPostAppService.GetListAsync(new GetBlogPostListDto() { Category = key, Sorting = nameof(BlogPostDto.CreationTime), MaxResultCount = PageSize, SkipCount = CurrentPage * PageSize });
+        var result = await _blogPostAppService.GetListAsync(new GetBlogPostListDto() { Category = key, Filter = Filter, Sorting = nameof(BlogPostDto.CreationTime), MaxResultCount = PageSize, SkipCount = CurrentPage * PageSize });
         _isLoading = false;
         CurrentPage++;
 
