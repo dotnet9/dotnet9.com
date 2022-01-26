@@ -29,15 +29,15 @@ public class CategoryAppService : Dotnet9AppService, ICategoryAppService
         return ObjectMapper.Map<Category, CategoryDto>(category);
     }
 
-    public async Task<List<CategoryDto>> GetListAsync()
+    public async Task<List<CategoryCountDto>> GetListCountAsync()
     {
         return await _memoryCache.GetOrCreateAsync("AllCategory", async e =>
         {
             e.SetOptions(new MemoryCacheEntryOptions { AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30) });
 
-            var categories = await _categoryRepository.GetListAsync(0, int.MaxValue, nameof(Category.Name));
+            var categories = await _categoryRepository.GetListCountAsync();
 
-            return ObjectMapper.Map<List<Category>, List<CategoryDto>>(categories);
+            return ObjectMapper.Map<List<CategoryCount>, List<CategoryCountDto>>(categories);
         });
     }
 

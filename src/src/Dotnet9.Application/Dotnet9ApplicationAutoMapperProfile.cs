@@ -25,6 +25,7 @@ public class Dotnet9ApplicationAutoMapperProfile : Profile
         CreateMap<BlogPostWithDetails, BlogPostDto>();
         CreateMap<CreateBlogPostDto, BlogPost>();
         CreateMap<Category, CategoryDto>();
+        CreateMap<CategoryCount, CategoryCountDto>();
         CreateMap<Category, CategoryLookupDto>();
         CreateMap<CreateCategoryDto, Category>();
         CreateMap<Comment, CommentDto>();

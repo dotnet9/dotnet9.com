@@ -25,9 +25,9 @@ public sealed class CategoryAppServiceTests : Dotnet9ApplicationTestBase
     }
 
     [Fact]
-    public async Task Should_Get_All_Category_Without_Any_Filter2()
+    public async Task Should_Get_All_CategoryCount_Without_Any_Filter2()
     {
-        var result = await _categoryAppService.GetListAsync();
+        var result = await _categoryAppService.GetListCountAsync();
 
         result.Count.ShouldBeGreaterThanOrEqualTo(1);
     }

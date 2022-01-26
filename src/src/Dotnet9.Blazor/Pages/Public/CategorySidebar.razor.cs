@@ -37,13 +37,13 @@ public partial class CategorySidebar
 
     protected override async Task OnInitializedAsync()
     {
-        var categoryDtos = await _categoryAppService.GetListAsync();
+        var categoryDtos = await _categoryAppService.GetListCountAsync();
         _items.Clear();
         ReadChildren(categoryDtos, null, _items);
         await base.OnInitializedAsync();
     }
 
-    private void ReadChildren(List<CategoryDto> sources, Guid? parentId, List<Item> parentChildren)
+    private void ReadChildren(List<CategoryCountDto> sources, Guid? parentId, List<Item> parentChildren)
     {
         var children = sources.FindAll(x => x.ParentId == parentId);
         if (children is not { Count: > 0 })
@@ -56,6 +56,7 @@ public partial class CategorySidebar
             var currentItem = new Item
             {
                 Text = child.Name,
+                Count = child.BlogPostCount,
                 Children = new EditableList<Item>()
             };
             parentChildren.Add(currentItem);
@@ -66,6 +67,7 @@ public partial class CategorySidebar
     public class Item
     {
         public string Text { get; set; }
+        public int Count { get; set; }
         public List<Item> Children { get; set; }
     }
 }

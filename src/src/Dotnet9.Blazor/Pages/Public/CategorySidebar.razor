@@ -7,6 +7,8 @@
               HasChildNodes="@(item => item.Children?.Any() == true)"
               @bind-SelectedNode="@SelectedItem"
               @bind-ExpandedNodes="_expandedNodes">
-        <NodeContent>@context.Text</NodeContent>
+        <NodeContent>
+            @context.Text<span>(</span>@context.Count<span>)</span>
+        </NodeContent>
     </TreeView>
 </Card>

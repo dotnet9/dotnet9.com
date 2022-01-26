@@ -10,7 +10,7 @@ public interface ICategoryAppService : IApplicationService
 {
     Task<CategoryDto> GetAsync(Guid id);
 
-    Task<List<CategoryDto>> GetListAsync();
+    Task<List<CategoryCountDto>> GetListCountAsync();
 
     Task<PagedResultDto<CategoryDto>> GetListAsync(GetCategoryListDto input);
 
