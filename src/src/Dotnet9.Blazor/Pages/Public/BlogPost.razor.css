@@ -199,29 +199,3 @@ table tr td { }
  */
 
 .inline-equation svg { }
-
-::deep h3 {
-    border-bottom: 1px solid #eee;
-    margin-top: 50px;
-    padding-bottom: 10px;
-}
-
-/* vs2015 theme specific*/
-
-::deep pre {
-    background: #1E1E1E;
-    color: #eee;
-    overflow-x: auto;
-    padding: 0.5em !important;
-    white-space: pre;
-    word-break: normal;
-    word-wrap: normal;
-}
-
-::deep img, video, source {
-    max-width: 100%
-}
-
-::deep pre > code {
-    white-space: pre;
-}

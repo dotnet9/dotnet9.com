@@ -60,7 +60,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\libs\easymde\dist\" />
-    <Folder Include="wwwroot\libs\highlight.js\latest\" />
   </ItemGroup>
 
 </Project>
