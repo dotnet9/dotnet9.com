@@ -22,48 +22,56 @@
                     @foreach (var blogPostDto in BlogPostListItems)
                     {
                         <li>
-                            <h3 class="blogtitle">
-                                <a href="/@blogPostDto.Slug">@blogPostDto.Title</a>
-                            </h3>
-                            <span class="blogpic imgscale">
-                                <i>
-                                    <a href="#">WPF</a>
-                                </i>
-                                <a href="/@blogPostDto.Slug" title="@blogPostDto.Title">
-                                    <img src="@blogPostDto.CoverImageUrl" alt="@blogPostDto.Title"/>
-                                </a>
-                            </span>
-                            <p class="blogtext">
-                                @blogPostDto.ShortDescription
-                            </p>
-                            <p class="bloginfo">
-                                <Icon Name="IconName.User"/>
-                                <span>Admin</span>
-                                <Icon Name="IconName.Clock"/>
-                                <small style="opacity: .65;">@blogPostDto.CreationTime.ToLocalTime()</small>
-                                <span>
-                                    【
-                                    <a href="#">最热</a>
-                                    】
-                                </span>
-                            </p>
-                            <a href="#" class="viewmore">阅读更多</a>
+                            <Card>
+                                <CardHeader>
+                                    <h3 class="blogtitle">
+                                        <a href="/@blogPostDto.Slug">@blogPostDto.Title</a>
+                                    </h3>
+                                </CardHeader>
+                                <CardBody>
+                                    <span class="blogpic imgscale">
+                                        <i>
+                                            <a href="#">WPF</a>
+                                        </i>
+                                        <a href="/@blogPostDto.Slug" title="@blogPostDto.Title">
+                                            <img src="@blogPostDto.CoverImageUrl" alt="@blogPostDto.Title"/>
+                                        </a>
+                                    </span>
+                                    <p class="blogtext">
+                                        <a href="/@blogPostDto.Slug">@blogPostDto.ShortDescription</a>
+                                    </p>
+                                    <p class="bloginfo">
+                                        <Icon Name="IconName.User"/>
+                                        <span>@(blogPostDto.Original.IsNullOrWhiteSpace() ? "沙漠尽头的狼" : blogPostDto.Original)</span>
+                                        <Icon Name="IconName.Clock"/>
+                                        <small style="opacity: .65;">@blogPostDto.CreationTime.ToLocalTime()</small>
+                                        <span>
+                                            【
+                                            <a href="#">最热</a>
+                                            】
+                                        </span>
+                                    </p>
+                                    <a href="#" class="viewmore">阅读更多</a>
+                                </CardBody>
+                            </Card>
                         </li>
                     }
                 </ul>
             }
-            @if (((TotalCount + PageSize - 1) / PageSize) > CurrentPage)
-            {
-                <Button Color="Color.Primary" Loading="@_isLoading" Clicked="ReadDataAsync">
-                    Load more
-                </Button>
-            }
-            else
-            {
-                <Button Color="Color.Secondary">
-                    No more data!
-                </Button>
-            }
+            <div class="div-load-button">
+                @if (((TotalCount + PageSize - 1) / PageSize) > CurrentPage)
+                {
+                    <Button Size="Size.Large" Color="Color.Primary" Loading="@_isLoading" Clicked="ReadDataAsync">
+                        Load more
+                    </Button>
+                }
+                else
+                {
+                    <Button Size="Size.Large" Color="Color.Secondary">
+                        No more data!
+                    </Button>
+                }
+            </div>
         </div>
     </Column>
     <Column ColumnSize="ColumnSize.Is2.OnDesktop">

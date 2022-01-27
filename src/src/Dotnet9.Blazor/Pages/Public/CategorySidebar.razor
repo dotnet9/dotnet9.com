@@ -1,14 +1,17 @@
 ﻿@using Dotnet9.Categories
 @inherits OwningComponentBase
 
-<Card Padding="Padding.Is2">
-    <TreeView Nodes="_items"
-              GetChildNodes="@(item => item.Children)"
-              HasChildNodes="@(item => item.Children?.Any() == true)"
-              @bind-SelectedNode="@SelectedItem"
-              @bind-ExpandedNodes="_expandedNodes">
-        <NodeContent>
-            @context.Text<span>(</span>@context.Count<span>)</span>
-        </NodeContent>
-    </TreeView>
+<Card>
+    <CardHeader>Category</CardHeader>
+    <CardBody>
+        <TreeView Nodes="_items"
+                  GetChildNodes="@(item => item.Children)"
+                  HasChildNodes="@(item => item.Children?.Any() == true)"
+                  @bind-SelectedNode="@SelectedItem"
+                  @bind-ExpandedNodes="_expandedNodes">
+            <NodeContent>
+                @context.Text<span>(</span>@context.Count<span>)</span>
+            </NodeContent>
+        </TreeView>
+    </CardBody>
 </Card>

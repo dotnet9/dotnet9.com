@@ -5,39 +5,32 @@
     line-height: 1.5;
     overflow-x: hidden;
 }
-div {
-    display: block;
-}
+
+div { display: block; }
 
 .whitebg {
     background: #fff;
     border-radius: 3px;
-    padding: 20px;
-    margin-bottom: 20px;
+    margin: 1em 0;
     overflow: hidden;
 }
 
-ul, li {
-    list-style: none;
-}
+ul, li { list-style: none; }
 
 li {
     display: list-item;
     text-align: -webkit-match-parent;
 }
+
 ul {
     display: block;
     list-style-type: disc;
-    margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-    padding-inline-start: 40px;
 }
 
-.bloglist ul {
-    padding: 10px 0 0
-}
+.bloglist ul { padding: 0 }
 
 .bloglist li {
     overflow: hidden;
@@ -49,7 +42,7 @@ ul {
 }
 
 .blogtitle {
-    margin: 0 0 10px 0;
+    margin: 0;
     font-size: 18px;
     overflow: hidden;
 }
@@ -68,6 +61,7 @@ a {
     text-decoration: none;
     color: #333;
 }
+
 .blogpic {
     float: left;
     width: 23.2%;
@@ -86,7 +80,7 @@ a {
     z-index: 9;
     font-style: normal;
     padding: 3px 5px;
-    background: rgba(18,182,221,.8);
+    background: rgba(18, 182, 221, .8);
     font-size: 14px;
 }
 
@@ -99,6 +93,10 @@ a {
     transition: all .5s ease;
     transition: all 0.5s;
 }
+
+.imgscale a img:hover { transform: scale(1.05) }
+
+a:hover { color: rgba(0, 0, 255, 0.52); }
 
 img {
     border: 0;
@@ -131,12 +129,9 @@ p {
     line-height: 34px;
 }
 
-.bloginfo span {
-    margin: 0 5px;
-}
-.bloginfo span a {
-    color: #096;
-}
+.bloginfo span { margin: 0 5px; }
+
+.bloginfo span a { color: #096; }
 
 a.viewmore {
     display: block;
@@ -147,4 +142,9 @@ a.viewmore {
     background: #12b7de;
     color: #fff;
     border-radius: 3px;
+}
+
+.div-load-button {
+    text-align: center;
+    padding: 1em;
 }

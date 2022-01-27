@@ -1,8 +1,12 @@
 ﻿@page "/{Slug}"
+
 @using JetBrains.Annotations
 @using Dotnet9.Blogs
 @inject NavigationManager _navigationManager
 @inject IBlogPostAppService _blogPostAppService
+
+<PageTitle>@_blogPostDto?.Title</PageTitle>
+<HeadContent>@_blogPostDto?.ShortDescription</HeadContent>
 
 <Row>
     <Column ColumnSize="ColumnSize.Is2.OnDesktop">
@@ -10,22 +14,34 @@
     </Column>
     <Column ColumnSize="ColumnSize.Is8.OnDesktop.Is12.OnMobile">
         <BlogSearch/>
-        <h3>@_blogPostDto?.Title</h3>
-        <p class="bloginfo">
-            <Icon Name="IconName.User"/>
-            <span>Admin</span>
-            <Icon Name="IconName.Clock"/>
-            <small style="opacity: .65;">@_blogPostDto?.CreationTime.ToLocalTime()</small>
-            <span>
-                【
-                <a href="/">最热</a>
-                】
-            </span>
-        </p>
-        <Card Padding="Padding.Is4">
-            <div id="dotnet9">
-                @(new MarkupString(_markdownHtml))
-            </div>
+
+        <Card Margin="Margin.Is3.FromTop">
+            <CardHeader>@_blogPostDto?.Title</CardHeader>
+            <CardBody>
+                <CardTitle>
+                    <p class="bloginfo">
+                        <Icon Name="IconName.User"/>
+                        @if (_blogPostDto == null || _blogPostDto.Original.IsNullOrWhiteSpace())
+                        {
+                            <span>沙漠尽头的狼</span>
+                        }
+                        else
+                        {
+                            <span>@_blogPostDto.Original</span>
+                        }
+                        <Icon Name="IconName.Clock"/>
+                        <small style="opacity: .65;">@_blogPostDto?.CreationTime.ToLocalTime()</small>
+                        <span>
+                            【
+                            <a href="/">最热</a>
+                            】
+                        </span>
+                    </p>
+                </CardTitle>
+                <div id="dotnet9">
+                    @(new MarkupString(_markdownHtml))
+                </div>
+            </CardBody>
         </Card>
         <Card Margin="Margin.Is2.FromTop.Is2.FromBottom" Padding="Padding.Is4">
             @switch (_blogPostDto?.CopyrightType)
@@ -361,7 +377,7 @@
         margin-top: 50px;
         padding-bottom: 10px;
     }
-    
+
     pre {
         background: #1E1E1E;
         color: #eee;
