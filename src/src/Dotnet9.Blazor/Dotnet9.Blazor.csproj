@@ -62,9 +62,4 @@
     <Folder Include="wwwroot\libs\easymde\dist\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\libs\highlightjs\highlight.pack.js" />
-    <None Include="wwwroot\libs\highlightjs\LICENSE" />
-  </ItemGroup>
-
 </Project>
