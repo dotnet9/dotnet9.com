@@ -20,6 +20,7 @@
     <PackageReference Include="Blazorise.Markdown" Version="0.9.5.4" />
     <PackageReference Include="Blazorise.TreeView" Version="0.9.5.4" />
     <PackageReference Include="Markdig" Version="0.27.0" />
+    <PackageReference Include="MASA.Blazor" Version="0.2.10240" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />

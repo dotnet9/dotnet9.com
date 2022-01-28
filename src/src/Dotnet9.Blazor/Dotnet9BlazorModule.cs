@@ -88,6 +88,8 @@ namespace Dotnet9.Blazor
             ConfigureBlazorise(context);
             ConfigureRouter(context);
             ConfigureMenu(context);
+
+            context.Services.AddMasaBlazor();
         }
 
         private void ConfigureUrls(IConfiguration configuration)

@@ -10,8 +10,8 @@ namespace Dotnet9.Blazor.Pages.Public;
 
 public partial class CategorySidebar
 {
-    private ICategoryAppService _categoryAppService;
-    private readonly NavigationManager _navigationManager;
+    [Inject] private ICategoryAppService CategoryAppService { set; get; }
+    [Inject] private NavigationManager NavigationManager { set; get; }
 
     private IList<Item> _expandedNodes = new List<Item>();
 
@@ -19,10 +19,8 @@ public partial class CategorySidebar
 
     private Item _selectedItem;
 
-    public CategorySidebar(NavigationManager navigationManager, ICategoryAppService categoryAppService)
+    public CategorySidebar()
     {
-        _navigationManager = navigationManager;
-        _categoryAppService = categoryAppService;
     }
 
     private Item SelectedItem
@@ -31,13 +29,13 @@ public partial class CategorySidebar
         set
         {
             _selectedItem = value;
-            _navigationManager.NavigateTo($"/cat/{HttpUtility.UrlEncode(value.Text)}", true);
+            NavigationManager.NavigateTo($"/cat/{HttpUtility.UrlEncode(value.Text)}", true);
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        var categoryDtos = await _categoryAppService.GetListCountAsync();
+        var categoryDtos = await CategoryAppService.GetListCountAsync();
         _items.Clear();
         ReadChildren(categoryDtos, null, _items);
         await base.OnInitializedAsync();

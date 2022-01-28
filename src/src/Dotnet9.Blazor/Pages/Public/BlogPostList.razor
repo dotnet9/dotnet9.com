@@ -43,7 +43,7 @@
                                     <p class="bloginfo">
                                         <Icon Name="IconName.User"/>
                                         <span>@(blogPostDto.Original.IsNullOrWhiteSpace() ? "沙漠尽头的狼" : blogPostDto.Original)</span>
-                                        <Icon Name="IconName.Clock"/>
+                                        <MIcon>mdi-alarm</MIcon>
                                         <small style="opacity: .65;">@blogPostDto.CreationTime.ToLocalTime()</small>
                                         <span>
                                             【
