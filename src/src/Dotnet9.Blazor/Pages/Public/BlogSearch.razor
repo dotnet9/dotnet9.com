@@ -2,7 +2,10 @@
 @using JetBrains.Annotations
 @inject NavigationManager _navigationManager
 
-<TextEdit Placeholder="Seach..." Size="Size.Large" Text="@Filter" TextChanged="@OnFilterChanged" Margin="Margin.Is1.FromBottom"/>
+<TextEdit Placeholder="Seach..." Width="Width.Is25" Text="@Filter" TextChanged="@OnFilterChanged"/>
+<MButton Icon>
+    <MIcon>mdi-magnify</MIcon>
+</MButton>
 
 @code {
 

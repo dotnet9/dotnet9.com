@@ -9,80 +9,97 @@
 @using Castle.Components.DictionaryAdapter
 @inject IBlogPostAppService _blogPostAppService
 
-<Row>
-    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
-        <CategorySidebar/>
-    </Column>
-    <Column ColumnSize="ColumnSize.Is8.OnDesktop.Is12.OnMobile">
-        <BlogSearch Filter="@Filter"/>
-        <div class="whitebg bloglist">
+<MRow>
+    <MCol Md="10" Sm="12">
+        <MCard>
             @if (BlogPostListItems != null)
             {
-                <ul>
+                <MRow Class="mt-4">
                     @foreach (var blogPostDto in BlogPostListItems)
                     {
-                        <li>
-                            <Card>
-                                <CardHeader>
-                                    <h3 class="blogtitle hvr-wobble-bottom">
-                                        <a href="/@blogPostDto.Slug">@blogPostDto.Title</a>
-                                    </h3>
-                                </CardHeader>
-                                <CardBody>
-                                    <span class="blogpic imgscale">
-                                        <i>
-                                            <a href="#">WPF</a>
-                                        </i>
-                                        <a href="/@blogPostDto.Slug" title="@blogPostDto.Title">
-                                            <img src="@blogPostDto.CoverImageUrl" alt="@blogPostDto.Title"/>
-                                        </a>
-                                    </span>
-                                    <p class="blogtext">
-                                        <a href="/@blogPostDto.Slug">@blogPostDto.ShortDescription</a>
-                                    </p>
-                                    <p class="bloginfo">
-                                        <Icon Name="IconName.User"/>
-                                        <span>@(blogPostDto.Original.IsNullOrWhiteSpace() ? "沙漠尽头的狼" : blogPostDto.Original)</span>
+                        <MCol Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
+
+                            <MCard Class="mx-auto" Outlined>
+                                <MImage Class="align-end hvr-float-shadow" src="@blogPostDto.CoverImageUrl">
+                                    <MToolbarTitle Class="ml-0 mt-1 mb-1 pt-0 pb-0 pl-2 text-h6 white--text bg-black bg-opacity-25">
+                                        <a style="text-decoration: none; color: #fff;" href="/@blogPostDto.Slug">WPF</a>
+                                    </MToolbarTitle>
+                                </MImage>
+                                <MCardTitle Class="ml-0 mt-1 mb-1 pt-0 pb-0 pl-2">
+                                    <a style="text-decoration: none; color: #000;" href="/@blogPostDto.Slug">
+                                        @blogPostDto.Title
+                                    </a>
+                                </MCardTitle>
+                                <MCardActions Class="m-0 pl-2 pt-0 pb-0">
+                                    <MButton Icon>
+                                        <MIcon>mdi-eye</MIcon>
+                                    </MButton>
+                                    <span class="subheading mr-2">63</span>
+                                    <span class="mr-1">·</span>
+                                    <MButton Icon>
+                                        <MIcon>mdi-heart</MIcon>
+                                    </MButton>
+                                    <span class="subheading mr-2">6</span>
+                                    <span class="mr-1">·</span>
+                                    <MButton Icon>
+                                        <MIcon>mdi-bookmark</MIcon>
+                                    </MButton><span class="subheading mr-2">13</span>
+                                    <span class="mr-1">·</span>
+                                    <MButton Icon>
+                                        <MIcon>mdi-share-variant</MIcon>
+                                    </MButton><span class="subheading">9</span>
+                                </MCardActions>
+                                <MDivider Class="m-0 p-0"></MDivider>
+                                <MCardActions Class="m-0 pt-0 pb-0 pr-2">
+                                    <MButton Icon>
+                                        <MIcon>mdi-account-circle</MIcon>
+                                    </MButton>
+                                    <small>@(blogPostDto.Original.IsNullOrWhiteSpace() ? "沙漠尽头的狼" : blogPostDto.Original)</small>
+                                    <MSpacer></MSpacer>
+                                    <MButton Icon>
                                         <MIcon>mdi-alarm</MIcon>
-                                        <small style="opacity: .65;">@blogPostDto.CreationTime.ToLocalTime()</small>
-                                        <span>
-                                            【
-                                            <a href="#">最热</a>
-                                            】
-                                        </span>
-                                    </p>
-                                    <a href="#" class="viewmore">阅读更多</a>
-                                </CardBody>
-                            </Card>
-                        </li>
+                                    </MButton>
+                                    <small style="opacity: 0.65;">@blogPostDto.CreationTime.ToString("yyyy-MM-dd")</small>
+                                </MCardActions>
+                            </MCard>
+                        </MCol>
                     }
-                </ul>
+                </MRow>
             }
             <div class="div-load-button">
                 @if (((TotalCount + PageSize - 1) / PageSize) > CurrentPage)
                 {
-                    <Button Size="Size.Large" Color="Color.Primary" Loading="@_isLoading" Clicked="ReadDataAsync">
-                        Load more
-                    </Button>
+                    <MButton Class="ma-2" Loading="_isLoading" Disabled="_isLoading" Color="info" OnClick="ReadDataAsync">
+                        <LoaderContent>
+                            <span class="custom-loader">
+                                <MIcon>mdi-cached</MIcon>
+                            </span>
+                        </LoaderContent>
+                        <ChildContent>
+                            Load more
+                        </ChildContent>
+                    </MButton>
                 }
                 else
                 {
-                    <Button Size="Size.Large" Color="Color.Secondary">
+                    <MButton class="ma-2" Outlined Color="indigo">
                         No more data!
-                    </Button>
+                    </MButton>
                 }
             </div>
+        </MCard>
+    </MCol>
+    <MCol Md="2" Class="d-none d-sm-none d-md-flex">
+        <div>
+            <HomeRightSidebar/>
         </div>
-    </Column>
-    <Column ColumnSize="ColumnSize.Is2.OnDesktop">
-        <HomeRightSidebar/>
-    </Column>
-</Row>
-<Row>
-    <Column ColumnSize="ColumnSize.Is12">
+    </MCol>
+</MRow>
+<MRow>
+    <MCol>
         <Footer/>
-    </Column>
-</Row>
+    </MCol>
+</MRow>
 
 @code {
 
@@ -131,3 +148,14 @@
     }
 
 }
+
+<style>
+    a:hover { color: rgba(0, 0, 255, 0.52) }
+
+    .div-load-button { text-align: center; }
+
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
+</style>

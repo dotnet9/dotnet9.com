@@ -13,37 +13,31 @@
         <CategorySidebar/>
     </Column>
     <Column ColumnSize="ColumnSize.Is8.OnDesktop.Is12.OnMobile">
-        <BlogSearch/>
-
-        <Card Margin="Margin.Is3.FromTop">
-            <CardHeader>@_blogPostDto?.Title</CardHeader>
-            <CardBody>
-                <CardTitle>
-                    <p class="bloginfo">
-                        <Icon Name="IconName.User"/>
-                        @if (_blogPostDto == null || _blogPostDto.Original.IsNullOrWhiteSpace())
-                        {
-                            <span>沙漠尽头的狼</span>
-                        }
-                        else
-                        {
-                            <span>@_blogPostDto.Original</span>
-                        }
-                        <Icon Name="IconName.Clock"/>
-                        <small style="opacity: .65;">@_blogPostDto?.CreationTime.ToLocalTime()</small>
-                        <span>
-                            【
-                            <a href="/">最热</a>
-                            】
-                        </span>
-                    </p>
-                </CardTitle>
-                <div id="dotnet9">
-                    @(new MarkupString(_markdownHtml))
-                </div>
-            </CardBody>
-        </Card>
-        <Card Margin="Margin.Is2.FromTop.Is2.FromBottom" Padding="Padding.Is4">
+        <MCard Class="p-4 pt-0">
+            <h3 class="text-center" style="padding-top: 8px;">@_blogPostDto?.Title</h3>
+            <p class="bloginfo">
+                <Icon Name="IconName.User"/>
+                @if (_blogPostDto == null || _blogPostDto.Original.IsNullOrWhiteSpace())
+                {
+                    <span>沙漠尽头的狼</span>
+                }
+                else
+                {
+                    <span>@_blogPostDto.Original</span>
+                }
+                <Icon Name="IconName.Clock"/>
+                <small style="opacity: .65;">@_blogPostDto?.CreationTime.ToLocalTime()</small>
+                <span>
+                    【
+                    <a href="/">最热</a>
+                    】
+                </span>
+            </p>
+            <div id="dotnet9">
+                @(new MarkupString(_markdownHtml))
+            </div>
+        </MCard>
+        <MCard Class="mt-2 mb-2 p-4">
             @switch (_blogPostDto?.CopyrightType)
             {
                 case CopyrightType.Contribution:
@@ -116,7 +110,13 @@
                 }
                     break;
             }
-        </Card>
+        </MCard>
+        <MCard Class="text-center">
+            <MButton Icon Color="deep-orange">
+                <MIcon>mdi-thumb-up</MIcon>
+            </MButton>
+            赞(0)
+        </MCard>
     </Column>
     <Column ColumnSize="ColumnSize.Is2.OnDesktop">
         <HomeRightSidebar/>

@@ -1,0 +1,39 @@
+﻿<MAppBarTitle>Dotnet9</MAppBarTitle>
+<MSpacer></MSpacer>
+<BlogSearch/>
+<div class="d-none d-sm-none d-md-flex">
+    <MTooltip Bottom>
+        <ActivatorContent>
+            <MButton Icon Href="https://github.com/dotnet9/dotnet9.com" Target="_blank" Class="mr-6">
+                <MIcon Size=24 Color="black">fab fa-github</MIcon>
+            </MButton>
+        </ActivatorContent>
+        <ChildContent>
+            <span>GitHub</span>
+        </ChildContent>
+    </MTooltip>
+    <MTooltip Bottom>
+        <ActivatorContent>
+            <MButton Icon Href="https://gitee.com/dotnet9/dotnet9.com" Target="_blank" Class="mr-6">
+                <img style="width: 24px; height: 24px;" src="https://img1.dotnet9.com/2022/01/gitee.png" alt="Gitee">
+            </MButton>
+        </ActivatorContent>
+        <ChildContent>
+            <span>Gitee</span>
+        </ChildContent>
+    </MTooltip>
+    <MMenu Left Bottom>
+        <ActivatorContent>
+            <MButton Icon>
+                <MIcon>mdi-dots-vertical</MIcon>
+            </MButton>
+        </ActivatorContent>
+        <ChildContent>
+            <MList>
+                <MListItem @key="1" OnClick="() => {}">
+                    <MListItemTitle>Admin</MListItemTitle>
+                </MListItem>
+            </MList>
+        </ChildContent>
+    </MMenu>
+</div>
