@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
+using BlazorComponent;
 
 namespace Dotnet9.Blazor.Pages.Public;
 
@@ -18,6 +19,23 @@ public partial class CategorySidebar
     private List<Item> _items = new();
 
     private Item _selectedItem;
+
+    private StringNumber _selected = -1;
+
+    private StringNumber Selected
+    {
+        get => _selected;
+        set
+        {
+            if (value.Value == null || !int.TryParse(value.Value.ToString(), out var index) || index < 0)
+            {
+                return;
+            }
+
+            _selected = value;
+            SelectedItem = _items[index];
+        }
+    }
 
     public CategorySidebar()
     {

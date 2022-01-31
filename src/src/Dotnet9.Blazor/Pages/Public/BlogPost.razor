@@ -32,6 +32,15 @@
                     <a href="/">最热</a>
                     】
                 </span>
+                <MChipGroup ActiveClass="primary--text"
+                            Column>
+                    @foreach (var tag in _tags)
+                    {
+                        <MChip>
+                            @tag
+                        </MChip>
+                    }
+                </MChipGroup>
             </p>
             <div id="dotnet9">
                 @(new MarkupString(_markdownHtml))
@@ -150,6 +159,15 @@
     public string Slug { get; set; }
 
     [CanBeNull] private BlogPostDto _blogPostDto;
+
+    private string[] _tags = new string[]
+    {
+        "Blazor",
+        "ASP.NET Core",
+        "WPF",
+        "MAUI"
+    };
+
     private string _markdownHtml;
 
     protected override async Task OnInitializedAsync()

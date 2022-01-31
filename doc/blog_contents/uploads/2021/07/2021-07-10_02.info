@@ -2,7 +2,7 @@
     "Title":"如何在 C# 9 中使用record类型？",
     "Slug":"how-to-use-record-type-in-csharp-9",
     "Cover":"https://img1.dotnet9.com/2021/07/cover_03.jpg",
-    "Categories":["C#"],
+    "Categories":[".NET"],
     "Tags": ["C#", "Record"],
     "CopyrightType": "Default",
     "CreateDate": "2021-07-10 22:27:47"

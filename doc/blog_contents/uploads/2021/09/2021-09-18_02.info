@@ -3,7 +3,7 @@
     "Slug":"dotnet-5-modification-of-configuration-will-take-effect-automatically-without-restart",
     "Cover":"https://img1.dotnet9.com/2021/09/cover_03.png",
     "BriefDescription":".NET Core，.NET5默认配置都是只加载一次，修改配置时都需要重启才能生效，如何能修改即时生效呢？",
-    "Categories":[".NET 5"],
+    "Categories":[".NET"],
     "Tags": [".NET 5"],
     "CopyrightType": "Reprint",
     "Original": "包子wxl",

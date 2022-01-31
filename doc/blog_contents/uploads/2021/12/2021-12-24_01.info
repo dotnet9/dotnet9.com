@@ -2,7 +2,7 @@
     "Title":"C# 脚本",
     "Slug":"csharp-script",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_38.png",
-    "Categories":["C#"],
+    "Categories":[".NET"],
     "Tags": ["C#", "脚本"],
     "CopyrightType": "Reprint",
     "Original": "寻找无名的特质",

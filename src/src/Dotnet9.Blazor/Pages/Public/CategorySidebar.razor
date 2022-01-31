@@ -1,17 +1,29 @@
 ﻿@using Dotnet9.Categories
-@inherits OwningComponentBase
 
-<Card>
-    <CardHeader>Category</CardHeader>
-    <CardBody>
-        <TreeView Nodes="_items"
-                  GetChildNodes="@(item => item.Children)"
-                  HasChildNodes="@(item => item.Children?.Any() == true)"
-                  @bind-SelectedNode="@SelectedItem"
-                  @bind-ExpandedNodes="_expandedNodes">
-            <NodeContent>
-                @context.Text<span>(</span>@context.Count<span>)</span>
-            </NodeContent>
-        </TreeView>
-    </CardBody>
-</Card>
+<MList Dense Nav>
+    <MListItem>
+        <MListItemContent>
+            <MListItemTitle Class="text-h6">
+                Dotnet9
+            </MListItemTitle>
+            <MListItemSubtitle>
+                业精于勤而荒于嬉
+            </MListItemSubtitle>
+        </MListItemContent>
+    </MListItem>
+
+    <MDivider Class="m-0 p-0"/>
+
+    <MListItemGroup @bind-Value="Selected">
+        @foreach (var item in _items)
+        {
+            <MListItem @key="@item" Link>
+                <MListItemContent>
+                    <MListItemTitle>
+                        @item.Text<span>(</span>@item.Count<span>)</span>
+                    </MListItemTitle>
+                </MListItemContent>
+            </MListItem>
+        }
+    </MListItemGroup>
+</MList>

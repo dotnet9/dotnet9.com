@@ -1,42 +1,21 @@
 ﻿@page "/"
 @using Dotnet9.Blazor.Pages.Public
-@inherits Dotnet9ComponentBase
 
 <MApp>
     <MAppBar ElevateOnScroll Color="white" App>
         <MAppBarNavIcon @onclick="() => _drawer = !_drawer"></MAppBarNavIcon>
         <PublicHeader/>
     </MAppBar>
-    <MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex">
+    <MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex m-0 p-0">
         <MSpacer></MSpacer>
         <MIcon>mdi-message</MIcon>
         <span style="color: white;">网站开发中，联系方式如下</span>
     </MSystemBar>
     <MNavigationDrawer @bind-Value="_drawer" App>
-        <MListItem>
-            <MListItemContent>
-                <MListItemTitle class="text-h6">
-                    Dotnet9
-                </MListItemTitle>
-                <MListItemSubtitle>
-                    业精于勤而荒于嬉
-                </MListItemSubtitle>
-            </MListItemContent>
-        </MListItem>
-
-        <MDivider/>
-
-        <MList Dense Nav>
-            <MListItem Link>
-                <MListItemContent>
-                    <MListItemTitle>Test</MListItemTitle>
-                </MListItemContent>
-            </MListItem>
-        </MList>
         <CategorySidebar/>
     </MNavigationDrawer>
 
-    <MMain>
+    <MMain Class="mt-2 pt-2">
         <BlogPostList/>
     </MMain>
     <MFooter Padless App>

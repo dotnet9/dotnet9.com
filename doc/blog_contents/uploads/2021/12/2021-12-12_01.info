@@ -3,7 +3,7 @@
     "Slug":"five-new-features-of-csharp-10-you-must-know",
     "Cover":"https://img1.dotnet9.com/2021/12/cover_11.png",
     "BriefDescription":"C# 的 GitHub 页面上记载了一长串诱人的想法，其中一些令人头疼的问题仍在讨论中。",
-    "Categories":["C#"],
+    "Categories":[".NET"],
     "Tags": ["C# 10"],
     "CopyrightType": "Reprint",
     "Original": "Matthew MacDonald",

@@ -3,7 +3,7 @@
     "Slug":"refinement-summary-of-csharp-syntax-features",
     "Cover":"https://img1.dotnet9.com/2021/11/cover_06.jpg",
     "BriefDescription":"C# 10已与.NET 6、VS2022一起发布，本文按照.NET的发布顺序，根据微软官方文档整理C#中一些有趣的语法特性。",
-    "Categories":["C#"],
+    "Categories":[".NET"],
     "Tags": ["C#"],
     "CopyrightType": "Reprint",
     "Original": "louzixl",
