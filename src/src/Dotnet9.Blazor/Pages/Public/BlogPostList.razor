@@ -17,9 +17,8 @@
                 @foreach (var blogPostDto in BlogPostListItems)
                 {
                     <MCol Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
-
                         <MCard Class="m-0 p-0" Outlined>
-                            <MImage Class="align-end hvr-float-shadow" src="@blogPostDto.CoverImageUrl">
+                            <MImage Class="align-end hvr-float-shadow" Src="@blogPostDto.CoverImageUrl" AspectRatio="@("16/9")">
                                 <MToolbarTitle Class="ml-0 mt-1 mb-1 pt-0 pb-0 pl-2 text-h6 white--text bg-black bg-opacity-25">
                                     <a style="text-decoration: none; color: #fff;" href="/@blogPostDto.Slug">WPF</a>
                                 </MToolbarTitle>
