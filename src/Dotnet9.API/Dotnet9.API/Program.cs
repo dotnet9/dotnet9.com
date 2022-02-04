@@ -1,4 +1,7 @@
+using System.Text;
 using Dotnet9.Common.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -19,7 +22,7 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<SecurityRequirementsOperationFilter>();
     c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
     {
-        Description = "JWT授权（数据将在请求头中进行传输）直接在下框中输入Bear-er{toekn}{注意两者之间是一个空格}",
+        Description = "JWT授权（数据将在请求头中进行传输）直接在下框中输入Bearer {token}{注意两者之间是一个空格}",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey
@@ -43,6 +46,31 @@ builder.Services.AddSwaggerGen(c =>
 
     var xmlModelsPath = Path.Combine(basePath, "Dotnet9.Models.xml");
     c.IncludeXmlComments(xmlModelsPath, true);
+});
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    var audienceConfig = builder.Configuration["Audience:Audience"];
+    var symmetricKeyAsBase64 = builder.Configuration["Audience:Secret"];
+    var iss = builder.Configuration["Audience:Issuer"];
+    var keyByteArray = Encoding.ASCII.GetBytes(symmetricKeyAsBase64!);
+    var signingKey = new SymmetricSecurityKey(keyByteArray);
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = signingKey,
+        ValidateIssuer = true,
+        ValidIssuer = iss,
+        ValidateAudience = true,
+        ValidAudience = audienceConfig,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        RequireExpirationTime = true
+    };
 });
 
 // [Authorize(Policy = "Admin")]
@@ -71,6 +99,8 @@ app.UseSwaggerUI(c =>
 
 #endregion
 
+app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
