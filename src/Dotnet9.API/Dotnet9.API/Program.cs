@@ -1,3 +1,4 @@
+using Dotnet9.Common.Helpers;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 
 #region Swagger
 

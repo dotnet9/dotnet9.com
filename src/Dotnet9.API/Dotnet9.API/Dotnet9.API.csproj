@@ -20,4 +20,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.Common\Dotnet9.Common.csproj" />
+    <ProjectReference Include="..\Dotnet9.IRepositories\Dotnet9.IRepositories.csproj" />
+    <ProjectReference Include="..\Dotnet9.IServices\Dotnet9.IServices.csproj" />
+  </ItemGroup>
+
 </Project>
