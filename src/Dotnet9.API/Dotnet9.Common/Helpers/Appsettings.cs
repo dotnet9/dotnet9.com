@@ -5,9 +5,6 @@ namespace Dotnet9.Common.Helpers;
 
 public class Appsettings
 {
-    static IConfiguration Configuration { get; set; }
-    private static string? contentPath { get; set; }
-
     public Appsettings(string contentPath)
     {
         var path = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
@@ -28,14 +25,14 @@ public class Appsettings
         Configuration = configuration;
     }
 
+    private static IConfiguration Configuration { get; set; }
+    private static string? contentPath { get; set; }
+
     public static string App(params string[] sections)
     {
         try
         {
-            if (sections.Any())
-            {
-                return Configuration[string.Join(":", sections)];
-            }
+            if (sections.Any()) return Configuration[string.Join(":", sections)];
         }
         catch (Exception)
         {

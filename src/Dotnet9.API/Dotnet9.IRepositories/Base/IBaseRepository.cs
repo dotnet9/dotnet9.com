@@ -24,8 +24,6 @@ public interface IBaseRepository<TEntity> where TEntity : class
 
     Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-
     Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default);
 
     Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate,

@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.15" />
+	</ItemGroup>
+
+	<ItemGroup>
 		    <ProjectReference Include="..\Dotnet9.EntityFramework\Dotnet9.EntityFramework.csproj" />
 <ProjectReference Include="..\Dotnet9.IRepositories\Dotnet9.IRepositories.csproj" />
 	</ItemGroup>

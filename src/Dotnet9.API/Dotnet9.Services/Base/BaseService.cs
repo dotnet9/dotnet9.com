@@ -1,6 +1,6 @@
-﻿using Dotnet9.IRepositories.Base;
+﻿using System.Linq.Expressions;
+using Dotnet9.IRepositories.Base;
 using Dotnet9.IServices.Base;
-using System.Linq.Expressions;
 
 namespace Dotnet9.Services.Base;
 
@@ -58,12 +58,6 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
         CancellationToken cancellationToken = default)
     {
         return await _repository.FindAsync(predicate, cancellationToken);
-    }
-
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
-        CancellationToken cancellationToken = default)
-    {
-        return await _repository.GetAsync(predicate, cancellationToken);
     }
 
     public async Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default)

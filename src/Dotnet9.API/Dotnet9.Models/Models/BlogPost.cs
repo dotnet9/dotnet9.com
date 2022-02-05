@@ -30,22 +30,24 @@ public class BlogPost
 
     public int CommentNum { get; set; }
 
-    public string? Creator { get; set; }
-
-    public DateTime CreateTime { get; set; }
-
-    public string? UpdateUser { get; set; }
-
-    public DateTime UpdateTime { get; set; }
-
     public string? Remark { get; set; }
 
     public bool? IsDeleted { get; set; }
-}
 
-public enum CopyrightType
-{
-    Default,
-    Contribution,
-    Reprint
+    public virtual ICollection<UserInfoBlogPost> UserInfoBlogPosts { get; set; } = new List<UserInfoBlogPost>();
+
+
+    public virtual ICollection<BlogPostComment> BlogPostComments { get; set; } = new List<BlogPostComment>();
+
+    public int CreateUserId { get; set; }
+
+    public virtual UserInfo? CreateUser { get; set; }
+
+    public DateTime CreateTime { get; set; }
+
+    public int UpdateUserId { get; set; }
+
+    public virtual UserInfo? UpdateUser { get; set; }
+
+    public DateTime UpdateTime { get; set; }
 }

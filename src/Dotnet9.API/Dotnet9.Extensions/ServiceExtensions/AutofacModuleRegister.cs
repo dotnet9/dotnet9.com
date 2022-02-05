@@ -1,25 +1,24 @@
-﻿using Autofac;
-using System.Reflection;
+﻿using System.Reflection;
+using Autofac;
+using Dotnet9.IRepositories.Base;
+using Dotnet9.IServices.Base;
+using Dotnet9.Repositories.Base;
+using Dotnet9.Services.Base;
+using Module = Autofac.Module;
 
 namespace Dotnet9.Extensions.ServiceExtensions;
 
-public class AutofacModuleRegister : Autofac.Module
+public class AutofacModuleRegister : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        var basePath = AppContext.BaseDirectory;
-        var servicesDllFile = Path.Combine(basePath, "Dotnet9.Services.dll");
-        var repositoryDllFile = Path.Combine(basePath, "Dotnet9.Repositories.dll");
-        if (!(File.Exists(servicesDllFile) && File.Exists(repositoryDllFile)))
-        {
-            throw new Exception("Repositories.dd 和 Services.dll丢失。");
-        }
+        builder.RegisterGeneric(typeof(BaseRepository<>)).As(typeof(IBaseRepository<>)).InstancePerDependency();
+        builder.RegisterGeneric(typeof(BaseService<>)).As(typeof(IBaseService<>)).InstancePerDependency();
 
-
-        var assemblyServices = Assembly.LoadFrom(servicesDllFile);
+        var assemblyServices = Assembly.Load("Dotnet9.Services");
         builder.RegisterAssemblyTypes(assemblyServices).AsImplementedInterfaces();
 
-        var assemblyRepository = Assembly.LoadFrom(repositoryDllFile);
+        var assemblyRepository = Assembly.Load("Dotnet9.Repositories");
         builder.RegisterAssemblyTypes(assemblyRepository).AsImplementedInterfaces();
     }
 }

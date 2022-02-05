@@ -1,3 +1,4 @@
+using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Dotnet9.Common.Helpers;
@@ -8,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
@@ -17,14 +17,18 @@ builder.Host.ConfigureContainer<ContainerBuilder>(b => { b.RegisterModule(new Au
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 
 builder.Services.AddDbContext<Dotnet9Context>(option =>
 {
-    option.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection")!, new MySqlServerVersion("8.0"))
+    option.UseLazyLoadingProxies()
+        .UseMySql(builder.Configuration.GetConnectionString("DefaultConnection")!,
+            MySqlServerVersion.LatestSupportedServerVersion,
+            oo => oo.MigrationsAssembly("Dotnet9.EntityFramework"))
         .LogTo(Console.WriteLine, LogLevel.Information);
 });
 
+builder.Services.AddSingleton(new Appsettings(builder.Configuration));
+builder.Services.AddAutoMapperSetup();
 
 #region Swagger
 

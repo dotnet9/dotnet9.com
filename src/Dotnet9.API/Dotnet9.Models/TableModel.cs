@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Models.Models;
+﻿namespace Dotnet9.Models;
 
 public class TableModel<T>
 {

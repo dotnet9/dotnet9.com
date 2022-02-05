@@ -1,8 +1,8 @@
-﻿using Dotnet9.IRepositories.Base;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Dynamic.Core;
+﻿using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using Dotnet9.EntityFramework;
+using Dotnet9.IRepositories.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.Repositories.Base;
 
@@ -15,20 +15,12 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         _context = context;
     }
 
-    protected Dotnet9Context DbContext()
-    {
-        return _context;
-    }
-
     public async Task<TEntity> InsertAsync(TEntity entity, bool autoSave = false,
         CancellationToken cancellationToken = default)
     {
         var savedEntity = (await _context.Set<TEntity>().AddAsync(entity, cancellationToken)).Entity;
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
 
         return savedEntity;
     }
@@ -40,10 +32,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
         await _context.Set<TEntity>().AddRangeAsync(entityArray, cancellationToken);
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<TEntity> UpdateAsync(TEntity entity, bool autoSave = false,
@@ -53,10 +42,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
         var updateEntity = _context.Update(entity).Entity;
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
 
         return updateEntity;
     }
@@ -66,20 +52,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     {
         _context.Set<TEntity>().UpdateRange(entities);
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteAsync(TEntity entity, bool autoSave = false, CancellationToken cancellationToken = default)
     {
         _context.Set<TEntity>().Remove(entity);
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteAsync(Expression<Func<TEntity, bool>> predicate, bool autoSave = false,
@@ -93,10 +73,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
 
         await DeleteManyAsync(entities, autoSave, cancellationToken);
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task DeleteManyAsync(IEnumerable<TEntity> entities, bool autoSave = false,
@@ -104,28 +81,13 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     {
         _context.RemoveRange(entities);
 
-        if (autoSave)
-        {
-            await _context.SaveChangesAsync(cancellationToken);
-        }
+        if (autoSave) await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
         return await _context.Set<TEntity>().Where(predicate).SingleOrDefaultAsync(cancellationToken);
-    }
-
-    public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate,
-        CancellationToken cancellationToken = default)
-    {
-        var entity = await FindAsync(predicate, cancellationToken);
-        if (entity == null)
-        {
-            throw new Exception($"{nameof(TEntity)}：数据不存在");
-        }
-
-        return entity;
     }
 
     public async Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default)
@@ -155,5 +117,10 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         CancellationToken cancellationToken)
     {
         return await _context.Set<TEntity>().Where(predicate).LongCountAsync(cancellationToken);
+    }
+
+    protected Dotnet9Context DbContext()
+    {
+        return _context;
     }
 }

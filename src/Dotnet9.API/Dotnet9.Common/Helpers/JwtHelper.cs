@@ -1,6 +1,7 @@
-﻿using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Dotnet9.Common.Helpers;
@@ -9,9 +10,9 @@ public class JwtHelper
 {
     public static string IssueJwt(TokenModelJwt tokenModel)
     {
-        var iss = Appsettings.App(new string[] {"Audience", "Issuer"});
-        var aud = Appsettings.App(new string[] {"Audience", "Audience"});
-        var secret = Appsettings.App(new string[] {"Audience", "Secret"});
+        var iss = Appsettings.App("Audience", "Issuer");
+        var aud = Appsettings.App("Audience", "Audience");
+        var secret = Appsettings.App("Audience", "Secret");
 
         var claims = new List<Claim>
         {
@@ -30,7 +31,7 @@ public class JwtHelper
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var jwt = new JwtSecurityToken(
-            issuer: iss,
+            iss,
             claims: claims,
             signingCredentials: creds);
 
@@ -45,20 +46,33 @@ public class JwtHelper
         var jwtHandler = new JwtSecurityTokenHandler();
         var tokenModelJwt = new TokenModelJwt();
 
-        if (!string.IsNullOrWhiteSpace(jwtStr) && jwtHandler.CanReadToken(jwtStr))
+        if (string.IsNullOrWhiteSpace(jwtStr) || !jwtHandler.CanReadToken(jwtStr)) return tokenModelJwt;
+
+        var jwtToken = jwtHandler.ReadJwtToken(jwtStr);
+
+        jwtToken.Payload.TryGetValue(ClaimTypes.Role, out var role);
+
+        tokenModelJwt = new TokenModelJwt
         {
-            var jwtToken = jwtHandler.ReadJwtToken(jwtStr);
-
-            jwtToken.Payload.TryGetValue(ClaimTypes.Role, out var role);
-
-            tokenModelJwt = new TokenModelJwt
-            {
-                Uid = Convert.ToInt64(jwtToken.Id),
-                Role = (role == null ? "" : role.ToString())
-            };
-        }
+            Uid = Convert.ToInt64(jwtToken.Id),
+            Role = role == null ? "" : role.ToString()
+        };
 
         return tokenModelJwt;
+    }
+
+    public static TokenModelJwt ParsingJwtToken(HttpContext httpContext)
+    {
+        const string authorizationKey = "Authorization";
+        if (!httpContext.Request.Headers.ContainsKey(authorizationKey))
+        {
+            return null;
+        }
+
+        var tokenHeader = httpContext.Request.Headers[authorizationKey].ToString().Replace("Bearer ", "");
+        var tm = SerializeJwt(tokenHeader);
+
+        return tm;
     }
 }
 

@@ -24,8 +24,6 @@ public interface IBaseService<TEntity> where TEntity : class
 
     Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 
-    Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-
     Task<List<TEntity>> GetListAsync(CancellationToken cancellationToken = default);
 
     Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate,
@@ -36,5 +34,5 @@ public interface IBaseService<TEntity> where TEntity : class
 
     Task<long> GetCountAsync(CancellationToken cancellationToken = default);
 
-    Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    Task<long> GetCountAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
 }
