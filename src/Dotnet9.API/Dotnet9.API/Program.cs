@@ -28,6 +28,7 @@ builder.Services.AddDbContext<Dotnet9Context>(option =>
 });
 
 builder.Services.AddSingleton(new Appsettings(builder.Configuration));
+builder.Services.AddMemoryCacheSetup();
 builder.Services.AddAutoMapperSetup();
 
 #region Swagger
