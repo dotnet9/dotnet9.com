@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+	  <AppendTargetFrameworkToOutputPath>Flase</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dotnet9.IRepositories\Dotnet9.IRepositories.csproj" />
+    <ProjectReference Include="..\Dotnet9.Models\Dotnet9.Models.csproj" />
   </ItemGroup>
 
 </Project>

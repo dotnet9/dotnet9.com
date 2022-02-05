@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+	  <AppendTargetFrameworkToOutputPath>Flase</AppendTargetFrameworkToOutputPath>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -18,14 +19,17 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Dotnet9.Common\Dotnet9.Common.csproj" />
-    <ProjectReference Include="..\Dotnet9.IRepositories\Dotnet9.IRepositories.csproj" />
-    <ProjectReference Include="..\Dotnet9.IServices\Dotnet9.IServices.csproj" />
+    <ProjectReference Include="..\Dotnet9.Extensions\Dotnet9.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

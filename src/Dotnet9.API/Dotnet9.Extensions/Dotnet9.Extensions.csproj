@@ -1,14 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
 	  <AppendTargetFrameworkToOutputPath>Flase</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <BaseOutputPath>..\Dotnet9.API\bin\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.Common\Dotnet9.Common.csproj" />
+    <ProjectReference Include="..\Dotnet9.EntityFramework\Dotnet9.EntityFramework.csproj" />
     <ProjectReference Include="..\Dotnet9.IRepositories\Dotnet9.IRepositories.csproj" />
     <ProjectReference Include="..\Dotnet9.IServices\Dotnet9.IServices.csproj" />
   </ItemGroup>

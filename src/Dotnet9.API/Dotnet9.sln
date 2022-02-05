@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32127.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.IRepositories", "Dotnet9.IRepositories\Dotnet9.IRepositories.csproj", "{EB3E477B-D715-4101-B931-8B1A40E17E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.IRepositories", "Dotnet9.IRepositories\Dotnet9.IRepositories.csproj", "{EB3E477B-D715-4101-B931-8B1A40E17E92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Repositories", "Dotnet9.Repositories\Dotnet9.Repositories.csproj", "{85E48120-412F-4C8A-AD32-DA58F9C165DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Repositories", "Dotnet9.Repositories\Dotnet9.Repositories.csproj", "{85E48120-412F-4C8A-AD32-DA58F9C165DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.IServices", "Dotnet9.IServices\Dotnet9.IServices.csproj", "{6FFD65B4-F937-42FB-852E-316724982EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.IServices", "Dotnet9.IServices\Dotnet9.IServices.csproj", "{6FFD65B4-F937-42FB-852E-316724982EEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Services", "Dotnet9.Services\Dotnet9.Services.csproj", "{7EF72758-E396-44B1-BFAC-FD5FD241179A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Services", "Dotnet9.Services\Dotnet9.Services.csproj", "{7EF72758-E396-44B1-BFAC-FD5FD241179A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.API", "Dotnet9.API\Dotnet9.API.csproj", "{360CF15B-419B-4A0C-B449-178C1EDB187D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.API", "Dotnet9.API\Dotnet9.API.csproj", "{360CF15B-419B-4A0C-B449-178C1EDB187D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Models", "Dotnet9.Models\Dotnet9.Models.csproj", "{DD2CB6B0-7311-4F35-A490-21AE9B52BA47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Models", "Dotnet9.Models\Dotnet9.Models.csproj", "{DD2CB6B0-7311-4F35-A490-21AE9B52BA47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Common", "Dotnet9.Common\Dotnet9.Common.csproj", "{5E131AFA-51D7-4221-B09B-557D781DF89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Common", "Dotnet9.Common\Dotnet9.Common.csproj", "{5E131AFA-51D7-4221-B09B-557D781DF89E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Extensions", "Dotnet9.Extensions\Dotnet9.Extensions.csproj", "{FE68178A-4852-48D5-B12C-DA8CD7412030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.EntityFramework", "Dotnet9.EntityFramework\Dotnet9.EntityFramework.csproj", "{B6B2345C-6AA7-43AD-A134-0671B20E4BE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{5E131AFA-51D7-4221-B09B-557D781DF89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E131AFA-51D7-4221-B09B-557D781DF89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E131AFA-51D7-4221-B09B-557D781DF89E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE68178A-4852-48D5-B12C-DA8CD7412030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE68178A-4852-48D5-B12C-DA8CD7412030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE68178A-4852-48D5-B12C-DA8CD7412030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE68178A-4852-48D5-B12C-DA8CD7412030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B2345C-6AA7-43AD-A134-0671B20E4BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B2345C-6AA7-43AD-A134-0671B20E4BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B2345C-6AA7-43AD-A134-0671B20E4BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B2345C-6AA7-43AD-A134-0671B20E4BE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

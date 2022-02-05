@@ -24,7 +24,7 @@ public class JwtHelper
             new(JwtRegisteredClaimNames.Aud, aud)
         };
 
-        claims.AddRange(tokenModel.Role.Split(',').Select(s => new Claim(ClaimTypes.Role, s)));
+        claims.AddRange(tokenModel.Role!.Split(',').Select(s => new Claim(ClaimTypes.Role, s)));
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -68,5 +68,5 @@ public class TokenModelJwt
 
     public string? Role { get; set; }
 
-    public string Work { get; set; }
+    public string? Work { get; set; }
 }

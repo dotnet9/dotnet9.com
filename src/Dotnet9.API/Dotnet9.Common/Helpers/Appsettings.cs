@@ -6,7 +6,7 @@ namespace Dotnet9.Common.Helpers;
 public class Appsettings
 {
     static IConfiguration Configuration { get; set; }
-    private static string contentPath { get; set; }
+    private static string? contentPath { get; set; }
 
     public Appsettings(string contentPath)
     {

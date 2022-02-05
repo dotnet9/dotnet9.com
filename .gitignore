@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 *.jwk
 src/src/Dotnet9.EntityFrameworkCore/Migrations/
-src/appsettings.Production.json
+src/Dotnet9.API/Dotnet9.API/appsettings.Production.json

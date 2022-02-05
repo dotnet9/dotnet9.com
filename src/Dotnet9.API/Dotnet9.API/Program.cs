@@ -1,33 +1,35 @@
-using System.Text;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Dotnet9.Common.Helpers;
+using Dotnet9.EntityFramework;
+using Dotnet9.Extensions.ServiceExtensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(b => { b.RegisterModule(new AutofacModuleRegister()); });
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddSingleton(new Appsettings(builder.Configuration));
 
+builder.Services.AddDbContext<Dotnet9Context>(option =>
+{
+    option.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection")!, new MySqlServerVersion("8.0"))
+        .LogTo(Console.WriteLine, LogLevel.Information);
+});
+
+
 #region Swagger
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.OperationFilter<AddResponseHeadersFilter>();
-    c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
-
-    c.OperationFilter<SecurityRequirementsOperationFilter>();
-    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        Description = "JWT授权（数据将在请求头中进行传输）直接在下框中输入Bearer {token}{注意两者之间是一个空格}",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey
-    });
-
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v0.1.0",
@@ -46,6 +48,18 @@ builder.Services.AddSwaggerGen(c =>
 
     var xmlModelsPath = Path.Combine(basePath, "Dotnet9.Models.xml");
     c.IncludeXmlComments(xmlModelsPath, true);
+
+    c.OperationFilter<AddResponseHeadersFilter>();
+    c.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
+
+    c.OperationFilter<SecurityRequirementsOperationFilter>();
+    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "JWT授权（数据将在请求头中进行传输）直接在下框中输入Bearer {token}{注意两者之间是一个空格}",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey
+    });
 });
 
 builder.Services.AddAuthentication(x =>
