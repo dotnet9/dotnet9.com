@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="56px" height="56px" viewBox="0 0 56 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>发表文章</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="61.280938%" y1="4.01682673%" x2="38.3700034%" y2="100.420668%" id="linearGradient-1">
+            <stop stop-color="#2788FF" offset="0%"></stop>
+            <stop stop-color="#1AE2A4" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0329911%" y1="4.01682673%" x2="49.9659881%" y2="100.420668%" id="linearGradient-2">
+            <stop stop-color="#2788FF" offset="0%"></stop>
+            <stop stop-color="#1AE2A4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="极光社区设计" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页已登录" transform="translate(-1247.000000, -507.000000)">
+            <g id="操作" transform="translate(1175.000000, 472.000000)">
+                <g id="编组-11">
+                    <g id="编组-24" transform="translate(72.000000, 35.000000)">
+                        <g id="编组-10" transform="translate(28.500000, 27.500000) rotate(-360.000000) translate(-28.500000, -27.500000) translate(1.000000, 1.000000)">
+                            <path d="M3,5 L3,50 L43,49.999 L43,53 L0,53 L0,5 L3,5 Z" id="形状结合" fill="url(#linearGradient-1)"></path>
+                            <path d="M2,-2.27373675e-13 L38.1870832,-2.27373675e-13 L47,7.82677528 L47,51 L2,51 L2,-2.27373675e-13 Z M4,2 L4,49 L45,49 L45,8.7254354 L37.4271874,2 L4,2 Z" id="矩形备份" fill="#00223B" fill-rule="nonzero"></path>
+                            <path d="M24,41 L24,43 L8,43 L8,41 L24,41 Z M18,35 L18,37 L8,37 L8,35 L18,35 Z M28,29 L28,31 L8,31 L8,29 L28,29 Z M23,23 L23,25 L8,25 L8,23 L23,23 Z M33,17 L33,19 L8,19 L8,17 L33,17 Z M18,8 L18,10 L8,10 L8,8 L18,8 Z M37,-6.82121026e-13 L38.1870832,-6.82121026e-13 L47,7.82677528 L47,10 L37,10 L37,-6.82121026e-13 Z" id="矩形" fill="#00223B" fill-rule="nonzero"></path>
+                            <g id="编组-9" transform="translate(39.000000, 23.000000) rotate(-327.000000) translate(-39.000000, -23.000000) translate(36.000000, -1.000000)">
+                                <path d="M1,0 L5,0 C5.55228475,0 6,0.44771525 6,1 L6,41.5929132 L3.0130265,48 L-1.09174891e-11,41.5929132 L-1.09174891e-11,1 C-1.09174891e-11,0.44771525 0.44771525,0 1,0 Z M2,2 L2,41.1461178 L3.00516161,43.2835559 L4,41.1496181 L4,2 L2,2 Z" id="矩形" fill="#00223B" fill-rule="nonzero"></path>
+                                <polygon id="路径备份-3" fill="url(#linearGradient-2)" fill-rule="nonzero" points="2 2 2 41.1461178 3.00516161 43.2835559 4 41.1496181 4 2"></polygon>
+                                <rect id="矩形" fill="#00223B" x="2" y="4" width="2" height="2"></rect>
+                                <rect id="矩形备份-8" fill="#00223B" x="2" y="10" width="2" height="2"></rect>
+                                <polygon id="矩形备份-9" fill="#00223B" points="1.99176905 39.1450628 4.06057597 39.1515702 4.06057597 41.1515702 1.99176905 41.1450628"></polygon>
+                                <rect id="矩形" fill="#FFFFFF" x="2" y="6" width="2" height="4"></rect>
+                                <rect id="矩形备份-10" fill="#00223B" x="3" y="7" width="1" height="2"></rect>
+                            </g>
+                            <polygon id="路径-3" fill="#2699E6" points="38.7016797 2.78114141 38.7016797 8.44856881 45 8.44856881"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
