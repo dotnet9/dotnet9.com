@@ -52,6 +52,14 @@ public class HomeController : ControllerBase
             item.UpdateUserPortrait = updateUser.HeadPortrait;
         }
 
+        if (response.Count <= 0)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                response.Add(new BlogPostDto { Title = $"test{i}" });
+            }
+        }
+
         return MessageModel<List<BlogPostDto>>.Success("获取成功", response);
     }
 
