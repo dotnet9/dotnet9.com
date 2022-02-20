@@ -1,0 +1,11 @@
+{
+    "Title":"Dapper in .NET Core",
+    "Slug":"Dapper-in-dotNET-Core",
+    "Cover":"https://img1.dotnet9.com/2022/01/cover_08.jpg",
+    "Categories":["ORM"],
+    "Tags": ["C#", ".NET", "Dapper","ORM"],
+    "CopyrightType": "Reprint",
+    "Original": "白云任去留",
+    "OriginalLink": "cnblogs.com/ang/p/13620452.html",
+    "CreateDate": "2022-01-10 22:12:04"
+}
