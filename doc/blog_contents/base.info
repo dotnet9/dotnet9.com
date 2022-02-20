@@ -1,6 +1,7 @@
 {
     "Albums": [
         {"Name": "开源C#", "Cover": "https://img1.dotnet9.com/album_csharp.jpg"},
+        {"Name": "开源Blazor", "Cover": "https://img1.dotnet9.com/album_blazor.png"},
         {"Name": "大家一起学Blazor", "Cover": "https://img1.dotnet9.com/album_blazor1.png"},
         {"Name": "开源MAUI", "Cover": "https://img1.dotnet9.com/album_maui.png"},
         {"Name": "开源WPF", "Cover": "https://img1.dotnet9.com/album_wpf.png"},
