@@ -1,4 +1,14 @@
+using System.Globalization;
+using BlazorComponent.I18n;
+using Dotnet9.Tools.Utils;
+using CookieMiddleware = Dotnet9.Tools.Middleware.CookieMiddleware;
+using CookieStorage = Dotnet9.Tools.Utils.CookieStorage;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<I18n>();
+builder.Services.AddScoped<GlobalConfigs>();
+builder.Services.AddScoped<CookieStorage>();
 builder.Services.AddMasaBlazor();
 
 // Add services to the container.
@@ -14,6 +24,19 @@ if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Error");
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseMiddleware<CookieMiddleware>();
+app.UseRequestLocalization(opts =>
+{
+    var supportedCultures = new List<CultureInfo>
+    {
+        new("zh-CN"),
+        new("en-US")
+    };
+    opts.SupportedCultures = supportedCultures;
+    opts.SupportedUICultures = supportedCultures;
+});
+I18nHelper.AddLang();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
