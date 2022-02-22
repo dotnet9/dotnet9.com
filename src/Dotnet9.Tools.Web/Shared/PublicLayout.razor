@@ -1,0 +1,54 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingValue Value="this">
+    <CascadingValue Value="@IsChinese">
+        <MApp Class="baselayout-m-app" Style="background: #F2F3F5;">
+            <MAppBar Elevation="0" Fixed Color="white" Class="pc-app-bar" App>
+                <img style="cursor: pointer; width: 48px;" class="ml-6" src="logo.png" @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;}) alt="Dotnet9"/>
+                <MAppBarTitle>@T("Dotnet9ToolsTitle")</MAppBarTitle>
+                <MTabs BackgroundColor="white" Class="mtab-font" Style="margin-left: 120px;" Color="black" SliderColor="purple darken-2" Optional @bind-Value="SelectTab">
+                    <MTab Style="text-transform: none" Href="/">@T("Home")</MTab>
+                    <MTab Style="text-transform: none" Href="/tools">@T("Tools")</MTab>
+                    <MTab Style="text-transform: none" Href="https://dotnet9.com/">@T("Blog")</MTab>
+                    <MTab Style="text-transform: none" Href="https://dotnet9.com/about">@T("About")</MTab>
+                </MTabs>
+
+                <MSpacer></MSpacer>
+
+                <MTextField TValue="string"
+                            HideDetails="true"
+                            Class="@("mx-2 mx-md-4")"
+                            Style="@($"width: 300px; opacity: 0.8; border: 1px solid {_searchBorderColor};")"
+                            @onfocus="@(() => _searchBorderColor = "#C9CDD4")"
+                            @onblur="@(() => _searchBorderColor = "#00000000")"
+                            Flat
+                            Solo
+                            Dense
+                            BackgroundColor="#F2F3F5"
+                            Color="grey lighten-1"
+                            Placeholder="@T("Search")">
+                    <PrependInnerContent>
+                        <MIcon Color="grey lighten-1">mdi-magnify</MIcon>
+                    </PrependInnerContent>
+                </MTextField>
+                <MButton Icon Href="https://github.com/dotnet9/dotnet9.com" Target="_blank">
+                    <MIcon Size="24" Color="black">fab fa-github</MIcon>
+                </MButton>
+                <MButton Icon Href="https://gitee.com/dotnet9/dotnet9.com" Target="_blank">
+                    <img style="height: 24px; width: 24px;" src="https://img1.dotnet9.com/2022/01/gitee.png" alt="Gitee">
+                </MButton>
+                <MButton Icon OnClick="TurnLanguage" Class="mr-6">
+                    <img src="@_languageIcon" alt=""/>
+                </MButton>
+            </MAppBar>
+
+            <MMain>
+                <MContainer>
+                    @Body
+                </MContainer>
+            </MMain>
+
+            <PublicFooter/>
+        </MApp>
+    </CascadingValue>
+</CascadingValue>

@@ -1,0 +1,61 @@
+﻿@page "/tools"
+@layout PublicLayout
+
+<PageTitle>Dotnet9工具箱</PageTitle>
+
+<MCard>
+
+    <MRow>
+        @foreach (var tool in _tools)
+        {
+            <MCol key="@tool.Title" Cols=@tool.Flex>
+                <MCard>
+                    <MImage Src="@tool.Src" Class="white--text align-end" Gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" Height=100>
+                        <MCardTitle>@tool.Title</MCardTitle>
+                    </MImage>
+
+                    <MCardActions>
+                        <span class="tool-desc">@tool.Description</span>
+                        <MSpacer></MSpacer>
+                        <a href="/ico">进入</a>
+                    </MCardActions>
+                </MCard>
+            </MCol>
+        }
+    </MRow>
+
+</MCard>
+
+@code {
+
+    readonly List<ToolInfo> _tools = new();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _tools.Add(
+            new ToolInfo
+            {
+                Title = "Ico图标转换",
+                Description = "jpg、png等一键转换ico",
+                Src = "https://cdn.masastack.com/stack/images/website/masa-blazor/cards/house.jpg",
+                Flex = 3
+            });
+    }
+
+    class ToolInfo
+    {
+        public string? Title { get; init; }
+        public string? Description { get; init; }
+        public string? Src { get; init; }
+        public int Flex { get; init; }
+    }
+
+}
+
+<style>
+    .tool-desc {
+        color: #999;
+        font-size: 11px;
+    }
+</style>

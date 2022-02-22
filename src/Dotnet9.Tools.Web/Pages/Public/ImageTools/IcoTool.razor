@@ -1,0 +1,141 @@
+﻿@page "/ico"
+@using BlazorComponent
+@using Dotnet9.Tools.Images
+@inject NavigationManager NavigationManager;
+@layout PublicLayout
+
+<PageTitle>Ico图标转换</PageTitle>
+
+<div>请选择需要转换的图片，比如：png，jpg,jpeg等</div>
+
+@*<MFileInput TValue="IBrowserFile"
+            Placeholder="请选择源图片"
+            Rules="_rules"
+            ShowSize
+            OnChange="@LoadFile"
+            Accept="image/png, image/jpeg, image/jpg, image/bmp"
+            Label="源图片">
+</MFileInput>*@
+<InputFile OnChange="@LoadFile"/>
+
+<MButton class="ma-2 white--text"
+         Loading="loading"
+         Disabled="loading"
+         Depressed Color="primary"
+         OnClick="ConvertToIcon">
+    <LoaderContent>
+        <span>下载转换</span>
+    </LoaderContent>
+    <ChildContent>
+        转换并下载Ico
+    </ChildContent>
+</MButton>
+
+@code {
+    private bool loading = false;
+    private string sourceFilePath = "";
+    private string imageDirName = "files";
+
+    private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new()
+    {
+        value => (value.Size < 2 * 1024 * 1024) ? true : "请选择小于2MB的图片"
+    };
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
+        {
+            File.Delete(sourceFilePath);
+        }
+        var saveImageDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", imageDirName);
+        if (!Directory.Exists(saveImageDir))
+        {
+            Directory.CreateDirectory(saveImageDir);
+        }
+        sourceFilePath = Path.Combine(saveImageDir, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff"));
+        await using var fs = new FileStream(sourceFilePath, FileMode.Create);
+        await e.File.OpenReadStream().CopyToAsync(fs);
+    }
+
+    private void ConvertToIcon()
+    {
+        loading = true;
+
+        if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
+        {
+            var destFilePath = $"{sourceFilePath}.ico";
+            if (ImagingHelper.ConvertToIcon(sourceFilePath, destFilePath))
+            {
+                NavigationManager.NavigateTo($"http://localhost:5273/{imageDirName}/{Path.GetFileName(destFilePath)}");
+            }
+            else
+            {
+            }
+        }
+
+        loading = false;
+    }
+
+}
+
+<style>
+    .custom-loader {
+        animation: loader 1s infinite;
+        display: flex;
+    }
+
+    @("@-moz-keyframes") loader {
+    
+    
+    
+    
+    
+
+    from { transform: rotate(0); }
+
+    to { transform: rotate(360deg); }
+
+    }
+
+    @("@-webkit-keyframes") loader {
+    
+    
+    
+    
+    
+    
+
+    from { transform: rotate(0); }
+
+    to { transform: rotate(360deg); }
+
+    }
+
+    @("@-o-keyframes") loader {
+    
+    
+    
+    
+    
+    
+
+    from { transform: rotate(0); }
+
+    to { transform: rotate(360deg); }
+
+    }
+
+    @("@keyframes") loader {
+    
+    
+    
+    
+    
+    
+
+    from { transform: rotate(0); }
+
+    to { transform: rotate(360deg); }
+
+    } 
+</style>

@@ -1,0 +1,30 @@
+﻿@using BlazorComponent.I18n
+@inject I18n I18N
+
+<MFooter Dark Padless Color="#5C2D91" Height="444" Class="footer">
+    <div class="foot-box">
+        <div>
+            <p>Blazor</p>
+            <p class="foot-p">&nbsp;</p>
+            <p class="foot-p">&nbsp;</p>
+        </div>
+        <div>
+            <p>Dotnet9</p>
+            <p>@T("JoinUs")</p>
+            <p class="foot-p">&nbsp;</p>
+        </div>
+        <div>
+            <p>@T("UpdateLog")</p>
+            <p>@T("CommonProblem")</p>
+            <p class="foot-p">&nbsp;</p>
+        </div>
+    </div>
+</MFooter>
+
+@code
+{
+    public string? T(string key)
+    {
+        return I18N.LanguageMap.GetValueOrDefault(key);
+    }
+}
