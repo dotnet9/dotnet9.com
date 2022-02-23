@@ -332,6 +332,16 @@ body { font-family: Roboto, 'Microsoft YaHei'; }
         padding-top: 20px !important;
     }
 
+    .foot-box a {
+        color: #fff !important;
+        display: block;
+        font-size: 12px !important;
+        line-height: 14px !important;
+        padding-bottom: 20px !important;
+        padding-top: 20px !important;
+        text-decoration: none;
+    }
+
     .foot-box .foot-p { display: none; }
 }
 

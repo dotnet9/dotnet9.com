@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Text.Json;
-using BlazorComponent.I18n;
 
 namespace Dotnet9.Tools.Web.Utils;
 

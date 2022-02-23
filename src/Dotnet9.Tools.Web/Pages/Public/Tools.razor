@@ -1,11 +1,10 @@
 ﻿@page "/tools"
-@using BlazorComponent.I18n
 @layout PublicLayout
 @inject I18n I18N
 
 <PageTitle>@T(nameof(LanguageKeys.Dotnet9ToolsTitle))</PageTitle>
 
-<MCard>
+<MCard Class="m-2 p-2">
 
     <MRow>
         @foreach (var tool in _tools)

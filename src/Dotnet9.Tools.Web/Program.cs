@@ -1,8 +1,6 @@
 using System.Globalization;
-using BlazorComponent.I18n;
 using Dotnet9.Tools.Web.Middleware;
 using Dotnet9.Tools.Web.Utils;
-using CookieStorage = Dotnet9.Tools.Web.Utils.CookieStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 

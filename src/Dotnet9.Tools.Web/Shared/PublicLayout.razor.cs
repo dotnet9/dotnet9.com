@@ -1,6 +1,4 @@
 ﻿using System.Globalization;
-using BlazorComponent;
-using BlazorComponent.I18n;
 using Dotnet9.Tools.Web.Utils;
 using Microsoft.AspNetCore.Components;
 

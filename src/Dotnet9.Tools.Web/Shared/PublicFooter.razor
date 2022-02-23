@@ -1,16 +1,19 @@
-﻿@using BlazorComponent.I18n
-@inject I18n I18N
+﻿@inject I18n I18N
 
-<MFooter Dark Padless Color="#5C2D91" Height="444" Class="footer">
+<MFooter Dark Padless Color="#5C2D91" Height="333" Class="footer">
     <div class="foot-box">
         <div>
-            <p>Blazor</p>
-            <p class="foot-p">&nbsp;</p>
+            <p>感谢</p>
+            <p class="foot-p">
+                <a href="https://masa-blazor-docs-dev.lonsid.cn/" target="_blank">Masa Blazor</a>
+            </p>
             <p class="foot-p">&nbsp;</p>
         </div>
         <div>
-            <p>Dotnet9</p>
-            <p>@T(nameof(LanguageKeys.JoinUs))</p>
+            <p>友链</p>
+            <p>
+                <a href="https://dotnet9.com" target="_blank">Dotnet9</a>
+            </p>
             <p class="foot-p">&nbsp;</p>
         </div>
         <div>
@@ -28,3 +31,8 @@
         return I18N.LanguageMap.GetValueOrDefault(key);
     }
 }
+
+<style>
+
+    
+</style>

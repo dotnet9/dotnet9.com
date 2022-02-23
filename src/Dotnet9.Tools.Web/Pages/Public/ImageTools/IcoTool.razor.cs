@@ -1,6 +1,4 @@
-﻿using BlazorComponent;
-using BlazorComponent.I18n;
-using Dotnet9.Tools.Images;
+﻿using Dotnet9.Tools.Images;
 using Dotnet9.Tools.Web.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -17,12 +15,19 @@ public partial class IcoTool
     [Inject] public I18n I18N { get; set; } = default!;
     [Inject] public IJSRuntime Js { get; set; } = default!;
 
-    private async Task LoadFile(IBrowserFile e)
+    private async Task LoadFile(IBrowserFile? e)
     {
+        if (e == null)
+        {
+            _sourceFilePath = _destFilePath = string.Empty;
+            return;
+        }
+
         _destFilePath = string.Empty;
         if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath)) File.Delete(_sourceFilePath);
 
-        var saveImageDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", AppConfig.ImageStorageDirName);
+        var saveImageDir =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", AppConfig.ImageStorageDirName);
         if (!Directory.Exists(saveImageDir)) Directory.CreateDirectory(saveImageDir);
 
         _sourceFilePath = Path.Combine(saveImageDir, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff"));
