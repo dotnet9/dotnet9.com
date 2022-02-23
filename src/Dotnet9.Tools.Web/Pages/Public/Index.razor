@@ -2,19 +2,19 @@
 @using BlazorComponent
 @layout PublicLayout
 
-<PageTitle>@T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>@T(nameof(LanguageKeys.Dotnet9ToolsTitle))</PageTitle>
 
 <div class="home">
     <MRow Class="banner" NoGutters Align="AlignTypes.Center" Justify="JustifyTypes.Center">
         <MCol Align="@AlignTypes.Center" Lg="6" Md="6" Sm="12">
             <div class="banner-logo-box">
                 <p class="banner-logo-font">
-                    @T("Dotnet9ToolsTitle")
+                    @T(nameof(LanguageKeys.Dotnet9ToolsTitle))
                 </p>
             </div>
             <div class="banner-detail-box">
                 <p class="banner-detail-font">
-                    @T("Dotnet9ToolsDescription")
+                    @T(nameof(LanguageKeys.Dotnet9ToolsDescription))
                 </p>
             </div>
             <MRow NoGutters Style="margin-top: 88px;" Justify="JustifyTypes.Start">
@@ -23,7 +23,7 @@
                          Height="64"
                          Class="text-20 mb-6 px-6"
                          Href="/tools">
-                    @T("GetStarted")
+                    @T(nameof(LanguageKeys.GetStarted))
                 </MButton>
                 <MButton Dark
                          Outlined
@@ -31,7 +31,7 @@
                          Height="64"
                          Class="text-20 px-6 mb-6 mx-6"
                          Href="/">
-                    @T("GoToDotnet9Blog")
+                    @T(nameof(LanguageKeys.Blog))
                 </MButton>
                 <MButton Dark
                          Color="black"

@@ -3,7 +3,7 @@
 @layout PublicLayout
 @inject I18n I18N
 
-<PageTitle>@T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>@T(nameof(LanguageKeys.Dotnet9ToolsTitle))</PageTitle>
 
 <MCard>
 
@@ -19,7 +19,7 @@
                     <MCardActions>
                         <span class="tool-desc">@tool.Description</span>
                         <MSpacer></MSpacer>
-                        <a href="/ico">@T("ToolsGo")</a>
+                        <a href="/ico">@T(nameof(LanguageKeys.ToolsGo))</a>
                     </MCardActions>
                 </MCard>
             </MCol>
@@ -44,8 +44,8 @@
         _tools.Add(
             new ToolInfo
             {
-                Title = T("IcoToolTitle"),
-                Description = T("IcoToolDesc"),
+                Title = T(nameof(LanguageKeys.IcoToolTitle)),
+                Description = T(nameof(LanguageKeys.IcoToolDesc)),
                 Src = "https://cdn.masastack.com/stack/images/website/masa-blazor/cards/house.jpg",
                 Flex = 3
             });

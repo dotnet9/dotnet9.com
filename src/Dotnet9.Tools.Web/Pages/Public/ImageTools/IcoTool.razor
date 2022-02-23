@@ -1,20 +1,19 @@
 ﻿@page "/ico"
 @layout PublicLayout
 
-<PageTitle>@T("IcoToolTitle")</PageTitle>
+<PageTitle>@T(nameof(LanguageKeys.IcoToolTitle))</PageTitle>
 
-<div>@T("IcoToolUseMemo")</div>
+<div>@T(nameof(LanguageKeys.IcoUseMemo))</div>
 
-@*<MFileInput TValue="IBrowserFile"
-            Placeholder="@T("IcoToolMFileInputPlaceholder")"
-            Rules="_rules"
+<MFileInput TValue="IBrowserFile"
+            Placeholder="@T(nameof(LanguageKeys.IcoToolMFileInputPlaceholder))"
             ShowSize
             OnChange="@LoadFile"
             Accept="image/png, image/jpeg, image/jpg, image/bmp"
-            Label="@T("IcoToolMFileInputLabel")">
-</MFileInput>*@
+            Label="@T(nameof(LanguageKeys.IcoToolMFileInputLabel))">
+</MFileInput>
 
-<InputFile OnChange="@LoadFile"/>
+@*<InputFile OnChange="@LoadFile"/>*@
 
 @if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
 {
@@ -24,10 +23,10 @@
              Depressed Color="primary"
              OnClick="@ConvertToIcon">
         <LoaderContent>
-            <span>@T("IcoToolMButtonLoaderContent")</span>
+            <span>@T(nameof(LanguageKeys.IcoToolMButtonLoaderContent))</span>
         </LoaderContent>
         <ChildContent>
-            <span>@T("IcoToolMButtonChildContent")</span>
+            <span>@T(nameof(LanguageKeys.IcoToolMButtonChildContent))</span>
         </ChildContent>
     </MButton>
 }
