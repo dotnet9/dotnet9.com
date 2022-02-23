@@ -24,16 +24,22 @@
          Depressed Color="primary"
          OnClick="ConvertToIcon">
     <LoaderContent>
-        <span>下载转换</span>
+        <span>转换Ico中...</span>
     </LoaderContent>
     <ChildContent>
-        转换并下载Ico
+        立即转换Ico
     </ChildContent>
 </MButton>
+
+@if (!string.IsNullOrWhiteSpace(destFilePath) && File.Exists(destFilePath))
+{
+    <a href="@imageDirName/@(Path.GetFileName(destFilePath))" target="_blank">点击下载</a>
+}
 
 @code {
     private bool loading = false;
     private string sourceFilePath = "";
+    private string destFilePath = "";
     private string imageDirName = "files";
 
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new()
@@ -63,10 +69,10 @@
 
         if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
         {
-            var destFilePath = $"{sourceFilePath}.ico";
+            destFilePath = $"{sourceFilePath}.ico";
             if (ImagingHelper.ConvertToIcon(sourceFilePath, destFilePath))
             {
-                NavigationManager.NavigateTo($"http://localhost:5273/{imageDirName}/{Path.GetFileName(destFilePath)}");
+                //NavigationManager.NavigateTo($"http://localhost:5273/{imageDirName}/{Path.GetFileName(destFilePath)}");
             }
             else
             {
