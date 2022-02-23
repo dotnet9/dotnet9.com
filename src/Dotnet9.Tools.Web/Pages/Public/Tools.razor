@@ -1,7 +1,9 @@
 ﻿@page "/tools"
+@using BlazorComponent.I18n
 @layout PublicLayout
+@inject I18n I18N
 
-<PageTitle>Dotnet9工具箱</PageTitle>
+<PageTitle>@T("Dotnet9ToolsTitle")</PageTitle>
 
 <MCard>
 
@@ -17,7 +19,7 @@
                     <MCardActions>
                         <span class="tool-desc">@tool.Description</span>
                         <MSpacer></MSpacer>
-                        <a href="/ico">进入</a>
+                        <a href="/ico">@T("ToolsGo")</a>
                     </MCardActions>
                 </MCard>
             </MCol>
@@ -30,14 +32,20 @@
 
     readonly List<ToolInfo> _tools = new();
 
+
+    public string? T(string key)
+    {
+        return I18N.LanguageMap.GetValueOrDefault(key);
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         _tools.Add(
             new ToolInfo
             {
-                Title = "Ico图标转换",
-                Description = "jpg、png等一键转换ico",
+                Title = T("IcoToolTitle"),
+                Description = T("IcoToolDesc"),
                 Src = "https://cdn.masastack.com/stack/images/website/masa-blazor/cards/house.jpg",
                 Flex = 3
             });
