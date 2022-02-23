@@ -6,6 +6,7 @@ namespace Dotnet9.Tools.Web.Shared;
 
 public partial class PublicLayout
 {
+    private readonly bool _isShowMiniLogo = true;
     private string? _languageIcon;
     private string _searchBorderColor = "#00000000";
 
