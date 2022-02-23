@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Tools", "Dotnet9.To
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E27A4B13-6ACD-4797-B0A6-D76B96CD4B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Tools.Tests", "test\Dotnet9.Tools.Tests\Dotnet9.Tools.Tests.csproj", "{8E131040-E8C6-4AD2-B912-B3443F5B250E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Tools.Tests", "test\Dotnet9.Tools.Tests\Dotnet9.Tools.Tests.csproj", "{8E131040-E8C6-4AD2-B912-B3443F5B250E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

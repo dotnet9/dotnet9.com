@@ -1,12 +1,12 @@
 ﻿@page "/ico"
 @using BlazorComponent
 @using Dotnet9.Tools.Images
-@inject NavigationManager NavigationManager;
+@inject IJSRuntime JS
 @layout PublicLayout
 
 <PageTitle>Ico图标转换</PageTitle>
 
-<div>请选择需要转换的图片，比如：png，jpg,jpeg等</div>
+<div>请选择需要转换的图片，比如：png，jpg,jpeg等,默认转换的图片大小包含：16x16,32x32,48x48,256x256</div>
 
 @*<MFileInput TValue="IBrowserFile"
             Placeholder="请选择源图片"
@@ -18,37 +18,36 @@
 </MFileInput>*@
 <InputFile OnChange="@LoadFile"/>
 
-<MButton class="ma-2 white--text"
-         Loading="loading"
-         Disabled="loading"
-         Depressed Color="primary"
-         OnClick="ConvertToIcon">
-    <LoaderContent>
-        <span>转换Ico中...</span>
-    </LoaderContent>
-    <ChildContent>
-        立即转换Ico
-    </ChildContent>
-</MButton>
-
-@if (!string.IsNullOrWhiteSpace(destFilePath) && File.Exists(destFilePath))
+@if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
 {
-    <a href="@imageDirName/@(Path.GetFileName(destFilePath))" target="_blank">点击下载</a>
+    <MButton class="ma-2 white--text"
+             Loading="loading"
+             Disabled="loading"
+             Depressed Color="primary"
+             OnClick="ConvertToIcon">
+        <LoaderContent>
+            <span>转换Ico中...</span>
+        </LoaderContent>
+        <ChildContent>
+            立即转换并下载
+        </ChildContent>
+    </MButton>
 }
 
 @code {
-    private bool loading = false;
+    private bool loading;
     private string sourceFilePath = "";
     private string destFilePath = "";
-    private string imageDirName = "files";
+    private readonly string imageDirName = "files";
 
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new()
     {
-        value => (value.Size < 2 * 1024 * 1024) ? true : "请选择小于2MB的图片"
+        value => value.Size < 2 * 1024 * 1024 ? true : "请选择小于2MB的图片"
     };
 
     private async Task LoadFile(InputFileChangeEventArgs e)
     {
+        destFilePath = string.Empty;
         if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
         {
             File.Delete(sourceFilePath);
@@ -65,6 +64,11 @@
 
     private void ConvertToIcon()
     {
+        if (!string.IsNullOrWhiteSpace(destFilePath) && File.Exists(destFilePath))
+        {
+            DownloadIco();
+            return;
+        }
         loading = true;
 
         if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
@@ -72,76 +76,19 @@
             destFilePath = $"{sourceFilePath}.ico";
             if (ImagingHelper.ConvertToIcon(sourceFilePath, destFilePath))
             {
-                //NavigationManager.NavigateTo($"http://localhost:5273/{imageDirName}/{Path.GetFileName(destFilePath)}");
-            }
-            else
-            {
+                DownloadIco();
             }
         }
 
         loading = false;
     }
 
+    private async Task DownloadIco()
+    {
+        using var fileStream = new FileStream(destFilePath, FileMode.Open);
+        using var streamRef = new DotNetStreamReference(fileStream);
+
+        await JS.InvokeVoidAsync("downloadFileFromStream", Path.GetFileName(destFilePath), streamRef);
+    }
+
 }
-
-<style>
-    .custom-loader {
-        animation: loader 1s infinite;
-        display: flex;
-    }
-
-    @("@-moz-keyframes") loader {
-    
-    
-    
-    
-    
-
-    from { transform: rotate(0); }
-
-    to { transform: rotate(360deg); }
-
-    }
-
-    @("@-webkit-keyframes") loader {
-    
-    
-    
-    
-    
-    
-
-    from { transform: rotate(0); }
-
-    to { transform: rotate(360deg); }
-
-    }
-
-    @("@-o-keyframes") loader {
-    
-    
-    
-    
-    
-    
-
-    from { transform: rotate(0); }
-
-    to { transform: rotate(360deg); }
-
-    }
-
-    @("@keyframes") loader {
-    
-    
-    
-    
-    
-    
-
-    from { transform: rotate(0); }
-
-    to { transform: rotate(360deg); }
-
-    } 
-</style>
