@@ -5,12 +5,12 @@
         <MApp Class="baselayout-m-app" Style="background: #F2F3F5;">
             <MAppBar Elevation="0" Fixed Color="white" Class="pc-app-bar" App>
                 <img style="cursor: pointer; width: 48px;" class="ml-6" src="logo.png" @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;}) alt="Dotnet9"/>
-                <MAppBarTitle>@T(nameof(LanguageKeys.Dotnet9ToolsTitle))</MAppBarTitle>
+                <MAppBarTitle>@T("Dotnet9ToolsTitle")</MAppBarTitle>
                 <MTabs BackgroundColor="white" Class="mtab-font" Style="margin-left: 120px;" Color="black" SliderColor="purple darken-2" Optional @bind-Value="SelectTab">
-                    <MTab Style="text-transform: none" Href="/">@T(nameof(LanguageKeys.Home))</MTab>
-                    <MTab Style="text-transform: none" Href="/tools">@T(nameof(LanguageKeys.Tools))</MTab>
-                    <MTab Style="text-transform: none" Href="https://dotnet9.com/">@T(nameof(LanguageKeys.Blog))</MTab>
-                    <MTab Style="text-transform: none" Href="https://dotnet9.com/about">@T(nameof(LanguageKeys.About))</MTab>
+                    <MTab Style="text-transform: none" Href="/">@T("Home")</MTab>
+                    <MTab Style="text-transform: none" Href="/tools">@T("Tools")</MTab>
+                    <MTab Style="text-transform: none" Href="https://dotnet9.com/">@T("Blog")</MTab>
+                    <MTab Style="text-transform: none" Href="https://dotnet9.com/about">@T("About")</MTab>
                 </MTabs>
 
                 <MSpacer></MSpacer>
@@ -26,7 +26,7 @@
                             Dense
                             BackgroundColor="#F2F3F5"
                             Color="grey lighten-1"
-                            Placeholder="@T(nameof(LanguageKeys.Search))">
+                            Placeholder="@T("Search")">
                     <PrependInnerContent>
                         <MIcon Color="grey lighten-1">mdi-magnify</MIcon>
                     </PrependInnerContent>

@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using BlazorComponent;
+using BlazorComponent.I18n;
 using Dotnet9.Tools.Web.Utils;
 using Microsoft.AspNetCore.Components;
 
@@ -6,7 +8,6 @@ namespace Dotnet9.Tools.Web.Shared;
 
 public partial class PublicLayout
 {
-    private readonly bool _isShowMiniLogo = true;
     private string? _languageIcon;
     private string _searchBorderColor = "#00000000";
 

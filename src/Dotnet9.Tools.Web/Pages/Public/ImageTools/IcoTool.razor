@@ -1,117 +1,31 @@
 ﻿@page "/ico"
-@using BlazorComponent
-@using Dotnet9.Tools.Images
-@inject IJSRuntime JS
 @layout PublicLayout
 
-<<<<<<< HEAD
-<PageTitle>@T(nameof(LanguageKeys.IcoToolTitle))</PageTitle>
+<PageTitle>@T("IcoToolTitle")</PageTitle>
 
-<div>@T(nameof(LanguageKeys.IcoUseMemo))</div>
+<div>@T("IcoToolUseMemo")</div>
 
 <MFileInput TValue="IBrowserFile"
-            Placeholder="@T(nameof(LanguageKeys.IcoToolMFileInputPlaceholder))"
-            ShowSize
-            OnChange="@LoadFile"
-            Accept="image/png, image/jpeg, image/jpg, image/bmp"
-            Label="@T(nameof(LanguageKeys.IcoToolMFileInputLabel))">
-</MFileInput>
-
-@*<InputFile OnChange="@LoadFile"/>*@
-=======
-<PageTitle>Ico图标转换</PageTitle>
-
-<div>请选择需要转换的图片，比如：png，jpg,jpeg等,默认转换的图片大小包含：16x16,32x32,48x48,256x256</div>
-
-@*<MFileInput TValue="IBrowserFile"
-            Placeholder="请选择源图片"
+            Placeholder="@T("IcoToolMFileInputPlaceholder")"
             Rules="_rules"
             ShowSize
             OnChange="@LoadFile"
             Accept="image/png, image/jpeg, image/jpg, image/bmp"
-            Label="源图片">
-</MFileInput>*@
-<InputFile OnChange="@LoadFile"/>
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
+            Label="@T("IcoToolMFileInputLabel")">
+</MFileInput>
 
-@if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
+@if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
 {
     <MButton class="ma-2 white--text"
-             Loading="loading"
-             Disabled="loading"
+             Loading="_loading"
+             Disabled="_loading"
              Depressed Color="primary"
-             OnClick="ConvertToIcon">
+             OnClick="@ConvertToIcon">
         <LoaderContent>
-<<<<<<< HEAD
-            <span>@T(nameof(LanguageKeys.IcoToolMButtonLoaderContent))</span>
+            <span>@T("IcoToolMButtonLoaderContent")</span>
         </LoaderContent>
         <ChildContent>
-            <span>@T(nameof(LanguageKeys.IcoToolMButtonChildContent))</span>
-=======
-            <span>转换Ico中...</span>
-        </LoaderContent>
-        <ChildContent>
-            立即转换并下载
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
+            <span>@T("IcoToolMButtonChildContent")</span>
         </ChildContent>
     </MButton>
-}
-
-@code {
-    private bool loading;
-    private string sourceFilePath = "";
-    private string destFilePath = "";
-    private readonly string imageDirName = "files";
-
-    private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new()
-    {
-        value => value.Size < 2 * 1024 * 1024 ? true : "请选择小于2MB的图片"
-    };
-
-    private async Task LoadFile(InputFileChangeEventArgs e)
-    {
-        destFilePath = string.Empty;
-        if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
-        {
-            File.Delete(sourceFilePath);
-        }
-        var saveImageDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", imageDirName);
-        if (!Directory.Exists(saveImageDir))
-        {
-            Directory.CreateDirectory(saveImageDir);
-        }
-        sourceFilePath = Path.Combine(saveImageDir, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff"));
-        await using var fs = new FileStream(sourceFilePath, FileMode.Create);
-        await e.File.OpenReadStream().CopyToAsync(fs);
-    }
-
-    private void ConvertToIcon()
-    {
-        if (!string.IsNullOrWhiteSpace(destFilePath) && File.Exists(destFilePath))
-        {
-            DownloadIco();
-            return;
-        }
-        loading = true;
-
-        if (!string.IsNullOrWhiteSpace(sourceFilePath) && File.Exists(sourceFilePath))
-        {
-            destFilePath = $"{sourceFilePath}.ico";
-            if (ImagingHelper.ConvertToIcon(sourceFilePath, destFilePath))
-            {
-                DownloadIco();
-            }
-        }
-
-        loading = false;
-    }
-
-    private async Task DownloadIco()
-    {
-        using var fileStream = new FileStream(destFilePath, FileMode.Open);
-        using var streamRef = new DotNetStreamReference(fileStream);
-
-        await JS.InvokeVoidAsync("downloadFileFromStream", Path.GetFileName(destFilePath), streamRef);
-    }
-
 }

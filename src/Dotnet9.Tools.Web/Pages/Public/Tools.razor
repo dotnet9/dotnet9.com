@@ -1,13 +1,11 @@
 ﻿@page "/tools"
+@using BlazorComponent.I18n
 @layout PublicLayout
+@inject I18n I18N
 
-<<<<<<< HEAD
-<PageTitle>@T(nameof(LanguageKeys.Dotnet9ToolsTitle))</PageTitle>
-=======
-<PageTitle>Dotnet9工具箱</PageTitle>
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
+<PageTitle>@T("Dotnet9ToolsTitle")</PageTitle>
 
-<MCard Class="m-2 p-2">
+<MCard>
 
     <MRow>
         @foreach (var tool in _tools)
@@ -21,11 +19,7 @@
                     <MCardActions>
                         <span class="tool-desc">@tool.Description</span>
                         <MSpacer></MSpacer>
-<<<<<<< HEAD
-                        <a href="/ico">@T(nameof(LanguageKeys.ToolsGo))</a>
-=======
-                        <a href="/ico">进入</a>
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
+                        <a href="/ico">@T("ToolsGo")</a>
                     </MCardActions>
                 </MCard>
             </MCol>
@@ -38,19 +32,20 @@
 
     readonly List<ToolInfo> _tools = new();
 
+
+    public string? T(string key)
+    {
+        return I18N.LanguageMap.GetValueOrDefault(key);
+    }
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         _tools.Add(
             new ToolInfo
             {
-<<<<<<< HEAD
-                Title = T(nameof(LanguageKeys.IcoToolTitle)),
-                Description = T(nameof(LanguageKeys.IcoToolDesc)),
-=======
-                Title = "Ico图标转换",
-                Description = "jpg、png等一键转换ico",
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
+                Title = T("IcoToolTitle"),
+                Description = T("IcoToolDesc"),
                 Src = "https://cdn.masastack.com/stack/images/website/masa-blazor/cards/house.jpg",
                 Flex = 3
             });

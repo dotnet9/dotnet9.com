@@ -1,13 +1,8 @@
 using System.Globalization;
-<<<<<<< HEAD
+using BlazorComponent.I18n;
 using Dotnet9.Tools.Web.Middleware;
 using Dotnet9.Tools.Web.Utils;
-=======
-using BlazorComponent.I18n;
-using Dotnet9.Tools.Web.Utils;
-using CookieMiddleware = Dotnet9.Tools.Web.Middleware.CookieMiddleware;
 using CookieStorage = Dotnet9.Tools.Web.Utils.CookieStorage;
->>>>>>> parent of b1dd94d (Add ICO converter translation;)
 
 var builder = WebApplication.CreateBuilder(args);
 
