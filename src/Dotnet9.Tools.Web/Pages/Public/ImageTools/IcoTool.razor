@@ -3,29 +3,46 @@
 
 <PageTitle>@T("IcoToolTitle")</PageTitle>
 
-<div>@T("IcoToolUseMemo")</div>
-
-<MFileInput TValue="IBrowserFile"
-            Placeholder="@T("IcoToolMFileInputPlaceholder")"
-            Rules="_rules"
-            ShowSize
-            OnChange="@LoadFile"
-            Accept="image/png, image/jpeg, image/jpg, image/bmp"
-            Label="@T("IcoToolMFileInputLabel")">
-</MFileInput>
-
-@if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
-{
-    <MButton class="ma-2 white--text"
-             Loading="_loading"
-             Disabled="_loading"
-             Depressed Color="primary"
-             OnClick="@ConvertToIcon">
-        <LoaderContent>
-            <span>@T("IcoToolMButtonLoaderContent")</span>
-        </LoaderContent>
-        <ChildContent>
-            <span>@T("IcoToolMButtonChildContent")</span>
-        </ChildContent>
-    </MButton>
-}
+    <MRow>
+        <MCol>
+            <div>@T("IcoToolUseMemo")</div>
+        </MCol>
+    </MRow>
+<MRow>
+    <MCol Lg="8" Md="8">
+        <MFileInput TValue="IBrowserFile"
+                    Placeholder="@T("IcoToolMFileInputPlaceholder")"
+                    Rules="_rules"
+                    ShowSize
+                    OnChange="@LoadFile"
+                    Accept="image/png, image/jpeg, image/jpg, image/bmp"
+                    Label="@T("IcoToolMFileInputLabel")">
+        </MFileInput>
+    </MCol>
+    <MCol Lg="4" Md="4">
+        @if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
+        {
+            <MButton class="ma-2 white--text"
+                     Loading="_loading"
+                     Disabled="_loading"
+                     Depressed Color="primary"
+                     OnClick="@ConvertToIcon">
+                <LoaderContent>
+                    <span>@T("IcoToolMButtonLoaderContent")</span>
+                </LoaderContent>
+                <ChildContent>
+                    <span>@T("IcoToolMButtonChildContent")</span>
+                </ChildContent>
+            </MButton>
+        }
+        <MButton Dark
+                 Color="black"
+                 Height="64"
+                 Href="https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor"
+                 Target="_blank"
+                 Class="text-20 px-6 mb-6">
+            <MIcon Left>mdi-github</MIcon>
+            GitHub
+        </MButton>
+    </MCol>
+</MRow>

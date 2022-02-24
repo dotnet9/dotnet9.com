@@ -10,7 +10,7 @@
   "GoToDotnet9Blog": "浏览Dotnet9博客",
   "IcoToolTitle": "Ico转换",
   "IcoToolDesc": "jpg、png、bmp等一键转换ico",
-  "IcoUseMemo": "请选择需要转换的图片，比如：png，jpg,jpeg等，默认转换的图片大小包含：16x16,32x32,48x48,256x256",
+  "IcoToolUseMemo": "请选择需要转换的图片，比如：png，jpg,jpeg等，默认转换的图片大小包含：16x16,32x32,48x48,256x256",
   "IcoToolMFileInputPlaceholder": "请选择源图片",
   "IcoToolMFileInputLabel": "源图片",
   "IcoToolMButtonLoaderContent": "转换Ico中...",
