@@ -352,3 +352,4 @@ MigrationBackup/
 src/src/Dotnet9.EntityFrameworkCore/Migrations/
 src/Dotnet9.API/Dotnet9.API/appsettings.Production.json
 src/Dotnet9.API/Dotnet9.EntityFramework/Migrations/
+src/.idea/.idea.Dotnet9.Tools/.idea/vcs.xml
