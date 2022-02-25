@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Dotnet9.Tools.Web.Shared;
 
-public partial class PublicLayout
+public partial class PublicLayout : LayoutComponentBase
 {
     private string? _languageIcon;
     private string _searchBorderColor = "#00000000";

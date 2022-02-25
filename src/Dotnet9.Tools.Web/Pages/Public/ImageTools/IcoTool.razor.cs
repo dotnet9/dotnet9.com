@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace Dotnet9.Tools.Web.Pages.Public.ImageTools;
 
-public partial class IcoTool
+public partial class IcoTool : ComponentBase
 {
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new();
 
@@ -18,23 +18,20 @@ public partial class IcoTool
 
     protected override async Task OnInitializedAsync()
     {
-        _rules.Add(value => (value == null || value.Size < 2 * 1024 * 1024 )? true : T("IcoToolFileSizeLimitMessage"));
+        _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : T("IcoToolFileSizeLimitMessage"));
         await base.OnInitializedAsync();
     }
 
     private void LoadFile(IBrowserFile? e)
     {
-            _sourceFile = e;
+        _sourceFile = e;
     }
 
     private async Task ConvertToIcon()
     {
-        if (_sourceFile == null)
-        {
-            return;
-        }
+        if (_sourceFile == null) return;
         _loading = true;
-        
+
         var fileName = $"{Path.GetFileNameWithoutExtension(_sourceFile.Name)}.ico";
         var inputStream = new MemoryStream();
         await _sourceFile.OpenReadStream().CopyToAsync(inputStream);
