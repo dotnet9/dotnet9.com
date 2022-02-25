@@ -20,7 +20,7 @@
         </MFileInput>
     </MCol>
     <MCol Lg="4" Md="4">
-        @if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
+        @if (_sourceFile != null)
         {
             <MButton class="ma-2 white--text"
                      Loading="_loading"

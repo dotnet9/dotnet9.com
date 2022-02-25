@@ -9,67 +9,42 @@ namespace Dotnet9.Tools.Web.Pages.Public.ImageTools;
 
 public partial class IcoTool
 {
-    private static readonly string ImageDirName = "files";
-
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new();
-    private string _destFilePath = "";
 
     private bool _loading;
-    private string _sourceFilePath = "";
+    private IBrowserFile? _sourceFile;
     [Inject] public I18n I18N { get; set; } = default!;
     [Inject] public IJSRuntime Js { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        _rules.Add(value => (value==null|| value.Size < 2 * 1024 * 1024 )? true : T("IcoToolFileSizeLimitMessage"));
+        _rules.Add(value => (value == null || value.Size < 2 * 1024 * 1024 )? true : T("IcoToolFileSizeLimitMessage"));
         await base.OnInitializedAsync();
     }
 
-    private async Task LoadFile(IBrowserFile? e)
+    private void LoadFile(IBrowserFile? e)
     {
-        if (e == null)
-        {
-            _destFilePath = _sourceFilePath = string.Empty;
-            return;
-        }
-        _destFilePath = string.Empty;
-        if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath)) File.Delete(_sourceFilePath);
-
-        var saveImageDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", ImageDirName);
-        if (!Directory.Exists(saveImageDir)) Directory.CreateDirectory(saveImageDir);
-
-        _sourceFilePath = Path.Combine(saveImageDir, DateTime.UtcNow.ToString("yyyyMMddHHmmssfff"));
-        await using var fs = new FileStream(_sourceFilePath, FileMode.Create);
-        await e.OpenReadStream().CopyToAsync(fs);
+            _sourceFile = e;
     }
 
     private async Task ConvertToIcon()
     {
-        if (!string.IsNullOrWhiteSpace(_destFilePath) && File.Exists(_destFilePath))
+        if (_sourceFile == null)
         {
-            await DownloadIco();
             return;
         }
-
         _loading = true;
-
-        if (!string.IsNullOrWhiteSpace(_sourceFilePath) && File.Exists(_sourceFilePath))
-        {
-            _destFilePath = $"{_sourceFilePath}.ico";
-            if (ImagingHelper.ConvertToIcon(_sourceFilePath, _destFilePath)) await DownloadIco();
-        }
+        
+        var fileName = $"{Path.GetFileNameWithoutExtension(_sourceFile.Name)}.ico";
+        var inputStream = new MemoryStream();
+        await _sourceFile.OpenReadStream().CopyToAsync(inputStream);
+        var outputStream = new MemoryStream();
+        ImagingHelper.ConvertToIcon(inputStream, outputStream);
+        using var streamRef = new DotNetStreamReference(outputStream);
+        await Js.InvokeVoidAsync("downloadFileFromStream", fileName, streamRef);
 
         _loading = false;
     }
-
-    private async Task DownloadIco()
-    {
-        await using var fileStream = new FileStream(_destFilePath, FileMode.Open);
-        using var streamRef = new DotNetStreamReference(fileStream);
-
-        await Js.InvokeVoidAsync("downloadFileFromStream", Path.GetFileName(_destFilePath), streamRef);
-    }
-
 
     public string? T(string key)
     {
