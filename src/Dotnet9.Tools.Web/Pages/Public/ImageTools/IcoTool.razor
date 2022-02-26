@@ -6,12 +6,14 @@
 
 <PageTitle>@T("IcoToolTitle")</PageTitle>
 
-<h2 style="text-align: center;">@T("IcoToolTitle")</h2>
+<h2 style="margin-bottom: 10px; margin-top: 10px; text-align: center;">@T("IcoToolTitle")</h2>
+
 <MRow>
     <MCol>
         <div>@T("IcoToolUseMemo")</div>
     </MCol>
 </MRow>
+
 <MRow>
     <MCol Lg="8" Md="8">
         <MFileInput TValue="IBrowserFile"
@@ -23,6 +25,7 @@
                     Label="@T("IcoToolMFileInputLabel")">
         </MFileInput>
     </MCol>
+
     <MCol Lg="4" Md="4">
         @if (_sourceBrowserFile != null)
         {
@@ -39,33 +42,64 @@
                 </ChildContent>
             </MButton>
         }
+    </MCol>
+</MRow>
+<MRow>
+    <MCol>
+        <MButton
+            Depressed Color="primary"
+            OnClick="() => _showPost = !_showPost">
+            @T("HowToDevelopmentDesc")
+        </MButton>
+        <MButton
+            Href="https://dotnet9.com/1715"
+            Target="_blank"
+            Depressed Color="error">
+            @T("ToSuggest")
+        </MButton>
         <MButton Dark
                  Color="black"
                  Href="https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor"
-                 Target="_blank"
-                 Class="text-20 px-6 mb-6">
+                 Target="_blank">
             <MIcon Left>mdi-github</MIcon>
-            GitHub
+            @T("SourceCode")
         </MButton>
     </MCol>
 </MRow>
+@if (_showPost)
+{
+    <MRow>
+        <MCol>
+            <Markdown FilePath="wwwroot/2022/02/2022-02-22_02.md"/>
+        </MCol>
+    </MRow>
+}
 
 @code
 {
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new();
 
+    private bool _showPost;
     private bool _loading;
     private IBrowserFile? _sourceBrowserFile;
 
     [Inject]
-    public I18n I18N { get; set; } = default!;
+    private IJSRuntime _js { get; set; }
 
     [Inject]
-    public IJSRuntime Js { get; set; } = default!;
+    private I18n I18N { get; set; } = default!;
+
+    private static string? DescMarkdownFile { get; set; }
+    private string _descMarkdownContent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : T("IcoToolFileSizeLimitMessage"));
+        DescMarkdownFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "2022", "02", "2022-02-22_02.md");
+        if (File.Exists(DescMarkdownFile))
+        {
+            _descMarkdownContent = await File.ReadAllTextAsync(DescMarkdownFile);
+        }
         await base.OnInitializedAsync();
     }
 
@@ -110,7 +144,7 @@
     {
         await using var destFileStream = new FileStream(fromFilePath, FileMode.Open);
         using var streamRef = new DotNetStreamReference(destFileStream);
-        await Js.InvokeVoidAsync("downloadFileFromStream", saveFileName, streamRef);
+        await _js.InvokeVoidAsync("downloadFileFromStream", saveFileName, streamRef);
     }
 
     private void DeleteFile(string filePath)
@@ -130,3 +164,25 @@
         return I18N.LanguageMap.GetValueOrDefault(key);
     }
 }
+
+<style>
+    h3 {
+        border-bottom: 1px solid #eee;
+        margin-top: 50px;
+        padding-bottom: 10px;
+    }
+
+    pre {
+        background: #1E1E1E;
+        color: #eee;
+        overflow-x: auto;
+        padding: 0.5em !important;
+        white-space: pre;
+        word-break: normal;
+        word-wrap: normal;
+    }
+
+    img, video, source { max-width: 100% }
+
+    pre > code { white-space: pre; }
+</style>

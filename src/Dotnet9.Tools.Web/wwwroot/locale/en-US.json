@@ -4,10 +4,14 @@
   "Blog": "Blog",
   "About": "About",
   "Search": "Search",
+  "ToolsGo": "Go",
   "Dotnet9ToolsTitle": "Dotnet9 toolbox",
   "Dotnet9ToolsDescription": "It plans to provide a series of free and open-source online tools for yourself and others.",
   "GetStarted": "Get Started",
   "GoToDotnet9Blog": "Go To Dotnet9 blog",
+  "HowToDevelopmentDesc": "How was it developed?",
+  "ToSuggest": "Make complaints about",
+  "SourceCode": "Source code",
   "IcoToolTitle": "Online Icon Conversion",
   "IcoToolDesc": "Jpg, PNG, BMP and other one click conversion ico",
   "IcoToolUseMemo": "Please select the image to be converted, such as: png, jpg, jpeg, tmp, etc. The default converted image size includes: 16x16+32x32+48x48+256x256, the conversion will not save the source file and the generated Icon icon, please use it with confidence.",
@@ -15,9 +19,5 @@
   "IcoToolMFileInputLabel": "Source picture",
   "IcoToolMButtonLoaderContent": "Convert ICO...",
   "IcoToolMButtonChildContent": "Convert and download icon now",
-  "IcoToolFileSizeLimitMessage": "Please select a picture smaller than 2MB",
-  "ToolsGo": "Go",
-  "JoinUs": "Join us",
-  "UpdateLog": "Update log",
-  "CommonProblem": "Common problem"
+  "IcoToolFileSizeLimitMessage": "Please select a picture smaller than 2MB"
 }

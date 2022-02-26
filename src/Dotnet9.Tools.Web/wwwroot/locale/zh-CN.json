@@ -4,10 +4,14 @@
   "Blog": "博客",
   "About": "关于",
   "Search": "搜索",
+  "ToolsGo": "进入",
   "Dotnet9ToolsTitle": "Dotnet9工具箱",
   "Dotnet9ToolsDescription": "计划提供一系列免费开源在线工具给自己用，也分享给别人用。",
   "GetStarted": "开始使用吧",
   "GoToDotnet9Blog": "浏览Dotnet9博客",
+  "HowToDevelopmentDesc": "如何开发的？",
+  "ToSuggest": "我要建议（吐槽）",
+  "SourceCode": "我要浏览源码",
   "IcoToolTitle": "在线Icon图标转换",
   "IcoToolDesc": "jpg、png、bmp等图片一键转换成ico图标",
   "IcoToolUseMemo": "请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。",
@@ -15,9 +19,5 @@
   "IcoToolMFileInputLabel": "源图片",
   "IcoToolMButtonLoaderContent": "转换Ico中...",
   "IcoToolMButtonChildContent": "立即转换并下载Icon",
-  "IcoToolFileSizeLimitMessage": "请选择小于2MB的图片",
-  "ToolsGo": "进入",
-  "JoinUs": "加入我们",
-  "UpdateLog": "更新日志",
-  "CommonProblem": "常见问题"
+  "IcoToolFileSizeLimitMessage": "请选择小于2MB的图片"
 }
