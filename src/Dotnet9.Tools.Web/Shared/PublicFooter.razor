@@ -1,30 +1,43 @@
-﻿@using BlazorComponent.I18n
-@inject I18n I18N
+﻿@using BlazorComponent
 
-<MFooter Dark Padless Color="#5C2D91" Height="444" Class="footer">
-    <div class="foot-box">
-        <div>
-            <p>Blazor</p>
-            <p class="foot-p">&nbsp;</p>
-            <p class="foot-p">&nbsp;</p>
-        </div>
-        <div>
-            <p>Dotnet9</p>
-            <p>@T("JoinUs")</p>
-            <p class="foot-p">&nbsp;</p>
-        </div>
-        <div>
-            <p>@T("UpdateLog")</p>
-            <p>@T("CommonProblem")</p>
-            <p class="foot-p">&nbsp;</p>
-        </div>
-    </div>
+<MFooter Color="primary lighten-1" Padless>
+    <MRow Justify="JustifyTypes.Center" NoGutters>
+        @foreach (var link in _links)
+        {
+            <MButton Color="white" Text Rounded Class="my-2" Target="_blank" Href="@link.Url">
+                @link.Name
+            </MButton>
+        }
+        <MCol Class="primary lighten-2 py-4 text-center white--text" Cols="12">
+            Copyright © 2022-@DateTime.Now.Year <strong><a class="footer-link" target="_blank" href="https://dotnet9.com">Dotnet9</a></strong> All right reserved. By <strong><a class="footer-link" target="_blank" href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7</a></strong> powerful driver.
+        </MCol>
+    </MRow>
 </MFooter>
 
 @code
 {
-    public string? T(string key)
+    private FriendLink[] _links = new[]
     {
-        return I18N.LanguageMap.GetValueOrDefault(key);
+        new FriendLink("Dotnet9", "https://dotnet9.com"),
+        new FriendLink("Masa Blazor", "https://masa-blazor-docs-dev.lonsid.cn/"),
+        new FriendLink("BlazorMarkdown", "https://github.com/georgemathieson/blazor-markdown")
+    };
+    struct FriendLink
+    {
+        public FriendLink(string name, string url)
+        {
+            this.Name = name;
+            this.Url = url;
+        }
+        public string Name { get; set; }
+
+        public string Url { get; set; }
     }
 }
+
+<style>
+    .footer-link {
+        text-decoration: none;
+        color: #fff !important;
+    }
+</style>
