@@ -89,17 +89,9 @@
     [Inject]
     private I18n I18N { get; set; } = default!;
 
-    private static string? DescMarkdownFile { get; set; }
-    private string _descMarkdownContent { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
         _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : T("IcoToolFileSizeLimitMessage"));
-        DescMarkdownFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "2022", "02", "2022-02-22_02.md");
-        if (File.Exists(DescMarkdownFile))
-        {
-            _descMarkdownContent = await File.ReadAllTextAsync(DescMarkdownFile);
-        }
         await base.OnInitializedAsync();
     }
 
