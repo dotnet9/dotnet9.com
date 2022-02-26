@@ -1,8 +1,12 @@
 ﻿@page "/ico"
+@using BlazorComponent
+@using BlazorComponent.I18n
+@using Dotnet9.Tools.Images
 @layout PublicLayout
 
 <PageTitle>@T("IcoToolTitle")</PageTitle>
 
+<h2 style="text-align: center;">@T("IcoToolTitle")</h2>
 <MRow>
     <MCol>
         <div>@T("IcoToolUseMemo")</div>
@@ -20,13 +24,13 @@
         </MFileInput>
     </MCol>
     <MCol Lg="4" Md="4">
-        @if (_sourceFile != null)
+        @if (_sourceBrowserFile != null)
         {
             <MButton class="ma-2 white--text"
                      Loading="_loading"
                      Disabled="_loading"
                      Depressed Color="primary"
-                     OnClick="@ConvertToIcon">
+                     OnClick="@ConvertAndDownloadIcon">
                 <LoaderContent>
                     <span>@T("IcoToolMButtonLoaderContent")</span>
                 </LoaderContent>
@@ -45,3 +49,84 @@
         </MButton>
     </MCol>
 </MRow>
+
+@code
+{
+    private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new();
+
+    private bool _loading;
+    private IBrowserFile? _sourceBrowserFile;
+
+    [Inject]
+    public I18n I18N { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime Js { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : T("IcoToolFileSizeLimitMessage"));
+        await base.OnInitializedAsync();
+    }
+
+    private void LoadFile(IBrowserFile? e)
+    {
+        _sourceBrowserFile = e;
+    }
+
+    private async Task ConvertAndDownloadIcon()
+    {
+        if (_sourceBrowserFile == null) return;
+
+        _loading = true;
+        var tempSourcePath = Path.GetTempFileName();
+        var tempDestPath = Path.GetTempFileName();
+
+        try
+        {
+            var fileName = $"{Path.GetFileNameWithoutExtension(_sourceBrowserFile.Name)}.ico";
+            await UploadFile(tempSourcePath);
+
+            ImagingHelper.ConvertToIcon(tempSourcePath, tempDestPath);
+
+            await DownloadFile(tempDestPath, fileName);
+        }
+        finally
+        {
+            DeleteFile(tempSourcePath);
+            DeleteFile(tempDestPath);
+
+            _loading = false;
+        }
+    }
+
+    private async Task UploadFile(string saveFilePath)
+    {
+        await using var sourceFileStream = new FileStream(saveFilePath, FileMode.Create);
+        await _sourceBrowserFile!.OpenReadStream().CopyToAsync(sourceFileStream);
+    }
+
+    private async Task DownloadFile(string fromFilePath, string saveFileName)
+    {
+        await using var destFileStream = new FileStream(fromFilePath, FileMode.Open);
+        using var streamRef = new DotNetStreamReference(destFileStream);
+        await Js.InvokeVoidAsync("downloadFileFromStream", saveFileName, streamRef);
+    }
+
+    private void DeleteFile(string filePath)
+    {
+        try
+        {
+            if (File.Exists(filePath)) File.Delete(filePath);
+        }
+        catch
+        {
+    // ignored
+        }
+    }
+
+    public string? T(string key)
+    {
+        return I18N.LanguageMap.GetValueOrDefault(key);
+    }
+}
