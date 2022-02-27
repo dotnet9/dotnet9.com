@@ -12,19 +12,41 @@
 - 博客原创及转载文章部分保存为Markdown存储，包括文章图片都保存在这个仓库中。
 - 博客开源一系列免费在线工具，源码也皆放在此仓库中。
 
-### 欢迎关注微信公众号
+## 欢迎关注微信公众号
 
 ![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/wechatpublic.jpg)
 
 已开发的工具如下：
 
-### 1. 在线Icon转换工具
+## 1. 在线Icon转换工具
 
 >支持png、jpg、jpeg、tmp等图片，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。
 
-- 工具地址：[https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
-- 代码地址：[IcoTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
+>本工具源码：[IcoTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
+>
+>介绍文章：[免费开源Blazor在线Ico转换工具](https://dotnet9.com/?p=1715（在新窗口中打开）)
+>
+>在线演示地址：[https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
 
 效果演示如下：
 
 ![在线Icon转换工具](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1301.gif)
+
+## 感谢
+
+`Dotnet9工具箱`会不断添加新的免费、开源、在线工具，欢迎star支持，有什么需求我会考虑加上。
+
+- 仓库地址：[Dotnet9.Tools](https://github.com/dotnet9/dotnet9.com)。
+- 建议或吐槽：[提交issue](https://github.com/dotnet9/dotnet9.com/issues/new)。
+- [网站留言](https://dotnet9.com)。
+- 微信公众号(dotnet9)联系等等。
+
+![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/wechatpublic.jpg)
+
+## 捐助
+
+如果对您有所帮助，可扫下方二维码对我进行打赏（虽然人已秃，生活照样要过的有滋有味！）。
+
+- [Alipay](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/AliPay.jpg)
+- [Wechat](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/WeChatPay.jpg)
+- [QQ](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/QQPay.jpg)
