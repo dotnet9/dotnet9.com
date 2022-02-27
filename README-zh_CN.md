@@ -1,5 +1,7 @@
 # dotnet9.com
 
+<div align="center"><img src="https://github.com/WPFDevelopersOrg/ResourcesCache/raw/main/resources/Logo.png"/></div>
+
 [English](./README.md) | 简体中文
 
 - 博客依然使用[WordPress & JustNews](https://www.wpcom.cn/?ref=4807)搭建。
