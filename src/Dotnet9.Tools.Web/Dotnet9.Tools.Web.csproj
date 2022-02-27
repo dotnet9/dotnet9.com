@@ -8,8 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BlazorMarkdown" Version="1.0.0" />
-		<PackageReference Include="HtmlSanitizer" Version="7.1.488" />
+		<PackageReference Include="Markdig" Version="0.27.0" />
 		<PackageReference Include="MASA.Blazor" Version="0.3.0" />
 	</ItemGroup>
 
@@ -18,9 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="wwwroot\2022\02\2022-02-22_02.md">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Update="wwwroot\2022\02\2022-02-22_02.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 </Project>

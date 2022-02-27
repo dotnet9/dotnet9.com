@@ -1,0 +1,134 @@
+﻿@using BlazorComponent.I18n
+@using Markdig
+<MRow>
+    <MCol>
+        <MButton
+            Depressed Color="primary"
+            OnClick="() => _showPost = !_showPost">
+            @T("HowToDevelopmentDesc")
+        </MButton>
+        <MButton
+            Href="@RemotePostUrl"
+            Target="_blank"
+            Depressed Color="error">
+            @T("ToSuggest")
+        </MButton>
+        <MButton Dark
+                 Color="black"
+                 Href="@SourceCodeUrl"
+                 Target="_blank">
+            <MIcon Left>mdi-github</MIcon>
+            @T("SourceCode")
+        </MButton>
+    </MCol>
+</MRow>
+@if (_showPost)
+{
+    <MRow>
+        <MCol>
+            <div class="line-numbers">
+                @{
+                    if (_hasXss)
+                    {
+                        @_postHtmlContent.ToString()
+                    }
+                    else
+                    {
+                        @_postHtmlContent
+                    }
+                }
+            </div>
+        </MCol>
+    </MRow>
+    
+    <MRow>
+        <MCol>
+            <MButton
+                Depressed Color="primary"
+                OnClick="() => _showPost = !_showPost">
+                @T("HowToDevelopmentDesc")
+            </MButton>
+            <MButton
+                Href="@RemotePostUrl"
+                Target="_blank"
+                Depressed Color="error">
+                @T("ToSuggest")
+            </MButton>
+            <MButton Dark
+                     Color="black"
+                     Href="@SourceCodeUrl"
+                     Target="_blank">
+                <MIcon Left>mdi-github</MIcon>
+                @T("SourceCode")
+            </MButton>
+        </MCol>
+    </MRow>
+}
+
+@code
+{
+    [Parameter]
+    public string LocalPostFilePath { get; set; } = null!;
+
+    [Parameter]
+    public string RemotePostUrl { get; set; } = null!;
+
+    [Parameter]
+    public string SourceCodeUrl { get; set; } = null!;
+
+    private bool _showPost;
+
+    private bool _hasXss { get; set; }
+
+    private MarkupString _postHtmlContent;
+
+    [Inject]
+    private I18n I18N { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime _jsRuntime { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var markdownData = await File.ReadAllTextAsync(LocalPostFilePath);
+        var htmlData = Markdown.ToHtml(markdownData);
+        htmlData = htmlData.Replace("language-golang", "language-go");
+        if (htmlData.Contains("<script") || htmlData.Contains("<link"))
+        {
+            _hasXss = true;
+        }
+        _postHtmlContent = (MarkupString) htmlData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
+    }
+
+    public string? T(string key)
+    {
+        return I18N.LanguageMap.GetValueOrDefault(key);
+    }
+}
+
+<style>
+    h3 {
+        border-bottom: 1px solid #eee;
+        margin-top: 50px;
+        padding-bottom: 10px;
+    }
+
+    pre {
+        background: #1E1E1E;
+        color: #eee;
+        overflow-x: auto;
+        padding: 0.5em !important;
+        white-space: pre;
+        word-break: normal;
+        word-wrap: normal;
+    }
+
+    img, video, source { max-width: 100% }
+
+    pre > code { white-space: pre; }
+</style>

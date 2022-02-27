@@ -1,5 +1,4 @@
 ﻿@using BlazorComponent
-
 <MFooter Color="primary lighten-1" Padless>
     <MRow Justify="JustifyTypes.Center" NoGutters>
         @foreach (var link in _links)
@@ -9,26 +8,35 @@
             </MButton>
         }
         <MCol Class="primary lighten-2 py-4 text-center white--text" Cols="12">
-            Copyright © 2022-@DateTime.Now.Year <strong><a class="footer-link" target="_blank" href="https://dotnet9.com">Dotnet9</a></strong> All right reserved. By <strong><a class="footer-link" target="_blank" href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7</a></strong> powerful driver.
+            Copyright © 2022-@DateTime.Now.Year
+            <strong>
+                <a class="footer-link" target="_blank" href="https://dotnet9.com">Dotnet9</a>
+            </strong> All right reserved. By
+            <strong>
+                <a class="footer-link" target="_blank" href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7</a>
+            </strong> powerful driver.
         </MCol>
     </MRow>
 </MFooter>
 
 @code
 {
-    private FriendLink[] _links = new[]
+    private FriendLink[] _links =
     {
         new FriendLink("Dotnet9", "https://dotnet9.com"),
         new FriendLink("Masa Blazor", "https://masa-blazor-docs-dev.lonsid.cn/"),
-        new FriendLink("BlazorMarkdown", "https://github.com/georgemathieson/blazor-markdown")
+        new FriendLink("markdig", "https://github.com/xoofx/markdig"),
+        new FriendLink("prism", "https://github.com/PrismJS/prism")
     };
+
     struct FriendLink
     {
         public FriendLink(string name, string url)
         {
-            this.Name = name;
-            this.Url = url;
+            Name = name;
+            Url = url;
         }
+
         public string Name { get; set; }
 
         public string Url { get; set; }
@@ -37,7 +45,7 @@
 
 <style>
     .footer-link {
-        text-decoration: none;
         color: #fff !important;
+        text-decoration: none;
     }
 </style>

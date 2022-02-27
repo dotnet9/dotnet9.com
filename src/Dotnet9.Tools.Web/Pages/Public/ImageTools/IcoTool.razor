@@ -44,42 +44,16 @@
         }
     </MCol>
 </MRow>
-<MRow>
-    <MCol>
-        <MButton
-            Depressed Color="primary"
-            OnClick="() => _showPost = !_showPost">
-            @T("HowToDevelopmentDesc")
-        </MButton>
-        <MButton
-            Href="https://dotnet9.com/1715"
-            Target="_blank"
-            Depressed Color="error">
-            @T("ToSuggest")
-        </MButton>
-        <MButton Dark
-                 Color="black"
-                 Href="https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor"
-                 Target="_blank">
-            <MIcon Left>mdi-github</MIcon>
-            @T("SourceCode")
-        </MButton>
-    </MCol>
-</MRow>
-@if (_showPost)
-{
-    <MRow>
-        <MCol>
-            <Markdown FilePath="wwwroot/2022/02/2022-02-22_02.md"/>
-        </MCol>
-    </MRow>
-}
+
+<MarkdownComponent
+    LocalPostFilePath="wwwroot/2022/02/2022-02-22_02.md"
+    RemotePostUrl="https://dotnet9.com/1715"
+    SourceCodeUrl="https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor"/>
 
 @code
 {
     private readonly List<Func<IBrowserFile, StringBoolean>> _rules = new();
 
-    private bool _showPost;
     private bool _loading;
     private IBrowserFile? _sourceBrowserFile;
 
@@ -156,25 +130,3 @@
         return I18N.LanguageMap.GetValueOrDefault(key);
     }
 }
-
-<style>
-    h3 {
-        border-bottom: 1px solid #eee;
-        margin-top: 50px;
-        padding-bottom: 10px;
-    }
-
-    pre {
-        background: #1E1E1E;
-        color: #eee;
-        overflow-x: auto;
-        padding: 0.5em !important;
-        white-space: pre;
-        word-break: normal;
-        word-wrap: normal;
-    }
-
-    img, video, source { max-width: 100% }
-
-    pre > code { white-space: pre; }
-</style>

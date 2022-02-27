@@ -2,7 +2,6 @@ using System.Globalization;
 using BlazorComponent.I18n;
 using Dotnet9.Tools.Web.Middleware;
 using Dotnet9.Tools.Web.Utils;
-using Ganss.XSS;
 using CookieStorage = Dotnet9.Tools.Web.Utils.CookieStorage;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,15 +14,6 @@ builder.Services.AddMasaBlazor();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
-builder.Services.AddScoped<IHtmlSanitizer, HtmlSanitizer>(x =>
-{
-    // Configure sanitizer rules as needed here.
-    // For now, just use default rules + allow class attributes
-    var sanitizer = new HtmlSanitizer();
-    sanitizer.AllowedAttributes.Add("class");
-    return sanitizer;
-});
 
 var app = builder.Build();
 
