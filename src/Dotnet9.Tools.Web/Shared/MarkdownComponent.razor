@@ -7,12 +7,15 @@
             OnClick="() => _showPost = !_showPost">
             @T("HowToDevelopmentDesc")
         </MButton>
-        <MButton
-            Href="@RemotePostUrl"
-            Target="_blank"
-            Depressed Color="error">
-            @T("ToSuggest")
-        </MButton>
+        @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
+        {
+            <MButton
+                Href="@RemotePostUrl"
+                Target="_blank"
+                Depressed Color="error">
+                @T("ToSuggest")
+            </MButton>
+        }
         <MButton Dark
                  Color="black"
                  Href="@SourceCodeUrl"
@@ -40,7 +43,7 @@
             </div>
         </MCol>
     </MRow>
-    
+
     <MRow>
         <MCol>
             <MButton
@@ -48,12 +51,15 @@
                 OnClick="() => _showPost = !_showPost">
                 @T("HowToDevelopmentDesc")
             </MButton>
-            <MButton
-                Href="@RemotePostUrl"
-                Target="_blank"
-                Depressed Color="error">
-                @T("ToSuggest")
-            </MButton>
+            @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
+            {
+                <MButton
+                    Href="@RemotePostUrl"
+                    Target="_blank"
+                    Depressed Color="error">
+                    @T("ToSuggest")
+                </MButton>
+            }
             <MButton Dark
                      Color="black"
                      Href="@SourceCodeUrl"
@@ -71,7 +77,7 @@
     public string LocalPostFilePath { get; set; } = null!;
 
     [Parameter]
-    public string RemotePostUrl { get; set; } = null!;
+    public string? RemotePostUrl { get; set; } = null;
 
     [Parameter]
     public string SourceCodeUrl { get; set; } = null!;

@@ -13,7 +13,7 @@
                 <a class="footer-link" target="_blank" href="https://dotnet9.com">Dotnet9</a>
             </strong> All right reserved. By
             <strong>
-                <a class="footer-link" target="_blank" href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7</a>
+                <a class="footer-link" target="_blank" href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7.0</a>
             </strong> powerful driver.
         </MCol>
     </MRow>
@@ -23,10 +23,14 @@
 {
     private FriendLink[] _links =
     {
-        new FriendLink("Dotnet9", "https://dotnet9.com"),
-        new FriendLink("Masa Blazor", "https://masa-blazor-docs-dev.lonsid.cn/"),
-        new FriendLink("markdig", "https://github.com/xoofx/markdig"),
-        new FriendLink("prism", "https://github.com/PrismJS/prism")
+        new("Dotnet9", "https://dotnet9.com"),
+        new(".NET 7.0", "https://dotnet.microsoft.com/en-us/download/dotnet/7.0"),
+        new("ASP.NET Core Blazor" +
+            "" +
+            "", "https://docs.microsoft.com/zh-cn/aspnet/core/blazor/?view=aspnetcore-6.0"),
+        new("Masa Blazor", "https://masa-blazor-docs-dev.lonsid.cn/"),
+        new("markdig", "https://github.com/xoofx/markdig"),
+        new("prism", "https://github.com/PrismJS/prism")
     };
 
     struct FriendLink

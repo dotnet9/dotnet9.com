@@ -17,6 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="wwwroot\2022\02\2022-02-27_03.md">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Update="wwwroot\2022\02\2022-02-22_02.md">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
