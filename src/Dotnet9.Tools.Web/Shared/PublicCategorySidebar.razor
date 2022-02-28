@@ -1,0 +1,139 @@
+﻿<MList Dense Nav>
+    <MListItem>
+        <MListItemContent>
+            <MListItemTitle Class="text-h6">
+                @T("Dotnet9ToolsTitle")
+            </MListItemTitle>
+            <MListItemSubtitle>
+                @T("Motto")
+            </MListItemSubtitle>
+        </MListItemContent>
+    </MListItem>
+
+    <MDivider Class="m-0 p-0"/>
+    <MTreeview
+        @bind-Active="_active"
+        TKey="int"
+        TItem="CategoryCountDto"
+        Items="@_items"
+        Color="warning"
+        Activatable
+        OpenOnClick
+        ItemKey="item => item.Id"
+        ItemText="item => item.Name"
+        ItemChildren="item => item.Children"
+        SelectedColor="indigo"
+        Hoverable>
+    </MTreeview>
+</MList>
+
+@code
+{
+    [Inject]
+    private NavigationManager _navigationManager { set; get; }
+
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    private List<CategoryCountDto> _items = new();
+
+    private List<int>? _active;
+    private CategoryCountDto? _selected;
+
+    private CategoryCountDto? Selected
+    {
+        get
+        {
+            if (_active == null || _active.Count == 0)
+            {
+                return null;
+            }
+
+            var id = _active[0];
+
+            var category = _items.Find(x => x.Id == id);
+            if (_selected != null && category == _selected) return category;
+            _selected = category;
+            _navigationManager.NavigateTo(_selected!.Url);
+
+            return category;
+        }
+    }
+
+    private void ValueChanged(List<int> values)
+    {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var categories = new List<CategoryCount>();
+
+        var toolCategory = new CategoryCount(1, T("Tools")!, "/tools");
+        categories.Add(toolCategory);
+        categories.Add(new CategoryCount(10001, T("IcoToolTitle")!, "/ico", toolCategory.Id));
+        categories.Add(new CategoryCount(10002, T("TimestampToolTitle")!, "/timestamp", toolCategory.Id));
+
+        var blogCategory = new CategoryCount(2, T("Blog")!, "/blogs");
+        categories.Add(blogCategory);
+
+
+        _items.Clear();
+        ReadChildren(categories, null, _items);
+        await base.OnInitializedAsync();
+    }
+
+    private void ReadChildren(List<CategoryCount> sources, int? parentId, List<CategoryCountDto> parentChildren)
+    {
+        var children = sources.FindAll(x => x.ParentId == parentId);
+        if (children is not { Count: > 0 })
+        {
+            return;
+        }
+
+        foreach (var child in children)
+        {
+            var currentItem = new CategoryCountDto(child.Id, child.Name, child.Url, child.ParentId);
+            parentChildren.Add(currentItem);
+            ReadChildren(sources, child.Id, currentItem.Children);
+        }
+    }
+
+    public string? T(string key)
+    {
+        return MainLayout.T(key);
+    }
+
+    class CategoryCountDto
+    {
+        public CategoryCountDto(int id, string name, string url, int? parentId = null)
+        {
+            Id = id;
+            Name = name;
+            Url = url;
+            ParentId = parentId;
+            Children = new List<CategoryCountDto>();
+        }
+
+        public int Id { get; set; }
+        public int? ParentId { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public List<CategoryCountDto> Children { get; set; }
+    }
+
+    class CategoryCount
+    {
+        public CategoryCount(int id, string name, string url, int? parentId = null)
+        {
+            Id = id;
+            Name = name;
+            Url = url;
+            ParentId = parentId;
+        }
+
+        public int Id { get; set; }
+        public int? ParentId { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+    }
+}

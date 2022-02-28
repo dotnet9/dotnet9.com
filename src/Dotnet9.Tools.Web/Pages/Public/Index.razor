@@ -4,158 +4,46 @@
 
 <PageTitle>@T("Dotnet9ToolsTitle")</PageTitle>
 
-<div class="home">
-    <MRow Class="banner" NoGutters Align="AlignTypes.Center" Justify="JustifyTypes.Center">
-        <MCol Align="@AlignTypes.Center" Lg="6" Md="6" Sm="12">
-            <div class="banner-logo-box">
-                <p class="banner-logo-font">
-                    @T("Dotnet9ToolsTitle")
-                </p>
-            </div>
-            <div class="banner-detail-box">
-                <p class="banner-detail-font">
-                    @T("Dotnet9ToolsDescription")
-                </p>
-            </div>
-            <MRow NoGutters Style="margin-top: 88px;" Justify="JustifyTypes.Start">
-                <MButton Dark
-                         Color="#5C2D91"
-                         Height="64"
-                         Class="text-20 mb-6 px-6"
-                         Href="/tools">
-                    @T("GetStarted")
-                </MButton>
-                <MButton Dark
-                         Outlined
-                         Color="black"
-                         Height="64"
-                         Class="text-20 px-6 mb-6 mx-6"
-                         Href="https://dotnet9.com">
-                    @T("GoToDotnet9Blog")
-                </MButton>
-                <MButton Dark
-                         Color="black"
-                         Height="64"
-                         Href="https://github.com/dotnet9/dotnet9.com"
-                         Target="_blank"
-                         Class="text-20 px-6 mb-6">
-                    <MIcon Left>mdi-github</MIcon>
-                    GitHub
-                </MButton>
-            </MRow>
-        </MCol>
-        <MCol Align="@AlignTypes.Center" Class="pr-6 d-flex justify-end" Lg="6" Md="6" Sm="12">
-            <MWindow @bind-Value="OnBoarding">
-                @foreach (var item in Enumerable.Range(0, _length))
-                {
-                    <MWindowItem Value="item">
-                        <MCard Class="d-flex align-end rounded-0" Color="#F2F3F5" MinHeight="262" MinWidth="262" Width="644" Height="644">
-                            <MImage Src="https://cdn.masastack.com/stack/images/website/masa-blazor/banner.png"/>
-                        </MCard>
-                    </MWindowItem>
-                }
-            </MWindow>
-            @if (_length > 1)
-            {
-                <MItemGroup @bind-Value="OnBoarding"
-                            Class="text-center d-flex align-end"
-                            Mandatory>
-                    @foreach (var item in Enumerable.Range(0, _length))
-                    {
-                        <MItem Value="item">
-                            @if (context.Active)
-                            {
-                                <img class="mx-1" src="https://cdn.masastack.com/stack/images/website/masa-blazor/SelectPoint.png"/>
-                            }
-                            else
-                            {
-                                <img style="cursor: pointer;" class="mx-1" src="https://cdn.masastack.com/stack/images/website/masa-blazor/Point.png" @onclick="context.Toggle"/>
-                            }
-                        </MItem>
-                    }
-                </MItemGroup>
-            }
-        </MCol>
-    </MRow>
-
-    <div class="app-banner" style="display: none;">
+<MRow Class="banner" NoGutters Align="AlignTypes.Center" Justify="JustifyTypes.Center">
+    <MCol Align="@AlignTypes.Center" Lg="6" Md="6" Sm="12">
         <div class="banner-logo-box">
             <p class="banner-logo-font">
-                MASA Blazor
+                @T("Dotnet9ToolsTitle")
             </p>
         </div>
         <div class="banner-detail-box">
             <p class="banner-detail-font">
-                @T("MASABlazorDescription")
+                @T("Dotnet9ToolsDescription")
             </p>
         </div>
-        <div class="d-flex justify-center">
-            <MWindow @bind-Value="OnBoarding">
-                @foreach (var item in Enumerable.Range(0, _length))
-                {
-                    <MWindowItem Value="item">
-                        <MCard Class="d-flex align-end rounded-0" Color="#F2F3F5" Height="262" Width="262">
-                            <MImage Src="https://cdn.masastack.com/stack/images/website/masa-blazor/banner.png"/>
-                        </MCard>
-                    </MWindowItem>
-                }
-            </MWindow>
-            @if (_length > 1)
-            {
-                <MItemGroup @bind-Value="OnBoarding"
-                            Class="text-center d-flex align-end"
-                            Mandatory>
-                    @foreach (var item in Enumerable.Range(0, _length))
-                    {
-                        <MItem Value="item">
-                            @if (context.Active)
-                            {
-                                <img style="height: 3.5px; margin: 0 2px; width: 14px;" src="https://cdn.masastack.com/stack/images/website/masa-blazor/SelectPoint.png"/>
-                            }
-                            else
-                            {
-                                <img style="cursor: pointer; height: 3.5px; margin: 0 2px; width: 3.5px;" src="https://cdn.masastack.com/stack/images/website/masa-blazor/Point.png" @onclick="context.Toggle"/>
-                            }
-                        </MItem>
-                    }
-                </MItemGroup>
-            }
-        </div>
-        <div class="mt-6">
-            <MRow NoGutters Class="mt-6" Justify="JustifyTypes.Center">
-                <MButton Dark
-                         Width="130"
-                         Color="#5C2D91"
-                         Height="44"
-                         Class="text-14 rounded-lg mr-3"
-                         Href="/">
-                    @T("GetStarted")
-                </MButton>
-                <MButton Dark
-                         Color="black"
-                         Width="130"
-                         Height="44"
-                         Href="https://github.com/BlazorComponent/MASA.Blazor"
-                         Target="_blank"
-                         Class="rounded-lg text-14 ml-3">
-                    <MIcon Left>mdi-github</MIcon>
-                    GitHub
-                </MButton>
-            </MRow>
-            <MRow NoGutters Class="mt-6" Justify="JustifyTypes.Center">
-                <MButton Dark
-                         Outlined
-                         Color="black"
-                         Width="285"
-                         Height="44"
-                         Class="text-14 rounded-lg"
-                         Href="/">
-                    @T("WhyUseMASABlazor")
-                </MButton>
-            </MRow>
-        </div>
-    </div>
-</div>
+        <MRow NoGutters Style="margin-top: 88px;" Justify="JustifyTypes.Start">
+            <MButton Dark
+                     Color="#5C2D91"
+                     Height="64"
+                     Class="text-20 mb-6 px-6"
+                     Href="/tools">
+                @T("GetStarted")
+            </MButton>
+            <MButton Dark
+                     Outlined
+                     Color="black"
+                     Height="64"
+                     Class="text-20 px-6 mb-6 mx-6"
+                     Href="https://dotnet9.com">
+                @T("GoToDotnet9Blog")
+            </MButton>
+            <MButton Dark
+                     Color="black"
+                     Height="64"
+                     Href="https://github.com/dotnet9/dotnet9.com"
+                     Target="_blank"
+                     Class="text-20 px-6 mb-6">
+                <MIcon Left>mdi-github</MIcon>
+                GitHub
+            </MButton>
+        </MRow>
+    </MCol>
+</MRow>
 
 @code
 {

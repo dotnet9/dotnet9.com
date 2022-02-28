@@ -1,0 +1,18 @@
+﻿@page "/about"
+
+<h3>@T("About")</h3>
+
+<p>
+    @T("Dotnet9ToolsDescription")
+</p>
+
+@code
+{
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    public string? T(string key)
+    {
+        return MainLayout.T(key);
+    }
+}

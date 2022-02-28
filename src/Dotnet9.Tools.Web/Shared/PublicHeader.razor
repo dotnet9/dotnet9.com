@@ -1,0 +1,97 @@
+﻿@using Dotnet9.Tools.Web.Utils
+@using BlazorComponent
+@using System.Globalization
+<img style="cursor: pointer; width: 48px;" class="ml-6" src="logo.png" @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;}) alt="Dotnet9"/>
+<MTabs BackgroundColor="white" Class="mtab-font" Style="margin-left: 120px;" Color="black" SliderColor="purple darken-2" Optional @bind-Value="SelectTab">
+    <MTab Style="text-transform: none" Href="/">@T("Home")</MTab>
+    <MTab Style="text-transform: none" Href="/tools">@T("Tools")</MTab>
+    <MTab Style="text-transform: none" Href="/blogs">@T("Blog")</MTab>
+    <MTab Style="text-transform: none" Href="/about">@T("About")</MTab>
+</MTabs>
+
+<MSpacer></MSpacer>
+
+<MTextField TValue="string"
+            HideDetails="true"
+            Class="@("mx-2 mx-md-4")"
+            Style="@($"width: 300px; opacity: 0.8; border: 1px solid {_searchBorderColor};")"
+            @onfocus="@(() => _searchBorderColor = "#C9CDD4")"
+            @onblur="@(() => _searchBorderColor = "#00000000")"
+            Flat
+            Solo
+            Dense
+            BackgroundColor="#F2F3F5"
+            Color="grey lighten-1"
+            Placeholder="@T("Search")">
+    <PrependInnerContent>
+        <MIcon Color="grey lighten-1">mdi-magnify</MIcon>
+    </PrependInnerContent>
+</MTextField>
+<MButton Icon Href="https://github.com/dotnet9/dotnet9.com" Target="_blank">
+    <MIcon Size="24" Color="black">fab fa-github</MIcon>
+</MButton>
+<MButton Icon Href="https://gitee.com/dotnet9/dotnet9.com" Target="_blank">
+    <img style="height: 24px; width: 24px;" src="https://img1.dotnet9.com/2022/01/gitee.png" alt="Gitee">
+</MButton>
+<MButton Icon OnClick="TurnLanguage" Class="mr-6">
+    <img src="@_languageIcon" alt=""/>
+</MButton>
+
+@code{
+
+    [Parameter]
+    public bool IsChinese { get; set; }
+
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    [Inject]
+    public GlobalConfigs GlobalConfig { get; set; } = default!;
+
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    private string? _languageIcon;
+    private string _searchBorderColor = "#00000000";
+    public StringNumber SelectTab { get; set; } = 0;
+
+
+    protected override void OnInitialized()
+    {
+        string lang;
+        if (GlobalConfig.Language != null)
+            lang = GlobalConfig.Language;
+        else if (GlobalConfigs.StaticLanguage != null)
+            lang = GlobalConfigs.StaticLanguage;
+        else
+            lang = CultureInfo.CurrentCulture.Name;
+
+
+        IsChinese = lang == "zh-CN";
+
+        ChangeLanguage(lang);
+    }
+
+    private void TurnLanguage()
+    {
+        IsChinese = !IsChinese;
+        var lang = IsChinese ? "zh-CN" : "en-US";
+
+        ChangeLanguage(lang);
+
+        GlobalConfig.Language = lang;
+        GlobalConfig.SaveChanges();
+    }
+
+    private void ChangeLanguage(string lang)
+    {
+        _languageIcon = $"{lang}.png";
+        MainLayout.ChangeLanguage(lang);
+    }
+
+    public string? T(string key)
+    {
+        return MainLayout.T(key);
+    }
+
+}
