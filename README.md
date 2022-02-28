@@ -22,12 +22,27 @@ The tools developed are as follows:
 
 >Png, JPG, JPEG, TMP and other images are supported. The default converted image size includes: 16x16 + 32x32 + 48x48 + 256x256. The source file and the generated icon icon will not be saved after the conversion. Please rest assured.
 
-- Tool url: [https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
-- Code url: [IcoTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
+> Code url: [IcoTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
+>
+> Blog post url: [Blazor在线Ico转换工具](https://dotnet9.com/1715)
+>
+> Tool url: [https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
 
 The effect demonstration is as follows:
 
 ![Online icon conversion tool](https://raw.githubusercontent.com/dotnet9/dotnet9.com/main/doc/blog_contents/uploads/2022/02/1301.gif)
+
+## 2. Timestamp conversion
+
+>Code url: [TimestampTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/TimeTools/TimestampTool.razor)
+>
+>Blog post url: [使用Blazor做个简单的时间戳在线转换工具](https://dotnet9.com/1801)
+>
+>Tool url: [https://tool.dotnet9.com/timestamp](https://tool.dotnet9.com/timestamp)
+
+The effect demonstration is as follows:
+
+![Timestamp conversion](https://raw.githubusercontent.com/dotnet9/dotnet9.com/main/doc/blog_contents/uploads/2022/02/1701.jpg)
 
 ## Thanks
 

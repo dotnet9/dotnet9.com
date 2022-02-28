@@ -18,19 +18,31 @@
 
 已开发的工具如下：
 
-## 1. 在线Icon转换工具
+## 1. Icon转换
 
 >支持png、jpg、jpeg、tmp等图片，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。
 
->本工具源码：[IcoTool.razor](https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
+>本工具源码：[IcoTool.razor](https://gitee.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
 >
->介绍文章：[免费开源Blazor在线Ico转换工具](https://dotnet9.com/?p=1715（在新窗口中打开）)
+>介绍文章：[免费开源Blazor在线Ico转换工具](https://dotnet9.com/1715)
 >
 >在线演示地址：[https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
 
 效果演示如下：
 
-![在线Icon转换工具](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1301.gif)
+![Icon转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1301.gif)
+
+## 2. 时间戳转换
+
+>本工具源码：[TimestampTool.razor](https://gitee.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/TimeTools/TimestampTool.razor)
+>
+>介绍文章：[使用Blazor做个简单的时间戳在线转换工具](https://dotnet9.com/1801)
+>
+>在线演示地址：[https://tool.dotnet9.com/timestamp](https://tool.dotnet9.com/timestamp)
+
+效果演示如下：
+
+![时间戳转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1701.jpg)
 
 ## 感谢
 
