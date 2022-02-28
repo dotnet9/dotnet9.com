@@ -28,6 +28,7 @@
   "TimestampToolTimestamp": "Timestamp",
   "TimestampToolConvert": "Convert >>",
   "TimestampToolBeijingTime": "Beijing Time",
+  "TimestampToolTimestampKind": "Kind",
   "TimestampToolKindSeconds": "Seconds",
   "TimestampToolKindMilliseconds": "Milliseconds"
 }

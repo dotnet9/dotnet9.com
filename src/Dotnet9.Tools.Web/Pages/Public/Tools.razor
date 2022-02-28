@@ -10,7 +10,7 @@
     <MRow>
         @foreach (var tool in _tools)
         {
-            <MCol key="@tool.Title" Cols=@tool.Flex>
+            <MCol key="@tool.Title" Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
                 <MCard>
                     <MImage Src="@tool.Cover" Class="white--text align-end" Gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" Height=150>
                         <MCardTitle>@tool.Title</MCardTitle>
@@ -47,20 +47,18 @@
 
     class ToolInfo
     {
-        public ToolInfo(string? title, string? desc, string? cover, string? src, int flex = 3)
+        public ToolInfo(string? title, string? desc, string? cover, string? src)
         {
             Title = title;
             Description = desc;
             Cover = cover;
             Src = src;
-            Flex = flex;
         }
 
         public string? Title { get; }
         public string? Description { get; }
         public string? Cover { get; }
         public string? Src { get; }
-        public int Flex { get; }
     }
 
 }

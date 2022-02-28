@@ -27,6 +27,7 @@
   "TimestampToolTimestamp": "时间戳",
   "TimestampToolConvert": "转换>>",
   "TimestampToolBeijingTime": "北京时间",
+  "TimestampToolTimestampKind": "单位",
   "TimestampToolKindSeconds": "秒",
   "TimestampToolKindMilliseconds": "毫秒"
 }

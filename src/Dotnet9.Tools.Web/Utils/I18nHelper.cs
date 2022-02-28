@@ -10,7 +10,7 @@ public class I18nHelper
     {
         var content = File.ReadAllText("wwwroot/locale/languages.json");
         var languageDict = JsonSerializer.Deserialize<Dictionary<string, string[]>>(content);
-        if (languageDict is not {Count: > 0}) return;
+        if (languageDict is not { Count: > 0 }) return;
         var languages = languageDict["SupportLanguages"];
         var defaultLanguage = CultureInfo.CurrentCulture.Name;
 
