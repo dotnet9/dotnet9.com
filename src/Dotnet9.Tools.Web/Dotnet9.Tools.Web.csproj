@@ -25,4 +25,8 @@
 		</Content>
 	</ItemGroup>
 
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="XCOPY &quot;$(SolutionDir)..\doc\blog_contents&quot; &quot;$(ProjectDir)$(OutDir)\wwwroot\blog_contents&quot; /S /Y" />
+	</Target>
+
 </Project>
