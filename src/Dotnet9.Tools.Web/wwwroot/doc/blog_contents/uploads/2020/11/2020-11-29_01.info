@@ -1,10 +1,10 @@
 {
-    "Title":"WPF开发的实用小工具 - 快捷悬浮菜单",
-    "Slug":"wpf-development-of-practical-gadgets-shortcut-menu",
-    "Cover":"https://img1.dotnet9.com/2020/11/cover_01.png",
-    "Categories":["WPF"],
-    "Tags": ["WPF", "开源WPF"],
-    "Albums": ["开源WPF", "WPF开发者"],
-    "CopyrightType": "Default",
-    "CreateDate": "2020-11-29 22:50:35"
+  "Title": "WPF开发的实用小工具 - 快捷悬浮菜单",
+  "Slug": "wpf-development-of-practical-gadgets-shortcut-menu",
+  "Cover": "https://img1.dotnet9.com/2020/11/cover_01.png",
+  "Categories": ["WPF"],
+  "Tags": ["WPF", "开源WPF"],
+  "Albums": ["开源WPF", "WPF开发者"],
+  "CopyrightType": "Default",
+  "CreateDate": "2020-11-29 22:50:35"
 }

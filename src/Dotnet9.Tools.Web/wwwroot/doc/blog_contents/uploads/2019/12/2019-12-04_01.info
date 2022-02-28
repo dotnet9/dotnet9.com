@@ -1,9 +1,9 @@
 {
-    "Title":"开源C# WPF控件库《Panuon.UI.Silver》",
-    "Slug":"Panuon-UI-Silver",
-    "Cover":"https://img1.dotnet9.com/2019/12/0402.gif",
-    "Categories":["WPF"],
-    "Albums": ["开源WPF"],
-    "CopyrightType": "Default",
-    "CreateDate": "2019-12-04 13:45:56"
+  "Title": "开源C# WPF控件库《Panuon.UI.Silver》",
+  "Slug": "Panuon-UI-Silver",
+  "Cover": "https://img1.dotnet9.com/2019/12/0402.gif",
+  "Categories": ["WPF"],
+  "Albums": ["开源WPF"],
+  "CopyrightType": "Default",
+  "CreateDate": "2019-12-04 13:45:56"
 }

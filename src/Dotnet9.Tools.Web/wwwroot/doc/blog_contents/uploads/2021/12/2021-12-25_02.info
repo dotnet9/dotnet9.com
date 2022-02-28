@@ -1,11 +1,11 @@
 {
-    "Title":"支持.NET6！EF Core中批量执行更新、删除、插入数据的框架Zack.EFCore.Batch",
-    "Slug":"dotnet6-support-zack-efcore-batch-a-framework-for-batch-updating-deleting-and-inserting-data-in-ef-core",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_40.jpeg",
-    "Categories":[".NET", "EF Core"],
-    "Tags": ["C#", "EF Core", "批量更新", "批量删除", "批量插入"],
-    "CopyrightType": "Reprint",
-    "Original": "杨中科",
-    "OriginalLink": "https://mp.weixin.qq.com/s/MYxVGxa_DQnn4XMIDryd9Q",
-    "CreateDate": "2021-12-25 19:23:26"
+  "Title": "支持.NET6！EF Core中批量执行更新、删除、插入数据的框架Zack.EFCore.Batch",
+  "Slug": "dotnet6-support-zack-efcore-batch-a-framework-for-batch-updating-deleting-and-inserting-data-in-ef-core",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_40.jpeg",
+  "Categories": [".NET", "EF Core"],
+  "Tags": ["C#", "EF Core", "批量更新", "批量删除", "批量插入"],
+  "CopyrightType": "Reprint",
+  "Original": "杨中科",
+  "OriginalLink": "https://mp.weixin.qq.com/s/MYxVGxa_DQnn4XMIDryd9Q",
+  "CreateDate": "2021-12-25 19:23:26"
 }

@@ -1,11 +1,11 @@
 {
-    "Title":"如何处理EF Core的多对多关系？",
-    "Slug":"how-to-handle-many-to-many-relationships-with-ef-Core",
-    "Cover":"https://img1.dotnet9.com/2021/11/cover_05.jpeg",
-    "Categories":[".NET"],
-    "Tags": ["ORM", "EF Core"],
-    "CopyrightType": "Reprint",
-    "Original": "Zbigniew",
-    "OriginalLink": "https://softdevpractice.com/blog/many-to-many-ef-core/",
-    "CreateDate": "2021-11-02 20:47:54"
+  "Title": "如何处理EF Core的多对多关系？",
+  "Slug": "how-to-handle-many-to-many-relationships-with-ef-Core",
+  "Cover": "https://img1.dotnet9.com/2021/11/cover_05.jpeg",
+  "Categories": [".NET"],
+  "Tags": ["ORM", "EF Core"],
+  "CopyrightType": "Reprint",
+  "Original": "Zbigniew",
+  "OriginalLink": "https://softdevpractice.com/blog/many-to-many-ef-core/",
+  "CreateDate": "2021-11-02 20:47:54"
 }

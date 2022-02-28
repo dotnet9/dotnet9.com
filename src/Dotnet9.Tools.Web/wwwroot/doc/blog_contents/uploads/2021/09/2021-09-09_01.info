@@ -1,11 +1,11 @@
 {
-    "Title":"WPF：使用AdornerDecorator装饰器实现水印",
-    "Slug":"wpf-watermark-using-adornerdecorator-decorator",
-    "Cover":"https://img1.dotnet9.com/2021/09/cover_04.jpg",
-    "Categories":["WPF"],
-    "Tags": ["WPF", "水印"],
-    "CopyrightType": "Reprint",
-    "Original": "秋荷雨翔",
-    "OriginalLink": "https://www.cnblogs.com/s0611163/archive/2021/09/09/15245412.html",
-    "CreateDate": "2021-09-09 23:55:02"
+  "Title": "WPF：使用AdornerDecorator装饰器实现水印",
+  "Slug": "wpf-watermark-using-adornerdecorator-decorator",
+  "Cover": "https://img1.dotnet9.com/2021/09/cover_04.jpg",
+  "Categories": ["WPF"],
+  "Tags": ["WPF", "水印"],
+  "CopyrightType": "Reprint",
+  "Original": "秋荷雨翔",
+  "OriginalLink": "https://www.cnblogs.com/s0611163/archive/2021/09/09/15245412.html",
+  "CreateDate": "2021-09-09 23:55:02"
 }

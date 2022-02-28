@@ -1,9 +1,9 @@
 {
-    "Title":"后续来啦：Winform/WPF中快速搭建日志面板",
-    "Slug":"follow-up-quickly-build-the-log-panel-in-wWinForm-or-wpf",
-    "Cover":"https://img1.dotnet9.com/2021/04/cover_02.jpg",
-    "Categories":["Winform", "WPF"],
-    "Tags": ["Winform", "WPF", "日志面板", "LogDashboard"],
-    "CopyrightType": "Default",
-    "CreateDate": "2021-04-18 15:45:15"
+  "Title": "后续来啦：Winform/WPF中快速搭建日志面板",
+  "Slug": "follow-up-quickly-build-the-log-panel-in-wWinForm-or-wpf",
+  "Cover": "https://img1.dotnet9.com/2021/04/cover_02.jpg",
+  "Categories": ["Winform", "WPF"],
+  "Tags": ["Winform", "WPF", "日志面板", "LogDashboard"],
+  "CopyrightType": "Default",
+  "CreateDate": "2021-04-18 15:45:15"
 }

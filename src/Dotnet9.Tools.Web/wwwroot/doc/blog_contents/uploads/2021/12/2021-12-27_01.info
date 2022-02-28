@@ -1,11 +1,11 @@
 {
-    "Title":"C# 是 TypeScript 的最佳替补？",
-    "Slug":"csharp-is-the-best-replacement-for-typescript",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_44.jpg",
-    "Categories":[".NET", "TypeScript"],
-    "Tags": ["C#", "TypeScript"],
-    "CopyrightType": "Reprint",
-    "Original": "CSDN",
-    "OriginalLink": "https://mp.weixin.qq.com/s/yXShXwe9O7uzOBTRqMPd7Q",
-    "CreateDate": "2021-12-27 20:53:19"
+  "Title": "C# 是 TypeScript 的最佳替补？",
+  "Slug": "csharp-is-the-best-replacement-for-typescript",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_44.jpg",
+  "Categories": [".NET", "TypeScript"],
+  "Tags": ["C#", "TypeScript"],
+  "CopyrightType": "Reprint",
+  "Original": "CSDN",
+  "OriginalLink": "https://mp.weixin.qq.com/s/yXShXwe9O7uzOBTRqMPd7Q",
+  "CreateDate": "2021-12-27 20:53:19"
 }

@@ -1,12 +1,12 @@
 {
-    "Title":"(12/30)大家一起学Blazor：Cascading values and parameters",
-    "Slug":"12-of-30-let-us-learn-blazor-together-cascading-values-and-parameters",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_05.png",
-    "Categories":["Blazor Server"],
-    "Tags": ["Blazor Server"],
-    "Albums": ["大家一起学Blazor"],
-    "CopyrightType": "Reprint",
-    "Original": "StrayaWorker",
-    "OriginalLink": "https://ithelp.ithome.com.tw/articles/10262797",
-    "CreateDate": "2021-12-15 23:38:24"
+  "Title": "(12/30)大家一起学Blazor：Cascading values and parameters",
+  "Slug": "12-of-30-let-us-learn-blazor-together-cascading-values-and-parameters",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_05.png",
+  "Categories": ["Blazor Server"],
+  "Tags": ["Blazor Server"],
+  "Albums": ["大家一起学Blazor"],
+  "CopyrightType": "Reprint",
+  "Original": "StrayaWorker",
+  "OriginalLink": "https://ithelp.ithome.com.tw/articles/10262797",
+  "CreateDate": "2021-12-15 23:38:24"
 }

@@ -14,7 +14,7 @@
 
 ## 欢迎关注微信公众号
 
-![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/wechatpublic.jpg)
+![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
 
 已开发的工具如下：
 
@@ -30,7 +30,7 @@
 
 效果演示如下：
 
-![Icon转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1301.gif)
+![Icon转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/uploads/2022/02/1301.gif)
 
 ## 2. 时间戳转换
 
@@ -42,7 +42,7 @@
 
 效果演示如下：
 
-![时间戳转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/uploads/2022/02/1701.jpg)
+![时间戳转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/uploads/2022/02/1701.jpg)
 
 ## 感谢
 
@@ -53,12 +53,12 @@
 - [网站留言](https://dotnet9.com)。
 - 微信公众号(dotnet9)联系等等。
 
-![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/wechatpublic.jpg)
+![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
 
 ## 捐助
 
 如果对您有所帮助，可扫下方二维码对我进行打赏（虽然人已秃，生活照样要过的有滋有味！）。
 
-- [Alipay](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/AliPay.jpg)
-- [Wechat](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/WeChatPay.jpg)
-- [QQ](https://gitee.com/dotnet9/dotnet9.com/raw/main/doc/blog_contents/QQPay.jpg)
+- [Alipay](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/AliPay.jpg)
+- [Wechat](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/WeChatPay.jpg)
+- [QQ](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/QQPay.jpg)

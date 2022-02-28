@@ -1,11 +1,12 @@
 {
-    "Title":"gRPC 与.NET 入门",
-    "Slug":"Grpc-and-DotNet-introduction",
-    "Cover":"https://img1.dotnet9.com/2022/02/cover_01.jpg",
-    "Categories":[".NET"],
-    "Tags": [".NET", "gRPC"],
-    "CopyrightType": "Reprint",
-    "Original": "Mohamad Lawand",
-    "OriginalLink": "https://www.infoq.com/articles/getting-started-grpc-dotnet/、https://www.infoq.cn/article/VutWdcVAGpE5ugdar92q",
-    "CreateDate": "2022-02-18 21:55:31"
+  "Title": "gRPC 与.NET 入门",
+  "Slug": "Grpc-and-DotNet-introduction",
+  "Cover": "https://img1.dotnet9.com/2022/02/cover_01.jpg",
+  "Categories": [".NET"],
+  "Tags": [".NET", "gRPC"],
+  "CopyrightType": "Reprint",
+  "Original": "Mohamad Lawand",
+  "OriginalLink":
+    "https://www.infoq.com/articles/getting-started-grpc-dotnet/、https://www.infoq.cn/article/VutWdcVAGpE5ugdar92q",
+  "CreateDate": "2022-02-18 21:55:31"
 }

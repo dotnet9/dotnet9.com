@@ -1,11 +1,11 @@
 {
-    "Title":"WPF中的数据绑定表达式",
-    "Slug":"data-binding-expressions-in-wpf",
-    "Cover":"https://img1.dotnet9.com/2021/10/cover_03.png",
-    "Categories":["WPF"],
-    "Tags": ["Binding"],
-    "CopyrightType": "Reprint",
-    "Original": "Swati Gupta",
-    "OriginalLink": "https://www.c-sharpcorner.com/article/data-binding-expression-in-wpf/",
-    "CreateDate": "2021-10-18 16:53:35"
+  "Title": "WPF中的数据绑定表达式",
+  "Slug": "data-binding-expressions-in-wpf",
+  "Cover": "https://img1.dotnet9.com/2021/10/cover_03.png",
+  "Categories": ["WPF"],
+  "Tags": ["Binding"],
+  "CopyrightType": "Reprint",
+  "Original": "Swati Gupta",
+  "OriginalLink": "https://www.c-sharpcorner.com/article/data-binding-expression-in-wpf/",
+  "CreateDate": "2021-10-18 16:53:35"
 }

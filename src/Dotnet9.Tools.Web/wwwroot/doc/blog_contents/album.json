@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "开源C#",
+    "Slug": "open-source-csharp",
+    "Cover": "doc/blog_contents/album_csharp.jpg"
+  },
+  {
+    "Name": "开源Blazor",
+    "Slug": "open-source-blazor",
+    "Cover": "doc/blog_contents/album_blazor.png"
+  },
+  {
+    "Name": "大家一起学Blazor",
+    "Slug": "Let-us-learn-blazor-together",
+    "Cover": "doc/blog_contents/album_blazor1.png"
+  },
+  {
+    "Name": "开源MAUI",
+    "Slug": "open-source-maui",
+    "Cover": "doc/blog_contents/album_maui.png"
+  },
+  {
+    "Name": "开源WPF",
+    "Slug": "open-source-wpf",
+    "Cover": "doc/blog_contents/album_wpf.png"
+  },
+  {
+    "Name": "WPF Design",
+    "Slug": "wpf-design",
+    "Cover": "doc/blog_contents/album_wpfdesign.png"
+  },
+  {
+    "Name": "WPF开发者",
+    "Slug": "wpf-developer",
+    "Cover": "doc/blog_contents/album_wpfdevelopers.gif"
+  },
+  {
+    "Name": "开源Winform",
+    "Slug": "open-source-winform",
+    "Cover": "doc/blog_contents/album_winform.jpg"
+  },
+  {
+    "Name": "开源Flutter",
+    "Slug": "open-source-flutter",
+    "Cover": "doc/blog_contents/2021/07/cover_02.png"
+  }
+]

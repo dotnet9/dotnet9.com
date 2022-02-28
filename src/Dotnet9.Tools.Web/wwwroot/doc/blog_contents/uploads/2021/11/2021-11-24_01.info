@@ -1,13 +1,13 @@
 {
-    "Title":"“老坛泡新菜”:SOD MVVM框架，让WinForms焕发新春",
-    "Slug":"the-old-altar-makes-new-dishes-sod-mvvm-framework-making-winforms-a-new-year",
-    "Cover":"https://img1.dotnet9.com/2021/11/cover_08.png",
-    "InBanner": true,
-    "Categories":["Winform"],
-    "Tags": ["Winform", "开源"],
-    "Albums": ["开源Winform"],
-    "CopyrightType": "Reprint",
-    "Original": "用户1177503",
-    "OriginalLink": "https://cloud.tencent.com/developer/article/1045710",
-    "CreateDate": "2021-11-23 21:13:07"
+  "Title": "“老坛泡新菜”:SOD MVVM框架，让WinForms焕发新春",
+  "Slug": "the-old-altar-makes-new-dishes-sod-mvvm-framework-making-winforms-a-new-year",
+  "Cover": "https://img1.dotnet9.com/2021/11/cover_08.png",
+  "InBanner": true,
+  "Categories": ["Winform"],
+  "Tags": ["Winform", "开源"],
+  "Albums": ["开源Winform"],
+  "CopyrightType": "Reprint",
+  "Original": "用户1177503",
+  "OriginalLink": "https://cloud.tencent.com/developer/article/1045710",
+  "CreateDate": "2021-11-23 21:13:07"
 }

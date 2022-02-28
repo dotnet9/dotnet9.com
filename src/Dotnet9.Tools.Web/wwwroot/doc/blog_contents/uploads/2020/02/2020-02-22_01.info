@@ -1,8 +1,8 @@
 {
-    "Title":"开源C# WPF控件库《AduSkin – UI》",
-    "Cover":"https://img1.dotnet9.com/2020/02/0101.gif",
-    "Categories":["WPF"],
-    "Albums": ["开源WPF"],
-    "CopyrightType": "Default",
-    "CreateDate": "2020-02-02 13:45:56"
+  "Title": "开源C# WPF控件库《AduSkin – UI》",
+  "Cover": "https://img1.dotnet9.com/2020/02/0101.gif",
+  "Categories": ["WPF"],
+  "Albums": ["开源WPF"],
+  "CopyrightType": "Default",
+  "CreateDate": "2020-02-02 13:45:56"
 }

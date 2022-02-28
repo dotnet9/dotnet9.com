@@ -1,9 +1,9 @@
 {
-    "Title":"走进WPF之开发类似Visio流程图软件",
-    "Cover":"https://img1.dotnet9.com/2022/02/cover_15.jpeg",
-    "Categories":["WPF"],
-    "CopyrightType": "Reprint",
-    "Original": "Alan.hsiang",
-    "OriginalLink": "https://mp.weixin.qq.com/s/rR8kX7aZCXpgpULRu0ZYdg",
-    "CreateDate": "2022-02-27 15:04:26"
+  "Title": "走进WPF之开发类似Visio流程图软件",
+  "Cover": "https://img1.dotnet9.com/2022/02/cover_15.jpeg",
+  "Categories": ["WPF"],
+  "CopyrightType": "Reprint",
+  "Original": "Alan.hsiang",
+  "OriginalLink": "https://mp.weixin.qq.com/s/rR8kX7aZCXpgpULRu0ZYdg",
+  "CreateDate": "2022-02-27 15:04:26"
 }

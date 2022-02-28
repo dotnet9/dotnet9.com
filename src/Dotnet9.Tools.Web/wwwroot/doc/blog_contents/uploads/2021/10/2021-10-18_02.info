@@ -1,11 +1,11 @@
 {
-    "Title":"SwiftUI @State @Published @ObservedObject 深入理解和使用",
-    "Slug":"swiftui-state-published-observadobject-in-depth-understanding-and-use",
-    "Cover":"https://img1.dotnet9.com/2021/10/cover_04.jpeg",
-    "Categories":["SwiftUI"],
-    "Tags": ["State", "Published", "ObservedObject"],
-    "CopyrightType": "Reprint",
-    "Original": "Renew全栈工程师",
-    "OriginalLink": "https://www.jianshu.com/p/e589181b14db",
-    "CreateDate": "2021-10-18 16:51:27"
+  "Title": "SwiftUI @State @Published @ObservedObject 深入理解和使用",
+  "Slug": "swiftui-state-published-observadobject-in-depth-understanding-and-use",
+  "Cover": "https://img1.dotnet9.com/2021/10/cover_04.jpeg",
+  "Categories": ["SwiftUI"],
+  "Tags": ["State", "Published", "ObservedObject"],
+  "CopyrightType": "Reprint",
+  "Original": "Renew全栈工程师",
+  "OriginalLink": "https://www.jianshu.com/p/e589181b14db",
+  "CreateDate": "2021-10-18 16:51:27"
 }

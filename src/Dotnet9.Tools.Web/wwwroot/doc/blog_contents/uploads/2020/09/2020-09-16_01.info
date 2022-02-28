@@ -1,10 +1,10 @@
 {
-    "Title":"开源WPF控件库：ModernWpf",
-    "Slug":"Open-source-WPF-control-library-recommendation-modernwpf",
-    "Cover":"https://img1.dotnet9.com/2020/09/0103.png",
-    "Categories":["WPF"],
-    "Tags": ["WPF"],
-    "Albums": ["开源WPF"],
-    "CopyrightType": "Default",
-    "CreateDate": "2020-09-16 13:45:56"
+  "Title": "开源WPF控件库：ModernWpf",
+  "Slug": "Open-source-WPF-control-library-recommendation-modernwpf",
+  "Cover": "https://img1.dotnet9.com/2020/09/0103.png",
+  "Categories": ["WPF"],
+  "Tags": ["WPF"],
+  "Albums": ["开源WPF"],
+  "CopyrightType": "Default",
+  "CreateDate": "2020-09-16 13:45:56"
 }

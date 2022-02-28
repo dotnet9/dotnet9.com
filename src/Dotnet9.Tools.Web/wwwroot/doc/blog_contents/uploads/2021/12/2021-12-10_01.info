@@ -1,12 +1,12 @@
 {
-    "Title":"(3/30)大家一起学Blazor：Blazor Server和Blazor WebAssembly的差异",
-    "Slug":"3-of-30-let-us-learn-blazor-together-differences-between-blazor-berver-and-blazor-webassembly",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_05.png",
-    "Categories":["Blazor Server", "Blazor WebAssembly"],
-    "Tags": ["Blazor Server", "Blazor WebAssembly"],
-    "Albums": ["大家一起学Blazor"],
-    "CopyrightType": "Reprint",
-    "Original": "StrayaWorker",
-    "OriginalLink": "https://ithelp.ithome.com.tw/articles/10259814",
-    "CreateDate": "2021-12-10 00:13:34"
+  "Title": "(3/30)大家一起学Blazor：Blazor Server和Blazor WebAssembly的差异",
+  "Slug": "3-of-30-let-us-learn-blazor-together-differences-between-blazor-berver-and-blazor-webassembly",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_05.png",
+  "Categories": ["Blazor Server", "Blazor WebAssembly"],
+  "Tags": ["Blazor Server", "Blazor WebAssembly"],
+  "Albums": ["大家一起学Blazor"],
+  "CopyrightType": "Reprint",
+  "Original": "StrayaWorker",
+  "OriginalLink": "https://ithelp.ithome.com.tw/articles/10259814",
+  "CreateDate": "2021-12-10 00:13:34"
 }

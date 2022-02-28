@@ -1,0 +1,39 @@
+﻿@using Dotnet9.Tools.Web.Models
+@if (Item != null)
+{
+@if (Item.Children is not {Count: > 0 })
+{
+    <MListItem Class="m-list-item--default" Href="@Item.Url" Exact>
+        <MListItemContent>
+            <MListItemTitle>
+                @Item.Text
+            </MListItemTitle>
+        </MListItemContent>
+    </MListItem>
+}
+else
+{
+    <MListGroup Class="m-list-group--default"
+                NoAction
+                Color="#5C2D91"
+                SubGroup>
+        <ActivatorContent>
+            <MListItemContent>
+                <MListItemTitle>@Item.Text</MListItemTitle>
+            </MListItemContent>
+        </ActivatorContent>
+        <ChildContent>
+            @foreach (var subItem in Item.Children)
+            {
+                <CategoryMenu Item="@subItem"/>
+            }
+        </ChildContent>
+    </MListGroup>
+}
+}
+
+@code
+{
+    [Parameter]
+    public TreeItem? Item { get; set; }
+}

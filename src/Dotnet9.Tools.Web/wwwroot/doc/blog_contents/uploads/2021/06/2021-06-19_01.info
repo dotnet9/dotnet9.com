@@ -1,9 +1,9 @@
 {
-    "Title":"C#: 不同的方式检查Null",
-    "Slug":"csharp-check-nulls-in-different-ways",
-    "Cover":"https://img1.dotnet9.com/2021/06/cover_03.jpg",
-    "Categories":[".NET"],
-    "Tags": ["C#"],
-    "CopyrightType": "Default",
-    "CreateDate": "2021-06-19 14:24:28"
+  "Title": "C#: 不同的方式检查Null",
+  "Slug": "csharp-check-nulls-in-different-ways",
+  "Cover": "https://img1.dotnet9.com/2021/06/cover_03.jpg",
+  "Categories": [".NET"],
+  "Tags": ["C#"],
+  "CopyrightType": "Default",
+  "CreateDate": "2021-06-19 14:24:28"
 }

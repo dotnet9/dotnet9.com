@@ -1,11 +1,11 @@
 {
-    "Title":"开源Winform控件库：花木兰控件库",
-    "Slug":"open-source-winform-control-library-mulan-control-library",
-    "Cover":"https://img1.dotnet9.com/2021/11/cover_07.gif",
-    "InBanner": true,
-    "Categories":["Winform"],
-    "Tags": ["C#", "Winform", "开源"],
-    "Albums": ["开源Winform"],
-    "CopyrightType": "Default",
-    "CreateDate": "2021-11-21 19:48:23"
+  "Title": "开源Winform控件库：花木兰控件库",
+  "Slug": "open-source-winform-control-library-mulan-control-library",
+  "Cover": "https://img1.dotnet9.com/2021/11/cover_07.gif",
+  "InBanner": true,
+  "Categories": ["Winform"],
+  "Tags": ["C#", "Winform", "开源"],
+  "Albums": ["开源Winform"],
+  "CopyrightType": "Default",
+  "CreateDate": "2021-11-21 19:48:23"
 }

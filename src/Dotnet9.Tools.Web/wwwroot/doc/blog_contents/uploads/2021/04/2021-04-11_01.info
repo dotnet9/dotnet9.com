@@ -1,11 +1,11 @@
 {
-    "Title":".NET Core 简单且高级的库 csredis",
-    "Slug":"dotnet-simple-and-advanced-library-csredis",
-    "Cover":"https://img1.dotnet9.com/2021/04/cover_05.png",
-    "Categories":[".NET"],
-    "Tags": [".NET", "Redis", "csredis"],
-    "CopyrightType": "Reprint",
-    "Original": "FreeSql & CSRedis",
-    "OriginalLink": "https://www.cnblogs.com/kellynic/p/9803314.html",
-    "CreateDate": "2021-04-11 09:50:47"
+  "Title": ".NET Core 简单且高级的库 csredis",
+  "Slug": "dotnet-simple-and-advanced-library-csredis",
+  "Cover": "https://img1.dotnet9.com/2021/04/cover_05.png",
+  "Categories": [".NET"],
+  "Tags": [".NET", "Redis", "csredis"],
+  "CopyrightType": "Reprint",
+  "Original": "FreeSql & CSRedis",
+  "OriginalLink": "https://www.cnblogs.com/kellynic/p/9803314.html",
+  "CreateDate": "2021-04-11 09:50:47"
 }

@@ -1,5 +1,4 @@
-﻿@using BlazorComponent.I18n
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <CascadingValue Value="this">
     <CascadingValue Value="@IsChinese">
@@ -16,8 +15,10 @@
             <MNavigationDrawer @bind-Value="_drawer" App>
                 <PublicCategorySidebar/>
             </MNavigationDrawer>
-            <MMain Class="mt-2 pt-2">
-                @Body
+            <MMain Class="mt-2 pa-4 pa-sm-6 pa-md-8">
+                <MContainer>
+                    @Body
+                </MContainer>
             </MMain>
 
             <MFooter Color="primary lighten-1" Padless>
@@ -26,23 +27,3 @@
         </MApp>
     </CascadingValue>
 </CascadingValue>
-
-@code
-{
-    private bool _drawer = true;
-    public bool IsChinese { get; set; }
-
-    [Inject]
-    public I18n I18n { get; set; } = default!;
-
-
-    public void ChangeLanguage(string lang)
-    {
-        I18n.SetLang(lang);
-    }
-
-    public string? T(string key)
-    {
-        return I18n.LanguageMap.GetValueOrDefault(key);
-    }
-}

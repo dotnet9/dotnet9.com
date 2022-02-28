@@ -1,13 +1,13 @@
 {
-    "Title":"WPF开源项目：WPF-ControlBase",
-    "Slug":"wpf-open-source-project-wpf-controlbase",
-    "Cover":"https://img1.dotnet9.com/2021/11/cover_09.png",
-    "InBanner": true,
-    "Categories":["WPF"],
-    "Tags": ["WPF"],
-    "Albums": ["开源WPF"],
-    "CopyrightType": "Reprint",
-    "Original": "He BianGu",
-    "OriginalLink": "https://github.com/HeBianGu/WPF-ControlBase",
-    "CreateDate": "2021-11-30 16:57:37"
+  "Title": "WPF开源项目：WPF-ControlBase",
+  "Slug": "wpf-open-source-project-wpf-controlbase",
+  "Cover": "https://img1.dotnet9.com/2021/11/cover_09.png",
+  "InBanner": true,
+  "Categories": ["WPF"],
+  "Tags": ["WPF"],
+  "Albums": ["开源WPF"],
+  "CopyrightType": "Reprint",
+  "Original": "He BianGu",
+  "OriginalLink": "https://github.com/HeBianGu/WPF-ControlBase",
+  "CreateDate": "2021-11-30 16:57:37"
 }

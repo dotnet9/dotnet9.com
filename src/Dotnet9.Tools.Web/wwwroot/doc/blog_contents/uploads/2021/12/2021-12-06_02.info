@@ -1,11 +1,11 @@
 {
-    "Title":"Blazor创建TabControl组件",
-    "Slug":"blazor-creates-tabcontrol-component",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_03.jpeg",
-    "Categories":["Blazor"],
-    "Tags": ["前端", "Blazor"],
-    "CopyrightType": "Reprint",
-    "Original": "Blazor University",
-    "OriginalLink": "https://blazor-university.com/templating-components-with-renderfragements/creating-a-tabcontrol/",
-    "CreateDate": "2021-12-06 22:01:36"
+  "Title": "Blazor创建TabControl组件",
+  "Slug": "blazor-creates-tabcontrol-component",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_03.jpeg",
+  "Categories": ["Blazor"],
+  "Tags": ["前端", "Blazor"],
+  "CopyrightType": "Reprint",
+  "Original": "Blazor University",
+  "OriginalLink": "https://blazor-university.com/templating-components-with-renderfragements/creating-a-tabcontrol/",
+  "CreateDate": "2021-12-06 22:01:36"
 }

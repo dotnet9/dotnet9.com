@@ -1,10 +1,10 @@
 {
-    "Title":"[WPF] 仅用 Rectangle 实现圆柱形进度条",
-    "Slug":"WPF-cylindrical-progress-bar-with-rectangle-only",
-    "Cover":"https://img1.dotnet9.com/2022/02/1101.png",
-    "Categories":["WPF"],
-    "CopyrightType": "Reprint",
-    "Original": "dino.c",
-    "OriginalLink": "https://www.cnblogs.com/dino623/p/wpf_column_progress_bar.html",
-    "CreateDate": "2022-02-21 14:50:11"
+  "Title": "[WPF] 仅用 Rectangle 实现圆柱形进度条",
+  "Slug": "WPF-cylindrical-progress-bar-with-rectangle-only",
+  "Cover": "https://img1.dotnet9.com/2022/02/1101.png",
+  "Categories": ["WPF"],
+  "CopyrightType": "Reprint",
+  "Original": "dino.c",
+  "OriginalLink": "https://www.cnblogs.com/dino623/p/wpf_column_progress_bar.html",
+  "CreateDate": "2022-02-21 14:50:11"
 }

@@ -1,11 +1,11 @@
 {
-    "Title":"初识MASA Blazor",
-    "Slug":"First-met-Masa-blazor",
-    "Cover":"https://img1.dotnet9.com/2022/01/0711.png",
-    "Categories":["Blazor"],
-    "Tags": ["C#", "Blazor"],
-    "CopyrightType": "Reprint",
-    "Original": "MASA技术团队",
-    "OriginalLink": "https://www.cnblogs.com/MASA/p/15766886.html",
-    "CreateDate": "2022-01-12 22:12:04"
+  "Title": "初识MASA Blazor",
+  "Slug": "First-met-Masa-blazor",
+  "Cover": "https://img1.dotnet9.com/2022/01/0711.png",
+  "Categories": ["Blazor"],
+  "Tags": ["C#", "Blazor"],
+  "CopyrightType": "Reprint",
+  "Original": "MASA技术团队",
+  "OriginalLink": "https://www.cnblogs.com/MASA/p/15766886.html",
+  "CreateDate": "2022-01-12 22:12:04"
 }

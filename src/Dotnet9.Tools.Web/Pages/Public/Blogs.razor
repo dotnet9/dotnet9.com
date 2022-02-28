@@ -1,18 +1,25 @@
 ﻿@page "/blogs"
+@using Dotnet9.Tools.Web.Models
+@layout PublicLayout
 
-<h3>@T("Blog")</h3>
+<ItemList Title="@T("Blogs")" Items="_items"></ItemList>
 
-<p>
-    Is Migrating...
-</p>
+@code {
 
-@code
-{
     [CascadingParameter]
-    public PublicLayout MainLayout { get; set; } = default!;
+    public PublicLayout? MainLayout { get; set; }
 
-    public string? T(string key)
+    List<ItemInfo>? _items;
+
+    public string T(string key)
     {
-        return MainLayout.T(key);
+        return MainLayout?.T(key) ?? string.Empty;
     }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _items = ConstDatas.PostItems!.Select(x => new ItemInfo(x.Title, x.Description, x.Cover, $"/post/{x.Slug}")).ToList();
+    }
+
 }

@@ -1,10 +1,10 @@
 {
-    "Title":"【链接很多】.NET 7 的 ASP.NET Core 路线图",
-    "Slug":"many-links-ASP-Net-Core-of-Net-core-Roadmap",
-    "Cover":"https://img1.dotnet9.com/2022/02/cover_05.png",
-    "Categories":[".NET"],
-    "CopyrightType": "Reprint",
-    "Original": "追逐时光者",
-    "OriginalLink": "https://zhuanlan.zhihu.com/p/469359820",
-    "CreateDate": "2022-02-19 18:05:34"
+  "Title": "【链接很多】.NET 7 的 ASP.NET Core 路线图",
+  "Slug": "many-links-ASP-Net-Core-of-Net-core-Roadmap",
+  "Cover": "https://img1.dotnet9.com/2022/02/cover_05.png",
+  "Categories": [".NET"],
+  "CopyrightType": "Reprint",
+  "Original": "追逐时光者",
+  "OriginalLink": "https://zhuanlan.zhihu.com/p/469359820",
+  "CreateDate": "2022-02-19 18:05:34"
 }

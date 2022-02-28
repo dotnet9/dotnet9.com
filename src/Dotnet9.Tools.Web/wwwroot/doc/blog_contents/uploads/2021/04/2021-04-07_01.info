@@ -1,10 +1,10 @@
 {
-    "Title":"你知道WPF与WinForms的区别吗？",
-    "Slug":"do-you-know-the-difference-between-wpf-and-winform",
-    "Cover":"https://img1.dotnet9.com/2021/04/cover_06.jpg",
-    "BriefDescription":"介绍两种开发Windows桌面应用程序的方法之间的主要区别，这些方法可以在现代系统开发中发挥更好的作用。",
-    "Categories":[".NET", "Winform", "WPF"],
-    "Tags": [".NET", "Winform", "WPF"],
-    "CopyrightType": "Default",
-    "CreateDate": "2021-04-07 23:59:02"
+  "Title": "你知道WPF与WinForms的区别吗？",
+  "Slug": "do-you-know-the-difference-between-wpf-and-winform",
+  "Cover": "https://img1.dotnet9.com/2021/04/cover_06.jpg",
+  "BriefDescription": "介绍两种开发Windows桌面应用程序的方法之间的主要区别，这些方法可以在现代系统开发中发挥更好的作用。",
+  "Categories": [".NET", "Winform", "WPF"],
+  "Tags": [".NET", "Winform", "WPF"],
+  "CopyrightType": "Default",
+  "CreateDate": "2021-04-07 23:59:02"
 }

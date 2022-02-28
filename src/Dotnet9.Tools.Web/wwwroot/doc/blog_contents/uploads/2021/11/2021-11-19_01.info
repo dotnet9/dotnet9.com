@@ -1,12 +1,12 @@
 {
-    "Title":"精：C#语法特性总结",
-    "Slug":"refinement-summary-of-csharp-syntax-features",
-    "Cover":"https://img1.dotnet9.com/2021/11/cover_06.jpg",
-    "BriefDescription":"C# 10已与.NET 6、VS2022一起发布，本文按照.NET的发布顺序，根据微软官方文档整理C#中一些有趣的语法特性。",
-    "Categories":[".NET"],
-    "Tags": ["C#"],
-    "CopyrightType": "Reprint",
-    "Original": "louzixl",
-    "OriginalLink": "https://www.cnblogs.com/louzixl/archive/2021/11/14/15553715.html",
-    "CreateDate": "2021-11-19 17:38:15"
+  "Title": "精：C#语法特性总结",
+  "Slug": "refinement-summary-of-csharp-syntax-features",
+  "Cover": "https://img1.dotnet9.com/2021/11/cover_06.jpg",
+  "BriefDescription": "C# 10已与.NET 6、VS2022一起发布，本文按照.NET的发布顺序，根据微软官方文档整理C#中一些有趣的语法特性。",
+  "Categories": [".NET"],
+  "Tags": ["C#"],
+  "CopyrightType": "Reprint",
+  "Original": "louzixl",
+  "OriginalLink": "https://www.cnblogs.com/louzixl/archive/2021/11/14/15553715.html",
+  "CreateDate": "2021-11-19 17:38:15"
 }

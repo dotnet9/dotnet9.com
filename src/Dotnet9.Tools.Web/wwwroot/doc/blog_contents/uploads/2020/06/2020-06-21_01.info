@@ -1,10 +1,10 @@
 {
-    "Title":".NET进行客户端Web开发又一利器 - Ant Design Blazor",
-    "Slug":"Another-powerful-tool-for-client-side-web-development-with-dotNet-Ant-Design-Blazer",
-    "Cover":"https://img1.dotnet9.com/2020/06/0109.jpg",
-    "Categories":["Blazor"],
-    "Tags": ["Blazor"],
-    "Albums": ["开源Blazor"],
-    "CopyrightType": "Default",
-    "CreateDate": "2020-06-21 13:45:56"
+  "Title": ".NET进行客户端Web开发又一利器 - Ant Design Blazor",
+  "Slug": "Another-powerful-tool-for-client-side-web-development-with-dotNet-Ant-Design-Blazer",
+  "Cover": "https://img1.dotnet9.com/2020/06/0109.jpg",
+  "Categories": ["Blazor"],
+  "Tags": ["Blazor"],
+  "Albums": ["开源Blazor"],
+  "CopyrightType": "Default",
+  "CreateDate": "2020-06-21 13:45:56"
 }

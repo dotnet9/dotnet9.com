@@ -1,4 +1,5 @@
-﻿@using BlazorComponent
+﻿@using Dotnet9.Tools.Web.Models
+@using BlazorComponent
 <MRow Justify="JustifyTypes.Center" NoGutters>
     @foreach (var link in _links)
     {
@@ -31,18 +32,7 @@
         new("prism", "https://github.com/PrismJS/prism")
     };
 
-    struct FriendLink
-    {
-        public FriendLink(string name, string url)
-        {
-            Name = name;
-            Url = url;
-        }
 
-        public string Name { get; set; }
-
-        public string Url { get; set; }
-    }
 }
 
 <style>

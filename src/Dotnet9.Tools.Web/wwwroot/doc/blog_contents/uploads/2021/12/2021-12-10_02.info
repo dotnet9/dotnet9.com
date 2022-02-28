@@ -1,12 +1,12 @@
 {
-    "Title":"(4/30)大家一起学Blazor：Component及路由介绍",
-    "Slug":"4-of-30-let-us-learn-blazor-together-component-and-routing-introduction",
-    "Cover":"https://img1.dotnet9.com/2021/12/cover_05.png",
-    "Categories":["Blazor Server"],
-    "Tags": ["Blazor Server"],
-    "Albums": ["大家一起学Blazor"],
-    "CopyrightType": "Reprint",
-    "Original": "StrayaWorker",
-    "OriginalLink": "https://ithelp.ithome.com.tw/articles/10260047",
-    "CreateDate": "2021-12-10 23:01:39"
+  "Title": "(4/30)大家一起学Blazor：Component及路由介绍",
+  "Slug": "4-of-30-let-us-learn-blazor-together-component-and-routing-introduction",
+  "Cover": "https://img1.dotnet9.com/2021/12/cover_05.png",
+  "Categories": ["Blazor Server"],
+  "Tags": ["Blazor Server"],
+  "Albums": ["大家一起学Blazor"],
+  "CopyrightType": "Reprint",
+  "Original": "StrayaWorker",
+  "OriginalLink": "https://ithelp.ithome.com.tw/articles/10260047",
+  "CreateDate": "2021-12-10 23:01:39"
 }
