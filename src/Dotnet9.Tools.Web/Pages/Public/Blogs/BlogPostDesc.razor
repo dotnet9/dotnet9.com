@@ -1,4 +1,4 @@
-﻿@page "/post"
+﻿@page "/post/{slug?}"
 @using Dotnet9.Tools.Web.Shared.Public
 @using Markdig
 @using Dotnet9.Tools.Web.Models
@@ -79,7 +79,6 @@ else
 @code {
 
     [Parameter]
-    [SupplyParameterFromQuery]
     public string? Slug { get; set; }
 
     [CascadingParameter]

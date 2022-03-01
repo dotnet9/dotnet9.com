@@ -14,7 +14,7 @@ public static class TreeItemExt
 
     public static TreeItem AlbumToTreeItem(this AlbumItem item)
     {
-        var treeItem = new TreeItem(TreeItemKind.Album, item.Name, $"album?slug={item.Slug}", item);
+        var treeItem = new TreeItem(TreeItemKind.Album, item.Name, $"album/{item.Slug}", item);
         if (item.Children is not {Count: > 0}) return treeItem;
         //treeItem.Children = new List<TreeItem>();
         //item.Children.ForEach(x => { treeItem.Children.Add(x.AlbumToTreeItem()); });
@@ -24,7 +24,7 @@ public static class TreeItemExt
 
     public static TreeItem CategoryToTreeItem(this CategoryItem item)
     {
-        var treeItem = new TreeItem(TreeItemKind.Category, item.Name, $"cat?slug={item.Slug}", item);
+        var treeItem = new TreeItem(TreeItemKind.Category, item.Name, $"cat/{item.Slug}", item);
         if (item.Children is not {Count: > 0}) return treeItem;
         //treeItem.Children = new List<TreeItem>();
         //item.Children.ForEach(x => { treeItem.Children.Add(x.CategoryToTreeItem()); });

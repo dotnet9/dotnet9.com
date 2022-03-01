@@ -1,4 +1,4 @@
-﻿@page "/cat"
+﻿@page "/cat/{slug?}"
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
@@ -8,7 +8,6 @@
 @code {
 
     [Parameter]
-    [SupplyParameterFromQuery]
     public string? Slug { get; set; }
 
     [CascadingParameter]
@@ -21,13 +20,11 @@
         return MainLayout?.T(key) ?? string.Empty;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
-
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.CategoryNotTreeItems!.Select(x => new CardItem(x.Name, "No description", "http://api.btstu.cn/sjbz/?lx=m_meizi", $"/cat?slug={x.Slug}")).ToList();
+            _items = ConstDatas.CategoryNotTreeItems!.Select(x => new CardItem(x.Name, "No description", "http://api.btstu.cn/sjbz/?lx=m_meizi", $"/cat/{x.Slug}")).ToList();
         }
         else
         {
@@ -35,8 +32,9 @@
             if (category == null) return;
 
             var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Categories.Contains(category.Name));
-            _items = posts.Select(x => new CardItem(x.Title, x.Description, x.Cover, $"/post?slug={x.Slug}")).ToList();
+            _items = posts.Select(x => new CardItem(x.Title, x.Description, x.Cover, $"/post/{x.Slug}")).ToList();
         }
+        await base.OnParametersSetAsync();
     }
 
 }

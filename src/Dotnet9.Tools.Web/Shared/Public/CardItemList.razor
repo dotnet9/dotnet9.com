@@ -17,7 +17,10 @@
                     <MCardActions>
                         <span class="tool-desc">@tool.Description</span>
                         <MSpacer></MSpacer>
-                        <a href="@tool.Url">@T("ToolsGo")</a>
+                        @*<a href="@tool.Url">@T("ToolsGo")</a>*@
+                        <MButton Color="primary" NoGutter Text Rounded Href="@tool.Url">
+                            @T("ToolsGo")
+                        </MButton>
                     </MCardActions>
                 </MCard>
             </MCol>
