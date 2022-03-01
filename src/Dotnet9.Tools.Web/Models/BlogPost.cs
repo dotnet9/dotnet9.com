@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Tools.Web.Models;
 
-public class PostInfo
+public class BlogPost
 {
     public string? Title { get; set; }
 
@@ -23,6 +23,8 @@ public class PostInfo
     public string? OriginalLink { get; set; }
 
     public string? CreateDate { get; set; }
+
+    public string? UpdateDate { get; set; }
 
     public string? Content { get; set; }
 }

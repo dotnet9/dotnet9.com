@@ -1,4 +1,5 @@
 ﻿@using BlazorComponent.I18n
+@using Dotnet9.Tools.Web.Models
 @layout PublicLayout
 @inject I18n I18N
 
@@ -29,6 +30,23 @@
     </MRow>
 
 </MCard>
+
+@code
+{
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public List<CardItem>? Items { get; set; }
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+}
 
 <style>
     .tool-desc {

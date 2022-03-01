@@ -1,5 +1,4 @@
-﻿@using BlazorComponent.I18n
-@using Markdig
+﻿@using Markdig
 <MRow>
     <MCol>
         <MButton
@@ -82,14 +81,14 @@
     [Parameter]
     public string SourceCodeUrl { get; set; } = null!;
 
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
     private bool _showPost;
 
     private bool _hasXss { get; set; }
 
     private MarkupString _postHtmlContent;
-
-    [Inject]
-    private I18n I18N { get; set; } = default!;
 
     [Inject]
     private IJSRuntime _jsRuntime { get; set; }
@@ -98,12 +97,11 @@
     {
         var markdownData = await File.ReadAllTextAsync(LocalPostFilePath);
         var htmlData = Markdown.ToHtml(markdownData);
-        htmlData = htmlData.Replace("language-golang", "language-go");
         if (htmlData.Contains("<script") || htmlData.Contains("<link"))
         {
             _hasXss = true;
         }
-        _postHtmlContent = (MarkupString) htmlData;
+        _postHtmlContent = (MarkupString)htmlData;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -113,7 +111,7 @@
 
     public string? T(string key)
     {
-        return I18N.LanguageMap.GetValueOrDefault(key);
+        return MainLayout?.T(key);
     }
 }
 

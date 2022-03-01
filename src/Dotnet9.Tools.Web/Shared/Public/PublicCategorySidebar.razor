@@ -1,0 +1,67 @@
+﻿@using Dotnet9.Tools.Web.Models
+@using Newtonsoft.Json
+<MList Dense Nav Expand="true">
+    <MListItem>
+        <MListItemContent>
+            <MListItemTitle Class="text-h6">
+                @T("Dotnet9ToolsTitle")
+            </MListItemTitle>
+            <MListItemSubtitle>
+                @T("Motto")
+            </MListItemSubtitle>
+        </MListItemContent>
+    </MListItem>
+
+    <MDivider Class="m-0 p-0"/>
+
+    <MList Nav Linkage Class="mt-4">
+        @foreach (var item in _items)
+        {
+            <CategoryMenu Item="@item"/>
+        }
+    </MList>
+</MList>
+
+@code
+{
+    private List<TreeItem> _items = new();
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var toolJson = await File.ReadAllTextAsync(Path.Combine("wwwroot", "tool.json"));
+        var toolListItem = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
+
+        var toolTreeItem = new TreeItem(TreeItemKind.Tool, T("Tools"), Guid.NewGuid().ToString())
+        {
+            Children = new List<TreeItem>()
+        };
+        toolListItem.ForEach(x => toolTreeItem.Children.Add(x.ToolToTreeItem()));
+
+        var albumTreeItem = new TreeItem(TreeItemKind.Tool, T("Album"), Guid.NewGuid().ToString())
+        {
+            Children = new List<TreeItem>()
+        };
+        ConstDatas.AlbumTreeItems?.ForEach(x => albumTreeItem.Children.Add(x.AlbumToTreeItem()));
+
+        var blogTreeItem = new TreeItem(TreeItemKind.Tool, T("Blog"), Guid.NewGuid().ToString())
+        {
+            Children = new List<TreeItem>()
+        };
+        ConstDatas.CategoryTreeItems?.ForEach(x => blogTreeItem.Children.Add(x.CategoryToTreeItem()));
+
+        _items.Clear();
+        _items.Add(toolTreeItem);
+        _items.Add(albumTreeItem);
+        _items.Add(blogTreeItem);
+
+        await base.OnInitializedAsync();
+    }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+}

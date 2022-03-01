@@ -2,7 +2,7 @@
 
 public class TreeItem
 {
-    public TreeItem(TreeKind kind, string text, string url, object? tag = null)
+    public TreeItem(TreeItemKind kind, string text, string url, object? tag = null)
     {
         Id = Guid.NewGuid().ToString();
         Kind = kind;
@@ -12,7 +12,7 @@ public class TreeItem
     }
 
     public string Id { get; set; }
-    public TreeKind Kind { get; set; }
+    public TreeItemKind Kind { get; set; }
     public string Text { get; set; }
     public string Url { get; set; }
     public object? Tag { get; set; }

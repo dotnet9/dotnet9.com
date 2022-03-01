@@ -1,29 +1,52 @@
-﻿@inherits LayoutComponentBase
+﻿@using BlazorComponent.I18n
+@inherits LayoutComponentBase
 
 <CascadingValue Value="this">
     <CascadingValue Value="@IsChinese">
         <MApp Class="baselayout-m-app" Style="background: #F2F3F5;">
+
             <MAppBar Elevation="0" Fixed Color="white" Class="pc-app-bar" App>
                 <MAppBarNavIcon @onclick="() => _drawer = !_drawer"/>
                 <PublicHeader IsChinese="@IsChinese"/>
             </MAppBar>
+
             <MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex m-0 p-0">
                 <MSpacer></MSpacer>
                 <MIcon>mdi-message</MIcon>
                 <span style="color: white;">Under development, it is convenient for yourself and others</span>
             </MSystemBar>
+
             <MNavigationDrawer @bind-Value="_drawer" App>
                 <PublicCategorySidebar/>
             </MNavigationDrawer>
-            <MMain Class="mt-2 pa-4 pa-sm-6 pa-md-8">
-                <MContainer>
-                    @Body
-                </MContainer>
+
+            <MMain Class="ma-2 pa-2">
+                @Body
             </MMain>
 
             <MFooter Color="primary lighten-1" Padless>
                 <PublicFooter/>
             </MFooter>
+
         </MApp>
     </CascadingValue>
 </CascadingValue>
+
+@code
+{
+    private bool _drawer = true;
+    public bool IsChinese { get; set; }
+
+    [Inject]
+    public I18n? I18N { get; set; }
+
+    public void ChangeLanguage(string lang)
+    {
+        I18N?.SetLang(lang);
+    }
+
+    public string T(string key)
+    {
+        return I18N?.LanguageMap.GetValueOrDefault(key) ?? string.Empty;
+    }
+}

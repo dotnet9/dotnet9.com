@@ -1,8 +1,8 @@
 ﻿namespace Dotnet9.Tools.Web.Models;
 
-public class ItemInfo
+public class CardItem
 {
-    public ItemInfo(string title, string desc, string cover, string url)
+    public CardItem(string title, string desc, string cover, string url)
     {
         Title = title;
         Description = desc;

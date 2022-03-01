@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Tools.Web.Models;
 
-public enum TreeKind
+public enum TreeItemKind
 {
     Tool,
     Album,

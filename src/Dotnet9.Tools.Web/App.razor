@@ -1,4 +1,5 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@using Dotnet9.Tools.Web.Shared.Public
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(PublicLayout)"/>
         <FocusOnNavigate RouteData="@routeData" Selector="h1"/>

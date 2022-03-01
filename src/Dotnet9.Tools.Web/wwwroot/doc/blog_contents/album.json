@@ -7,7 +7,7 @@
   {
     "Name": "开源Blazor",
     "Slug": "open-source-blazor",
-    "Cover": "doc/blog_contents/album_blazor.png"
+    "Cover": "doc/blog_contents/album_blazor.jpg"
   },
   {
     "Name": "大家一起学Blazor",
@@ -42,6 +42,6 @@
   {
     "Name": "开源Flutter",
     "Slug": "open-source-flutter",
-    "Cover": "doc/blog_contents/2021/07/cover_02.png"
+    "Cover": "doc/blog_contents/album_flutter.png"
   }
 ]

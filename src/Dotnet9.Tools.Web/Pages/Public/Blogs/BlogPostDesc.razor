@@ -1,0 +1,159 @@
+﻿@page "/post"
+@using Dotnet9.Tools.Web.Shared.Public
+@using Markdig
+@using Dotnet9.Tools.Web.Models
+@using BlazorComponent
+@layout PublicLayout
+
+
+@if (_post == null)
+{
+    <PageTitle>No post found</PageTitle>
+    <p>No post found</p>
+}
+else
+{
+    <PageTitle>@_post.Title</PageTitle>
+    <h1 class="entry-title">@_post.Title</h1>
+    <p class="entry-info">
+        <span>@(_post.Original ?? T("SiteOwner"))&nbsp;&nbsp;</span>
+        @if (_post.OriginalLink != null)
+        {
+            <span class="dot">•</span>
+            <span>@T("PostFrom"): @_post.OriginalLink&nbsp;&nbsp;</span>
+        }
+        <span> post: @_post.CreateDate</span>
+        @if (!string.IsNullOrWhiteSpace(_post.UpdateDate))
+        {
+            <span class="dot">•</span>
+            <span>@_post.UpdateDate</span>
+        }
+        @if (_post.Albums is {Length: > 0 })
+        {
+            <span class="dot">•</span>
+            <span> Albums: </span>
+            @foreach (var item in _post.Albums)
+            {
+                <a>@item</a>
+                <span>,</span>
+            }
+        }
+        @if (_post.Categories is {Length: > 0 })
+        {
+            <span class="dot">•</span>
+            <span> Categories: </span>
+            @foreach (var item in _post.Categories)
+            {
+                <a>@item</a>
+                <span>,</span>
+            }
+        }
+        @if (_post.Tags is {Length: > 0 })
+        {
+            <span class="dot">•</span>
+            <span> Tags: </span>
+            @foreach (var item in _post.Tags)
+            {
+                <a>@item</a>
+                <span>,</span>
+            }
+        }
+    </p>
+    <MRow>
+        <MCol>
+            <div class="line-numbers">
+                @{
+                    if (_hasXss)
+                    {
+                        @_postHtmlContent.ToString()
+                    }
+                    else
+                    {
+                        @_postHtmlContent
+                    }
+                }
+            </div>
+        </MCol>
+    </MRow>
+}
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Slug { get; set; }
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    private BlogPost? _post;
+
+    private bool _hasXss { get; set; }
+
+    private MarkupString _postHtmlContent;
+
+    [Inject]
+    private IJSRuntime _jsRuntime { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(Slug))
+        {
+            _post = ConstDatas.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
+            if (_post == null)
+            {
+                return;
+            }
+        }
+        else
+        {
+            return;
+        }
+        var htmlData = Markdown.ToHtml(_post.Content);
+        if (htmlData.Contains("<script") || htmlData.Contains("<link"))
+        {
+            _hasXss = true;
+        }
+        _postHtmlContent = (MarkupString)htmlData;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
+    }
+
+    public string? T(string key)
+    {
+        return MainLayout?.T(key);
+    }
+
+}
+
+<style>
+    .entry-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+        line-height: 1.4;
+    }
+
+    h3 {
+        border-bottom: 1px solid #eee;
+        margin-top: 50px;
+        padding-bottom: 10px;
+    }
+
+    pre {
+        background: #1E1E1E;
+        color: #eee;
+        overflow-x: auto;
+        padding: 0.5em !important;
+        white-space: pre;
+        word-break: normal;
+        word-wrap: normal;
+    }
+
+    img, video, source { max-width: 100% }
+
+    pre > code { white-space: pre; }
+</style>

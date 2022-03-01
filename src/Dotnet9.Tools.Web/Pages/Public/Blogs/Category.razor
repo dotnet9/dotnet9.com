@@ -1,0 +1,42 @@
+﻿@page "/cat"
+@using Dotnet9.Tools.Web.Shared.Public
+@using Dotnet9.Tools.Web.Models
+@layout PublicLayout
+
+<CardItemList Title="@T("Category")" Items="_items"></CardItemList>
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Slug { get; set; }
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    List<CardItem>? _items;
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (string.IsNullOrWhiteSpace(Slug))
+        {
+            _items = ConstDatas.CategoryNotTreeItems!.Select(x => new CardItem(x.Name, "No description", "doc/blog_contents/category.jpg", $"/cat?slug={x.Slug}")).ToList();
+        }
+        else
+        {
+            var category = ConstDatas.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
+            if (category == null) return;
+
+            var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Categories.Contains(category.Name));
+            _items = posts.Select(x => new CardItem(x.Title, x.Description, x.Cover, $"/post?slug={x.Slug}")).ToList();
+        }
+    }
+
+}
