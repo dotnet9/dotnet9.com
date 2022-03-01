@@ -2,9 +2,9 @@
 @using BlazorComponent
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Images
-@layout PublicLayout
+@layout DocLayout
 
-<PageTitle>@T("IcoToolTitle")</PageTitle>
+<PageTitle>@T("Dotnet9ToolsTitle") - @T("IcoToolTitle")</PageTitle>
 
 <h2 style="margin-bottom: 10px; margin-top: 10px; text-align: center;">@T("IcoToolTitle")</h2>
 
@@ -69,9 +69,10 @@
         await base.OnInitializedAsync();
     }
 
-    private void LoadFile(IBrowserFile? e)
+    private async Task LoadFile(IBrowserFile? e)
     {
         _sourceBrowserFile = e;
+        await Task.CompletedTask;
     }
 
     private async Task ConvertAndDownloadIcon()
@@ -113,7 +114,7 @@
         await _js.InvokeVoidAsync("downloadFileFromStream", saveFileName, streamRef);
     }
 
-    private void DeleteFile(string filePath)
+    private static async Task DeleteFile(string filePath)
     {
         try
         {
@@ -123,6 +124,7 @@
         {
     // ignored
         }
+        await Task.CompletedTask;
     }
 
     public string T(string key)

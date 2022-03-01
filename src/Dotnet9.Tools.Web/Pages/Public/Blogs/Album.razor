@@ -1,7 +1,7 @@
 ﻿@page "/album"
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
-@layout PublicLayout
+@layout DocLayout
 
 <CardItemList Title="@T("Album")" Items="_items"></CardItemList>
 
@@ -21,13 +21,11 @@
         return MainLayout?.T(key) ?? string.Empty;
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
-
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.AlbumTreeItems!.Select(x => new CardItem(x.Name, "", x.Cover, $"/algum?slug={Slug}")).ToList();
+            _items = ConstDatas.AlbumTreeItems!.Select(x => new CardItem(x.Name, "", x.Cover, $"/album?slug={Slug}")).ToList();
         }
         else
         {
@@ -37,6 +35,7 @@
             var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
             _items = posts.Select(x => new CardItem(x.Title, x.Description, x.Cover, $"/post?slug={x.Slug}")).ToList();
         }
+        await base.OnInitializedAsync();
     }
 
 }

@@ -2,18 +2,17 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @using Markdig
 @using Dotnet9.Tools.Web.Models
-@using BlazorComponent
-@layout PublicLayout
+@layout DocLayout
 
 
 @if (_post == null)
 {
-    <PageTitle>No post found</PageTitle>
+    <PageTitle>@T("Dotnet9ToolsTitle") - No post found</PageTitle>
     <p>No post found</p>
 }
 else
 {
-    <PageTitle>@_post.Title</PageTitle>
+    <PageTitle>@T("Dotnet9ToolsTitle") - @_post.Title</PageTitle>
     <h1 class="entry-title">@_post.Title</h1>
     <p class="entry-info">
         <span>@(_post.Original ?? T("SiteOwner"))&nbsp;&nbsp;</span>
@@ -109,12 +108,12 @@ else
         {
             return;
         }
-        var htmlData = Markdown.ToHtml(_post.Content);
+        var htmlData = Markdown.ToHtml(_post.Content!);
         if (htmlData.Contains("<script") || htmlData.Contains("<link"))
         {
             _hasXss = true;
         }
-        _postHtmlContent = (MarkupString)htmlData;
+        _postHtmlContent = (MarkupString) htmlData;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -131,10 +130,10 @@ else
 
 <style>
     .entry-title {
-        margin-top: 0;
-        margin-bottom: 20px;
         font-size: 24px;
         line-height: 1.4;
+        margin-bottom: 20px;
+        margin-top: 0;
     }
 
     h3 {

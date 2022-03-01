@@ -1,7 +1,9 @@
 ﻿@using Dotnet9.Tools.Web.Utils
 @using BlazorComponent
 @using System.Globalization
-<img style="cursor: pointer; width: 48px;" class="ml-6" src="logo.png" @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;}) alt="Dotnet9"/>
+<span @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;})>
+    <img style="cursor: pointer; height: 64px; width: 64px;" class="ml-6" src="/logo.png"/>@T("Dotnet9ToolsTitle")
+</span>
 <MTabs BackgroundColor="white" Class="mtab-font" Style="margin-left: 120px;" Color="black" SliderColor="purple darken-2" Optional @bind-Value="SelectTab">
     <MTab Style="text-transform: none" Href="/">@T("Home")</MTab>
     <MTab Style="text-transform: none" Href="/tools">@T("Tools")</MTab>
@@ -57,7 +59,7 @@
     public StringNumber SelectTab { get; set; } = 0;
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         string lang;
         if (GlobalConfig.Language != null)
@@ -70,24 +72,26 @@
 
         IsChinese = lang == "zh-CN";
 
-        ChangeLanguage(lang);
+        await ChangeLanguage(lang);
     }
 
-    private void TurnLanguage()
+    private async Task TurnLanguage()
     {
         IsChinese = !IsChinese;
         var lang = IsChinese ? "zh-CN" : "en-US";
 
-        ChangeLanguage(lang);
+        await ChangeLanguage(lang);
 
         GlobalConfig.Language = lang;
         GlobalConfig.SaveChanges();
     }
 
-    private void ChangeLanguage(string lang)
+    private async Task ChangeLanguage(string lang)
     {
         _languageIcon = $"{lang}.png";
         MainLayout.ChangeLanguage(lang);
+
+        await Task.CompletedTask;
     }
 
     public string? T(string key)

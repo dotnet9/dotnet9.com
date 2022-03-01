@@ -3,26 +3,30 @@
 
 <CascadingValue Value="this">
     <CascadingValue Value="@IsChinese">
-        <MApp Class="baselayout-m-app" Style="background: #F2F3F5;">
+        <MApp Class="baselayout-m-app">
 
-            <MAppBar Elevation="0" Fixed Color="white" Class="pc-app-bar" App>
-                <MAppBarNavIcon @onclick="() => _drawer = !_drawer"/>
+            <MAppBar ElevateOnScroll Color="white" Height="80" Elevation="0" ClippedLeft ClippedRight App>
+                @*<MAppBarNavIcon @onclick="() => _drawer = !_drawer"/>*@
                 <PublicHeader IsChinese="@IsChinese"/>
             </MAppBar>
 
-            <MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex m-0 p-0">
+            @*<MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex m-0 p-0" App>
                 <MSpacer></MSpacer>
                 <MIcon>mdi-message</MIcon>
-                <span style="color: white;">Under development, it is convenient for yourself and others</span>
-            </MSystemBar>
+                <span style="color: white;">@T("Dotnet9ToolsDescription")</span>
+            </MSystemBar>*@
 
-            <MNavigationDrawer @bind-Value="_drawer" App>
-                <PublicCategorySidebar/>
+            <MNavigationDrawer @bind-Value="_drawer" Floating Fixed Width="333" App Clipped>
+                <ChildContent>
+                    <PublicCategorySidebar/>
+                    <div class="pt-12"></div>
+                </ChildContent>
             </MNavigationDrawer>
 
-            <MMain Class="ma-2 pa-2">
+            <MMain Class="mainlayout-m-main">
                 @Body
             </MMain>
+
 
             <MFooter Color="primary lighten-1" Padless>
                 <PublicFooter/>
@@ -40,9 +44,15 @@
     [Inject]
     public I18n? I18N { get; set; }
 
-    public void ChangeLanguage(string lang)
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
+    public async Task ChangeLanguage(string lang)
     {
         I18N?.SetLang(lang);
+        await Task.CompletedTask;
     }
 
     public string T(string key)

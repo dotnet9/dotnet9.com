@@ -15,6 +15,7 @@ public static class ConstDatas
     public static List<AlbumItem> AlbumTreeItems
     {
         get
+
         {
             if (_albumTreeItems != null) return _albumTreeItems;
 
@@ -46,17 +47,10 @@ public static class ConstDatas
             if (_categoryNotTreeItems != null) return _categoryNotTreeItems;
             _categoryNotTreeItems = new List<CategoryItem>();
             CategoryTreeItems.ForEach(x => ReadChildren(x, _categoryNotTreeItems));
+            _categoryNotTreeItems.RemoveAll(x =>
+                !BlogPostItems.Exists(b => b.Categories != null && b.Categories.Contains(x.Name)));
 
             return _categoryNotTreeItems;
-        }
-    }
-
-    private static void ReadChildren(CategoryItem sourceItem, List<CategoryItem> destItemList)
-    {
-        destItemList.Add(sourceItem);
-        if (sourceItem.Children != null && sourceItem.Children.Count > 0)
-        {
-            sourceItem.Children.ForEach(x => ReadChildren(x, destItemList));
         }
     }
 
@@ -79,5 +73,12 @@ public static class ConstDatas
 
             return _blogPostItems;
         }
+    }
+
+    private static void ReadChildren(CategoryItem sourceItem, ICollection<CategoryItem> destItemList)
+    {
+        destItemList.Add(sourceItem);
+        if (sourceItem.Children != null && sourceItem.Children.Count > 0)
+            sourceItem.Children.ForEach(x => ReadChildren(x, destItemList));
     }
 }

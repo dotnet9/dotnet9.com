@@ -3,7 +3,13 @@
 {
 @if (Item.Children is not {Count: > 0 })
 {
-    <MListItem Class="m-list-item--default" Href="@Item.Url" Exact>
+    <MListItem Class="m-list-item--default" Link Href="@Item.Url" Exact>
+        @if (Item.Icon != null)
+        {
+            <MListItemIcon>
+                <MIcon>@Item.Icon</MIcon>
+            </MListItemIcon>
+        }
         <MListItemContent>
             <MListItemTitle>
                 @Item.Text
@@ -13,11 +19,20 @@
 }
 else
 {
-    <MListGroup Class="m-list-group--default"
-                NoAction
-                Color="#5C2D91"
-                SubGroup>
+    var group = GenGroup(Item.Children);
+    <MListGroup
+        Class="m-list-group--default"
+        Group="@group"
+        NoAction
+        Color="#5C2D91"
+        SubGroup>
         <ActivatorContent>
+            @if (Item.Icon != null)
+            {
+                <MListItemIcon>
+                    <MIcon>@Item.Icon</MIcon>
+                </MListItemIcon>
+            }
             <MListItemContent>
                 <MListItemTitle>@Item.Text</MListItemTitle>
             </MListItemContent>
@@ -36,4 +51,26 @@ else
 {
     [Parameter]
     public TreeItem? Item { get; set; }
+
+    List<string> GenGroup(List<TreeItem>? items)
+    {
+        if (items == null || !items.Any()) return new List<string>();
+
+        var groups = new List<string>();
+
+        foreach (var item in items)
+        {
+            if (item.Children is not {Count: > 0 })
+            {
+                continue;
+            }
+            groups.AddRange(GenGroup(item.Children));
+
+            if (groups.Contains(item.Url, StringComparer.OrdinalIgnoreCase)) continue;
+
+            groups.Add(item.Url);
+        }
+
+        return groups;
+    }
 }
