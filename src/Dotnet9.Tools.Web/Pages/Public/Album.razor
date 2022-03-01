@@ -1,4 +1,4 @@
-﻿@page "/album/{slug}"
+﻿@page "/album"
 @using Dotnet9.Tools.Web.Models
 @layout PublicLayout
 
@@ -7,6 +7,7 @@
 @code {
 
     [Parameter]
+    [SupplyParameterFromQuery]
     public string? Slug { get; set; }
 
     [CascadingParameter]

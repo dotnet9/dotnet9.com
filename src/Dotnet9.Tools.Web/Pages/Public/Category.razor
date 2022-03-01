@@ -1,4 +1,4 @@
-﻿@page "/cat/{slug}"
+﻿@page "/cat"
 @using Dotnet9.Tools.Web.Models
 @layout PublicLayout
 
@@ -7,6 +7,7 @@
 @code {
 
     [Parameter]
+    [SupplyParameterFromQuery]
     public string? Slug { get; set; }
 
     [CascadingParameter]
@@ -25,7 +26,7 @@
 
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.PostItems!.Select(x => new ItemInfo(x.Title, x.Description, x.Cover, $"/post/{x.Slug}")).ToList();
+            _items = ConstDatas.PostItems!.Select(x => new ItemInfo(x.Title, x.Description, x.Cover, $"/post?slug={x.Slug}")).ToList();
         }
         else
         {
@@ -33,7 +34,7 @@
             if (category == null) return;
 
             var posts = ConstDatas.PostItems!.FindAll(x => x.Categories.Contains(category.Name));
-            _items = posts.Select(x => new ItemInfo(x.Title, x.Description, x.Cover, $"/post/{x.Slug}")).ToList();
+            _items = posts.Select(x => new ItemInfo(x.Title, x.Description, x.Cover, $"/post?slug={x.Slug}")).ToList();
         }
     }
 

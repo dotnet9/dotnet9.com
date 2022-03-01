@@ -43,7 +43,7 @@ public static class ConstDatas
         {
             if (_postItems != null) return _postItems;
 
-            var allPostFiles = Directory.GetFiles(Path.Combine(), "*.info", SearchOption.AllDirectories);
+            var allPostFiles = Directory.GetFiles(Path.Combine("wwwroot", "doc", "blog_contents", "uploads"), "*.info", SearchOption.AllDirectories);
             _postItems = allPostFiles.Select(x =>
             {
                 var post = JsonConvert.DeserializeObject<PostInfo>(x);

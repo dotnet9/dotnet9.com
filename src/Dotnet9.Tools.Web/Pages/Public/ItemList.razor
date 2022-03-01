@@ -1,5 +1,4 @@
-﻿@page "/tools"
-@using BlazorComponent.I18n
+﻿@using BlazorComponent.I18n
 @layout PublicLayout
 @inject I18n I18N
 
@@ -8,21 +7,24 @@
 <MCard>
 
     <MRow>
-        @foreach (var tool in Items)
+        @if (Items != null)
         {
-            <MCol key="@tool.Title" Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
-                <MCard>
-                    <MImage Src="@tool.Cover" Class="white--text align-end" Gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" Height=150>
-                        <MCardTitle>@tool.Title</MCardTitle>
-                    </MImage>
+            @foreach (var tool in Items)
+            {
+                <MCol key="@tool.Title" Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
+                    <MCard>
+                        <MImage Src="@tool.Cover" Class="white--text align-end" Gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" Height=150>
+                            <MCardTitle>@tool.Title</MCardTitle>
+                        </MImage>
 
-                    <MCardActions>
-                        <span class="tool-desc">@tool.Description</span>
-                        <MSpacer></MSpacer>
-                        <a href="@tool.Url">@T("ToolsGo")</a>
-                    </MCardActions>
-                </MCard>
-            </MCol>
+                        <MCardActions>
+                            <span class="tool-desc">@tool.Description</span>
+                            <MSpacer></MSpacer>
+                            <a href="@tool.Url">@T("ToolsGo")</a>
+                        </MCardActions>
+                    </MCard>
+                </MCol>
+            }
         }
     </MRow>
 
