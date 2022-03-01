@@ -3,7 +3,7 @@
   "Slug": "zhihu-why-does-tesla-use-the-dotnet-core-technology-framework-Why-not-use-java-or-go-etc",
   "Cover": "https://img1.dotnet9.com/2021/11/cover_01.jpeg",
   "BriefDescription": "很简单，用是因为好用，性能和语法表现力/开发速度都比java/go强，干嘛不用呢。",
-  "Categories": ["大佬说法"],
+  "Categories": ["大佬说"],
   "Tags": [".NET CORE", "Java", "Go"],
   "CopyrightType": "Reprint",
   "Original": "AlseinX",

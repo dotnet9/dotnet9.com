@@ -8,6 +8,10 @@
         "Slug": "dotnet-web",
         "Children": [
           {
+            "Name": "Web API",
+            "Slug": "dotnet-web-api"
+          },
+          {
             "Name": "Razor Pages",
             "Slug": "dotnet-web-razor-pages"
           },
@@ -20,14 +24,10 @@
             "Slug": "dotnet-web-blazor"
           },
           {
-            "Name": "More",
+            "Name": "更多.NET",
             "Slug": "dotnet-web-more"
           }
         ]
-      },
-      {
-        "Name": "Web API",
-        "Slug": "dotnet-web-api"
       },
       {
         "Name": "Mobile",
@@ -42,7 +42,7 @@
             "Slug": "dotnet-mobile-xamarin"
           },
           {
-            "Name": "More",
+            "Name": "More Mobile",
             "Slug": "dotnet-mobile-more"
           }
         ]
@@ -60,11 +60,15 @@
             "Slug": "dotnet-desktop-winform"
           },
           {
-            "Name": "MAUI",
-            "Slug": "dotnet-desktop-maui"
+            "Name": "WinUI",
+            "Slug": "dotnet-desktop-winui"
           },
           {
-            "Name": "More",
+            "Name": "UWP",
+            "Slug": "dotnet-desktop-uwp"
+          },
+          {
+            "Name": "More Desktop",
             "Slug": "dotnet-desktop-more"
           }
         ]
@@ -82,14 +86,129 @@
             "Slug": "dotnet-orm-dapper"
           },
           {
-            "Name": "More",
+            "Name": "More ORM",
             "Slug": "dotnet-orm-more"
           }
         ]
       },
       {
-        "Name": "More",
-        "Slug": "dotnet-more"
+        "Name": ".NET相关",
+        "Slug": "about-dotnet",
+        "Children": [
+          {
+            "Name": "OpenXML",
+            "slug": "openxml"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "大前端",
+    "Slug": "Large-front-end",
+    "Children": [
+      {
+        "Name": "Flutter",
+        "Slug": "flutter"
+      },
+      {
+        "Name": "React",
+        "Slug": "react"
+      },
+      {
+        "Name": "Vue",
+        "Slug": "vue"
+      },
+      {
+        "Name": "TypeScript",
+        "Slug": "TypeScript"
+      },
+      {
+        "Name": "HTML",
+        "Slug": "html"
+      },
+      {
+        "Name": "Bootstrap",
+        "Slug": "Bootstrap"
+      },
+      {
+        "Name": "SwiftUI",
+        "Slug": "swiftui"
+      }
+    ]
+  },{
+    "Name": "数据库",
+    "Slug": "database",
+    "Children": [
+      {
+        "Name": "MySQL",
+        "Slug": "mysql"
+      },
+      {
+        "Name": "Sqlite",
+        "Slug": "sqlite"
+      }
+    ]
+  },
+  {
+    "Name": "更多语言",
+    "Slug": "more-language",
+    "Children": [
+      {
+        "Name": "Java",
+        "Slug": "java"
+      },
+      {
+        "Name": "C++",
+        "Slug": "cpp"
+      }
+    ]
+  },
+  {
+    "Name": "运维",
+    "Slug": "Operation-and-maintenance",
+    "Children": [
+      {
+        "Name": "Redis",
+        "Slug": "redis"
+      },
+      {
+        "Name": "Linux",
+        "Slug": "linux"
+      },
+      {
+        "Name": "Docker",
+        "Slug": "docker"
+      }
+    ]
+  },
+  {
+    "Name": "Other",
+    "Slug": "other",
+    "Children": [
+      {
+        "Name": "IDE",
+        "Slug": "share-ide"
+      },
+      {
+        "Name": "软件分享",
+        "Slug": "share-software"
+      },
+      {
+        "Name": "架构设计",
+        "Slug": "architecture-design"
+      },
+      {
+        "Name": "大佬说",
+        "Slug": "Experts-say"
+      },
+      {
+        "Name": "开源项目",
+        "Slug": "Open-source-project"
+      },
+      {
+        "Name": "单元测试",
+        "Slug": "unit-test"
       }
     ]
   }
