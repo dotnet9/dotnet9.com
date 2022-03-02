@@ -9,18 +9,20 @@
         @foreach (var tool in Items)
         {
             <MCol key="@tool.Title" Class="col-xl-3 col-lg-4 col-sm-6 col-12 text-truncate">
-                <MCard>
+                <MCard Class="m-0 p-0" Outlined>
                     <MImage Src="@tool.Cover" Class="white--text align-end" Gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" Height=150>
-                        <MCardTitle>@tool.Title</MCardTitle>
+                        <MToolbarTitle Class="ml-0 mt-1 mb-1 pt-0 pb-0 pl-2 text-h6 white--text bg-black bg-opacity-25">
+                            <a style="text-decoration: none; color: #fff;" href="cat/@tool.Url">WPF</a>
+                        </MToolbarTitle>
                     </MImage>
 
                     <MCardActions>
-                        <span class="tool-desc">@tool.Description</span>
-                        <MSpacer></MSpacer>
+                        <a class="info-title" href="@tool.Url">@tool.Title</a>
+                        @*<MSpacer></MSpacer>
                         @*<a href="@tool.Url">@T("ToolsGo")</a>*@
-                        <MButton Color="primary" NoGutter Text Rounded Href="@tool.Url">
+                       @* <MButton Color="primary" NoGutter Text Rounded Href="@tool.Url">
                             @T("ToolsGo")
-                        </MButton>
+                        </MButton>*@
                     </MCardActions>
                 </MCard>
             </MCol>
@@ -46,8 +48,14 @@
 }
 
 <style>
-    .tool-desc {
+    .info-category {
+          color: #fff;
+          font-size: 11px;
+          text-decoration: none;
+      }
+    .info-title {
         color: #999;
         font-size: 11px;
+        text-decoration: none;
     }
 </style>
