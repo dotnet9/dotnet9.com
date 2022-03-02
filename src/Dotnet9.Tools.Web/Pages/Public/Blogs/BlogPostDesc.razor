@@ -12,7 +12,7 @@
 }
 else
 {
-    <PageTitle>@T("Dotnet9ToolsTitle") - @_post.Title</PageTitle>
+    <PageTitle>@_post.Title - @T("Dotnet9ToolsTitle")</PageTitle>
     <h1 class="entry-title">@_post.Title</h1>
     <p class="entry-info">
         <span>@(_post.Original ?? T("SiteOwner"))&nbsp;&nbsp;</span>
@@ -60,18 +60,7 @@ else
     </p>
     <MRow>
         <MCol>
-            <div class="line-numbers">
-                @{
-                    if (_hasXss)
-                    {
-                        @_postHtmlContent.ToString()
-                    }
-                    else
-                    {
-                        @_postHtmlContent
-                    }
-                }
-            </div>
+            <D9Markdown MarkdownContent="@_post.Content"></D9Markdown>
         </MCol>
     </MRow>
 }
@@ -80,44 +69,18 @@ else
 
     [Parameter]
     public string? Slug { get; set; }
-
+    
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
 
     private BlogPost? _post;
-
-    private bool _hasXss { get; set; }
-
-    private MarkupString _postHtmlContent;
-
-    [Inject]
-    private IJSRuntime _jsRuntime { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         if (!string.IsNullOrWhiteSpace(Slug))
         {
             _post = ConstDatas.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
-            if (_post == null)
-            {
-                return;
-            }
         }
-        else
-        {
-            return;
-        }
-        var htmlData = Markdown.ToHtml(_post.Content!);
-        if (htmlData.Contains("<script") || htmlData.Contains("<link"))
-        {
-            _hasXss = true;
-        }
-        _postHtmlContent = (MarkupString) htmlData;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await _jsRuntime.InvokeVoidAsync("Prism.highlightAll");
     }
 
     public string? T(string key)
@@ -134,24 +97,4 @@ else
         margin-bottom: 20px;
         margin-top: 0;
     }
-
-    h3 {
-        border-bottom: 1px solid #eee;
-        margin-top: 50px;
-        padding-bottom: 10px;
-    }
-
-    pre {
-        background: #1E1E1E;
-        color: #eee;
-        overflow-x: auto;
-        padding: 0.5em !important;
-        white-space: pre;
-        word-break: normal;
-        word-wrap: normal;
-    }
-
-    img, video, source { max-width: 100% }
-
-    pre > code { white-space: pre; }
 </style>

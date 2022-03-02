@@ -1,15 +1,63 @@
 ﻿@using Dotnet9.Tools.Web.Models
 @using Newtonsoft.Json
-<MList Nav Linkage Class="mt-4" Expand>
-    @foreach (var item in _items)
+
+<MList Subheader TwoLine>
+    
+    <MSubheader Inset>@T("Tools")</MSubheader>
+
+    @if (_toolItems != null)
     {
-        <CategoryMenu Item="@item"/>
+        foreach (var item in _toolItems)
+        {
+            <MListItem Link Href="@item.Url">
+                <MListItemAvatar>
+                    <MIcon Class="amber" Dark>mdi-gesture-tap-button</MIcon>
+                </MListItemAvatar>
+
+                <MListItemContent>
+                    <MListItemTitle>@item.Name</MListItemTitle>
+                </MListItemContent>
+            </MListItem>
+        }
+    }
+
+
+    <MDivider Inset></MDivider>
+    <MSubheader Inset>@T("Album")</MSubheader>
+
+    @foreach (var item in ConstDatas.AlbumTreeItems)
+    {
+        <MListItem Link Href="@($"/album/{item.Slug}")">
+            <MListItemAvatar>
+                <MIcon Class="orange" Dark>mdi-clipboard-text</MIcon>
+            </MListItemAvatar>
+
+            <MListItemContent>
+                <MListItemTitle>@item.Name</MListItemTitle>
+            </MListItemContent>
+        </MListItem>
+    }
+
+    <MDivider Inset></MDivider>
+    <MSubheader Inset>@T("Blog")</MSubheader>
+
+    @foreach (var item in ConstDatas.CategoryNotTreeItems)
+    {
+        <MListItem Link Href="@($"/cat/{item.Slug}")">
+            <MListItemAvatar>
+                <MIcon Class="blue" Dark>mdi-clipboard-text</MIcon>
+            </MListItemAvatar>
+
+            <MListItemContent>
+                <MListItemTitle>@item.Name</MListItemTitle>
+            </MListItemContent>
+        </MListItem>
     }
 </MList>
 
 @code
 {
-    private List<TreeItem> _items = new();
+    private List<ToolItem>? _toolItems;
 
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
@@ -17,30 +65,7 @@
     protected override async Task OnInitializedAsync()
     {
         var toolJson = await File.ReadAllTextAsync(Path.Combine("wwwroot", "tool.json"));
-        var toolListItem = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
-
-        var toolTreeItem = new TreeItem(TreeItemKind.Tool, T("Tools"), Guid.NewGuid().ToString(), icon: "mdi-tools")
-        {
-            Children = new List<TreeItem>()
-        };
-        toolListItem.ForEach(x => toolTreeItem.Children.Add(x.ToolToTreeItem()));
-
-        var albumTreeItem = new TreeItem(TreeItemKind.Album, T("Album"), Guid.NewGuid().ToString(), icon: "mdi-clipboard-list ")
-        {
-            Children = new List<TreeItem>()
-        };
-        ConstDatas.AlbumTreeItems?.ForEach(x => albumTreeItem.Children.Add(x.AlbumToTreeItem()));
-
-        var blogTreeItem = new TreeItem(TreeItemKind.Category, T("Blog"), Guid.NewGuid().ToString(), icon: "mdi-message-text-outline")
-        {
-            Children = new List<TreeItem>()
-        };
-        ConstDatas.CategoryNotTreeItems?.ForEach(x => blogTreeItem.Children.Add(x.CategoryToTreeItem()));
-
-        _items.Clear();
-        _items.Add(toolTreeItem);
-        _items.Add(albumTreeItem);
-        _items.Add(blogTreeItem);
+        _toolItems = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
 
         await base.OnInitializedAsync();
     }

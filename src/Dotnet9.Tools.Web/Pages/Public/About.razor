@@ -2,13 +2,11 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
-<PageTitle>@T("Dotnet9ToolsTitle") - @T("About")</PageTitle>
+<PageTitle>@T("About") - @T("Dotnet9ToolsTitle")</PageTitle>
 
 <h3>@T("About")</h3>
 
-<p>
-    @T("Dotnet9ToolsDescription")
-</p>
+<D9Markdown LocalPostFilePath="wwwroot/doc/README-zh_CN.md"/>
 
 @code
 {
