@@ -53,7 +53,7 @@ The effect demonstration is as follows:
 - Website message：[Dotnet9](https://dotnet9.com)。
 - WeChat official account(dotnet9)Contact, etc.
 
-![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
+![Dotnet9](https://raw.githubusercontent.com/dotnet9/dotnet9.com/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
 
 ## Donation
 
