@@ -1,5 +1,6 @@
 {
   "Title": "使用Blazor做个简单的时间戳在线转换工具",
+  "Slug": "Use-Blazor-to-be-a-simple-online-timestamp-conversion-tool",
   "Cover": "https://img1.dotnet9.com/2022/02/cover_17.jpeg",
   "Categories": ["Blazor"],
   "Tags": [".NET 7", "Blazor", "时间戳转换", "双向绑定"],
