@@ -53,8 +53,6 @@
 - [网站留言](https://dotnet9.com)。
 - 微信公众号(dotnet9)联系等等。
 
-![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
-
 ## 捐助
 
 如果对您有所帮助，可扫下方二维码对我进行打赏（虽然人已秃，生活照样要过的有滋有味！）。
