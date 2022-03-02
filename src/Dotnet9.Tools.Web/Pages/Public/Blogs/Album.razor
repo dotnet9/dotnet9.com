@@ -3,6 +3,8 @@
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
+<h1 style="text-align: center">@T("Album")</h1>
+
 <CardItemList Title="@T("Album")" Items="_items"></CardItemList>
 
 @code {
@@ -24,7 +26,7 @@
     {
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.AlbumTreeItems!.Select(x => new CardItem(x.Name, "", x.Cover, $"/album/{x.Slug}")).ToList();
+            _items = ConstDatas.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/album/{x.Slug}", cover: x.Cover)).ToList();
         }
         else
         {
@@ -32,7 +34,12 @@
             if (album == null) return;
 
             var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
-            _items = posts.Select(x => new CardItem(x.Title, x.Description, x.Cover, $"/post/{x.Slug}")).ToList();
+
+            _items = posts.Select(x =>
+            {
+                var category = ConstDatas.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+                return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+            }).ToList();
         }
         await base.OnParametersSetAsync();
     }

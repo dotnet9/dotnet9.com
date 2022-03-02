@@ -1,20 +1,20 @@
 ﻿<MRow>
     <MCol>
-        <MButton
-            Depressed Color="primary"
-            OnClick="() => _showPost = !_showPost">
+        <MButton Class="ma-1"
+                 Depressed Color="primary"
+                 OnClick="() => _showPost = !_showPost">
             @T("HowToDevelopmentDesc")
         </MButton>
         @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
         {
-            <MButton
-                Href="@RemotePostUrl"
-                Target="_blank"
-                Depressed Color="error">
+            <MButton Class="ma-1"
+                     Href="@RemotePostUrl"
+                     Target="_blank"
+                     Depressed Color="error">
                 @T("ToSuggest")
             </MButton>
         }
-        <MButton Dark
+        <MButton Dark Class="ma-1"
                  Color="black"
                  Href="@SourceCodeUrl"
                  Target="_blank">
@@ -27,27 +27,27 @@
 {
     <MRow>
         <MCol>
-            <D9Markdown LocalPostFilePath="@LocalPostFilePath" />
+            <D9Markdown LocalPostFilePath="@LocalPostFilePath"/>
         </MCol>
     </MRow>
 
     <MRow>
         <MCol>
-            <MButton
-                Depressed Color="primary"
-                OnClick="() => _showPost = !_showPost">
+            <MButton Class="ma-1"
+                     Depressed Color="primary"
+                     OnClick="() => _showPost = !_showPost">
                 @T("HowToDevelopmentDesc")
             </MButton>
             @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
             {
-                <MButton
-                    Href="@RemotePostUrl"
-                    Target="_blank"
-                    Depressed Color="error">
+                <MButton Class="ma-1"
+                         Href="@RemotePostUrl"
+                         Target="_blank"
+                         Depressed Color="error">
                     @T("ToSuggest")
                 </MButton>
             }
-            <MButton Dark
+            <MButton Dark Class="ma-1"
                      Color="black"
                      Href="@SourceCodeUrl"
                      Target="_blank">
@@ -73,7 +73,7 @@
     public PublicLayout? MainLayout { get; set; }
 
     private bool _showPost;
-    
+
 
     public string? T(string key)
     {

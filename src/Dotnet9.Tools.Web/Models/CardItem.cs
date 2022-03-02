@@ -2,16 +2,19 @@
 
 public class CardItem
 {
-    public CardItem(string title, string desc, string cover, string url)
+    public CardItem(string? firstTitle = null, string? firstUrl = null, string? secondTitle = null,
+        string? secondUrl = null, string? cover = null)
     {
-        Title = title;
-        Description = desc;
+        FirstTitle = firstTitle;
+        FirstUrl = firstUrl;
+        SecondTitle = secondTitle;
+        SecondUrl = secondUrl;
         Cover = cover;
-        Url = url;
     }
 
-    public string Title { get; }
-    public string Description { get; }
-    public string Cover { get; }
-    public string Url { get; }
+    public string? FirstTitle { get; }
+    public string? FirstUrl { get; }
+    public string? SecondTitle { get; }
+    public string? SecondUrl { get; }
+    public string? Cover { get; }
 }

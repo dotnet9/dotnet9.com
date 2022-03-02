@@ -2,8 +2,9 @@
 
 namespace Dotnet9.Tools.Web.Models;
 
-public static class ConstDatas
+internal static class ConstDatas
 {
+    public const string DynamicImageApi = "https://api.ixiaowai.cn/gqapi/gqapi.php";
     private static List<AlbumItem>? _albumTreeItems;
 
     private static List<CategoryItem>? _categoryTreeItems;
@@ -11,6 +12,8 @@ public static class ConstDatas
     private static List<CategoryItem>? _categoryNotTreeItems;
 
     private static List<BlogPost>? _blogPostItems;
+
+    private static List<string>? _blogTagItems;
 
     public static List<AlbumItem> AlbumTreeItems
     {
@@ -72,6 +75,23 @@ public static class ConstDatas
             }).ToList();
 
             return _blogPostItems;
+        }
+    }
+
+    public static List<string> BlogTagItems
+    {
+        get
+        {
+            if (_blogTagItems != null) return _blogTagItems;
+
+            var tags = new HashSet<string>();
+            BlogPostItems.ForEach(x =>
+            {
+                if (x.Tags is {Length: > 0}) x.Tags.ToList().ForEach(y => tags.Add(y));
+            });
+            _blogTagItems = tags.ToList();
+
+            return _blogTagItems;
         }
     }
 

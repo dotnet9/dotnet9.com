@@ -1,7 +1,7 @@
 ﻿@page "/post/{slug?}"
 @using Dotnet9.Tools.Web.Shared.Public
-@using Markdig
 @using Dotnet9.Tools.Web.Models
+@using System.Net
 @layout DocLayout
 
 
@@ -14,46 +14,62 @@ else
 {
     <PageTitle>@_post.Title - @T("Dotnet9ToolsTitle")</PageTitle>
     <h1 class="entry-title">@_post.Title</h1>
+
     <p class="entry-info">
-        <span>@(_post.Original ?? T("SiteOwner"))&nbsp;&nbsp;</span>
-        @if (_post.OriginalLink != null)
+
+        @if (string.IsNullOrWhiteSpace(_post.Original))
         {
-            <span class="dot">•</span>
-            <span>@T("PostFrom"): @_post.OriginalLink&nbsp;&nbsp;</span>
+            <span>@T("SiteOwner")&nbsp;&nbsp;</span>
         }
-        <span> post: @_post.CreateDate</span>
+        else
+        {
+            <span>@T("PostFrom"): <a href="@_post.OriginalLink">@_post.Original&nbsp;&nbsp;</a></span>
+        }
+
+        <span class="dot">•</span>
+        <span> @_post.CreateDate</span>
+
         @if (!string.IsNullOrWhiteSpace(_post.UpdateDate))
         {
-            <span class="dot">•</span>
+            <span class="dot"> - </span>
             <span>@_post.UpdateDate</span>
         }
+
         @if (_post.Albums is {Length: > 0 })
         {
             <span class="dot">•</span>
-            <span> Albums: </span>
-            @foreach (var item in _post.Albums)
+            @for (var i = _post.Albums.Length - 1; i >= 0; i--)
             {
-                <a>@item</a>
-                <span>,</span>
+                var item = _post.Albums[i];
+                var album = ConstDatas.AlbumTreeItems.FirstOrDefault(x => x.Name == item);
+                <a href="@($"/album/{album?.Slug}")">@album?.Name &nbsp;&nbsp;</a>
+                @if (i > 0)
+                {
+                    <span>,</span>
+                }
             }
         }
         @if (_post.Categories is {Length: > 0 })
         {
             <span class="dot">•</span>
-            <span> Categories: </span>
-            @foreach (var item in _post.Categories)
+            @for (var i = _post.Categories.Length - 1; i >= 0; i--)
             {
-                <a>@item</a>
-                <span>,</span>
+                var item = _post.Categories[i];
+                var cat = ConstDatas.CategoryNotTreeItems.FirstOrDefault(x => x.Name == item);
+                <a href="@($"/cat/{cat?.Slug}")">@cat?.Name &nbsp;&nbsp;</a>
+                @if (i > 0)
+                {
+                    <span>,</span>
+                }
             }
         }
         @if (_post.Tags is {Length: > 0 })
         {
             <span class="dot">•</span>
-            <span> Tags: </span>
             @foreach (var item in _post.Tags)
             {
-                <a>@item</a>
+                var tag = ConstDatas.BlogTagItems.FirstOrDefault(x => x == item);
+                <a href="@($"/tag/{WebUtility.UrlEncode(tag)}")">@tag &nbsp;&nbsp;</a>
                 <span>,</span>
             }
         }
@@ -69,7 +85,7 @@ else
 
     [Parameter]
     public string? Slug { get; set; }
-    
+
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
 
@@ -96,5 +112,16 @@ else
         line-height: 1.4;
         margin-bottom: 20px;
         margin-top: 0;
+        text-align: center;
+    }
+
+    .entry-info { font-size: 14px; }
+
+    .entry-info a { text-decoration: none; }
+
+    .dot {
+        color: #ccc;
+        margin-left: 3px;
+        margin-right: 3px;
     }
 </style>
