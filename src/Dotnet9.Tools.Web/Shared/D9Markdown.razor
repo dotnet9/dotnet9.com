@@ -1,0 +1,74 @@
+﻿@using Markdig
+
+<div class="line-numbers">
+    @{
+        if (HasXss)
+        {
+            @_postHtmlContent.ToString()
+        }
+        else
+        {
+            @_postHtmlContent
+        }
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public string? LocalPostFilePath { get; set; }
+
+    [Parameter]
+    public string? MarkdownContent { get; set; }
+
+    private bool HasXss { get; set; }
+
+    private MarkupString _postHtmlContent;
+
+    [Inject]
+    private IJSRuntime? JsRuntime { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrWhiteSpace(MarkdownContent)
+            && (string.IsNullOrWhiteSpace(LocalPostFilePath) || !File.Exists(LocalPostFilePath)))
+        {
+            return;
+        }
+        var markdownData = MarkdownContent ?? await File.ReadAllTextAsync(LocalPostFilePath!);
+        var htmlData = Markdown.ToHtml(markdownData);
+        if (htmlData.Contains("<script") || htmlData.Contains("<link"))
+        {
+            HasXss = true;
+        }
+        _postHtmlContent = (MarkupString) htmlData;
+        await base.OnParametersSetAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime!.InvokeVoidAsync("Prism.highlightAll");
+    }
+}
+
+<style>
+    h3 {
+        border-bottom: 1px solid #eee;
+        margin-top: 50px;
+        padding-bottom: 10px;
+    }
+
+    pre {
+        background: #1E1E1E;
+        color: #eee;
+        overflow-x: auto;
+        padding: 0.5em !important;
+        white-space: pre;
+        word-break: normal;
+        word-wrap: normal;
+    }
+
+    img, video, source { max-width: 100% }
+
+    pre > code { white-space: pre; }
+</style>
