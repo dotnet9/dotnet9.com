@@ -1,6 +1,7 @@
 ﻿@page "/timelines"
 @using Dotnet9.Tools.Web.Shared.Public
 @using Newtonsoft.Json
+@using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
 <PageTitle>@T("Timelines") - @T("Dotnet9ToolsTitle")</PageTitle>
@@ -10,16 +11,17 @@
 <MTimeline>
     @if (Items != null)
     {
-        foreach (var item in Items)
+        @foreach (var item in Items)
         {
-            <MTimelineItem Color="red lighten-2" Large>
+            var color = $"{ConstData.RandomColor}";
+            <MTimelineItem Color="@color" Icon="@ConstData.RandomIcon" Large>
                 <OppositeContent>
-                    <span>@item.Time</span>
+                    <span class="@($"headline font-weight-bold {color}--text")">@item.Time</span>
                 </OppositeContent>
                 <ChildContent>
-                    <MCard Class="elevation-2">
-                        <MCardTitle Class="text-h5">@item.Title</MCardTitle>
-                        <MCardText>@item.Content</MCardText>
+                    <MCard Color="@color" Dark>
+                        <MCardTitle Class="text-h6">@item.Title</MCardTitle>
+                        <MCardText Class="white text--primary">@item.Content</MCardText>
                     </MCard>
                 </ChildContent>
             </MTimelineItem>

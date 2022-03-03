@@ -2,7 +2,7 @@
 
 namespace Dotnet9.Tools.Web.Models;
 
-internal static class ConstDatas
+internal static class ConstData
 {
     public const string DynamicImageApi = "https://api.ixiaowai.cn/gqapi/gqapi.php";
     private static List<AlbumItem>? _albumTreeItems;
@@ -94,6 +94,16 @@ internal static class ConstDatas
             return _blogTagItems;
         }
     }
+
+    private static readonly Random CusRandom = new(DateTime.Now.Millisecond);
+
+    private static readonly string[] AllColors = { "indigo", "teal", "primary", "secondary", "error", "success", "pink", "red", "green", "amber", "orange" };
+
+    public static string RandomColor => AllColors[CusRandom.Next(AllColors.Length)];
+
+    private static readonly string[] AllIcons = { "mdi-calendar-text", "mdi-magnify", "mdi-star", "mdi-book-variant", "mdi-airballoon", "mdi-buffer", "mdi-clipboard-text", "mdi-gesture-tap-button" };
+
+    public static string RandomIcon => AllIcons[CusRandom.Next(AllIcons.Length)];
 
     private static void ReadChildren(CategoryItem sourceItem, ICollection<CategoryItem> destItemList)
     {

@@ -26,17 +26,17 @@
     {
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}")).ToList();
+            _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}")).ToList();
         }
         else
         {
-            var category = ConstDatas.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
+            var category = ConstData.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
             if (category == null) return;
 
-            var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Categories!.Contains(category.Name));
+            var posts = ConstData.BlogPostItems!.FindAll(x => x.Categories!.Contains(category.Name));
             _items = posts.Select(x =>
             {
-                var category = ConstDatas.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
                 return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
             }).ToList();
         }

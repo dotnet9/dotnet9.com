@@ -41,7 +41,7 @@ else
             @for (var i = _post.Albums.Length - 1; i >= 0; i--)
             {
                 var item = _post.Albums[i];
-                var album = ConstDatas.AlbumTreeItems.FirstOrDefault(x => x.Name == item);
+                var album = ConstData.AlbumTreeItems.FirstOrDefault(x => x.Name == item);
                 <a href="@($"/album/{album?.Slug}")">@album?.Name &nbsp;&nbsp;</a>
                 @if (i > 0)
                 {
@@ -55,7 +55,7 @@ else
             @for (var i = _post.Categories.Length - 1; i >= 0; i--)
             {
                 var item = _post.Categories[i];
-                var cat = ConstDatas.CategoryNotTreeItems.FirstOrDefault(x => x.Name == item);
+                var cat = ConstData.CategoryNotTreeItems.FirstOrDefault(x => x.Name == item);
                 <a href="@($"/cat/{cat?.Slug}")">@cat?.Name &nbsp;&nbsp;</a>
                 @if (i > 0)
                 {
@@ -68,7 +68,7 @@ else
             <span class="dot">•</span>
             @foreach (var item in _post.Tags)
             {
-                var tag = ConstDatas.BlogTagItems.FirstOrDefault(x => x == item);
+                var tag = ConstData.BlogTagItems.FirstOrDefault(x => x == item);
                 <a href="@($"/tag/{WebUtility.UrlEncode(tag)}")">@tag &nbsp;&nbsp;</a>
                 <span>,</span>
             }
@@ -104,7 +104,7 @@ else
     {
         if (!string.IsNullOrWhiteSpace(Slug))
         {
-            _post = ConstDatas.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
+            _post = ConstData.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
         }
         await Task.CompletedTask;
     }

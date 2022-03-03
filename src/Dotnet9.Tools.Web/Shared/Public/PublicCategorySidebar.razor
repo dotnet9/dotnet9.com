@@ -24,7 +24,7 @@
     <MDivider Inset></MDivider>
     <MSubheader>@T("Album")</MSubheader>
 
-    @foreach (var item in ConstDatas.AlbumTreeItems)
+    @foreach (var item in ConstData.AlbumTreeItems)
     {
         <MListItem Link Href="@($"/album/{item.Slug}")">
             <MListItemAvatar Size="24">
@@ -40,7 +40,7 @@
     <MDivider Inset></MDivider>
     <MSubheader>@T("Blog")</MSubheader>
 
-    @foreach (var item in ConstDatas.CategoryNotTreeItems)
+    @foreach (var item in ConstData.CategoryNotTreeItems)
     {
         <MListItem Link Href="@($"/cat/{item.Slug}")">
             <MListItemAvatar Size="24">

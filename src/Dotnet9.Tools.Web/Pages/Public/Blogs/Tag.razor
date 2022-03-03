@@ -10,9 +10,9 @@
     <PageTitle>@T("Tag") - @T("Dotnet9ToolsTitle")</PageTitle>
 
     var random = new Random(DateTime.Now.Millisecond);
-    @foreach (var tag in ConstDatas.BlogTagItems)
+    @foreach (var tag in ConstData.BlogTagItems)
     {
-        <MButton Class="ma-1" Outlined Color="@(tagColors[random.Next(tagColors.Length)])" Rounded Href="@($"/tag/{WebUtility.UrlEncode(tag)}")">
+        <MButton Class="ma-1" Outlined Color="@ConstData.RandomColor" Rounded Href="@($"/tag/{WebUtility.UrlEncode(tag)}")">
             @tag
         </MButton>
     }
@@ -32,7 +32,7 @@ else
 
     List<CardItem>? _items;
 
-    readonly string[] tagColors = { "indigo", "teal", "primary", "secondary", "error", "success" };
+    
 
     public string T(string key)
     {
@@ -44,10 +44,10 @@ else
         if (!string.IsNullOrWhiteSpace(Name))
         {
             var factName = WebUtility.UrlDecode(Name);
-            var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Tags != null && x.Tags.Contains(factName));
+            var posts = ConstData.BlogPostItems!.FindAll(x => x.Tags != null && x.Tags.Contains(factName));
             _items = posts.Select(x =>
             {
-                var category = ConstDatas.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
                 return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
             }).ToList();
         }

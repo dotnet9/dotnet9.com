@@ -26,18 +26,18 @@
     {
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstDatas.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/album/{x.Slug}", cover: x.Cover)).ToList();
+            _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/album/{x.Slug}", cover: x.Cover)).ToList();
         }
         else
         {
-            var album = ConstDatas.AlbumTreeItems!.FirstOrDefault(x => x.Slug == Slug);
+            var album = ConstData.AlbumTreeItems!.FirstOrDefault(x => x.Slug == Slug);
             if (album == null) return;
 
-            var posts = ConstDatas.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
+            var posts = ConstData.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
 
             _items = posts.Select(x =>
             {
-                var category = ConstDatas.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
                 return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
             }).ToList();
         }
