@@ -9,9 +9,9 @@
         foreach (var item in _toolItems)
         {
             <MListItem Link Href="@item.Url">
-                <MListItemIcon>
+                <MListItemAvatar Size="24">
                     <MIcon Class="amber" Dark>mdi-gesture-tap-button</MIcon>
-                </MListItemIcon>
+                </MListItemAvatar>
 
                 <MListItemContent>
                     <MListItemTitle>@item.Name</MListItemTitle>
@@ -27,9 +27,9 @@
     @foreach (var item in ConstDatas.AlbumTreeItems)
     {
         <MListItem Link Href="@($"/album/{item.Slug}")">
-            <MListItemIcon>
+            <MListItemAvatar Size="24">
                 <MIcon Class="orange" Dark>mdi-clipboard-text</MIcon>
-            </MListItemIcon>
+            </MListItemAvatar>
 
             <MListItemContent>
                 <MListItemTitle>@item.Name</MListItemTitle>
@@ -43,9 +43,9 @@
     @foreach (var item in ConstDatas.CategoryNotTreeItems)
     {
         <MListItem Link Href="@($"/cat/{item.Slug}")">
-            <MListItemIcon>
+            <MListItemAvatar Size="24">
                 <MIcon Class="blue" Dark>mdi-clipboard-text</MIcon>
-            </MListItemIcon>
+            </MListItemAvatar>
 
             <MListItemContent>
                 <MListItemTitle>@item.Name</MListItemTitle>
