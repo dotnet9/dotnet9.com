@@ -8,7 +8,7 @@
 @if (_post == null)
 {
     <PageTitle>@T("Dotnet9ToolsTitle") - No post found</PageTitle>
-    <p>No post found</p>
+    <h1 class="entry-title">No post found</h1>
 }
 else
 {
@@ -107,13 +107,7 @@ else
 }
 
 <style>
-    .entry-title {
-        font-size: 24px;
-        line-height: 1.4;
-        margin-bottom: 20px;
-        margin-top: 0;
-        text-align: center;
-    }
+    .entry-title { text-align: left; }
 
     .entry-info { font-size: 14px; }
 

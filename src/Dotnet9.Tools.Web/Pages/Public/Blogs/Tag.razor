@@ -4,10 +4,10 @@
 @using System.Net
 @layout DocLayout
 
+<h1 class="entry-title">@T("Tag")</h1>
 @if (string.IsNullOrWhiteSpace(Name) || _items is not {Count: > 0 })
 {
     <PageTitle>@T("Tag") - @T("Dotnet9ToolsTitle")</PageTitle>
-    <h1 style="text-align: center">@T("Tag")</h1>
 
     var random = new Random(DateTime.Now.Millisecond);
     @foreach (var tag in ConstDatas.BlogTagItems)

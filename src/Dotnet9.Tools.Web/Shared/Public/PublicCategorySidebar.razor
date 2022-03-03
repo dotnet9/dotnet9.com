@@ -1,17 +1,17 @@
 ﻿@using Dotnet9.Tools.Web.Models
 @using Newtonsoft.Json
-<MList Subheader TwoLine Dense>
+<MList Subheader Dense>
 
-    <MSubheader Inset>@T("Tools")</MSubheader>
+    <MSubheader Class="mt-3">@T("Tools")</MSubheader>
 
     @if (_toolItems != null)
     {
         foreach (var item in _toolItems)
         {
             <MListItem Link Href="@item.Url">
-                <MListItemAvatar>
+                <MListItemIcon>
                     <MIcon Class="amber" Dark>mdi-gesture-tap-button</MIcon>
-                </MListItemAvatar>
+                </MListItemIcon>
 
                 <MListItemContent>
                     <MListItemTitle>@item.Name</MListItemTitle>
@@ -22,14 +22,14 @@
 
 
     <MDivider Inset></MDivider>
-    <MSubheader Inset>@T("Album")</MSubheader>
+    <MSubheader>@T("Album")</MSubheader>
 
     @foreach (var item in ConstDatas.AlbumTreeItems)
     {
         <MListItem Link Href="@($"/album/{item.Slug}")">
-            <MListItemAvatar>
+            <MListItemIcon>
                 <MIcon Class="orange" Dark>mdi-clipboard-text</MIcon>
-            </MListItemAvatar>
+            </MListItemIcon>
 
             <MListItemContent>
                 <MListItemTitle>@item.Name</MListItemTitle>
@@ -38,14 +38,14 @@
     }
 
     <MDivider Inset></MDivider>
-    <MSubheader Inset>@T("Blog")</MSubheader>
+    <MSubheader>@T("Blog")</MSubheader>
 
     @foreach (var item in ConstDatas.CategoryNotTreeItems)
     {
         <MListItem Link Href="@($"/cat/{item.Slug}")">
-            <MListItemAvatar>
+            <MListItemIcon>
                 <MIcon Class="blue" Dark>mdi-clipboard-text</MIcon>
-            </MListItemAvatar>
+            </MListItemIcon>
 
             <MListItemContent>
                 <MListItemTitle>@item.Name</MListItemTitle>
