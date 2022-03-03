@@ -1,0 +1,63 @@
+﻿@page "/timelines"
+"
+"
+@using Dotnet9.Tools.Web.Shared.Public
+@using Newtonsoft.Json
+@layout DocLayout
+
+<PageTitle>@T("Timelines") - @T("Dotnet9ToolsTitle")</PageTitle>
+
+<h1 class="entry-title">@T("Timelines")</h1>
+
+<MTimeline>
+    @if(Items!=null)
+    {
+        foreach (var item in Items)
+        {
+            <MTimelineItem Color="red lighten-2" Large>
+                <OppositeContent>
+                    <span>@item.Time</span>
+                </OppositeContent>
+                <ChildContent>
+                    <MCard Class="elevation-2">
+                        <MCardTitle Class="text-h5">@item.Title</MCardTitle>
+                        <MCardText>@item.Content</MCardText>
+                    </MCard>
+                </ChildContent>
+            </MTimelineItem>
+        }
+    }
+</MTimeline>
+
+@code
+{
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    private static List<Timeline>? _items;
+
+    private static List<Timeline>? Items
+    {
+        get {
+            if (_items != null)
+            {
+                return _items;
+            }
+            _items = JsonConvert.DeserializeObject<List<Timeline>>(File.ReadAllText(Path.Combine("wwwroot", "doc", "timelines.json")));
+            return _items; }
+    }
+
+    public string? T(string key)
+    {
+        return MainLayout.T(key);
+    }
+
+    struct Timeline
+    {
+        public string? Time { get; set; }
+
+        public string? Title { get; set; }
+
+        public string? Content { get; set; }
+    }
+}

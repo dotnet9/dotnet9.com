@@ -79,6 +79,13 @@ else
             <D9Markdown MarkdownContent="@_post.Content"></D9Markdown>
         </MCol>
     </MRow>
+    <MRow>
+        <MCol>
+            <div class="text-center">
+                <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
+            </div>
+        </MCol>
+    </MRow>
 }
 
 @code {
@@ -90,6 +97,8 @@ else
     public PublicLayout? MainLayout { get; set; }
 
     private BlogPost? _post;
+    
+    private double _rating = 4;
 
     protected override async Task OnInitializedAsync()
     {

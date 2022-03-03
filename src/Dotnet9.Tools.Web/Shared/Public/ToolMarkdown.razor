@@ -21,6 +21,12 @@
             <MIcon Left>mdi-github</MIcon>
             @T("SourceCode")
         </MButton>
+        @if (!_showPost)
+        {
+            <div class="text-center">
+                <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
+            </div>
+        }
     </MCol>
 </MRow>
 @if (_showPost)
@@ -54,6 +60,9 @@
                 <MIcon Left>mdi-github</MIcon>
                 @T("SourceCode")
             </MButton>
+            <div class="text-center">
+                <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
+            </div>
         </MCol>
     </MRow>
 }
@@ -74,6 +83,7 @@
 
     private bool _showPost;
 
+    private double _rating = 4;
 
     public string? T(string key)
     {

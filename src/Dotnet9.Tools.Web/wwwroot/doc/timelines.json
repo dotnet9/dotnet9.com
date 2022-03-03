@@ -1,0 +1,61 @@
+[{
+  "Time": "2022-03-01 ~ 至今",
+  "Title": "完善工具站博客功能",
+  "Content": "既然工具有了文章阅读功能，为啥不把收集的文章做进来呢？经过几个晚上的折腾，文章专辑、文章分类、文章详情、标签云等已逐渐添加"
+},
+  {
+    "Time": "2022-02-28",
+    "Title": "上线时间戳转换工具",
+    "Content": "这个工具比较简单，但也比较实用"
+  },
+  {
+    "Time": "2022-02-27",
+    "Title": "工具加上文章介绍",
+    "Content": "工具有了一个，想到把工具使用和开发说明放一块，可以让其他人放心使用，完全透明，加了文章Markdown加载展示"
+  },
+  {
+    "Time": "2022-02-22",
+    "Title": "上线Icon转换工具",
+    "Content": "经过2天晚上的网站搭建，做了一个Icon转换工具"
+  },
+  {
+    "Time": "2022-02-21",
+    "Title": "清空dotnet9.com开发分支(develop)",
+    "Content": "前后分离固然好，Vue也优秀，我还是怀恋我的Blaozr，这时我清空了开发分支所有文件，重新开始撸网站了，地址：https://github.com/dotnet9/dotnet9.com/tree/develop"
+  },
+  {
+    "Time": "2022-02-04 ~ 2022-02-13",
+    "Title": ".NET 6 Web API + Vue 3.0",
+    "Content": "老张的书上市了，入了一本，Blazor做站的事先放一放，看了一周，跟着做了个demo，书的内容和博客园差不多，要系统一点，代码没有Blog.Core强大，但很适合初学，地址：https://github.com/dotnet9/dotnet9.com/tree/refactor-v1"
+  },
+  {
+    "Time": "2022-02-02",
+    "Title": "使用Blazor Server单体搭建网站",
+    "Content": "Abp太重，个人又觉得Blazor Server不错，开始搭建空的Blazor项目玩，组件库选择的Masa：https://masa-blazor-docs-dev.lonsid.cn/"
+  },
+  {
+    "Time": "2021-12-25 ~ 2022-01-21",
+    "Title": "使用Abp vNext + Blazor Server搭建网站",
+    "Content": "工作需要，学习的Abp vNext和Blazor Server，功能就和上一版一样，有模样了，但Abp vNext空项目就占用400MB左右的运行内存，做个CRUD比较费时，放弃，地址：https://github.com/dotnet9/dotnet9.com/commits/abp-blazor-server"
+  },
+  {
+    "Time": "2021-11-22 ~ 2021-12-3",
+    "Title": "使用ASP.NET Core MVC搭建网站",
+    "Content": "从Youtube一个土耳其大佬的视频学习的MVC，并跟着做了一版博客网站，功能还是初具模样，后面也放弃这个版本，代码写的一般，地址：https://github.com/dotnet9/lequ/tree/main/src/dotnet_blog"
+  },
+  {
+    "Time": "2021-10-17 ~ 2021-11-9",
+    "Title": "使用Flutter Web搭建网站",
+    "Content": "Flutter多牛逼，跨多平台，我的想法是即能做Web，后面连桌面、App一起做了，但做网站是真不行，光Flutter JS就将近2MB，首页加载都要半分钟左右，所以用Flutter搭建网站放弃了，只做了首页和一个加载markdown的文章详情页，地址：https://github.com/dotnet9/lequ/tree/main/src/flutter_blog"
+  },
+  {
+    "Time": "2021-10-07",
+    "Title": "开始个人手撸建站之旅",
+    "Content": "有了Dotnet9(https://dotnet9.com)这个网站固然好，但我总有个梦想，想自己做一个出来，所以创建了这个仓库：https://github.com/dotnet9/lequ"
+  },
+  {
+    "Time": "2019-11-12",
+    "Title": "创建Dotnet9网站",
+    "Content": "申请了'dotnet9.com'域名，域名是从'dotnet1'开始查询，直到'dotnet9'才未被注册，没错，域名就是这样注册的。有了域名，然后使用WordPress搭建了第一个个人网站..."
+  }
+]
