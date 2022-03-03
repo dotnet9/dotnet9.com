@@ -1,8 +1,6 @@
 ﻿@using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
-<PageTitle>@Title - @T("Dotnet9ToolsTitle")</PageTitle>
-
 <MRow>
     @if (Items != null)
     {
@@ -14,7 +12,7 @@
                         @if (!string.IsNullOrWhiteSpace(item.FirstTitle))
                         {
                             <MToolbarTitle Class="ml-0 mt-1 mb-1 pt-0 pb-0 pl-2 text-h6 white--text bg-black bg-opacity-25">
-                                <MButton class="ma-2 white--text" Color="rgba(0,0,0,0.6);" Rounded Href="@item.FirstUrl">
+                                <MButton Class="ma-2 white--text" Color="rgba(0,0,0,0.6);" Rounded Href="@item.FirstUrl">
                                     @item.FirstTitle
                                 </MButton>
                             </MToolbarTitle>
@@ -24,7 +22,7 @@
                     <MCardActions>
                         @if (!string.IsNullOrWhiteSpace(item.SecondTitle))
                         {
-                            <MButton Color="black" NoGutter Text Rounded Href="@item.SecondUrl">
+                            <MButton Color="black text-truncate" NoGutter Text Rounded Href="@item.SecondUrl">
                                 @item.SecondTitle
                             </MButton>
                         }
@@ -37,9 +35,6 @@
 
 @code
 {
-    [Parameter]
-    public string? Title { get; set; }
-
     [Parameter]
     public List<CardItem>? Items { get; set; }
 

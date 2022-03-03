@@ -84,7 +84,7 @@
             var point = new DateTime(1970, 1, 1);
             var time = date.Subtract(point);
 
-            return (long)(kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
+            return (long) (kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
         }
         catch
         {

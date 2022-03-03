@@ -15,6 +15,17 @@ internal static class ConstData
 
     private static List<string>? _blogTagItems;
 
+    private static readonly Random CusRandom = new(DateTime.Now.Millisecond);
+
+    private static readonly string[] AllColors =
+        {"indigo", "teal", "primary", "secondary", "error", "success", "pink", "red", "green", "amber", "orange"};
+
+    private static readonly string[] AllIcons =
+    {
+        "mdi-calendar-text", "mdi-magnify", "mdi-star", "mdi-book-variant", "mdi-airballoon", "mdi-buffer",
+        "mdi-clipboard-text", "mdi-gesture-tap-button"
+    };
+
     public static List<AlbumItem> AlbumTreeItems
     {
         get
@@ -87,7 +98,7 @@ internal static class ConstData
             var tags = new HashSet<string>();
             BlogPostItems.ForEach(x =>
             {
-                if (x.Tags is { Length: > 0 }) x.Tags.ToList().ForEach(y => tags.Add(y));
+                if (x.Tags is {Length: > 0}) x.Tags.ToList().ForEach(y => tags.Add(y));
             });
             _blogTagItems = tags.ToList();
 
@@ -95,13 +106,7 @@ internal static class ConstData
         }
     }
 
-    private static readonly Random CusRandom = new(DateTime.Now.Millisecond);
-
-    private static readonly string[] AllColors = { "indigo", "teal", "primary", "secondary", "error", "success", "pink", "red", "green", "amber", "orange" };
-
     public static string RandomColor => AllColors[CusRandom.Next(AllColors.Length)];
-
-    private static readonly string[] AllIcons = { "mdi-calendar-text", "mdi-magnify", "mdi-star", "mdi-book-variant", "mdi-airballoon", "mdi-buffer", "mdi-clipboard-text", "mdi-gesture-tap-button" };
 
     public static string RandomIcon => AllIcons[CusRandom.Next(AllIcons.Length)];
 

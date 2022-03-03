@@ -3,9 +3,18 @@
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
-<h1 class="entry-title">@T("Blog")</h1>
+<PageTitle>@T("Category") - @T("Dotnet9ToolsTitle")</PageTitle>
 
-<CardItemList Title="@T("Category")" Items="_items"></CardItemList>
+<h1 class="entry-title">@T("Category") @(string.IsNullOrWhiteSpace(_categoryName) ? "" : $":{_categoryName}")</h1>
+
+@if (_items is not {Count: > 0 })
+{
+    <NotFound/>
+}
+else
+{
+    <CardItemList Items="_items"></CardItemList>
+}
 
 @code {
 
@@ -17,6 +26,8 @@
 
     List<CardItem>? _items;
 
+    private string? _categoryName;
+
     public string T(string key)
     {
         return MainLayout?.T(key) ?? string.Empty;
@@ -24,23 +35,33 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
             _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}")).ToList();
+            return;
         }
-        else
+        var category = ConstData.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
+        if (category == null)
         {
-            var category = ConstData.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
-            if (category == null) return;
-
-            var posts = ConstData.BlogPostItems!.FindAll(x => x.Categories!.Contains(category.Name));
-            _items = posts.Select(x =>
-            {
-                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-                return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
-            }).ToList();
+            return;
         }
-        await base.OnParametersSetAsync();
+
+        _categoryName = category.Name;
+        var posts = ConstData.BlogPostItems!.FindAll(x => x.Categories!.Contains(category.Name));
+        if (posts.Count <= 0)
+        {
+            return;
+        }
+        _items = posts.Select(x =>
+        {
+            var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+            return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+        }).ToList();
     }
 
 }
+
+<style>
+    .entry-title { text-align: left; }
+</style>

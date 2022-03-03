@@ -1,0 +1,31 @@
+﻿@using BlazorComponent
+<PageTitle>@T("404") - @T("Dotnet9ToolsTitle")</PageTitle>
+
+<MContainer Class="text-center fill-height" Style="height: calc(100vh - 58px)">
+    <MRow Align="AlignTypes.Center">
+        <MCol>
+            <img src="404.png" alt="@T("404Title")"/>
+            <h1 class="text-h3 primary--text">
+                @T("404Title")
+            </h1>
+
+            <p>@T("404Description")</p>
+
+            <MButton Href="/" Color="primary" Outlined>
+                @T("404Leave")
+            </MButton>
+        </MCol>
+    </MRow>
+</MContainer>
+
+@code{
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+
+}

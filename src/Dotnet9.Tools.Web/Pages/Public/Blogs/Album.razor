@@ -3,9 +3,18 @@
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
-<h1 class="entry-title">@T("Album")</h1>
+<PageTitle>@T("Album") - @T("Dotnet9ToolsTitle")</PageTitle>
 
-<CardItemList Title="@T("Album")" Items="_items"></CardItemList>
+<h1 class="entry-title">@T("Album") @(string.IsNullOrWhiteSpace(_albumName) ? "" : $":{_albumName}")</h1>
+
+@if (_items is not {Count: > 0 })
+{
+    <NotFound/>
+}
+else
+{
+    <CardItemList Items="_items"></CardItemList>
+}
 
 @code {
 
@@ -17,6 +26,8 @@
 
     List<CardItem>? _items;
 
+    private string? _albumName;
+
     public string T(string key)
     {
         return MainLayout?.T(key) ?? string.Empty;
@@ -24,24 +35,29 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
             _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/album/{x.Slug}", cover: x.Cover)).ToList();
+            return;
         }
-        else
+
+        var album = ConstData.AlbumTreeItems!.FirstOrDefault(x => x.Slug == Slug);
+        if (album == null) return;
+
+        _albumName = album.Name;
+        var posts = ConstData.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
+
+        _items = posts.Select(x =>
         {
-            var album = ConstData.AlbumTreeItems!.FirstOrDefault(x => x.Slug == Slug);
-            if (album == null) return;
-
-            var posts = ConstData.BlogPostItems!.FindAll(x => x.Albums != null && x.Albums.Contains(album.Name));
-
-            _items = posts.Select(x =>
-            {
-                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-                return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
-            }).ToList();
-        }
+            var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+            return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+        }).ToList();
         await base.OnParametersSetAsync();
     }
 
 }
+
+<style>
+    .entry-title { text-align: left; }
+</style>le>

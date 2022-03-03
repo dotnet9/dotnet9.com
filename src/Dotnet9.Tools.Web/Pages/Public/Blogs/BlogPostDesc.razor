@@ -7,8 +7,7 @@
 
 @if (_post == null)
 {
-    <PageTitle>@T("Dotnet9ToolsTitle") - No post found</PageTitle>
-    <h1 class="entry-title">No post found</h1>
+    <NotFound/>
 }
 else
 {
@@ -100,12 +99,13 @@ else
 
     private double _rating = 4;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        if (!string.IsNullOrWhiteSpace(Slug))
+        if (string.IsNullOrWhiteSpace(Slug))
         {
-            _post = ConstData.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
+            return;
         }
+        _post = ConstData.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
         await Task.CompletedTask;
     }
 

@@ -28,3 +28,30 @@ public class BlogPost
 
     public string? Content { get; set; }
 }
+
+public static class BlogPostExtensions
+{
+    public static bool IsExist(this BlogPost post, string filter)
+    {
+        if (!string.IsNullOrWhiteSpace(post.Title) && post.Title.ToLower().Contains(filter.ToLower())) return true;
+
+        if (!string.IsNullOrWhiteSpace(post.Slug) && post.Slug.ToLower().Contains(filter.ToLower())) return true;
+
+        if (!string.IsNullOrWhiteSpace(post.Description) &&
+            post.Description.ToLower().Contains(filter.ToLower())) return true;
+
+        if (post.Categories != null && post.Categories.Contains(filter)) return true;
+
+        if (post.Tags != null && post.Tags.Contains(filter)) return true;
+
+        if (post.Albums != null && post.Albums.Contains(filter)) return true;
+
+        if (!string.IsNullOrWhiteSpace(post.Original) && post.Original.ToLower().Contains(filter.ToLower()))
+            return true;
+
+        if (!string.IsNullOrWhiteSpace(post.OriginalLink) &&
+            post.OriginalLink.ToLower().Contains(filter.ToLower())) return true;
+
+        return !string.IsNullOrWhiteSpace(post.Content) && post.Content.ToLower().Contains(filter.ToLower());
+    }
+}

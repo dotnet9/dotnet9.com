@@ -4,8 +4,9 @@
 @using System.Net
 @layout DocLayout
 
-<h1 class="entry-title">@T("Tag")</h1>
-@if (string.IsNullOrWhiteSpace(Name) || _items is not {Count: > 0 })
+<h1 class="entry-title">@T("Tag") @(string.IsNullOrWhiteSpace(Name) ? "" : $":{Name}")</h1>
+
+@if (string.IsNullOrWhiteSpace(Name))
 {
     <PageTitle>@T("Tag") - @T("Dotnet9ToolsTitle")</PageTitle>
 
@@ -17,9 +18,13 @@
         </MButton>
     }
 }
+else if (_items is {Count: > 0 })
+{
+    <CardItemList Items="_items"></CardItemList>
+}
 else
 {
-    <CardItemList Title="@T("Tag")" Items="_items"></CardItemList>
+    <NotFound/>
 }
 
 @code {
@@ -32,8 +37,6 @@ else
 
     List<CardItem>? _items;
 
-    
-
     public string T(string key)
     {
         return MainLayout?.T(key) ?? string.Empty;
@@ -41,17 +44,28 @@ else
 
     protected override async Task OnParametersSetAsync()
     {
-        if (!string.IsNullOrWhiteSpace(Name))
+        _items?.Clear();
+        if (string.IsNullOrWhiteSpace(Name))
         {
-            var factName = WebUtility.UrlDecode(Name);
-            var posts = ConstData.BlogPostItems!.FindAll(x => x.Tags != null && x.Tags.Contains(factName));
-            _items = posts.Select(x =>
-            {
-                var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-                return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
-            }).ToList();
+            await Task.CompletedTask;
+            return;
         }
-        await base.OnParametersSetAsync();
+
+        var factName = WebUtility.UrlDecode(Name);
+        var posts = ConstData.BlogPostItems!.FindAll(x => x.Tags != null && x.Tags.Contains(factName));
+        if (posts.Count <= 0)
+        {
+            return;
+        }
+        _items = posts.Select(x =>
+        {
+            var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+            return new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+        }).ToList();
     }
 
 }
+
+<style>
+    .entry-title { text-align: left; }
+</style>

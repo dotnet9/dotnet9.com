@@ -3,9 +3,10 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
+<PageTitle>@T("Tools") - @T("Dotnet9ToolsTitle")</PageTitle>
 <h1 class="entry-title">@T("Tools")</h1>
 
-<CardItemList Title="@T("Tools")" Items="_tools"/>
+<CardItemList Items="_tools"/>
 
 
 @code {
@@ -29,3 +30,7 @@
     }
 
 }
+
+<style>
+    .entry-title { text-align: left; }
+</style>

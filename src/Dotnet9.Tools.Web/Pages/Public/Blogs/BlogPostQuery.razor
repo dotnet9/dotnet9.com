@@ -1,0 +1,64 @@
+﻿@page "/s"
+@using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Shared.Public
+@layout DocLayout
+
+<PageTitle>@T("Search") - @T("Dotnet9ToolsTitle")</PageTitle>
+
+<h1 class="entry-title">@T("Search"): @Filter</h1>
+
+@if (string.IsNullOrWhiteSpace(Filter))
+{
+    <p>@T("NoFilter")</p>
+}
+else if (_items is {Count: > 0 })
+{
+    <CardItemList Items="_items"></CardItemList>
+}
+else
+{
+    <NotContentFound/>
+}
+
+@code {
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Filter { get; set; }
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    List<CardItem>? _items;
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _items?.Clear();
+        if (string.IsNullOrWhiteSpace(Filter))
+        {
+            return;
+        }
+
+        var posts = ConstData.BlogPostItems.FindAll(x => x.IsExist(Filter));
+
+        if (posts.Count <= 0)
+        {
+            return;
+        }
+        _items = posts.Select(x =>
+        {
+            var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+            return category != null ? new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover) : new CardItem(secondTitle: x.Title, secondUrl: $"/post/{x.Slug}", cover: x.Cover);
+        }).ToList();
+    }
+
+}
+
+<style>
+    .entry-title { text-align: left; }
+</style>

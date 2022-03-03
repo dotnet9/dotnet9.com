@@ -17,11 +17,16 @@
 <MSpacer></MSpacer>
 
 <MTextField TValue="string"
+            @bind-value="@_search"
             HideDetails="true"
             Class="@("mx-2 mx-md-4")"
             Style="@($"width: 300px; opacity: 0.8; border: 1px solid {_searchBorderColor};")"
             @onfocus="@(() => _searchBorderColor = "#C9CDD4")"
             @onblur="@(() => _searchBorderColor = "#00000000")"
+            OnKeyDown="ExecuteSearch"
+            ClearIcon="mdi-close-circle"
+            Clearable
+            OnClearClick="ClearSearch"
             Flat
             Solo
             Dense
@@ -56,6 +61,7 @@
     [CascadingParameter]
     public PublicLayout MainLayout { get; set; } = default!;
 
+    private string? _search;
     private string? _languageIcon;
     private string _searchBorderColor = "#00000000";
     public StringNumber SelectTab { get; set; } = 0;
@@ -75,6 +81,20 @@
         IsChinese = lang == "zh-CN";
 
         await ChangeLanguage(lang);
+    }
+
+    private async Task ClearSearch()
+    {
+        _search = string.Empty;
+        await Task.CompletedTask;
+    }
+
+    private void ExecuteSearch(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(_search))
+        {
+            Navigation.NavigateTo($"/s?filter={_search}");
+        }
     }
 
     private async Task TurnLanguage()
