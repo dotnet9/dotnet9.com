@@ -20,7 +20,8 @@
   "SourceCode": "Source code",
   "IcoToolTitle": "Icon Conversion",
   "IcoToolDesc": "Jpg, PNG, BMP and other one click conversion ico",
-  "IcoToolUseMemo": "Please select the image to be converted, such as: png, jpg, jpeg, tmp, etc. The default converted image size includes: 16x16+32x32+48x48+256x256, the conversion will not save the source file and the generated Icon icon, please use it with confidence.",
+  "IcoToolUseMemo":
+    "Please select the image to be converted, such as: png, jpg, jpeg, tmp, etc. The default converted image size includes: 16x16+32x32+48x48+256x256, the conversion will not save the source file and the generated Icon icon, please use it with confidence.",
   "IcoToolMFileInputPlaceholder": "Please select a source picture",
   "IcoToolMFileInputLabel": "Source picture",
   "IcoToolMButtonLoaderContent": "Convert ICO...",

@@ -97,7 +97,7 @@ else
     public PublicLayout? MainLayout { get; set; }
 
     private BlogPost? _post;
-    
+
     private double _rating = 4;
 
     protected override async Task OnInitializedAsync()
@@ -106,6 +106,7 @@ else
         {
             _post = ConstDatas.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
         }
+        await Task.CompletedTask;
     }
 
     public string? T(string key)

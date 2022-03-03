@@ -91,7 +91,7 @@
     private async Task ChangeLanguage(string lang)
     {
         _languageIcon = $"{lang}.png";
-        MainLayout.ChangeLanguage(lang);
+        await MainLayout.ChangeLanguage(lang);
 
         await Task.CompletedTask;
     }

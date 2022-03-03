@@ -58,7 +58,7 @@
     private IBrowserFile? _sourceBrowserFile;
 
     [Inject]
-    private IJSRuntime _js { get; set; }
+    private IJSRuntime _js { get; set; } = null!;
 
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
@@ -94,8 +94,8 @@
         }
         finally
         {
-            DeleteFile(tempSourcePath);
-            DeleteFile(tempDestPath);
+            await DeleteFile(tempSourcePath);
+            await DeleteFile(tempDestPath);
 
             _loading = false;
         }

@@ -1,5 +1,4 @@
 ﻿@page "/timelines"
-
 @using Dotnet9.Tools.Web.Shared.Public
 @using Newtonsoft.Json
 @layout DocLayout
@@ -9,7 +8,7 @@
 <h1 class="entry-title">@T("Timelines")</h1>
 
 <MTimeline>
-    @if(Items!=null)
+    @if (Items != null)
     {
         foreach (var item in Items)
         {
@@ -37,13 +36,15 @@
 
     private static List<Timeline>? Items
     {
-        get {
+        get
+        {
             if (_items != null)
             {
                 return _items;
             }
             _items = JsonConvert.DeserializeObject<List<Timeline>>(File.ReadAllText(Path.Combine("wwwroot", "doc", "timelines.json")));
-            return _items; }
+            return _items;
+        }
     }
 
     public string? T(string key)

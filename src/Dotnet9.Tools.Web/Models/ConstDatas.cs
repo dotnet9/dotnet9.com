@@ -23,7 +23,7 @@ internal static class ConstDatas
             if (_albumTreeItems != null) return _albumTreeItems;
 
             var albumJson = File.ReadAllText(Path.Combine("wwwroot", "doc", "blog_contents", "album.json"));
-            _albumTreeItems = JsonConvert.DeserializeObject<List<AlbumItem>>(albumJson);
+            _albumTreeItems = JsonConvert.DeserializeObject<List<AlbumItem>>(albumJson)!;
 
             return _albumTreeItems;
         }
@@ -37,7 +37,7 @@ internal static class ConstDatas
 
             var categoryJson =
                 File.ReadAllText(Path.Combine("wwwroot", "doc", "blog_contents", "category.json"));
-            _categoryTreeItems = JsonConvert.DeserializeObject<List<CategoryItem>>(categoryJson);
+            _categoryTreeItems = JsonConvert.DeserializeObject<List<CategoryItem>>(categoryJson)!;
 
             return _categoryTreeItems;
         }
@@ -69,7 +69,7 @@ internal static class ConstDatas
                 SearchOption.AllDirectories);
             _blogPostItems = allPostFiles.Select(x =>
             {
-                var post = JsonConvert.DeserializeObject<BlogPost>(File.ReadAllText(x));
+                var post = JsonConvert.DeserializeObject<BlogPost>(File.ReadAllText(x))!;
                 post.Content = File.ReadAllText(x.Replace(".info", ".md"));
                 return post;
             }).ToList();
@@ -87,7 +87,7 @@ internal static class ConstDatas
             var tags = new HashSet<string>();
             BlogPostItems.ForEach(x =>
             {
-                if (x.Tags is {Length: > 0}) x.Tags.ToList().ForEach(y => tags.Add(y));
+                if (x.Tags is { Length: > 0 }) x.Tags.ToList().ForEach(y => tags.Add(y));
             });
             _blogTagItems = tags.ToList();
 

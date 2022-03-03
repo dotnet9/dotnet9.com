@@ -1,7 +1,5 @@
 ﻿@page "/timestamp"
 @using Dotnet9.Tools.Web.Shared.Public
-@using Microsoft.AspNetCore.Components
-@using BlazorComponent
 @layout DocLayout
 
 <PageTitle>@T("Dotnet9ToolsTitle") - @T("TimestampToolTitle")</PageTitle>
@@ -13,22 +11,22 @@
 </MRow>
 <MRow>
     <MTextField Style="max-width: 200px;" Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp1"/>
-    <div style="display:flex;">
+    <div style="display: flex;">
         <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue1" Row>
             <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
             <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
         </MRadioGroup>
     </div>
     <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert1">@T("TimestampToolConvert")</MButton>
-    <MTextField Label="@T("TimestampToolBeijingTime")" Style="max-width: 200px;" 
+    <MTextField Label="@T("TimestampToolBeijingTime")" Style="max-width: 200px;"
                 TValue="string" @bind-Value="@_datetime1"
                 Class="ml-3"/>
 </MRow>
 <MRow>
-    <MTextField Label="@T("TimestampToolBeijingTime")" TValue="string" @bind-Value="@_datetime2" Style="max-width: 200px;" />
+    <MTextField Label="@T("TimestampToolBeijingTime")" TValue="string" @bind-Value="@_datetime2" Style="max-width: 200px;"/>
     <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert2">@T("TimestampToolConvert")</MButton>
-    <MTextField Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp2" Style="max-width: 200px;" />
-    <div style="display:flex;">
+    <MTextField Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp2" Style="max-width: 200px;"/>
+    <div style="display: flex;">
         <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue2" Row>
             <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
             <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
@@ -71,7 +69,7 @@
     {
         try
         {
-            _timestamp2 = await DateToTimestamp(DateTime.Parse(_datetime2), _kindValue2);
+            _timestamp2 = await DateToTimestamp(DateTime.Parse(_datetime2 ?? string.Empty), _kindValue2);
         }
         catch
         {
@@ -86,7 +84,7 @@
             var point = new DateTime(1970, 1, 1);
             var time = date.Subtract(point);
 
-            return (long) (kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
+            return (long)(kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
         }
         catch
         {

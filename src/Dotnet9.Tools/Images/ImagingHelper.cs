@@ -17,10 +17,10 @@ public static class ImagingHelper
 
     private static readonly Dictionary<ImageType, string> ImageTypeHead = new()
     {
-        {ImageType.Bmp, FileheadBmp},
-        {ImageType.Jpg, FileheadJpg},
-        {ImageType.Png, FileheadPng},
-        {ImageType.Gif, FileheadGif}
+        { ImageType.Bmp, FileheadBmp },
+        { ImageType.Jpg, FileheadJpg },
+        { ImageType.Png, FileheadPng },
+        { ImageType.Gif, FileheadGif }
     };
 
     public static bool IsPicture(string filePath, out string fileHead)
@@ -62,7 +62,7 @@ public static class ImagingHelper
     /// <returns>Wether or not the icon was succesfully generated</returns>
     public static bool ConvertToIcon(Bitmap inputBitmap, Stream output)
     {
-        var sizes = new[] {256, 48, 32, 16};
+        var sizes = new[] { 256, 48, 32, 16 };
 
         // Generate bitmaps for all the sizes and toss them in streams
         var imageStreams = new List<MemoryStream>();
@@ -80,14 +80,14 @@ public static class ImagingHelper
         var offset = 0;
 
         // 0-1 reserved, 0
-        iconWriter.Write((byte) 0);
-        iconWriter.Write((byte) 0);
+        iconWriter.Write((byte)0);
+        iconWriter.Write((byte)0);
 
         // 2-3 image type, 1 = icon, 2 = cursor
-        iconWriter.Write((short) 1);
+        iconWriter.Write((short)1);
 
         // 4-5 number of images
-        iconWriter.Write((short) sizes.Length);
+        iconWriter.Write((short)sizes.Length);
 
         offset += 6 + 16 * sizes.Length;
 
@@ -95,29 +95,29 @@ public static class ImagingHelper
         {
             // image entry 1
             // 0 image width
-            iconWriter.Write((byte) sizes[i]);
+            iconWriter.Write((byte)sizes[i]);
             // 1 image height
-            iconWriter.Write((byte) sizes[i]);
+            iconWriter.Write((byte)sizes[i]);
 
             // 2 number of colors
-            iconWriter.Write((byte) 0);
+            iconWriter.Write((byte)0);
 
             // 3 reserved
-            iconWriter.Write((byte) 0);
+            iconWriter.Write((byte)0);
 
             // 4-5 color planes
-            iconWriter.Write((short) 0);
+            iconWriter.Write((short)0);
 
             // 6-7 bits per pixel
-            iconWriter.Write((short) 32);
+            iconWriter.Write((short)32);
 
             // 8-11 size of image data
-            iconWriter.Write((int) imageStreams[i].Length);
+            iconWriter.Write((int)imageStreams[i].Length);
 
             // 12-15 offset of image data
             iconWriter.Write(offset);
 
-            offset += (int) imageStreams[i].Length;
+            offset += (int)imageStreams[i].Length;
         }
 
         for (var i = 0; i < sizes.Length; i++)
@@ -141,7 +141,7 @@ public static class ImagingHelper
     /// <returns>Wether or not the icon was succesfully generated</returns>
     public static bool ConvertToIcon(Stream input, Stream output)
     {
-        var inputBitmap = (Bitmap) Image.FromStream(input);
+        var inputBitmap = (Bitmap)Image.FromStream(input);
         return ConvertToIcon(inputBitmap, output);
     }
 

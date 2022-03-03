@@ -20,7 +20,8 @@
   "SourceCode": "我要浏览源码",
   "IcoToolTitle": "Icon转换",
   "IcoToolDesc": "将jpg、png、bmp等图片一键转换成ico图标",
-  "IcoToolUseMemo": "请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。",
+  "IcoToolUseMemo":
+    "请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。",
   "IcoToolMFileInputPlaceholder": "请选择源图片",
   "IcoToolMFileInputLabel": "源图片",
   "IcoToolMButtonLoaderContent": "转换Ico中...",
