@@ -16,7 +16,7 @@ public class BlogPost
 
     public string[]? Albums { get; set; }
 
-    public string? CopyrightType { get; set; }
+    public CopyrightType? CopyrightType { get; set; }
 
     public string? Original { get; set; }
 
@@ -27,6 +27,13 @@ public class BlogPost
     public string? UpdateDate { get; set; }
 
     public string? Content { get; set; }
+}
+
+public enum CopyrightType
+{
+    Default,
+    Contribution,
+    Reprint
 }
 
 public static class BlogPostExtensions

@@ -38,7 +38,7 @@ else
         _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}")).ToList();
+            _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}", author: T("SiteOwner"))).ToList();
             return;
         }
         var category = ConstData.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
@@ -55,9 +55,10 @@ else
         }
         _items = posts.Select(x =>
         {
-            var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-            return new CardItem(category?.Name, $"/cat/{category?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+            var innterCategory = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
+            return new CardItem(innterCategory?.Name, $"/cat/{innterCategory?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover, author: x.CopyrightType == CopyrightType.Default ? T("SiteOwner") : x.Original, originalLink: x.CopyrightType == CopyrightType.Default ? "/" : x.OriginalLink, date: x.CreateDate);
         }).ToList();
+        await Task.CompletedTask;
     }
 
 }

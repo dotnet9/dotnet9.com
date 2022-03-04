@@ -80,6 +80,30 @@ else
     </MRow>
     <MRow>
         <MCol>
+            <MCard Color="#385F73" Dark>
+                @if (_post.CopyrightType == CopyrightType.Default)
+                {
+                    var url = $"/post/{_post.Slug}";
+                    <p class="pa-3">@T("CopyrightTypeDefault")</p>
+                    <MCardText Class="white text--primary pb-3">
+                        <p>@T("BlogPostOriginal")：<a href="/" alt="@T("Dotnet9ToolsTitle")">@T("Dotnet9ToolsTitle")</a></p>
+                        <p>@T("BlogPostOriginalTitle")：<a href="@url" alt="@_post.Title">@_post.Title</a></p>
+                        <p>@T("BlogPostOriginalLink")：<a href="@url" alt="@_post.Title">@(ConstData.FormatOwnerSite(url))</a></p>
+                    </MCardText>
+                }
+                else
+                {
+                    <p class="pa-3">@T("CopyrightTypeOther")</p>
+                    <MCardText Class="white text--primary pb-3">
+                        <p>@T("BlogPostOriginal")：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.Original</a></p>
+                        <p>@T("BlogPostOriginalLink")：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.OriginalLink</a></p>
+                    </MCardText>
+                }
+            </MCard>
+        </MCol>
+    </MRow>
+    <MRow>
+        <MCol>
             <div class="text-center">
                 <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
             </div>

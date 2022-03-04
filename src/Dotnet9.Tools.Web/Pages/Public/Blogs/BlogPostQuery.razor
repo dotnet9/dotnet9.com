@@ -53,8 +53,9 @@ else
         _items = posts.Select(x =>
         {
             var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-            return new CardItem(category?.Name, $"/cat/{category?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
+            return new CardItem(category?.Name, $"/cat/{category?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover, author: x.CopyrightType == CopyrightType.Default ? T("SiteOwner") : x.Original, originalLink: x.CopyrightType == CopyrightType.Default ? "/" : x.OriginalLink, date: x.CreateDate);
         }).ToList();
+        await Task.CompletedTask;
     }
 
 }

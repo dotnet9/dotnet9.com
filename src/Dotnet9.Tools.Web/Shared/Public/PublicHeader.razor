@@ -2,7 +2,7 @@
 @using BlazorComponent
 @using System.Globalization
 <span @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;})>
-    <img style="cursor: pointer; height: 64px; width: 64px;" class="ml-6" src="/logo.png"/>@T("Dotnet9ToolsTitle")
+    <img style="cursor: pointer; height: 64px; width: 64px;" class="ml-6" src="/logo.png"/>
 </span>
 <MTabs BackgroundColor="white" Class="mtab-font" Style="margin-left: 120px;" Color="black" SliderColor="purple darken-2" Optional @bind-Value="SelectTab">
     <MTab Style="text-transform: none" Href="/">@T("Home")</MTab>

@@ -116,4 +116,7 @@ internal static class ConstData
         if (sourceItem.Children != null && sourceItem.Children.Count > 0)
             sourceItem.Children.ForEach(x => ReadChildren(x, destItemList));
     }
+
+    private const string OwnerSiteUrl = "https://tool.dotnet9.com";
+    public static string FormatOwnerSite(string url) => url.StartsWith("/") ? $"{OwnerSiteUrl}{url}" : url;
 }
