@@ -1,4 +1,6 @@
 ﻿@using BlazorComponent
+@inject IJSRuntime _js
+
 <PageTitle>@T("404") - @T("Dotnet9ToolsTitle")</PageTitle>
 
 <MContainer Class="text-center fill-height" Style="height: calc(100vh - 58px)">
@@ -16,9 +18,25 @@
             </MButton>
         </MCol>
     </MRow>
+    <MRow>
+        <div id="canvasContainer"></div>
+        <span id="textInputSpan">
+            Your name (max 8 chars) :
+            <input id="textInput" maxlength="10" type="text" width="150" />
+            <button onclick="changeText()">GO!</button>
+        </span>
+        <div style="text-align:center;clear:both"/>
+    </MRow>
 </MContainer>
 
 @code{
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await _js.InvokeVoidAsync("loadJs", "/gg_bd_ad_160x600_R.js");
+        await _js.InvokeVoidAsync("loadJs", "/follow.js");
+        await _js.InvokeVoidAsync("loadJs", "js/404.js");
+    }
 
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
@@ -29,3 +47,25 @@
     }
 
 }
+
+<style>
+    html, body{
+        margin : 0px;
+        width : 100%;
+        height : 100%;
+        overflow: hidden;
+        background-color: #FFFFFF;
+    }
+
+    #canvasContainer{
+        margin : 0px;
+        width : 100%;
+        height : 100%;
+    }
+
+    #textInputSpan{
+        position: absolute;
+        color: #000000;
+        font-family: sans-serif;
+    }
+</style>
