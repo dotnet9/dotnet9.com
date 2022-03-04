@@ -53,7 +53,7 @@ else
         _items = posts.Select(x =>
         {
             var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-            return category != null ? new CardItem(category!.Name, $"/cat/{category.Slug}", x.Title, $"/post/{x.Slug}", x.Cover) : new CardItem(secondTitle: x.Title, secondUrl: $"/post/{x.Slug}", cover: x.Cover);
+            return new CardItem(category?.Name, $"/cat/{category?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover);
         }).ToList();
     }
 
