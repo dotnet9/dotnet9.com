@@ -13,7 +13,7 @@
     var random = new Random(DateTime.Now.Millisecond);
     @foreach (var tag in ConstData.BlogTagItems)
     {
-        <MButton Class="ma-1" Outlined Color="@ConstData.RandomColor" Rounded Href="@($"/tag/{WebUtility.UrlEncode(tag)}")">
+        <MButton Class="ma-1 text-capitalize" Outlined Color="@ConstData.RandomColor" Rounded Href="@($"/tag/{WebUtility.UrlEncode(tag)}")">
             @tag
         </MButton>
     }
