@@ -1,4 +1,6 @@
 using System.Globalization;
+using Dotnet9.Tools.Web.Models;
+using Dotnet9.Tools.Web.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,8 @@ app.UseRequestLocalization(opts =>
     opts.SupportedCultures = supportedCultures;
     opts.SupportedUICultures = supportedCultures;
 });
+
+SitemapHelper.CreateSiteMap(SitePathHelper.SitemapPath);
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
