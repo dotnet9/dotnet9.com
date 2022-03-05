@@ -1,4 +1,5 @@
 ﻿@page "/album/{slug?}"
+@using Dotnet9.Tools.Web.Utils
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
@@ -38,7 +39,7 @@ else
         _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/album/{x.Slug}", cover: x.Cover, author: T("SiteOwner"))).ToList();
+            _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: x.Slug.GetAlbumUrl(), cover: x.Cover, author: T("SiteOwner"))).ToList();
             return;
         }
 
@@ -51,7 +52,8 @@ else
         _items = posts.Select(x =>
         {
             var category = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-            return new CardItem(category?.Name, $"/cat/{category?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover, author: x.CopyrightType == CopyrightType.Default ? T("SiteOwner") : x.Original, originalLink: x.CopyrightType == CopyrightType.Default ? "/" : x.OriginalLink, date: x.CreateDate);
+            return CardItemExtension.CreateCardItem(category, x);
+            ;
         }).ToList();
         await base.OnParametersSetAsync();
     }

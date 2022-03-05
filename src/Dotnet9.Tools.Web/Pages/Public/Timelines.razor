@@ -2,6 +2,7 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @using Newtonsoft.Json
 @using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Utils
 @layout DocLayout
 
 <PageTitle>@T("Timelines") - @T("Dotnet9ToolsTitle")</PageTitle>
@@ -44,7 +45,7 @@
             {
                 return _items;
             }
-            _items = JsonConvert.DeserializeObject<List<Timeline>>(File.ReadAllText(Path.Combine("wwwroot", "doc", "timelines.json")));
+            _items = JsonConvert.DeserializeObject<List<Timeline>>(File.ReadAllText(SitePathHelper.TimelinePath));
             return _items;
         }
     }

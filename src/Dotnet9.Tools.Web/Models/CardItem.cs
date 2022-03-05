@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Tools.Web.Models;
+﻿using Dotnet9.Tools.Web.Utils;
+
+namespace Dotnet9.Tools.Web.Models;
 
 public class CardItem
 {
@@ -16,12 +18,32 @@ public class CardItem
         OriginalLink = originalLink;
     }
 
-    public string? FirstTitle { get; }
-    public string? FirstUrl { get; }
-    public string? SecondTitle { get; }
-    public string? SecondUrl { get; }
-    public string? Cover { get; }
-    public string? Author { get; }
-    public string? Date { get; }
-    public string? OriginalLink { get; }
+    public string? FirstTitle { get; set; }
+    public string? FirstUrl { get; set; }
+    public string? SecondTitle { get; set; }
+    public string? SecondUrl { get; set; }
+    public string? Cover { get; set; }
+    public string? Author { get; set; }
+    public string? Date { get; set; }
+    public string? OriginalLink { get; set; }
+}
+
+public static class CardItemExtension
+{
+    public static CardItem CreateCardItem(CategoryItem? category, BlogPost post)
+    {
+        var item = new CardItem
+        {
+            FirstTitle = category?.Name,
+            FirstUrl = category?.Slug.GetCategoryUrl(),
+            SecondTitle = post.Title,
+            SecondUrl = post.Slug?.GetPostUrl(),
+            Cover = post.Cover,
+            Author = post.CopyrightType == CopyrightType.Default ? "沙漠尽头的狼" : post.Original,
+            OriginalLink = post.CopyrightType == CopyrightType.Default ? "/" : post.OriginalLink,
+            Date = post.CreateDate
+        };
+
+        return item;
+    }
 }

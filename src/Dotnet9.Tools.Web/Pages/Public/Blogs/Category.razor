@@ -1,4 +1,5 @@
 ﻿@page "/cat/{slug?}"
+@using Dotnet9.Tools.Web.Utils
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
@@ -38,7 +39,7 @@ else
         _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: $"/cat/{x.Slug}", author: T("SiteOwner"))).ToList();
+            _items = ConstData.CategoryNotTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: x.Slug.GetCategoryUrl(), author: T("SiteOwner"))).ToList();
             return;
         }
         var category = ConstData.CategoryNotTreeItems!.FirstOrDefault(x => x.Slug == Slug);
@@ -56,7 +57,7 @@ else
         _items = posts.Select(x =>
         {
             var innterCategory = ConstData.CategoryNotTreeItems.FirstOrDefault(c => c.Name == x.Categories![0]);
-            return new CardItem(innterCategory?.Name, $"/cat/{innterCategory?.Slug}", x.Title, $"/post/{x.Slug}", x.Cover, author: x.CopyrightType == CopyrightType.Default ? T("SiteOwner") : x.Original, originalLink: x.CopyrightType == CopyrightType.Default ? "/" : x.OriginalLink, date: x.CreateDate);
+            return CardItemExtension.CreateCardItem(innterCategory, x);
         }).ToList();
         await Task.CompletedTask;
     }

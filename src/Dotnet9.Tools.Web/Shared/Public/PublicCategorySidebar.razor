@@ -1,4 +1,5 @@
 ﻿@using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Utils
 @using Newtonsoft.Json
 <MList Subheader Dense>
 
@@ -63,7 +64,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var toolJson = await File.ReadAllTextAsync(Path.Combine("wwwroot", "tool.json"));
+        var toolJson = await File.ReadAllTextAsync(SitePathHelper.ToolPath);
         _toolItems = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
 
         await base.OnInitializedAsync();

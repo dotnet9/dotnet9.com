@@ -1,4 +1,5 @@
-﻿<MTextField TValue="string"
+﻿@using Dotnet9.Tools.Web.Utils
+<MTextField TValue="string"
             @bind-value="@_search"
             HideDetails="true"
             Class="@("mx-2 mx-md-4")"
@@ -41,7 +42,7 @@
     {
         if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(_search))
         {
-            Navigation.NavigateTo($"/s?filter={_search}");
+            Navigation.NavigateTo(_search.GetQueryUrl());
         }
     }
 

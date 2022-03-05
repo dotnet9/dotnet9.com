@@ -9,8 +9,10 @@
   "About": "About",
   "Search": "Search",
   "Dotnet9ToolsTitle": "Dotnet9 toolbox",
-  "CopyrightTypeDefault": "If not stated, the blog post are organized and published by our site (Dotnet9), welcome to reprint, please indicate the source:",
-  "CopyrightTypeOther": "This blog post is from reprint, the views of this blog post do not represent the position of our site (Dotnet9), please contact the original author for reprint:",
+  "CopyrightTypeDefault":
+    "If not stated, the blog post are organized and published by our site (Dotnet9), welcome to reprint, please indicate the source:",
+  "CopyrightTypeOther":
+    "This blog post is from reprint, the views of this blog post do not represent the position of our site (Dotnet9), please contact the original author for reprint:",
   "BlogPostOriginal": "Original",
   "BlogPostOriginalTitle": "Original title",
   "BlogPostOriginalLink": "Original link",
@@ -30,7 +32,8 @@
   "SourceCode": "Source code",
   "IcoToolTitle": "Icon Conversion",
   "IcoToolDesc": "Jpg, PNG, BMP and other one click conversion ico",
-  "IcoToolUseMemo": "Please select the image to be converted, such as: png, jpg, jpeg, tmp, etc. The default converted image size includes: 16x16+32x32+48x48+256x256, the conversion will not save the source file and the generated Icon icon, please use it with confidence.",
+  "IcoToolUseMemo":
+    "Please select the image to be converted, such as: png, jpg, jpeg, tmp, etc. The default converted image size includes: 16x16+32x32+48x48+256x256, the conversion will not save the source file and the generated Icon icon, please use it with confidence.",
   "IcoToolMFileInputPlaceholder": "Please select a source picture",
   "IcoToolMFileInputLabel": "Source picture",
   "IcoToolMButtonLoaderContent": "Convert ICO...",

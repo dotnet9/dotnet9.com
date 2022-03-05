@@ -1,7 +1,7 @@
 ﻿@page "/post/{slug?}"
+@using Dotnet9.Tools.Web.Utils
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
-@using System.Net
 @layout DocLayout
 
 
@@ -41,7 +41,7 @@ else
             {
                 var item = _post.Albums[i];
                 var album = ConstData.AlbumTreeItems.FirstOrDefault(x => x.Name == item);
-                <a href="@($"/album/{album?.Slug}")">@album?.Name &nbsp;&nbsp;</a>
+                <a href="@album?.Slug.GetAlbumUrl()">@album?.Name</a>
                 @if (i > 0)
                 {
                     <span>,</span>
@@ -55,7 +55,7 @@ else
             {
                 var item = _post.Categories[i];
                 var cat = ConstData.CategoryNotTreeItems.FirstOrDefault(x => x.Name == item);
-                <a href="@($"/cat/{cat?.Slug}")">@cat?.Name &nbsp;&nbsp;</a>
+                <a href="@cat?.Slug.GetCategoryUrl()">@cat?.Name &nbsp;&nbsp;</a>
                 @if (i > 0)
                 {
                     <span>,</span>
@@ -68,7 +68,7 @@ else
             @foreach (var item in _post.Tags)
             {
                 var tag = ConstData.BlogTagItems.FirstOrDefault(x => x == item);
-                <a href="@($"/tag/{WebUtility.UrlEncode(tag)}")">@tag &nbsp;&nbsp;</a>
+                <a href="@tag?.GetTagUrl()">@tag &nbsp;&nbsp;</a>
                 <span>,</span>
             }
         }
@@ -83,12 +83,11 @@ else
             <MCard Color="#385F73" Dark>
                 @if (_post.CopyrightType == CopyrightType.Default)
                 {
-                    var url = $"/post/{_post.Slug}";
                     <p class="pa-3">@T("CopyrightTypeDefault")</p>
                     <MCardText Class="white text--primary pb-3">
                         <p>@T("BlogPostOriginal")：<a href="/" alt="@T("Dotnet9ToolsTitle")">@T("Dotnet9ToolsTitle")</a></p>
-                        <p>@T("BlogPostOriginalTitle")：<a href="@url" alt="@_post.Title">@_post.Title</a></p>
-                        <p>@T("BlogPostOriginalLink")：<a href="@url" alt="@_post.Title">@(ConstData.FormatOwnerSite(url))</a></p>
+                        <p>@T("BlogPostOriginalTitle")：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Title</a></p>
+                        <p>@T("BlogPostOriginalLink")：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Slug!.GetPostFullUrl()</a></p>
                     </MCardText>
                 }
                 else

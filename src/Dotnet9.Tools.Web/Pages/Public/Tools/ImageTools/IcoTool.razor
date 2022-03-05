@@ -2,6 +2,7 @@
 @using BlazorComponent
 @using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Images
+@using Dotnet9.Tools.Web.Utils
 @layout DocLayout
 
 <PageTitle>@T("Dotnet9ToolsTitle") - @T("IcoToolTitle")</PageTitle>
@@ -46,9 +47,9 @@
 </MRow>
 
 <ToolMarkdown
-    LocalPostFilePath="wwwroot/doc/blog_contents/uploads/2022/02/2022-02-22_01.md"
-    RemotePostUrl="https://dotnet9.com/1715"
-    SourceCodeUrl="https://github.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor"/>
+    LocalPostFilePath="@SitePathHelper.ToolsIconMarkdown"
+    RemotePostUrl="@SitePathHelper.ToolsIconMainPostUrl"
+    SourceCodeUrl="@SitePathHelper.ToolsIconSourceUrl"/>
 
 @code
 {

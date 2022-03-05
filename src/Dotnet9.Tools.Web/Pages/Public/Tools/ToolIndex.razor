@@ -1,6 +1,7 @@
 ﻿@page "/tools"
 @using Dotnet9.Tools.Web.Models
 @using Dotnet9.Tools.Web.Shared.Public
+@using Dotnet9.Tools.Web.Utils
 @layout DocLayout
 
 <PageTitle>@T("Tools") - @T("Dotnet9ToolsTitle")</PageTitle>
@@ -23,8 +24,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _tools.Add(new CardItem(T("IcoToolTitle"), "/ico", T("IcoToolDesc"), "/ico", "doc/blog_contents/uploads/2022/02/cover_13.jpg", author: T("SiteOwner"), originalLink: "/", date: "2022-02-22"));
-        _tools.Add(new CardItem(T("TimestampToolTitle"), "/timestamp", T("TimestampToolDesc"), "/timestamp", "doc/blog_contents/uploads/2022/02/cover_17.jpeg", author: T("SiteOwner"), originalLink: "/", date: "2022-02-28"));
+        _tools.Add(new CardItem(T("IcoToolTitle"), "/ico", T("IcoToolDesc"), "/ico", SiteUrlHelper.ToolsIconCoverUrl, T("SiteOwner"), originalLink: "/", date: "2022-02-22"));
+        _tools.Add(new CardItem(T("TimestampToolTitle"), "/timestamp", T("TimestampToolDesc"), "/timestamp", SiteUrlHelper.ToolsTimestampCoverUrl, T("SiteOwner"), originalLink: "/", date: "2022-02-28"));
 
         await base.OnInitializedAsync();
     }

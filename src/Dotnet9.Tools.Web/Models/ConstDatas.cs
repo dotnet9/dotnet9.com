@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Dotnet9.Tools.Web.Utils;
+using Newtonsoft.Json;
 
 namespace Dotnet9.Tools.Web.Models;
 
@@ -33,7 +34,7 @@ internal static class ConstData
         {
             if (_albumTreeItems != null) return _albumTreeItems;
 
-            var albumJson = File.ReadAllText(Path.Combine("wwwroot", "doc", "blog_contents", "album.json"));
+            var albumJson = File.ReadAllText(SitePathHelper.AlbumPath);
             _albumTreeItems = JsonConvert.DeserializeObject<List<AlbumItem>>(albumJson)!;
 
             return _albumTreeItems;
@@ -46,8 +47,7 @@ internal static class ConstData
         {
             if (_categoryTreeItems != null) return _categoryTreeItems;
 
-            var categoryJson =
-                File.ReadAllText(Path.Combine("wwwroot", "doc", "blog_contents", "category.json"));
+            var categoryJson = File.ReadAllText(SitePathHelper.CategoryPath);
             _categoryTreeItems = JsonConvert.DeserializeObject<List<CategoryItem>>(categoryJson)!;
 
             return _categoryTreeItems;
@@ -74,10 +74,7 @@ internal static class ConstData
         {
             if (_blogPostItems != null) return _blogPostItems;
 
-            var allPostFiles = Directory.GetFiles(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "doc", "blog_contents", "uploads"),
-                "*.info",
-                SearchOption.AllDirectories);
+            var allPostFiles = Directory.GetFiles(SitePathHelper.UploadsPath, "*.info", SearchOption.AllDirectories);
             _blogPostItems = allPostFiles.Select(x =>
             {
                 var post = JsonConvert.DeserializeObject<BlogPost>(File.ReadAllText(x))!;
@@ -116,7 +113,4 @@ internal static class ConstData
         if (sourceItem.Children != null && sourceItem.Children.Count > 0)
             sourceItem.Children.ForEach(x => ReadChildren(x, destItemList));
     }
-
-    private const string OwnerSiteUrl = "https://tool.dotnet9.com";
-    public static string FormatOwnerSite(string url) => url.StartsWith("/") ? $"{OwnerSiteUrl}{url}" : url;
 }
