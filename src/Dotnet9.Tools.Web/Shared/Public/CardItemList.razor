@@ -21,7 +21,7 @@
 
                     @if (!string.IsNullOrWhiteSpace(item.SecondTitle))
                     {
-                        <MButton Color="black text-truncate text-capitalize" Text Rounded Href="@item.SecondUrl">
+                        <MButton Color="black" Class="text-truncate text-capitalize" Text Rounded Href="@item.SecondUrl">
                             @item.SecondTitle
                         </MButton>
                         <MCardActions Class="ma-0 pa-0">
@@ -40,9 +40,9 @@
                         <MCardActions>
                             @if (!string.IsNullOrWhiteSpace(item.Author))
                             {
-                                <span>
-                                    <a href="@item.OriginalLink" alt="@item.Author" target="_blank">@item.Author</a>
-                                </span>
+                                <MButton Color="black" Class="text-truncate text-capitalize" Text Rounded Href="@item.OriginalLink">
+                                    @item.Author
+                                </MButton>
                             }
                             <MSpacer></MSpacer>
                             <span>@item.Date</span>

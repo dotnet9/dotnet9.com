@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 
 <CascadingValue Value="this">
-    <CascadingValue Value="@IsChinese">
+    <CascadingValue Value="@IsChinese" Name="Lang">
         <MApp Class="baselayout-m-app">
 
             <MAppBar ElevateOnScroll Color="white" Height="80" Elevation="0" ClippedLeft ClippedRight App>
@@ -43,11 +43,6 @@
 
     [Inject]
     public I18n? I18N { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-    }
 
     public async Task ChangeLanguage(string lang)
     {

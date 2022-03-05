@@ -1,6 +1,6 @@
-﻿@using Dotnet9.Tools.Web.Utils
-@using BlazorComponent
+﻿@using BlazorComponent
 @using System.Globalization
+@using BlazorComponent.I18n
 <span @onclick=@(() =>{ Navigation.NavigateTo("/"); SelectTab = 0;})>
     <img style="cursor: pointer; height: 64px; width: 64px;" class="ml-6" src="/logo.png"/>
 </span>
@@ -37,7 +37,7 @@
     public NavigationManager Navigation { get; set; } = default!;
 
     [Inject]
-    public GlobalConfigs GlobalConfig { get; set; } = default!;
+    public I18nConfig I18nConfig { get; set; } = default!;
 
     [CascadingParameter]
     public PublicLayout MainLayout { get; set; } = default!;
@@ -48,14 +48,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        string lang;
-        if (GlobalConfig.Language != null)
-            lang = GlobalConfig.Language;
-        else if (GlobalConfigs.StaticLanguage != null)
-            lang = GlobalConfigs.StaticLanguage;
-        else
-            lang = CultureInfo.CurrentCulture.Name;
-
+        var lang = I18nConfig.Language ?? CultureInfo.CurrentCulture.Name;
 
         IsChinese = lang == "zh-CN";
 
@@ -70,8 +63,7 @@
 
         await ChangeLanguage(lang);
 
-        GlobalConfig.Language = lang;
-        GlobalConfig.SaveChanges();
+        I18nConfig.Language = lang;
     }
 
     private async Task ChangeLanguage(string lang)
@@ -82,7 +74,7 @@
         await Task.CompletedTask;
     }
 
-    public string? T(string key)
+    public string T(string key)
     {
         return MainLayout.T(key);
     }
