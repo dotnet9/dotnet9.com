@@ -4,71 +4,23 @@
 <MList Subheader Dense>
 
     <MSubheader Class="mt-3">@T("Tools")</MSubheader>
+    <ToolMenuList></ToolMenuList>
 
-    @if (_toolItems != null)
-    {
-        foreach (var item in _toolItems)
-        {
-            <MListItem Link Href="@item.Url">
-                <MListItemAvatar Size="24">
-                    <MIcon Class="amber" Dark>mdi-gesture-tap-button</MIcon>
-                </MListItemAvatar>
+    <MDivider></MDivider>
 
-                <MListItemContent>
-                    <MListItemTitle>@item.Name</MListItemTitle>
-                </MListItemContent>
-            </MListItem>
-        }
-    }
-
-
-    <MDivider Inset></MDivider>
     <MSubheader>@T("Album")</MSubheader>
+    <AlbumMenuList></AlbumMenuList>
 
-    @foreach (var item in ConstData.AlbumTreeItems)
-    {
-        <MListItem Link Href="@($"/album/{item.Slug}")">
-            <MListItemAvatar Size="24">
-                <MIcon Class="orange" Dark>mdi-clipboard-text</MIcon>
-            </MListItemAvatar>
+    <MDivider></MDivider>
 
-            <MListItemContent>
-                <MListItemTitle>@item.Name</MListItemTitle>
-            </MListItemContent>
-        </MListItem>
-    }
-
-    <MDivider Inset></MDivider>
     <MSubheader>@T("Blog")</MSubheader>
-
-    @foreach (var item in ConstData.CategoryNotTreeItems)
-    {
-        <MListItem Link Href="@($"/cat/{item.Slug}")">
-            <MListItemAvatar Size="24">
-                <MIcon Class="blue" Dark>mdi-clipboard-text</MIcon>
-            </MListItemAvatar>
-
-            <MListItemContent>
-                <MListItemTitle>@item.Name</MListItemTitle>
-            </MListItemContent>
-        </MListItem>
-    }
+    <CategoryMenuList OnlyUseList="true"></CategoryMenuList>
 </MList>
 
 @code
 {
-    private List<ToolItem>? _toolItems;
-
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var toolJson = await File.ReadAllTextAsync(SitePathHelper.ToolPath);
-        _toolItems = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
-
-        await base.OnInitializedAsync();
-    }
 
     public string T(string key)
     {

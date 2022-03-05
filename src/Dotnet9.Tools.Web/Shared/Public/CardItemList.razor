@@ -40,12 +40,21 @@
                         <MCardActions>
                             @if (!string.IsNullOrWhiteSpace(item.Author))
                             {
+                                <MButton Icon>
+                                    <MIcon>mdi-account-circle</MIcon>
+                                </MButton>
                                 <MButton Color="black" Class="text-truncate text-capitalize" Text Rounded Href="@item.OriginalLink">
                                     @item.Author
                                 </MButton>
                             }
-                            <MSpacer></MSpacer>
-                            <span>@item.Date</span>
+                            @if (!string.IsNullOrWhiteSpace(item.Date))
+                            {
+                                <MSpacer></MSpacer>
+                                <MButton Icon>
+                                    <MIcon>mdi-alarm</MIcon>
+                                </MButton>
+                                <small style="opacity: 0.65;">@item.Date</small>
+                            }
                         </MCardActions>
                     }
                 </MCard>

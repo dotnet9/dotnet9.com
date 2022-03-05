@@ -16,6 +16,8 @@ internal static class ConstData
 
     private static List<string>? _blogTagItems;
 
+    private static List<ToolItem>? _toolItems;
+
     private static readonly Random CusRandom = new(DateTime.Now.Millisecond);
 
     private static readonly string[] AllColors =
@@ -100,6 +102,19 @@ internal static class ConstData
             _blogTagItems = tags.ToList();
 
             return _blogTagItems;
+        }
+    }
+
+    public static List<ToolItem> ToolItems
+    {
+        get
+        {
+            if (_toolItems != null) return _toolItems;
+
+            var toolJson = File.ReadAllText(SitePathHelper.ToolPath);
+            _toolItems = JsonConvert.DeserializeObject<List<ToolItem>>(toolJson);
+
+            return _toolItems!;
         }
     }
 

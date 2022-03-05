@@ -1,6 +1,5 @@
-using System.Globalization;
-using Dotnet9.Tools.Web.Models;
 using Dotnet9.Tools.Web.Utils;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 

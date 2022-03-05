@@ -1,0 +1,54 @@
+﻿@using Dotnet9.Tools.Web.Models
+
+@if (_menuItems != null)
+{
+@foreach (var item in _menuItems)
+{
+    <MListItem Link Href="@item.Url">
+        <MListItemAvatar Size="24">
+            <MIcon Class="orange" Dark>mdi-clipboard-text</MIcon>
+        </MListItemAvatar>
+
+        <MListItemContent>
+            <MListItemTitle>@item.Name</MListItemTitle>
+        </MListItemContent>
+    </MListItem>
+}
+}
+
+@code {
+    private List<MenuItem>? _menuItems;
+
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _menuItems = new List<MenuItem>
+        {
+            new(T("About"), "/about"),
+            new(T("Timelines"), "/timelines"),
+            new(T("Sitemap"), "/sitemap.xml")
+        };
+        await Task.CompletedTask;
+    }
+
+    public string T(string key)
+    {
+        return MainLayout.T(key);
+    }
+
+
+    struct MenuItem
+    {
+        public MenuItem(string name, string url)
+        {
+            Name = name;
+            Url = url;
+        }
+
+        public string? Name { get; }
+        public string? Url { get; }
+    }
+
+}

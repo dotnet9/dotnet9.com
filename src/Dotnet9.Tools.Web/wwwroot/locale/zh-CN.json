@@ -7,6 +7,7 @@
   "Tag": "标签云",
   "Timelines": "时间轴",
   "About": "关于",
+  "Sitemap": "站点地图",
   "Search": "搜索",
   "Dotnet9ToolsTitle": "Dotnet9工具箱",
   "CopyrightTypeDefault": "如未说明，文章均由本站(Dotnet9工具箱)整理、发布，欢迎转载，转载请注明出处：",
@@ -30,8 +31,7 @@
   "SourceCode": "我要浏览源码",
   "IcoToolTitle": "Icon转换",
   "IcoToolDesc": "将jpg、png、bmp等图片一键转换成ico图标",
-  "IcoToolUseMemo":
-    "请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。",
+  "IcoToolUseMemo": "请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。",
   "IcoToolMFileInputPlaceholder": "请选择源图片",
   "IcoToolMFileInputLabel": "源图片",
   "IcoToolMButtonLoaderContent": "转换Ico中...",
