@@ -2,7 +2,7 @@
 
 public class ToolItem
 {
-    public ToolItem(string name,string icon, string url)
+    public ToolItem(string name, string icon, string url)
     {
         Name = name;
         Icon = icon;

@@ -104,10 +104,24 @@ else
     <MRow>
         <MCol>
             <div class="text-center">
+                <MButton Class="ma-2"
+                         Text
+                         Icon
+                         Color="blue lighten-2">
+                    <MIcon>mdi-thumb-up</MIcon>
+                </MButton>
+
+                <MButton Class="ma-2"
+                         Text
+                         Icon
+                         Color="red lighten-2">
+                    <MIcon>mdi-thumb-down</MIcon>
+                </MButton>
                 <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
             </div>
         </MCol>
     </MRow>
+    <PageComment Url="ddd"></PageComment>
 }
 
 @code {

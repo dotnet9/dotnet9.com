@@ -1,5 +1,6 @@
-using Dotnet9.Tools.Web.Utils;
 using System.Globalization;
+using Dotnet9.Tools.Web.Services;
+using Dotnet9.Tools.Web.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddMasaI18nForServer("wwwroot/locale");
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddTransient<CommentService>();
 
 var app = builder.Build();
 

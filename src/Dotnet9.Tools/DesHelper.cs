@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace Dotnet9.Tools;
 
@@ -9,8 +10,8 @@ public static class DesHelper
 
     public static string DesEncrypt(string data, string key = DesKey, string iv = DesIv)
     {
-        var byKey = System.Text.Encoding.ASCII.GetBytes(key);
-        var byIV = System.Text.Encoding.ASCII.GetBytes(iv);
+        var byKey = Encoding.ASCII.GetBytes(key);
+        var byIV = Encoding.ASCII.GetBytes(iv);
 
         var cryptoProvider = new DESCryptoServiceProvider();
         var i = cryptoProvider.KeySize;
@@ -24,11 +25,11 @@ public static class DesHelper
         sw.Flush();
         return Convert.ToBase64String(ms.GetBuffer(), 0, (int) ms.Length);
     }
-    
+
     public static string DesDecrypt(string data, string key = DesKey, string iv = DesIv)
     {
-        var byKey = System.Text.Encoding.ASCII.GetBytes(key);
-        var byIV = System.Text.Encoding.ASCII.GetBytes(iv);
+        var byKey = Encoding.ASCII.GetBytes(key);
+        var byIV = Encoding.ASCII.GetBytes(iv);
 
         byte[] byEnc;
         try

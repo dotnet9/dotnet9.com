@@ -8,6 +8,8 @@ public static class SiteUrlHelper
     public const string ToolsIndexUrl = "/tools";
     public const string ToolsIconUrl = "/ico";
     public const string ToolsTimestampUrl = "/timestamp";
+    public static string ToolsIconCoverUrl = $"{UploadsUrl}/2022/02/cover_13.jpg";
+    public static string ToolsTimestampCoverUrl = $"{UploadsUrl}/2022/02/cover_17.jpeg";
 
     public static string AlbumFullUrl => $"{BaseUrl}/album";
 
@@ -22,8 +24,6 @@ public static class SiteUrlHelper
     public static string ToolsTimestampFullUrl => $"{BaseUrl}{ToolsTimestampUrl}";
 
     public static string UploadsUrl => $"{BaseUrl}/doc/blog_contents/uploads";
-    public static string ToolsIconCoverUrl = $"{UploadsUrl}/2022/02/cover_13.jpg";
-    public static string ToolsTimestampCoverUrl = $"{UploadsUrl}/2022/02/cover_17.jpeg";
 
     public static string CheckOrCreateFullUrl(this string url)
     {

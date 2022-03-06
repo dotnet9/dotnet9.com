@@ -1,6 +1,5 @@
-﻿@using Dotnet9.Tools.Web.Models
-@using Dotnet9.Tools.Web.Utils
-
+﻿@using Dotnet9.Tools.Web.Utils
+@using Dotnet9.Tools.Web.Models
 @if (OnlyUseList)
 {
 @foreach (var item in ConstData.CategoryNotTreeItems)
@@ -33,4 +32,3 @@ else
     [Parameter]
     public bool OnlyUseList { get; set; }
 }
-

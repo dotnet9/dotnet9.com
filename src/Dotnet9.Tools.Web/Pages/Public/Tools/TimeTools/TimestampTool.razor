@@ -8,7 +8,7 @@
 <h1 class="entry-title">@T("TimestampToolDesc")</h1>
 
 <MRow>
-    @T("TimestampToolDateNow") @DateToTimestamp(DateTime.Now, TimestampKind.Seconds)
+    @T("TimestampToolDateNow") @DateTimeOffset.Now.GetTimestamp()
 </MRow>
 <MRow>
     <MTextField Style="max-width: 200px;" Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp1"/>
@@ -45,7 +45,7 @@
     [CascadingParameter]
     public PublicLayout? MainLayout { get; set; }
 
-    private DateTime _currentDatetime;
+    private DateTimeOffset _currentDatetime;
     private long _timestamp1;
     private long _timestamp2;
     private string? _datetime1;
@@ -55,22 +55,22 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _currentDatetime = DateTime.Now;
-        _timestamp1 = _timestamp2 = await DateToTimestamp(_currentDatetime, TimestampKind.Seconds);
+        _currentDatetime = DateTimeOffset.Now;
+        _timestamp1 = _timestamp2 = _currentDatetime.GetTimestamp();
         _datetime1 = _datetime2 = _currentDatetime.ToString("yyyy-MM-dd HH:mm:ss");
         await base.OnInitializedAsync();
     }
 
-    private async Task Convert1()
+    private void Convert1()
     {
-        _datetime1 = (await TimestampToDate(_timestamp1, _kindValue1)).ToString(_kindValue1 == TimestampKind.Seconds ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm:ss.fff");
+        _datetime1 = _timestamp1.ConvertToDate(_kindValue1).ToString(_kindValue1 == TimestampKind.Seconds ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm:ss.fff");
     }
 
-    private async Task Convert2()
+    private void Convert2()
     {
         try
         {
-            _timestamp2 = await DateToTimestamp(DateTime.Parse(_datetime2 ?? string.Empty), _kindValue2);
+            _timestamp2 = DateTimeOffset.Parse(_datetime2 ?? string.Empty).GetTimestamp(_kindValue2);
         }
         catch
         {
@@ -78,59 +78,8 @@
         }
     }
 
-    private static async Task<long> DateToTimestamp(DateTime date, TimestampKind kind)
-    {
-        try
-        {
-            var point = new DateTime(1970, 1, 1);
-            var time = date.Subtract(point);
-
-            return (long) (kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
-        }
-        catch
-        {
-            await Task.CompletedTask;
-            return default;
-        }
-    }
-
-
-    private static async Task<DateTime> TimestampToDate(long timestamp, TimestampKind kind)
-    {
-        try
-        {
-            var point = new DateTime(1970, 1, 1);
-            var time = kind == TimestampKind.Seconds ? point.AddSeconds(timestamp) : point.AddMilliseconds(timestamp);
-
-            return time;
-        }
-        catch
-        {
-            await Task.CompletedTask;
-            return default;
-        }
-    }
-
     public string T(string key)
     {
         return MainLayout?.T(key) ?? string.Empty;
-    }
-
-    enum TimestampKind
-    {
-        Seconds,
-        Milliseconds
-    }
-
-    class TimestampItem
-    {
-        public string Label { get; }
-        public TimestampKind Value { get; }
-
-        public TimestampItem(string label, TimestampKind value)
-        {
-            Label = label;
-            Value = value;
-        }
     }
 }
