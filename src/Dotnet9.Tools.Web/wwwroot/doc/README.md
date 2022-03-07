@@ -10,8 +10,8 @@ English | [简体中文](./README-zh_CN.md)
 
 The repository has the following contents:
 
-- Main domain name (dotnet9.com): The original blog is reserved and used [WordPress&justnews](https://www.wpcom.cn/?ref=4807) Build, online link address: https://dotnet9.com
-- Secondary domain name (tool.dotnet9.com): It is used to build the webmaster's self-developed website, which is developed by blazor server. It includes the function of blog system + free online tools. The source code is also put in this repository. The online link address is: https://tool.dotnet9.com 。
+- Main domain (dotnet9.com): The original blog is reserved and used [WordPress&justnews](https://www.wpcom.cn/?ref=4807) Build, online link address: https://dotnet9.com
+- lequ.co, tool.dotnet9.com: It is used to build the webmaster's self-developed website, which is developed by blazor server. It includes the feature of blog system + free online tools. The source code is also put in this repository. The online link address is: https://lequ.co, https://tool.dotnet9.com 。
 - The original and reprinted blog post of the blog are saved as markdown storage, including blog post pictures.
 
 ### Welcome to WeChat official account

@@ -11,7 +11,7 @@
 本仓库有以下内容：
 
 - 主域名(dotnet9.com)：原博客保留使用，使用[WordPress & JustNews](https://www.wpcom.cn/?ref=4807)搭建，在线链接地址：https://dotnet9.com。
-- 二级域名(tool.dotnet9.com)：用于搭建站长自研网站，使用Blazor Server开发，含博客系统+免费在线工具的功能，源码也皆放在此仓库中，在线链接地址：https://tool.dotnet9.com。
+- lequ.co、tool.dotnet9.com：用于搭建站长自研网站，使用Blazor Server开发，含博客系统+免费在线工具的功能，源码也皆放在此仓库中，在线链接地址：https://lequ.co、https://tool.dotnet9.com。
 - 博客原创及转载文章部分保存为Markdown存储，包括文章图片都保存在这个仓库中。
 
 ## 欢迎关注微信公众号
