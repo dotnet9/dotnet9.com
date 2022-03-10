@@ -1,6 +1,8 @@
-# Dotnet9.com
+# Dotnet9.Tools
 
-<div align="center"><img src="https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/logo.png"/></div>
+暂时停止维护
+
+<div align="center"><img src="https://img1.d9tools.com/site/logo.png" width="128" height="128"/></div>
 
  ![dotnet-version](https://img.shields.io/badge/.NET%207.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/dotnet9.com.git)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/dotnet9.com) [![Github stars](https://img.shields.io/github/stars/dotnet9/dotnet9.com)](https://github.com/dotnet9/dotnet9.com)
 
@@ -16,7 +18,7 @@
 
 ## 欢迎关注微信公众号
 
-![Dotnet9](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/wechatpublic.jpg)
+![Dotnet9](https://img1.d9tools.com/site/wechatpublic.jpg)
 
 已开发的工具如下：
 
@@ -32,7 +34,7 @@
 
 效果演示如下：
 
-![Icon转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/uploads/2022/02/1301.gif)
+![Icon转换](https://img1.d9tools.com/2022/02/1301.gif)
 
 ## 2. 时间戳转换
 
@@ -44,7 +46,7 @@
 
 效果演示如下：
 
-![时间戳转换](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/uploads/2022/02/1701.jpg)
+![时间戳转换](https://img1.d9tools.com/2022/02/1701.jpg)
 
 ## 感谢
 
@@ -59,6 +61,6 @@
 
 如果对您有所帮助，可扫下方二维码对我进行打赏（虽然人已秃，生活照样要过的有滋有味！）。
 
-- [Alipay](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/AliPay.jpg)
-- [Wechat](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/WeChatPay.jpg)
-- [QQ](https://gitee.com/dotnet9/dotnet9.com/raw/main/src/Dotnet9.Tools.Web/wwwroot/doc/blog_contents/QQPay.jpg)
+- [Alipay](https://img1.d9tools.com/pays/AliPay.jpg)
+- [Wechat](https://img1.d9tools.com/pays/WeChatPay.jpg)
+- [QQ](https://img1.d9tools.com/pays/QQPay.jpg)
