@@ -3,7 +3,7 @@
         <MButton Class="ma-1"
                  Depressed Color="primary"
                  OnClick="() => _showPost = !_showPost">
-            @T("HowToDevelopmentDesc")
+            如何开发的？
         </MButton>
         @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
         {
@@ -11,7 +11,7 @@
                      Href="@RemotePostUrl"
                      Target="_blank"
                      Depressed Color="error">
-                @T("ToSuggest")
+                我要建议（吐槽）
             </MButton>
         }
         <MButton Dark Class="ma-1"
@@ -19,7 +19,7 @@
                  Href="@SourceCodeUrl"
                  Target="_blank">
             <MIcon Left>mdi-github</MIcon>
-            @T("SourceCode")
+            我要浏览源码
         </MButton>
         @if (!_showPost)
         {
@@ -42,7 +42,7 @@
             <MButton Class="ma-1"
                      Depressed Color="primary"
                      OnClick="() => _showPost = !_showPost">
-                @T("HowToDevelopmentDesc")
+                如何开发的？
             </MButton>
             @if (!string.IsNullOrWhiteSpace(RemotePostUrl))
             {
@@ -50,7 +50,7 @@
                          Href="@RemotePostUrl"
                          Target="_blank"
                          Depressed Color="error">
-                    @T("ToSuggest")
+                    我要建议（吐槽）
                 </MButton>
             }
             <MButton Dark Class="ma-1"
@@ -58,7 +58,7 @@
                      Href="@SourceCodeUrl"
                      Target="_blank">
                 <MIcon Left>mdi-github</MIcon>
-                @T("SourceCode")
+                我要浏览源码
             </MButton>
             <div class="text-center">
                 <MRating @bind-Value="_rating" BackgroundColor="orange lighten-3" Color="orange" Large></MRating>
@@ -78,15 +78,7 @@
     [Parameter]
     public string SourceCodeUrl { get; set; } = null!;
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     private bool _showPost;
 
     private double _rating = 4;
-
-    public string? T(string key)
-    {
-        return MainLayout?.T(key);
-    }
 }

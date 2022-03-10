@@ -5,25 +5,25 @@
 @using Dotnet9.Tools.Images
 @layout DocLayout
 
-<PageTitle>@T("Dotnet9ToolsTitle") - @T("IcoToolTitle")</PageTitle>
+<PageTitle>D9工具箱 - Icon转换</PageTitle>
 
-<h1 class="entry-title">@T("IcoToolTitle")</h1>
+<h1 class="entry-title">Icon转换</h1>
 
 <MRow>
     <MCol>
-        <div>@T("IcoToolUseMemo")</div>
+        <div>请选择需要转换的图片，比如：png、jpg、jpeg、tmp等，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。</div>
     </MCol>
 </MRow>
 
 <MRow>
     <MCol Lg="8" Md="8">
         <MFileInput TValue="IBrowserFile"
-                    Placeholder="@T("IcoToolMFileInputPlaceholder")"
+                    Placeholder="请选择源图片"
                     Rules="_rules"
                     ShowSize
                     OnChange="@LoadFile"
                     Accept="image/png, image/jpeg, image/jpg, image/bmp"
-                    Label="@T("IcoToolMFileInputLabel")">
+                    Label="源图片">
         </MFileInput>
     </MCol>
 
@@ -36,10 +36,10 @@
                      Depressed Color="primary"
                      OnClick="@ConvertAndDownloadIcon">
                 <LoaderContent>
-                    <span>@T("IcoToolMButtonLoaderContent")</span>
+                    <span>转换Ico中...</span>
                 </LoaderContent>
                 <ChildContent>
-                    <span>@T("IcoToolMButtonChildContent")</span>
+                    <span>立即转换并下载Icon</span>
                 </ChildContent>
             </MButton>
         }
@@ -61,12 +61,9 @@
     [Inject]
     private IJSRuntime _js { get; set; } = null!;
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     protected override async Task OnInitializedAsync()
     {
-        _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : T("IcoToolFileSizeLimitMessage"));
+        _rules.Add(value => value == null || value.Size < 2 * 1024 * 1024 ? true : "请选择小于2MB的图片");
         await base.OnInitializedAsync();
     }
 
@@ -126,10 +123,5 @@
     // ignored
         }
         await Task.CompletedTask;
-    }
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
     }
 }

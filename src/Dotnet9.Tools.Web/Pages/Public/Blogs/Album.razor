@@ -1,12 +1,12 @@
 ﻿@page "/album/{slug?}"
 @using Dotnet9.Tools.Web.Utils
-@using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
-<PageTitle>@T("Album") - @T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>专辑 - D9工具箱</PageTitle>
 
-<h1 class="entry-title">@T("Album") @(string.IsNullOrWhiteSpace(_albumName) ? "" : $":{_albumName}")</h1>
+<h1 class="entry-title">专辑 @(string.IsNullOrWhiteSpace(_albumName) ? "" : $":{_albumName}")</h1>
 
 @if (_items is not {Count: > 0 })
 {
@@ -22,24 +22,16 @@ else
     [Parameter]
     public string? Slug { get; set; }
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     List<CardItem>? _items;
 
     private string? _albumName;
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
-    }
 
     protected override async Task OnParametersSetAsync()
     {
         _items?.Clear();
         if (string.IsNullOrWhiteSpace(Slug))
         {
-            _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: x.Slug.GetAlbumUrl(), cover: x.Cover, author: T("SiteOwner"))).ToList();
+            _items = ConstData.AlbumTreeItems!.Select(x => new CardItem(secondTitle: x.Name, secondUrl: x.Slug.GetAlbumUrl(), cover: x.Cover, author: "沙漠尽头的狼")).ToList();
             return;
         }
 

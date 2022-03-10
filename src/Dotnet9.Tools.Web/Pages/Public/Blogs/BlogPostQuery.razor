@@ -3,13 +3,13 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
-<PageTitle>@T("Search") - @T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>搜索 - D9工具箱</PageTitle>
 
-<h1 class="entry-title">@T("Search"): @Filter</h1>
+<h1 class="entry-title">搜索: @Filter</h1>
 
 @if (string.IsNullOrWhiteSpace(Filter))
 {
-    <p>@T("NoFilter")</p>
+    <p>请输入查询关键字进行搜索</p>
 }
 else if (_items is {Count: > 0 })
 {
@@ -26,15 +26,7 @@ else
     [SupplyParameterFromQuery]
     public string? Filter { get; set; }
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     List<CardItem>? _items;
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
-    }
 
     protected override async Task OnParametersSetAsync()
     {

@@ -17,23 +17,15 @@
 @code {
     private List<MenuItem>? _menuItems;
 
-    [CascadingParameter]
-    public PublicLayout MainLayout { get; set; } = default!;
-
     protected override async Task OnInitializedAsync()
     {
         _menuItems = new List<MenuItem>
         {
-            new(T("About"), "/about"),
-            new(T("Timelines"), "/timelines"),
-            new(T("Sitemap"), "/sitemap.xml")
+            new("关于", "/about"),
+            new("时间轴", "/timelines"),
+            new("站点地图", "/sitemap.xml")
         };
         await Task.CompletedTask;
-    }
-
-    public string T(string key)
-    {
-        return MainLayout.T(key);
     }
 
 

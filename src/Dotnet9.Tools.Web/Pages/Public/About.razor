@@ -2,19 +2,8 @@
 @using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
-<PageTitle>@T("About") - @T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>关于 - D9工具箱</PageTitle>
 
-<h1 class="entry-title">@T("About")</h1>
+<h1 class="entry-title">关于</h1>
 
 <D9Markdown LocalPostFilePath="wwwroot/doc/README-zh_CN.md"/>
-
-@code
-{
-    [CascadingParameter]
-    public PublicLayout MainLayout { get; set; } = default!;
-
-    public string? T(string key)
-    {
-        return MainLayout.T(key);
-    }
-}

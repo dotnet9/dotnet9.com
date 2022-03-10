@@ -67,12 +67,4 @@
 {
     [Parameter]
     public List<CardItem>? Items { get; set; }
-
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
-    }
 }

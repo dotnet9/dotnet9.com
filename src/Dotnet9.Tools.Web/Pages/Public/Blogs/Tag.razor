@@ -1,14 +1,14 @@
 ﻿@page "/tag/{name?}"
-@using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Shared.Public
 @using System.Net
 @layout DocLayout
 
-<h1 class="entry-title">@T("Tag") @(string.IsNullOrWhiteSpace(Name) ? "" : $":{Name}")</h1>
+<h1 class="entry-title">标签云 @(string.IsNullOrWhiteSpace(Name) ? "" : $":{Name}")</h1>
 
 @if (string.IsNullOrWhiteSpace(Name))
 {
-    <PageTitle>@T("Tag") - @T("Dotnet9ToolsTitle")</PageTitle>
+    <PageTitle>标签云 - D9工具箱</PageTitle>
 
     var random = new Random(DateTime.Now.Millisecond);
     @foreach (var tag in ConstData.BlogTagItems)
@@ -32,15 +32,7 @@ else
     [Parameter]
     public string? Name { get; set; }
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     List<CardItem>? _items;
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
-    }
 
     protected override async Task OnParametersSetAsync()
     {

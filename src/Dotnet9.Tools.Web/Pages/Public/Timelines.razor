@@ -5,9 +5,9 @@
 @using Dotnet9.Tools.Web.Models
 @layout DocLayout
 
-<PageTitle>@T("Timelines") - @T("Dotnet9ToolsTitle")</PageTitle>
+<PageTitle>时间轴 - D9工具箱</PageTitle>
 
-<h1 class="entry-title">@T("Timelines")</h1>
+<h1 class="entry-title">时间轴</h1>
 
 <MTimeline>
     @if (Items != null)
@@ -32,8 +32,6 @@
 
 @code
 {
-    [CascadingParameter]
-    public PublicLayout MainLayout { get; set; } = default!;
 
     private static List<Timeline>? _items;
 
@@ -48,11 +46,6 @@
             _items = JsonConvert.DeserializeObject<List<Timeline>>(File.ReadAllText(SitePathHelper.TimelinePath));
             return _items;
         }
-    }
-
-    public string? T(string key)
-    {
-        return MainLayout.T(key);
     }
 
     struct Timeline

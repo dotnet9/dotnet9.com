@@ -3,34 +3,34 @@
 @using Dotnet9.Tools.Web.Utils
 @layout DocLayout
 
-<PageTitle>@T("Dotnet9ToolsTitle") - @T("TimestampToolTitle")</PageTitle>
+<PageTitle>D9工具箱 - 时间戳</PageTitle>
 
-<h1 class="entry-title">@T("TimestampToolDesc")</h1>
+<h1 class="entry-title">时间戳转换</h1>
 
 <MRow>
-    @T("TimestampToolDateNow") @DateTimeOffset.Now.GetTimestamp()
+    现在： @DateTimeOffset.Now.GetTimestamp()
 </MRow>
 <MRow>
-    <MTextField Style="max-width: 200px;" Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp1"/>
+    <MTextField Style="max-width: 200px;" Label="时间戳" TValue="long" @bind-Value="@_timestamp1"/>
     <div style="display: flex;">
         <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue1" Row>
-            <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
-            <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
+            <MRadio Value="TimestampKind.Seconds" Label="秒"></MRadio>
+            <MRadio Value="TimestampKind.Milliseconds" Label="毫秒"></MRadio>
         </MRadioGroup>
     </div>
-    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert1">@T("TimestampToolConvert")</MButton>
-    <MTextField Label="@T("TimestampToolBeijingTime")" Style="max-width: 200px;"
+    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert1">转换>></MButton>
+    <MTextField Label="北京时间" Style="max-width: 200px;"
                 TValue="string" @bind-Value="@_datetime1"
                 Class="ml-3"/>
 </MRow>
 <MRow>
-    <MTextField Label="@T("TimestampToolBeijingTime")" TValue="string" @bind-Value="@_datetime2" Style="max-width: 200px;"/>
-    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert2">@T("TimestampToolConvert")</MButton>
-    <MTextField Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp2" Style="max-width: 200px;"/>
+    <MTextField Label="北京时间" TValue="string" @bind-Value="@_datetime2" Style="max-width: 200px;"/>
+    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert2">转换>></MButton>
+    <MTextField Label="时间戳" TValue="long" @bind-Value="@_timestamp2" Style="max-width: 200px;"/>
     <div style="display: flex;">
         <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue2" Row>
-            <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
-            <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
+            <MRadio Value="TimestampKind.Seconds" Label="秒"></MRadio>
+            <MRadio Value="TimestampKind.Milliseconds" Label="毫秒"></MRadio>
         </MRadioGroup>
     </div>
 </MRow>
@@ -42,8 +42,6 @@
 
 @code
 {
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
 
     private DateTimeOffset _currentDatetime;
     private long _timestamp1;
@@ -76,10 +74,5 @@
         {
     // ignored
         }
-    }
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
     }
 }

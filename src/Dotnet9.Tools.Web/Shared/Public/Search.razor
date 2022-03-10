@@ -15,7 +15,7 @@
             Dense
             BackgroundColor="#F2F3F5"
             Color="grey lighten-1"
-            Placeholder="@T("Search")">
+            Placeholder="搜索">
     <PrependInnerContent>
         <MIcon Color="grey lighten-1">mdi-magnify</MIcon>
     </PrependInnerContent>
@@ -25,9 +25,6 @@
 
     [Inject]
     public NavigationManager Navigation { get; set; } = default!;
-
-    [CascadingParameter]
-    public PublicLayout MainLayout { get; set; } = default!;
 
     private string? _search;
     private string _searchBorderColor = "#00000000";
@@ -44,11 +41,6 @@
         {
             Navigation.NavigateTo(_search.GetQueryUrl());
         }
-    }
-
-    public string? T(string key)
-    {
-        return MainLayout.T(key);
     }
 
 }

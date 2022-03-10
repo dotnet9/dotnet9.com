@@ -4,8 +4,8 @@
 @using Dotnet9.Tools.Web.Utils
 @layout DocLayout
 
-<PageTitle>@T("Tools") - @T("Dotnet9ToolsTitle")</PageTitle>
-<h1 class="entry-title">@T("Tools")</h1>
+<PageTitle>工具 - D9工具箱</PageTitle>
+<h1 class="entry-title">工具</h1>
 
 <CardItemList Items="_tools"/>
 
@@ -14,18 +14,10 @@
 
     readonly List<CardItem> _tools = new();
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
-    public string T(string key)
-    {
-        return MainLayout?.T(key) ?? string.Empty;
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        _tools.Add(new CardItem(T("IcoToolTitle"), "/ico", T("IcoToolDesc"), "/ico", SiteUrlHelper.ToolsIconCoverUrl, T("SiteOwner"), originalLink: "/", date: "2022-02-22"));
-        _tools.Add(new CardItem(T("TimestampToolTitle"), "/timestamp", T("TimestampToolDesc"), "/timestamp", SiteUrlHelper.ToolsTimestampCoverUrl, T("SiteOwner"), originalLink: "/", date: "2022-02-28"));
+        _tools.Add(new CardItem("Icon转换", "/ico", "将jpg、png、bmp等图片一键转换成ico图标", "/ico", SiteUrlHelper.ToolsIconCoverUrl, "沙漠尽头的狼", originalLink: "/", date: "2022-02-22"));
+        _tools.Add(new CardItem("时间戳", "/timestamp", "时间戳转换", "/timestamp", SiteUrlHelper.ToolsTimestampCoverUrl, "沙漠尽头的狼", originalLink: "/", date: "2022-02-28"));
 
         await base.OnInitializedAsync();
     }

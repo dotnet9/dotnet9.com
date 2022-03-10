@@ -1,7 +1,7 @@
 ﻿@page "/post/{slug?}"
 @using Dotnet9.Tools.Web.Utils
-@using Dotnet9.Tools.Web.Shared.Public
 @using Dotnet9.Tools.Web.Models
+@using Dotnet9.Tools.Web.Shared.Public
 @layout DocLayout
 
 
@@ -11,18 +11,18 @@
 }
 else
 {
-    <PageTitle>@_post.Title - @T("Dotnet9ToolsTitle")</PageTitle>
+    <PageTitle>@_post.Title - D9工具箱</PageTitle>
     <h1 class="entry-title">@_post.Title</h1>
 
     <p class="entry-info">
 
         @if (string.IsNullOrWhiteSpace(_post.Original))
         {
-            <span>@T("SiteOwner")&nbsp;&nbsp;</span>
+            <span>沙漠尽头的狼&nbsp;&nbsp;</span>
         }
         else
         {
-            <span>@T("PostFrom"): <a href="@_post.OriginalLink">@_post.Original&nbsp;&nbsp;</a></span>
+            <span>文章来源: <a href="@_post.OriginalLink">@_post.Original&nbsp;&nbsp;</a></span>
         }
 
         <span class="dot">•</span>
@@ -83,19 +83,19 @@ else
             <MCard Color="#385F73" Dark>
                 @if (_post.CopyrightType == CopyrightType.Default)
                 {
-                    <p class="pa-3">@T("CopyrightTypeDefault")</p>
+                    <p class="pa-3">如未说明，文章均由本站(Dotnet9工具箱)整理、发布，欢迎转载，转载请注明出处：</p>
                     <MCardText Class="white text--primary pb-3">
-                        <p>@T("BlogPostOriginal")：<a href="/" alt="@T("Dotnet9ToolsTitle")">@T("Dotnet9ToolsTitle")</a></p>
-                        <p>@T("BlogPostOriginalTitle")：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Title</a></p>
-                        <p>@T("BlogPostOriginalLink")：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Slug!.GetPostFullUrl()</a></p>
+                        <p>原文出处：<a href="/" alt="D9工具箱">D9工具箱</a></p>
+                        <p>原文标题：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Title</a></p>
+                        <p>原文链接：<a href="@_post.Slug!.GetPostUrl()" alt="@_post.Title">@_post.Slug!.GetPostFullUrl()</a></p>
                     </MCardText>
                 }
                 else
                 {
-                    <p class="pa-3">@T("CopyrightTypeOther")</p>
+                    <p class="pa-3">本文来自转载，本文观点不代表本站(Dotnet9工具箱)立场，转载请联系原作者：</p>
                     <MCardText Class="white text--primary pb-3">
-                        <p>@T("BlogPostOriginal")：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.Original</a></p>
-                        <p>@T("BlogPostOriginalLink")：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.OriginalLink</a></p>
+                        <p>原文出处：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.Original</a></p>
+                        <p>原文链接：<a href="@_post.OriginalLink" alt="@_post.Title">@_post.OriginalLink</a></p>
                     </MCardText>
                 }
             </MCard>
@@ -129,9 +129,6 @@ else
     [Parameter]
     public string? Slug { get; set; }
 
-    [CascadingParameter]
-    public PublicLayout? MainLayout { get; set; }
-
     private BlogPost? _post;
 
     private double _rating = 4;
@@ -144,11 +141,6 @@ else
         }
         _post = ConstData.BlogPostItems.FirstOrDefault(x => x.Slug == Slug);
         await Task.CompletedTask;
-    }
-
-    public string? T(string key)
-    {
-        return MainLayout?.T(key);
     }
 
 }
