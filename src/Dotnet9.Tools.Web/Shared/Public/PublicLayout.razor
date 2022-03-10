@@ -1,0 +1,57 @@
+﻿@using BlazorComponent.I18n
+@inherits LayoutComponentBase
+
+<CascadingValue Value="this">
+    <CascadingValue Value="@IsChinese" Name="Lang">
+        <MApp Class="baselayout-m-app">
+
+            <MAppBar ElevateOnScroll Color="white" Height="80" Elevation="0" ClippedLeft ClippedRight App>
+                @*<MAppBarNavIcon @onclick="() => _drawer = !_drawer"/>*@
+                <PublicHeader IsChinese="@IsChinese"/>
+            </MAppBar>
+
+            @*<MSystemBar Dark Color="primary" Height="30" Class="d-none d-sm-none d-md-flex m-0 p-0" App>
+                <MSpacer></MSpacer>
+                <MIcon>mdi-message</MIcon>
+                <span style="color: white;">@T("Dotnet9ToolsDescription")</span>
+            </MSystemBar>*@
+
+            <MNavigationDrawer @bind-Value="_drawer" Floating Fixed Width="333" App Clipped>
+                <ChildContent>
+                    <PublicCategorySidebar/>
+                    <div class="pt-12"></div>
+                </ChildContent>
+            </MNavigationDrawer>
+
+            <MMain Class="mainlayout-m-main">
+                @Body
+            </MMain>
+
+
+            <MFooter Color="primary lighten-1" Padless>
+                <PublicFooter/>
+            </MFooter>
+
+        </MApp>
+    </CascadingValue>
+</CascadingValue>
+
+@code
+{
+    private bool _drawer = true;
+    public bool IsChinese { get; set; }
+
+    [Inject]
+    public I18n? I18N { get; set; }
+
+    public async Task ChangeLanguage(string lang)
+    {
+        I18N?.SetLang(lang);
+        await Task.CompletedTask;
+    }
+
+    public string T(string key)
+    {
+        return I18N?.LanguageMap.GetValueOrDefault(key) ?? string.Empty;
+    }
+}

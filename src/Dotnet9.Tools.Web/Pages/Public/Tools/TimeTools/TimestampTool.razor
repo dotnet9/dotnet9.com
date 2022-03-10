@@ -1,0 +1,85 @@
+﻿@page "/timestamp"
+@using Dotnet9.Tools.Web.Shared.Public
+@using Dotnet9.Tools.Web.Utils
+@layout DocLayout
+
+<PageTitle>@T("Dotnet9ToolsTitle") - @T("TimestampToolTitle")</PageTitle>
+
+<h1 class="entry-title">@T("TimestampToolDesc")</h1>
+
+<MRow>
+    @T("TimestampToolDateNow") @DateTimeOffset.Now.GetTimestamp()
+</MRow>
+<MRow>
+    <MTextField Style="max-width: 200px;" Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp1"/>
+    <div style="display: flex;">
+        <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue1" Row>
+            <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
+            <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
+        </MRadioGroup>
+    </div>
+    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert1">@T("TimestampToolConvert")</MButton>
+    <MTextField Label="@T("TimestampToolBeijingTime")" Style="max-width: 200px;"
+                TValue="string" @bind-Value="@_datetime1"
+                Class="ml-3"/>
+</MRow>
+<MRow>
+    <MTextField Label="@T("TimestampToolBeijingTime")" TValue="string" @bind-Value="@_datetime2" Style="max-width: 200px;"/>
+    <MButton Class="mx-3 white--text" Color="blue-grey" OnClick="@Convert2">@T("TimestampToolConvert")</MButton>
+    <MTextField Label="@T("TimestampToolTimestamp")" TValue="long" @bind-Value="@_timestamp2" Style="max-width: 200px;"/>
+    <div style="display: flex;">
+        <MRadioGroup TValue="TimestampKind" @bind-Value="_kindValue2" Row>
+            <MRadio Value="TimestampKind.Seconds" Label="@T("TimestampToolKindSeconds")"></MRadio>
+            <MRadio Value="TimestampKind.Milliseconds" Label="@T("TimestampToolKindMilliseconds")"></MRadio>
+        </MRadioGroup>
+    </div>
+</MRow>
+
+<ToolMarkdown
+    LocalPostFilePath="@SitePathHelper.ToolsTimestampMarkdown"
+    RemotePostUrl="@SitePathHelper.ToolsTimestampMainPostUrl"
+    SourceCodeUrl="@SitePathHelper.ToolsTimestampSourceUrl"/>
+
+@code
+{
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    private DateTimeOffset _currentDatetime;
+    private long _timestamp1;
+    private long _timestamp2;
+    private string? _datetime1;
+    private string? _datetime2;
+    private TimestampKind _kindValue1;
+    private TimestampKind _kindValue2;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _currentDatetime = DateTimeOffset.Now;
+        _timestamp1 = _timestamp2 = _currentDatetime.GetTimestamp();
+        _datetime1 = _datetime2 = _currentDatetime.ToString("yyyy-MM-dd HH:mm:ss");
+        await base.OnInitializedAsync();
+    }
+
+    private void Convert1()
+    {
+        _datetime1 = _timestamp1.ConvertToDate(_kindValue1).ToString(_kindValue1 == TimestampKind.Seconds ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm:ss.fff");
+    }
+
+    private void Convert2()
+    {
+        try
+        {
+            _timestamp2 = DateTimeOffset.Parse(_datetime2 ?? string.Empty).GetTimestamp(_kindValue2);
+        }
+        catch
+        {
+    // ignored
+        }
+    }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+}

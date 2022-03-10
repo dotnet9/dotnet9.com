@@ -1,0 +1,22 @@
+﻿@using BlazorComponent
+<MContainer Class="text-center fill-height" Style="height: calc(100vh - 58px)">
+    <MRow Align="AlignTypes.Center">
+        <MCol>
+            <img src="empty.svg" alt="@T("NoContentFound")" style="max-width: 400px;"/>
+
+            <p style="color: #828282; margin-top: 20px;">@T("NoContentFound")</p>
+        </MCol>
+    </MRow>
+</MContainer>
+
+@code{
+
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+
+}

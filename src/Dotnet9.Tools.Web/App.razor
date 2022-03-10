@@ -1,0 +1,14 @@
+﻿@using Dotnet9.Tools.Web.Shared.Public
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(PublicLayout)"/>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(PublicLayout)">
+            <Dotnet9.Tools.Web.Shared.Public.NotFound/>
+        </LayoutView>
+    </NotFound>
+
+</Router>

@@ -1,0 +1,26 @@
+﻿<MList Subheader Dense>
+
+    <MSubheader Class="mt-3">@T("Tools")</MSubheader>
+    <ToolMenuList></ToolMenuList>
+
+    <MDivider></MDivider>
+
+    <MSubheader>@T("Album")</MSubheader>
+    <AlbumMenuList></AlbumMenuList>
+
+    <MDivider></MDivider>
+
+    <MSubheader>@T("Blog")</MSubheader>
+    <CategoryMenuList OnlyUseList="true"></CategoryMenuList>
+</MList>
+
+@code
+{
+    [CascadingParameter]
+    public PublicLayout? MainLayout { get; set; }
+
+    public string T(string key)
+    {
+        return MainLayout?.T(key) ?? string.Empty;
+    }
+}

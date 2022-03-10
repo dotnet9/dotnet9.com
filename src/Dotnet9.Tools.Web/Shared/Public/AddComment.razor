@@ -1,0 +1,29 @@
+﻿<MRow>
+    <MCol>
+        <MCard>
+            <MCardActions Class="ma-0 pa-0">
+                <MTextField Label="Nick name" TValue="string" Style="max-width: 200px;"></MTextField>
+                <MButton Depressed Class="mx-2 text-capitalize" Color="error">
+                    Get Verification Code
+                </MButton>
+                <MTextField Label="Verification Code" TValue="string" Style="max-width: 100px;"></MTextField>
+            </MCardActions>
+            <MCardActions Class="ma-0 pa-0">
+                <MTextarea
+                    Label="Reply message"
+                    @bind-Value="_replyMsg">
+                </MTextarea>
+            </MCardActions>
+            <MCardActions Class="ma-0 pa-0">
+                <MButton Class="mx-2 text-capitalize" Depressed Color="primary">
+                    Commit
+                </MButton>
+            </MCardActions>
+        </MCard>
+    </MCol>
+</MRow>
+
+@code
+{
+    private string? _replyMsg;
+}

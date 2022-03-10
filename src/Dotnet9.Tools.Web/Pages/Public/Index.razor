@@ -1,0 +1,78 @@
+﻿@page "/"
+@using Dotnet9.Tools.Web.Shared.Public
+@using BlazorComponent
+@layout PublicLayout
+
+<PageTitle>@T("Home") - @T("Dotnet9ToolsTitle")</PageTitle>
+
+<MRow Class="banner" NoGutters Align="AlignTypes.Center" Justify="JustifyTypes.Center">
+    <MCol Align="@AlignTypes.Center" Lg="6" Md="6" Sm="12">
+        <div class="banner-logo-box">
+            <p class="banner-logo-font">
+                @T("Dotnet9ToolsTitle")
+            </p>
+        </div>
+        <div class="banner-detail-box">
+            <p class="banner-detail-font">
+                @T("Dotnet9ToolsDescription")
+            </p>
+        </div>
+        <MRow NoGutters Style="margin-top: 88px;" Justify="JustifyTypes.Start">
+            <MButton Dark
+                     Color="#5C2D91"
+                     Height="64"
+                     Class="text-20 mb-6 px-6"
+                     Href="/tools">
+                @T("GetStarted")
+            </MButton>
+            <MButton Dark
+                     Outlined
+                     Color="black"
+                     Height="64"
+                     Class="text-20 px-6 mb-6 mx-6"
+                     Href="/cat">
+                @T("GoToBlog")
+            </MButton>
+            <MButton Dark
+                     Color="black"
+                     Height="64"
+                     Href="https://github.com/dotnet9/dotnet9.com"
+                     Target="_blank"
+                     Class="text-20 px-6 mb-6">
+                <MIcon Left>mdi-github</MIcon>
+                GitHub
+            </MButton>
+        </MRow>
+    </MCol>
+</MRow>
+
+@code
+{
+    private int _onboarding;
+
+    [CascadingParameter]
+    public PublicLayout MainLayout { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; } = default!;
+
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    public StringNumber OnBoarding
+    {
+        get => _onboarding;
+        set => _onboarding = value.AsT1;
+    }
+
+    private async Task Toggle(string url)
+    {
+        if (!string.IsNullOrWhiteSpace(url)) await JSRuntime.InvokeVoidAsync("window.open", url);
+    }
+
+    public string? T(string key)
+    {
+        var content = MainLayout.T(key);
+        return content;
+    }
+}

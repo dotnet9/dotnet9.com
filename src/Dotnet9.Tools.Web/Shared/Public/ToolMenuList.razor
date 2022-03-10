@@ -1,0 +1,13 @@
+﻿@using Dotnet9.Tools.Web.Models
+@foreach (var item in ConstData.ToolItems)
+{
+    <MListItem Link Href="@item.Url">
+        <MListItemAvatar Size="24">
+            <MIcon Class="amber" Dark>@item.Icon</MIcon>
+        </MListItemAvatar>
+
+        <MListItemContent>
+            <MListItemTitle>@item.Name</MListItemTitle>
+        </MListItemContent>
+    </MListItem>
+}
