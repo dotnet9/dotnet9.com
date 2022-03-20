@@ -14,6 +14,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<CommentService>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs));
 
+SitePathHelper.SetResourcePath(builder.Configuration["Resource"]!);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

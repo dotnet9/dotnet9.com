@@ -76,7 +76,11 @@ internal static class ConstData
         {
             if (_blogPostItems != null) return _blogPostItems;
 
-            var allPostFiles = Directory.GetFiles(SitePathHelper.UploadsPath, "*.info", SearchOption.AllDirectories);
+            List<string> allPostFiles = new();
+            for (var i = 2019; i <= DateTime.Now.Year; i++)
+            {
+                allPostFiles.AddRange( Directory.GetFiles($@"{SitePathHelper.ResourcePath}\{i}", "*.info", SearchOption.AllDirectories));
+            }
             _blogPostItems = allPostFiles.Select(x =>
             {
                 var post = JsonConvert.DeserializeObject<BlogPost>(File.ReadAllText(x))!;
