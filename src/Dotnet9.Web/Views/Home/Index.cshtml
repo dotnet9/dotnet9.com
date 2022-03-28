@@ -1,0 +1,170 @@
+﻿@{
+    ViewData["Title"] = "首页";
+    Layout = "_PublicLayout";
+}
+
+<section class="text-center text-sm-start">
+    <div class="d-flex">
+        <div>
+            <h1>D9<span class="text-warning">工具箱</span></h1>
+            <h3 class="my-4">
+                一个有技术的在线工具箱
+            </h3>
+            <button class="btn btn-primary btn-lg">开始使用吧</button>
+        </div>
+        <img src="https://img1.Dotnet9.com/2022/03/0301.gif" alg="Dotnet9" class="w-50 d-none d-md-block"/>
+    </div>
+</section>
+
+<section>
+    <h2 class="mb-4">工具</h2>
+    <div class="row g-4">
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card bg-dark text-light">
+                <div class="card-body text-center">
+                    <div class="card-title text-center">
+                        Icon转换
+                    </div>
+                    <div class="card-text">
+                        png、jpg、jpeg、tmp等一键转换Icon
+                    </div>
+                    <a href="https://lequ.co/ico" class="btn btn-primary mt-2">使用吧</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card bg-secondary text-light">
+                <div class="card-body text-center">
+                    <div class="card-title text-center">
+                        时间戳转换
+                    </div>
+                    <div class="card-text">
+                        在线时间戳转换
+                    </div>
+                    <a href="https://lequ.co/timestamp" class="btn btn-dark mt-2">使用吧</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card bg-dark text-light">
+                <div class="card-body text-center">
+                    <div class="card-title text-center">
+                        正则表达式验证
+                    </div>
+                    <div class="card-text">
+                        在线正则表达式验证
+                    </div>
+                    <a href="#" class="btn btn-primary mt-2">使用吧</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+            <div class="card bg-secondary text-light">
+                <div class="card-body text-center">
+                    <div class="card-title text-center">
+                        时间戳转换
+                    </div>
+                    <div class="card-text">
+                        在线时间戳转换
+                    </div>
+                    <a href="https://lequ.co/timestamp" class="btn btn-dark mt-2">使用吧</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<h2 class="my-4">博文</h2>
+
+<section class="my-3">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md">
+            <img src="https://img1.dotnet9.com/2021/02/0401.gif" alt="install-software" class="img-fluid"/>
+        </div>
+        <div class="col-md p-5">
+            <h2>怎么做一个专业的软件安装包？</h2>
+            <p class="lead">
+                C/S客户端开发完成，需要将程序交付给用户，直接压缩发给用户是可以的（只是有点不专业），如果能有一个比较好看的安装界面，那档次就不一样了。
+            </p>
+            <p>
+                本文介绍怎么使用Adanced Installer 17.9 制作专业的Windows 客户端安装包，其他软件或者本软件其他版本制作步骤也是类似的。
+            </p>
+            <a href="https://lequ.co/post/how-to-make-a-professional-software-installation-package" class="btn btn-light">查看更多</a>
+        </div>
+    </div>
+</section>
+
+<section class="bg-dark text-light">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md p-5">
+            <h2>怎么实现WPF多语言动态切换？</h2>
+            <p class="lead">
+                有网友看了上一篇文章《C# 多语言利器 - ResX Manager》后，提出疑问：这个多语言切换不重启不能刷新，有没有方案？
+            </p>
+            <p>
+                其实是有的，国内一开源大神提供了一个WPF扩展库，其中就有多语言切换实现。
+            </p>
+            <a href="https://lequ.co/post/how-to-realize-multi-language-dynamic-switching-of-wpf" class="btn btn-light">查看更多</a>
+        </div>
+        <div class="col-md">
+            <img src="https://img1.dotnet9.com/2021/02/0202.gif" alt="wpf-international" class="img-fluid"/>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="text-center my-4">常见问题</h2>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    1. 工具开源吗？
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                所有工具都在Github开源，放心使用：<a href="https://github.com/dotnet9/Dotnet9" alt="tool">https://github.com/dotnet9/Dotnet9</a>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    2. 博客Markdown文件怎么获取？
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                博客整理的Markdown文件地址：<a href="https://github.com/dotnet9/Assets.Dotnet9" alt="blog post">https://github.com/dotnet9/Assets.Dotnet9</a>，包括文章中的图片等资源都放在这个仓库中。
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    3. 本站是否开源？
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                工具开源了，博文Markdown也是MIT协议，本站有理由不开源吗？仓库同工具：<a href="https://github.com/dotnet9/Dotnet9" alt="site-open-source">https://github.com/dotnet9/Dotnet9</a>。
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="text-center my-4">联系我</h2>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi">
+                <img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流">
+            </a>
+        </li>
+        <li class="list-group-item">
+            微信公众号：Dotnet9
+        </li>
+    </ul>
+    <img src="https://img1.Dotnet9.com/site/wechatpublic.jpg" width="200" alt="wpf-international" class="img-fluid"/>
+</section>

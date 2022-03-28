@@ -1,66 +1,37 @@
-# Dotnet9.Tools
+<p align="center">
+  <a href="https://dotnet9.com">
+    <img src="https://img1.dotnet9.com/site/logo.png" width="128" height="128" alt="Dotnet9">
+  </a>
+</p>
 
-暂时停止维护
+<h1 align="center">Dotnet9</h1>
 
-<div align="center"><img src="https://img1.d9tools.com/site/logo.png" width="128" height="128"/></div>
+<div align="center">
 
- ![dotnet-version](https://img.shields.io/badge/.NET%207.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/dotnet9.com.git)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/dotnet9.com) [![Github stars](https://img.shields.io/github/stars/dotnet9/dotnet9.com)](https://github.com/dotnet9/dotnet9.com)
+一个使用`ASP.NET Core MVC 7.0`开发的`博客`系统，集成了在线免费`工具`，目前正在开发中...
+
+ ![dotnet-version](https://img.shields.io/badge/.NET%207.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
+
+ </div>
 
 [English](./README.md) | 简体中文
 
-## Welcome to Dotnet9.com
+## ✨ 特性
 
-本仓库有以下内容：
+## 🌈 在线示例
 
-- 主域名(dotnet9.com)：原博客保留使用，使用[WordPress & JustNews](https://www.wpcom.cn/?ref=4807)搭建，在线链接地址：https://dotnet9.com。
-- lequ.co、tool.dotnet9.com：用于搭建站长自研网站，使用Blazor Server开发，含博客系统+免费在线工具的功能，源码也皆放在此仓库中，在线链接地址：https://lequ.co、https://tool.dotnet9.com。
-- 博客原创及转载文章部分保存为Markdown存储，包括文章图片都保存在这个仓库中。
+Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 
-## 欢迎关注微信公众号
+## 🖥 支持环境
 
-![Dotnet9](https://img1.d9tools.com/site/wechatpublic.jpg)
+- .NET 7.0
 
-已开发的工具如下：
+## 💕 支持本项目
 
-## 1. Icon转换
+<div align="center">
+<img src="https://img1.dotnet9.com/pays/WeChatPay.jpg" width="256" alt="Wechat"><img src="https://img1.Dotnet9.com/pays/AliPay.jpg" style="margin-left: 5px; margin-right: 5px;" width="256" alt="Alipay"><img src="https://img1.dotnet9.com/pays/QQPay.jpg" width="256" alt="QQpay">
+</div>
 
->支持png、jpg、jpeg、tmp等图片，默认转换的图片尺寸包含：16x16+32x32+48x48+256x256，转换完成不会保存源文件和生成的Icon图标，请放心使用。
+## ☀️ License
 
->本工具源码：[IcoTool.razor](https://gitee.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/ImageTools/IcoTool.razor)
->
->介绍文章：[免费开源Blazor在线Ico转换工具](https://dotnet9.com/1715)
->
->在线演示地址：[https://tool.dotnet9.com/ico](https://tool.dotnet9.com/ico)
-
-效果演示如下：
-
-![Icon转换](https://img1.d9tools.com/2022/02/1301.gif)
-
-## 2. 时间戳转换
-
->本工具源码：[TimestampTool.razor](https://gitee.com/dotnet9/dotnet9.com/blob/develop/src/Dotnet9.Tools.Web/Pages/Public/TimeTools/TimestampTool.razor)
->
->介绍文章：[使用Blazor做个简单的时间戳在线转换工具](https://dotnet9.com/1801)
->
->在线演示地址：[https://tool.dotnet9.com/timestamp](https://tool.dotnet9.com/timestamp)
-
-效果演示如下：
-
-![时间戳转换](https://img1.d9tools.com/2022/02/1701.jpg)
-
-## 感谢
-
-`Dotnet9工具箱`会不断添加新的免费、开源、在线工具，欢迎star支持，有什么需求我会考虑加上。
-
-- 仓库地址：[Dotnet9.Tools](https://github.com/dotnet9/dotnet9.com)。
-- 建议或吐槽：[提交issue](https://github.com/dotnet9/dotnet9.com/issues/new)。
-- [网站留言](https://dotnet9.com)。
-- 微信公众号(dotnet9)联系等等。
-
-## 捐助
-
-如果对您有所帮助，可扫下方二维码对我进行打赏（虽然人已秃，生活照样要过的有滋有味！）。
-
-- [Alipay](https://img1.d9tools.com/pays/AliPay.jpg)
-- [Wechat](https://img1.d9tools.com/pays/WeChatPay.jpg)
-- [QQ](https://img1.d9tools.com/pays/QQPay.jpg)
+MIT

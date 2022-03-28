@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>@ViewData["Title"] - Dotnet9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="一个专注于.NET技术的网站" name="description"/>
+    <meta content="沙漠尽头的狼" name="author"/>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+
+</head>
+
+<body class="loading" data-layout-color="light" data-leftbar-theme="dark" data-layout-mode="fluid" data-rightbar-onstart="true">
+<!-- Begin page -->
+<div class="wrapper">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="leftside-menu">
+
+        <!-- LOGO -->
+        <a href="/" class="logo text-center logo-light">
+            <span class="logo-lg">
+                <img src="~/logo-dark.png" alt="" width="132">
+            </span>
+            <span class="logo-sm">
+                <img src="~/favicon.ico" alt="" width="32">
+            </span>
+        </a>
+
+        <!-- LOGO -->
+        <a href="/" class="logo text-center logo-dark">
+            <span class="logo-lg">
+                <img src="~/logo-light.png" alt="" width="132">
+            </span>
+            <span class="logo-sm">
+                <img src="~/favicon.ico" alt="" width="32">
+            </span>
+        </a>
+
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+            <!--- Sidemenu -->
+            @await Component.InvokeAsync("MenuVertical")
+
+            <!-- End Sidebar -->
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Topbar Start -->
+            <div class="navbar-custom">
+                @await Component.InvokeAsync("ToolBar", new { showMenu = true })
+            </div>
+            <!-- end Topbar -->
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                @RenderBody()
+
+            </div>
+            <!-- container -->
+
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                @await Component.InvokeAsync("Footer")
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="end-bar">
+    @await Component.InvokeAsync("SidebarRight")
+</div>
+
+<div class="rightbar-overlay"></div>
+<!-- /End-bar -->
+
+<!-- bundle -->
+<script src="~/js/vendor.min.js"></script>
+<script src="~/js/app.min.js"></script>
+</body>
+</html>
