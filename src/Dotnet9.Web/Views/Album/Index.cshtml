@@ -1,14 +1,40 @@
-﻿@{
+﻿@model Dotnet9.Web.ViewModels.Albums.AlbumViewModel
+@{
     ViewData["Title"] = "专辑";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
 <div class="card ribbon-box">
     <div class="card-body">
-        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 专辑</div>
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 专辑 - @Model.Name</div>
         <h5 class="text-primary float-end mt-0">浏览更多</h5>
         <p class="ribbon-content">
             专辑功能，目的为了将优质文章聚集到一起，方便阅读与查看。
         </p>
     </div> <!-- end card-body -->
 </div> <!-- end card-->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-3">
+            @foreach (var blogPost in Model.Items)
+            {
+                <div class="col">
+                    <div class="card">
+                        <img src="@blogPost.Cover" class="card-img-top" alt="@blogPost.Title">
+                        <div class="card-body">
+                            <h5 class="card-title">@blogPost.Title</h5>
+                            <p class="card-text">
+                                @blogPost.BriefDescription
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">@blogPost.Original</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div> <!-- end col-->
+</div>

@@ -21,12 +21,17 @@ public class EfCoreRepository<TEntity>
 
     public async Task<int> GetMaxIdAsync()
     {
-        if (await _dbContext.Set<TEntity>().AnyAsync() == false)
-        {
-            return 0;
-        }
+        if (await _dbContext.Set<TEntity>().AnyAsync() == false) return 0;
 
         return await _dbContext.Set<TEntity>().MaxAsync(x => x.Id);
+    }
+
+    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> whereLambda,
+        params Expression<Func<TEntity, object>>[] includes)
+    {
+        IQueryable<TEntity> query = _dbContext.Set<TEntity>();
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
+        return await query.AsNoTracking().FirstOrDefaultAsync(whereLambda);
     }
 
     public async Task<List<TEntity>> SelectAsync(params Expression<Func<TEntity, object>>[] includes)
