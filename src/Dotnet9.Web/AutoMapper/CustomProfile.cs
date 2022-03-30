@@ -15,6 +15,7 @@ public class CustomProfile : Profile
         CreateMap<AlbumCount, AlbumCountDto>();
         CreateMap<Album, AlbumDto>();
         CreateMap<Category, CategoryCountDto>();
+        CreateMap<Category, CategoryDto>();
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
     }
 }

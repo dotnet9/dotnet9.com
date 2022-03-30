@@ -70,6 +70,42 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
             }).ToListAsync();
     }
 
+    public async Task<List<BlogPostWithDetails>?> GetBlogPostListByCategorySlugAsync(string categorySlug)
+    {
+        var dbContext = await GetDbContextAsync();
+        var category = await dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == categorySlug);
+        if (category == null) return null;
+
+        return await dbContext.BlogPosts!
+            .Include(x => x.Albums)
+            .Include(x => x.Categories)
+            .Include(x => x.Tags)
+            .Where(x => x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id))
+            .Select(x => new BlogPostWithDetails
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Slug = x.Slug,
+                BriefDescription = x.BriefDescription,
+                Content = x.Content,
+                Cover = x.Cover,
+                CopyrightType = x.CopyrightType,
+                Original = x.Original,
+                OriginalTitle = x.OriginalTitle,
+                OriginalLink = x.OriginalLink,
+                AlbumNames = (from blogPostAlbum in x.Albums
+                    join album in dbContext.Set<Album>() on blogPostAlbum.AlbumId equals album.Id
+                    select album.Name).ToArray(),
+                CategoryNames = (from blogPostCategory in x.Categories
+                    join category in dbContext.Set<Category>() on blogPostCategory.CategoryId equals category.Id
+                    select category.Name).ToArray(),
+                TagNames = (from blogPostTag in x.Tags
+                    join tag in dbContext.Set<Tag>() on blogPostTag.TagId equals tag.Id
+                    select tag.Name).ToArray(),
+                CreateDate = x.CreateDate
+            }).ToListAsync();
+    }
+
     private async Task<IQueryable<BlogPostWithDetails>> ApplyFilterAsync()
     {
         var dbContext = await GetDbContextAsync();

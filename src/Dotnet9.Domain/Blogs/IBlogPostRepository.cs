@@ -9,4 +9,6 @@ public interface IBlogPostRepository : IRepository<BlogPost>
     Task<BlogPostWithDetails?> FindBySlugAsync(string slug);
 
     Task<List<BlogPostWithDetails>?> GetBlogPostListByAlbumSlugAsync(string albumSlug);
+
+    Task<List<BlogPostWithDetails>?> GetBlogPostListByCategorySlugAsync(string categorySlug);
 }
