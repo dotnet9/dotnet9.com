@@ -29,7 +29,7 @@
                                 @blogPost.BriefDescription
                             </p>
                             <p class="card-text">
-                                <small class="text-muted">@blogPost.Original</small>
+                                <small class="text-muted">@(blogPost.Original??"沙漠尽头的狼") - @blogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
                             </p>
                         </div>
                     </div>
