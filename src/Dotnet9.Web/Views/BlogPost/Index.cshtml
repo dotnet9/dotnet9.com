@@ -1,0 +1,66 @@
+﻿@using Markdig
+@model Dotnet9.Web.ViewModels.Blogs.BlogPostViewModel
+@{
+    ViewData["Title"] = Model.BlogPost.Title;
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+@section Headers {
+
+    <!--重置浏览器样式-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <!--代码块主题-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism-coy.min.css">
+    <!--工具栏插件-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.css">
+    <!--行号插件-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.css">
+
+}
+
+<h1>@Model.BlogPost.Title</h1>
+<p>
+    <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+</p>
+<p>
+    <ul class="nav nav-tabs nav-bordered mb-3">
+        <li class="nav-item">
+            <a href="#simplemde-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                文章
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#simplemde-code" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                Markdown
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane show active" id="simplemde-preview">
+            <textarea id="simplemde1">@Html.Raw(Markdown.ToHtml(Model.BlogPost.Content))</textarea>
+        </div> <!-- end preview-->
+
+        <div class="tab-pane" id="simplemde-code">
+            <pre>
+                @Model.BlogPost.Content
+            </pre>
+        </div> <!-- end preview code-->
+    </div>
+
+</p>
+
+@section Scripts {
+
+    <!--prism核心js (用于渲染代码块)-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
+    <!--显示代码块行号-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <!--工具栏(一些插件的前置依赖)-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <!--代码块显示语言名称-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/show-language/prism-show-language.min.js"></script>
+    <!--复制代码-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <!--自动去cdn加载对应语言的代码高亮js-->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
+}

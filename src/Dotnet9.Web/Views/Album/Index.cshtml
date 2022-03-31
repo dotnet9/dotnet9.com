@@ -22,14 +22,18 @@
             {
                 <div class="col">
                     <div class="card">
-                        <img src="@blogPost.Cover" class="card-img-top" alt="@blogPost.Title">
+                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
+                            <img src="@blogPost.Cover" class="card-img-top" alt="@blogPost.Title">
+                        </a>
                         <div class="card-body">
-                            <h5 class="card-title">@blogPost.Title</h5>
+                            <h5 class="card-title">
+                                <a style="color: #262626;" href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">@blogPost.Title</a>
+                            </h5>
                             <p class="card-text">
-                                @blogPost.BriefDescription
+                                <a style="color: #262626;" href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">@blogPost.BriefDescription</a>
                             </p>
                             <p class="card-text">
-                                <small class="text-muted">@(blogPost.Original??"沙漠尽头的狼") - @blogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                                <small class="text-muted"><a href="/user/@(blogPost.Original ?? "沙漠尽头的狼")">@(blogPost.Original ?? "沙漠尽头的狼")</a> - @blogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
                             </p>
                         </div>
                     </div>

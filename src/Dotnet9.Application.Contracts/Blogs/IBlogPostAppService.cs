@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dotnet9.Application.Contracts.Blogs;
+﻿namespace Dotnet9.Application.Contracts.Blogs;
 
 public interface IBlogPostAppService
 {
+    Task<BlogPostWithDetailsDto?> FindBySlugAsync(string slug);
 }

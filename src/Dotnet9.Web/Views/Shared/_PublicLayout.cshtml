@@ -11,6 +11,21 @@
     <link href="~/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
 
+    @await RenderSectionAsync("Headers", false)
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+            crossorigin="anonymous"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?9b94368aba4e3f0847610338b1abd6d9";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
 </head>
 
 <body class="loading" data-layout-color="light" data-layout="topnav" data-layout-mode="fluid" data-rightbar-onstart="true">
@@ -37,7 +52,7 @@
                         </span>
                     </a>
 
-                    @await Component.InvokeAsync("ToolBar", new { showMenu = false })
+                    @await Component.InvokeAsync("ToolBar", new {showMenu = false})
                 </div>
             </div>
             <!-- end Topbar -->
@@ -89,5 +104,8 @@
 <!-- bundle -->
 <script src="~/js/vendor.min.js"></script>
 <script src="~/js/app.min.js"></script>
+
+@await RenderSectionAsync("Scripts", false)
+
 </body>
 </html>
