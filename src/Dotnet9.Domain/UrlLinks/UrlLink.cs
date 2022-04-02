@@ -10,21 +10,25 @@ public class UrlLink : EntityBase
     {
     }
 
-    internal UrlLink(int id, [NotNull] string name, [NotNull] string url, string? description = "",
-        UrlKind kind = UrlKind.Friendly, int index = 0) : base(id)
+    internal UrlLink(int id, int index, UrlLinkKind kind, string name, string? description, string url) : base(id)
     {
-        SetName(name);
-        SetUrl(url);
-        Description = description;
-        Kind = kind;
         Index = index;
+        Kind = kind;
+        SetName(name);
+        Description = description;
+        SetUrl(url);
     }
 
     public string Name { get; private set; } = null!;
-    public string Url { get; } = null!;
+    public string Url { get; set; } = null!;
     public string? Description { get; set; }
-    public UrlKind Kind { get; set; }
+    public UrlLinkKind Kind { get; set; }
     public int Index { get; set; }
+
+    public override string ToString()
+    {
+        return $"id: {Id}, kind: {Kind}, name: {Name}, url: {Url}, description: {Description}";
+    }
 
     internal UrlLink ChangeName([NotNull] string name)
     {
@@ -45,6 +49,6 @@ public class UrlLink : EntityBase
 
     private void SetUrl([NotNull] string url)
     {
-        Name = Check.NotNullOrWhiteSpace(url, nameof(url), TagConsts.MaxUrlLength);
+        Url = Check.NotNullOrWhiteSpace(url, nameof(url), TagConsts.MaxUrlLength);
     }
 }

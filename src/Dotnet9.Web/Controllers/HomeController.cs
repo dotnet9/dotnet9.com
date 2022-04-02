@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics;
+using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Core;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Tags;
+using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Dotnet9.Web.Models;
 using Dotnet9.Web.Utils;
@@ -26,6 +28,8 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
+    private readonly UrlLinkManager _urlLinkManager;
+    private readonly IUrlLinkRepository _urlLinkRepository;
 
     public HomeController(
         ILogger<HomeController> logger,
@@ -37,7 +41,9 @@ public class HomeController : Controller
         ITagRepository tagRepository,
         TagManager tagManager,
         IBlogPostRepository blogPostRepository,
-        BlogPostManager blogPostManager)
+        BlogPostManager blogPostManager,
+        IUrlLinkRepository urlLinkRepository,
+        UrlLinkManager urlLinkManager)
     {
         _logger = logger;
         _Dotnet9DbContext = Dotnet9DbContext;
@@ -49,6 +55,8 @@ public class HomeController : Controller
         _tagManager = tagManager;
         _blogPostRepository = blogPostRepository;
         _blogPostManager = blogPostManager;
+        _urlLinkRepository = urlLinkRepository;
+        _urlLinkManager = urlLinkManager;
     }
 
     public IActionResult Index()
@@ -166,6 +174,26 @@ public class HomeController : Controller
             }
         }
 
+        if (await _Dotnet9DbContext.UrlLinks!.CountAsync() <= 0)
+        {
+            var urlLinkJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "link.json");
+            if (System.IO.File.Exists(urlLinkJsonFilePath))
+            {
+                var urlLinkJsonString = await System.IO.File.ReadAllTextAsync(urlLinkJsonFilePath);
+                var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(urlLinkJsonString)!;
+                var i = 1;
+                var urlLinks = urlLinksFromFile?.Select(x =>
+                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                            x.Name, x.Description, x.Url).Result)
+                    .ToList();
+                if (urlLinks != null && urlLinks.Any())
+                {
+                    await _Dotnet9DbContext.UrlLinks!.AddRangeAsync(urlLinks);
+                    await _Dotnet9DbContext.SaveChangesAsync();
+                }
+            }
+        }
+
         return true;
     }
 
@@ -177,7 +205,7 @@ public class HomeController : Controller
             Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not { Count: > 0 }) return;
+        if (categoryFromFile.Children is not {Count: > 0}) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;
@@ -188,6 +216,6 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
     }
 }

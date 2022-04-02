@@ -1,8 +1,21 @@
-﻿<div style="text-align: center">
+﻿@model Dotnet9.Web.ViewModels.FooterViewModel
+
+<div style="text-align: center">
     <div class="footer-links d-none d-md-block">
         <a href="javascript: void(0);">关于</a>
         <a href="javascript: void(0);">支持</a>
         <a href="javascript: void(0);">联系</a>
+    </div>
+
+    <div class="footer-links d-none d-md-block">
+        <span>友情链接：</span>
+        @if (Model.FriendLinks != null)
+        {
+            @foreach (var url in Model.FriendLinks)
+            {
+                <a href="@url.Url" alt="@url.Description">@url.Name</a>
+            }
+        }
     </div>
 </div>
 <div style="text-align: center">

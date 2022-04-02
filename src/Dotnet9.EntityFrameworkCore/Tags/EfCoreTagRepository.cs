@@ -7,22 +7,19 @@ namespace Dotnet9.EntityFrameworkCore.Tags;
 
 public class EfCoreTagRepository : EfCoreRepository<Tag>, ITagRepository
 {
-    private readonly Dotnet9DbContext _context;
-
     public EfCoreTagRepository(Dotnet9DbContext context) : base(context)
     {
-        _context = context;
     }
 
     public async Task<Tag?> FindByNameAsync(string name)
     {
-        return await _context.Tags!.FirstOrDefaultAsync(x => x.Name == name);
+        return await DbContext.Tags!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
     public async Task<List<TagCount>> GetListCountAsync()
     {
-        var query = from tag in _context.Tags
-            join blogPostTag in _context.Set<BlogPostTag>()
+        var query = from tag in DbContext.Tags
+            join blogPostTag in DbContext.Set<BlogPostTag>()
                 on tag.Id equals blogPostTag.TagId
             select new {tag.Id, tag.Name}
             into x

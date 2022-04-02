@@ -7,27 +7,24 @@ namespace Dotnet9.EntityFrameworkCore.Categories;
 
 public class EfCoreCategoryRepository : EfCoreRepository<Category>, ICategoryRepository
 {
-    private readonly Dotnet9DbContext _context;
-
     public EfCoreCategoryRepository(Dotnet9DbContext context) : base(context)
     {
-        _context = context;
     }
 
     public async Task<Category?> FindByNameAsync(string name)
     {
-        return await _context.Categories!.FirstOrDefaultAsync(x => x.Name == name);
+        return await DbContext.Categories!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
     public async Task<Category?> FindBySlugAsync(string slug)
     {
-        return await _context.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
+        return await DbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
     public async Task<List<CategoryCount>> GetListCountAsync()
     {
-        var query = from category in _context.Categories
-            join blogPostCategory in _context.Set<BlogPostCategory>()
+        var query = from category in DbContext.Categories
+            join blogPostCategory in DbContext.Set<BlogPostCategory>()
                 on category.Id equals blogPostCategory.CategoryId
             select new {category.Id, category.ParentId, category.Name, category.Slug, category.Cover}
             into x

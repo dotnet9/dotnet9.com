@@ -9,11 +9,8 @@ namespace Dotnet9.EntityFrameworkCore.Blogs;
 
 public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRepository
 {
-    private readonly Dotnet9DbContext _context;
-
     public EfCoreBlogPostRepository(Dotnet9DbContext context) : base(context)
     {
-        _context = context;
     }
 
     public async Task<BlogPostWithDetails?> FindByTitleAsync(string title)
@@ -110,7 +107,7 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
     {
         var dbContext = await GetDbContextAsync();
 
-        return _context.BlogPosts!
+        return DbContext.BlogPosts!
             .Include(x => x.Albums)
             .Include(x => x.Categories)
             .Include(x => x.Tags)

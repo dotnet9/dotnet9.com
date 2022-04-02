@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Web.ViewModels;
+﻿using Dotnet9.Application.Contracts.UrlLinks;
+
+namespace Dotnet9.Web.ViewModels;
 
 public class FooterViewModel
 {
