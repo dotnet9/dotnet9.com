@@ -18,14 +18,14 @@ public class HomeController : Controller
 {
     private readonly AlbumManager _albumManager;
     private readonly IAlbumRepository _albumRepository;
-    private readonly CategoryManager _categoryManager;
-    private readonly ITagRepository _tagRepository;
-    private readonly TagManager _tagManager;
-    private readonly IBlogPostRepository _blogPostRepository;
     private readonly BlogPostManager _blogPostManager;
+    private readonly IBlogPostRepository _blogPostRepository;
+    private readonly CategoryManager _categoryManager;
     private readonly ICategoryRepository _categoryRepository;
     private readonly Dotnet9DbContext _Dotnet9DbContext;
     private readonly ILogger<HomeController> _logger;
+    private readonly TagManager _tagManager;
+    private readonly ITagRepository _tagRepository;
 
     public HomeController(
         ILogger<HomeController> logger,
@@ -61,7 +61,7 @@ public class HomeController : Controller
         return View();
     }
 
-
+    [Route("seed")]
     public async Task<bool> Seed()
     {
         if (await _Dotnet9DbContext.Albums!.CountAsync() <= 0)
@@ -125,16 +125,11 @@ public class HomeController : Controller
                 }
 
                 if (blogPostSeed.Tags != null && blogPostSeed.Tags.Any())
-                {
                     foreach (var tagName in blogPostSeed.Tags)
-                    {
                         try
                         {
                             var existTag = await _tagRepository.FindByNameAsync(tagName);
-                            if (existTag != null)
-                            {
-                                continue;
-                            }
+                            if (existTag != null) continue;
 
                             existTag = await _tagManager.CreateAsync(null, tagName);
                             await _Dotnet9DbContext.Tags!.AddAsync(existTag);
@@ -144,8 +139,6 @@ public class HomeController : Controller
                         {
                             // ignored
                         }
-                    }
-                }
 
                 try
                 {
@@ -156,14 +149,14 @@ public class HomeController : Controller
                         blogPostSeed.Cover,
                         blogPostSeed.Content,
                         blogPostSeed.CopyrightType!.Value,
-                        original: blogPostSeed.Original,
-                        originalAvatar: null,
-                        originalTitle: blogPostSeed.OriginalTitle,
-                        originalLink: blogPostSeed.OriginalLink,
-                        albumNames: blogPostSeed.Albums,
-                        categoryNames: blogPostSeed.Categories,
-                        tagNames: blogPostSeed.Tags,
-                        createDate: DateTime.Parse(blogPostSeed.CreateDate!)));
+                        blogPostSeed.Original,
+                        null,
+                        blogPostSeed.OriginalTitle,
+                        blogPostSeed.OriginalLink,
+                        blogPostSeed.Albums,
+                        blogPostSeed.Categories,
+                        blogPostSeed.Tags,
+                        DateTime.Parse(blogPostSeed.CreateDate!)));
                     await _Dotnet9DbContext.SaveChangesAsync();
                 }
                 catch (Exception ex)
@@ -184,7 +177,7 @@ public class HomeController : Controller
             Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not {Count: > 0}) return;
+        if (categoryFromFile.Children is not { Count: > 0 }) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;
@@ -195,6 +188,6 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

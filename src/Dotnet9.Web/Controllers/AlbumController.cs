@@ -21,9 +21,9 @@ public class AlbumController : Controller
     public async Task<IActionResult> Index(string? slug)
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
-        var album = await _albumAppService.GetAlbumAsync(slug);
+        var album = await _albumAppService.GetAlbumAsync(slug!);
         if (album == null) return NotFound();
-        var blogPostList = await _albumAppService.GetBlogPostListAsync(slug);
+        var blogPostList = await _albumAppService.GetBlogPostListAsync(slug!);
         if (blogPostList.IsNullOrEmpty()) return NotFound();
 
         var vm = new AlbumViewModel
