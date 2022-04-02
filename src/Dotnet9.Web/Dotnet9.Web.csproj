@@ -9,6 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="ServiceExtensions\RepositorySetup.cs~RFddf123.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Markdig" Version="0.28.1" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-preview.2.22153.1">
 	    <PrivateAssets>all</PrivateAssets>
