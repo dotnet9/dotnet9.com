@@ -18,6 +18,10 @@ English | [简体中文](README-zh_CN.md)
 
 ## ✨ Features
 
+1. Use `ASP Net core MVC 7.0` development
+2. With blog browsing feature
+3. Use with tools
+
 ## 🌈 Online Examples
 
 Dotnet9：[https://dotnet9.com](https://dotnet9.com)
@@ -25,6 +29,55 @@ Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 ## 🖥 Environment Support
 
 - .NET 7.0
+- Visual Studio 2022
+- MySQL
+
+### 3.1 Project configuration
+
+Please configure the project before running correctly. Please see the following instructions.
+
+1. Configuration database connection string
+
+Add connection string of MySQL to the `appsettings.json`:
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "server=localhost;user=[username];database=[databasename];port=[port];password=[password];SslMode=None"
+}
+```
+
+2. Configuration the datas of blog
+
+Add seed data of blog to the `appsettings.json`:
+
+```json
+  "AssetsLocalPath": "F:\\github_gitee\\Assets.Dotnet9",
+  "AssetsRemotePath": "https://img1.dotnet9.com"
+```
+
+- AssetsLocalPath: There are Blog post categories, albums, posts and other are stored in this directory, these needs to be cloned from repository: https://github.com/dotnet9/Assets.Dotnet9
+- AssetsRemotePath：This is cdn url and the image resources are storage in this repository.
+
+### 3.2 Data migration
+
+Open the package console and select the project `Dotnet9.EntityFrameworkCore`, then execute the following command:
+
+```shell
+Add-Migration InitDB
+Update-Database
+```
+
+### 3.2 Generate data seed
+
+After the above two steps are completed, run the project and visit the link 'localhost:5000 /seed' to generate seed data. This method is written in below:
+
+```C#
+[Route("seed")]
+public async Task<bool> Seed()
+{
+  // Seed execution method body
+}
+```
 
 ## 💕 Donation
 

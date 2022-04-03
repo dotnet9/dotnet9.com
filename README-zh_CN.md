@@ -16,15 +16,68 @@
 
 [English](./README.md) | 简体中文
 
-## ✨ 特性
+## ✨ 1. 特性
 
-## 🌈 在线示例
+1. 使用`ASP.NET Core MVC 7.0`开发
+2. 带博客浏览功能
+3. 带工具使用
+
+## 🌈 2. 在线示例
 
 Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 
-## 🖥 支持环境
+## 🖥 3. 支持环境
 
 - .NET 7.0
+- Visual Studio 2022
+- MySQL
+
+### 3.1 项目配置
+
+正确运行前，请先对项目进行配置，请看下面说明。
+
+1. 配置数据库连接字符串
+
+在`appsettings.json`中添加节点，配置MySQL连接字符串：
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "server=localhost;user=[username];database=[databasename];port=[port];password=[password];SslMode=None"
+}
+```
+
+2. 配置博客数据
+
+种子数据来源，在`appsettings.json`中添加节点
+
+```json
+  "AssetsLocalPath": "F:\\github_gitee\\Assets.Dotnet9",
+  "AssetsRemotePath": "https://img1.dotnet9.com"
+```
+
+- AssetsLocalPath: 博客分类信息、专辑信息、文章信息等存放在这个目录下，需要将仓库克隆到本地：https://github.com/dotnet9/Assets.Dotnet9
+- AssetsRemotePath：CDN链接，图片资源存放路径
+
+### 3.2 数据迁移
+
+打开程序包控制台，选择项目：`Dotnet9.EntityFrameworkCore`，执行以下命令：
+
+```shell
+Add-Migration InitDB
+Update-Database
+```
+
+### 3.2 生成数据种子
+
+以上2个步骤完成后，运行项目，访问链接`localhost:5000/seed`执行种子数据生成，此方法写在`HomeController`中
+
+```C#
+[Route("seed")]
+public async Task<bool> Seed()
+{
+  // 种子执行方法体
+}
+```
 
 ## 💕 支持本项目
 
