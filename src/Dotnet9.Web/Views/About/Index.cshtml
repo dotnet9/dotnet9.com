@@ -1,7 +1,7 @@
 ﻿@using Markdig
-@model Dotnet9.Web.ViewModels.Blogs.BlogPostViewModel
+@model Dotnet9.Web.ViewModels.Abouts.AboutViewModel
 @{
-    ViewData["Title"] = Model.BlogPost.Title;
+    ViewData["Title"] = "关于";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
@@ -19,34 +19,11 @@
     <link rel="stylesheet" href="~/css/markdown.css">
 }
 
-<h1>@Model.BlogPost.Title</h1>
-<p>
-    <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
-</p>
-<p>
-    <ul class="nav nav-tabs nav-bordered mb-3">
-        <li class="nav-item">
-            <a href="#simplemde-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-                文章
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#simplemde-code" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
-                Markdown
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane show active" id="simplemde-preview">
-            @Html.Raw(Markdown.ToHtml(Model.BlogPost.Content))
-        </div> <!-- end preview-->
+@if (Model.About != null)
+{
+    @Html.Raw(Markdown.ToHtml(Model.About.Content))
+}
 
-        <div class="tab-pane" id="simplemde-code">
-            @Model.BlogPost.Content
-        </div> <!-- end preview code-->
-    </div>
-
-</p>
 
 @section Scripts {
 

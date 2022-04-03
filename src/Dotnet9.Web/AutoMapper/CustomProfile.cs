@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Dotnet9.Application.Contracts.Abouts;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.UrlLinks;
+using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
@@ -20,5 +22,6 @@ public class CustomProfile : Profile
         CreateMap<Category, CategoryDto>();
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
         CreateMap<UrlLink, UrlLinkDto>();
+        CreateMap<About, AboutDto>().ReverseMap();
     }
 }

@@ -1,6 +1,8 @@
-﻿using Dotnet9.Application.Albums;
+﻿using Dotnet9.Application.Abouts;
+using Dotnet9.Application.Albums;
 using Dotnet9.Application.Blogs;
 using Dotnet9.Application.Categories;
+using Dotnet9.Application.Contracts.Abouts;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
@@ -8,11 +10,13 @@ using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Application.Tags;
 using Dotnet9.Application.UrlLinks;
+using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.UrlLinks;
+using Dotnet9.EntityFrameworkCore.Abouts;
 using Dotnet9.EntityFrameworkCore.Albums;
 using Dotnet9.EntityFrameworkCore.Blogs;
 using Dotnet9.EntityFrameworkCore.Categories;
@@ -46,5 +50,8 @@ public static class RepositorySetup
         services.AddTransient<IUrlLinkRepository, EfCoreUrlLinkRepository>();
         services.AddTransient(typeof(UrlLinkManager));
         services.AddTransient<IUrlLinkAppService, UrlLinkAppService>();
+
+        services.AddTransient<IAboutRepository, EfCoreAboutRepository>();
+        services.AddTransient<IAboutAppService, AboutAppService>();
     }
 }

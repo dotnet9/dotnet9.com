@@ -1,7 +1,9 @@
 ﻿using Dotnet9.Domain;
+using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
+using Dotnet9.Domain.Shared.Abouts;
 using Dotnet9.Domain.Shared.Albums;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Shared.Categories;
@@ -26,6 +28,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<Tag>? Tags { get; set; }
     public DbSet<User>? Users { get; set; }
     public DbSet<UrlLink>? UrlLinks { get; set; }
+    public DbSet<About>? Abouts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -122,6 +125,13 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Index).IsRequired();
             b.HasIndex(x => x.Name);
             b.HasIndex(x => x.Url);
+        });
+
+        modelBuilder.Entity<About>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}Abouts", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Content).IsRequired().HasMaxLength(AboutConsts.MaxContentLength);
         });
     }
 }

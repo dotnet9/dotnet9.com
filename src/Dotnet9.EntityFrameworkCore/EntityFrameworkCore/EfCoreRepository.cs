@@ -26,6 +26,18 @@ public class EfCoreRepository<TEntity>
         return await DbContext.Set<TEntity>().MaxAsync(x => x.Id);
     }
 
+    public async Task<int> InsertAsync(TEntity t)
+    {
+        await DbContext.Set<TEntity>().AddAsync(t);
+        return await DbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> UpdateAsync(TEntity t)
+    {
+        DbContext.Set<TEntity>().Update(t);
+        return await DbContext.SaveChangesAsync();
+    }
+
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> whereLambda,
         params Expression<Func<TEntity, object>>[] includes)
     {

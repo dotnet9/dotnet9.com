@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using Dotnet9.Application.Contracts.UrlLinks;
+﻿using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Core;
+using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
@@ -13,6 +13,7 @@ using Dotnet9.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Dotnet9.Web.Controllers;
 
@@ -191,6 +192,18 @@ public class HomeController : Controller
                     await _Dotnet9DbContext.UrlLinks!.AddRangeAsync(urlLinks);
                     await _Dotnet9DbContext.SaveChangesAsync();
                 }
+            }
+        }
+
+        if (await _Dotnet9DbContext.Abouts!.CountAsync() <= 0)
+        {
+            var aboutMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "about.md");
+            if (System.IO.File.Exists(aboutMakrdownFilePath))
+            {
+                var aboutMarkdownString = await System.IO.File.ReadAllTextAsync(aboutMakrdownFilePath);
+                var about = new About {Content = aboutMarkdownString};
+                await _Dotnet9DbContext.Abouts!.AddAsync(about);
+                await _Dotnet9DbContext.SaveChangesAsync();
             }
         }
 
