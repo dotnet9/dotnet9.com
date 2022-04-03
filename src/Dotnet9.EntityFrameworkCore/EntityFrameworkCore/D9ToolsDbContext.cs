@@ -3,10 +3,12 @@ using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
+using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Shared.Abouts;
 using Dotnet9.Domain.Shared.Albums;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Shared.Categories;
+using Dotnet9.Domain.Shared.Donations;
 using Dotnet9.Domain.Shared.Tags;
 using Dotnet9.Domain.Shared.UrlLinks;
 using Dotnet9.Domain.Tags;
@@ -29,6 +31,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<User>? Users { get; set; }
     public DbSet<UrlLink>? UrlLinks { get; set; }
     public DbSet<About>? Abouts { get; set; }
+    public DbSet<Donation>? Donations { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -132,6 +135,13 @@ public class Dotnet9DbContext : DbContext
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}Abouts", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Content).IsRequired().HasMaxLength(AboutConsts.MaxContentLength);
+        });
+
+        modelBuilder.Entity<Donation>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}Donations", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Content).IsRequired().HasMaxLength(DonationConsts.MaxContentLength);
         });
     }
 }

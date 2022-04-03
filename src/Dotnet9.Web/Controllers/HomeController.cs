@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Dotnet9.Domain.Donations;
 
 namespace Dotnet9.Web.Controllers;
 
@@ -203,6 +204,18 @@ public class HomeController : Controller
                 var aboutMarkdownString = await System.IO.File.ReadAllTextAsync(aboutMakrdownFilePath);
                 var about = new About {Content = aboutMarkdownString};
                 await _Dotnet9DbContext.Abouts!.AddAsync(about);
+                await _Dotnet9DbContext.SaveChangesAsync();
+            }
+        }
+
+        if (await _Dotnet9DbContext.Donations!.CountAsync() <= 0)
+        {
+            var donationMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "pays", "Donation.md");
+            if (System.IO.File.Exists(donationMakrdownFilePath))
+            {
+                var donationMarkdownString = await System.IO.File.ReadAllTextAsync(donationMakrdownFilePath);
+                var donation = new Donation { Content = donationMarkdownString };
+                await _Dotnet9DbContext.Donations!.AddAsync(donation);
                 await _Dotnet9DbContext.SaveChangesAsync();
             }
         }
