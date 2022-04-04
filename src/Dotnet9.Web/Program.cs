@@ -1,3 +1,4 @@
+using AspNetCore.SEOHelper;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
 
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+GlobalVar.SiteDomain = builder.Configuration["SiteDomain"];
 GlobalVar.AssetsLocalPath = builder.Configuration["AssetsLocalPath"];
 GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
 
@@ -19,6 +21,9 @@ if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Home/Error");
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 
 app.UseStaticFiles();
+
+app.UseXMLSitemap(app.Environment.ContentRootPath);
+app.UseRobotsTxt(app.Environment.ContentRootPath);
 
 app.UseRouting();
 

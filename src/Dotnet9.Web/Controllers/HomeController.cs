@@ -1,4 +1,8 @@
 ﻿using System.Diagnostics;
+using AspNetCore.SEOHelper.Sitemap;
+using Dotnet9.Application.Contracts.Albums;
+using Dotnet9.Application.Contracts.Blogs;
+using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Core;
 using Dotnet9.Domain.Abouts;
@@ -21,13 +25,17 @@ namespace Dotnet9.Web.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly IAlbumAppService _albumAppService;
     private readonly AlbumManager _albumManager;
     private readonly IAlbumRepository _albumRepository;
+    private readonly IBlogPostAppService _blogPostAppService;
     private readonly BlogPostManager _blogPostManager;
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly ICategoryAppService _categoryAppService;
     private readonly CategoryManager _categoryManager;
     private readonly ICategoryRepository _categoryRepository;
     private readonly Dotnet9DbContext _Dotnet9DbContext;
+    private readonly IHostEnvironment _hostEnvironment;
     private readonly ILogger<HomeController> _logger;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
@@ -37,39 +45,83 @@ public class HomeController : Controller
     public HomeController(
         ILogger<HomeController> logger,
         Dotnet9DbContext Dotnet9DbContext,
+        IAlbumAppService albumAppService,
         IAlbumRepository albumRepository,
         AlbumManager albumManager,
+        ICategoryAppService categoryAppService,
         ICategoryRepository categoryRepository,
         CategoryManager categoryManager,
         ITagRepository tagRepository,
         TagManager tagManager,
+        IBlogPostAppService blogPostAppService,
         IBlogPostRepository blogPostRepository,
         BlogPostManager blogPostManager,
         IUrlLinkRepository urlLinkRepository,
-        UrlLinkManager urlLinkManager)
+        UrlLinkManager urlLinkManager,
+        IHostEnvironment hostEnvironment)
     {
         _logger = logger;
         _Dotnet9DbContext = Dotnet9DbContext;
+        _albumAppService = albumAppService;
         _albumRepository = albumRepository;
         _albumManager = albumManager;
+        _categoryAppService = categoryAppService;
         _categoryRepository = categoryRepository;
         _categoryManager = categoryManager;
         _tagRepository = tagRepository;
         _tagManager = tagManager;
+        _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
         _blogPostManager = blogPostManager;
         _urlLinkRepository = urlLinkRepository;
         _urlLinkManager = urlLinkManager;
+        _hostEnvironment = hostEnvironment;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        await CreateSitemapInRootDirectory();
         return View();
     }
 
     public IActionResult Privacy()
     {
         return View();
+    }
+
+
+    public async Task<bool> CreateSitemapInRootDirectory()
+    {
+        var sitemapFile = $"{_hostEnvironment.ContentRootPath}/sitemap.xml";
+        if (System.IO.File.Exists(sitemapFile)) return true;
+
+        var list = new List<SitemapNode>();
+
+        foreach (var ablum in await _albumAppService.GetListCountAsync())
+            list.Add(new SitemapNode
+            {
+                LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/album/{ablum.Slug}",
+                Frequency = SitemapFrequency.Monthly
+            });
+
+        foreach (var category in await _categoryAppService.ListAllAsync())
+            list.Add(new SitemapNode
+            {
+                LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{category.Slug}",
+                Frequency = SitemapFrequency.Monthly
+            });
+
+        foreach (var blogPost in await _blogPostAppService.GetListBlogPostForSitemap())
+            list.Add(new SitemapNode
+            {
+                LastModified = blogPost.CreateDate, Priority = 0.9,
+                Url =
+                    $"{GlobalVar.SiteDomain}/{blogPost.CreateDate.ToString("yyyy")}/{blogPost.CreateDate.ToString("MM")}/{blogPost.Slug}",
+                Frequency = SitemapFrequency.Daily
+            });
+
+        new SitemapDocument().CreateSitemapXML(list, _hostEnvironment.ContentRootPath);
+        return true;
     }
 
     [Route("seed")]

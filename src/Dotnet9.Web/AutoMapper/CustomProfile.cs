@@ -29,5 +29,6 @@ public class CustomProfile : Profile
         CreateMap<About, AboutDto>().ReverseMap();
         CreateMap<Donation, DonationDto>().ReverseMap();
         CreateMap<Timeline, TimelineDto>();
+        CreateMap<BlogPost, BlogPostForSitemap>();
     }
 }

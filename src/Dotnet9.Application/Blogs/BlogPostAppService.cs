@@ -22,4 +22,10 @@ public class BlogPostAppService : IBlogPostAppService
             ? null
             : _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails);
     }
+
+    public async Task<List<BlogPostForSitemap>> GetListBlogPostForSitemap()
+    {
+        var blogPosts = await _blogPostRepository.SelectAsync();
+        return _mapper.Map<List<BlogPost>, List<BlogPostForSitemap>>(blogPosts);
+    }
 }
