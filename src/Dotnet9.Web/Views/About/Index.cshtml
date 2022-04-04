@@ -1,4 +1,4 @@
-﻿@using Markdig
+﻿@using Dotnet9.Web.Utils
 @model Dotnet9.Web.ViewModels.Abouts.AboutViewModel
 @{
     ViewData["Title"] = "关于";
@@ -21,7 +21,7 @@
 
 @if (Model.About != null)
 {
-    @Html.Raw(Markdown.ToHtml(Model.About.Content))
+    @Html.Raw(MarkdownHelper.Render(Model.About.Content))
 }
 
 

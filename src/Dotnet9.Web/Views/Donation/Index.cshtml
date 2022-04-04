@@ -1,4 +1,4 @@
-﻿@using Markdig
+﻿@using Dotnet9.Web.Utils
 @model Dotnet9.Web.ViewModels.Donations.DonationViewModel
 @{
     ViewData["Title"] = "赞助";
@@ -21,7 +21,7 @@
 
 @if (Model.Donation != null)
 {
-    @Html.Raw(Markdown.ToHtml(Model.Donation.Content))
+    @Html.Raw(MarkdownHelper.Render(Model.Donation.Content))
 }
 
 
