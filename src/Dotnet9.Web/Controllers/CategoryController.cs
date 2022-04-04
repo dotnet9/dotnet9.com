@@ -22,10 +22,10 @@ public class CategoryController : Controller
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
 
-        var category = await _categoryAppService.GetCategoryAsync(slug);
+        var category = await _categoryAppService.GetCategoryAsync(slug!);
         if (category == null) return NotFound();
 
-        var blogPostList = await _categoryAppService.GetBlogPostListAsync(slug);
+        var blogPostList = await _categoryAppService.GetBlogPostListAsync(slug!);
         if (blogPostList.IsNullOrEmpty()) return NotFound();
 
         var vm = new CategoryViewModel
