@@ -352,3 +352,4 @@ MigrationBackup/
 src/Dotnet9.Web/appsettings.Development.json
 src/Dotnet9.Web/appsettings.Production.json
 src/Dotnet9.Web/sitemap.xml
+src/Dotnet9.EntityFrameworkCore/Migrations/

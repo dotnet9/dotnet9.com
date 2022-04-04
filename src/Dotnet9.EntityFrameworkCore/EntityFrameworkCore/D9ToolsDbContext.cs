@@ -4,11 +4,13 @@ using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
+using Dotnet9.Domain.Privacies;
 using Dotnet9.Domain.Shared.Abouts;
 using Dotnet9.Domain.Shared.Albums;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Shared.Categories;
 using Dotnet9.Domain.Shared.Donations;
+using Dotnet9.Domain.Shared.Privacies;
 using Dotnet9.Domain.Shared.Tags;
 using Dotnet9.Domain.Shared.Timelines;
 using Dotnet9.Domain.Shared.UrlLinks;
@@ -35,6 +37,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<About>? Abouts { get; set; }
     public DbSet<Donation>? Donations { get; set; }
     public DbSet<Timeline>? Timelines { get; set; }
+    public DbSet<Privacy>? Privacies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -154,6 +157,13 @@ public class Dotnet9DbContext : DbContext
             _ = b.Property(x => x.Time).IsRequired();
             b.Property(x => x.Title).IsRequired().HasMaxLength(TimelineConsts.MaxTitleLength);
             b.Property(x => x.Content).IsRequired().HasMaxLength(TimelineConsts.MaxContentLength);
+        });
+
+        modelBuilder.Entity<Privacy>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}Privacies", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Content).IsRequired().HasMaxLength(PrivacyConsts.MaxContentLength);
         });
     }
 }

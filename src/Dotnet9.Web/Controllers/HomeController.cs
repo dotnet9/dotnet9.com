@@ -11,6 +11,7 @@ using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
+using Dotnet9.Domain.Privacies;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
@@ -86,12 +87,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
+        return await Task.FromResult(View());
     }
 
     [Route("/sitemap.xml")]
@@ -322,6 +318,18 @@ public class HomeController : Controller
                     await _Dotnet9DbContext.Timelines!.AddRangeAsync(timelinesFromFile);
                     await _Dotnet9DbContext.SaveChangesAsync();
                 }
+            }
+        }
+
+        if (await _Dotnet9DbContext.Privacies!.CountAsync() <= 0)
+        {
+            var privacyMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "Privacy.md");
+            if (System.IO.File.Exists(privacyMakrdownFilePath))
+            {
+                var privacyMarkdownString = await System.IO.File.ReadAllTextAsync(privacyMakrdownFilePath);
+                var privacy = new Privacy() { Content = privacyMarkdownString };
+                await _Dotnet9DbContext.Privacies!.AddAsync(privacy);
+                await _Dotnet9DbContext.SaveChangesAsync();
             }
         }
 
