@@ -103,6 +103,42 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
             }).ToListAsync();
     }
 
+    public async Task<List<BlogPostWithDetails>?> GetBlogPostListByTagNameAsync(string tagName)
+    {
+        var dbContext = await GetDbContextAsync();
+        var tag = await dbContext.Tags!.FirstOrDefaultAsync(x => x.Name == tagName);
+        if (tag == null) return null;
+
+        return await dbContext.BlogPosts!
+            .Include(x => x.Albums)
+            .Include(x => x.Categories)
+            .Include(x => x.Tags)
+            .Where(x => x.Tags != null && x.Tags.Any(d => d.TagId == tag.Id))
+            .Select(x => new BlogPostWithDetails
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Slug = x.Slug,
+                BriefDescription = x.BriefDescription,
+                Content = x.Content,
+                Cover = x.Cover,
+                CopyrightType = x.CopyrightType,
+                Original = x.Original,
+                OriginalTitle = x.OriginalTitle,
+                OriginalLink = x.OriginalLink,
+                AlbumNames = (from blogPostAlbum in x.Albums
+                    join album in dbContext.Set<Album>() on blogPostAlbum.AlbumId equals album.Id
+                    select album.Name).ToArray(),
+                CategoryNames = (from blogPostCategory in x.Categories
+                    join category in dbContext.Set<Category>() on blogPostCategory.CategoryId equals category.Id
+                    select category.Name).ToArray(),
+                TagNames = (from blogPostTag in x.Tags
+                    join tag in dbContext.Set<Tag>() on blogPostTag.TagId equals tag.Id
+                    select tag.Name).ToArray(),
+                CreateDate = x.CreateDate
+            }).ToListAsync();
+    }
+
     private async Task<IQueryable<BlogPostWithDetails>> ApplyFilterAsync()
     {
         var dbContext = await GetDbContextAsync();

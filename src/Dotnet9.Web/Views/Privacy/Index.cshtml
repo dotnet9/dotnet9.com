@@ -20,6 +20,15 @@
     <link rel="stylesheet" href="~/css/markdown.css">
 }
 
+<div class="card ribbon-box">
+    <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 隐私政策</div>
+        <p class="ribbon-content">
+            关于本站隐私政策，如有疑问可联系站长。
+        </p>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
 @if (Model.Privacy != null)
 {
     @Html.Raw(MarkdownHelper.Render(Model.Privacy.Content))

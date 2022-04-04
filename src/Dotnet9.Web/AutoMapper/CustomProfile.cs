@@ -5,6 +5,7 @@ using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.Donations;
 using Dotnet9.Application.Contracts.Privacies;
+using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.Timelines;
 using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Domain.Abouts;
@@ -13,6 +14,7 @@ using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Privacies;
+using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 
@@ -26,6 +28,7 @@ public class CustomProfile : Profile
         CreateMap<Album, AlbumDto>();
         CreateMap<Category, CategoryCountDto>();
         CreateMap<Category, CategoryDto>();
+        CreateMap<TagCount, TagCountDto>();
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
         CreateMap<UrlLink, UrlLinkDto>();
         CreateMap<About, AboutDto>().ReverseMap();

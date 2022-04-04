@@ -19,6 +19,16 @@
     <link rel="stylesheet" href="~/css/markdown.css">
 }
 
+
+<div class="card ribbon-box">
+    <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 关于</div>
+        <p class="ribbon-content">
+            关于Dotnet9网站
+        </p>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
 @if (Model.About != null)
 {
     @Html.Raw(MarkdownHelper.Render(Model.About.Content))

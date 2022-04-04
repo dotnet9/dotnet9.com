@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
+
+<div class="card ribbon-box">
+    <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 时间轴</div>
+        <p class="ribbon-content">
+            记录网站创建和运行过程中比较重要的时间点。
+        </p>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
 @if (Model.Timelines != null)
 {
     <div class="row">
