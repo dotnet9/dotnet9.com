@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
-using AspNetCore.SEOHelper.Sitemap;
+using System.Net.Mime;
+using System.Text;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
@@ -17,8 +18,10 @@ using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Dotnet9.Web.Models;
 using Dotnet9.Web.Utils;
+using Dotnet9.Web.ViewModels.Abouts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace Dotnet9.Web.Controllers;
@@ -37,6 +40,7 @@ public class HomeController : Controller
     private readonly Dotnet9DbContext _Dotnet9DbContext;
     private readonly IHostEnvironment _hostEnvironment;
     private readonly ILogger<HomeController> _logger;
+    private readonly IMemoryCache _memoryCache;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
     private readonly UrlLinkManager _urlLinkManager;
@@ -58,7 +62,8 @@ public class HomeController : Controller
         BlogPostManager blogPostManager,
         IUrlLinkRepository urlLinkRepository,
         UrlLinkManager urlLinkManager,
-        IHostEnvironment hostEnvironment)
+        IHostEnvironment hostEnvironment,
+        IMemoryCache memoryCache)
     {
         _logger = logger;
         _Dotnet9DbContext = Dotnet9DbContext;
@@ -76,11 +81,11 @@ public class HomeController : Controller
         _urlLinkRepository = urlLinkRepository;
         _urlLinkManager = urlLinkManager;
         _hostEnvironment = hostEnvironment;
+        _memoryCache = memoryCache;
     }
 
     public async Task<IActionResult> Index()
     {
-        await CreateSitemapInRootDirectory();
         return View();
     }
 
@@ -89,39 +94,71 @@ public class HomeController : Controller
         return View();
     }
 
-
-    public async Task<bool> CreateSitemapInRootDirectory()
+    [Route("/sitemap.xml")]
+    public async Task<IActionResult> Sitemap()
     {
-        var sitemapFile = $"{_hostEnvironment.ContentRootPath}/sitemap.xml";
-        if (System.IO.File.Exists(sitemapFile)) return true;
+        const string contentType = "application/xml";
+        const string cacheKey = "sitemap.xml";
+        var cd = new ContentDisposition
+        {
+            FileName = cacheKey,
+            Inline = true
+        };
+        Response.Headers.Append("Content-Disposition", cd.ToString());
 
-        var list = new List<SitemapNode>();
+        var bytes = _memoryCache.Get<byte[]>(cacheKey);
+        if (bytes != null) return File(bytes, contentType);
 
-        foreach (var ablum in await _albumAppService.GetListCountAsync())
-            list.Add(new SitemapNode
+        var sitemapNodes = new List<SitemapNode>();
+
+        sitemapNodes.AddRange((await _albumAppService.GetListCountAsync()).Select(x => new SitemapNode
+        {
+            LastModified = DateTime.UtcNow,
+            Priority = 0.8,
+            Url = $"{GlobalVar.SiteDomain}/album/{x.Slug}",
+            Frequency = SitemapFrequency.Monthly
+        }));
+
+        sitemapNodes.AddRange((await _categoryAppService.ListAllAsync()).Select(x => new SitemapNode
+        {
+            LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
+            Frequency = SitemapFrequency.Monthly
+        }));
+
+        sitemapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemap()).Select(x =>
+            new SitemapNode
             {
-                LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/album/{ablum.Slug}",
-                Frequency = SitemapFrequency.Monthly
-            });
-
-        foreach (var category in await _categoryAppService.ListAllAsync())
-            list.Add(new SitemapNode
-            {
-                LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{category.Slug}",
-                Frequency = SitemapFrequency.Monthly
-            });
-
-        foreach (var blogPost in await _blogPostAppService.GetListBlogPostForSitemap())
-            list.Add(new SitemapNode
-            {
-                LastModified = blogPost.CreateDate, Priority = 0.9,
+                LastModified = x.CreateDate, Priority = 0.9,
                 Url =
-                    $"{GlobalVar.SiteDomain}/{blogPost.CreateDate.ToString("yyyy")}/{blogPost.CreateDate.ToString("MM")}/{blogPost.Slug}",
+                    $"{GlobalVar.SiteDomain}/{x.CreateDate.ToString("yyyy")}/{x.CreateDate.ToString("MM")}/{x.Slug}",
                 Frequency = SitemapFrequency.Daily
-            });
+            }));
 
-        new SitemapDocument().CreateSitemapXML(list, _hostEnvironment.ContentRootPath);
-        return true;
+        var sb = new StringBuilder();
+        sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+        sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"");
+        sb.AppendLine("   xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
+        sb.AppendLine(
+            "   xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">");
+
+        foreach (var m in sitemapNodes)
+        {
+            sb.AppendLine("    <url>");
+
+            sb.AppendLine($"        <loc>{m.Url}</loc>");
+            sb.AppendLine($"        <lastmod>{m.LastModified.ToString("yyyy-MM-dd")}</lastmod>");
+            sb.AppendLine($"        <changefreq>{m.Frequency}</changefreq>");
+            sb.AppendLine($"        <priority>{m.Priority}</priority>");
+
+            sb.AppendLine("    </url>");
+        }
+
+        sb.AppendLine("</urlset>");
+
+        bytes = Encoding.UTF8.GetBytes(sb.ToString());
+
+        _memoryCache.Set(cacheKey, bytes, TimeSpan.FromHours(24));
+        return File(bytes, contentType);
     }
 
     [Route("seed")]

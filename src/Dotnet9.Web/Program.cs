@@ -1,4 +1,3 @@
-using AspNetCore.SEOHelper;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
 
@@ -13,6 +12,7 @@ GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
 builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultConnection")!);
 builder.Services.AddAutoMapperSetup();
 builder.Services.AddRepositorySetup();
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
@@ -21,9 +21,6 @@ if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Home/Error");
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 
 app.UseStaticFiles();
-
-app.UseXMLSitemap(app.Environment.ContentRootPath);
-app.UseRobotsTxt(app.Environment.ContentRootPath);
 
 app.UseRouting();
 
