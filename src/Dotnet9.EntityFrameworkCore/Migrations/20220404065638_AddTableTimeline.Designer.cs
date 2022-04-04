@@ -3,6 +3,7 @@ using System;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dotnet9.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    partial class Dotnet9DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220404065638_AddTableTimeline")]
+    partial class AddTableTimeline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

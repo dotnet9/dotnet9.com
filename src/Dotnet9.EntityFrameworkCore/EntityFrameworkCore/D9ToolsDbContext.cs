@@ -10,8 +10,10 @@ using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Shared.Categories;
 using Dotnet9.Domain.Shared.Donations;
 using Dotnet9.Domain.Shared.Tags;
+using Dotnet9.Domain.Shared.Timelines;
 using Dotnet9.Domain.Shared.UrlLinks;
 using Dotnet9.Domain.Tags;
+using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.Domain.Users;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<UrlLink>? UrlLinks { get; set; }
     public DbSet<About>? Abouts { get; set; }
     public DbSet<Donation>? Donations { get; set; }
+    public DbSet<Timeline>? Timelines { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -142,6 +145,15 @@ public class Dotnet9DbContext : DbContext
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}Donations", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Content).IsRequired().HasMaxLength(DonationConsts.MaxContentLength);
+        });
+
+        modelBuilder.Entity<Timeline>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}Timelines", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            _ = b.Property(x => x.Time).IsRequired();
+            b.Property(x => x.Title).IsRequired().HasMaxLength(TimelineConsts.MaxTitleLength);
+            b.Property(x => x.Content).IsRequired().HasMaxLength(TimelineConsts.MaxContentLength);
         });
     }
 }

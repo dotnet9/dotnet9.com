@@ -11,6 +11,7 @@ using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Application.Donations;
 using Dotnet9.Application.Tags;
+using Dotnet9.Application.Timelines;
 using Dotnet9.Application.UrlLinks;
 using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
@@ -18,6 +19,7 @@ using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Tags;
+using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.Abouts;
 using Dotnet9.EntityFrameworkCore.Albums;
@@ -25,6 +27,7 @@ using Dotnet9.EntityFrameworkCore.Blogs;
 using Dotnet9.EntityFrameworkCore.Categories;
 using Dotnet9.EntityFrameworkCore.Donations;
 using Dotnet9.EntityFrameworkCore.Tags;
+using Dotnet9.EntityFrameworkCore.Timelines;
 using Dotnet9.EntityFrameworkCore.UrlLinks;
 
 namespace Dotnet9.Web.ServiceExtensions;
@@ -60,5 +63,8 @@ public static class RepositorySetup
 
         services.AddTransient<IDonationRepository, EfCoreDonationRepository>();
         services.AddTransient<IDonationAppService, DonationAppService>();
+
+        services.AddTransient<ITimelineRepository, EfCoreTimelineRepository>();
+        services.AddTransient<ITimelineAppService, TimelineAppService>();
     }
 }

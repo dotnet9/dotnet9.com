@@ -1,11 +1,14 @@
-﻿using Dotnet9.Application.Contracts.UrlLinks;
+﻿using System.Diagnostics;
+using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Core;
 using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
+using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Tags;
+using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Dotnet9.Web.Models;
@@ -13,8 +16,6 @@ using Dotnet9.Web.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Diagnostics;
-using Dotnet9.Domain.Donations;
 
 namespace Dotnet9.Web.Controllers;
 
@@ -214,9 +215,24 @@ public class HomeController : Controller
             if (System.IO.File.Exists(donationMakrdownFilePath))
             {
                 var donationMarkdownString = await System.IO.File.ReadAllTextAsync(donationMakrdownFilePath);
-                var donation = new Donation { Content = donationMarkdownString };
+                var donation = new Donation {Content = donationMarkdownString};
                 await _Dotnet9DbContext.Donations!.AddAsync(donation);
                 await _Dotnet9DbContext.SaveChangesAsync();
+            }
+        }
+
+        if (await _Dotnet9DbContext.Timelines!.CountAsync() <= 0)
+        {
+            var timelinesJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "timelines.json");
+            if (System.IO.File.Exists(timelinesJsonFilePath))
+            {
+                var timelinesJsonString = await System.IO.File.ReadAllTextAsync(timelinesJsonFilePath);
+                var timelinesFromFile = JsonConvert.DeserializeObject<List<Timeline>>(timelinesJsonString)!;
+                if (timelinesFromFile != null && timelinesFromFile.Any())
+                {
+                    await _Dotnet9DbContext.Timelines!.AddRangeAsync(timelinesFromFile);
+                    await _Dotnet9DbContext.SaveChangesAsync();
+                }
             }
         }
 
