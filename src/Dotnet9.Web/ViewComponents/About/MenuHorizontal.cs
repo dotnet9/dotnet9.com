@@ -3,6 +3,7 @@ using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.Tools;
 using Dotnet9.Web.ViewModels;
 using Dotnet9.Web.ViewModels.Categories;
+using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.ViewComponents.About;

@@ -3,6 +3,7 @@ using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
+using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Application.Albums;
 
@@ -39,10 +40,12 @@ public class AlbumAppService : IAlbumAppService
     {
         var album = await _albumRepository.FindBySlugAsync(albumSlug);
         if (album == null) return null;
-        var blogPostWithDetailsLists =
-            await _blogPostRepository.SelectAsync(x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id));
-        return blogPostWithDetailsLists == null
+        var blogPosts =
+            await _blogPostRepository.SelectBlogPostAsync(
+                x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
+                SortDirectionKind.Ascending);
+        return blogPosts == null
             ? null
-            : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);
+            : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPosts);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dotnet9.Web.ViewModels;
+using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.ViewComponents.About;

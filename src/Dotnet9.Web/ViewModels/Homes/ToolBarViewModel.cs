@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Web.ViewModels;
+﻿namespace Dotnet9.Web.ViewModels.Homes;
 
 public class ToolBarViewModel
 {

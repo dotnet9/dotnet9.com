@@ -3,6 +3,7 @@ using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
+using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Application.Categories;
 
@@ -46,8 +47,9 @@ public class CategoryAppService : ICategoryAppService
         var category = await _categoryRepository.FindBySlugAsync(categorySlug);
         if (category == null) return null;
         var blogPostWithDetailsLists =
-            await _blogPostRepository.SelectAsync(x =>
-                x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id));
+            await _blogPostRepository.SelectBlogPostAsync(x =>
+                    x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id), x => x.CreateDate,
+                SortDirectionKind.Ascending);
         return blogPostWithDetailsLists == null
             ? null
             : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);

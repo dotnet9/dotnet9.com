@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Net.Mime;
 using System.Text;
+using AutoMapper;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
@@ -12,6 +13,7 @@ using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Privacies;
+using Dotnet9.Domain.Repositories;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
@@ -20,6 +22,7 @@ using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Dotnet9.Web.Models;
 using Dotnet9.Web.Utils;
 using Dotnet9.Web.ViewModels.Abouts;
+using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -41,6 +44,7 @@ public class HomeController : Controller
     private readonly Dotnet9DbContext _Dotnet9DbContext;
     private readonly IHostEnvironment _hostEnvironment;
     private readonly ILogger<HomeController> _logger;
+    private readonly IMapper _mapper;
     private readonly IMemoryCache _memoryCache;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
@@ -64,7 +68,8 @@ public class HomeController : Controller
         IUrlLinkRepository urlLinkRepository,
         UrlLinkManager urlLinkManager,
         IHostEnvironment hostEnvironment,
-        IMemoryCache memoryCache)
+        IMemoryCache memoryCache,
+        IMapper mapper)
     {
         _logger = logger;
         _Dotnet9DbContext = Dotnet9DbContext;
@@ -83,11 +88,17 @@ public class HomeController : Controller
         _urlLinkManager = urlLinkManager;
         _hostEnvironment = hostEnvironment;
         _memoryCache = memoryCache;
+        _mapper = mapper;
     }
 
     public async Task<IActionResult> Index()
     {
-        return await Task.FromResult(View());
+        var vm = new HomeViewModel();
+        var recommend = await _blogPostRepository.SelectBlogPostAsync(8, 1, x => x.InBanner, x => x.CreateDate,
+            SortDirectionKind.Descending);
+        vm.BlogPostsForRecommend =
+            _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend.Item1);
+        return await Task.FromResult(View(vm));
     }
 
     [Route("/sitemap.xml")]

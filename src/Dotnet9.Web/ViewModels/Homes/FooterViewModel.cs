@@ -1,6 +1,6 @@
 ﻿using Dotnet9.Application.Contracts.UrlLinks;
 
-namespace Dotnet9.Web.ViewModels;
+namespace Dotnet9.Web.ViewModels.Homes;
 
 public class FooterViewModel
 {

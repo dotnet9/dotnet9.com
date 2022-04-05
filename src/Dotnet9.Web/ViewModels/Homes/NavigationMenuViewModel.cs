@@ -2,7 +2,7 @@
 using Dotnet9.Application.Contracts.Tools;
 using Dotnet9.Web.ViewModels.Categories;
 
-namespace Dotnet9.Web.ViewModels;
+namespace Dotnet9.Web.ViewModels.Homes;
 
 public class NavigationMenuViewModel
 {
@@ -10,4 +10,3 @@ public class NavigationMenuViewModel
     public List<AlbumCountDto>? AlbumCountDtos { get; set; }
     public List<CategoryForMenuViewModel>? CategoryForMenuViewModels { get; set; }
 }
-

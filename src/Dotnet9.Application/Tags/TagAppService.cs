@@ -2,6 +2,7 @@
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Domain.Blogs;
+using Dotnet9.Domain.Repositories;
 using Dotnet9.Domain.Tags;
 
 namespace Dotnet9.Application.Tags;
@@ -35,7 +36,8 @@ public class TagAppService : ITagAppService
         var album = await _tagRepository.FindByNameAsync(tagName);
         if (album == null) return null;
         var blogPostWithDetailsLists =
-            await _blogPostRepository.SelectAsync(x => x.Tags != null && x.Tags.Any(d => d.TagId == album.Id));
+            await _blogPostRepository.SelectBlogPostAsync(x => x.Tags != null && x.Tags.Any(d => d.TagId == album.Id),
+                x => x.CreateDate, SortDirectionKind.Descending);
         return blogPostWithDetailsLists == null
             ? null
             : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);

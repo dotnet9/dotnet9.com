@@ -2,21 +2,28 @@
 
 namespace Dotnet9.Domain.Repositories;
 
-public interface IRepository<TEntity>
+public interface IRepository<T>
 {
     Task<int> GetMaxIdAsync();
 
-    Task<int> InsertAsync(TEntity t);
+    Task<int> InsertAsync(T t);
 
-    Task<int> UpdateAsync(TEntity t);
+    Task<int> UpdateAsync(T t);
 
-    Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> whereLambda,
-        params Expression<Func<TEntity, object>>[] includes);
+    Task<T?> GetAsync(Expression<Func<T, bool>> whereLambda,
+        params Expression<Func<T, object>>[] includes);
 
-    Task<List<TEntity>> SelectAsync(params Expression<Func<TEntity, object>>[] includes);
+    Task<List<T>> SelectAsync(params Expression<Func<T, object>>[] includes);
 
-    Task<List<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> whereLambda,
-        params Expression<Func<TEntity, object>>[] includes);
+    Task<List<T>> SelectAsync(Expression<Func<T, bool>> whereLambda,
+        params Expression<Func<T, object>>[] includes);
 
-    Task<IQueryable<TEntity>> GetQueryableAsync();
+    Task<List<T>> SelectAsync<S>(Expression<Func<T, bool>> whereLambda, Expression<Func<T, S>> orderByLambda,
+        SortDirectionKind sortDirection, params Expression<Func<T, object>>[] includes);
+
+    Task<Tuple<List<T>, int>> SelectAsync<S>(int pageSize, int pageIndex, Expression<Func<T, bool>> whereLambda,
+        Expression<Func<T, S>> orderByLambda, SortDirectionKind sortDirection,
+        params Expression<Func<T, object>>[] includes);
+
+    Task<IQueryable<T>> GetQueryableAsync();
 }
