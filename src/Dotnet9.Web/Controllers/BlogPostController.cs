@@ -50,4 +50,22 @@ public class BlogPostController : Controller
 
         return await Task.FromResult(View(vm));
     }
+
+    [Route("latest")]
+    public async Task<IActionResult> LoadLatest(int page = 1)
+    {
+        var latest = await _blogPostRepository.SelectBlogPostAsync(8, page, x => x.Id > 0, x => x.CreateDate,
+            SortDirectionKind.Descending);
+        if (latest.Item1.Any())
+        {
+            var vm = new LatestViewModel
+            {
+                BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(latest.Item1)
+            };
+
+            return PartialView(vm);
+        }
+
+        return Json("");
+    }
 }

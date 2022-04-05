@@ -93,6 +93,14 @@
 
 @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPostsForRecommend)
 
+<div class="card ribbon-box">
+    <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 最新</div>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
+@await Html.PartialAsync("/Views/BlogPost/Latest.cshtml")
+
 <h2 class="my-4">博文</h2>
 
 <section class="my-3">

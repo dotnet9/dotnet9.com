@@ -1,0 +1,18 @@
+﻿@model Dotnet9.Application.Contracts.Blogs.BlogPostWithDetailsDto
+
+<div class="card">
+    <a href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">
+        <img src="@Model.Cover" class="card-img-top" alt="@Model.Title">
+    </a>
+    <div class="card-body">
+        <h5 class="card-title">
+            <a style="color: #262626;" href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">@Model.Title</a>
+        </h5>
+        <p class="card-text">
+            <a style="color: #262626;" href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">@Model.BriefDescription</a>
+        </p>
+        <p class="card-text">
+            <small class="text-muted"><a href="/user/@(Model.Original ?? "沙漠尽头的狼")">@(Model.Original ?? "沙漠尽头的狼")</a> - @Model.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+        </p>
+    </div>
+</div>

@@ -1,12 +1,11 @@
 ﻿using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.Tools;
-using Dotnet9.Web.ViewModels;
 using Dotnet9.Web.ViewModels.Categories;
 using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dotnet9.Web.ViewComponents.About;
+namespace Dotnet9.Web.ViewComponents.Abouts;
 
 public class MenuHorizontal : ViewComponent
 {
@@ -38,15 +37,12 @@ public class MenuHorizontal : ViewComponent
     private List<CategoryForMenuViewModel>? ReadChildren(List<CategoryCountDto> sourceCategoryCountDtos, int parentId)
     {
         var children = sourceCategoryCountDtos.FindAll(x => x.ParentId == parentId);
-        if (!children.Any())
-        {
-            return null;
-        }
+        if (!children.Any()) return null;
 
         var categoryForMenuViewModels = new List<CategoryForMenuViewModel>();
         foreach (var categoryCountDto in children)
         {
-            var child = new CategoryForMenuViewModel() {Name = categoryCountDto.Name, Slug = categoryCountDto.Slug};
+            var child = new CategoryForMenuViewModel {Name = categoryCountDto.Name, Slug = categoryCountDto.Slug};
             categoryForMenuViewModels.Add(child);
             child.Children = ReadChildren(sourceCategoryCountDtos, categoryCountDto.Id);
         }
