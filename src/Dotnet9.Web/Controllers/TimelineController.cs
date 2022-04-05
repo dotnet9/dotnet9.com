@@ -1,5 +1,6 @@
 ﻿using Dotnet9.Application.Contracts.Abouts;
 using Dotnet9.Application.Contracts.Timelines;
+using Dotnet9.Web.Caches;
 using Dotnet9.Web.ViewModels.Timelines;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,16 +8,21 @@ namespace Dotnet9.Web.Controllers;
 
 public class TimelineController : Controller
 {
+    private readonly ICacheService _cacheService;
     private readonly ITimelineAppService _timelineAppService;
 
-    public TimelineController(ITimelineAppService timelineAppService)
+    public TimelineController(ITimelineAppService timelineAppService, ICacheService cacheService)
     {
         _timelineAppService = timelineAppService;
+        _cacheService = cacheService;
     }
 
     public async Task<IActionResult> Index()
-
     {
+        var cacheKey = $"{nameof(TimelineController)}-{nameof(Index)}";
+        var cacheData = await _cacheService.GetAsync<TimelineViewModel>(cacheKey);
+        if (cacheData != null) return View(cacheData);
+
         var timelines = await _timelineAppService.ListAllAsync();
         var vm = new TimelineViewModel();
         vm.Timelines = new Dictionary<string, List<TimelineDto>>();
@@ -27,6 +33,8 @@ public class TimelineController : Controller
 
             vm.Timelines[key].Add(timelineDto);
         }
+
+        await _cacheService.ReplaceAsync(cacheKey, cacheData);
 
         return View(vm);
     }

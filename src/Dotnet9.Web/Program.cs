@@ -1,3 +1,4 @@
+using Dotnet9.Web.Caches;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
 
@@ -8,11 +9,12 @@ builder.Services.AddControllersWithViews();
 GlobalVar.SiteDomain = builder.Configuration["SiteDomain"];
 GlobalVar.AssetsLocalPath = builder.Configuration["AssetsLocalPath"];
 GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
+GlobalVar.Cache = builder.Configuration.GetSection("Cache").Get<CacheConfig>();
 
 builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultConnection")!);
 builder.Services.AddAutoMapperSetup();
 builder.Services.AddRepositorySetup();
-builder.Services.AddMemoryCache();
+builder.Services.AddCacheSetup();
 
 var app = builder.Build();
 

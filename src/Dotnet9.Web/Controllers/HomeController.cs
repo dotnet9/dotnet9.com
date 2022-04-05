@@ -19,6 +19,7 @@ using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
+using Dotnet9.Web.Caches;
 using Dotnet9.Web.Models;
 using Dotnet9.Web.Utils;
 using Dotnet9.Web.ViewModels.Abouts;
@@ -26,7 +27,6 @@ using Dotnet9.Web.ViewModels.Blogs;
 using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace Dotnet9.Web.Controllers;
@@ -39,6 +39,7 @@ public class HomeController : Controller
     private readonly IBlogPostAppService _blogPostAppService;
     private readonly BlogPostManager _blogPostManager;
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly ICacheService _cacheService;
     private readonly ICategoryAppService _categoryAppService;
     private readonly CategoryManager _categoryManager;
     private readonly ICategoryRepository _categoryRepository;
@@ -46,7 +47,6 @@ public class HomeController : Controller
     private readonly IHostEnvironment _hostEnvironment;
     private readonly ILogger<HomeController> _logger;
     private readonly IMapper _mapper;
-    private readonly IMemoryCache _memoryCache;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
     private readonly UrlLinkManager _urlLinkManager;
@@ -69,7 +69,7 @@ public class HomeController : Controller
         IUrlLinkRepository urlLinkRepository,
         UrlLinkManager urlLinkManager,
         IHostEnvironment hostEnvironment,
-        IMemoryCache memoryCache,
+        ICacheService cacheService,
         IMapper mapper)
     {
         _logger = logger;
@@ -88,18 +88,22 @@ public class HomeController : Controller
         _urlLinkRepository = urlLinkRepository;
         _urlLinkManager = urlLinkManager;
         _hostEnvironment = hostEnvironment;
-        _memoryCache = memoryCache;
+        _cacheService = cacheService;
         _mapper = mapper;
     }
 
     public async Task<IActionResult> Index()
     {
-        var vm = new HomeViewModel();
+        var cacheKey = $"{nameof(HomeController)}-{nameof(Index)}";
+        var cacheData = await _cacheService.GetAsync<HomeViewModel>(cacheKey);
+        if (cacheData != null) return View(cacheData);
+
+        cacheData = new HomeViewModel();
         var recommend = await _blogPostRepository.SelectBlogPostAsync(8, 1, x => x.InBanner, x => x.CreateDate,
             SortDirectionKind.Descending);
-        vm.BlogPostsForRecommend =
+        cacheData.BlogPostsForRecommend =
             _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend.Item1);
-        vm.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
+        cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
             {"最新", LoadMoreKind.Latest},
             {".NET", LoadMoreKind.Dotnet},
@@ -109,7 +113,10 @@ public class HomeController : Controller
             {"课程", LoadMoreKind.Course},
             {"其他", LoadMoreKind.Other}
         };
-        return await Task.FromResult(View(vm));
+
+        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+
+        return View(cacheData);
     }
 
     [Route("/sitemap.xml")]
@@ -124,12 +131,12 @@ public class HomeController : Controller
         };
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
-        var bytes = _memoryCache.Get<byte[]>(cacheKey);
-        if (bytes != null) return File(bytes, contentType);
+        var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
+        if (bytes is {Length: > 0}) return File(bytes, contentType);
 
-        var sitemapNodes = new List<SitemapNode>();
+        var siteMapNodes = new List<SitemapNode>();
 
-        sitemapNodes.AddRange((await _albumAppService.GetListCountAsync()).Select(x => new SitemapNode
+        siteMapNodes.AddRange((await _albumAppService.GetListCountAsync()).Select(x => new SitemapNode
         {
             LastModified = DateTime.UtcNow,
             Priority = 0.8,
@@ -137,13 +144,13 @@ public class HomeController : Controller
             Frequency = SitemapFrequency.Monthly
         }));
 
-        sitemapNodes.AddRange((await _categoryAppService.ListAllAsync()).Select(x => new SitemapNode
+        siteMapNodes.AddRange((await _categoryAppService.ListAllAsync()).Select(x => new SitemapNode
         {
             LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
         }));
 
-        sitemapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemap()).Select(x =>
+        siteMapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemap()).Select(x =>
             new SitemapNode
             {
                 LastModified = x.CreateDate, Priority = 0.9,
@@ -159,7 +166,7 @@ public class HomeController : Controller
         sb.AppendLine(
             "   xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">");
 
-        foreach (var m in sitemapNodes)
+        foreach (var m in siteMapNodes)
         {
             sb.AppendLine("    <url>");
 
@@ -175,7 +182,7 @@ public class HomeController : Controller
 
         bytes = Encoding.UTF8.GetBytes(sb.ToString());
 
-        _memoryCache.Set(cacheKey, bytes, TimeSpan.FromHours(24));
+        await _cacheService.AddAsync(cacheKey, bytes, TimeSpan.FromHours(24));
         return File(bytes, contentType);
     }
 

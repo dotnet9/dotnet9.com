@@ -1,6 +1,7 @@
 ﻿using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Application.Contracts.Tools;
+using Dotnet9.Web.Caches;
 using Dotnet9.Web.ViewModels.Categories;
 using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
@@ -10,17 +11,24 @@ namespace Dotnet9.Web.ViewComponents.Abouts;
 public class MenuHorizontal : ViewComponent
 {
     private readonly IAlbumAppService _albumAppService;
+    private readonly ICacheService _cacheService;
     private readonly ICategoryAppService _categoryAppService;
 
-    public MenuHorizontal(IAlbumAppService albumAppService, ICategoryAppService categoryAppService)
+    public MenuHorizontal(IAlbumAppService albumAppService, ICategoryAppService categoryAppService,
+        ICacheService cacheService)
     {
         _albumAppService = albumAppService;
         _categoryAppService = categoryAppService;
+        _cacheService = cacheService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var vm = new NavigationMenuViewModel
+        var cacheKey = $"{nameof(MenuHorizontal)}";
+        var cacheData = await _cacheService.GetAsync<NavigationMenuViewModel>(cacheKey);
+        if (cacheData != null) return View(cacheData);
+
+        cacheData = new NavigationMenuViewModel
         {
             ToolCountDtos = new List<ToolCountDto>
             {
@@ -31,7 +39,10 @@ public class MenuHorizontal : ViewComponent
             AlbumCountDtos = await _albumAppService.GetListCountAsync(),
             CategoryForMenuViewModels = ReadChildren(await _categoryAppService.ListAllAsync(), -1)
         };
-        return await Task.FromResult(View(vm));
+
+        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+
+        return View(cacheData);
     }
 
     private List<CategoryForMenuViewModel>? ReadChildren(List<CategoryCountDto> sourceCategoryCountDtos, int parentId)
