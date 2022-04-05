@@ -1,0 +1,66 @@
+﻿@using System.Net
+@model Dotnet9.Web.ViewModels.Blogs.QueryViewModel
+@{
+    ViewData["Title"] = "搜索";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+<h1>Query</h1>
+
+<div class="card ribbon-box">
+    <div class="card-body">
+        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 搜索</div>
+        <p class="ribbon-content">
+            @Model.Query
+        </p>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
+<div class="row">
+    <div class="col-12">
+        <div id="blog-post-container" class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-3">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12" style="margin-bottom: 50px; text-align: center;">
+        <button id="load-more-btn" class="btn btn-outline-primary" data-loading-text="正在加载..." onclick="loadMore()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击加载更多&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var page = 0;
+    var inCallBack = false;
+
+    function loadMore() {
+        if (page <= -1 || inCallBack) {
+            return;
+        }
+
+        inCallBack = true;
+        page++;
+
+        var loadMoreButton = '#load-more-btn';
+        var loadMoreContainer = '#blog-post-container';
+        $(loadMoreButton).button("loading");
+        $.get('/qs?s=@WebUtility.UrlEncode(Model.Query)&p=' + page,
+            function(data) {
+                if (data != '') {
+                    $(loadMoreContainer).append(data);
+                    $(loadMoreButton).button("reset");
+                } else {
+                    page = -1;
+                    $(loadMoreButton).prop('class', 'btn btn-outline-secondary');
+                    $(loadMoreButton).html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没有更多数据了!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                }
+
+                inCallBack = false;
+            });
+    }
+
+    window.onload = function() {
+        loadMore();
+    };
+
+</script>

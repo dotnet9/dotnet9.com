@@ -8,8 +8,8 @@
             <i class="dripicons-search noti-icon"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-            <form class="p-3">
-                <input type="text" class="form-control" placeholder="搜索" aria-label="Recipient's username">
+            <form method="get" asp-controller="BlogPost" asp-action="Query" role="form" class="p-3">
+                <input name="s" type="text" class="form-control" placeholder="搜索内容..." aria-label="Recipient's username">
             </form>
         </div>
     </li>
@@ -100,9 +100,9 @@
 }
 
 <div class="app-search dropdown">
-    <form>
+    <form method="get" asp-controller="BlogPost" asp-action="Query" role="form">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="搜索内容" id="top-search">
+            <input name="s" type="text" class="form-control" placeholder="搜索内容..." id="top-search">
             <span class="mdi mdi-magnify search-icon"></span>
             <button class="input-group-text  btn-primary" type="submit">搜索</button>
         </div>

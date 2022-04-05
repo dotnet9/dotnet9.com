@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Core;
@@ -59,7 +60,8 @@ public class BlogPostController : Controller
     public async Task<IActionResult> LoadLatest(string kind = "", int page = 1)
     {
         var loadKind = LoadMoreKind.Dotnet;
-        if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind)) loadKind = (LoadMoreKind) enumKind;
+        if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
+            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         Dictionary<LoadMoreKind, string> kindKeys = new()
@@ -87,6 +89,42 @@ public class BlogPostController : Controller
             var vm = new LatestViewModel
             {
                 BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(latest.Item1)
+            };
+
+            return PartialView(vm);
+        }
+
+        return Json("");
+    }
+
+
+    [Route("/q")]
+    public async Task<IActionResult> Query(string? s)
+    {
+        return await Task.FromResult(View(new QueryViewModel {Query = s, PageIndex = 1}));
+    }
+
+
+    [Route("/qs")]
+    public async Task<IActionResult> LoadQuery(string? s, int p = 1)
+    {
+        Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
+        if (!s.IsNullOrWhiteSpace())
+        {
+            var queryStr = WebUtility.UrlDecode(s);
+            whereLambda = x => x.Title.Contains(queryStr!) || x.Content.Contains(queryStr!);
+        }
+
+        var queryResult = await _blogPostRepository.SelectBlogPostAsync(8, p, whereLambda, x => x.CreateDate,
+            SortDirectionKind.Descending);
+
+        if (queryResult.Item1.Any())
+        {
+            var vm = new QueryViewModel
+            {
+                Query = s,
+                PageIndex = p,
+                BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(queryResult.Item1)
             };
 
             return PartialView(vm);
