@@ -23,32 +23,8 @@
 <p>
     <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
 </p>
-<p>
-    <ul class="nav nav-tabs nav-bordered mb-3">
-        <li class="nav-item">
-            <a href="#simple-preview" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
-                文章
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#simple-code" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
-                Markdown
-            </a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane show active" id="simple-preview">
-            @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
-        </div> <!-- end preview-->
 
-        <div class="tab-pane" id="simple-code">
-            <pre>
-                @Html.Raw(Model.BlogPost.Content)
-            </pre>
-        </div> <!-- end preview code-->
-    </div>
-
-</p>
+@Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
 
 @section Scripts {
 
