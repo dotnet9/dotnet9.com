@@ -15,5 +15,8 @@ public interface IRepository<TEntity>
 
     Task<List<TEntity>> SelectAsync(params Expression<Func<TEntity, object>>[] includes);
 
+    Task<List<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> whereLambda,
+        params Expression<Func<TEntity, object>>[] includes);
+
     Task<IQueryable<TEntity>> GetQueryableAsync();
 }

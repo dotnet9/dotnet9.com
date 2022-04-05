@@ -10,6 +10,8 @@ public class BlogPostDto : EntityDto
 
     public string BriefDescription { get; set; } = null!;
 
+    public bool InBanner { get; set; }
+
     public string Cover { get; set; } = null!;
 
     public string Content { get; set; } = null!;

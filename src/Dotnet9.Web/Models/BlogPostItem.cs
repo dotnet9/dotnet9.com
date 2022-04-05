@@ -10,6 +10,8 @@ public class BlogPostItem
 
     public string? BriefDescription { get; set; }
 
+    public bool InBanner { get; set; }
+
     public string Cover { get; set; } = null!;
 
     public string[]? Categories { get; set; }

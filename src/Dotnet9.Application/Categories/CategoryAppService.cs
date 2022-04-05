@@ -43,7 +43,11 @@ public class CategoryAppService : ICategoryAppService
 
     public async Task<List<BlogPostWithDetailsDto>?> GetBlogPostListAsync(string categorySlug)
     {
-        var blogPostWithDetailsLists = await _blogPostRepository.GetBlogPostListByCategorySlugAsync(categorySlug);
+        var category = await _categoryRepository.FindBySlugAsync(categorySlug);
+        if (category == null) return null;
+        var blogPostWithDetailsLists =
+            await _blogPostRepository.SelectAsync(x =>
+                x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id));
         return blogPostWithDetailsLists == null
             ? null
             : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);

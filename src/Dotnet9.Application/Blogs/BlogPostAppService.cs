@@ -17,7 +17,7 @@ public class BlogPostAppService : IBlogPostAppService
 
     public async Task<BlogPostWithDetailsDto?> FindBySlugAsync(string slug)
     {
-        var blogPostWithDetails = await _blogPostRepository.FindBySlugAsync(slug);
+        var blogPostWithDetails = await _blogPostRepository.GetAsync(x => x.Slug == slug);
         return blogPostWithDetails == null
             ? null
             : _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails);

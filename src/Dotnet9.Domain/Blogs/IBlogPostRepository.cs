@@ -1,16 +1,11 @@
-﻿using Dotnet9.Domain.Repositories;
+﻿using System.Linq.Expressions;
+using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Domain.Blogs;
 
 public interface IBlogPostRepository : IRepository<BlogPost>
 {
-    Task<BlogPostWithDetails?> FindByTitleAsync(string title);
+    Task<BlogPostWithDetails?> GetAsync(Expression<Func<BlogPost, bool>> whereLambda);
 
-    Task<BlogPostWithDetails?> FindBySlugAsync(string slug);
-
-    Task<List<BlogPostWithDetails>?> GetBlogPostListByAlbumSlugAsync(string albumSlug);
-
-    Task<List<BlogPostWithDetails>?> GetBlogPostListByCategorySlugAsync(string categorySlug);
-
-    Task<List<BlogPostWithDetails>?> GetBlogPostListByTagNameAsync(string tagName);
+    Task<List<BlogPostWithDetails>?> SelectAsync(Expression<Func<BlogPost, bool>> whereLambda);
 }

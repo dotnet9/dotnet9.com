@@ -13,6 +13,7 @@ public class BlogPost : EntityBase
         string title,
         string slug,
         string? briefDescription,
+        bool inBanner,
         string cover,
         string content,
         CopyrightType copyrightType,
@@ -25,6 +26,7 @@ public class BlogPost : EntityBase
         SetTitle(title);
         SetSlug(slug);
         BriefDescription = briefDescription;
+        InBanner = inBanner;
         Cover = cover;
         SetContent(content);
         CopyrightType = copyrightType;
@@ -42,6 +44,7 @@ public class BlogPost : EntityBase
     public string Title { get; set; } = null!;
     public string Slug { get; set; } = null!;
     public string? BriefDescription { get; set; }
+    public bool InBanner { get; set; }
     public string Cover { get; set; } = null!;
     public string Content { get; set; } = null!;
     public CopyrightType CopyrightType { get; set; }

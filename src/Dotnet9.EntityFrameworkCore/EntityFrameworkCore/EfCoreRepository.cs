@@ -53,6 +53,14 @@ public class EfCoreRepository<TEntity>
         return await query.ToListAsync();
     }
 
+    public async Task<List<TEntity>> SelectAsync(Expression<Func<TEntity, bool>> whereLambda,
+        params Expression<Func<TEntity, object>>[] includes)
+    {
+        IQueryable<TEntity> query = DbContext.Set<TEntity>();
+        query = includes.Aggregate(query, (current, include) => current.Include(include));
+        return await query.Where(whereLambda).ToListAsync();
+    }
+
     public async Task<IQueryable<TEntity>> GetQueryableAsync()
     {
         return await Task.FromResult(DbContext.Set<TEntity>().AsQueryable());

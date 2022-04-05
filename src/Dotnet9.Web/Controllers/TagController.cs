@@ -27,7 +27,7 @@ public class TagController : Controller
         {
             var factName = WebUtility.UrlDecode(name);
             vm.TagName = name;
-            vm.BlogPosts = await _tagAppService.GetBlogPostListAsync(factName);
+            vm.BlogPosts = await _tagAppService.GetBlogPostListAsync(factName!);
         }
 
         return View(vm);

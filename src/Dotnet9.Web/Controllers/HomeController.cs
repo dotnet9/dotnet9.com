@@ -242,6 +242,7 @@ public class HomeController : Controller
                         blogPostSeed.Title,
                         blogPostSeed.Slug,
                         blogPostSeed.BriefDescription,
+                        blogPostSeed.InBanner,
                         blogPostSeed.Cover,
                         blogPostSeed.Content,
                         blogPostSeed.CopyrightType!.Value,
@@ -327,7 +328,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(privacyMakrdownFilePath))
             {
                 var privacyMarkdownString = await System.IO.File.ReadAllTextAsync(privacyMakrdownFilePath);
-                var privacy = new Privacy() { Content = privacyMarkdownString };
+                var privacy = new Privacy {Content = privacyMarkdownString};
                 await _Dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _Dotnet9DbContext.SaveChangesAsync();
             }

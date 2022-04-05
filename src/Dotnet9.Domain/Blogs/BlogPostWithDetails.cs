@@ -12,6 +12,8 @@ public class BlogPostWithDetails
 
     public string? BriefDescription { get; set; }
 
+    public bool InBanner { get; set; }
+
     public string Content { get; set; } = null!;
 
     public string Cover { get; set; } = null!;

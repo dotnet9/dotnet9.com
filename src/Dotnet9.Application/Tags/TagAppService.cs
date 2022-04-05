@@ -32,7 +32,10 @@ public class TagAppService : ITagAppService
 
     public async Task<List<BlogPostWithDetailsDto>?> GetBlogPostListAsync(string tagName)
     {
-        var blogPostWithDetailsLists = await _blogPostRepository.GetBlogPostListByTagNameAsync(tagName);
+        var album = await _tagRepository.FindByNameAsync(tagName);
+        if (album == null) return null;
+        var blogPostWithDetailsLists =
+            await _blogPostRepository.SelectAsync(x => x.Tags != null && x.Tags.Any(d => d.TagId == album.Id));
         return blogPostWithDetailsLists == null
             ? null
             : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);

@@ -83,6 +83,7 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Title).IsRequired().HasMaxLength(BlogPostConsts.MaxTitleLength);
             b.Property(x => x.Slug).IsRequired().HasMaxLength(BlogPostConsts.MaxSlugLength);
             b.Property(x => x.BriefDescription).HasMaxLength(BlogPostConsts.MaxBriefDescriptionLength);
+            b.Property(x => x.InBanner);
             b.Property(x => x.Content).IsRequired().HasMaxLength(BlogPostConsts.MaxContentLength);
             b.Property(x => x.Cover).HasMaxLength(BlogPostConsts.MaxCoverLength);
             b.Property(x => x.CopyrightType);

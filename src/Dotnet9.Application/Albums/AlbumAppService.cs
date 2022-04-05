@@ -37,7 +37,10 @@ public class AlbumAppService : IAlbumAppService
 
     public async Task<List<BlogPostWithDetailsDto>?> GetBlogPostListAsync(string albumSlug)
     {
-        var blogPostWithDetailsLists = await _blogPostRepository.GetBlogPostListByAlbumSlugAsync(albumSlug);
+        var album = await _albumRepository.FindBySlugAsync(albumSlug);
+        if (album == null) return null;
+        var blogPostWithDetailsLists =
+            await _blogPostRepository.SelectAsync(x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id));
         return blogPostWithDetailsLists == null
             ? null
             : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);
