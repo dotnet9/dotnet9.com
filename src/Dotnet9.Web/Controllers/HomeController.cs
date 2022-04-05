@@ -22,6 +22,7 @@ using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Dotnet9.Web.Models;
 using Dotnet9.Web.Utils;
 using Dotnet9.Web.ViewModels.Abouts;
+using Dotnet9.Web.ViewModels.Blogs;
 using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -98,6 +99,16 @@ public class HomeController : Controller
             SortDirectionKind.Descending);
         vm.BlogPostsForRecommend =
             _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend.Item1);
+        vm.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
+        {
+            {"最新", LoadMoreKind.Latest},
+            {".NET", LoadMoreKind.Dotnet},
+            {"大前端", LoadMoreKind.Front},
+            {"数据库", LoadMoreKind.Database},
+            {"更多语言", LoadMoreKind.MoreLanguage},
+            {"课程", LoadMoreKind.Course},
+            {"其他", LoadMoreKind.Other}
+        };
         return await Task.FromResult(View(vm));
     }
 

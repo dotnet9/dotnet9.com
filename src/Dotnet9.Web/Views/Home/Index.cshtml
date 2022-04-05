@@ -1,4 +1,5 @@
-﻿@model Dotnet9.Web.ViewModels.Homes.HomeViewModel
+﻿@using Dotnet9.Web.ViewModels.Blogs
+@model Dotnet9.Web.ViewModels.Homes.HomeViewModel
 @{
     ViewData["Title"] = "首页";
     Layout = "_PublicLayout";
@@ -93,51 +94,19 @@
 
 @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPostsForRecommend)
 
-<div class="card ribbon-box">
-    <div class="card-body">
-        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 最新</div>
-    </div> <!-- end card-body -->
-</div> <!-- end card-->
-
-@await Html.PartialAsync("/Views/BlogPost/Latest.cshtml")
-
-<h2 class="my-4">博文</h2>
-
-<section class="my-3">
-    <div class="row align-items-center justify-content-between">
-        <div class="col-md">
-            <img src="https://img1.dotnet9.com/2021/02/0401.gif" alt="install-software" class="img-fluid"/>
-        </div>
-        <div class="col-md p-5">
-            <h2>怎么做一个专业的软件安装包？</h2>
-            <p class="lead">
-                C/S客户端开发完成，需要将程序交付给用户，直接压缩发给用户是可以的（只是有点不专业），如果能有一个比较好看的安装界面，那档次就不一样了。
-            </p>
-            <p>
-                本文介绍怎么使用Adanced Installer 17.9 制作专业的Windows 客户端安装包，其他软件或者本软件其他版本制作步骤也是类似的。
-            </p>
-            <a href="https://dotnet9.com/2021/02/how-to-make-a-professional-software-installation-package" class="btn btn-light">查看更多</a>
-        </div>
+@foreach (var loadMoreKind in Model.LoadMoreKinds)
+{
+    <div class="card ribbon-box">
+        <div class="card-body">
+            <div class="ribbon ribbon-primary float-start">
+                <i class="mdi mdi-access-point me-1"></i> @loadMoreKind.Key
+            </div>
+        </div> <!-- end card-body -->
     </div>
-</section>
+    <!-- end card-->
 
-<section class="bg-dark text-light">
-    <div class="row align-items-center justify-content-between">
-        <div class="col-md p-5">
-            <h2>怎么实现WPF多语言动态切换？</h2>
-            <p class="lead">
-                有网友看了上一篇文章《C# 多语言利器 - ResX Manager》后，提出疑问：这个多语言切换不重启不能刷新，有没有方案？
-            </p>
-            <p>
-                其实是有的，国内一开源大神提供了一个WPF扩展库，其中就有多语言切换实现。
-            </p>
-            <a href="https://dotnet9.com/2021/02/how-to-realize-multi-language-dynamic-switching-of-wpf" class="btn btn-light">查看更多</a>
-        </div>
-        <div class="col-md">
-            <img src="https://img1.dotnet9.com/2021/02/0202.gif" alt="wpf-international" class="img-fluid"/>
-        </div>
-    </div>
-</section>
+    @await Html.PartialAsync("/Views/BlogPost/Latest.cshtml", loadMoreKind.Value)
+}
 
 <section>
     <h2 class="text-center my-4">常见问题</h2>
@@ -190,3 +159,58 @@
     </ul>
     <img src="https://img1.Dotnet9.com/site/wechatpublic.jpg" width="200" alt="wpf-international" class="img-fluid"/>
 </section>
+
+
+<script type="text/javascript">
+
+    var kindPageDic = {
+        @(LoadMoreKind.Latest): 0,
+        @(LoadMoreKind.Dotnet): 0,
+        @(LoadMoreKind.Front): 0,
+        @(LoadMoreKind.Database): 0,
+        @(LoadMoreKind.MoreLanguage): 0,
+        @(LoadMoreKind.Course): 0,
+        @(LoadMoreKind.Other): 0
+    };
+    var kindInCallbackDic = {
+        @(LoadMoreKind.Latest): false,
+        @(LoadMoreKind.Dotnet): false,
+        @(LoadMoreKind.Front): false,
+        @(LoadMoreKind.Database): false,
+        @(LoadMoreKind.MoreLanguage): false,
+        @(LoadMoreKind.Course): false,
+        @(LoadMoreKind.Other): false
+    };
+
+    function loadMore(kind) {
+        if (kindPageDic[kind] <= -1 || kindInCallbackDic[kind]) {
+            return;
+        }
+
+        kindInCallbackDic[kind] = true;
+        kindPageDic[kind]++;
+        var loadMoreButton = '#' + kind + '-btn';
+        var loadMoreContainer = '#' + kind + '-container';
+        $(loadMoreButton).button("loading");
+        $.get('/latest?kind=' + kind + '&page=' + kindPageDic[kind],
+            function(data) {
+                if (data != '') {
+                    $(loadMoreContainer).append(data);
+                    $(loadMoreButton).button("reset");
+                } else {
+                    page = -1;
+                    $(loadMoreButton).prop('class', 'btn btn-outline-secondary');
+                    $(loadMoreButton).html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没有更多数据了!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                }
+
+                kindInCallbackDic[kind] = false;
+            });
+    }
+
+    window.onload = function() {
+        for (var kind in kindPageDic) {
+            loadMore(kind);
+        }
+    };
+
+</script>

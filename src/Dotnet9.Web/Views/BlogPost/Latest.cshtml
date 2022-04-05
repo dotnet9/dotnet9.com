@@ -1,47 +1,14 @@
-﻿<div class="row">
+﻿@model Dotnet9.Web.ViewModels.Blogs.LoadMoreKind
+
+<div class="row">
     <div class="col-12">
-        <div id="UserReviewsList" class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-3">
+        <div id="@(Model)-container" class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-3">
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-12" style="text-align: center">
-        <button id="loadMore" class="btn btn-outline-primary" data-loading-text="正在加载..." onclick="loadMore()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击加载更多&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    <div class="col-12" style="margin-bottom: 50px; text-align: center;">
+        <button id="@(Model)-btn" class="btn btn-outline-primary" data-loading-text="正在加载..." onclick="loadMore('@Model')">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击加载更多&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    var page = 0;
-    var _inCallback = false;
-
-    function loadMore() {
-        if (page <= -1 || _inCallback) {
-            return;
-        }
-
-        _inCallback = true;
-        page++;
-
-        $('#loadMore').button("loading");
-        $.get('/latest?page=' + page,
-            function(data) {
-                if (data != '') {
-                    $("#UserReviewsList").append(data);
-                    $('#loadMore').button("reset");
-                } else {
-                    page = -1;
-                    $('#loadMore').prop('class', 'btn btn-outline-secondary');
-                    $('#loadMore').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没有更多数据了!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-                }
-
-                _inCallback = false;
-            });
-    }
-
-    window.onload = function() {
-        loadMore();
-    };
-
-</script>
