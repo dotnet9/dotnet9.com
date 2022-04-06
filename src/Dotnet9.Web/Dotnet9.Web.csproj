@@ -38,10 +38,6 @@
 	  <ProjectReference Include="..\Dotnet9.Application\Dotnet9.Application.csproj" />
 	  <ProjectReference Include="..\Dotnet9.EntityFrameworkCore\Dotnet9.EntityFrameworkCore.csproj" />
 	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="ViewComponents\Blogs\" />
-	</ItemGroup>
 
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 

@@ -65,7 +65,7 @@ public class ApiCache : ActionFilterAttribute
                 foreach (var item in request.Form)
                     keyContent += $"{item.Key}={item.Value.ToString()}";
         }
-        catch (Exception e)
+        catch (Exception)
         {
         }
 

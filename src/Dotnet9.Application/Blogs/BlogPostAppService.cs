@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Domain.Blogs;
+using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Application.Blogs;
 
@@ -17,7 +18,8 @@ public class BlogPostAppService : IBlogPostAppService
 
     public async Task<BlogPostWithDetailsDto?> FindBySlugAsync(string slug)
     {
-        var blogPostWithDetails = await _blogPostRepository.GetBlogPostAsync(x => x.Slug == slug);
+        var blogPostWithDetails =
+            await _blogPostRepository.GetBlogPostAsync(x => x.Slug == slug, x => x.Id, SortDirectionKind.Ascending);
         return blogPostWithDetails == null
             ? null
             : _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails);

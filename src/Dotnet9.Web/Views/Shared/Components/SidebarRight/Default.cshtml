@@ -85,23 +85,23 @@
     // cookie已经保存，刷新未生效，后面研究TODO
     var isDarkModeKey = "isDarkMode";
     var isFluidModeKey = "isFluidMode";
-    
+
     function setDarkMode(isDarkMode) {
         localStorage.setItem(isDarkModeKey, isDarkMode);
-        $("#light-mode-check").checked = !isDarkMode;
-        $("#dark-mode-check").checked = isDarkMode;
+        $("#light-mode-check").prop("checked", !isDarkMode);
+        $("#dark-mode-check").prop("checked", isDarkMode);
     }
 
     function setFluidMode(isFluidMode) {
         localStorage.setItem(isFluidModeKey, isFluidMode);
-        $("#fluid-check").checked = isFluidMode;
-        $("#boxed-check").checked = !isFluidMode;
+        $("#fluid-check").prop("checked", isFluidMode);
+        $("#boxed-check").prop("checked", !isFluidMode);
     }
 
     function setDefault() {
         var isDarkMode = (localStorage.getItem(isDarkModeKey) === "true");
         setDarkMode(isDarkMode);
-        
+
         var isFluidMode = (localStorage.getItem(isFluidModeKey) === "true");
         setFluidMode(isFluidMode);
 

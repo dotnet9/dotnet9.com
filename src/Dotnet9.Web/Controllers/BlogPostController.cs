@@ -42,11 +42,25 @@ public class BlogPostController : Controller
 
         var blogPostWithDetailsDto = await _blogPostAppService.FindBySlugAsync(slug!);
         if (blogPostWithDetailsDto == null) return NotFound();
+        var previewPost = await _blogPostRepository.GetBlogPostAsync(
+            x => x.CreateDate < blogPostWithDetailsDto.CreateDate,
+            x => x.CreateDate, SortDirectionKind.Descending);
+        var nextPost = await _blogPostRepository.GetBlogPostAsync(x => x.CreateDate > blogPostWithDetailsDto.CreateDate,
+            x => x.CreateDate, SortDirectionKind.Ascending);
 
         cacheData = new BlogPostViewModel
         {
             BlogPost = blogPostWithDetailsDto
         };
+        if (previewPost != null)
+        {
+            cacheData.PreviewBlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(previewPost);
+        }
+
+        if (nextPost != null)
+        {
+            cacheData.NextBlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(nextPost);
+        }
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
@@ -85,17 +99,17 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         Dictionary<LoadMoreKind, string> kindKeys = new()
         {
-            { LoadMoreKind.Dotnet, "dotnet" },
-            { LoadMoreKind.Front, "Large-front-end" },
-            { LoadMoreKind.Database, "database" },
-            { LoadMoreKind.MoreLanguage, "more-language" },
-            { LoadMoreKind.Course, "course" },
-            { LoadMoreKind.Other, "other" }
+            {LoadMoreKind.Dotnet, "dotnet"},
+            {LoadMoreKind.Front, "Large-front-end"},
+            {LoadMoreKind.Database, "database"},
+            {LoadMoreKind.MoreLanguage, "more-language"},
+            {LoadMoreKind.Course, "course"},
+            {LoadMoreKind.Other, "other"}
         };
         if (kindKeys.ContainsKey(loadKind))
         {
@@ -122,7 +136,7 @@ public class BlogPostController : Controller
     [Route("/q")]
     public async Task<IActionResult> Query(string? s)
     {
-        return await Task.FromResult(View(new QueryViewModel { Query = s, PageIndex = 1 }));
+        return await Task.FromResult(View(new QueryViewModel {Query = s, PageIndex = 1}));
     }
 
     [HttpGet]

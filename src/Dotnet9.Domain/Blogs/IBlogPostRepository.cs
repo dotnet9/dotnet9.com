@@ -5,7 +5,9 @@ namespace Dotnet9.Domain.Blogs;
 
 public interface IBlogPostRepository : IRepository<BlogPost>
 {
-    Task<BlogPostWithDetails?> GetBlogPostAsync(Expression<Func<BlogPost, bool>> whereLambda);
+    Task<BlogPostWithDetails?> GetBlogPostAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection);
 
     Task<List<BlogPostWithDetails>?> SelectBlogPostAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
         Expression<Func<BlogPost, S>> orderByLambda,

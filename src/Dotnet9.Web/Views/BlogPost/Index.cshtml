@@ -19,12 +19,58 @@
     <link rel="stylesheet" href="~/css/markdown.css">
 }
 
-<h1>@Model.BlogPost.Title</h1>
-<p>
-    <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="page-aside-left">
+                    @await Html.PartialAsync("/Views/Home/ContactSidebar.cshtml")
+                    @await Component.InvokeAsync("LatestBlogPosts")
+                </div>
+                <div class="page-aside-right">
 
-@Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
+                    <h1>@Model.BlogPost.Title</h1>
+                    <p>
+                        <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                    </p>
+
+                    @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
+
+                    <div class="row pt-5">
+                        @if (Model.PreviewBlogPost != null)
+                        {
+                            <div class="col-lg-5 offset-lg-1">
+                                <div>
+                                    <div class="faq-question-q-box">上</div>
+                                    <a class="mt-1 font-14" href="/@Model.PreviewBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.PreviewBlogPost.Slug">
+                                        <h4 class="faq-question" data-wow-delay=".1s">@Model.PreviewBlogPost.Title</h4>
+                                    </a>
+                                    <p class="faq-answer mb-4">@Model.PreviewBlogPost.BriefDescription</p>
+                                </div>
+
+                            </div>
+                        }
+
+                        @if (Model.NextBlogPost != null)
+                        {
+                            <div class="col-lg-5">
+                                <div>
+                                    <div class="faq-question-q-box">下</div>
+                                    <a class="mt-1 font-14" href="/@Model.NextBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.NextBlogPost.Slug">
+                                        <h4 class="faq-question">@Model.NextBlogPost.Title</h4>
+                                    </a>
+                                    <p class="faq-answer mb-4">@Model.NextBlogPost.BriefDescription</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
 

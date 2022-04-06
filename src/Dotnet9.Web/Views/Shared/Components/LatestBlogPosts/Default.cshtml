@@ -1,0 +1,22 @@
+﻿@model Dotnet9.Web.ViewModels.Blogs.LatestViewModel
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h4 class="header-title">最新文章</h4>
+        </div>
+
+        @foreach (var post in Model.BlogPosts)
+        {
+            <div class="d-flex mt-1">
+                <div>
+                    <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                        <span class="text-muted">
+                            @post.Title
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div> <!-- end card-body-->
+</div> <!-- end card-->
