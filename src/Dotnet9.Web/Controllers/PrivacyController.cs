@@ -16,6 +16,7 @@ public class PrivacyController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var cacheKey = $"{nameof(PrivacyController)}-{nameof(Index)}";

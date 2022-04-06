@@ -92,6 +92,7 @@ public class HomeController : Controller
         _mapper = mapper;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var cacheKey = $"{nameof(HomeController)}-{nameof(Index)}";
@@ -105,13 +106,13 @@ public class HomeController : Controller
             _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend.Item1);
         cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
-            {"最新", LoadMoreKind.Latest},
-            {".NET", LoadMoreKind.Dotnet},
-            {"大前端", LoadMoreKind.Front},
-            {"数据库", LoadMoreKind.Database},
-            {"更多语言", LoadMoreKind.MoreLanguage},
-            {"课程", LoadMoreKind.Course},
-            {"其他", LoadMoreKind.Other}
+            { "最新", LoadMoreKind.Latest },
+            { ".NET", LoadMoreKind.Dotnet },
+            { "大前端", LoadMoreKind.Front },
+            { "数据库", LoadMoreKind.Database },
+            { "更多语言", LoadMoreKind.MoreLanguage },
+            { "课程", LoadMoreKind.Course },
+            { "其他", LoadMoreKind.Other }
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
@@ -119,6 +120,7 @@ public class HomeController : Controller
         return View(cacheData);
     }
 
+    [HttpGet]
     [Route("/sitemap.xml")]
     public async Task<IActionResult> Sitemap()
     {
@@ -132,7 +134,7 @@ public class HomeController : Controller
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
         var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
-        if (bytes is {Length: > 0}) return File(bytes, contentType);
+        if (bytes is { Length: > 0 }) return File(bytes, contentType);
 
         var siteMapNodes = new List<SitemapNode>();
 
@@ -186,6 +188,7 @@ public class HomeController : Controller
         return File(bytes, contentType);
     }
 
+    [HttpGet]
     [Route("seed")]
     public async Task<bool> Seed()
     {
@@ -301,7 +304,7 @@ public class HomeController : Controller
                 var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(urlLinkJsonString)!;
                 var i = 1;
                 var urlLinks = urlLinksFromFile?.Select(x =>
-                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
                             x.Name, x.Description, x.Url).Result)
                     .ToList();
                 if (urlLinks != null && urlLinks.Any())
@@ -318,7 +321,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(aboutMakrdownFilePath))
             {
                 var aboutMarkdownString = await System.IO.File.ReadAllTextAsync(aboutMakrdownFilePath);
-                var about = new About {Content = aboutMarkdownString};
+                var about = new About { Content = aboutMarkdownString };
                 await _Dotnet9DbContext.Abouts!.AddAsync(about);
                 await _Dotnet9DbContext.SaveChangesAsync();
             }
@@ -330,7 +333,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(donationMakrdownFilePath))
             {
                 var donationMarkdownString = await System.IO.File.ReadAllTextAsync(donationMakrdownFilePath);
-                var donation = new Donation {Content = donationMarkdownString};
+                var donation = new Donation { Content = donationMarkdownString };
                 await _Dotnet9DbContext.Donations!.AddAsync(donation);
                 await _Dotnet9DbContext.SaveChangesAsync();
             }
@@ -357,13 +360,20 @@ public class HomeController : Controller
             if (System.IO.File.Exists(privacyMakrdownFilePath))
             {
                 var privacyMarkdownString = await System.IO.File.ReadAllTextAsync(privacyMakrdownFilePath);
-                var privacy = new Privacy {Content = privacyMarkdownString};
+                var privacy = new Privacy { Content = privacyMarkdownString };
                 await _Dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _Dotnet9DbContext.SaveChangesAsync();
             }
         }
 
         return true;
+    }
+
+    [HttpGet]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
     private void ReadCategory(List<Category> container, CategoryItem categoryFromFile, ref int id,
@@ -374,17 +384,11 @@ public class HomeController : Controller
             Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not {Count: > 0}) return;
+        if (categoryFromFile.Children is not { Count: > 0 }) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;
             ReadCategory(container, child, ref id, currentId);
         }
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
     }
 }

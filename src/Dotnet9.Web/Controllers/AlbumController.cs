@@ -21,6 +21,7 @@ public class AlbumController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     [Route("album/{slug?}")]
     public async Task<IActionResult> Index(string? slug)
     {

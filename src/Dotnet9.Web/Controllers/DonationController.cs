@@ -16,6 +16,7 @@ public class DonationController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var cacheKey = $"{nameof(DonationController)}-{nameof(Index)}";

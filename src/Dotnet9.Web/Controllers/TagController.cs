@@ -18,6 +18,7 @@ public class TagController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     [Route("tag/{name?}")]
     public async Task<IActionResult> Index(string? name)
     {

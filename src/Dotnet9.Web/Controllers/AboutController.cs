@@ -16,6 +16,7 @@ public class AboutController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var cacheKey = $"{nameof(AboutController)}-{nameof(Index)}";

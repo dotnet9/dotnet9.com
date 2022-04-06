@@ -21,6 +21,7 @@ public class CategoryController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     [Route("cat/{slug?}")]
     public async Task<IActionResult> Index(string? slug)
     {

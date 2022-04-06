@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerSetup();
+
 GlobalVar.SiteDomain = builder.Configuration["SiteDomain"];
 GlobalVar.AssetsLocalPath = builder.Configuration["AssetsLocalPath"];
 GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
@@ -22,7 +24,16 @@ builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Home/Error");
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnet9 API v1"));
+}
+
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 
 app.UseStaticFiles();

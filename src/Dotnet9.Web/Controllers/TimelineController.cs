@@ -17,6 +17,7 @@ public class TimelineController : Controller
         _cacheService = cacheService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var cacheKey = $"{nameof(TimelineController)}-{nameof(Index)}";
@@ -24,18 +25,18 @@ public class TimelineController : Controller
         if (cacheData != null) return View(cacheData);
 
         var timelines = await _timelineAppService.ListAllAsync();
-        var vm = new TimelineViewModel();
-        vm.Timelines = new Dictionary<string, List<TimelineDto>>();
+        cacheData = new TimelineViewModel();
+        cacheData.Timelines = new Dictionary<string, List<TimelineDto>>();
         foreach (var timelineDto in timelines)
         {
             var key = timelineDto.Time.ToString("yyyy-MM");
-            if (!vm.Timelines.ContainsKey(key)) vm.Timelines[key] = new List<TimelineDto>();
+            if (!cacheData.Timelines.ContainsKey(key)) cacheData.Timelines[key] = new List<TimelineDto>();
 
-            vm.Timelines[key].Add(timelineDto);
+            cacheData.Timelines[key].Add(timelineDto);
         }
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
+        await _cacheService.ReplaceAsync(cacheKey, cacheData!, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
-        return View(vm);
+        return View(cacheData);
     }
 }

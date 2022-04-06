@@ -30,6 +30,7 @@ public class BlogPostController : Controller
         CacheHelper.Cache = _cacheService = cacheService;
     }
 
+    [HttpGet]
     [Route("/{year}/{month}/{slug?}")]
     public async Task<IActionResult> Index(int year, int month, string? slug)
     {
@@ -52,6 +53,7 @@ public class BlogPostController : Controller
         return View(cacheData);
     }
 
+    [HttpGet]
     [Route("/recommend")]
     public async Task<IActionResult> Recommend()
     {
@@ -73,6 +75,7 @@ public class BlogPostController : Controller
         return await Task.FromResult(View(cacheData));
     }
 
+    [HttpGet]
     [Route("/latest")]
     public async Task<IActionResult> LoadLatest(string kind = "", int page = 1)
     {
@@ -82,17 +85,17 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         Dictionary<LoadMoreKind, string> kindKeys = new()
         {
-            {LoadMoreKind.Dotnet, "dotnet"},
-            {LoadMoreKind.Front, "Large-front-end"},
-            {LoadMoreKind.Database, "database"},
-            {LoadMoreKind.MoreLanguage, "more-language"},
-            {LoadMoreKind.Course, "course"},
-            {LoadMoreKind.Other, "other"}
+            { LoadMoreKind.Dotnet, "dotnet" },
+            { LoadMoreKind.Front, "Large-front-end" },
+            { LoadMoreKind.Database, "database" },
+            { LoadMoreKind.MoreLanguage, "more-language" },
+            { LoadMoreKind.Course, "course" },
+            { LoadMoreKind.Other, "other" }
         };
         if (kindKeys.ContainsKey(loadKind))
         {
@@ -115,14 +118,14 @@ public class BlogPostController : Controller
         return PartialView(cacheData);
     }
 
-
+    [HttpGet]
     [Route("/q")]
     public async Task<IActionResult> Query(string? s)
     {
-        return await Task.FromResult(View(new QueryViewModel {Query = s, PageIndex = 1}));
+        return await Task.FromResult(View(new QueryViewModel { Query = s, PageIndex = 1 }));
     }
 
-
+    [HttpGet]
     [Route("/qs")]
     public async Task<IActionResult> LoadQuery(string? s, int p = 1)
     {
