@@ -40,7 +40,7 @@ public class MenuHorizontal : ViewComponent
             CategoryForMenuViewModels = ReadChildren(await _categoryAppService.ListAllAsync(), -1)
         };
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return View(cacheData);
     }

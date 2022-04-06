@@ -34,7 +34,7 @@ public class TimelineController : Controller
             vm.Timelines[key].Add(timelineDto);
         }
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return View(vm);
     }

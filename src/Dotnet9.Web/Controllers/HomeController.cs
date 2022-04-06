@@ -114,7 +114,7 @@ public class HomeController : Controller
             {"其他", LoadMoreKind.Other}
         };
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return View(cacheData);
     }

@@ -47,7 +47,7 @@ public class BlogPostController : Controller
             BlogPost = blogPostWithDetailsDto
         };
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return View(cacheData);
     }
@@ -69,7 +69,7 @@ public class BlogPostController : Controller
             cacheData.BlogPostsForRecommend =
                 _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend);
 
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
         return await Task.FromResult(View(cacheData));
     }
 
@@ -110,7 +110,7 @@ public class BlogPostController : Controller
         {
             BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(latest.Item1)
         };
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return PartialView(cacheData);
     }
@@ -149,7 +149,7 @@ public class BlogPostController : Controller
                 BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(queryResult.Item1)
             };
 
-            await _cacheService.ReplaceAsync(cacheKey, cacheData);
+            await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
             return PartialView(cacheData);
         }
