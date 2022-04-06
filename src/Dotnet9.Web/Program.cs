@@ -3,8 +3,12 @@ using System.Text.Unicode;
 using Dotnet9.Web.Caches;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
+using Serilog;
+
+SerilogSetup.AddSerilogSetup();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,6 +26,7 @@ builder.Services.AddCacheSetup();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
 var app = builder.Build();
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
