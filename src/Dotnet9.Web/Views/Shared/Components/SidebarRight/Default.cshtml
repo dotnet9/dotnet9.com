@@ -17,7 +17,7 @@
         <hr class="mt-1"/>
 
         <div class="form-check form-switch mb-1">
-            <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light" id="light-mode-check" checked>
+            <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light" id="light-mode-check">
             <label class="form-check-label" for="light-mode-check">浅色模式</label>
         </div>
 
@@ -31,7 +31,7 @@
         <h5 class="mt-4">宽度</h5>
         <hr class="mt-1"/>
         <div class="form-check form-switch mb-1">
-            <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check" checked>
+            <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check">
             <label class="form-check-label" for="fluid-check">Fluid</label>
         </div>
 
@@ -40,7 +40,7 @@
             <label class="form-check-label" for="boxed-check">Boxed</label>
         </div>
 
-
+        @*
         <!-- Left Sidebar-->
         <h5 class="mt-4">左侧边栏</h5>
         <hr class="mt-1"/>
@@ -72,7 +72,7 @@
         <div class="form-check form-switch mb-1">
             <input class="form-check-input" type="checkbox" name="compact" value="scrollable" id="scrollable-check">
             <label class="form-check-label" for="scrollable-check">Scrollable</label>
-        </div>
+        </div>*@
 
         <div class="d-grid mt-4">
             <button class="btn btn-primary" id="resetBtn">重置为默认值</button>
@@ -80,3 +80,46 @@
     </div> <!-- end padding-->
 
 </div>
+
+<script>
+    // cookie已经保存，刷新未生效，后面研究TODO
+    var isDarkModeKey = "isDarkMode";
+    var isFluidModeKey = "isFluidMode";
+    
+    function setDarkMode(isDarkMode) {
+        localStorage.setItem(isDarkModeKey, isDarkMode);
+        $("#light-mode-check").checked = !isDarkMode;
+        $("#dark-mode-check").checked = isDarkMode;
+    }
+
+    function setFluidMode(isFluidMode) {
+        localStorage.setItem(isFluidModeKey, isFluidMode);
+        $("#fluid-check").checked = isFluidMode;
+        $("#boxed-check").checked = !isFluidMode;
+    }
+
+    function setDefault() {
+        var isDarkMode = (localStorage.getItem(isDarkModeKey) === "true");
+        setDarkMode(isDarkMode);
+        
+        var isFluidMode = (localStorage.getItem(isFluidModeKey) === "true");
+        setFluidMode(isFluidMode);
+
+        $("#light-mode-check").change(function() {
+            setDarkMode(false);
+        });
+        $("#dark-mode-check").change(function() {
+            setDarkMode(true);
+        });
+        $("#fluid-check").change(function() {
+            setFluidMode(true);
+        });
+        $("#boxed-check").change(function() {
+            setFluidMode(false);
+        });
+    }
+
+    window.onload = function() {
+        setDefault();
+    };
+</script>
