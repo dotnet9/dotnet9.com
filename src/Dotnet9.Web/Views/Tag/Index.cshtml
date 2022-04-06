@@ -7,26 +7,39 @@
     var random = new Random(DateTime.Now.Millisecond);
 }
 
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="page-aside-left">
+                    @await Html.PartialAsync("/Views/BlogPost/BlogPostSidebar.cshtml")
+                </div>
+                <div class="page-aside-right">
 
-<div class="card ribbon-box">
-    <div class="card-body">
-        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 标签云 - @Model.TagName</div>
-        <p class="ribbon-content">
-            标签云功能，目的为了将具有相同标签的文章聚合在一起，方便阅读与查看。
-        </p>
-    </div> <!-- end card-body -->
-</div> <!-- end card-->
+                    <div class="card ribbon-box">
+                        <div class="card-body">
+                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 标签云 - @Model.TagName</div>
+                            <p class="ribbon-content">
+                                标签云功能，目的为了将具有相同标签的文章聚合在一起，方便阅读与查看。
+                            </p>
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-->
 
-@if (Model.Tags != null)
-{
-    @foreach (var tag in Model.Tags)
-    {
-        <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name">
-            <button type="button" class="btn btn-outline-@(buttonsClasses[random.Next(buttonsClasses.Length)]) rounded-pill">@tag.Name (@tag.BlogPostCount)</button>
-        </a>
-    }
-}
-else
-{
-    @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPosts)
-}
+                    @if (Model.Tags != null)
+                    {
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name">
+                                <button type="button" class="btn btn-outline-@(buttonsClasses[random.Next(buttonsClasses.Length)]) rounded-pill">@tag.Name (@tag.BlogPostCount)</button>
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPosts)
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,21 +19,33 @@
     <link rel="stylesheet" href="~/css/markdown.css">
 }
 
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="page-aside-left">
+                    @await Html.PartialAsync("/Views/BlogPost/BlogPostSidebar.cshtml")
+                </div>
+                <div class="page-aside-right">
 
-<div class="card ribbon-box">
-    <div class="card-body">
-        <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 关于</div>
-        <p class="ribbon-content">
-            关于Dotnet9网站
-        </p>
-    </div> <!-- end card-body -->
-</div> <!-- end card-->
+                    <div class="card ribbon-box">
+                        <div class="card-body">
+                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 关于</div>
+                            <p class="ribbon-content">
+                                关于Dotnet9网站
+                            </p>
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-->
 
-@if (Model.About != null)
-{
-    @Html.Raw(MarkdownHelper.Render(Model.About.Content))
-}
-
+                    @if (Model.About != null)
+                    {
+                        @Html.Raw(MarkdownHelper.Render(Model.About.Content))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
 
