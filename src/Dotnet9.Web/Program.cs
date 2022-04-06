@@ -1,3 +1,5 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Dotnet9.Web.Caches;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
@@ -15,6 +17,7 @@ builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultCo
 builder.Services.AddAutoMapperSetup();
 builder.Services.AddRepositorySetup();
 builder.Services.AddCacheSetup();
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
 var app = builder.Build();
 
