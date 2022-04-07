@@ -64,11 +64,59 @@
                         }
                     </div>
 
+
+                    <div class="row pt-1">
+
+                        @if (Model.SameAlbumBlogPosts != null)
+                        {
+                            <div class="col-lg-5 offset-lg-1">
+                                <h3>相同专辑</h3>
+                                <ol>
+                                    @foreach (var post in Model.SameAlbumBlogPosts)
+                                    {
+                                        <li>
+                                            <div>
+                                                <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                                                    <h4 class="faq-question" data-wow-delay=".1s">@post.Title</h4>
+                                                </a>
+                                                <p class="faq-answer mb-4">@post.BriefDescription</p>
+                                            </div>
+
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                        }
+
+                        @if (Model.SameCategoryBlogPosts != null)
+                        {
+                            <div class="col-lg-5">
+                                <h3>相同分类</h3>
+                                <ol>
+                                    @foreach (var post in Model.SameCategoryBlogPosts)
+                                    {
+                                        <li>
+                                            <div>
+                                                <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                                                    <h4 class="faq-question" data-wow-delay=".1s">@post.Title</h4>
+                                                </a>
+                                                <p class="faq-answer mb-4">@post.BriefDescription</p>
+                                            </div>
+
+                                        </li>
+                                    }
+                                </ol>
+                            </div>
+                        }
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("/Views/Home/FlowAdsSidebar.cshtml")
 
 
 @section Scripts {
