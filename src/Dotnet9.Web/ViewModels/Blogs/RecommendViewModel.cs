@@ -4,5 +4,5 @@ namespace Dotnet9.Web.ViewModels.Blogs;
 
 public class RecommendViewModel
 {
-    public List<BlogPostWithDetailsDto>? BlogPostsForRecommend { get; set; }
+    public List<BlogPostBriefDto>? BlogPostsForRecommend { get; set; }
 }

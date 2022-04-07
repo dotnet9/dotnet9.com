@@ -19,13 +19,13 @@ public class User : EntityBase
     [NotMapped]
     public UserRoleKind? RoleKind
     {
-        get => (UserRoleKind?) Enum.Parse(typeof(UserRoleKind), Role.ToString());
+        get => (UserRoleKind?)Enum.Parse(typeof(UserRoleKind), Role.ToString());
         set
         {
             if (value.HasValue)
-                Role = (int) value.Value;
+                Role = (int)value.Value;
             else
-                Role = (int) UserRoleKind.User;
+                Role = (int)UserRoleKind.User;
         }
     }
 }

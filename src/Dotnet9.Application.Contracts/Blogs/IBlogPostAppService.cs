@@ -2,6 +2,6 @@
 
 public interface IBlogPostAppService
 {
-    Task<BlogPostWithDetailsDto?> FindBySlugAsync(string slug);
+    Task<BlogPostViewModel?> FindBySlugAsync(string slug);
     Task<List<BlogPostForSitemap>> GetListBlogPostForSitemap();
 }

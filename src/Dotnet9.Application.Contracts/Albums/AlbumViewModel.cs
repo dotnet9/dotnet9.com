@@ -1,9 +1,9 @@
 ﻿using Dotnet9.Application.Contracts.Blogs;
 
-namespace Dotnet9.Web.ViewModels.Albums;
+namespace Dotnet9.Application.Contracts.Albums;
 
 public class AlbumViewModel
 {
     public string Name { get; set; } = null!;
-    public List<BlogPostWithDetailsDto> Items { get; set; } = null!;
+    public List<BlogPostBriefDto> Items { get; set; } = null!;
 }

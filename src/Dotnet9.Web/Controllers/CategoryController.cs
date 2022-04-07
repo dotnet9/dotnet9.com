@@ -2,7 +2,6 @@
 using Dotnet9.Application.Contracts.Categories;
 using Dotnet9.Core;
 using Dotnet9.Web.Caches;
-using Dotnet9.Web.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
@@ -27,24 +26,14 @@ public class CategoryController : Controller
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
 
-
         var cacheKey = $"{nameof(CategoryController)}-{nameof(Index)}-{slug}";
         var cacheData = await _cacheService.GetAsync<CategoryViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
-        var category = await _categoryAppService.GetCategoryAsync(slug!);
-        if (category == null) return NotFound();
+        cacheData = await _categoryAppService.GetCategoryAsync(slug!);
+        if (cacheData == null) return NotFound();
 
-        var blogPostList = await _categoryAppService.GetBlogPostListAsync(slug!);
-        if (blogPostList.IsNullOrEmpty()) return NotFound();
-
-        cacheData = new CategoryViewModel
-        {
-            Name = category.Name!,
-            Items = blogPostList!
-        };
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
+        await _cacheService.ReplaceAsync(cacheKey, cacheData!, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return View(cacheData);
     }

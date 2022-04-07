@@ -17,6 +17,6 @@ public class BlogPostAlbum : Entity
 
     public override object[] GetKeys()
     {
-        return new object[] {BlogPostId, AlbumId};
+        return new object[] { BlogPostId, AlbumId };
     }
 }

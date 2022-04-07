@@ -16,4 +16,16 @@ public interface IBlogPostRepository : IRepository<BlogPost>
     Task<Tuple<List<BlogPostWithDetails>, int>> SelectBlogPostAsync<S>(int pageSize, int pageIndex,
         Expression<Func<BlogPost, bool>> whereLambda,
         Expression<Func<BlogPost, S>> orderByLambda, SortDirectionKind sortDirection);
+
+    Task<BlogPostBrief?> GetBlogPostBriefAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection);
+
+    Task<List<BlogPostBrief>?> SelectBlogPostBriefAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection);
+
+    Task<Tuple<List<BlogPostBrief>, int>> SelectBlogPostBriefAsync<S>(int pageSize, int pageIndex,
+        Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda, SortDirectionKind sortDirection);
 }

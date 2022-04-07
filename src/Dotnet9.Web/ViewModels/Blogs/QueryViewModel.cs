@@ -6,5 +6,5 @@ public class QueryViewModel
 {
     public string? Query { get; set; }
     public int PageIndex { get; set; }
-    public List<BlogPostWithDetailsDto> BlogPosts { get; set; } = null!;
+    public List<BlogPostBriefDto> BlogPosts { get; set; } = null!;
 }

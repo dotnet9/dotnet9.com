@@ -16,13 +16,27 @@ public class BlogPostAppService : IBlogPostAppService
         _mapper = mapper;
     }
 
-    public async Task<BlogPostWithDetailsDto?> FindBySlugAsync(string slug)
+    public async Task<BlogPostViewModel?> FindBySlugAsync(string slug)
     {
         var blogPostWithDetails =
             await _blogPostRepository.GetBlogPostAsync(x => x.Slug == slug, x => x.Id, SortDirectionKind.Ascending);
-        return blogPostWithDetails == null
-            ? null
-            : _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails);
+        if (blogPostWithDetails == null) return null;
+
+        var vm = new BlogPostViewModel
+            { BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails) };
+
+        var previewPost = await _blogPostRepository.GetBlogPostBriefAsync(
+            x => x.CreateDate < blogPostWithDetails.CreateDate,
+            x => x.CreateDate, SortDirectionKind.Descending);
+        var nextPost = await _blogPostRepository.GetBlogPostBriefAsync(
+            x => x.CreateDate > blogPostWithDetails.CreateDate,
+            x => x.CreateDate, SortDirectionKind.Ascending);
+
+        if (previewPost != null) vm.PreviewBlogPost = _mapper.Map<BlogPostBrief, BlogPostBriefDto>(previewPost);
+
+        if (nextPost != null) vm.NextBlogPost = _mapper.Map<BlogPostBrief, BlogPostBriefDto>(nextPost);
+
+        return vm;
     }
 
     public async Task<List<BlogPostForSitemap>> GetListBlogPostForSitemap()

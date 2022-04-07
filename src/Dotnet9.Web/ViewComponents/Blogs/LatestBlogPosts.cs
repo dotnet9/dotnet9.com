@@ -27,11 +27,11 @@ public class LatestBlogPosts : ViewComponent
         var cacheData = await _cacheService.GetAsync<LatestViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
-        var latest = await _blogPostRepository.SelectBlogPostAsync(8, 1, x => x.Id > 0, x => x.CreateDate,
+        var latest = await _blogPostRepository.SelectBlogPostBriefAsync(8, 1, x => x.Id > 0, x => x.CreateDate,
             SortDirectionKind.Descending);
         cacheData = new LatestViewModel
         {
-            BlogPosts = _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(latest.Item1)
+            BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(latest.Item1)
         };
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 

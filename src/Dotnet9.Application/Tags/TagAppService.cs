@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Tags;
+using Dotnet9.Core;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Repositories;
 using Dotnet9.Domain.Tags;
@@ -23,23 +25,32 @@ public class TagAppService : ITagAppService
         _mapper = mapper;
     }
 
-    public async Task<List<TagCountDto>> GetListCountAsync()
+    public async Task<TagViewModel?> GetTagAsync(string? tagName)
     {
-        var tags = await _tagRepository.GetListCountAsync();
+        var vm = new TagViewModel();
 
-        return _mapper.Map<List<TagCount>, List<TagCountDto>>(tags);
-    }
+        if (tagName.IsNullOrWhiteSpace())
+        {
+            var tags = await _tagRepository.GetListCountAsync();
 
+            vm.Tags = _mapper.Map<List<TagCount>, List<TagCountDto>>(tags);
+        }
+        else
+        {
+            var factName = WebUtility.UrlDecode(tagName);
+            vm.TagName = tagName;
+            var tag = await _tagRepository.FindByNameAsync(tagName!);
+            if (tag != null)
+            {
+                var blogPosts =
+                    await _blogPostRepository.SelectBlogPostBriefAsync(x =>
+                            x.Tags != null && x.Tags.Any(d => d.TagId == tag.Id),
+                        x => x.CreateDate, SortDirectionKind.Descending);
+                if (blogPosts != null)
+                    vm.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPosts);
+            }
+        }
 
-    public async Task<List<BlogPostWithDetailsDto>?> GetBlogPostListAsync(string tagName)
-    {
-        var album = await _tagRepository.FindByNameAsync(tagName);
-        if (album == null) return null;
-        var blogPostWithDetailsLists =
-            await _blogPostRepository.SelectBlogPostAsync(x => x.Tags != null && x.Tags.Any(d => d.TagId == album.Id),
-                x => x.CreateDate, SortDirectionKind.Descending);
-        return blogPostWithDetailsLists == null
-            ? null
-            : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPostWithDetailsLists);
+        return vm;
     }
 }

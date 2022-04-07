@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
+using Dotnet9.Core;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Repositories;
@@ -23,10 +24,20 @@ public class AlbumAppService : IAlbumAppService
         _mapper = mapper;
     }
 
-    public async Task<AlbumDto?> GetAlbumAsync(string slug)
+    public async Task<AlbumViewModel?> GetAlbumAsync(string slug)
     {
         var album = await _albumRepository.GetAsync(x => x.Slug == slug);
-        return album == null ? null : _mapper.Map<Album, AlbumDto>(album);
+        if (album == null) return null;
+        var vm = new AlbumViewModel { Name = album.Name };
+
+        var blogPostList =
+            await _blogPostRepository.SelectBlogPostBriefAsync(
+                x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
+                SortDirectionKind.Ascending);
+        if (!blogPostList.IsNullOrEmpty())
+            vm.Items = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPostList);
+
+        return vm;
     }
 
     public async Task<List<AlbumCountDto>> GetListCountAsync()
@@ -34,18 +45,5 @@ public class AlbumAppService : IAlbumAppService
         var categories = await _albumRepository.GetListCountAsync();
 
         return _mapper.Map<List<AlbumCount>, List<AlbumCountDto>>(categories);
-    }
-
-    public async Task<List<BlogPostWithDetailsDto>?> GetBlogPostListAsync(string albumSlug)
-    {
-        var album = await _albumRepository.FindBySlugAsync(albumSlug);
-        if (album == null) return null;
-        var blogPosts =
-            await _blogPostRepository.SelectBlogPostAsync(
-                x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
-                SortDirectionKind.Ascending);
-        return blogPosts == null
-            ? null
-            : _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(blogPosts);
     }
 }

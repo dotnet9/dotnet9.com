@@ -17,6 +17,6 @@ public class BlogPostTag : Entity
 
     public override object[] GetKeys()
     {
-        return new object[] {BlogPostId, TagId};
+        return new object[] { BlogPostId, TagId };
     }
 }

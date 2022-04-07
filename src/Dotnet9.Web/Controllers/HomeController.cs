@@ -100,10 +100,10 @@ public class HomeController : Controller
         if (cacheData != null) return View(cacheData);
 
         cacheData = new HomeViewModel();
-        var recommend = await _blogPostRepository.SelectBlogPostAsync(8, 1, x => x.InBanner, x => x.CreateDate,
+        var recommend = await _blogPostRepository.SelectBlogPostBriefAsync(8, 1, x => x.InBanner, x => x.CreateDate,
             SortDirectionKind.Descending);
         cacheData.BlogPostsForRecommend =
-            _mapper.Map<List<BlogPostWithDetails>, List<BlogPostWithDetailsDto>>(recommend.Item1);
+            _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend.Item1);
         cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
             { "最新", LoadMoreKind.Latest },

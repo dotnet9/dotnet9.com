@@ -11,7 +11,8 @@ public class CategoryManager
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<Category> CreateAsync(int? id, string name, string slug, string cover, string? description, int parentId)
+    public async Task<Category> CreateAsync(int? id, string name, string slug, string cover, string? description,
+        int parentId)
     {
         Check.NotNullOrWhiteSpace(name, nameof(name));
         Check.NotNullOrWhiteSpace(slug, nameof(slug));

@@ -2,7 +2,6 @@
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Core;
 using Dotnet9.Web.Caches;
-using Dotnet9.Web.ViewModels.Albums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
@@ -31,16 +30,8 @@ public class AlbumController : Controller
         var cacheData = await _cacheService.GetAsync<AlbumViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
-        var album = await _albumAppService.GetAlbumAsync(slug!);
-        if (album == null) return NotFound();
-        var blogPostList = await _albumAppService.GetBlogPostListAsync(slug!);
-        if (blogPostList.IsNullOrEmpty()) return NotFound();
-
-        cacheData = new AlbumViewModel
-        {
-            Name = album.Name!,
-            Items = blogPostList!
-        };
+        cacheData = await _albumAppService.GetAlbumAsync(slug!);
+        if (cacheData == null) return NotFound();
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 

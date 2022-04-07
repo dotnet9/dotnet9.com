@@ -6,8 +6,8 @@ namespace Dotnet9.Application.Privacies;
 
 public class PrivacyAppService : IPrivacyAppService
 {
-    private readonly IPrivacyRepository _privacyRepository;
     private readonly IMapper _mapper;
+    private readonly IPrivacyRepository _privacyRepository;
 
     public PrivacyAppService(IPrivacyRepository privacyRepository, IMapper mapper)
     {

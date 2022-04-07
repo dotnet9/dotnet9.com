@@ -74,6 +74,54 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
         return new Tuple<List<BlogPostWithDetails>, int>(lst, total);
     }
 
+    public async Task<BlogPostBrief?> GetBlogPostBriefAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection)
+    {
+        return await GetBlogPostBriefQuery(whereLambda, orderByLambda, sortDirection).FirstOrDefaultAsync();
+    }
+
+
+    public async Task<List<BlogPostBrief>?> SelectBlogPostBriefAsync<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection)
+    {
+        return await GetBlogPostBriefQuery(whereLambda, orderByLambda, sortDirection).ToListAsync();
+    }
+
+    public async Task<Tuple<List<BlogPostBrief>, int>> SelectBlogPostBriefAsync<S>(int pageSize, int pageIndex,
+        Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda, SortDirectionKind sortDirection)
+    {
+        var total = await DbContext.Set<BlogPost>().Where(whereLambda).CountAsync();
+
+        var query = DbContext.BlogPosts!
+            .Include(x => x.Albums)
+            .Include(x => x.Categories)
+            .Include(x => x.Tags)
+            .Where(whereLambda);
+
+        query = sortDirection == SortDirectionKind.Ascending
+            ? query.AsNoTracking().OrderBy(orderByLambda)
+            : query.AsNoTracking().OrderByDescending(orderByLambda);
+
+        var lst = await query.Skip(pageSize * (pageIndex - 1)).Take(pageSize)
+            .Select(x => new BlogPostBrief
+            {
+                Title = x.Title,
+                Slug = x.Slug,
+                BriefDescription = x.BriefDescription,
+                Cover = x.Cover,
+                CopyrightType = x.CopyrightType,
+                Original = x.Original,
+                OriginalTitle = x.OriginalTitle,
+                OriginalLink = x.OriginalLink,
+                CreateDate = x.CreateDate
+            }).ToListAsync();
+
+        return new Tuple<List<BlogPostBrief>, int>(lst, total);
+    }
+
     private IQueryable<BlogPostWithDetails> GetBlogPostQuery<S>(Expression<Func<BlogPost, bool>> whereLambda,
         Expression<Func<BlogPost, S>> orderByLambda,
         SortDirectionKind sortDirection)
@@ -112,6 +160,38 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
                 TagNames = (from blogPostTag in x.Tags
                     join tag in dbContext.Set<Tag>() on blogPostTag.TagId equals tag.Id
                     select tag.Name).ToArray(),
+                CreateDate = x.CreateDate
+            });
+    }
+
+
+    private IQueryable<BlogPostBrief> GetBlogPostBriefQuery<S>(Expression<Func<BlogPost, bool>> whereLambda,
+        Expression<Func<BlogPost, S>> orderByLambda,
+        SortDirectionKind sortDirection)
+    {
+        var dbContext = GetDbContextAsync().Result;
+
+        var query = dbContext.BlogPosts!
+            .Include(x => x.Albums)
+            .Include(x => x.Categories)
+            .Include(x => x.Tags)
+            .Where(whereLambda);
+
+        query = sortDirection == SortDirectionKind.Ascending
+            ? query.AsNoTracking().OrderBy(orderByLambda)
+            : query.AsNoTracking().OrderByDescending(orderByLambda);
+
+        return query
+            .Select(x => new BlogPostBrief
+            {
+                Title = x.Title,
+                Slug = x.Slug,
+                BriefDescription = x.BriefDescription,
+                Cover = x.Cover,
+                CopyrightType = x.CopyrightType,
+                Original = x.Original,
+                OriginalTitle = x.OriginalTitle,
+                OriginalLink = x.OriginalLink,
                 CreateDate = x.CreateDate
             });
     }
