@@ -132,7 +132,6 @@ public class BlogPost : EntityBase
         if (IsInCategory(categoryId)) return;
 
         Categories!.Add(new BlogPostCategory(Id, categoryId));
-        Console.WriteLine($"{Id}==={categoryId}");
     }
 
     public void RemoveCategory(int categoryId)
