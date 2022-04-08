@@ -35,7 +35,7 @@ public class AlbumAppService : IAlbumAppService
                 x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
                 SortDirectionKind.Ascending);
         if (!blogPostList.IsNullOrEmpty())
-            vm.Items = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPostList);
+            vm.Items = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPostList!);
 
         return vm;
     }
