@@ -23,7 +23,7 @@ public class LatestBlogPosts : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var cacheKey = $"{nameof(LatestBlogPosts)}-{nameof(InvokeAsync)}";
+        const string cacheKey = $"{nameof(LatestBlogPosts)}-{nameof(InvokeAsync)}";
         var cacheData = await _cacheService.GetAsync<LatestViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 

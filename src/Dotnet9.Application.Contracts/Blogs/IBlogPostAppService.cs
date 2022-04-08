@@ -3,5 +3,6 @@
 public interface IBlogPostAppService
 {
     Task<BlogPostViewModel?> FindBySlugAsync(string slug);
-    Task<List<BlogPostForSitemap>> GetListBlogPostForSitemap();
+    Task<RecommendViewModel> GetRecommendBlogPostAsync();
+    Task<List<BlogPostForSitemap>> GetListBlogPostForSitemapAsync();
 }

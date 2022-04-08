@@ -18,6 +18,17 @@ public class BlogPostController : Controller
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICacheService _cacheService;
     private readonly ICategoryRepository _categoryRepository;
+
+    private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
+    {
+        { LoadMoreKind.Dotnet, "dotnet" },
+        { LoadMoreKind.Front, "Large-front-end" },
+        { LoadMoreKind.Database, "database" },
+        { LoadMoreKind.MoreLanguage, "more-language" },
+        { LoadMoreKind.Course, "course" },
+        { LoadMoreKind.Other, "other" }
+    };
+
     private readonly IMapper _mapper;
 
     public BlogPostController(IBlogPostAppService blogPostAppService, IBlogPostRepository blogPostRepository,
@@ -52,22 +63,14 @@ public class BlogPostController : Controller
     [Route("/recommend")]
     public async Task<IActionResult> Recommend()
     {
-        var cacheKey = $"{nameof(BlogPostController)}-{nameof(Recommend)}";
+        const string cacheKey = $"{nameof(BlogPostController)}-{nameof(Recommend)}";
         var cacheData = await _cacheService.GetAsync<RecommendViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
-        cacheData = new RecommendViewModel();
-
-        var recommend =
-            await _blogPostRepository.SelectBlogPostBriefAsync(x => x.InBanner, x => x.CreateDate,
-                SortDirectionKind.Descending);
-
-        if (recommend != null)
-            cacheData.BlogPostsForRecommend =
-                _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend);
+        cacheData = await _blogPostAppService.GetRecommendBlogPostAsync();
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
-        return await Task.FromResult(View(cacheData));
+        return View(cacheData);
     }
 
     [HttpGet]
@@ -83,18 +86,9 @@ public class BlogPostController : Controller
             loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
-        Dictionary<LoadMoreKind, string> kindKeys = new()
+        if (_kindKeys.ContainsKey(loadKind))
         {
-            { LoadMoreKind.Dotnet, "dotnet" },
-            { LoadMoreKind.Front, "Large-front-end" },
-            { LoadMoreKind.Database, "database" },
-            { LoadMoreKind.MoreLanguage, "more-language" },
-            { LoadMoreKind.Course, "course" },
-            { LoadMoreKind.Other, "other" }
-        };
-        if (kindKeys.ContainsKey(loadKind))
-        {
-            var categoryKey = kindKeys[loadKind];
+            var categoryKey = _kindKeys[loadKind];
             var dotnetCategoryIds =
                 (await _categoryRepository.SelectAsync(x => x.Slug.StartsWith(categoryKey))).Select(x => x.Id);
             whereLambda = x =>
@@ -108,6 +102,7 @@ public class BlogPostController : Controller
         {
             BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(latest.Item1)
         };
+
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
         return PartialView(cacheData);
@@ -132,26 +127,25 @@ public class BlogPostController : Controller
         if (!s.IsNullOrWhiteSpace())
         {
             var queryStr = WebUtility.UrlDecode(s);
-            whereLambda = x => x.Title.Contains(queryStr!) || x.Content.Contains(queryStr!);
+            whereLambda = x =>
+                x.Title.Contains(queryStr!) || x.Content.Contains(queryStr!) ||
+                (x.Original != null && x.Original.Contains(queryStr!));
         }
 
         var queryResult = await _blogPostRepository.SelectBlogPostBriefAsync(8, p, whereLambda, x => x.CreateDate,
             SortDirectionKind.Descending);
 
-        if (queryResult.Item1.Any())
+        if (!queryResult.Item1.Any()) return Json("");
+
+        cacheData = new QueryViewModel
         {
-            cacheData = new QueryViewModel
-            {
-                Query = s,
-                PageIndex = p,
-                BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1)
-            };
+            Query = s,
+            PageIndex = p,
+            BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1)
+        };
 
-            await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
+        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
-            return PartialView(cacheData);
-        }
-
-        return Json("");
+        return PartialView(cacheData);
     }
 }

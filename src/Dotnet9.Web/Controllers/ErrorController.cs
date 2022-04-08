@@ -8,7 +8,6 @@ public class ErrorController : Controller
     [Route("/error/{0}")]
     public IActionResult Index()
     {
-        if (Response.StatusCode == StatusCodes.Status404NotFound) return View("/Views/Error/Index.cshtml");
-        return View();
+        return Response.StatusCode == StatusCodes.Status404NotFound ? View("/Views/Error/Index.cshtml") : View();
     }
 }

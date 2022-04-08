@@ -41,7 +41,7 @@ public class BlogPostAppService : IBlogPostAppService
             x => x.CreateDate, SortDirectionKind.Ascending);
         if (!blogPostWithDetails.AlbumNames.IsNullOrEmpty())
         {
-            var album = await _albumRepository.GetAsync(x => x.Name == blogPostWithDetails.AlbumNames![0]);
+            var album = await _albumRepository.GetAsync(x => x.Name == blogPostWithDetails.AlbumNames!.First().Name);
             if (album != null)
             {
                 var sameAlbumPost = await _blogPostRepository.SelectBlogPostBriefAsync(4, 1,
@@ -54,7 +54,7 @@ public class BlogPostAppService : IBlogPostAppService
         if (!blogPostWithDetails.CategoryNames.IsNullOrEmpty())
         {
             var category =
-                await _categoryRepository.GetAsync(x => x.Name == blogPostWithDetails.CategoryNames![0]);
+                await _categoryRepository.GetAsync(x => x.Name == blogPostWithDetails.CategoryNames!.First().Name);
             if (category != null)
             {
                 var sameCategoryPost = await _blogPostRepository.SelectBlogPostBriefAsync(4, 1,
@@ -72,7 +72,21 @@ public class BlogPostAppService : IBlogPostAppService
         return vm;
     }
 
-    public async Task<List<BlogPostForSitemap>> GetListBlogPostForSitemap()
+    public async Task<RecommendViewModel> GetRecommendBlogPostAsync()
+    {
+        var vm = new RecommendViewModel();
+
+        var recommend =
+            await _blogPostRepository.SelectBlogPostBriefAsync(x => x.InBanner, x => x.CreateDate,
+                SortDirectionKind.Descending);
+
+        if (recommend != null)
+            vm.Items =
+                _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend);
+        return vm;
+    }
+
+    public async Task<List<BlogPostForSitemap>> GetListBlogPostForSitemapAsync()
     {
         var blogPosts = await _blogPostRepository.SelectAsync();
         return _mapper.Map<List<BlogPost>, List<BlogPostForSitemap>>(blogPosts);

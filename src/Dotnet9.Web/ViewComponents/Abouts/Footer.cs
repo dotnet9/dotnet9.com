@@ -18,7 +18,7 @@ public class Footer : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var cacheKey = $"{nameof(Footer)}";
+        const string cacheKey = $"{nameof(Footer)}";
         var cacheData = await _cacheService.GetAsync<FooterViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 

@@ -35,59 +35,47 @@ public class HomeController : Controller
 {
     private readonly IAlbumAppService _albumAppService;
     private readonly AlbumManager _albumManager;
-    private readonly IAlbumRepository _albumRepository;
     private readonly IBlogPostAppService _blogPostAppService;
     private readonly BlogPostManager _blogPostManager;
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICacheService _cacheService;
     private readonly ICategoryAppService _categoryAppService;
     private readonly CategoryManager _categoryManager;
-    private readonly ICategoryRepository _categoryRepository;
-    private readonly Dotnet9DbContext _Dotnet9DbContext;
-    private readonly IHostEnvironment _hostEnvironment;
+    private readonly Dotnet9DbContext _dotnet9DbContext;
     private readonly ILogger<HomeController> _logger;
     private readonly IMapper _mapper;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
     private readonly UrlLinkManager _urlLinkManager;
-    private readonly IUrlLinkRepository _urlLinkRepository;
 
     public HomeController(
         ILogger<HomeController> logger,
-        Dotnet9DbContext Dotnet9DbContext,
+        Dotnet9DbContext dotnet9DbContext,
         IAlbumAppService albumAppService,
-        IAlbumRepository albumRepository,
         AlbumManager albumManager,
         ICategoryAppService categoryAppService,
-        ICategoryRepository categoryRepository,
         CategoryManager categoryManager,
         ITagRepository tagRepository,
         TagManager tagManager,
         IBlogPostAppService blogPostAppService,
         IBlogPostRepository blogPostRepository,
         BlogPostManager blogPostManager,
-        IUrlLinkRepository urlLinkRepository,
         UrlLinkManager urlLinkManager,
-        IHostEnvironment hostEnvironment,
         ICacheService cacheService,
         IMapper mapper)
     {
         _logger = logger;
-        _Dotnet9DbContext = Dotnet9DbContext;
+        _dotnet9DbContext = dotnet9DbContext;
         _albumAppService = albumAppService;
-        _albumRepository = albumRepository;
         _albumManager = albumManager;
         _categoryAppService = categoryAppService;
-        _categoryRepository = categoryRepository;
         _categoryManager = categoryManager;
         _tagRepository = tagRepository;
         _tagManager = tagManager;
         _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
         _blogPostManager = blogPostManager;
-        _urlLinkRepository = urlLinkRepository;
         _urlLinkManager = urlLinkManager;
-        _hostEnvironment = hostEnvironment;
         _cacheService = cacheService;
         _mapper = mapper;
     }
@@ -95,7 +83,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var cacheKey = $"{nameof(HomeController)}-{nameof(Index)}";
+        const string cacheKey = $"{nameof(HomeController)}-{nameof(Index)}";
         var cacheData = await _cacheService.GetAsync<HomeViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
@@ -152,7 +140,7 @@ public class HomeController : Controller
             Frequency = SitemapFrequency.Monthly
         }));
 
-        siteMapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemap()).Select(x =>
+        siteMapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemapAsync()).Select(x =>
             new SitemapNode
             {
                 LastModified = x.CreateDate, Priority = 0.9,
@@ -192,50 +180,114 @@ public class HomeController : Controller
     [Route("seed")]
     public async Task<bool> Seed()
     {
-        if (await _Dotnet9DbContext.Albums!.CountAsync() <= 0)
+        await SeedAlbums();
+
+        await SeedCategory();
+
+        await SeedBlogPost();
+
+        await SeedUrlLink();
+
+        await SeedAbout();
+
+        await SeedDonation();
+
+        await SeedTimeline();
+
+        await SeedPrivacy();
+
+        return true;
+    }
+
+    private async Task SeedPrivacy()
+    {
+        if (await _dotnet9DbContext.Privacies!.CountAsync() <= 0)
         {
-            var albumJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "albums", "album.json");
-            if (System.IO.File.Exists(albumJsonFilePath))
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "Privacy.md");
+            if (System.IO.File.Exists(filePath))
             {
-                var albumJsonString = await System.IO.File.ReadAllTextAsync(albumJsonFilePath);
-                var albumsFromFile = JsonConvert.DeserializeObject<List<AlbumItem>>(albumJsonString);
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var privacy = new Privacy { Content = fileContent };
+                await _dotnet9DbContext.Privacies!.AddAsync(privacy);
+                await _dotnet9DbContext.SaveChangesAsync();
+            }
+        }
+    }
+
+    private async Task SeedTimeline()
+    {
+        if (await _dotnet9DbContext.Timelines!.CountAsync() <= 0)
+        {
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "timelines.json");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var timelinesFromFile = JsonConvert.DeserializeObject<List<Timeline>>(fileContent)!;
+                if (timelinesFromFile != null && timelinesFromFile.Any())
+                {
+                    await _dotnet9DbContext.Timelines!.AddRangeAsync(timelinesFromFile);
+                    await _dotnet9DbContext.SaveChangesAsync();
+                }
+            }
+        }
+    }
+
+    private async Task SeedDonation()
+    {
+        if (await _dotnet9DbContext.Donations!.CountAsync() <= 0)
+        {
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "pays", "Donation.md");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var donation = new Donation { Content = fileContent };
+                await _dotnet9DbContext.Donations!.AddAsync(donation);
+                await _dotnet9DbContext.SaveChangesAsync();
+            }
+        }
+    }
+
+    private async Task SeedAbout()
+    {
+        if (await _dotnet9DbContext.Abouts!.CountAsync() <= 0)
+        {
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "about.md");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var about = new About { Content = fileContent };
+                await _dotnet9DbContext.Abouts!.AddAsync(about);
+                await _dotnet9DbContext.SaveChangesAsync();
+            }
+        }
+    }
+
+    private async Task SeedUrlLink()
+    {
+        if (await _dotnet9DbContext.UrlLinks!.CountAsync() <= 0)
+        {
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "link.json");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(fileContent)!;
                 var i = 1;
-                var albums = albumsFromFile?.Select(x => _albumManager.CreateAsync(i++, x.Name, x.Slug,
-                        Path.Combine(GlobalVar.AssetsRemotePath!, x.Cover), null).Result
-                    )
+                var urlLinks = urlLinksFromFile?.Select(x =>
+                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                            x.Name, x.Description, x.Url).Result)
                     .ToList();
-                if (albums != null && albums.Any())
+                if (urlLinks != null && urlLinks.Any())
                 {
-                    await _Dotnet9DbContext.Albums!.AddRangeAsync(albums);
-                    await _Dotnet9DbContext.SaveChangesAsync();
+                    await _dotnet9DbContext.UrlLinks!.AddRangeAsync(urlLinks);
+                    await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
+    }
 
-        if (await _Dotnet9DbContext.Categories!.CountAsync() <= 0)
-        {
-            var categoryJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "cats", "category.json");
-            if (System.IO.File.Exists(categoryJsonFilePath))
-            {
-                var categoryJsonString = await System.IO.File.ReadAllTextAsync(categoryJsonFilePath);
-                var categoriesFromFile = JsonConvert.DeserializeObject<List<CategoryItem>>(categoryJsonString)!;
-                var i = 1;
-                var categoriesToDb = new List<Category>();
-                foreach (var child in categoriesFromFile)
-                {
-                    ReadCategory(categoriesToDb, child, ref i, -1);
-                    i++;
-                }
-
-                if (categoriesToDb.Any())
-                {
-                    await _Dotnet9DbContext.Categories!.AddRangeAsync(categoriesToDb);
-                    await _Dotnet9DbContext.SaveChangesAsync();
-                }
-            }
-        }
-
-        if (await _Dotnet9DbContext.BlogPosts!.CountAsync() <= 0)
+    private async Task SeedBlogPost()
+    {
+        if (await _dotnet9DbContext.BlogPosts!.CountAsync() <= 0)
         {
             var blogPostFiles = Directory.GetFiles(GlobalVar.AssetsLocalPath!, "*.info", SearchOption.AllDirectories);
             foreach (var blogPostFile in blogPostFiles)
@@ -260,8 +312,8 @@ public class HomeController : Controller
                             if (existTag != null) continue;
 
                             existTag = await _tagManager.CreateAsync(null, tagName);
-                            await _Dotnet9DbContext.Tags!.AddAsync(existTag);
-                            await _Dotnet9DbContext.SaveChangesAsync();
+                            await _dotnet9DbContext.Tags!.AddAsync(existTag);
+                            await _dotnet9DbContext.SaveChangesAsync();
                         }
                         catch
                         {
@@ -270,7 +322,7 @@ public class HomeController : Controller
 
                 try
                 {
-                    await _Dotnet9DbContext.BlogPosts!.AddAsync(await _blogPostManager.CreateAsync(
+                    await _dotnet9DbContext.BlogPosts!.AddAsync(await _blogPostManager.CreateAsync(
                         blogPostSeed.Title,
                         blogPostSeed.Slug,
                         blogPostSeed.BriefDescription,
@@ -286,7 +338,7 @@ public class HomeController : Controller
                         blogPostSeed.Categories,
                         blogPostSeed.Tags,
                         DateTime.Parse(blogPostSeed.CreateDate!)));
-                    await _Dotnet9DbContext.SaveChangesAsync();
+                    await _dotnet9DbContext.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
@@ -294,79 +346,55 @@ public class HomeController : Controller
                 }
             }
         }
+    }
 
-        if (await _Dotnet9DbContext.UrlLinks!.CountAsync() <= 0)
+    private async Task SeedCategory()
+    {
+        if (await _dotnet9DbContext.Categories!.CountAsync() <= 0)
         {
-            var urlLinkJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "link.json");
-            if (System.IO.File.Exists(urlLinkJsonFilePath))
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "cats", "category.json");
+            if (System.IO.File.Exists(filePath))
             {
-                var urlLinkJsonString = await System.IO.File.ReadAllTextAsync(urlLinkJsonFilePath);
-                var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(urlLinkJsonString)!;
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var categoriesFromFile = JsonConvert.DeserializeObject<List<CategoryItem>>(fileContent)!;
                 var i = 1;
-                var urlLinks = urlLinksFromFile?.Select(x =>
-                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
-                            x.Name, x.Description, x.Url).Result)
+                var categoriesToDb = new List<Category>();
+                foreach (var child in categoriesFromFile)
+                {
+                    ReadCategory(categoriesToDb, child, ref i, -1);
+                    i++;
+                }
+
+                if (categoriesToDb.Any())
+                {
+                    await _dotnet9DbContext.Categories!.AddRangeAsync(categoriesToDb);
+                    await _dotnet9DbContext.SaveChangesAsync();
+                }
+            }
+        }
+    }
+
+    private async Task SeedAlbums()
+    {
+        if (await _dotnet9DbContext.Albums!.CountAsync() <= 0)
+        {
+            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "albums", "album.json");
+            if (System.IO.File.Exists(filePath))
+            {
+                var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
+                var albumsFromFile = JsonConvert.DeserializeObject<List<AlbumItem>>(fileContent);
+                var i = 1;
+                var albums = albumsFromFile?.Select(x => _albumManager.CreateAsync(i++, x.Name, x.Slug,
+                        Path.Combine(GlobalVar.AssetsRemotePath!, x.Cover), null).Result
+                    )
                     .ToList();
-                if (urlLinks != null && urlLinks.Any())
+                if (albums != null && albums.Any())
                 {
-                    await _Dotnet9DbContext.UrlLinks!.AddRangeAsync(urlLinks);
-                    await _Dotnet9DbContext.SaveChangesAsync();
+                    await _dotnet9DbContext.Albums!.AddRangeAsync(albums);
+                    await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
-
-        if (await _Dotnet9DbContext.Abouts!.CountAsync() <= 0)
-        {
-            var aboutMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "about.md");
-            if (System.IO.File.Exists(aboutMakrdownFilePath))
-            {
-                var aboutMarkdownString = await System.IO.File.ReadAllTextAsync(aboutMakrdownFilePath);
-                var about = new About { Content = aboutMarkdownString };
-                await _Dotnet9DbContext.Abouts!.AddAsync(about);
-                await _Dotnet9DbContext.SaveChangesAsync();
-            }
-        }
-
-        if (await _Dotnet9DbContext.Donations!.CountAsync() <= 0)
-        {
-            var donationMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "pays", "Donation.md");
-            if (System.IO.File.Exists(donationMakrdownFilePath))
-            {
-                var donationMarkdownString = await System.IO.File.ReadAllTextAsync(donationMakrdownFilePath);
-                var donation = new Donation { Content = donationMarkdownString };
-                await _Dotnet9DbContext.Donations!.AddAsync(donation);
-                await _Dotnet9DbContext.SaveChangesAsync();
-            }
-        }
-
-        if (await _Dotnet9DbContext.Timelines!.CountAsync() <= 0)
-        {
-            var timelinesJsonFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "timelines.json");
-            if (System.IO.File.Exists(timelinesJsonFilePath))
-            {
-                var timelinesJsonString = await System.IO.File.ReadAllTextAsync(timelinesJsonFilePath);
-                var timelinesFromFile = JsonConvert.DeserializeObject<List<Timeline>>(timelinesJsonString)!;
-                if (timelinesFromFile != null && timelinesFromFile.Any())
-                {
-                    await _Dotnet9DbContext.Timelines!.AddRangeAsync(timelinesFromFile);
-                    await _Dotnet9DbContext.SaveChangesAsync();
-                }
-            }
-        }
-
-        if (await _Dotnet9DbContext.Privacies!.CountAsync() <= 0)
-        {
-            var privacyMakrdownFilePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "Privacy.md");
-            if (System.IO.File.Exists(privacyMakrdownFilePath))
-            {
-                var privacyMarkdownString = await System.IO.File.ReadAllTextAsync(privacyMakrdownFilePath);
-                var privacy = new Privacy { Content = privacyMarkdownString };
-                await _Dotnet9DbContext.Privacies!.AddAsync(privacy);
-                await _Dotnet9DbContext.SaveChangesAsync();
-            }
-        }
-
-        return true;
     }
 
     [HttpGet]

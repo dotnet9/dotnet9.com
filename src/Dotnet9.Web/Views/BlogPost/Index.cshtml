@@ -1,4 +1,5 @@
 ﻿@using Dotnet9.Web.ViewModels.Blogs
+@using System.Net
 @using Dotnet9.Web.Utils
 @model Dotnet9.Application.Contracts.Blogs.BlogPostViewModel
 @{
@@ -35,9 +36,45 @@
                 <div class="page-aside-right">
 
                     <h1>@Model.BlogPost.Title</h1>
-                    <p>
+                    <div class="footer-links d-none d-md-block mb-5">
                         <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
-                    </p>
+                        -
+                        @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
+                        {
+                            <span>专辑：</span>
+                            @foreach (var album in Model.BlogPost.AlbumNames)
+                            {
+                                <span>
+                                    <a href="/album/@album.Slug">@album.Name</a>
+                                </span>
+                                <span>|</span>
+                            }
+                        }
+                        -
+                        @if (Model.BlogPost.CategoryNames != null && Model.BlogPost.CategoryNames.Any())
+                        {
+                            <span>分类：</span>
+                            @foreach (var categor in Model.BlogPost.CategoryNames)
+                            {
+                                <span>
+                                    <a href="/cat/@categor.Slug">@categor.Name</a>
+                                </span>
+                                <span>|</span>
+                            }
+                        }
+                        -
+                        @if (Model.BlogPost.TagNames != null && Model.BlogPost.TagNames.Any())
+                        {
+                            <span>标签：</span>
+                            @foreach (var name in Model.BlogPost.TagNames)
+                            {
+                                <span>
+                                    <a href="/tag/@WebUtility.UrlEncode(name)">@name</a>
+                                </span>
+                                <span>|</span>
+                            }
+                        }
+                    </div>
 
                     @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
 

@@ -30,6 +30,8 @@ public class CustomProfile : Profile
         CreateMap<Category, CategoryDto>();
         CreateMap<TagCount, TagCountDto>();
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
+        CreateMap<AlbumBrief, AlbumBriefDto>();
+        CreateMap<CategoryBrief, CategoryBriefDto>();
         CreateMap<BlogPostBrief, BlogPostBriefDto>();
         CreateMap<UrlLink, UrlLinkDto>();
         CreateMap<About, AboutDto>().ReverseMap();

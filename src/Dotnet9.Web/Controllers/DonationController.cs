@@ -19,7 +19,7 @@ public class DonationController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var cacheKey = $"{nameof(DonationController)}-{nameof(Index)}";
+        const string cacheKey = $"{nameof(DonationController)}-{nameof(Index)}";
         var cacheData = await _cacheService.GetAsync<DonationViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 

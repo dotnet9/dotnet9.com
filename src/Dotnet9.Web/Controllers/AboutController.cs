@@ -19,7 +19,7 @@ public class AboutController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var cacheKey = $"{nameof(AboutController)}-{nameof(Index)}";
+        const string cacheKey = $"{nameof(AboutController)}-{nameof(Index)}";
         var cacheData = await _cacheService.GetAsync<AboutViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 

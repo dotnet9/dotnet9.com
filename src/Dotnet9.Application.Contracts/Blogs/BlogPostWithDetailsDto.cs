@@ -1,4 +1,6 @@
-﻿using Dotnet9.Domain.Shared.Blogs;
+﻿using Dotnet9.Application.Contracts.Albums;
+using Dotnet9.Application.Contracts.Categories;
+using Dotnet9.Domain.Shared.Blogs;
 
 namespace Dotnet9.Application.Contracts.Blogs;
 
@@ -22,9 +24,9 @@ public class BlogPostWithDetailsDto
 
     public string? OriginalLink { get; set; }
 
-    public string[]? AlbumNames { get; set; }
+    public AlbumBriefDto[]? AlbumNames { get; set; }
 
-    public string[]? CategoryNames { get; set; }
+    public CategoryBriefDto[]? CategoryNames { get; set; }
 
     public string[]? TagNames { get; set; }
 

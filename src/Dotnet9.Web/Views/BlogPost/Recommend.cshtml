@@ -1,4 +1,4 @@
-﻿@model Dotnet9.Web.ViewModels.Blogs.RecommendViewModel
+﻿@model Dotnet9.Application.Contracts.Blogs.RecommendViewModel
 @{
     ViewData["Title"] = "推荐博文";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
@@ -23,7 +23,7 @@
                         </div> <!-- end card-body -->
                     </div> <!-- end card-->
 
-                    @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPostsForRecommend)
+                    @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.Items)
 
                 </div>
             </div>
