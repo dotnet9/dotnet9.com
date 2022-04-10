@@ -226,6 +226,8 @@ public class HomeController : Controller
 
     private async Task SeedPrivacy()
     {
+        _logger.LogInformation("做隐私数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Privacies!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "Privacy.md");
@@ -235,12 +237,17 @@ public class HomeController : Controller
                 var privacy = new Privacy {Content = fileContent};
                 await _dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _dotnet9DbContext.SaveChangesAsync();
+                addCount = 1;
             }
         }
+
+        _logger.LogInformation(addCount > 0 ? "做隐私数据种子-----成功" : "做隐私数据种子-----有数据，无须添加");
     }
 
     private async Task SeedTimeline()
     {
+        _logger.LogInformation("做时间线数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Timelines!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "timelines.json");
@@ -251,14 +258,18 @@ public class HomeController : Controller
                 if (timelinesFromFile != null && timelinesFromFile.Any())
                 {
                     await _dotnet9DbContext.Timelines!.AddRangeAsync(timelinesFromFile);
-                    await _dotnet9DbContext.SaveChangesAsync();
+                    addCount = await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
+
+        _logger.LogInformation(addCount > 0 ? $"做时间线数据种子-----成功添加{addCount}条" : "做时间线数据种子-----有数据，无须添加");
     }
 
     private async Task SeedDonation()
     {
+        _logger.LogInformation("做赞助数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Donations!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "pays", "Donation.md");
@@ -268,12 +279,17 @@ public class HomeController : Controller
                 var donation = new Donation {Content = fileContent};
                 await _dotnet9DbContext.Donations!.AddAsync(donation);
                 await _dotnet9DbContext.SaveChangesAsync();
+                addCount = 1;
             }
         }
+
+        _logger.LogInformation(addCount > 0 ? "做赞助数据种子-----成功" : "做赞助数据种子-----有数据，无须添加");
     }
 
     private async Task SeedAbout()
     {
+        _logger.LogInformation("做关于数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Abouts!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "about.md");
@@ -283,12 +299,17 @@ public class HomeController : Controller
                 var about = new About {Content = fileContent};
                 await _dotnet9DbContext.Abouts!.AddAsync(about);
                 await _dotnet9DbContext.SaveChangesAsync();
+                addCount = 1;
             }
         }
+
+        _logger.LogInformation(addCount > 0 ? "做关于数据种子-----成功" : "做关于数据种子-----有数据，无须添加");
     }
 
     private async Task SeedUrlLink()
     {
+        _logger.LogInformation("做链接数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.UrlLinks!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "link.json");
@@ -304,19 +325,28 @@ public class HomeController : Controller
                 if (urlLinks != null && urlLinks.Any())
                 {
                     await _dotnet9DbContext.UrlLinks!.AddRangeAsync(urlLinks);
-                    await _dotnet9DbContext.SaveChangesAsync();
+                    addCount = await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
+
+
+        _logger.LogInformation(addCount > 0 ? $"做链接数据种子-----成功添加{addCount}条" : "做链接数据种子-----有数据，无须添加");
     }
 
     private async Task SeedBlogPost()
     {
+        _logger.LogInformation("做博文数据种子");
+        var addCount = 0;
+        var errCount = 0;
         if (await _dotnet9DbContext.BlogPosts!.CountAsync() <= 0)
         {
             var blogPostFiles = Directory.GetFiles(GlobalVar.AssetsLocalPath!, "*.info", SearchOption.AllDirectories);
+            var blogPostCount = blogPostFiles.Length;
+            var index = 0;
             foreach (var blogPostFile in blogPostFiles)
             {
+                _logger.LogInformation($"添加博文{++index}/{blogPostCount}");
                 var blogPostSeed =
                     JsonConvert.DeserializeObject<BlogPostItem>(await System.IO.File.ReadAllTextAsync(blogPostFile))!;
                 blogPostSeed.Content = await System.IO.File.ReadAllTextAsync(blogPostFile.Replace(".info", ".md"));
@@ -338,15 +368,20 @@ public class HomeController : Controller
 
                             existTag = await _tagManager.CreateAsync(null, tagName);
                             await _dotnet9DbContext.Tags!.AddAsync(existTag);
+                            _logger.LogInformation($"添加标签{tagName}");
+
                             await _dotnet9DbContext.SaveChangesAsync();
+                            _logger.LogInformation("提交标签保存");
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            _logger.LogError($"保存标签异常：{ex}", ex);
                             // ignored
                         }
 
                 try
                 {
+                    _logger.LogInformation($"添加博文入库开始-{blogPostSeed.Title}");
                     await _dotnet9DbContext.BlogPosts!.AddAsync(await _blogPostManager.CreateAsync(
                         blogPostSeed.Title,
                         blogPostSeed.Slug,
@@ -364,17 +399,26 @@ public class HomeController : Controller
                         blogPostSeed.Tags,
                         DateTime.Parse(blogPostSeed.CreateDate!)));
                     await _dotnet9DbContext.SaveChangesAsync();
+                    _logger.LogInformation($"添加博文入库成功-{blogPostSeed.Title}");
+
+                    addCount++;
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"做BlogPost种子异常：{ex}");
+                    _logger.LogError($"做BlogPost种子异常：{ex}", ex);
+                    errCount++;
                 }
             }
         }
+
+
+        _logger.LogInformation(addCount > 0 ? $"做博文数据种子-----成功添加{addCount}条，失败{errCount}条" : "做博文数据种子-----有数据，无须添加");
     }
 
     private async Task SeedCategory()
     {
+        _logger.LogInformation("做分类数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Categories!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "cats", "category.json");
@@ -393,14 +437,19 @@ public class HomeController : Controller
                 if (categoriesToDb.Any())
                 {
                     await _dotnet9DbContext.Categories!.AddRangeAsync(categoriesToDb);
-                    await _dotnet9DbContext.SaveChangesAsync();
+                    addCount = await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
+
+
+        _logger.LogInformation(addCount > 0 ? $"做分类数据种子-----成功添加{addCount}条" : "做分类数据种子-----有数据，无须添加");
     }
 
     private async Task SeedAlbums()
     {
+        _logger.LogInformation("做专辑数据种子");
+        var addCount = 0;
         if (await _dotnet9DbContext.Albums!.CountAsync() <= 0)
         {
             var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "albums", "album.json");
@@ -416,10 +465,13 @@ public class HomeController : Controller
                 if (albums != null && albums.Any())
                 {
                     await _dotnet9DbContext.Albums!.AddRangeAsync(albums);
-                    await _dotnet9DbContext.SaveChangesAsync();
+                    addCount = await _dotnet9DbContext.SaveChangesAsync();
                 }
             }
         }
+
+
+        _logger.LogInformation(addCount > 0 ? $"做专辑数据种子-----成功添加{addCount}条" : "做专辑数据种子-----有数据，无须添加");
     }
 
     [HttpGet]
