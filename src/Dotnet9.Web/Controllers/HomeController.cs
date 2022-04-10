@@ -94,13 +94,13 @@ public class HomeController : Controller
             _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend.Item1);
         cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
-            { "最新", LoadMoreKind.Latest },
-            { ".NET", LoadMoreKind.Dotnet },
-            { "大前端", LoadMoreKind.Front },
-            { "数据库", LoadMoreKind.Database },
-            { "更多语言", LoadMoreKind.MoreLanguage },
-            { "课程", LoadMoreKind.Course },
-            { "其他", LoadMoreKind.Other }
+            {"最新", LoadMoreKind.Latest},
+            {".NET", LoadMoreKind.Dotnet},
+            {"大前端", LoadMoreKind.Front},
+            {"数据库", LoadMoreKind.Database},
+            {"更多语言", LoadMoreKind.MoreLanguage},
+            {"课程", LoadMoreKind.Course},
+            {"其他", LoadMoreKind.Other}
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
@@ -122,7 +122,7 @@ public class HomeController : Controller
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
         var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
-        if (bytes is { Length: > 0 }) return File(bytes, contentType);
+        if (bytes is {Length: > 0}) return File(bytes, contentType);
 
         var siteMapNodes = new List<SitemapNode>();
 
@@ -140,7 +140,7 @@ public class HomeController : Controller
             Frequency = SitemapFrequency.Monthly
         }));
 
-        siteMapNodes.AddRange((await _blogPostAppService.GetListBlogPostForSitemapAsync()).Select(x =>
+        siteMapNodes.AddRange((await GetAllBlogPostForSitemap()).Select(x =>
             new SitemapNode
             {
                 LastModified = x.CreateDate, Priority = 0.9,
@@ -177,6 +177,31 @@ public class HomeController : Controller
     }
 
     [HttpGet]
+    [Route("archive")]
+    public async Task<IActionResult> Archive()
+    {
+        var vm = new ArchiveViewModel
+        {
+            Items = await GetAllBlogPostForSitemap()
+        };
+
+        return View(vm);
+    }
+
+    public async Task<List<BlogPostForSitemap>> GetAllBlogPostForSitemap()
+    {
+        var cacheKey = $"{nameof(BlogPostController)}-{nameof(GetAllBlogPostForSitemap)}";
+        var cacheData = await _cacheService.GetAsync<List<BlogPostForSitemap>>(cacheKey);
+        if (cacheData != null) return cacheData;
+
+        cacheData = await _blogPostAppService.GetListBlogPostForSitemapAsync();
+
+        await _cacheService.ReplaceAsync(cacheKey, cacheData);
+
+        return cacheData;
+    }
+
+    [HttpGet]
     [Route("seed")]
     public async Task<bool> Seed()
     {
@@ -207,7 +232,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var privacy = new Privacy { Content = fileContent };
+                var privacy = new Privacy {Content = fileContent};
                 await _dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _dotnet9DbContext.SaveChangesAsync();
             }
@@ -240,7 +265,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var donation = new Donation { Content = fileContent };
+                var donation = new Donation {Content = fileContent};
                 await _dotnet9DbContext.Donations!.AddAsync(donation);
                 await _dotnet9DbContext.SaveChangesAsync();
             }
@@ -255,7 +280,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var about = new About { Content = fileContent };
+                var about = new About {Content = fileContent};
                 await _dotnet9DbContext.Abouts!.AddAsync(about);
                 await _dotnet9DbContext.SaveChangesAsync();
             }
@@ -273,7 +298,7 @@ public class HomeController : Controller
                 var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(fileContent)!;
                 var i = 1;
                 var urlLinks = urlLinksFromFile?.Select(x =>
-                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                        _urlLinkManager.CreateAsync(i++, x.Index, (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
                             x.Name, x.Description, x.Url).Result)
                     .ToList();
                 if (urlLinks != null && urlLinks.Any())
@@ -401,7 +426,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
     }
 
     private void ReadCategory(List<Category> container, CategoryItem categoryFromFile, ref int id,
@@ -412,7 +437,7 @@ public class HomeController : Controller
             Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not { Count: > 0 }) return;
+        if (categoryFromFile.Children is not {Count: > 0}) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;
