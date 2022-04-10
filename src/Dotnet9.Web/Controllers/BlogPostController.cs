@@ -55,7 +55,10 @@ public class BlogPostController : Controller
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
 
-
+#if DEBUG
+        {
+        }
+#else
         if (!slug.IsNullOrWhiteSpace())
         {
             var contextInfo = HttpContext.GetRequestInfo();
@@ -64,6 +67,7 @@ public class BlogPostController : Controller
                 new ViewCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP,
                     $"{year:d4}/{month:d2}/{slug}"));
         }
+#endif
 
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}";
         var cacheData = await _cacheService.GetAsync<BlogPostViewModel>(cacheKey);
@@ -137,6 +141,10 @@ public class BlogPostController : Controller
     [Route("/qs")]
     public async Task<IActionResult> LoadQuery(string? s, int p = 1)
     {
+#if DEBUG
+        {
+        }
+#else
         if (!s.IsNullOrWhiteSpace())
         {
             var contextInfo = HttpContext.GetRequestInfo();
@@ -144,6 +152,7 @@ public class BlogPostController : Controller
             await _blogPostAppService.AddOrUpdateQueryCountAsync(
                 new QueryCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP, s!));
         }
+#endif
 
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(LoadQuery)}-{s}-{p}";
         var cacheData = await _cacheService.GetAsync<QueryViewModel>(cacheKey);
