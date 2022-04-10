@@ -20,6 +20,7 @@ public class BlogPostController : Controller
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICacheService _cacheService;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
@@ -36,12 +37,14 @@ public class BlogPostController : Controller
     public BlogPostController(IBlogPostAppService blogPostAppService,
         IBlogPostRepository blogPostRepository,
         ICategoryRepository categoryRepository,
+        IHttpContextAccessor httpContextAccessor,
         IMapper mapper,
         ICacheService cacheService)
     {
         _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
         _categoryRepository = categoryRepository;
+        _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
         CacheHelper.Cache = _cacheService = cacheService;
     }
@@ -56,6 +59,7 @@ public class BlogPostController : Controller
         if (!slug.IsNullOrWhiteSpace())
         {
             var contextInfo = HttpContext.GetRequestInfo();
+            contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
             await _blogPostAppService.AddOrUpdateViewCountAsync(
                 new ViewCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP,
                     $"{year:d4}/{month:d2}/{slug}"));
@@ -136,6 +140,7 @@ public class BlogPostController : Controller
         if (!s.IsNullOrWhiteSpace())
         {
             var contextInfo = HttpContext.GetRequestInfo();
+            contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
             await _blogPostAppService.AddOrUpdateQueryCountAsync(
                 new QueryCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP, s!));
         }

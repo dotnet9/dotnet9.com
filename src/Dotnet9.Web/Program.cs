@@ -3,6 +3,7 @@ using System.Text.Unicode;
 using Dotnet9.Web.Caches;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
+using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 
 SerilogSetup.AddSerilogSetup();
@@ -23,6 +24,7 @@ builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultCo
 builder.Services.AddAutoMapperSetup();
 builder.Services.AddRepositorySetup();
 builder.Services.AddCacheSetup();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
 var app = builder.Build();
@@ -38,6 +40,11 @@ else
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnet9 API v1"));
 }
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 
