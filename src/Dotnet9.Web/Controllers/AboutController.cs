@@ -1,5 +1,5 @@
 ﻿using Dotnet9.Application.Contracts.Abouts;
-using Dotnet9.Web.Caches;
+using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Web.ViewModels.Abouts;
 using Microsoft.AspNetCore.Mvc;
 

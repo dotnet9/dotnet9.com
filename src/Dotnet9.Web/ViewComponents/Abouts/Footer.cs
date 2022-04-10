@@ -1,5 +1,5 @@
-﻿using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Web.Caches;
+﻿using Dotnet9.Application.Contracts.Caches;
+using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Web.ViewModels.Homes;
 using Microsoft.AspNetCore.Mvc;
 

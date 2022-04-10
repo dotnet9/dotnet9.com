@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
+using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Repositories;
-using Dotnet9.Web.Caches;
 using Dotnet9.Web.ViewModels.Blogs;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Web.Caches;
+﻿using Dotnet9.Application.Contracts.Caches;
+
+namespace Dotnet9.Web.Caches;
 
 public class CacheHelper
 {

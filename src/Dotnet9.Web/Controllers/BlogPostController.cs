@@ -2,6 +2,7 @@
 using System.Net;
 using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
+using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Core;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
@@ -21,12 +22,12 @@ public class BlogPostController : Controller
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
-        { LoadMoreKind.Dotnet, "dotnet" },
-        { LoadMoreKind.Front, "Large-front-end" },
-        { LoadMoreKind.Database, "database" },
-        { LoadMoreKind.MoreLanguage, "more-language" },
-        { LoadMoreKind.Course, "course" },
-        { LoadMoreKind.Other, "other" }
+        {LoadMoreKind.Dotnet, "dotnet"},
+        {LoadMoreKind.Front, "Large-front-end"},
+        {LoadMoreKind.Database, "database"},
+        {LoadMoreKind.MoreLanguage, "more-language"},
+        {LoadMoreKind.Course, "course"},
+        {LoadMoreKind.Other, "other"}
     };
 
     private readonly IMapper _mapper;
@@ -83,7 +84,7 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))
@@ -112,7 +113,7 @@ public class BlogPostController : Controller
     [Route("/q")]
     public async Task<IActionResult> Query(string? s)
     {
-        return await Task.FromResult(View(new QueryViewModel { Query = s, PageIndex = 1 }));
+        return await Task.FromResult(View(new QueryViewModel {Query = s, PageIndex = 1}));
     }
 
     [HttpGet]

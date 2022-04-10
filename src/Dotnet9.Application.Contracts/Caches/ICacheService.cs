@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Web.Caches;
+﻿namespace Dotnet9.Application.Contracts.Caches;
 
 public interface ICacheService
 {

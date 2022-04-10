@@ -1,4 +1,5 @@
-﻿using Dotnet9.Web.Caches;
+﻿using Dotnet9.Application.Contracts.Caches;
+using Dotnet9.Web.Caches;
 using Dotnet9.Web.Utils;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;

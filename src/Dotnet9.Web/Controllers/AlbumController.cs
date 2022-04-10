@@ -1,7 +1,7 @@
 ﻿using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
+using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Core;
-using Dotnet9.Web.Caches;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Dotnet9.Application.Contracts.Caches;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Dotnet9.Web.Caches;
 

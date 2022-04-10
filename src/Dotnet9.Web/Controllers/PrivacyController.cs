@@ -1,5 +1,5 @@
-﻿using Dotnet9.Application.Contracts.Privacies;
-using Dotnet9.Web.Caches;
+﻿using Dotnet9.Application.Contracts.Caches;
+using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Web.ViewModels.Privacies;
 using Microsoft.AspNetCore.Mvc;
 

@@ -6,4 +6,9 @@ public static class EnumerableExtensions
     {
         return string.Join(separator, source);
     }
+
+    public static IEnumerable<T> Random<T>(this IEnumerable<T> listT, int count)
+    {
+        return listT.OrderBy(l => Guid.NewGuid()).Take(count);
+    }
 }

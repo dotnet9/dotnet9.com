@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Dotnet9.Application.Contracts.Caches;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Newtonsoft.Json;
 using StackExchange.Redis;
