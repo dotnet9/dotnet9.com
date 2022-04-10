@@ -1,5 +1,6 @@
 ﻿@using Dotnet9.Web.ViewModels.Blogs
 @using System.Net
+@using Dotnet9.Domain.Shared.Blogs
 @using Dotnet9.Web.Utils
 @model Dotnet9.Application.Contracts.Blogs.BlogPostViewModel
 @{
@@ -29,13 +30,14 @@
                     @await Html.PartialAsync("/Views/Home/ShortAdsSidebar.cshtml")
                     @await Html.PartialAsync("/Views/Home/ContactSidebar.cshtml")
                     @await Component.InvokeAsync("LatestBlogPosts")
-                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel { Name = "相同专辑", Items = Model.SameAlbumBlogPosts })
-                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel { Name = "相同分类", Items = Model.SameCategoryBlogPosts })
+                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel {Name = "相同专辑", Items = Model.SameAlbumBlogPosts})
+                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel {Name = "相同分类", Items = Model.SameCategoryBlogPosts})
                     @await Html.PartialAsync("/Views/Home/BigAdsSidebar.cshtml")
                 </div>
                 <div class="page-aside-right">
 
                     <h1>@Model.BlogPost.Title</h1>
+
                     <div class="footer-links d-none d-md-block mb-5">
                         <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
                         -
@@ -77,6 +79,32 @@
                     </div>
 
                     @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
+
+                    <div class="footer-links d-none d-md-block mt-5 mb-5 bg-light">
+                        @switch (Model.BlogPost.CopyrightType)
+                        {
+                            case CopyrightType.Reprint:
+                                <p>本文来自转载，如若二次转载请联系原作者。</p>
+                                break;
+                            case CopyrightType.Contribution:
+                                <p>本文来自网友投稿，如若转载请联系原作者。</p>
+                                break;
+                            default:
+                                <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                                break;
+                        }
+                        <p>原文作者：<a style="color: #262626;" href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
+                        @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
+                        {
+                            <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
+                            <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTime.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
+                        }
+                        else
+                        {
+                            <p>原文标题：<a href="@Model.BlogPost.OriginalLink">@(Model.BlogPost.OriginalTitle ?? Model.BlogPost.Title)</a></p>
+                            <p>原文链接：<a href="@Model.BlogPost.OriginalLink">@Model.BlogPost.OriginalLink</a></p>
+                        }
+                    </div>
 
                     <div class="row pt-5">
                         @if (Model.PreviewBlogPost != null)
