@@ -38,8 +38,6 @@ public class CustomProfile : Profile
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
         CreateMap<BlogPost, BlogPostForSitemap>();
         CreateMap<BlogPostBrief, BlogPostBriefDto>();
-        CreateMap<QueryCountForCreationOrUpdateDto, QueryCount>();
-        CreateMap<ViewCountForCreationOrUpdateDto, ViewCount>();
 
         CreateMap<UrlLink, UrlLinkDto>();
 

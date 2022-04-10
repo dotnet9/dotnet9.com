@@ -14,21 +14,15 @@ public class BlogPostAppService : IBlogPostAppService
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly IMapper _mapper;
-    private readonly IQueryCountRepository _queryCountRepository;
-    private readonly IViewCountRepository _viewCountRepository;
 
     public BlogPostAppService(IBlogPostRepository blogPostRepository,
         IAlbumRepository albumRepository,
         ICategoryRepository categoryRepository,
-        IViewCountRepository viewCountRepository,
-        IQueryCountRepository queryCountRepository,
         IMapper mapper)
     {
         _blogPostRepository = blogPostRepository;
         _albumRepository = albumRepository;
         _categoryRepository = categoryRepository;
-        _viewCountRepository = viewCountRepository;
-        _queryCountRepository = queryCountRepository;
         _mapper = mapper;
     }
 
@@ -98,50 +92,5 @@ public class BlogPostAppService : IBlogPostAppService
     {
         var blogPosts = await _blogPostRepository.SelectAsync();
         return _mapper.Map<List<BlogPost>, List<BlogPostForSitemap>>(blogPosts);
-    }
-
-
-    public async Task<bool> AddOrUpdateQueryCountAsync(QueryCountForCreationOrUpdateDto queryCountForCreationOrUpdate)
-    {
-        var existCount = await _queryCountRepository.GetAsync(x =>
-            x.Original == queryCountForCreationOrUpdate.Original && x.IP == queryCountForCreationOrUpdate.IP &&
-            x.Key == queryCountForCreationOrUpdate.Key);
-        if (existCount != null)
-        {
-            existCount.Count++;
-            existCount.UpdateDate = DateTime.Now;
-            await _queryCountRepository.UpdateAsync(existCount);
-        }
-        else
-        {
-            queryCountForCreationOrUpdate.Count = 1;
-            var countForDb = _mapper.Map<QueryCountForCreationOrUpdateDto, QueryCount>(queryCountForCreationOrUpdate);
-            countForDb.CreateDate = DateTime.Now;
-            await _queryCountRepository.InsertAsync(countForDb);
-        }
-
-        return true;
-    }
-
-    public async Task<bool> AddOrUpdateViewCountAsync(ViewCountForCreationOrUpdateDto viewCountForCreationOrUpdate)
-    {
-        var existCount = await _viewCountRepository.GetAsync(x =>
-            x.Original == viewCountForCreationOrUpdate.Original && x.IP == viewCountForCreationOrUpdate.IP &&
-            x.Url == viewCountForCreationOrUpdate.Url);
-        if (existCount != null)
-        {
-            existCount.Count++;
-            existCount.UpdateDate = DateTime.Now;
-            await _viewCountRepository.UpdateAsync(existCount);
-        }
-        else
-        {
-            viewCountForCreationOrUpdate.Count = 1;
-            var countForDb = _mapper.Map<ViewCountForCreationOrUpdateDto, ViewCount>(viewCountForCreationOrUpdate);
-            countForDb.CreateDate = DateTime.Now;
-            await _viewCountRepository.InsertAsync(countForDb);
-        }
-
-        return true;
     }
 }

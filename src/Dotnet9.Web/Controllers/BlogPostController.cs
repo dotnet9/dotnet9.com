@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Net;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
@@ -20,6 +21,8 @@ public class BlogPostController : Controller
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICacheService _cacheService;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IViewCountRepository _viewCountRepository;
+    private readonly IQueryCountRepository _queryCountRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
@@ -37,6 +40,8 @@ public class BlogPostController : Controller
     public BlogPostController(IBlogPostAppService blogPostAppService,
         IBlogPostRepository blogPostRepository,
         ICategoryRepository categoryRepository,
+        IViewCountRepository viewCountRepository,
+        IQueryCountRepository queryCountRepository,
         IHttpContextAccessor httpContextAccessor,
         IMapper mapper,
         ICacheService cacheService)
@@ -44,6 +49,8 @@ public class BlogPostController : Controller
         _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
         _categoryRepository = categoryRepository;
+        _viewCountRepository = viewCountRepository;
+        _queryCountRepository = queryCountRepository;
         _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
         CacheHelper.Cache = _cacheService = cacheService;
@@ -63,9 +70,13 @@ public class BlogPostController : Controller
         {
             var contextInfo = HttpContext.GetRequestInfo();
             contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-            await _blogPostAppService.AddOrUpdateViewCountAsync(
-                new ViewCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP,
-                    $"{year:d4}/{month:d2}/{slug}"));
+            await _viewCountRepository.InsertAsync(new ViewCount
+            {
+                Original = contextInfo.Origin,
+                IP = contextInfo.IP,
+                Url = $"{year:d4}/{month:d2}/{slug}",
+                CreateDate = DateTime.Now
+            });
         }
 #endif
 
@@ -149,8 +160,13 @@ public class BlogPostController : Controller
         {
             var contextInfo = HttpContext.GetRequestInfo();
             contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-            await _blogPostAppService.AddOrUpdateQueryCountAsync(
-                new QueryCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP, s!));
+            await _queryCountRepository.InsertAsync(new QueryCount()
+            {
+                Original = contextInfo.Origin,
+                IP = contextInfo.IP,
+                Key = s,
+                CreateDate = DateTime.Now
+            });
         }
 #endif
 
@@ -163,8 +179,9 @@ public class BlogPostController : Controller
         {
             var queryStr = WebUtility.UrlDecode(s);
             whereLambda = x =>
-                x.Title.Contains(queryStr!) || x.Content.Contains(queryStr!) ||
-                (x.Original != null && x.Original.Contains(queryStr!));
+                Regex.IsMatch(x.Title, queryStr!) ||
+                (x.Original != null && Regex.IsMatch(x.Original, queryStr!)) ||
+                Regex.IsMatch(x.Content, queryStr!);
         }
 
         var queryResult = await _blogPostRepository.SelectBlogPostBriefAsync(8, p, whereLambda, x => x.CreateDate,

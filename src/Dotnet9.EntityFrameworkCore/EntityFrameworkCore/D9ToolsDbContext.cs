@@ -176,7 +176,6 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Original).HasMaxLength(ViewCountConsts.MaxOriginalLength);
             b.Property(x => x.Url).HasMaxLength(ViewCountConsts.MaxUrlLength);
             b.Property(x => x.IP).HasMaxLength(ViewCountConsts.MaxIPLength);
-            b.Property(x => x.Count);
         });
 
         modelBuilder.Entity<QueryCount>(b =>
@@ -186,7 +185,6 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Original).HasMaxLength(QueryCountConsts.MaxOriginalLength);
             b.Property(x => x.Key).HasMaxLength(QueryCountConsts.MaxKeyLength);
             b.Property(x => x.IP).HasMaxLength(QueryCountConsts.MaxIPLength);
-            b.Property(x => x.Count);
         });
     }
 }
