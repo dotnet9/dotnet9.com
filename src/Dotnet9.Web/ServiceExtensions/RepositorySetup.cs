@@ -73,5 +73,9 @@ public static class RepositorySetup
 
         services.AddTransient<IPrivacyRepository, EfCorePrivacyRepository>();
         services.AddTransient<IPrivacyAppService, PrivacyAppService>();
+
+        services.AddTransient<IViewCountRepository, EfCoreViewCountRepository>();
+
+        services.AddTransient<IQueryCountRepository, EfCoreQueryCountRepository>();
     }
 }

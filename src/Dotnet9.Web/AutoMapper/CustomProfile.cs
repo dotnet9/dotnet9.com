@@ -26,18 +26,29 @@ public class CustomProfile : Profile
     {
         CreateMap<AlbumCount, AlbumCountDto>();
         CreateMap<Album, AlbumDto>();
+
+        CreateMap<AlbumBrief, AlbumBriefDto>();
+
         CreateMap<Category, CategoryCountDto>();
         CreateMap<Category, CategoryDto>();
-        CreateMap<TagCount, TagCountDto>();
-        CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
-        CreateMap<AlbumBrief, AlbumBriefDto>();
         CreateMap<CategoryBrief, CategoryBriefDto>();
-        CreateMap<BlogPostBrief, BlogPostBriefDto>();
-        CreateMap<UrlLink, UrlLinkDto>();
-        CreateMap<About, AboutDto>().ReverseMap();
-        CreateMap<Donation, DonationDto>().ReverseMap();
-        CreateMap<Timeline, TimelineDto>();
+
+        CreateMap<TagCount, TagCountDto>();
+
+        CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
         CreateMap<BlogPost, BlogPostForSitemap>();
+        CreateMap<BlogPostBrief, BlogPostBriefDto>();
+        CreateMap<QueryCountForCreationOrUpdateDto, QueryCount>();
+        CreateMap<ViewCountForCreationOrUpdateDto, ViewCount>();
+
+        CreateMap<UrlLink, UrlLinkDto>();
+
+        CreateMap<About, AboutDto>().ReverseMap();
+
+        CreateMap<Donation, DonationDto>().ReverseMap();
+
+        CreateMap<Timeline, TimelineDto>();
+
         CreateMap<Privacy, PrivacyDto>().ReverseMap();
     }
 }

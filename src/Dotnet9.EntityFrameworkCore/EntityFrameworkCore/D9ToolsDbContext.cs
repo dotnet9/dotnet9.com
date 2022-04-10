@@ -38,6 +38,8 @@ public class Dotnet9DbContext : DbContext
     public DbSet<Donation>? Donations { get; set; }
     public DbSet<Timeline>? Timelines { get; set; }
     public DbSet<Privacy>? Privacies { get; set; }
+    public DbSet<ViewCount>? ViewCounts { get; set; }
+    public DbSet<QueryCount>? QueryCounts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -165,6 +167,26 @@ public class Dotnet9DbContext : DbContext
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}Privacies", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
             b.Property(x => x.Content).IsRequired().HasMaxLength(PrivacyConsts.MaxContentLength);
+        });
+
+        modelBuilder.Entity<ViewCount>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}ViewCounts", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Original).HasMaxLength(ViewCountConsts.MaxOriginalLength);
+            b.Property(x => x.Url).HasMaxLength(ViewCountConsts.MaxUrlLength);
+            b.Property(x => x.IP).HasMaxLength(ViewCountConsts.MaxIPLength);
+            b.Property(x => x.Count);
+        });
+
+        modelBuilder.Entity<QueryCount>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}QueryCounts", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Original).HasMaxLength(QueryCountConsts.MaxOriginalLength);
+            b.Property(x => x.Key).HasMaxLength(QueryCountConsts.MaxKeyLength);
+            b.Property(x => x.IP).HasMaxLength(QueryCountConsts.MaxIPLength);
+            b.Property(x => x.Count);
         });
     }
 }

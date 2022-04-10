@@ -8,6 +8,7 @@ using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
 using Dotnet9.Web.Caches;
+using Dotnet9.Web.Utils;
 using Dotnet9.Web.ViewModels.Blogs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,8 +33,11 @@ public class BlogPostController : Controller
 
     private readonly IMapper _mapper;
 
-    public BlogPostController(IBlogPostAppService blogPostAppService, IBlogPostRepository blogPostRepository,
-        ICategoryRepository categoryRepository, IMapper mapper, ICacheService cacheService)
+    public BlogPostController(IBlogPostAppService blogPostAppService,
+        IBlogPostRepository blogPostRepository,
+        ICategoryRepository categoryRepository,
+        IMapper mapper,
+        ICacheService cacheService)
     {
         _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
@@ -47,6 +51,15 @@ public class BlogPostController : Controller
     public async Task<IActionResult> Index(int year, int month, string? slug)
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
+
+
+        if (!slug.IsNullOrWhiteSpace())
+        {
+            var contextInfo = HttpContext.GetRequestInfo();
+            await _blogPostAppService.AddOrUpdateViewCountAsync(
+                new ViewCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP,
+                    $"{year:d4}/{month:d2}/{slug}"));
+        }
 
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}";
         var cacheData = await _cacheService.GetAsync<BlogPostViewModel>(cacheKey);
@@ -120,6 +133,13 @@ public class BlogPostController : Controller
     [Route("/qs")]
     public async Task<IActionResult> LoadQuery(string? s, int p = 1)
     {
+        if (!s.IsNullOrWhiteSpace())
+        {
+            var contextInfo = HttpContext.GetRequestInfo();
+            await _blogPostAppService.AddOrUpdateQueryCountAsync(
+                new QueryCountForCreationOrUpdateDto(contextInfo.Origin, contextInfo.IP, s!));
+        }
+
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(LoadQuery)}-{s}-{p}";
         var cacheData = await _cacheService.GetAsync<QueryViewModel>(cacheKey);
         if (cacheData != null) return PartialView(cacheData);

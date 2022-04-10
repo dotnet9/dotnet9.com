@@ -34,5 +34,7 @@ public class BlogPostWithDetails
 
     public string[]? TagNames { get; set; }
 
+    public int BrowserCount { get; set; }
+
     public DateTime? CreateDate { get; set; }
 }

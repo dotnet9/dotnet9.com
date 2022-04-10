@@ -29,6 +29,7 @@ public class BlogPostWithDetailsDto
     public CategoryBriefDto[]? CategoryNames { get; set; }
 
     public string[]? TagNames { get; set; }
+    public int BrowserCount { get; set; }
 
     public DateTime? CreateDate { get; set; }
 }
