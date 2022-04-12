@@ -67,11 +67,6 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
                 CreateDate = x.CreateDate
             }).ToListAsync();
 
-        foreach (var blogPostBrief in lst)
-            blogPostBrief.BrowserCount =
-                await DbContext.ViewCounts!.CountAsync(vc =>
-                    vc.Url == $"{blogPostBrief.CreateDate:yyyy/MM}/{blogPostBrief.Slug}");
-
         return new Tuple<List<BlogPostBrief>, int>(lst, total);
     }
 
@@ -106,10 +101,10 @@ public class EfCoreBlogPostRepository : EfCoreRepository<BlogPost>, IBlogPostRep
                 OriginalLink = x.OriginalLink,
                 AlbumNames = (from blogPostAlbum in x.Albums
                     join album in dbContext.Set<Album>() on blogPostAlbum.AlbumId equals album.Id
-                    select new AlbumBrief {Slug = album.Slug, Name = album.Name}).ToArray(),
+                    select new AlbumBrief { Slug = album.Slug, Name = album.Name }).ToArray(),
                 CategoryNames = (from blogPostCategory in x.Categories
                     join category in dbContext.Set<Category>() on blogPostCategory.CategoryId equals category.Id
-                    select new CategoryBrief {Slug = category.Slug, Name = category.Name}).ToArray(),
+                    select new CategoryBrief { Slug = category.Slug, Name = category.Name }).ToArray(),
                 TagNames = (from blogPostTag in x.Tags
                     join tag in dbContext.Set<Tag>() on blogPostTag.TagId equals tag.Id
                     select tag.Name).ToArray(),

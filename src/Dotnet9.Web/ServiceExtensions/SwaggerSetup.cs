@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Dotnet9.Web.Filters;
 using Microsoft.OpenApi.Models;
 
 namespace Dotnet9.Web.ServiceExtensions;
@@ -7,7 +8,7 @@ public static class SwaggerSetup
 {
     public static void AddSwaggerSetup(this IServiceCollection services)
     {
-        services.AddMvcCore().AddApiExplorer();
+        services.AddMvcCore(options => { options.Filters.Add(typeof(LogActionFilterAttribute)); }).AddApiExplorer();
         services.AddSwaggerGen(options =>
         {
             options.SwaggerDoc("v1", new OpenApiInfo

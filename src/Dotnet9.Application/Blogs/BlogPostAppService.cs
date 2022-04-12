@@ -33,7 +33,7 @@ public class BlogPostAppService : IBlogPostAppService
         if (blogPostWithDetails == null) return null;
 
         var vm = new BlogPostViewModel
-            {BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails)};
+            { BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails) };
 
         var previewPost = await _blogPostRepository.GetBlogPostBriefAsync(
             x => x.CreateDate < blogPostWithDetails.CreateDate,

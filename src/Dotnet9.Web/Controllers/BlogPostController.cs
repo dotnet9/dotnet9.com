@@ -9,7 +9,6 @@ using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
 using Dotnet9.Web.Caches;
-using Dotnet9.Web.Utils;
 using Dotnet9.Web.ViewModels.Blogs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,18 +20,16 @@ public class BlogPostController : Controller
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICacheService _cacheService;
     private readonly ICategoryRepository _categoryRepository;
-    private readonly IViewCountRepository _viewCountRepository;
-    private readonly IQueryCountRepository _queryCountRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
-        {LoadMoreKind.Dotnet, "dotnet"},
-        {LoadMoreKind.Front, "Large-front-end"},
-        {LoadMoreKind.Database, "database"},
-        {LoadMoreKind.MoreLanguage, "more-language"},
-        {LoadMoreKind.Course, "course"},
-        {LoadMoreKind.Other, "other"}
+        { LoadMoreKind.Dotnet, "dotnet" },
+        { LoadMoreKind.Front, "Large-front-end" },
+        { LoadMoreKind.Database, "database" },
+        { LoadMoreKind.MoreLanguage, "more-language" },
+        { LoadMoreKind.Course, "course" },
+        { LoadMoreKind.Other, "other" }
     };
 
     private readonly IMapper _mapper;
@@ -40,8 +37,6 @@ public class BlogPostController : Controller
     public BlogPostController(IBlogPostAppService blogPostAppService,
         IBlogPostRepository blogPostRepository,
         ICategoryRepository categoryRepository,
-        IViewCountRepository viewCountRepository,
-        IQueryCountRepository queryCountRepository,
         IHttpContextAccessor httpContextAccessor,
         IMapper mapper,
         ICacheService cacheService)
@@ -49,8 +44,6 @@ public class BlogPostController : Controller
         _blogPostAppService = blogPostAppService;
         _blogPostRepository = blogPostRepository;
         _categoryRepository = categoryRepository;
-        _viewCountRepository = viewCountRepository;
-        _queryCountRepository = queryCountRepository;
         _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
         CacheHelper.Cache = _cacheService = cacheService;
@@ -61,24 +54,6 @@ public class BlogPostController : Controller
     public async Task<IActionResult> Index(int year, int month, string? slug)
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
-
-#if DEBUG
-        {
-        }
-#else
-        if (!slug.IsNullOrWhiteSpace())
-        {
-            var contextInfo = HttpContext.GetRequestInfo();
-            contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-            await _viewCountRepository.InsertAsync(new ViewCount
-            {
-                Original = contextInfo.Origin,
-                IP = contextInfo.IP,
-                Url = $"{year:d4}/{month:d2}/{slug}",
-                CreateDate = DateTime.Now
-            });
-        }
-#endif
 
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}";
         var cacheData = await _cacheService.GetAsync<BlogPostViewModel>(cacheKey);
@@ -116,7 +91,7 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))
@@ -145,31 +120,13 @@ public class BlogPostController : Controller
     [Route("/q")]
     public async Task<IActionResult> Query(string? s)
     {
-        return await Task.FromResult(View(new QueryViewModel {Query = s, PageIndex = 1}));
+        return await Task.FromResult(View(new QueryViewModel { Query = s, PageIndex = 1 }));
     }
 
     [HttpGet]
     [Route("/qs")]
     public async Task<IActionResult> LoadQuery(string? s, int p = 1)
     {
-#if DEBUG
-        {
-        }
-#else
-        if (!s.IsNullOrWhiteSpace())
-        {
-            var contextInfo = HttpContext.GetRequestInfo();
-            contextInfo.IP = _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-            await _queryCountRepository.InsertAsync(new QueryCount()
-            {
-                Original = contextInfo.Origin,
-                IP = contextInfo.IP,
-                Key = s,
-                CreateDate = DateTime.Now
-            });
-        }
-#endif
-
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(LoadQuery)}-{s}-{p}";
         var cacheData = await _cacheService.GetAsync<QueryViewModel>(cacheKey);
         if (cacheData != null) return PartialView(cacheData);

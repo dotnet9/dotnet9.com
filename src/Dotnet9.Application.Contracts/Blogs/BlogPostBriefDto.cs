@@ -19,7 +19,6 @@ public class BlogPostBriefDto
     public string? OriginalTitle { get; set; }
 
     public string? OriginalLink { get; set; }
-    public int BrowserCount { get; set; }
 
     public DateTime? CreateDate { get; set; }
 }

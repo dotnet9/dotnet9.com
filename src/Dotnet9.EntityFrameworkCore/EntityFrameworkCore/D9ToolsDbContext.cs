@@ -1,11 +1,13 @@
 ﻿using Dotnet9.Domain;
 using Dotnet9.Domain.Abouts;
+using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Donations;
 using Dotnet9.Domain.Privacies;
 using Dotnet9.Domain.Shared.Abouts;
+using Dotnet9.Domain.Shared.ActionLogs;
 using Dotnet9.Domain.Shared.Albums;
 using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Shared.Categories;
@@ -38,8 +40,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<Donation>? Donations { get; set; }
     public DbSet<Timeline>? Timelines { get; set; }
     public DbSet<Privacy>? Privacies { get; set; }
-    public DbSet<ViewCount>? ViewCounts { get; set; }
-    public DbSet<QueryCount>? QueryCounts { get; set; }
+    public DbSet<ActionLog>? ActionLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -102,28 +103,28 @@ public class Dotnet9DbContext : DbContext
         modelBuilder.Entity<BlogPostAlbum>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostAlbums", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.AlbumId});
+            b.HasKey(x => new { x.BlogPostId, x.AlbumId });
             b.HasOne<BlogPost>().WithMany(x => x.Albums).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Album>().WithMany().HasForeignKey(x => x.AlbumId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.AlbumId});
+            b.HasIndex(x => new { x.BlogPostId, x.AlbumId });
         });
 
         modelBuilder.Entity<BlogPostCategory>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostCategories", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.CategoryId});
+            b.HasKey(x => new { x.BlogPostId, x.CategoryId });
             b.HasOne<BlogPost>().WithMany(x => x.Categories).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Category>().WithMany().HasForeignKey(x => x.CategoryId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.CategoryId});
+            b.HasIndex(x => new { x.BlogPostId, x.CategoryId });
         });
 
         modelBuilder.Entity<BlogPostTag>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostTags", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.TagId});
+            b.HasKey(x => new { x.BlogPostId, x.TagId });
             b.HasOne<BlogPost>().WithMany(x => x.Tags).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Tag>().WithMany().HasForeignKey(x => x.TagId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.TagId});
+            b.HasIndex(x => new { x.BlogPostId, x.TagId });
         });
 
         modelBuilder.Entity<UrlLink>(b =>
@@ -169,22 +170,18 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Content).IsRequired().HasMaxLength(PrivacyConsts.MaxContentLength);
         });
 
-        modelBuilder.Entity<ViewCount>(b =>
+        modelBuilder.Entity<ActionLog>(b =>
         {
-            b.ToTable($"{Dotnet9Consts.DbTablePrefix}ViewCounts", Dotnet9Consts.DbSchema);
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}ActionLogs", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
-            b.Property(x => x.Original).HasMaxLength(ViewCountConsts.MaxOriginalLength);
-            b.Property(x => x.Url).HasMaxLength(ViewCountConsts.MaxUrlLength);
-            b.Property(x => x.IP).HasMaxLength(ViewCountConsts.MaxIPLength);
-        });
-
-        modelBuilder.Entity<QueryCount>(b =>
-        {
-            b.ToTable($"{Dotnet9Consts.DbTablePrefix}QueryCounts", Dotnet9Consts.DbSchema);
-            b.ConfigureByConvention();
-            b.Property(x => x.Original).HasMaxLength(QueryCountConsts.MaxOriginalLength);
-            b.Property(x => x.Key).HasMaxLength(QueryCountConsts.MaxKeyLength);
-            b.Property(x => x.IP).HasMaxLength(QueryCountConsts.MaxIPLength);
+            b.Property(x => x.Original).HasMaxLength(ActionLogConsts.MaxOriginalLength);
+            b.Property(x => x.IP).HasMaxLength(ActionLogConsts.MaxIPLength);
+            b.Property(x => x.Url).HasMaxLength(ActionLogConsts.MaxUrlLength);
+            b.Property(x => x.Controller).HasMaxLength(ActionLogConsts.MaxControllerLength);
+            b.Property(x => x.Action).HasMaxLength(ActionLogConsts.MaxActionLength);
+            b.Property(x => x.Method).HasMaxLength(ActionLogConsts.MaxMethodLength);
+            b.Property(x => x.Arguments).HasMaxLength(ActionLogConsts.MaxArgumentsLength);
+            b.Property(x => x.Duration);
         });
     }
 }

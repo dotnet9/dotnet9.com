@@ -16,6 +16,7 @@ using Dotnet9.Application.Tags;
 using Dotnet9.Application.Timelines;
 using Dotnet9.Application.UrlLinks;
 using Dotnet9.Domain.Abouts;
+using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
@@ -25,6 +26,7 @@ using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.EntityFrameworkCore.Abouts;
+using Dotnet9.EntityFrameworkCore.ActionLogs;
 using Dotnet9.EntityFrameworkCore.Albums;
 using Dotnet9.EntityFrameworkCore.Blogs;
 using Dotnet9.EntityFrameworkCore.Categories;
@@ -74,8 +76,6 @@ public static class RepositorySetup
         services.AddTransient<IPrivacyRepository, EfCorePrivacyRepository>();
         services.AddTransient<IPrivacyAppService, PrivacyAppService>();
 
-        services.AddTransient<IViewCountRepository, EfCoreViewCountRepository>();
-
-        services.AddTransient<IQueryCountRepository, EfCoreQueryCountRepository>();
+        services.AddTransient<IActionLogRepository, EfCoreActionLogRepository>();
     }
 }
