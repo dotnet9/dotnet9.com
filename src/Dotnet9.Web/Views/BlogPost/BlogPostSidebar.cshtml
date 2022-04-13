@@ -1,5 +1,5 @@
 ﻿@await Html.PartialAsync("/Views/Home/ShortAdsSidebar.cshtml")
-@await Html.PartialAsync("/Views/Home/ContactSidebar.cshtml")
+@await Component.InvokeAsync("ContactSidebar")
 @await Component.InvokeAsync("LatestBlogPosts")
 @await Html.PartialAsync("/Views/Home/BigAdsSidebar.cshtml")
 @await Component.InvokeAsync("TagCloud")
