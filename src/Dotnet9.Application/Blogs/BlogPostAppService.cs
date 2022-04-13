@@ -33,7 +33,7 @@ public class BlogPostAppService : IBlogPostAppService
         if (blogPostWithDetails == null) return null;
 
         var vm = new BlogPostViewModel
-            { BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails) };
+            {BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails)};
 
         var previewPost = await _blogPostRepository.GetBlogPostBriefAsync(
             x => x.CreateDate < blogPostWithDetails.CreateDate,
@@ -46,10 +46,14 @@ public class BlogPostAppService : IBlogPostAppService
             var album = await _albumRepository.GetAsync(x => x.Name == blogPostWithDetails.AlbumNames!.First().Name);
             if (album != null)
             {
-                var sameAlbumPost = await _blogPostRepository.SelectBlogPostBriefAsync(4, 1,
+                var sameAlbumPost = await _blogPostRepository.SelectBlogPostBriefAsync(6, 1,
                     x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
                     SortDirectionKind.Descending);
-                vm.SameAlbumBlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(sameAlbumPost.Item1);
+                if (sameAlbumPost.Item1.Count > 0) sameAlbumPost.Item1.RemoveAll(x => x.Slug == slug);
+
+                if (sameAlbumPost.Item1.Count > 0)
+                    vm.SameAlbumBlogPosts =
+                        _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(sameAlbumPost.Item1);
             }
         }
 
@@ -62,8 +66,11 @@ public class BlogPostAppService : IBlogPostAppService
                 var sameCategoryPost = await _blogPostRepository.SelectBlogPostBriefAsync(4, 1,
                     x => x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id), x => x.CreateDate,
                     SortDirectionKind.Descending);
-                vm.SameCategoryBlogPosts =
-                    _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(sameCategoryPost.Item1);
+                if (sameCategoryPost.Item1.Count > 0) sameCategoryPost.Item1.RemoveAll(x => x.Slug == slug);
+
+                if (sameCategoryPost.Item1.Count > 0)
+                    vm.SameCategoryBlogPosts =
+                        _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(sameCategoryPost.Item1);
             }
         }
 
