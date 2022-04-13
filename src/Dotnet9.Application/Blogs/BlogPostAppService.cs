@@ -63,7 +63,7 @@ public class BlogPostAppService : IBlogPostAppService
                 await _categoryRepository.GetAsync(x => x.Name == blogPostWithDetails.CategoryNames!.First().Name);
             if (category != null)
             {
-                var sameCategoryPost = await _blogPostRepository.SelectBlogPostBriefAsync(4, 1,
+                var sameCategoryPost = await _blogPostRepository.SelectBlogPostBriefAsync(6, 1,
                     x => x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id), x => x.CreateDate,
                     SortDirectionKind.Descending);
                 if (sameCategoryPost.Item1.Count > 0) sameCategoryPost.Item1.RemoveAll(x => x.Slug == slug);
