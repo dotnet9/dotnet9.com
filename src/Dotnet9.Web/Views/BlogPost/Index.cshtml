@@ -27,13 +27,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="page-aside-left">
-                    @await Html.PartialAsync("/Views/Home/ShortAdsSidebar.cshtml")
-                    @await Html.PartialAsync("/Views/Home/ContactSidebar.cshtml")
-                    @await Component.InvokeAsync("LatestBlogPosts")
-                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel {Name = "相同专辑", Items = Model.SameAlbumBlogPosts})
-                    @await Html.PartialAsync("BlogPostList", new BlogPostListViewModel {Name = "相同分类", Items = Model.SameCategoryBlogPosts})
-                    @await Html.PartialAsync("/Views/Home/BigAdsSidebar.cshtml")
-                    @await Component.InvokeAsync("TagCloud")
+                    @await Html.PartialAsync("/Views/BlogPost/BlogPostSidebar.cshtml", Model)
                 </div>
                 <div class="page-aside-right">
 
