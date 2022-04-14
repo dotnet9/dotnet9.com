@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.css">
     <!--图片等自适应-->
     <link rel="stylesheet" href="~/css/markdown.css">
+    <!--TOC-->
+    <link rel="stylesheet" href="~/tocify/styles/bootstrap.css"/>
+    <link rel="stylesheet" href="~/tocify/jquery.tocify.css"/>
 }
 
 <div class="row">
@@ -30,152 +33,158 @@
                     @await Html.PartialAsync("/Views/BlogPost/BlogPostSidebar.cshtml", Model)
                 </div>
                 <div class="page-aside-right">
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div class="span9">
+                                <h1>@Model.BlogPost.Title</h1>
 
-                    <h1>@Model.BlogPost.Title</h1>
-
-                    <div class="footer-links d-none d-md-block mb-5">
-                        <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
-                        -
-                        @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
-                        {
-                            <span>专辑：</span>
-                            @foreach (var album in Model.BlogPost.AlbumNames)
-                            {
-                                <span>
-                                    <a href="/album/@album.Slug">@album.Name</a>
-                                </span>
-                                <span>|</span>
-                            }
-                        }
-                        -
-                        @if (Model.BlogPost.CategoryNames != null && Model.BlogPost.CategoryNames.Any())
-                        {
-                            <span>分类：</span>
-                            @foreach (var categor in Model.BlogPost.CategoryNames)
-                            {
-                                <span>
-                                    <a href="/cat/@categor.Slug">@categor.Name</a>
-                                </span>
-                                <span>|</span>
-                            }
-                        }
-                        -
-                        @if (Model.BlogPost.TagNames != null && Model.BlogPost.TagNames.Any())
-                        {
-                            <span>标签：</span>
-                            @foreach (var name in Model.BlogPost.TagNames)
-                            {
-                                <span>
-                                    <a href="/tag/@WebUtility.UrlEncode(name)">@name</a>
-                                </span>
-                                <span>|</span>
-                            }
-                        }
-                    </div>
-
-                    @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
-
-                    <div class="footer-links d-none d-md-block mt-5 mb-5 bg-light">
-                        @switch (Model.BlogPost.CopyrightType)
-                        {
-                            case CopyrightType.Reprint:
-                                <p>本文来自转载，如若二次转载请联系原作者。</p>
-                                break;
-                            case CopyrightType.Contribution:
-                                <p>本文来自网友投稿，如若转载请联系原作者。</p>
-                                break;
-                            default:
-                                <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
-                                break;
-                        }
-                        <p>原文作者：<a style="color: #262626;" href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
-                        @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
-                        {
-                            <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
-                            <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTime.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
-                        }
-                        else
-                        {
-                            <p>原文标题：<a href="@Model.BlogPost.OriginalLink">@(Model.BlogPost.OriginalTitle ?? Model.BlogPost.Title)</a></p>
-                            <p>原文链接：<a href="@Model.BlogPost.OriginalLink">@Model.BlogPost.OriginalLink</a></p>
-                        }
-                    </div>
-
-                    <div class="row pt-5">
-                        @if (Model.PreviewBlogPost != null)
-                        {
-                            <div class="col-lg-5 offset-lg-1">
-                                <div>
-                                    <div class="faq-question-q-box">上</div>
-                                    <a class="mt-1 font-14" href="/@Model.PreviewBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.PreviewBlogPost.Slug">
-                                        <h4 class="faq-question" data-wow-delay=".1s">@Model.PreviewBlogPost.Title</h4>
-                                    </a>
-                                    <p class="faq-answer mb-4">@Model.PreviewBlogPost.BriefDescription</p>
+                                <div class="footer-links d-none d-md-block mb-5">
+                                    <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                                    -
+                                    @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
+                                    {
+                                        <span>专辑：</span>
+                                        @foreach (var album in Model.BlogPost.AlbumNames)
+                                        {
+                                            <span>
+                                                <a href="/album/@album.Slug">@album.Name</a>
+                                            </span>
+                                            <span>|</span>
+                                        }
+                                    }
+                                    -
+                                    @if (Model.BlogPost.CategoryNames != null && Model.BlogPost.CategoryNames.Any())
+                                    {
+                                        <span>分类：</span>
+                                        @foreach (var categor in Model.BlogPost.CategoryNames)
+                                        {
+                                            <span>
+                                                <a href="/cat/@categor.Slug">@categor.Name</a>
+                                            </span>
+                                            <span>|</span>
+                                        }
+                                    }
+                                    -
+                                    @if (Model.BlogPost.TagNames != null && Model.BlogPost.TagNames.Any())
+                                    {
+                                        <span>标签：</span>
+                                        @foreach (var name in Model.BlogPost.TagNames)
+                                        {
+                                            <span>
+                                                <a href="/tag/@WebUtility.UrlEncode(name)">@name</a>
+                                            </span>
+                                            <span>|</span>
+                                        }
+                                    }
                                 </div>
 
-                            </div>
-                        }
+                                <div id="nice">
+                                    @Html.Raw(MarkdownHelper.Render(Model.BlogPost.Content))
+                                </div>
 
-                        @if (Model.NextBlogPost != null)
-                        {
-                            <div class="col-lg-5">
-                                <div>
-                                    <div class="faq-question-q-box">下</div>
-                                    <a class="mt-1 font-14" href="/@Model.NextBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.NextBlogPost.Slug">
-                                        <h4 class="faq-question">@Model.NextBlogPost.Title</h4>
-                                    </a>
-                                    <p class="faq-answer mb-4">@Model.NextBlogPost.BriefDescription</p>
+                                <div class="footer-links d-none d-md-block mt-5 mb-5 bg-light">
+                                    @switch (Model.BlogPost.CopyrightType)
+                                    {
+                                        case CopyrightType.Reprint:
+                                            <p>本文来自转载，如若二次转载请联系原作者。</p>
+                                            break;
+                                        case CopyrightType.Contribution:
+                                            <p>本文来自网友投稿，如若转载请联系原作者。</p>
+                                            break;
+                                        default:
+                                            <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                                            break;
+                                    }
+                                    <p>原文作者：<a style="color: #262626;" href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
+                                    @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
+                                    {
+                                        <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
+                                        <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTime.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
+                                    }
+                                    else
+                                    {
+                                        <p>原文标题：<a href="@Model.BlogPost.OriginalLink">@(Model.BlogPost.OriginalTitle ?? Model.BlogPost.Title)</a></p>
+                                        <p>原文链接：<a href="@Model.BlogPost.OriginalLink">@Model.BlogPost.OriginalLink</a></p>
+                                    }
+                                </div>
+
+                                <div class="row pt-5">
+                                    @if (Model.PreviewBlogPost != null)
+                                    {
+                                        <div class="col-lg-5 offset-lg-1">
+                                            <div>
+                                                <div class="faq-question-q-box">上</div>
+                                                <a class="mt-1 font-14" href="/@Model.PreviewBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.PreviewBlogPost.Slug">
+                                                    <p class="faq-question" data-wow-delay=".1s">@Model.PreviewBlogPost.Title</p>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                    @if (Model.NextBlogPost != null)
+                                    {
+                                        <div class="col-lg-5">
+                                            <div>
+                                                <div class="faq-question-q-box">下</div>
+                                                <a class="mt-1 font-14" href="/@Model.NextBlogPost.CreateDate?.ToString("yyyy/MM")/@Model.NextBlogPost.Slug">
+                                                    <p class="faq-question">@Model.NextBlogPost.Title</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+
+                                <div class="row pt-1">
+
+                                    @if (Model.SameAlbumBlogPosts != null)
+                                    {
+                                        <div class="col-lg-5 offset-lg-1">
+                                            <p>相同专辑</p>
+                                            <ol>
+                                                @foreach (var post in Model.SameAlbumBlogPosts)
+                                                {
+                                                    <li>
+                                                        <div>
+                                                            <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                                                                <p class="faq-question" data-wow-delay=".1s">@post.Title</p>
+                                                            </a>
+                                                        </div>
+
+                                                    </li>
+                                                }
+                                            </ol>
+                                        </div>
+                                    }
+
+                                    @if (Model.SameCategoryBlogPosts != null)
+                                    {
+                                        <div class="col-lg-5">
+                                            <p>相同分类</p>
+                                            <ol>
+                                                @foreach (var post in Model.SameCategoryBlogPosts)
+                                                {
+                                                    <li>
+                                                        <div>
+                                                            <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                                                                <p class="faq-question" data-wow-delay=".1s">@post.Title</p>
+                                                            </a>
+                                                        </div>
+
+                                                    </li>
+                                                }
+                                            </ol>
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                        }
-                    </div>
 
-
-                    <div class="row pt-1">
-
-                        @if (Model.SameAlbumBlogPosts != null)
-                        {
-                            <div class="col-lg-5 offset-lg-1">
-                                <h3>相同专辑</h3>
-                                <ol>
-                                    @foreach (var post in Model.SameAlbumBlogPosts)
-                                    {
-                                        <li>
-                                            <div>
-                                                <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
-                                                    <h4 class="faq-question" data-wow-delay=".1s">@post.Title</h4>
-                                                </a>
-                                                <p class="faq-answer mb-4">@post.BriefDescription</p>
-                                            </div>
-
-                                        </li>
-                                    }
-                                </ol>
+                            <div class="span3">
+                                <div id="toc"></div>
                             </div>
-                        }
-
-                        @if (Model.SameCategoryBlogPosts != null)
-                        {
-                            <div class="col-lg-5">
-                                <h3>相同分类</h3>
-                                <ol>
-                                    @foreach (var post in Model.SameCategoryBlogPosts)
-                                    {
-                                        <li>
-                                            <div>
-                                                <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
-                                                    <h4 class="faq-question" data-wow-delay=".1s">@post.Title</h4>
-                                                </a>
-                                                <p class="faq-answer mb-4">@post.BriefDescription</p>
-                                            </div>
-
-                                        </li>
-                                    }
-                                </ol>
-                            </div>
-                        }
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -199,4 +208,7 @@
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
     <!--自动去cdn加载对应语言的代码高亮js-->
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <!--TOC-->
+    <script src="~/tocify/libs/jqueryui/jquery-ui-1.9.1.custom.min.js"></script>
+    <script src="~/tocify/jquery.tocify.js"></script>
 }

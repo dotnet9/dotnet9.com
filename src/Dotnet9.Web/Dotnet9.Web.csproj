@@ -15,18 +15,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\tocify\javascripts\bootstrap.js" />
+	  <None Include="wwwroot\tocify\javascripts\bootstrap.min.js" />
+	  <None Include="wwwroot\tocify\javascripts\githubrepo.js" />
+	  <None Include="wwwroot\tocify\javascripts\prettify.js" />
+	  <None Include="wwwroot\tocify\libs\jasmine\jasmine-html.js" />
+	  <None Include="wwwroot\tocify\libs\jasmine\jasmine-jquery-1.3.1.js" />
+	  <None Include="wwwroot\tocify\libs\jasmine\jasmine.js" />
+	  <None Include="wwwroot\tocify\libs\jasmine\MIT.LICENSE" />
+	  <None Include="wwwroot\tocify\libs\jqueryui\jquery-ui-1.9.1.custom.min.js" />
+	  <None Include="wwwroot\tocify\libs\jquery\jquery-1.8.3.min.js" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Markdig" Version="0.28.1" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-preview.2.22153.1">
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-preview.3.22175.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0-preview.2.22153.1">
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0-preview.3.22175.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
-	  <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.0-preview.2.22153.2" />
+	  <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.0-preview.3.22178.4" />
 	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.0" />
-	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0-preview.1.22116.2" />
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0-preview.3.22212.3" />
 	  <PackageReference Include="Serilog" Version="2.11.0-dev-01380" />
 	  <PackageReference Include="Serilog.AspNetCore" Version="6.0.0-dev-00265" />
 	  <PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
