@@ -8,18 +8,16 @@
 
         @if (Model.Items != null)
         {
-            <ol>
-                @foreach (var post in Model.Items)
-                {
-                    <li>
-                        <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
-                            <span class="text-muted">
-                                @post.Title
-                            </span>
-                        </a>
-                    </li>
-                }
-            </ol>
+            @foreach (var post in Model.Items)
+            {
+                <p>
+                    <a class="mt-1 font-14" href="/@post.CreateDate?.ToString("yyyy/MM")/@post.Slug">
+                        <span class="text-muted">
+                            @post.Title
+                        </span>
+                    </a>
+                </p>
+            }
         }
     </div>
 </div>

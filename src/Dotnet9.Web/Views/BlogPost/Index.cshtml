@@ -39,7 +39,7 @@
                                 <h1>@Model.BlogPost.Title</h1>
 
                                 <div class="footer-links d-none d-md-block mb-5">
-                                    <small class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                                    <span class="text-muted"><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
                                     -
                                     @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
                                     {
