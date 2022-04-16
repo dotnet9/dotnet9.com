@@ -35,7 +35,7 @@ public class LogActionFilterAttribute : ActionFilterAttribute
         Stopwatch?.Stop();
 
 
-        _actionLogRepository.InsertAsync(new ActionLog()
+         _ = _actionLogRepository.InsertAsync(new ActionLog()
         {
             Original = context.HttpContext.Request.Headers["Origin"].FirstOrDefault(),
             IP = context.HttpContext.GetClientIP(),
@@ -47,6 +47,6 @@ public class LogActionFilterAttribute : ActionFilterAttribute
             Arguments = ActionArguments,
             Duration = Stopwatch!.Elapsed.TotalMilliseconds,
             CreateDate = DateTime.Now
-        });
+        }).Result;
     }
 }
