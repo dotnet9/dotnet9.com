@@ -1,16 +1,16 @@
 ﻿using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Web.ViewModels.Homes;
+using Dotnet9.Web.ViewModels.UrlLinks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dotnet9.Web.ViewComponents.Abouts;
+namespace Dotnet9.Web.ViewComponents.UrlLinks;
 
-public class Footer : ViewComponent
+public class FriendLink : ViewComponent
 {
     private readonly ICacheService _cacheService;
     private readonly IUrlLinkAppService _urlLinkAppService;
 
-    public Footer(IUrlLinkAppService urlLinkAppService, ICacheService cacheService)
+    public FriendLink(IUrlLinkAppService urlLinkAppService, ICacheService cacheService)
     {
         _urlLinkAppService = urlLinkAppService;
         _cacheService = cacheService;
@@ -18,11 +18,11 @@ public class Footer : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        const string cacheKey = $"{nameof(Footer)}";
-        var cacheData = await _cacheService.GetAsync<FooterViewModel>(cacheKey);
+        const string cacheKey = $"{nameof(FriendLink)}";
+        var cacheData = await _cacheService.GetAsync<FriendLinkViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);
 
-        cacheData = new FooterViewModel
+        cacheData = new FriendLinkViewModel
         {
             FriendLinks = await _urlLinkAppService.ListAllAsync()
         };

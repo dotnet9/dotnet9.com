@@ -118,9 +118,9 @@ public class BlogPostController : Controller
 
     [HttpGet]
     [Route("/q")]
-    public async Task<IActionResult> Query(string? s)
+    public async Task<IActionResult> Query(string? keyboard)
     {
-        return await Task.FromResult(View(new QueryViewModel { Query = s, PageIndex = 1 }));
+        return await Task.FromResult(View(new QueryViewModel { Query = keyboard, PageIndex = 1 }));
     }
 
     [HttpGet]

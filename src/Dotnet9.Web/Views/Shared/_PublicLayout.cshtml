@@ -1,15 +1,22 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-CN">
-
+<html>
 <head>
-    <meta charset="utf-8"/>
-    <title>@ViewData["Title"] - Dotnet9</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="一个专注于.NET技术的网站" name="description"/>
-    <meta content="沙漠尽头的狼" name="author"/>
-    <link rel="shortcut icon" href="~/favicon.ico">
-    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]_Dotnet9_.NET技术网站</title>
+    <meta name="keywords" content=".NET_Winform_WPF_WebAPI_MAUI"/>
+    <meta name="description" content="一个专注于.NET技术的网站"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="skin/menhu/css/base.css" rel="stylesheet">
+    <link href="skin/menhu/css/m.css" rel="stylesheet">
+    <script src="skin/menhu/js/jquery-1.8.3.min.js"></script>
+    <script src="skin/menhu/js/main.js"></script>
+    <!--[if lt IE 9]>
+        <script src="/skin/menhu/js/modernizr.js"></script>
+    <![endif]-->
+    <!-- banner-->
+    <link rel="stylesheet" href="~/skin/menhu/css/swiper.min.css">
+    <script src="~/skin/menhu/js/swiper.min.js"></script>
+    <script src="~/skin/menhu/js/banner.js"></script>
 
     @await RenderSectionAsync("Headers", false)
 
@@ -27,85 +34,1280 @@
     </script>
 
 </head>
-
-<body class="loading" data-layout-color="light" data-layout="topnav" data-layout-mode="fluid" data-rightbar-onstart="true">
-
-<div class="wrapper">
-
-    <!-- ============================================================== -->
-    <!-- Start Page Content here -->
-    <!-- ============================================================== -->
-
-    <div class="content-page">
-        <div class="content">
-            <!-- Topbar Start -->
-            <div class="navbar-custom topnav-navbar">
-                <div class="container-fluid">
-
-                    <!-- LOGO -->
-                    <a href="/" class="topnav-logo">
-                        <span class="topnav-logo-lg">
-                            <img src="~/logo-head-dark.png" alt="" width="132">
-                        </span>
-                        <span class="topnav-logo-sm">
-                            <img src="~/favicon.ico" alt="" width="32"/>
-                        </span>
-                    </a>
-
-                    @await Component.InvokeAsync("ToolBar", new {showMenu = false})
-                </div>
-            </div>
-            <!-- end Topbar -->
-
-            <div class="topnav">
-                <div class="container-fluid">
-                    @await Component.InvokeAsync("MenuHorizontal")
-                </div>
-            </div>
-
-
-            <!-- Start Content-->
-            <div class="container-fluid" style="margin-bottom: 150px;">
-                
-                @RenderBody()
-
-            </div>
-            <!-- container -->
-
+<body>
+<header>
+    <div class="logo-section box">
+        <div class="search">
+            <form method="get" asp-controller="BlogPost" asp-action="Query" role="form" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if (value == '请输入关键字词') { this.style.color = '#000';value = '' }" onblur="if (value == '') { this.style.color = '#999';value = '请输入关键字词' }" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
         </div>
-        <!-- content -->
+        <div class="logo">
+            <a href="/">
+                <img src="~/favicon.ico">
+                <h2 class="logo-title">Dotnet9</h2>
+                <p class="logo-text">一个专注于.NET技术的网站</p>
+            </a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="topnav">
+        <h2>
+            <a href="/">Dotnet9</a>
+        </h2>
+        @await Component.InvokeAsync("MenuHorizontal")
+        <h2 id="mnavh">
+            <span class="navicon"></span>
+        </h2>
+    </div>
+    <div class="is-search">
+        <section><i></i>请输入关键字词</section>
+    </div>
+    <div class="search-page">
+        <div class="go-left"></div>
+        <div class="search">
+            <form method="get" asp-controller="BlogPost" asp-action="Query" role="form" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if (value == '请输入关键字词') { this.style.color = '#000';value = '' }" onblur="if (value == '') { this.style.color = '#999';value = '请输入关键字词' }" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="clear"></div>
+        <div class="hot-search">
+            <p>热门搜索排行</p>
+            <ul class="search-paihang">
+                <li>
+                    <a href="/q?keyboard='WPF'"><i>1</i>WPF</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='Winform'"><i>2</i>Winform</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='MAUI'"><i>3</i>MAUI</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='vue'"><i>4</i>vue 3.0</a>
+                </li>
 
-        <!-- Footer Start -->
-        <footer class="footer">
-            <div class="container-fluid">
-                @await Component.InvokeAsync("Footer")
+            </ul>
+        </div>
+        <div class="new-search">
+            <p>最新搜索排行</p>
+            <ul class="search-paihang">
+                <li>
+                    <a href="/q?keyboard='WPF'"><i>1</i>WPF</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='Winform'"><i>2</i>Winform</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='MAUI'"><i>3</i>MAUI</a>
+                </li>
+                <li>
+                    <a href="/q?keyboard='vue'"><i>4</i>vue 3.0</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="clear blank"></div>
+<article>
+
+@RenderBody()
+<!-- headline-boc begin-->
+<div class="headline-box whitebg">
+    <div class="headline-news">
+        <h2 class="headline-news-title">
+            <span>头条</span><a href="blog/design/40.html" target="_blank" title="个人博客，属于我的小世界！">个人博客，属于我的小世界！</a>
+        </h2>
+        <p class="headline-news-smalltext">个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</p>
+
+        <ul class="headline-news-list">
+            <li>
+                <a href="blog/diary/2.html" target="_blank" title="【告别2018】耕耘才有所得，付出才有收获">【告别2018】耕耘才有所得，付出才有收获</a>
+            </li>
+            <li>
+                <a href="course/web/77.html" target="_blank" title="十条设计原则教你学会如何设计网页布局!">十条设计原则教你学会如何设计网页布局!</a>
+            </li>
+            <li>
+                <a href="course/web/76.html" target="_blank" title="别让这些闹心的套路，毁了你的网页设计">别让这些闹心的套路，毁了你的网页设计</a>
+            </li>
+            <li>
+                <a href="seo/baidu/72.html" target="_blank" title="自己不会个人博客网站制作，你会选择用什么博客程序源码？">自己不会个人博客网站制作，你会选择用什么博客程序源码？</a>
+            </li>
+            <li>
+                <a href="blog/life/34.html" target="_blank" title="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a>
+            </li>
+            <li>
+                <a href="course/web/82.html" target="_blank" title="企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身">企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!-- headline-box end-->
+<div class="clear blank"></div>
+<div class="tuijian-news box whitebg tab-num01">
+<div class="gd-box">
+    <ul id="tab">
+        <li class="tab-current">博客日记</li>
+        <li>程序人生</li>
+        <li>设计心得</li>
+        <li>人生规划</li>
+
+    </ul>
+</div>
+<div id="tab-content">
+<section class="tab-box">
+    <div class="tuijian-news-pic">
+        <i>
+            <a href="blog/diary/2.html">
+                <img src="skin/menhu/images/newspic01.jpg" alt="【告别2018】耕耘才有所得，付出才有收获"><span>推荐</span>
+            </a>
+        </i>
+        <h2>
+            <a href="blog/diary/2.html">【告别2018】耕耘才有所得，付出才有收获</a>
+        </h2>
+        <p>网站模板我更新速度是很慢的，数了一下，大概12个模板，不多，但是每一套个人博客网站模板都是我精心设计的，期间认识了很多做优化的朋友还有客户，根据他们的要求还有建议，我又做了很多调整，无论是静态模板的编写还是后台调用方式上，都有很大的进步，我这一年的时间，比我7年加起来的收获还要多。</p>
+        <a href="blog/diary/2.html" class="btn-blue-border">阅读更多</a>
+    </div>
+    <div class="tuijian-news-list">
+        <ul>
+
+            <li>
+                <a target="_blank" href="blog/diary/2.html">
+                    <span><b>09</b>2019-05</span>
+                    <h3>【告别2018】耕耘才有所得，付出才有收获</h3>
+                    <p>网站模板我更新速度是很慢的，数了一下，大概12个模板，不多，但是每一套个人博客网站模板都是我精心设计的，期间认识了很多做优化的朋友还有客户，根据他们的要求还有建议，我又做了很多调整，无论是静态模板的编写还是后台调用方式上，都有很大的进步，我这一年的时间，比我7年加起来的收获还要多。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/diary/27.htm">
+                    <span><b>07</b>2019-05</span>
+                    <h3>只属于雨天才有的心情</h3>
+                    <p>我爱雨天，但是也许是害怕雨天的忧郁，所以我愿天一直是晴朗的，不要给我怀念与想像的条件。这样的雨天，会为我点燃一支烛，给我些许暖意吗？我愿意静静地，守着这丝温暖，静静地看着雨不停</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/diary/26.html">
+                    <span><b>07</b>2019-05</span>
+                    <h3>12月的随想-你认为你是一个俗女吗</h3>
+                    <p>我问朋友：&ldquo;你认为你是一个俗女吗？&rdquo;朋友说：&ldquo;我是个世俗的女人，俗，俗得很，俗不可耐，可我自己喜欢。当这个社会所有的女人都被称为美女的时候，淑女上等，俗女中等，你可</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/diary/25.html">
+                    <span><b>07</b>2019-05</span>
+                    <h3>毕业后的那段时间</h3>
+                    <p>我又在恍恍惚惚的过日子了，没有刚开始毕业那会儿的雄心勃勃，没有那会儿找工作那点志气，随着时间的消失，我一天一天的就这样沉沦下去？买的公务员书，我居然抱着三分的热情看，这次面临</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/diary/24.html">
+                    <span><b>07</b>2019-05</span>
+                    <h3>QQ在线——生活日记</h3>
+                    <p>打招呼的方式很多，也许一个“握手”，一朵“玫瑰”，一个“微笑”，就可以拉开话题，我最接受不了的是“你叫什么名字啊？”“你家在哪里啊?”“你在读书还是上班啊？”“你有没有男朋友啊？”....这些盘问式的对话，也许这次我给你说了，我们毕竟是在网络，你能记住吗？遇到同样一个网友再三问你同样的话题，包括姓名的时候，你是否也烦呢？ ­</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/diary/23.html">
+                    <span><b>07</b>2019-05</span>
+                    <h3>遇见一个未知的你</h3>
+                    <p>听着那熟悉的歌曲 &amp;shy;看着那一张张可爱的图片 &amp;shy;读着我们共同欣赏的诗&amp;hellip;&amp;hellip; &amp;shy;也许我们曾经相遇 &amp;shy; &amp;shy;看着你远去的背影 &amp;shy;沿着你来的方向 &amp;sh</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <span class="tab-a-more">
+        <a href="blog/diary/diary.html" title="更多博客日记">
+            <i></i><i></i><i></i>
+        </a>
+    </span>
+</section>
+<section class="tab-box">
+    <div class="tuijian-news-pic">
+        <i>
+            <a href="blog/life/34.html">
+                <img src="https://www.yangqq.net/d/file/news/life/2018-06-29/75842f4d1e18d692a66c38eb172a40ab.jpg" alt="作为一个设计师,如果遭到质疑你是否能恪守自己的原则?"><span>推荐</span>
+            </a>
+        </i>
+        <h2>
+            <a href="blog/life/34.html">作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</a>
+        </h2>
+        <p>矛盾了很长时间，莱伊恩终于想到了一条妙计，他在大厅里加了四根柱子，但它们并未与天花板连接，只不过是装装样子，糊弄那些刚愎自用的家伙。这个秘密始终没有被发现。直到300多年后市政府准备修缮大厅天花板时，才发现莱伊恩的“弄虚作假”。</p>
+        <a href="blog/life/34.html" class="btn-blue-border">阅读更多</a>
+    </div>
+    <div class="tuijian-news-list">
+        <ul>
+
+            <li>
+                <a target="_blank" href="blog/life/34.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>作为一个设计师,如果遭到质疑你是否能恪守自己的原则?</h3>
+                    <p>矛盾了很长时间，莱伊恩终于想到了一条妙计，他在大厅里加了四根柱子，但它们并未与天花板连接，只不过是装装样子，糊弄那些刚愎自用的家伙。这个秘密始终没有被发现。直到300多年后市政府准备修缮大厅天花板时，才发现莱伊恩的“弄虚作假”。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/life/33.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>25岁毕业，拿一万块钱月薪，看程序人生（黑色幽默）</h3>
+                    <p>假如你25岁毕业，现在拿一万块钱月薪.30岁，涨到一万五，期间无女盆友，吃10块钱盖饭，跟同学合租，挤2块钱地铁上下班，存钱25万,31岁，啃老找父母要了35万块钱，买了50平米老房子一处，贷款90万，20年，月供6500。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/life/32.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>给程序员的一碗心灵鸡汤</h3>
+                    <p>遇到夜里做散工写代码的，能给就多给几单，别还价，代码都不贵。家境哪怕好一点，谁会大冷天夜里写代码； 遇到学生出来勤工俭学的，特别是中专生、小伙子，他写什么你就买点。如果他不是家庭困难，出来打工也需要勇气的，鼓励鼓励他吧；</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/life/31.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>一个程序员妻子的自述：我的老公教给我的</h3>
+                    <p>后来，他告诉我用 googlereader，gmail，告诉我什么是单核什么是双核，告诉我什么是bug，告诉我固件指的不是一个固态的硬件而是软件，他送给我手机， 然后帮我刷机，送给我ipodtouch然后帮我越狱，给我的电脑里面装上ubuntu……</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/life/30.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>数字女孩，一个好强的女程序员</h3>
+                    <p>我外表上看起来是那种很小巧类型的女孩。性格有点活泼，所以和公司同事想处的都还可以，他们都说我人缘很好，有时爱逗着我玩。可我心里一直都知道我并没有真正融入公司里程序员的圈子，有时我会感到很泄气，我不只一次的问自己，这就是我要的生活吗？我不是没有想过放弃，每次做项目不顺利的时候，我总是问自己，这是何苦呢，没有女孩子做这种工作的。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/life/29.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>女程序员付出的代价远超过男程序员</h3>
+                    <p>做一个不完全统计，世界上的程序员占总人口的比例大约是0.001％的话，那么女程序 员的比例大约就是0.0000…00000001％吧。走进公司的研发部门，总是黑压 压一片的小平头，要是里面难得冒出一两个女孩子，大多也会先被人归入“行政助理” 之类的行列，万不得已才能被一万种怀疑不解的眼光接受为——女程序员。</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <span class="tab-a-more">
+        <a href="blog/life/life.html" title="更多程序人生">
+            <i></i><i></i><i></i>
+        </a>
+    </span>
+</section>
+<section class="tab-box">
+    <div class="tuijian-news-pic">
+        <i>
+            <a href="blog/design/40.html">
+                <img src="https://www.yangqq.net/d/file/news/life/2018-11-11/706322d7b93c7a5fbb8ec43001aa32d7.jpg" alt="个人博客，属于我的小世界！"><span>推荐</span>
+            </a>
+        </i>
+        <h2>
+            <a href="blog/design/40.html">个人博客，属于我的小世界！</a>
+        </h2>
+        <p>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</p>
+        <a href="blog/design/40.html" class="btn-blue-border">阅读更多</a>
+    </div>
+    <div class="tuijian-news-list">
+        <ul>
+
+            <li>
+                <a target="_blank" href="blog/design/41.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>安静地做一个爱设计的女子</h3>
+                    <p>对于个人博客模板，我一直坚持这样一个原则，那就是不仅漂亮，而且代码要少！因为要做出精美的个人博客模板是需要大量的时间投入的，没有一个人可以轻而易举的搞定一套个人博客模板，尤其是针对性（或专业性）极强的模板，一份好的模板，要求其代码在精炼的同时还要漂亮，后期内容上了，还要利于网站收录。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/design/40.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>个人博客，属于我的小世界！</h3>
+                    <p>个人博客，用来做什么？我刚开始就把它当做一个我吐槽心情的地方，也就相当于一个网络记事本，写上一些关于自己生活工作中的小情小事，也会放上一些照片，音乐。每天工作回家后就能访问自己的网站，一边听着音乐，一边写写文章。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/design/39.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>程序员请放下你的技术情节，与你的同伴一起进步</h3>
+                    <p>作为一名技术人员，你对公司的业务发展能够提出自己的建议吗？ 你有能力说服工作伙伴和主管来采纳你的提议吗？ 能够集思广益，融众人之所长吗？ 我认为，一个真正优秀的技术人才，应当具备这种多方面的能力，除了技术专长，他具备说服能力，集思广益， 能够有力地推动事情的发展。企业也应当提供机会，让技术人员参与更广阔的工作，而不仅仅是写代码和完成需求功能。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/design/37.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>Come on,行动起来吧!我们和时间来一场赛跑!</h3>
+                    <p>时间过得那么飞快,使我的小心眼儿里不只是着急,还有悲伤.有一天,我放学回家,看到太阳快落山了,就下决心说:"我要比太阳更快地回家."我狂奔回去,站在庭院前喘气的时候,看到太阳还露着半边脸,我高兴地跳跃起来,那一天我跑赢了太阳.以后我就时常做那样的游戏,有时和太阳赛跑</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/design/36.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>即便是坑，我也想要拉你入伙！</h3>
+                    <p>之前谈《女程序员职业生涯该如何发展？》其实，女程序员的职业生涯相对于男程序员来说是很短暂的。就目前我来说，从事这行都已有五年时间，当觉得自己在一个瓶颈阶段无法突破自己的</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/design/35.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>给想去北大青鸟或是其他机构培训的同学</h3>
+                    <p>如果你选择了一个合格的青鸟培训中心，又付出的相当的努力而合格地毕业，再努力地找工作，找到一个相关的工作，是可能的。但绝对不要把这个过程想的很容易，大部分大学生找工作花个3个月到半年都很正常，何况是你。如果你技术不过关，或者技术过关而在找工技能和努力上不过关，别说北大青鸟不可能去保证你，北大和清华也保证不了。 </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <span class="tab-a-more">
+        <a href="blog/design/design.html" title="更多设计心得">
+            <i></i><i></i><i></i>
+        </a>
+    </span>
+</section>
+<section class="tab-box">
+    <div class="tuijian-news-pic">
+        <i>
+            <a href="blog/plan/46.html">
+                <img src="https://www.yangqq.net/d/file/news/life/2014-05-29/133857800a4ad901b204fd36f3e1dc4c.jpg" alt="鄙人从事IT业已经有9年时间,少壮不努力，长大搞IT"><span>推荐</span>
+            </a>
+        </i>
+        <h2>
+            <a href="blog/plan/46.html">鄙人从事IT业已经有9年时间,少壮不努力，长大搞IT</a>
+        </h2>
+        <p>本来我也没有打算走的-------我非常珍惜这个机会，要知道从IT helpdesk能转数据库已经不容易了，不要说当时的DBA有多么的紧俏，到现在Oracle也如日中天。而且其他的学员是要交钱给培训班，我还可以从培训班领不少的薪水。</p>
+        <a href="blog/plan/46.html" class="btn-blue-border">阅读更多</a>
+    </div>
+    <div class="tuijian-news-list">
+        <ul>
+
+            <li>
+                <a target="_blank" href="blog/plan/46.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>鄙人从事IT业已经有9年时间,少壮不努力，长大搞IT</h3>
+                    <p>本来我也没有打算走的-------我非常珍惜这个机会，要知道从IT helpdesk能转数据库已经不容易了，不要说当时的DBA有多么的紧俏，到现在Oracle也如日中天。而且其他的学员是要交钱给培训班，我还可以从培训班领不少的薪水。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/plan/45.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>考考你的编程：这些笑话看得懂吗？</h3>
+                    <p>下面这几个笑话都涉及到计算机相关或编程相关的知识，有些笑话是只有会使用这种语言的人才能看到其中的可笑之处，当然了，还要自身有幽默感的人才会笑！你看懂了么？</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/plan/44.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>女程序员两年外包的日子</h3>
+                    <p>起初在工作的时候，什么都不会，那叫一个痛苦啊，工作的环境压力也大。没工作几天就快要熬不下去了。但这毕竟是自己走入社会以来的第一份工作，总要坚持一下吧，至少当时是那么想的。由于自己的技术功底并不好，各种技术也不懂，一切的一切都得重零开始。就这样一步一步的伴着眼泪和汗水坚持到了现在。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/plan/43.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>程序员那些琐碎的负面情绪</h3>
+                    <p>有时候我都想转行做销售，这样不用面对客户要实现一些甚至有些奇谈的功能...在客户眼里做个页面，很简单，实现一个功能也是很轻松的事儿。作为技术员，真的很无奈，如果真的那么简单的话，我们还用成天抱怨自己是码农吗？销售的角色其实也蛮重要的，网站的成否，都跟客户沟通离不开，没沟通好，做无用功的就是程序员了...</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/plan/42.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>程序员应该如何高效的工作学习</h3>
+                    <p>对于一个程序员来说，如果正在写代码，写得正high的时候，突然被叫去开会，或者是有客户来了，有了新的想法，要沟通，这时候不得不把写到一半的代码搁在那儿，等客户一走，会一开完，又得花很长的时候来缕清刚才的思路，进入编码状态。</p>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="blog/plan/38.html">
+                    <span><b>08</b>2019-05</span>
+                    <h3>女程序员职业生涯该如何发展？</h3>
+                    <p>在暂时离开职场的时候将之视为“沉淀期”和“重新规划期”，这个时候可以给自己一个重新思考人生的机会，正如一句谚语所说的：“在冬季学会游泳，在夏季学会溜冰”；三是一定在暂时离开职场之前就通过努力的工作和思考，为自己的未来生涯发展有所准备和有一个清晰的规划，凡事预则立，不预则废。</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <span class="tab-a-more">
+        <a href="blog/plan/plan.html" title="更多人生规划">
+            <i></i><i></i><i></i>
+        </a>
+    </span>
+</section>
+
+</div>
+</div>
+<!-- tuijian-news end-->
+<div class="clear blank"></div>
+<div class="pics box whitebg tab-num02">
+    <div class="gd-box">
+        <ul id="tab">
+            <li class="tab-current">个人网站</li>
+            <li>企业网站</li>
+            <li>事业单位</li>
+            <li>网购商城</li>
+
+        </ul>
+    </div>
+    <div id="tab-content">
+        <section class="tab-box">
+            <div class="pic-list-img">
+                <ul>
+                    <li>
+                        <a href="case/personal/64.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic01.jpg" alt="《今夕何夕》Html5响应式个人博客网站模板"><em>推荐</em>
+                            </i><span>《今夕何夕》Html5响应式个人博客网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/64.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic01.jpg" alt="《今夕何夕》Html5响应式个人博客网站模板">
+                            </i><span>《今夕何夕》Html5响应式个人博客网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/63.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic02.jpg" alt="宝宝个人博客模板-亲子博客模板-宝宝个人网站模板">
+                            </i><span>宝宝个人博客模板-亲子博客模板-宝宝个人网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/62.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic03.jpg" alt="html5个人博客模板《绅士》">
+                            </i><span>html5个人博客模板《绅士》</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/61.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic04.jpg" alt="html5 个人博客模板《蓝色畅想》">
+                            </i><span>html5 个人博客模板《蓝色畅想》</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/60.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic05.jpg" alt="个人博客模板《show time》">
+                            </i><span>个人博客模板《show time》</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/personal/59.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic09.jpg" alt="html5古典个人博客模板《青砖屋檐》">
+                            </i><span>html5古典个人博客模板《青砖屋檐》</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </footer>
-        <!-- end Footer -->
+            <span class="tab-a-more">
+                <a href="case/personal/personal.html" title="更多个人网站">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="pic-list-img">
+                <ul>
+                    <li>
+                        <a href="case/enterprise/69.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic04.jpg" alt="蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板"><em>推荐</em>
+                            </i><span>蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/enterprise/69.html" target="_blank">
+                            <i>
+                                <img src="skin/menhu/images/pic04.jpg" alt="蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板">
+                            </i><span>蓝色企业网站模板超实用，完美符合SEO优化，适合企业公司建站的模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/enterprise/68.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/d/file/qiyewangzhanmuban/2019-02-27/3556363baacfb598d5359c13008f7a00.jpg" alt="免费紫色婚庆公司企业网站模板">
+                            </i><span>免费紫色婚庆公司企业网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/enterprise/67.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/d/file/qiyewangzhanmuban/2019-02-27/c29de6913e83ec7e2ae5ad41e221e77b.jpg" alt="蓝色集团公司企业网站模板">
+                            </i><span>蓝色集团公司企业网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/enterprise/66.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/d/file/qiyewangzhanmuban/2019-02-27/719aa8704acfb4a3727e6f1c7071441c.jpg" alt="门户类型装修公司企业网站模板">
+                            </i><span>门户类型装修公司企业网站模板</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="case/enterprise/65.html" target="_blank">
+                            <i>
+                                <img src="https://www.yangqq.net/d/file/qiyewangzhanmuban/2019-02-27/c40720abe2562129ec283575b1595541.jpg" alt="实用大气的装修公司企业网站模板">
+                            </i><span>实用大气的装修公司企业网站模板</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="case/enterprise/enterprise.html" title="更多企业网站">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="pic-list-img">
+                <ul>
+                    <li>
+                        <a href="menhu_ip3q_default.html" target="_blank">
+                            <i>
+                                <img src="menhu_ip3q_default.html" alt=""><em>推荐</em>
+                            </i><span></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="case/unit/unit.html" title="更多事业单位">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="pic-list-img">
+                <ul>
+                    <li>
+                        <a href="menhu_ip3q_default.html" target="_blank">
+                            <i>
+                                <img src="menhu_ip3q_default.html" alt=""><em>推荐</em>
+                            </i><span></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="case/shop/shop.html" title="更多网购商城">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
 
     </div>
-
-    <!-- ============================================================== -->
-    <!-- End Page content -->
-    <!-- ============================================================== -->
-
-
 </div>
-<!-- END wrapper -->
+<!-- pics end-->
+<div class="clear blank"></div>
 
-<!-- Right Sidebar -->
-<div class="end-bar">
-    @await Component.InvokeAsync("SidebarRight")
+<div class="news box whitebg tab-num03">
+    <div class="gd-box">
+        <ul id="tab">
+            <li class="tab-current">百度SEO</li>
+            <li>SEO专业术语</li>
+            <li>SEO常见问题</li>
+
+        </ul>
+    </div>
+    <div id="tab-content">
+        <section class="tab-box">
+            <div class="news-zuixin">
+                <ul>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/100.html" class="news-zuixin-pic">
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic06.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/100.html">个人博客，我为什么要用帝国cms？</a>
+                            </h2>
+                            <p>选择帝国cms，做一个博客系统，很多人都说是大材小用。确实是有那种感觉，因为cms有很多功能表用不上。但是帝国cms的安装包也就才6M，如果你放一张高清的1920的图，都比这安装包大！我就来说一说我为什么要用帝国cms。</p>
+                            <span>
+                                <a href='e/tags/tags_2.html' target='_blank'>个人博客</a> <a href='e/tags/tags.html' target='_blank'>帝国cms</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/99.html" class="news-zuixin-pic">
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic05.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/99.html">网易博客关闭，何不从此开始潇洒行走江湖！</a>
+                            </h2>
+                            <p>从网易博客平台的出现，到现在已经有12个年头了，很多人还坚持着，网易博客一宣布关闭，很多人都很惋惜，那么多的文字记忆，又该如何是好？虽然可以一键搬迁到lofter</p>
+                            <span>
+                                <a href='e/tags/tags_3.html' target='_blank'>网易博客</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/74.html" class="news-zuixin-pic">
+                                <img src="skin/menhu/images/pic07.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/74.html">【排名技术建站】杨青助你快速实现主站为核心的搜索排名霸屏</a>
+                            </h2>
+                            <p>网站程序。不管你是自己开发也好，还是用开源cms也好，纯静态页面比动态页面还有伪静态页面要好，无论是从响应速度还是收录来说。帝国cms也是目前我认为做优化最好，也是最安全的系统。以我7年的建站经验来说，网上这么多的开源cms，偏偏选择帝国cms，因为帝国cms不仅仅是纯静态页面，而且帝国cms的开发人员一直在维护，帝国的功能升级，更新，而且还安全，备份搬家都很方便。</p>
+                            <span>
+                                <a href='e/tags/tags_4.html' target='_blank'>排名技术建站</a> <a href='e/tags/tags_5.html' target='_blank'>搜索排名</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/73.html" class="news-zuixin-pic">
+                                <img src="https://www.yangqq.net/skin/menhu/images/pic02.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/73.html">个人博客网站如何使用第三方去广告的评论插件</a>
+                            </h2>
+                            <p>使用第三方评论插件的好处就是不用存放在本地数据库，不用担心注册机注册一堆无用的账号信息，还能有效的防止一些垃圾评论和留言。当然如果你技术过硬的话，自己写一个评论留言插</p>
+                            <span>
+                                <a href='e/tags/tags_2.html' target='_blank'>个人博客</a> <a href='e/tags/tags_6.html' target='_blank'>评论插件</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/72.html" class="news-zuixin-pic">
+                                <img src="skin/menhu/images/pic08.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/72.html">自己不会个人博客网站制作，你会选择用什么博客程序源码？</a>
+                            </h2>
+                            <p>这些开源的博客程序源码，都是经过很多次版本测试的，都有固定的使用人群。我所知道的主流的博客程序有，Z-blog，Emlog，WordPress，Typecho等，免费的cms系统有，织梦cms（dedecms），phpcms，帝国cms（EmpireCMS）等。</p>
+                            <span>
+                                <a href='e/tags/tags_2.html' target='_blank'>个人博客</a> <a href='e/tags/tags_7.html' target='_blank'>网站制作</a> <a href='e/tags/tags_8.html' target='_blank'>程序源码</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/71.html" class="news-zuixin-pic">
+                                <img src="skin/menhu/images/pic04.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/71.html">一个SEO站长分享个人博客产品网赚建站经历全过程</a>
+                            </h2>
+                            <p>风光接单，万元大钞拍在老板的面前我是一个普通的seo，更是一个再普通不过的站长，每天在网络公司优化着没完没了的企业网站，分析着杂乱无章的数据。每天15个小时面对电脑的生活可</p>
+                            <span>
+                                <a href='e/tags/tags_9.html' target='_blank'>SEO</a> <a href='e/tags/tags_10.html' target='_blank'>网赚</a> <a href='e/tags/tags_12.html' target='_blank'>建站</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/70.html" class="news-zuixin-pic">
+                                <img src="https://www.yangqq.net/d/file/news/s/2018-11-11/84d48f3798fbe1e0b16e7b944ee4b277.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/70.html">IP要突破2000+了</a>
+                            </h2>
+                            <p>很久都没有更新网站了，现在得空看了下网站怎么样了，没有想到，百度权重4,PR3,访问IP也在上升，一年的时间没有更新，看来一次性做好一个网站很有必要，这回一劳永逸了</p>
+                            <span>
+                                <a href='e/tags/tags_11.html' target='_blank'>seo优化</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                    <li>
+                        <section>
+                            <a href="seo/baidu/1.html" class="news-zuixin-pic">
+                                <img src="https://www.yangqq.net/d/file/blogs/2018-12-31/e1d70bb0c58efaea309ebdb0c23d3758.jpg">
+                            </a>
+                            <h2>
+                                <a href="seo/baidu/1.html">【告别2018】耕耘才有所得，付出才有收获</a>
+                            </h2>
+                            <p>网站模板我更新速度是很慢的，数了一下，大概12个模板，不多，但是每一套个人博客网站模板都是我精心设计的，期间认识了很多做优化的朋友还有客户，根据他们的要求还有建议，我又做了很多调整，无论是静态模板的编写还是后台调用方式上，都有很大的进步，我这一年的时间，比我7年加起来的收获还要多。</p>
+                            <span>
+                                <a href='e/tags/tags_13.html' target='_blank'>匆匆4年</a> <a href='e/tags/tags_14.html' target='_blank'>看娃三年</a> <a href='e/tags/tags_15.html' target='_blank'>坚定信念</a> <a href='e/tags/tags_16.html' target='_blank'>付出才有收获</a>
+                            </span>
+                        </section>
+                    </li>
+
+
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="seo/baidu/baidu.html" title="更多百度SEO">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+
+        <section class="tab-box">
+            <div class="news-zuixin">
+                <ul>
+
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="seo/shuyu/shuyu.html" title="更多SEO专业术语">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+
+        <section class="tab-box">
+            <div class="news-zuixin">
+                <ul>
+
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="seo/problem/problem.html" title="更多SEO常见问题">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+
+        <!--第一个数字11，是父栏目ID-->
+    </div>
+</div>
+<!-- news end-->
+
+
+<div class="clear blank"></div>
+<div class="videos box whitebg tab-num04">
+    <div class="gd-box">
+        <ul id="tab">
+            <li class="tab-current">前端设计</li>
+            <li>JS教程</li>
+            <li>CMS教程</li>
+
+        </ul>
+    </div>
+    <div id="tab-content">
+        <section class="tab-box">
+            <div class="videos-list">
+                <ul>
+
+                    <li>
+                        <a href="course/web/80.html">
+                            <i>
+                                <img src="skin/menhu/images/pic02.jpg">
+                            </i>
+                            <h2>个人博客模板《今夕何夕》后台管理文档-在线视频教程</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">72人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/79.html">
+                            <i>
+                                <img src="skin/menhu/images/pic03.jpg">
+                            </i>
+                            <h2>帝国cms视频教程——第二课，程序安装（云服务器搭建环境）金牛云服为例</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">40人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/78.html">
+                            <i>
+                                <img src="skin/menhu/images/pic04.jpg">
+                            </i>
+                            <h2>帝国cms视频教程——第一课，程序安装（虚拟主机安装）金牛云服为例</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">18人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/77.html">
+                            <i>
+                                <img src="skin/menhu/images/pic05.jpg">
+                            </i>
+                            <h2>十条设计原则教你学会如何设计网页布局!</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">19人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/76.html">
+                            <i>
+                                <img src="skin/menhu/images/pic06.jpg">
+                            </i>
+                            <h2>别让这些闹心的套路，毁了你的网页设计</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">16人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/75.html">
+                            <i>
+                                <img src="skin/menhu/images/pic07.jpg">
+                            </i>
+                            <h2>网页中图片属性固定宽度，如何用js改变大小</h2>
+                            <p>
+                                <b class="datetime">2019-05-08</b><span class="viewd">15人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/82.html">
+                            <i>
+                                <img src="skin/menhu/images/pic09.jpg">
+                            </i>
+                            <h2>企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</h2>
+                            <p>
+                                <b class="datetime">2019-05-07</b><span class="viewd">25人在看</span>
+                            </p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="course/web/81.html">
+                            <i>
+                                <img src="skin/menhu/images/pic08.jpg">
+                            </i>
+                            <h2>个人博客网站用帝国cms如何添加音乐</h2>
+                            <p>
+                                <b class="datetime">2019-05-07</b><span class="viewd">13人在看</span>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="course/web/web.html" title="更多前端设计">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="videos-list">
+                <ul>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="course/js/js.html" title="更多JS教程">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="videos-list">
+                <ul>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="course/cms/cms.html" title="更多CMS教程">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+    </div>
+</div>
+<!-- videos end-->
+<div class="blank clear"></div>
+
+<div class="wenzi whitebg box tab-num05">
+    <div class="gd-box">
+        <ul id="tab">
+            <li class="tab-current">网络推广</li>
+            <li>品牌营销</li>
+            <li>意识思维</li>
+
+        </ul>
+    </div>
+    <div id="tab-content">
+        <section class="tab-box">
+            <div class="wenzi-list">
+                <ul class="wenzi-left">
+                    <li>
+                        <span>2019-05-08</span><a href="marketing/extension/89.html" title="企业做网站具体流程步骤">企业做网站具体流程步骤</a>
+                    </li>
+                    <li>
+                        <span>2019-05-07</span><a href="marketing/extension/88.html" title="企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身">企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/14.html" title="企业网站建设便宜的价格真的好吗？">企业网站建设便宜的价格真的好吗？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/13.html" title="为什么企业网站建设的价格不一样？">为什么企业网站建设的价格不一样？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/12.html" title="一般企业网站建设价格是多少？企业网站制作需要多少钱？">一般企业网站建设价格是多少？企业网站制作需要多少钱？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/11.html" title="企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身">企业网站建设前期，公司该做什么样的网站？要看企业如何定位自身</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/10.html" title="如果没有企业网站，客户都找不到你！">如果没有企业网站，客户都找不到你！</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/9.html" title="企业网站建设到运营投资到底需要多少钱?">企业网站建设到运营投资到底需要多少钱?</a>
+                    </li>
+                </ul>
+                <ul class="wenzi-right">
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/8.html" title="如何制作一个简单又大气的企业网站？">如何制作一个简单又大气的企业网站？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/86.html" title="如何制作一个简单又大气的企业网站？">如何制作一个简单又大气的企业网站？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/7.html" title="企业网站模板建站的特点">企业网站模板建站的特点</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/85.html" title="企业网站建设价格根据什么来定价的？">企业网站建设价格根据什么来定价的？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/6.html" title="企业网站，建站流程是什么？">企业网站，建站流程是什么？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/84.html" title="企业网站制作多少钱报价是合适的？">企业网站制作多少钱报价是合适的？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/3.html" title="如何提升企业网站价值，企业建站过程应该注意什么？">如何提升企业网站价值，企业建站过程应该注意什么？</a>
+                    </li>
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/extension/83.html" title="如何提升企业网站价值，怎么知道企业门户网站建设的报价是否合理？">如何提升企业网站价值，怎么知道企业门户网站建设的报价是否合理？</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="marketing/extension/extension.html" title="更多网络推广">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="wenzi-list">
+                <ul class="wenzi-left">
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/brand/4.html" title="网易博客关闭，何不从此开始潇洒行走江湖">网易博客关闭，何不从此开始潇洒行走江湖</a>
+                    </li>
+                </ul>
+                <ul class="wenzi-right">
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="marketing/brand/brand.html" title="更多品牌营销">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="wenzi-list">
+                <ul class="wenzi-left">
+                    <li>
+                        <span>2019-05-04</span><a href="marketing/consciousness/5.html" title="如果没有企业网站，客户都找不到你！">如果没有企业网站，客户都找不到你！</a>
+                    </li>
+                </ul>
+                <ul class="wenzi-right">
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="marketing/consciousness/consciousness.html" title="更多意识思维">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+    </div>
+</div>
+<!-- wenzi end-->
+<div class="clear"></div>
+<div class="ad ad-all">
+    <a href='e/public/qwbk.html' target=_blank>
+        <img src='d/file/p/2019/05-11/1769fa8ec1bbfb36bd084703ce0cc244.jpg' border=0 width='1170' height='140' alt=''>
+    </a>
 </div>
 
-<div class="rightbar-overlay"></div>
-<!-- /End-bar -->
+<div class="wenzi whitebg box tab-num06">
+    <div class="gd-box">
+        <ul id="tab">
+            <li class="tab-current">网页制作</li>
+            <li>FTP工具</li>
+            <li>编程软件</li>
+            <li>jQuery插件</li>
 
-<!-- bundle -->
-<script src="~/js/vendor.min.js"></script>
-<script src="~/js/app.min.js"></script>
+        </ul>
+    </div>
+    <div id="tab-content">
+        <section class="tab-box">
+            <div class="down-list">
+                <ul>
 
-@await RenderSectionAsync("Scripts", false)
+                    <li>
+                        <a href="download/html/16.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex01.png">
+                            </i>
+                            <h2>腾讯QQ下载v9.1.1.24953 最新版<span>2019-05-04</span></h2>
+                            <p>提供QQ下载2018正式版官方免费下载，经过不断的更新，现在的PC端QQ已经是非常成熟的聊天软件了，新版本带来了全新的界面，集成的聊天窗口吸收了QQforMac的界面元素</p>
+                        </a>
+                        <a href="download/html/16.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/90.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex02.png">
+                            </i>
+                            <h2>腾讯tim(QQ简洁版) v2.3.1.20994 官方最新版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/90.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/91.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="d/file/p/2019/05-04/77858802ef0b011a8066feb4fa6048f1.jpg">
+                            </i>
+                            <h2>营销qq2019最新版 v2.21.2927 官方版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/91.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/92.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex03.png">
+                            </i>
+                            <h2>Wine QQ国际版 UbuntuKylin版 官方版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/92.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/93.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex04.png">
+                            </i>
+                            <h2>企业QQ2019电脑版 v2.0 最新版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/93.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/94.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex05.png">
+                            </i>
+                            <h2>Smart QQ下载 2.0 官方版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/94.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/95.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex06.png">
+                            </i>
+                            <h2>腾讯QQ下载v9.1.1.24953 最新版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/95.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/96.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex07.png">
+                            </i>
+                            <h2>腾讯tim(QQ简洁版) v2.3.1.20994 官方最新版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/96.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="download/html/97.html" target="_blank" class="dl-link">
+                            <i>
+                                <img src="https://www.yangqq.net/skin/menhu/images/ex08.png">
+                            </i>
+                            <h2>营销qq2019最新版 v2.21.2927 官方版<span>2019-05-04</span></h2>
+                            <p>HBuilderX是编辑器和IDE的完美结合，HBuilderX是HBuilder的下一代产品，体积小巧，启动秒开，默认包包含优秀的字处理能力，创新众多其他编辑器不具备的高效字处理模型。</p>
+                        </a>
+                        <a href="download/html/97.html" target="_blank" class="d-list-hover">
+                            <em>安全下载</em>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="download/html/html.html" title="更多网页制作">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="down-list">
+                <ul>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="download/ftp/ftp.html" title="更多FTP工具">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="down-list">
+                <ul>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="download/soft/soft.html" title="更多编程软件">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+        <section class="tab-box">
+            <div class="down-list">
+                <ul>
+                </ul>
+            </div>
+            <span class="tab-a-more">
+                <a href="download/jQuery/jQuery.html" title="更多jQuery插件">
+                    <i></i><i></i><i></i>
+                </a>
+            </span>
+        </section>
+
+    </div>
+</div>
+<div class="clear blank"></div>
+@await Component.InvokeAsync("HotTags")
+<!-- tags end-->
+<div class="blank clear"></div>
+@await Component.InvokeAsync("FriendLink")
+<!-- links end-->
+<div class="blank clear"></div>
+</article>
+@await Html.PartialAsync("Public/Footer")
+<div class="toolbar-open"></div>
+<div class="toolbar">
+    <div class="toolbar-close">
+        <span id="closed"></span>
+    </div>
+    <div class="toolbar-nav">
+        <ul id="toolbar-menu">
+            <li>
+                <i class="side-icon-user"></i>
+                <section>
+                    <div class="userinfo">
+                        <script src="http://menhu.ip3q.com/e/member/login/loginjs.htm"></script>
+                    </div>
+                </section>
+            </li>
+            <li>
+                <i class="side-icon-qq"></i>
+                <section class="qq-section">
+                    <div class="qqinfo">
+                        <a href="https://jq.qq.com/?_wv=1027&k=5EH6xZg">前端设计交流群①</a><a href="https://jq.qq.com/?_wv=1027&k=52fM36y">前端设计交流群②</a><a href="http://wpa.qq.com/msgrd?v=3&uin=476847113&site=qq&menu=yes">站长QQ</a>
+                    </div>
+                </section>
+            </li>
+            <li>
+                <i class="side-icon-weixin"></i>
+                <section class="weixin-section">
+                    <div class="weixin-info">
+                        <p>个人微信扫码</p>
+                        <img src="skin/menhu/images/wx.png">
+                        <p class="text12">工作时间</p>
+                        <p class="text12">周一至周日 9:00-21:00</p>
+                    </div>
+                </section>
+            </li>
+            <li>
+                <i class="side-icon-dashang"></i>
+                <section class="dashang-section">
+                    <p>如果你觉得本站很棒，可以通过扫码支付打赏哦！</p>
+                    <ul>
+                        <li><img src="skin/menhu/images/weipayimg.jpg">微信收款码</li>
+                        <li><img src="skin/menhu/images/alipayimg.jpg">支付宝收款码</li>
+                    </ul>
+                </section>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="endmenu">
+    <ul>
+        <li>
+            <a href="http://menhu.ip3q.com/menhu_ip3q_default.html"><i class="iconfont icon-shouye"></i>首页</a>
+        </li>
+        <li>
+            <a href="phone-fenlei.html"><i class="iconfont icon-fenlei"></i>分类</a>
+        </li>
+        <li>
+            <a href="phone-list.html"><i class="iconfont icon-navicon-wzgl"></i>所有</a>
+        </li>
+        <li>
+            <a href="http://menhu.ip3q.com/e/member/my/my.html"><i class="iconfont icon-My"></i>我的</a>
+        </li>
+    </ul>
+</div>
+<a href="http://menhu.ip3q.com/menhu_ip3q_default.html#" title="返回顶部" class="icon-top"></a>
+
 
 </body>
 </html>

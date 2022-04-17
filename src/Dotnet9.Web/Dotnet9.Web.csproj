@@ -15,6 +15,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\skin\houtai\jquery-1.8.3.min.js" />
+	  <None Include="wwwroot\skin\houtai\main.js" />
+	  <None Include="wwwroot\skin\menhu\js\aside-sticky.js" />
+	  <None Include="wwwroot\skin\menhu\js\banner.js" />
+	  <None Include="wwwroot\skin\menhu\js\endmenu.js" />
+	  <None Include="wwwroot\skin\menhu\js\hc-sticky.js" />
+	  <None Include="wwwroot\skin\menhu\js\jquery-1.8.3.min.js" />
+	  <None Include="wwwroot\skin\menhu\js\main.js" />
+	  <None Include="wwwroot\skin\menhu\js\pagetab.js" />
+	  <None Include="wwwroot\skin\menhu\js\picswiper.min.js" />
+	  <None Include="wwwroot\skin\menhu\js\picview.js" />
+	  <None Include="wwwroot\skin\menhu\js\side-tab.js" />
+	  <None Include="wwwroot\skin\menhu\js\swiper.min.js" />
 	  <None Include="wwwroot\tocify\javascripts\bootstrap.js" />
 	  <None Include="wwwroot\tocify\javascripts\bootstrap.min.js" />
 	  <None Include="wwwroot\tocify\javascripts\githubrepo.js" />

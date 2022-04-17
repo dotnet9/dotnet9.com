@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>@ViewData["Title"] - Dotnet9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="一个专注于.NET技术的网站" name="description"/>
+    <meta content="沙漠尽头的狼" name="author"/>
+    <link rel="shortcut icon" href="~/favicon.ico">
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+
+    @await RenderSectionAsync("Headers", false)
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+            crossorigin="anonymous"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+
+<body class="loading" data-layout-color="light" data-layout="topnav" data-layout-mode="fluid" data-rightbar-onstart="true">
+
+<div class="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Topbar Start -->
+            <div class="navbar-custom topnav-navbar">
+                <div class="container-fluid">
+
+                    <!-- LOGO -->
+                    <a href="/" class="topnav-logo">
+                        <span class="topnav-logo-lg">
+                            <img src="~/logo-head-dark.png" alt="" width="132">
+                        </span>
+                        <span class="topnav-logo-sm">
+                            <img src="~/favicon.ico" alt="" width="32"/>
+                        </span>
+                    </a>
+
+                    @await Component.InvokeAsync("ToolBar", new {showMenu = false})
+                </div>
+            </div>
+            <!-- end Topbar -->
+
+            <div class="topnav">
+                <div class="container-fluid">
+                    @await Component.InvokeAsync("MenuHorizontal")
+                </div>
+            </div>
+
+
+            <!-- Start Content-->
+            <div class="container-fluid" style="margin-bottom: 150px;">
+                
+                @RenderBody()
+
+            </div>
+            <!-- container -->
+
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                @await Component.InvokeAsync("Footer")
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="end-bar">
+    @await Component.InvokeAsync("SidebarRight")
+</div>
+
+<div class="rightbar-overlay"></div>
+<!-- /End-bar -->
+
+<!-- bundle -->
+<script src="~/js/vendor.min.js"></script>
+<script src="~/js/app.min.js"></script>
+
+@await RenderSectionAsync("Scripts", false)
+
+</body>
+</html>
