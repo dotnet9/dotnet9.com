@@ -1,79 +1,46 @@
 ﻿@using System.Net
-@model Dotnet9.Web.ViewModels.Blogs.QueryViewModel
+@model Dotnet9.Web.ViewModels.Blogs.QueryViewModel?
 @{
     ViewData["Title"] = "搜索";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="page-aside-left">
-                    @await Html.PartialAsync("/Views/BlogPost/OtherSidebar.cshtml")
-                </div>
-                <div class="page-aside-right">
+<article>
 
-
-                    <div class="card ribbon-box">
-                        <div class="card-body">
-                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 搜索</div>
-                            <p class="ribbon-content">
-                                @Model.Query
-                            </p>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card-->
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div id="blog-post-container" class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-3">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12" style="margin-bottom: 50px; text-align: center;">
-                            <button id="load-more-btn" class="btn btn-outline-primary" data-loading-text="正在加载..." onclick="loadMore()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点击加载更多&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="pics-list-box whitebg">
+        <div class="news-title">
+            <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+            <h2>@Model?.Query</h2>
+        </div>
+        @if (Model?.BlogPosts == null || !Model.BlogPosts.Any())
+        {
+            <p>没有您查找的结果</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in Model.BlogPosts)
+                {
+                    <li>
+                        <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug">
+                            <i>
+                                <img src="@item.Cover" alt="@item.Title">
+                            </i>
+                            <h2>@item.Title</h2>
+                            <p>@item.BriefDescription</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        <div class="pagelist">
+            @if (Model?.PageCount > 0)
+            {
+                @for (var pageIndex = 0; pageIndex < Model.PageCount; pageIndex++)
+                {
+                    <a style="color: white; background-color: @(pageIndex == Model.PageIndex ? "#999" : "#ccc")" href="/q?keyboard=@(WebUtility.UrlEncode(Model.Query))&p=@pageIndex">@pageIndex</a>
+                }
+            }
         </div>
     </div>
-</div>
-
-<script type="text/javascript">
-    var page = 0;
-    var inCallBack = false;
-
-    function loadMore() {
-        if (page <= -1 || inCallBack) {
-            return;
-        }
-
-        inCallBack = true;
-        page++;
-
-        var loadMoreButton = '#load-more-btn';
-        var loadMoreContainer = '#blog-post-container';
-        $(loadMoreButton).button("loading");
-        $.get('/qs?s=@WebUtility.UrlEncode(Model.Query)&p=' + page,
-            function(data) {
-                if (data != '') {
-                    $(loadMoreContainer).append(data);
-                    $(loadMoreButton).button("reset");
-                } else {
-                    page = -1;
-                    $(loadMoreButton).prop('class', 'btn btn-outline-secondary');
-                    $(loadMoreButton).html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没有更多数据了!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
-                }
-
-                inCallBack = false;
-            });
-    }
-
-    window.onload = function() {
-        loadMore();
-    };
-
-</script>
+</article>

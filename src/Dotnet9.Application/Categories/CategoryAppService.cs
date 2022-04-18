@@ -37,9 +37,9 @@ public class CategoryAppService : ICategoryAppService
         return vm;
     }
 
-    public async Task<List<CategoryCountDto>> ListAllAsync()
+    public async Task<List<CategoryCountDto>> GetListCountAsync()
     {
-        var categories = await _categoryRepository.SelectAsync();
-        return _mapper.Map<List<Category>, List<CategoryCountDto>>(categories);
+        var categories = await _categoryRepository.GetListCountAsync();
+        return _mapper.Map<List<CategoryCount>, List<CategoryCountDto>>(categories);
     }
 }

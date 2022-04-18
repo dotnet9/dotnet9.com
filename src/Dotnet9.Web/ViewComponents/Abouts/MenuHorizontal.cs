@@ -32,12 +32,12 @@ public class MenuHorizontal : ViewComponent
         {
             ToolCountDtos = new List<ToolCountDto>
             {
-                new() { Name = "时间戳", RelativeUrl = "/tools/timestamp" },
-                new() { Name = "Icon转换", RelativeUrl = "/tools/icon" },
-                new() { Name = "正则表达式", RelativeUrl = "/tools/regular" }
+                new() {Name = "时间戳", RelativeUrl = "/tools/timestamp"},
+                new() {Name = "Icon转换", RelativeUrl = "/tools/icon"},
+                new() {Name = "正则表达式", RelativeUrl = "/tools/regular"}
             },
             AlbumCountDtos = await _albumAppService.GetListCountAsync(),
-            CategoryForMenuViewModels = ReadChildren(await _categoryAppService.ListAllAsync(), -1)
+            CategoryForMenuViewModels = ReadChildren(await _categoryAppService.GetListCountAsync(), -1)
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
@@ -45,7 +45,8 @@ public class MenuHorizontal : ViewComponent
         return View(cacheData);
     }
 
-    private List<CategoryForMenuViewModel>? ReadChildren(List<CategoryCountDto> sourceCategoryCountDtos, int parentId)
+    private List<CategoryForMenuViewModel>? ReadChildren(List<CategoryCountDto> sourceCategoryCountDtos,
+        int parentId = -1)
     {
         var children = sourceCategoryCountDtos.FindAll(x => x.ParentId == parentId);
         if (!children.Any()) return null;
@@ -53,7 +54,12 @@ public class MenuHorizontal : ViewComponent
         var categoryForMenuViewModels = new List<CategoryForMenuViewModel>();
         foreach (var categoryCountDto in children)
         {
-            var child = new CategoryForMenuViewModel { Name = categoryCountDto.Name, Slug = categoryCountDto.Slug };
+            if (categoryCountDto.ParentId != -1 && categoryCountDto.BlogPostCount <= 0)
+            {
+                continue;
+            }
+
+            var child = new CategoryForMenuViewModel {Name = categoryCountDto.Name, Slug = categoryCountDto.Slug};
             categoryForMenuViewModels.Add(child);
             child.Children = ReadChildren(sourceCategoryCountDtos, categoryCountDto.Id);
         }

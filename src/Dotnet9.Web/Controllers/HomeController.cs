@@ -134,7 +134,7 @@ public class HomeController : Controller
             Frequency = SitemapFrequency.Monthly
         }));
 
-        siteMapNodes.AddRange((await _categoryAppService.ListAllAsync()).Select(x => new SitemapNode
+        siteMapNodes.AddRange((await _categoryAppService.GetListCountAsync()).Select(x => new SitemapNode
         {
             LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
             Frequency = SitemapFrequency.Monthly

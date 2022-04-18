@@ -1,8 +1,0 @@
-﻿@model Dotnet9.Web.ViewModels.Blogs.QueryViewModel
-
-@foreach (var blogPost in Model.BlogPosts)
-{
-    <div class="col">
-        @await Html.PartialAsync("/Views/BlogPost/BlogPostCard.cshtml", blogPost)
-    </div>
-}

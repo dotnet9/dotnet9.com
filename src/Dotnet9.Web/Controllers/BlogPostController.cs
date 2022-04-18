@@ -24,12 +24,12 @@ public class BlogPostController : Controller
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
-        { LoadMoreKind.Dotnet, "dotnet" },
-        { LoadMoreKind.Front, "Large-front-end" },
-        { LoadMoreKind.Database, "database" },
-        { LoadMoreKind.MoreLanguage, "more-language" },
-        { LoadMoreKind.Course, "course" },
-        { LoadMoreKind.Other, "other" }
+        {LoadMoreKind.Dotnet, "dotnet"},
+        {LoadMoreKind.Front, "Large-front-end"},
+        {LoadMoreKind.Database, "database"},
+        {LoadMoreKind.MoreLanguage, "more-language"},
+        {LoadMoreKind.Course, "course"},
+        {LoadMoreKind.Other, "other"}
     };
 
     private readonly IMapper _mapper;
@@ -91,7 +91,7 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))
@@ -118,23 +118,16 @@ public class BlogPostController : Controller
 
     [HttpGet]
     [Route("/q")]
-    public async Task<IActionResult> Query(string? keyboard)
+    public async Task<IActionResult> Query(string? keyboard, int p = 1)
     {
-        return await Task.FromResult(View(new QueryViewModel { Query = keyboard, PageIndex = 1 }));
-    }
-
-    [HttpGet]
-    [Route("/qs")]
-    public async Task<IActionResult> LoadQuery(string? s, int p = 1)
-    {
-        var cacheKey = $"{nameof(BlogPostController)}-{nameof(LoadQuery)}-{s}-{p}";
+        var cacheKey = $"{nameof(BlogPostController)}-{nameof(Query)}-{keyboard}-{p}";
         var cacheData = await _cacheService.GetAsync<QueryViewModel>(cacheKey);
         if (cacheData != null) return PartialView(cacheData);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
-        if (!s.IsNullOrWhiteSpace())
+        if (!keyboard.IsNullOrWhiteSpace())
         {
-            var queryStr = WebUtility.UrlDecode(s);
+            var queryStr = WebUtility.UrlDecode(keyboard);
             whereLambda = x =>
                 Regex.IsMatch(x.Title, queryStr!) ||
                 (x.Original != null && Regex.IsMatch(x.Original, queryStr!)) ||
@@ -144,17 +137,20 @@ public class BlogPostController : Controller
         var queryResult = await _blogPostRepository.SelectBlogPostBriefAsync(8, p, whereLambda, x => x.CreateDate,
             SortDirectionKind.Descending);
 
-        if (!queryResult.Item1.Any()) return Json("");
-
         cacheData = new QueryViewModel
         {
-            Query = s,
+            Query = keyboard,
             PageIndex = p,
-            BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1)
+            PageCount = (queryResult.Item2 + 8 - 1) / 8,
+            Total = queryResult.Item2
         };
+        if (queryResult.Item1.Any())
+        {
+            cacheData.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1);
+        }
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 
-        return PartialView(cacheData);
+        return View(cacheData);
     }
 }

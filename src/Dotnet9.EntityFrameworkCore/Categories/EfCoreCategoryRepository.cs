@@ -23,15 +23,9 @@ public class EfCoreCategoryRepository : EfCoreRepository<Category>, ICategoryRep
 
     public async Task<List<CategoryCount>> GetListCountAsync()
     {
-        var query = from category in DbContext.Categories
-            join blogPostCategory in DbContext.Set<BlogPostCategory>()
-                on category.Id equals blogPostCategory.CategoryId
-            select new { category.Id, category.ParentId, category.Name, category.Slug, category.Cover }
-            into x
-            group x by new { x.Id, x.ParentId, x.Name, x.Slug, x.Cover }
-            into g
-            orderby g.Count() descending
-            select new CategoryCount(g.Key.Id, g.Key.ParentId, g.Key.Name, g.Key.Slug, g.Key.Cover, g.Count());
+        var query = from category in DbContext.Set<Category>()
+            select new CategoryCount(category.Id, category.ParentId, category.Name, category.Slug, category.Cover,
+                DbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == category.Id));
 
         return await query.ToListAsync();
     }

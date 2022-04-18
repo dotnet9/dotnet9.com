@@ -30,6 +30,7 @@ public class CustomProfile : Profile
         CreateMap<AlbumBrief, AlbumBriefDto>();
 
         CreateMap<Category, CategoryCountDto>();
+        CreateMap<CategoryCount, CategoryCountDto>();
         CreateMap<Category, CategoryDto>();
         CreateMap<CategoryBrief, CategoryBriefDto>();
 

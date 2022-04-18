@@ -1,5 +1,6 @@
 ﻿@using Dotnet9.Web.Utils
 @using Dotnet9.Domain.Shared.Blogs
+@using System.Net
 @model Dotnet9.Application.Contracts.Blogs.BlogPostViewModel
 @{
     ViewData["Title"] = Model.BlogPost.Title;
@@ -31,17 +32,49 @@
     <div class="left-box">
         <div class="whitebg">
             <div class="news-title">
-                <span class="weizhi">您现在的位置是：<a href="/">首页</a>&nbsp;>&nbsp;<a href="../case.html">设计案例</a>&nbsp;>&nbsp;<a href="personal.html">个人网站</a></span>
-                <h2>个人网站</h2>
+                <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+                <h2>文章</h2>
             </div>
             <div class="picview-box">
                 <h1 class="news-title-h1">@Model.BlogPost.Title</h1>
-                <div class="keywords"></div>
                 <div class="picview-other">
-                    <span class="po-date">@Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span><span class="po-classname">个人网站</span>
-                    <span class="po-view">
-                        <script src="../../e/public/ViewClick/ViewClick_64.html"></script>
-                    </span>
+                    <span><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                    -
+                    @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
+                    {
+                        <label>专辑：</label>
+                        @foreach (var album in Model.BlogPost.AlbumNames)
+                        {
+                            <label>
+                                <a href="/album/@album.Slug">@album.Name</a>
+                            </label>
+                            <label>|</label>
+                        }
+                    }
+                    -
+                    @if (Model.BlogPost.CategoryNames != null && Model.BlogPost.CategoryNames.Any())
+                    {
+                        <label>分类：</label>
+                        @foreach (var categor in Model.BlogPost.CategoryNames)
+                        {
+                            <label>
+                                <a href="/cat/@categor.Slug">@categor.Name</a>
+                            </label>
+                            <span>|</span>
+                        }
+                    }
+                    -
+                    @if (Model.BlogPost.TagNames != null && Model.BlogPost.TagNames.Any())
+                    {
+                        <label>标签：</label>
+                        @foreach (var name in Model.BlogPost.TagNames)
+                        {
+                            <label>
+                                <a href="/tag/@WebUtility.UrlEncode(name)">@name</a>
+                            </label>
+                            <label>|</label>
+                        }
+                    }
                 </div>
 
                 <div id="nice">
