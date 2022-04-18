@@ -56,26 +56,18 @@
     }
 </style>
 
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-2 float-start">
-            <h4 class="header-title">标签云</h4>
-        </div>
-        <a href="/tag">
-            <h5 class="text-primary float-end mt-0">更多</h5>
-        </a>
+<div class="whitebg cloud">
+    <h2 class="side-title">标签云</h2>
+    <div id="tagscloud">
 
-        <div id="tagscloud">
-
-            @if (Model.Tags != null)
+        @if (Model.Tags != null)
+        {
+            @foreach (var tag in Model.Tags.Random(30))
             {
-                @foreach (var tag in Model.Tags.Random(30))
-                {
-                    <a href="/tag/@WebUtility.UrlEncode(tag.Name)" class="tagc1">@tag.Name</a>
-                }
+                <a href="/tag/@WebUtility.UrlEncode(tag.Name)" class="tagc1">@tag.Name</a>
             }
+        }
 
-        </div>
     </div>
 </div>
 

@@ -5,15 +5,15 @@
         <h2>友情链接</h2>
     </div>
     <ul>
-    @if (Model.FriendLinks != null)
-    {
-        @foreach (var url in Model.FriendLinks)
+        @if (Model.FriendLinks != null)
         {
-            <li>
-                <a href="@url.Url" alt="@url.Description" target="_blank">@url.Name</a>
-            </li>
+            @foreach (var url in Model.FriendLinks)
+            {
+                <li>
+                    <a href="@url.Url" alt="@url.Description" target="_blank">@url.Name</a>
+                </li>
+            }
         }
-    }
-        </
-        ul>
+    </
+    ul>
 </div>

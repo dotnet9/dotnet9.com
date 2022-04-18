@@ -8,7 +8,11 @@
                 @foreach (var blogPost in Model)
                 {
                     <div class="col">
-                        <div class="swiper-slide"><a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug"><img src="@blogPost.Cover" alt="banner1"><span>@blogPost.Title</span></a></div>
+                        <div class="swiper-slide">
+                            <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
+                                <img src="@blogPost.Cover" alt="banner1"><span>@blogPost.Title</span>
+                            </a>
+                        </div>
                     </div>
                 }
             }

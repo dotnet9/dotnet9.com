@@ -1,23 +1,24 @@
-﻿using Dotnet9.Domain.ActionLogs;
+﻿using System.Diagnostics;
+using Dotnet9.Domain.ActionLogs;
+using Dotnet9.Web.Utils;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
-using System.Diagnostics;
-using Dotnet9.Web.Utils;
 
 namespace Dotnet9.Web.Filters;
 
 public class LogActionFilterAttribute : ActionFilterAttribute
 {
-    private readonly ILogger<LogActionFilterAttribute> _logger;
     private readonly IActionLogRepository _actionLogRepository;
-    private string? ActionArguments { get; set; }
-    private Stopwatch? Stopwatch { get; set; }
+    private readonly ILogger<LogActionFilterAttribute> _logger;
 
     public LogActionFilterAttribute(ILogger<LogActionFilterAttribute> logger, IActionLogRepository actionLogRepository)
     {
         _logger = logger;
         _actionLogRepository = actionLogRepository;
     }
+
+    private string? ActionArguments { get; set; }
+    private Stopwatch? Stopwatch { get; set; }
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
@@ -35,7 +36,7 @@ public class LogActionFilterAttribute : ActionFilterAttribute
         Stopwatch?.Stop();
 
 
-         _ = _actionLogRepository.InsertAsync(new ActionLog()
+        _ = _actionLogRepository.InsertAsync(new ActionLog
         {
             Original = context.HttpContext.Request.Headers["Origin"].FirstOrDefault(),
             IP = context.HttpContext.GetClientIP(),

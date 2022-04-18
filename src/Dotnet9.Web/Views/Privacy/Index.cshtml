@@ -7,6 +7,13 @@
 
 
 @section Headers {
+    <script src="~/skin/menhu/js/hc-sticky.js"></script>
+    <script src="~/skin/menhu/js/aside-sticky.js"></script>
+    <script src="~/skin/menhu/js/side-tab.js"></script>
+    <link href="~/skin/menhu/css/picswiper.min.css" rel="stylesheet">
+    <script src="~/skin/menhu/js/picswiper.min.js"></script>
+    <script src="~/skin/menhu/js/picview.js"></script>
+    <script type="text/javascript" src="~/skin/e/data/js/ajax.js"></script>
 
     <!--重置浏览器样式-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
@@ -16,37 +23,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.css">
     <!--行号插件-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.css">
-    <!--图片等自适应-->
-    <link rel="stylesheet" href="~/css/markdown.css">
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
 }
 
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="page-aside-left">
-                    @await Html.PartialAsync("/Views/BlogPost/OtherSidebar.cshtml")
-                </div>
-                <div class="page-aside-right">
-
-                    <div class="card ribbon-box">
-                        <div class="card-body">
-                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 隐私政策</div>
-                            <p class="ribbon-content">
-                                关于本站隐私政策，如有疑问可联系站长。
-                            </p>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card-->
-
-                    @if (Model.Privacy != null)
-                    {
-                        @Html.Raw(MarkdownHelper.Render(Model.Privacy.Content))
-                    }
-                </div>
-            </div>
-        </div>
+<article>
+    <div id="nice">
+        @if (Model.Privacy != null)
+        {
+            @Html.Raw(MarkdownHelper.Render(Model.Privacy.Content))
+        }
     </div>
-</div>
+</article>
 
 @section Scripts {
 

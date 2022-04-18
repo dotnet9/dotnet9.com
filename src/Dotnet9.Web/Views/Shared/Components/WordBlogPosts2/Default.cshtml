@@ -1,0 +1,60 @@
+﻿@using Dotnet9.Core
+@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
+
+
+<div class="videos box whitebg tab-num04">
+    <div class="gd-box">
+        <ul id="tab">
+            @if (Model.Items != null)
+            {
+                var isSet = false;
+                @foreach (var item in Model.Items)
+                {
+                    <li class="@(isSet == false ? "tab-current" : "")">@item.Key</li>
+                    isSet = true;
+                }
+            }
+        </ul>
+    </div>
+    <div id="tab-content">
+
+        @if (Model.Items != null)
+        {
+            @foreach (var item in Model.Items)
+            {
+                <section class="tab-box">
+                    <div class="videos-list">
+                        <ul>
+
+                            @if (item.Value.BlogPosts != null && item.Value.BlogPosts.Any())
+                            {
+                                var blogPosts = item.Value.BlogPosts.Count > 8 ? item.Value.BlogPosts.GetRange(0, 8) : item.Value.BlogPosts;
+                                @foreach (var blogPost in blogPosts)
+                                {
+                                    <li>
+                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
+                                            <i>
+                                                <img src="@blogPost.Cover" alt="@blogPost.Title">
+                                            </i>
+                                            <h2>@blogPost.Title</h2>
+                                            <p>
+                                                <b class="datetime">@blogPost.CreateDate?.ToString("yyyy-MM-dd")</b><span class="viewd">@(blogPost.Original.IsNullOrWhiteSpace() ? "沙漠尽头的狼" : blogPost.Original)</span>
+                                            </p>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                    <span class="tab-a-more">
+                        <a href="/cat/@item.Value.Slug" title="更多@(item.Key)">
+                            <i></i><i></i><i></i>
+                        </a>
+                    </span>
+                </section>
+            }
+        }
+
+    </div>
+</div>

@@ -5,5 +5,5 @@ namespace Dotnet9.Application.Contracts.Albums;
 public class AlbumViewModel
 {
     public string Name { get; set; } = null!;
-    public List<BlogPostBriefDto> Items { get; set; } = null!;
+    public List<BlogPostBriefDto>? Items { get; set; }
 }

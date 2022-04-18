@@ -1,0 +1,75 @@
+﻿@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
+
+
+<div class="tuijian-news box whitebg tab-num01">
+    <div class="gd-box">
+        <ul id="tab">
+            @if (Model.Items != null)
+            {
+                var isSet = false;
+                @foreach (var item in Model.Items)
+                {
+                    <li class="@(isSet == false ? "tab-current" : "")">@item.Key</li>
+                    isSet = true;
+                }
+            }
+        </ul>
+    </div>
+    <div id="tab-content">
+        @if (Model.Items != null)
+        {
+            @foreach (var item in Model.Items)
+            {
+                <section class="tab-box">
+                    @if (item.Value.BlogPosts != null && item.Value.BlogPosts.Any())
+                    {
+                        var first = item.Value.BlogPosts.FirstOrDefault();
+                        var sixBlogPosts = item.Value.BlogPosts.Count > 7 ? item.Value.BlogPosts.GetRange(1, 6) : item.Value.BlogPosts;
+                        @if (first != null)
+                        {
+                            <div class="tuijian-news-pic">
+                                <i>
+                                    <a href="/@first.CreateDate?.ToString("yyyy/MM")/@first.Slug">
+                                        <img src="@first.Cover"
+                                             alt="@first.Title"><span>推荐</span>
+                                    </a>
+                                </i>
+                                <h2>
+                                    <a href="/@first.CreateDate?.ToString("yyyy/MM")/@first.Slug">@first.Title</a>
+                                </h2>
+                                <p>
+                                    @first.BriefDescription
+                                </p>
+                                <a href="/@first.CreateDate?.ToString("yyyy/MM")/@first.Slug" class="btn-blue-border">阅读更多</a>
+                            </div>
+                        }
+                        if (sixBlogPosts.Any())
+                        {
+                            <div class="tuijian-news-list">
+                                <ul>
+                                    @foreach (var blogPost in sixBlogPosts)
+                                    {
+                                        <li>
+                                            <a target="_blank" href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
+                                                <span>
+                                                    <b>@blogPost.CreateDate?.Day</b>@blogPost.CreateDate?.ToString("yyyy-MM")
+                                                </span>
+                                                <h3>@blogPost.Title</h3>
+                                                <p>@blogPost.BriefDescription</p>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    }
+                    <span class="tab-a-more">
+                        <a href="/cat/@item.Value.Slug" title="更多@(item.Key)">
+                            <i></i><i></i><i></i>
+                        </a>
+                    </span>
+                </section>
+            }
+        }
+    </div>
+</div>

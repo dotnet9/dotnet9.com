@@ -3,149 +3,31 @@
     ViewData["Title"] = "首页";
     Layout = "_PublicLayout";
 }
-
-
-<!-- banner begin-->
-@await Html.PartialAsync("Sidebars/BannerSidebar", Model.BlogPostsForRecommend)
-<!-- banner end-->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="page-aside-left">
-                    @await Html.PartialAsync("/Views/Home/HomeSidebar.cshtml")
-                </div>
-                <div class="page-aside-right">
-
-                    <section class="text-center text-sm-start">
-                        <div class="d-flex">
-                            <div>
-                                <h1>Dotnet<span class="text-warning">9</span></h1>
-                                <h3 class="my-4">
-                                    一个专注.NET的网站，有博文、有免费在线工具
-                                </h3>
-                            </div>
-                            <img src="~/images/features-2.svg" alg="Dotnet9" class="w-50 d-none d-md-block"/>
-                        </div>
-                    </section>
-
-                    <section>
-                        <h2 class="mb-4">工具</h2>
-                        <div class="row g-4">
-
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card bg-dark text-light">
-                                    <div class="card-body text-center">
-                                        <div class="card-title text-center">
-                                            Icon转换
-                                        </div>
-                                        <div class="card-text">
-                                            png、jpg、jpeg、tmp等一键转换Icon
-                                        </div>
-                                        <a href="https://dotnet9.com/ico" class="btn btn-primary mt-2">开发中</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card bg-secondary text-light">
-                                    <div class="card-body text-center">
-                                        <div class="card-title text-center">
-                                            时间戳转换
-                                        </div>
-                                        <div class="card-text">
-                                            在线时间戳转换
-                                        </div>
-                                        <a href="https://dotnet9.com/timestamp" class="btn btn-dark mt-2">开发中</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card bg-dark text-light">
-                                    <div class="card-body text-center">
-                                        <div class="card-title text-center">
-                                            正则表达式验证
-                                        </div>
-                                        <div class="card-text">
-                                            在线正则表达式验证
-                                        </div>
-                                        <a href="#" class="btn btn-primary mt-2">开发中</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card bg-secondary text-light">
-                                    <div class="card-body text-center">
-                                        <div class="card-title text-center">
-                                            更多工具
-                                        </div>
-                                        <div class="card-text">
-                                            一直在更新
-                                        </div>
-                                        <a href="https://dotnet9.com/timestamp" class="btn btn-dark mt-2">开发中</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-
-                    <div class="card ribbon-box">
-                        <div class="card-body">
-                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 站长推荐</div>
-                            <a href="/recommend">
-                                <h5 class="text-primary float-end mt-0">浏览更多</h5>
-                            </a>
-                            <p class="ribbon-content">
-                                站长推荐的一些优秀开源项目
-                            </p>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card-->
-
-                    @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPostsForRecommend)
-
-                    @await Html.PartialAsync("/Views/Home/RecommendBlogPost.cshtml", Model.LoadMoreKinds)
-
-                    <section>
-                        <h2 class="text-center my-4">常见问题</h2>
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingOne">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        1. 工具开源吗？
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    所有工具都在Github开源，放心使用：<a href="https://github.com/dotnet9/Dotnet9" alt="tool">https://github.com/dotnet9/Dotnet9</a>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                        2. 博客Markdown文件怎么获取？
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                    博客整理的Markdown文件地址：<a href="https://github.com/dotnet9/Assets.Dotnet9" alt="blog post">https://github.com/dotnet9/Assets.Dotnet9</a>，包括文章中的图片等资源都放在这个仓库中。
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="flush-headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                        3. 本站是否开源？
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                    工具开源了，博文Markdown也是MIT协议，本站有理由不开源吗？仓库地址：<a href="https://github.com/dotnet9/Dotnet9" alt="site-open-source">https://github.com/dotnet9/Dotnet9</a>。
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<article>
+    @await Component.InvokeAsync("HomeHeader")
+    <!-- headline-box end-->
+    <div class="clear blank"></div>
+    @await Component.InvokeAsync("WordBlogPosts5")
+    <!-- tuijian-news end-->
+    <div class="clear blank"></div>
+    @await Component.InvokeAsync("WordBlogPosts4")
+    <!-- pics end-->
+    <div class="clear blank"></div>
+    @await Component.InvokeAsync("WordBlogPosts3")
+    <!-- news end-->
+    <div class="clear blank"></div>
+    @await Component.InvokeAsync("WordBlogPosts2")
+    <!-- videos end-->
+    <div class="blank clear"></div>
+    @await Component.InvokeAsync("WordBlogPosts1")
+    <!-- wenzi end-->
+    <div class="blank clear"></div>
+    @await Component.InvokeAsync("WordBlogPosts")
+    <div class="blank clear"></div>
+    @await Component.InvokeAsync("HotTags")
+    <!-- tags end-->
+    <div class="blank clear"></div>
+    @await Component.InvokeAsync("FriendLink")
+    <!-- links end-->
+    <div class="blank clear"></div>
+</article>

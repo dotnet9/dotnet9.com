@@ -9,7 +9,9 @@
             <a style="color: #262626;" href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">@Model.Title</a>
         </h5>
         <p class="card-text">
-            <span style="font-size: 13px;"><a style="color: #262626;" href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">@Model.BriefDescription</a></span>
+            <span style="font-size: 13px;">
+                <a style="color: #262626;" href="/@Model.CreateDate?.ToString("yyyy/MM")/@Model.Slug">@Model.BriefDescription</a>
+            </span>
         </p>
         <p class="card-text">
             <small class="text-muted"><a href="/user/@(Model.Original ?? "沙漠尽头的狼")">@(Model.Original ?? "沙漠尽头的狼")</a> - @Model.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</small>

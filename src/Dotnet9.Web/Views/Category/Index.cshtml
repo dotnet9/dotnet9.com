@@ -3,29 +3,32 @@
     ViewData["Title"] = "分类";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="page-aside-left">
-                    @await Html.PartialAsync("/Views/BlogPost/OtherSidebar.cshtml")
-                </div>
-                <div class="page-aside-right">
 
-                    <div class="card ribbon-box">
-                        <div class="card-body">
-                            <div class="ribbon ribbon-primary float-start"><i class="mdi mdi-access-point me-1"></i> 分类 - @Model.Name</div>
-                            <h5 class="text-primary float-end mt-0">浏览更多</h5>
-                            <p class="ribbon-content">
-                                分类功能，目的为了将同类文章聚集到一起，方便阅读与查看。
-                            </p>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card-->
+<article>
 
-                    @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.Items)
-
-                </div>
-            </div>
+    <div class="pics-list-box whitebg">
+        <div class="news-title">
+            <span class="hnav">
+                <h2>@Model.Name</h2>
+            </span>
         </div>
+        <ul>
+            @if (Model.Items != null && Model.Items.Any())
+            {
+                @foreach (var item in Model.Items)
+                {
+                    <li>
+                        <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug">
+                            <i>
+                                <img src="@item.Cover" alt="@item.Title">
+                            </i>
+                            <h2>@item.Title</h2>
+                            <p>@item.BriefDescription</p>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+        <div class="pagelist"></div>
     </div>
-</div>
+</article>

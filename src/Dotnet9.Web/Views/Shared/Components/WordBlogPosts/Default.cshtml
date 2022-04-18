@@ -1,0 +1,58 @@
+﻿@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
+
+
+<div class="wenzi whitebg box tab-num06">
+    <div class="gd-box">
+        <ul id="tab">
+            @if (Model.Items != null)
+            {
+                var isSet = false;
+                @foreach (var item in Model.Items)
+                {
+                    <li class="@(isSet == false ? "tab-current" : "")">@item.Key</li>
+                    isSet = true;
+                }
+            }
+        </ul>
+    </div>
+    <div id="tab-content">
+        @if (Model.Items != null)
+        {
+            @foreach (var item in Model.Items)
+            {
+                <section class="tab-box">
+                    <div class="down-list">
+                        <ul>
+                            @if (item.Value.BlogPosts != null && item.Value.BlogPosts.Any())
+                            {
+                                var blogPosts = item.Value.BlogPosts.Count > 9 ? item.Value.BlogPosts.GetRange(0, 9) : item.Value.BlogPosts;
+                                @foreach (var blogPost in blogPosts)
+                                {
+                                    <li>
+                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" target="_blank" class="dl-link">
+                                            <i>
+                                                <img src="@blogPost.Cover" alt="@blogPost.Title">
+                                            </i>
+                                            <h2>
+                                                @blogPost.Title<span>@blogPost.CreateDate?.ToString("yyyy-MM-dd")</span>
+                                            </h2>
+                                            <p>@blogPost.BriefDescription</p>
+                                        </a>
+                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" target="_blank" class="d-list-hover">
+                                            <em>浏览</em>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <span class="tab-a-more">
+                        <a href="/cat/@item.Value.Slug" title="更多@(item.Key)">
+                            <i></i><i></i><i></i>
+                        </a>
+                    </span>
+                </section>
+            }
+        }
+    </div>
+</div>
