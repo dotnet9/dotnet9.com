@@ -3,22 +3,59 @@
 @{
     ViewData["Title"] = "标签云";
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
-    var buttonsClasses = new[] { "primary", "secondary", "success", "danger", "warning", "info", "dark" };
+    var buttonsClasses = new[]
+    {
+        "#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+        "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
+        "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
+        "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
+        "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"
+    };
     var random = new Random(DateTime.Now.Millisecond);
+}
+
+@section Headers {
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
 }
 
 <article>
     @if (Model.Tags != null)
     {
-        @foreach (var tag in Model.Tags)
-        {
-            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name">
-                <button type="button" class="btn btn-outline-@(buttonsClasses[random.Next(buttonsClasses.Length)]) rounded-pill">@tag.Name (@tag.BlogPostCount)</button>
-            </a>
-        }
+            @foreach (var tag in Model.Tags)
+            {
+                    <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name" style="height: 30px; margin: 12px 5px; background-color: @(buttonsClasses[random.Next(buttonsClasses.Length)]);">
+                        @tag.Name (@tag.BlogPostCount)
+                    </a>
+            }
     }
     else
     {
-        @await Html.PartialAsync("/Views/BlogPost/BlogPostCardList.cshtml", Model.BlogPosts)
+        <div class="pics-list-box whitebg">
+            <div class="news-title">
+                <span class="hnav">
+                    <h2>@Model.TagName</h2>
+                </span>
+            </div>
+            <ul>
+                @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+                {
+                    @foreach (var item in Model.BlogPosts)
+                    {
+                        <li>
+                            <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug">
+                                <i>
+                                    <img src="@item.Cover" alt="@item.Title">
+                                </i>
+                                <h2>@item.Title</h2>
+                                <p>@item.BriefDescription</p>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            <div class="pagelist"></div>
+        </div>
     }
 </article>

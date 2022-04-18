@@ -4,18 +4,24 @@
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
-<article>
+@section Headers {
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
+}
+
+<article id="nice">
 
     @if (Model.Timelines != null)
     {
         @foreach (var timelineGroup in Model.Timelines)
         {
-            <h5 class="m-0 time-show-name">@timelineGroup.Key</h5>
+            <h3 class="m-0 time-show-name">@timelineGroup.Key</h3>
             @foreach (var timeline in timelineGroup.Value)
             {
                 <div>
-                    <span>@timeline.Title</span>
-                    <small>@timeline.Time.ToString("yyyy年MM月dd日")</small>
+                    <h4 class="mt-0 mb-1 font-16">@timeline.Title</h4>
+                    ---<small>@timeline.Time.ToString("yyyy年MM月dd日")</small>
                 </div>
             }
         }

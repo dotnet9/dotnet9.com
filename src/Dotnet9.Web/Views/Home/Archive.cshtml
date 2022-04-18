@@ -4,17 +4,23 @@
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
 }
 
-<article>
+@section Headers {
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
+}
+
+<article id="nice">
     <ul>
         @foreach (var groupYear in Model.Items.GroupBy(x => x.CreateDate.ToString("yyyy年")).OrderByDescending(x => x.Key))
         {
             <li>
-                <h5>@groupYear.Key</h5>
+                <h2>@groupYear.Key</h2>
                 <ul>
                     @foreach (var groupMonth in groupYear.GroupBy(x => x.CreateDate.ToString("yyyy年MM月")).OrderByDescending(x => x.Key))
                     {
                         <li>
-                            <h5>@groupMonth.Key</h5>
+                            <h3>@groupMonth.Key</h3>
                             <ol>
                                 @foreach (var blogPost in groupMonth.OrderByDescending(x => x.CreateDate))
                                 {
@@ -23,7 +29,7 @@
                                             <a style="color: #262626;" href="/@blogPost.CreateDate.ToString("yyyy/MM")/@blogPost.Slug">@blogPost.Title</a>
                                         </h4>
                                         <p class="text-muted">
-                                            <small>@blogPost.CreateDate.ToString("yyyy年MM月dd日 hh:mm:ss")</small>
+                                            ---<small>@blogPost.CreateDate.ToString("yyyy年MM月dd日 hh:mm:ss")</small>
                                         </p>
                                     </li>
                                 }

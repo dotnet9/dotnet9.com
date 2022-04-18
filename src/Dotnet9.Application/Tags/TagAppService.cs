@@ -39,7 +39,7 @@ public class TagAppService : ITagAppService
         {
             var factName = WebUtility.UrlDecode(tagName);
             vm.TagName = tagName;
-            var tag = await _tagRepository.FindByNameAsync(tagName!);
+            var tag = await _tagRepository.FindByNameAsync(factName!);
             if (tag == null) return vm;
             var blogPosts =
                 await _blogPostRepository.SelectBlogPostBriefAsync(x =>

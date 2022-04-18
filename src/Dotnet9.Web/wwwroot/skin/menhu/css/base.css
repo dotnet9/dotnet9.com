@@ -193,7 +193,7 @@ aside .ad-small { width: 100% }
 /*tags*/
 .tags { position: relative; overflow: hidden; }
 .tags ul { margin: 0 20px 20px; overflow: hidden }
-.tags ul a { display: block; float: left; font-size: 12px; width: 10%; text-align: center; height: 16px; margin-bottom: 4px; background-color: #f1f1f1; color: #615f5f; padding: 10px 0; position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tags ul a { display: block; float: left; font-size: 12px; width: 10%; text-align: center; height: 16px; margin-bottom: 4px; background-color: #f1f1f1; color: #615f5f; padding: 4px 0; position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tags ul a:after, .tags ul a:before { content: ""; background: #fff; top: 0; width: 2px; height: 100%; position: absolute; }
 .tags ul a:after { right: 0; }
 .tags ul a:before { left: 0 }
