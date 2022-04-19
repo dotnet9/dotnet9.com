@@ -43,7 +43,7 @@
 /* 二级标题 */
 
 #nice h2 {
-    bmin-height: 32px;
+    min-height: 32px;
     line-height: 32px;
     border-bottom: solid 1px #000000;
     color: #35b378;
@@ -57,7 +57,7 @@
     font-size: 23px;
     margin: 1em 0 0rem 0;
     padding: 0.5em 0;
-    text-align: leftt;
+    text-align: left;
     font-weight: bold;
 }
 
@@ -90,13 +90,15 @@
  * list-style-type: square|circle|disc;
  */
 
-#nice ul { }
+    #nice ul {
+    }
 
 /* 有序列表整体样式
  * list-style-type: upper-roman|lower-greek|lower-alpha;
  */
 
-#nice ol { }
+    #nice ol {
+    }
 
 /* 列表内容，不要设置li
  */
@@ -226,6 +228,13 @@
 
 #nice .inline-equation svg { }
 
+#nice ul li {
+    list-style: disc
+}
+
+#nice ol li {
+    list-style: decimal
+}
 
 #nice h3 {
     border-bottom: 1px solid #eee;
