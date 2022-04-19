@@ -1,6 +1,7 @@
 ﻿@using Dotnet9.Web.Utils
 @using Dotnet9.Domain.Shared.Blogs
 @using System.Net
+@using System.Web
 @model Dotnet9.Application.Contracts.Blogs.BlogPostViewModel
 @{
     ViewData["Title"] = Model.BlogPost.Title;
@@ -82,14 +83,14 @@
                 </div>
 
                 <div class="diggit">
-                    <a href="JavaScript:makeRequest('/e/public/digg/?classid=7&id=63&dotop=1&doajax=1&ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(
+                    <a> 很赞哦！ </a>(
                     <b id="diggnum">
-                        <script type="text/javascript" src="../../e/public/ViewClick/ViewClick_65.html"></script>
+                        <script type="text/javascript"></script>
                     </b>)
                 </div>
                 <div class="clear"></div>
                 <div class="share" id="down">
-                    <img src="https://img1.dotnet9.com/site/wechatpublic.jpg">
+                    <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
                     <div class="share-text">
                         <p>扫码关注Dotnet9微信公众号，第一时间获取网站更新动态</p>
                         @switch (Model.BlogPost.CopyrightType)
@@ -172,7 +173,7 @@
             <!-- 评论 开始 -->
             <div class="pinglun">
                 <div class="pl-520am" data-id="63" data-classid="7" data-showhot="0"></div>
-                <script type="text/javascript" src="~/skin/e/extend/lgyPl/api.js"></script>
+                <script type="text/javascript"></script>
             </div>
             <!-- 评论 结束 -->
         </div>
@@ -199,7 +200,7 @@
 </article>
 
 @section Scripts {
-
+    
     <!--prism核心js (用于渲染代码块)-->
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
     <!--显示代码块行号-->

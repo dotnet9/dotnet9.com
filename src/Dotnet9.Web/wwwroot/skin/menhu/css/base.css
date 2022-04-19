@@ -14,7 +14,7 @@ h1 { font-size: 28px }
 h2 { font-size: 18px }
 h3 { font-size: 16px }
 i { font-style: normal; display: block }
-span { display: block }
+span { display: inline-block }
 .clear, .blank { clear: both; width: 100%; overflow: hidden; }
 .blank { height: 20px }
 .fl { float: left }
