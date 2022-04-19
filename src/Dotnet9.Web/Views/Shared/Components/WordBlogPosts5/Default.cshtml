@@ -1,4 +1,5 @@
-﻿@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
+﻿@using Dotnet9.Application.Contracts.Blogs
+@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
 
 
 <div class="tuijian-news box whitebg tab-num01">
@@ -24,7 +25,13 @@
                     @if (item.Value.BlogPosts != null && item.Value.BlogPosts.Any())
                     {
                         var first = item.Value.BlogPosts.FirstOrDefault();
-                        var sixBlogPosts = item.Value.BlogPosts.Count > 7 ? item.Value.BlogPosts.GetRange(1, 6) : item.Value.BlogPosts;
+                        var count = item.Value.BlogPosts.Count;
+                        List<BlogPostBriefDto>? sixBlogPosts = null;
+                        if (count > 1)
+                        {
+                            var getCount = count - 1;
+                            sixBlogPosts = item.Value.BlogPosts.GetRange(1, count > 7 ? 6 : getCount);
+                        }
                         @if (first != null)
                         {
                             <div class="tuijian-news-pic">
@@ -40,10 +47,10 @@
                                 <p>
                                     @first.BriefDescription
                                 </p>
-                                <a href="/@first.CreateDate?.ToString("yyyy/MM")/@first.Slug" class="btn-blue-border">阅读更多</a>
+                                <a href="/cat/@item.Value.Slug" class="btn-blue-border">阅读更多</a>
                             </div>
                         }
-                        if (sixBlogPosts.Any())
+                        if (sixBlogPosts != null && sixBlogPosts.Any())
                         {
                             <div class="tuijian-news-list">
                                 <ul>
