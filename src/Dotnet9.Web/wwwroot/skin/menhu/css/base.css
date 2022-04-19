@@ -70,7 +70,7 @@ a#selected { background: rgb(9, 118, 220); }
 /*banner*/
 .banner { width: 60%; float: left; height: 340px; }
 .swiper-slide { position: relative }
-.swiper-slide span { position: absolute; right: 0; font-size: 12px; padding: 2px 5px 2px 10px; top: 10px; background: #0CF; color: #fff; border-radius: 3px 0 0 3px }
+.swiper-slide span { position: absolute; left: 10px; font-size: 12px; padding: 2px 5px 2px 10px; bottom: 30px; background: rgba(0, 0, 0, 0.4); color: #fff; border-radius: 3px 0 0 3px }
 .swiper-slide:nth-child(2) span { background: #F60 }
 .swiper-slide:nth-child(3) span { background: #3C0 }
 /*headline-box*/
