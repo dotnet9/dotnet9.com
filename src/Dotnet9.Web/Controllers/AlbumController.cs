@@ -24,8 +24,6 @@ public class AlbumController : Controller
     [Route("album/{slug?}")]
     public async Task<IActionResult> Index(string? slug)
     {
-        if (slug.IsNullOrWhiteSpace()) return NotFound();
-
         var cacheKey = $"{nameof(AlbumController)}-{nameof(Index)}-{slug}";
         var cacheData = await _cacheService.GetAsync<AlbumViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);

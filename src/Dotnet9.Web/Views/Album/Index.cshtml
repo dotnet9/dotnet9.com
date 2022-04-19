@@ -13,9 +13,23 @@
             <h2>@Model.Name</h2>
         </div>
         <ul>
-            @if (Model.Items != null && Model.Items.Any())
+            @if (Model.Albums != null && Model.Albums.Any())
             {
-                @foreach (var item in Model.Items)
+                @foreach (var item in Model.Albums)
+                {
+                    <li>
+                        <a href="/album/@item.Slug">
+                            <i>
+                                <img src="@item.Cover" alt="@item.Name">
+                            </i>
+                            <h2>@item.Name</h2>
+                        </a>
+                    </li>
+                }
+            }
+            @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+            {
+                @foreach (var item in Model.BlogPosts)
                 {
                     <li>
                         <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug">
