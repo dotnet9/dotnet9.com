@@ -389,7 +389,7 @@ span.mp-view { background: url(../images/view.png) no-repeat left center; }
 .keywords {overflow: hidden;}
 .keywords a {display: block;float: left;border: #1487f4 1px solid;color: #1487f4;padding: 2px 8px;margin: 0 5px 5px 0;border-radius: 3px;font-size: 14px;}
 .keywords a:nth-child(1), .keywords a:hover { background: #1487f4; color: #fff }
-.picview-other { overflow: hidden; color: #888; margin-bottom: 15px; }
+.picview-other { overflow: hidden; color: #888; margin-bottom: 15px; font-size: 13px; }
 .picview-other span { float: left; margin-right: 15px; padding-left: 20px; }
 .smalltext { margin-bottom: 20px; background: #f1f1f1; padding: 20px; color: #888; line-height: 22px; }
 .smalltext i { background: url(../images/quote.png) no-repeat left center; width: 24px; height: 15px; background-position: 0 0; float: left; }

@@ -37,7 +37,9 @@
                 <h2>文章</h2>
             </div>
             <div class="picview-box">
-                <h1 class="news-title-h1">@Model.BlogPost.Title</h1>
+                <div id="nice">
+                    <h1 class="news-title-h1">@Model.BlogPost.Title</h1>
+                </div>
                 <div class="picview-other">
                     <span><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
                     -
@@ -200,7 +202,7 @@
 </article>
 
 @section Scripts {
-    
+
     <!--prism核心js (用于渲染代码块)-->
     <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
     <!--显示代码块行号-->

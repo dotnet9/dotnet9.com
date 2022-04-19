@@ -10,7 +10,7 @@ public class RedisCacheService : ICacheService
 {
     private readonly ConnectionMultiplexer _connection;
 
-    private readonly string _instance;
+    private readonly string? _instance;
     protected IDatabase Cache;
 
 
