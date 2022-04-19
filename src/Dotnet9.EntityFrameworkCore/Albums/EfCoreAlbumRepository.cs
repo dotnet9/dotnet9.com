@@ -23,15 +23,9 @@ public class EfCoreAlbumRepository : EfCoreRepository<Album>, IAlbumRepository
 
     public async Task<List<AlbumCount>> GetListCountAsync()
     {
-        var query = from album in DbContext.Albums
-            join blogPostAlbum in DbContext.Set<BlogPostAlbum>()
-                on album.Id equals blogPostAlbum.AlbumId
-            select new { album.Id, album.Name, album.Slug, album.Cover }
-            into x
-            group x by new { x.Id, x.Name, x.Slug, x.Cover }
-            into g
-            orderby g.Count() descending
-            select new AlbumCount(g.Key.Id, g.Key.Name, g.Key.Slug, g.Key.Cover, g.Count());
+        var query = from album in DbContext.Set<Album>()
+            select new AlbumCount(album.Id, album.Name, album.Slug, album.Cover, 
+                DbContext.Set<BlogPostAlbum>().Count(d => d.AlbumId == album.Id));
 
         return await query.ToListAsync();
     }
