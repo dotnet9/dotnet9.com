@@ -42,40 +42,31 @@
                 </div>
                 <div class="picview-other">
                     <span><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
-                    -
+
                     @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
                     {
-                        <label>专辑：</label>
+                        <label>- 专辑：</label>
                         @foreach (var album in Model.BlogPost.AlbumNames)
                         {
-                            <label>
-                                <a href="/album/@album.Slug">@album.Name</a>
-                            </label>
-                            <label>|</label>
+                            <a href="/album/@album.Slug">| @album.Name</a>
                         }
                     }
-                    -
+
                     @if (Model.BlogPost.CategoryNames != null && Model.BlogPost.CategoryNames.Any())
                     {
-                        <label>分类：</label>
-                        @foreach (var categor in Model.BlogPost.CategoryNames)
+                        <label>- 分类：</label>
+                        @foreach (var category in Model.BlogPost.CategoryNames)
                         {
-                            <label>
-                                <a href="/cat/@categor.Slug">@categor.Name</a>
-                            </label>
-                            <span>|</span>
+                            <a href="/cat/@category.Slug">| @category.Name</a>
                         }
                     }
-                    -
+
                     @if (Model.BlogPost.TagNames != null && Model.BlogPost.TagNames.Any())
                     {
-                        <label>标签：</label>
+                        <label>- 标签：</label>
                         @foreach (var name in Model.BlogPost.TagNames)
                         {
-                            <label>
-                                <a href="/tag/@WebUtility.UrlEncode(name)">@name</a>
-                            </label>
-                            <label>|</label>
+                            <a href="/tag/@WebUtility.UrlEncode(name)">| @name</a>
                         }
                     }
                 </div>
@@ -87,7 +78,7 @@
                 <div class="diggit">
                     <a> 很赞哦！ </a>(
                     <b id="diggnum">
-                        <script type="text/javascript"></script>
+                        <script type="text/javascript">1</script>0
                     </b>)
                 </div>
                 <div class="clear"></div>
