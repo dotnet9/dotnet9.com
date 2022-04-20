@@ -16,7 +16,7 @@
         {
             @foreach (var tag in Model.Tags.Random(30))
             {
-                <a href="/tag/@WebUtility.UrlEncode(tag.Name)" target="_blank">
+                <a href="/tag/@WebUtility.UrlEncode(tag.Name)">
                     @tag.Name<span>(@tag.BlogPostCount)</span>
                 </a>
             }

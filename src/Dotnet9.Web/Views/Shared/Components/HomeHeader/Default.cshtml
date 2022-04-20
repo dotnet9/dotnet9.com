@@ -32,7 +32,7 @@
         {
             <h2 class="headline-news-title">
                 <span>头条</span>
-                <a href="/@Model.First.CreateDate?.ToString("yyyy/MM")/@Model.First.Slug" target="_blank" title="@Model.First.Title">
+                <a href="/@Model.First.CreateDate?.ToString("yyyy/MM")/@Model.First.Slug" title="@Model.First.Title">
                     @Model.First.Title
                 </a>
             </h2>
@@ -47,7 +47,7 @@
                 @foreach (var item in Model.LatestItems)
                 {
                     <li>
-                        <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug" target="_blank" title="@item.Title">@item.Title</a>
+                        <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug" title="@item.Title">@item.Title</a>
                     </li>
                 }
             }

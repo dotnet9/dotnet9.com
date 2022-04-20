@@ -29,7 +29,7 @@
                                 @foreach (var blogPost in blogPosts)
                                 {
                                     <li>
-                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" target="_blank" class="dl-link">
+                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" class="dl-link">
                                             <i>
                                                 <img src="@blogPost.Cover" alt="@blogPost.Title">
                                             </i>
@@ -38,7 +38,7 @@
                                             </h2>
                                             <p>@blogPost.BriefDescription</p>
                                         </a>
-                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" target="_blank" class="d-list-hover">
+                                        <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug" class="d-list-hover">
                                             <em>浏览</em>
                                         </a>
                                     </li>

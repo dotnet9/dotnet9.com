@@ -57,7 +57,7 @@
                                     @foreach (var blogPost in sixBlogPosts)
                                     {
                                         <li>
-                                            <a target="_blank" href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
+                                            <a href="/@blogPost.CreateDate?.ToString("yyyy/MM")/@blogPost.Slug">
                                                 <span>
                                                     <b>@blogPost.CreateDate?.Day</b>@blogPost.CreateDate?.ToString("yyyy-MM")
                                                 </span>
