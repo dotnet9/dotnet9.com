@@ -83,7 +83,7 @@ const loginHandler = async () => {
 const checkLogin = async () => {
   loading.value = true
   try {
-    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/account/checklogin', {})
+    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/admin/account/checklogin', {})
     console.log('islogin ', isLogin)
     if (isLogin) {
       router.replace('/admin/dash')

@@ -7,11 +7,11 @@ import * as path from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    outDir: '../Panda/wwwroot/admin'
+    outDir: '../Dotnet9.Web/wwwroot/admin'
   },
   server: {
     proxy: {
-      "/admin": "http://localhost:5133",
+      "/admin": "http://localhost:5133/api",
       "/upload": "http://localhost:5133",
       "/img": "http://localhost:5133"
     }

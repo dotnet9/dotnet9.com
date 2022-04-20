@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.AdminAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/account")]
 [Authorize]
 [ApiController]
 public class AccountController : ControllerBase
 {
     [AllowAnonymous]
-    [HttpGet]
+    [HttpGet("checklogin")]
     public async Task<LoginStatusViewModel> CheckLogin()
     {
         return await Task.FromResult(LoginStatusViewModel.Success());
