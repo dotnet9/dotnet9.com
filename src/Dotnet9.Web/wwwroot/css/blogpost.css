@@ -90,15 +90,13 @@
  * list-style-type: square|circle|disc;
  */
 
-    #nice ul {
-    }
+#nice ul { }
 
 /* 有序列表整体样式
  * list-style-type: upper-roman|lower-greek|lower-alpha;
  */
 
-    #nice ol {
-    }
+#nice ol { }
 
 /* 列表内容，不要设置li
  */
@@ -228,13 +226,9 @@
 
 #nice .inline-equation svg { }
 
-#nice ul li {
-    list-style: disc
-}
+#nice ul li { list-style: disc }
 
-#nice ol li {
-    list-style: decimal
-}
+#nice ol li { list-style: decimal }
 
 #nice h3 {
     border-bottom: 1px solid #eee;
@@ -258,3 +252,33 @@
 }
 
 #nice pre > code { white-space: pre; }
+
+#nice blockquote {
+    animation: shadows 5s linear infinite alternate;
+    display: inline-block;
+    margin: 0;
+    padding: 1em;
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+#nice blockquote:before {
+    color: #ccc;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+
+@keyframes shadows {
+    0% {
+        box-shadow: 0 2px 4px -2px rgba(0,0,0,.25);
+        transform: scale(.97);
+    }
+
+    100% {
+        box-shadow: 0 0 4px 2px rgba(0,0,0,.25);
+        transform: scale(1);
+    }
+}
