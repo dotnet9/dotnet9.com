@@ -28,9 +28,11 @@ public static class SwaggerSetup
                     Url = new Uri("https://dotnet9.com")
                 }
             });
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
-            options.IncludeXmlComments(xmlPath, true);
+
+            var mvcXmlFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dotnet9.Web.xml");
+            options.IncludeXmlComments(mvcXmlFile, true);
+            var apiXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dotnet9.AdminAPI.xml");
+            options.IncludeXmlComments(apiXmlPath, true);
         });
     }
 }
