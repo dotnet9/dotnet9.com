@@ -5,9 +5,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-export default defineComponent({
-
-})
+export default defineComponent({});
 </script>
 <style lang="scss">
 body {
@@ -79,7 +77,6 @@ h3 {
   animation: test1 0.3s ease-in-out;
 } */
 
-
 .q-login {
   width: 100%;
   height: 100%;
@@ -106,7 +103,7 @@ h3 {
   }
 }
 
-.w_100{
+.w_100 {
   width: 100%;
 }
 // .m_t_1{
