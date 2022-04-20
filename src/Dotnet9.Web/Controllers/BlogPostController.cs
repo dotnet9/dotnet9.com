@@ -1,16 +1,15 @@
-﻿using System.Linq.Expressions;
-using System.Net;
-using System.Text.RegularExpressions;
-using AutoMapper;
+﻿using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Core;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
-using Dotnet9.Web.Caches;
 using Dotnet9.Web.ViewModels.Blogs;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Dotnet9.Web.Controllers;
 
@@ -46,7 +45,7 @@ public class BlogPostController : Controller
         _categoryRepository = categoryRepository;
         _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
-        CacheHelper.Cache = _cacheService = cacheService;
+        _cacheService = cacheService;
     }
 
     [HttpGet]

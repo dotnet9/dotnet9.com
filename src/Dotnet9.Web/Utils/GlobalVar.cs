@@ -1,4 +1,4 @@
-﻿using Dotnet9.Web.Caches;
+﻿using Dotnet9.Extensions.Caches;
 
 namespace Dotnet9.Web.Utils;
 

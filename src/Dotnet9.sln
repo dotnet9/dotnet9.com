@@ -5,17 +5,23 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web", "Dotnet9.Web\Dotnet9.Web.csproj", "{ABD7A9F5-4535-4E3E-A4DD-70453FC5FA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Domain", "Dotnet9.Domain\Dotnet9.Domain.csproj", "{2D8DE31F-2A7C-46E1-8ACC-F0608ECAAE13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Domain", "Dotnet9.Domain\Dotnet9.Domain.csproj", "{2D8DE31F-2A7C-46E1-8ACC-F0608ECAAE13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Domain.Shared", "Dotnet9.Domain.Shared\Dotnet9.Domain.Shared.csproj", "{B95B3CA7-B8DB-4CC0-81F9-1F1B87D835C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Domain.Shared", "Dotnet9.Domain.Shared\Dotnet9.Domain.Shared.csproj", "{B95B3CA7-B8DB-4CC0-81F9-1F1B87D835C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Application", "Dotnet9.Application\Dotnet9.Application.csproj", "{3506C89C-0AD4-4A79-9480-91AEBB485AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Application", "Dotnet9.Application\Dotnet9.Application.csproj", "{3506C89C-0AD4-4A79-9480-91AEBB485AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.EntityFrameworkCore", "Dotnet9.EntityFrameworkCore\Dotnet9.EntityFrameworkCore.csproj", "{3E1CC779-3C2C-43AE-9882-9461DAFF59C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.EntityFrameworkCore", "Dotnet9.EntityFrameworkCore\Dotnet9.EntityFrameworkCore.csproj", "{3E1CC779-3C2C-43AE-9882-9461DAFF59C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Core", "Dotnet9.Core\Dotnet9.Core.csproj", "{8DC1CD3A-97F2-4731-9801-59F9597FFF6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core", "Dotnet9.Core\Dotnet9.Core.csproj", "{8DC1CD3A-97F2-4731-9801-59F9597FFF6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Application.Contracts", "Dotnet9.Application.Contracts\Dotnet9.Application.Contracts.csproj", "{7FB76667-593A-46D6-865D-C4F6648657C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Application.Contracts", "Dotnet9.Application.Contracts\Dotnet9.Application.Contracts.csproj", "{7FB76667-593A-46D6-865D-C4F6648657C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.AdminAPI", "Dotnet9.AdminAPI\Dotnet9.AdminAPI.csproj", "{AAB293B8-B466-437E-AD23-72189B63DDA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Migrations", "Dotnet9.Migrations\Dotnet9.Migrations.csproj", "{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Extensions", "Dotnet9.Extensions\Dotnet9.Extensions.csproj", "{5817D8BD-56F5-4D66-8874-F5380A8E7020}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,18 @@ Global
 		{7FB76667-593A-46D6-865D-C4F6648657C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FB76667-593A-46D6-865D-C4F6648657C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FB76667-593A-46D6-865D-C4F6648657C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB293B8-B466-437E-AD23-72189B63DDA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB293B8-B466-437E-AD23-72189B63DDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB293B8-B466-437E-AD23-72189B63DDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB293B8-B466-437E-AD23-72189B63DDA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5817D8BD-56F5-4D66-8874-F5380A8E7020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5817D8BD-56F5-4D66-8874-F5380A8E7020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5817D8BD-56F5-4D66-8874-F5380A8E7020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5817D8BD-56F5-4D66-8874-F5380A8E7020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
