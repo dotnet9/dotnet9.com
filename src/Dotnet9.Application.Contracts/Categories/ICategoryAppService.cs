@@ -2,7 +2,7 @@
 
 public interface ICategoryAppService
 {
-    Task<CategoryViewModel?> GetCategoryAsync(string slug);
+    Task<CategoryViewModel?> GetCategoryAsync(string? slug);
 
     Task<List<CategoryCountDto>> GetListCountAsync();
 }

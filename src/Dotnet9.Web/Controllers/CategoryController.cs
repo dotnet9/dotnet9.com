@@ -24,8 +24,6 @@ public class CategoryController : Controller
     [Route("cat/{slug?}")]
     public async Task<IActionResult> Index(string? slug)
     {
-        if (slug.IsNullOrWhiteSpace()) return NotFound();
-
         var cacheKey = $"{nameof(CategoryController)}-{nameof(Index)}-{slug}";
         var cacheData = await _cacheService.GetAsync<CategoryViewModel>(cacheKey);
         if (cacheData != null) return View(cacheData);

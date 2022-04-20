@@ -42,7 +42,7 @@ public class WordBlogPosts2 : ViewComponent
                 {
                     Name = categoryViewMode.Name,
                     Slug = categorySlug,
-                    BlogPosts = categoryViewMode.Items
+                    BlogPosts = categoryViewMode.BlogPosts
                 };
         }
 

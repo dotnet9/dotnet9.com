@@ -1,4 +1,5 @@
-﻿using Dotnet9.Domain.Blogs;
+﻿using System.Linq.Expressions;
+using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,9 @@ public class EfCoreCategoryRepository : EfCoreRepository<Category>, ICategoryRep
         return await DbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<List<CategoryCount>> GetListCountAsync()
+    public async Task<List<CategoryCount>> GetListCountAsync(Expression<Func<Category, bool>> whereLambda)
     {
-        var query = from category in DbContext.Set<Category>()
+        var query = from category in DbContext.Set<Category>().Where(whereLambda)
             select new CategoryCount(category.Id, category.ParentId, category.Name, category.Slug, category.Cover,
                 DbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == category.Id));
 
