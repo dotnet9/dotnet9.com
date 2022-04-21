@@ -1,16 +1,10 @@
 <template>
-    <div class="q-login">
-        <div class="q-login-box" v-loading="loading">
-            <div class="q-login-header">
+    <div class="d-login">
+        <div class="d-login-box" v-loading="loading">
+            <div class="d-login-header">
                 <h1>初始化后台账号</h1>
             </div>
-            <el-form
-                :model="formData"
-                label-width="70px"
-                :rules="rules"
-                ref="form"
-                label-position="top"
-            >
+            <el-form :model="formData" label-width="70px" :rules="rules" ref="form" label-position="top">
                 <el-form-item label="用户名" prop="userName">
                     <el-input placeholder="输入用户名" v-model="formData.userName"></el-input>
                 </el-form-item>
@@ -29,10 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref,onMounted } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { ElForm,ElMessage } from 'element-plus'
-import { post,get } from 'shared/http/HttpClient'
+import { ElForm, ElMessage } from 'element-plus'
+import { post, get } from 'shared/http/HttpClient'
 
 
 const formData = reactive({
@@ -72,10 +66,10 @@ const submitHandler = () => {
     form.value.validate((isvalid) => {
         if (isvalid) {
             loading.value = true;
-            post('/admin/createAdminAccount', formData).then(_ => {
+            post('/admin/account/createAdminAccount', formData).then(_ => {
                 ElMessage({
-                    message:'初始化管理员账号成功',
-                    type:'success'
+                    message: '初始化管理员账号成功',
+                    type: 'success'
                 })
                 router.replace('/login')
             }).finally(() => loading.value = false)
@@ -85,7 +79,7 @@ const submitHandler = () => {
 }
 
 onMounted(() => {
-    get('/admin/account/islogin',{})
+    get('/admin/account/checkLogin', {})
 })
 
 </script>

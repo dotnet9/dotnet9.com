@@ -47,7 +47,7 @@ public class LogActionFilterAttribute : ActionFilterAttribute
             Method = context.HttpContext.Request.Method,
             Arguments = ActionArguments,
             Duration = Stopwatch!.Elapsed.TotalMilliseconds,
-            CreateDate = DateTime.Now
+            CreateDate = DateTimeOffset.Now
         }).Result;
     }
 }

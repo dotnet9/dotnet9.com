@@ -128,7 +128,7 @@ public class HomeController : Controller
 
         siteMapNodes.AddRange((await _albumAppService.GetListCountAsync()).Select(x => new SitemapNode
         {
-            LastModified = DateTime.UtcNow,
+            LastModified = DateTimeOffset.UtcNow,
             Priority = 0.8,
             Url = $"{GlobalVar.SiteDomain}/album/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
@@ -136,7 +136,7 @@ public class HomeController : Controller
 
         siteMapNodes.AddRange((await _categoryAppService.GetListCountAsync()).Select(x => new SitemapNode
         {
-            LastModified = DateTime.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
+            LastModified = DateTimeOffset.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
         }));
 
@@ -397,7 +397,7 @@ public class HomeController : Controller
                         blogPostSeed.Albums,
                         blogPostSeed.Categories,
                         blogPostSeed.Tags,
-                        DateTime.Parse(blogPostSeed.CreateDate!)));
+                        DateTimeOffset.Parse(blogPostSeed.CreateDate!)));
                     await _dotnet9DbContext.SaveChangesAsync();
                     _logger.LogInformation($"添加博文入库成功-{blogPostSeed.Title}");
 

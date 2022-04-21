@@ -77,14 +77,14 @@ h3 {
   animation: test1 0.3s ease-in-out;
 } */
 
-.q-login {
+.d-login {
   width: 100%;
   height: 100%;
   background: url("../../assets/login_bg.svg");
   padding-top: 200px;
   box-sizing: border-box;
 
-  .q-login-box {
+  .d-login-box {
     width: 300px;
     padding: 2rem;
     border-radius: 5px;
@@ -92,7 +92,7 @@ h3 {
     margin: 0 auto;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
 
-    .q-login-header {
+    .d-login-header {
       padding-bottom: 2rem;
       h1 {
         font-size: 18px;

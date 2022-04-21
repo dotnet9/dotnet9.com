@@ -3,5 +3,5 @@
 public class ContactSidebarViewModel
 {
     public int TotalPostCount { get; set; }
-    public DateTime? LatestPostTime { get; set; }
+    public DateTimeOffset? LatestPostTime { get; set; }
 }

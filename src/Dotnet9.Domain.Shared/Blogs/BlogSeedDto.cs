@@ -14,6 +14,6 @@ public class BlogSeedDto
     public string? CopyrightType { get; set; }
     public string? Original { get; set; }
     public string? OriginalLink { get; set; }
-    public DateTime CreateDate { get; set; }
+    public DateTimeOffset CreateDate { get; set; }
     public string? Content { get; set; }
 }

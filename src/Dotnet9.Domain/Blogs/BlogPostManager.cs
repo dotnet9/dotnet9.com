@@ -40,7 +40,7 @@ public class BlogPostManager
         string[]? albumNames = default,
         string[]? categoryNames = default,
         string[]? tagNames = default,
-        DateTime createDate = default)
+        DateTimeOffset createDate = default)
     {
         Check.NotNullOrWhiteSpace(title, nameof(title));
         Check.NotNullOrWhiteSpace(slug, nameof(slug));

@@ -1,7 +1,7 @@
 <template>
-  <div class="q-login">
-    <div class="q-login-box" v-loading="loading">
-      <div class="q-login-header">
+  <div class="d-login">
+    <div class="d-login-box" v-loading="loading">
+      <div class="d-login-header">
         <h1>Dotnet9博客系统后台</h1>
       </div>
       <el-form
@@ -83,7 +83,7 @@ const loginHandler = async () => {
 const checkLogin = async () => {
   loading.value = true
   try {
-    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/admin/account/checklogin', {})
+    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/admin/account/checkLogin', {})
     console.log('islogin ', isLogin)
     if (isLogin) {
       router.replace('/admin/dash')

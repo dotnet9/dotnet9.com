@@ -6,5 +6,5 @@ public class BlogPostForSitemap
 
     public string Slug { get; set; } = null!;
 
-    public DateTime CreateDate { get; set; }
+    public DateTimeOffset CreateDate { get; set; }
 }

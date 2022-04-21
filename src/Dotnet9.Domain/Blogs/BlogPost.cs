@@ -21,7 +21,7 @@ public class BlogPost : EntityBase
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
-        DateTime createDate) : base(id)
+        DateTimeOffset createDate) : base(id)
     {
         SetTitle(title);
         SetSlug(slug);

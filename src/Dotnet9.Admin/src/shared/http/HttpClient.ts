@@ -46,17 +46,17 @@ http.interceptors.response.use((response) => {
         })
 
     }
-    if(error.response.status==400){
+    if (error.response.status == 400) {
         let data = error.response?.data;
-        if(data.message){
+        if (data.message) {
             ElMessage({
-                message:data.message,
-                type:'error'
+                message: data.message,
+                type: 'error'
             })
-        }else{
+        } else {
             ElMessage({
-                message:'服务器请求失败',
-                type:'error'
+                message: '服务器请求失败',
+                type: 'error'
             })
         }
     }

@@ -8,6 +8,7 @@ using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.Timelines;
 using Dotnet9.Application.Contracts.UrlLinks;
+using Dotnet9.Application.Contracts.Users;
 using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;

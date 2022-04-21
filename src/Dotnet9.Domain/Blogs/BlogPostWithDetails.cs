@@ -34,5 +34,5 @@ public class BlogPostWithDetails
 
     public string[]? TagNames { get; set; }
 
-    public DateTime? CreateDate { get; set; }
+    public DateTimeOffset? CreateDate { get; set; }
 }

@@ -102,7 +102,7 @@
                         @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
                         {
                             <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
-                            <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTime.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
+                            <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTimeOffset.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
                         }
                         else
                         {

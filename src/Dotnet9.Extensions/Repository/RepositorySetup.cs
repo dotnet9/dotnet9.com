@@ -10,11 +10,13 @@ using Dotnet9.Application.Contracts.Donations;
 using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.UrlLinks;
+using Dotnet9.Application.Contracts.Users;
 using Dotnet9.Application.Donations;
 using Dotnet9.Application.Privacies;
 using Dotnet9.Application.Tags;
 using Dotnet9.Application.Timelines;
 using Dotnet9.Application.UrlLinks;
+using Dotnet9.Application.Users;
 using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Albums;
@@ -60,6 +62,7 @@ public static class RepositorySetup
         services.AddTransient<ITagAppService, TagAppService>();
 
         services.AddTransient<IUserRepository, EfCoreUserRepository>();
+        services.AddTransient<IUserAppService, UserAppService>();
 
         services.AddTransient<IBlogPostRepository, EfCoreBlogPostRepository>();
         services.AddTransient(typeof(BlogPostManager));

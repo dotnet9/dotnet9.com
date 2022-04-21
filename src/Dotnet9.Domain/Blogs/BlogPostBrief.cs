@@ -20,5 +20,5 @@ public class BlogPostBrief
 
     public string? OriginalLink { get; set; }
 
-    public DateTime? CreateDate { get; set; }
+    public DateTimeOffset? CreateDate { get; set; }
 }

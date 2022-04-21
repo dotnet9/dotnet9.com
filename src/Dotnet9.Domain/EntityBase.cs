@@ -18,19 +18,19 @@ public class EntityBase
 
     public int? CreateUserId { get; set; }
     [NotMapped] public User? CreateUser { get; set; }
-    public DateTime? CreateDate { get; set; }
+    public DateTimeOffset? CreateDate { get; set; }
 
 
     public int? UpdateUserId { get; set; }
 
     [NotMapped] public User? UpdateUser { get; set; }
 
-    public DateTime? UpdateDate { get; set; }
+    public DateTimeOffset? UpdateDate { get; set; }
 
     public bool IsDeleted { get; set; }
     public int? DeleteUserId { get; set; }
 
     [NotMapped] public User? DeleteUser { get; set; }
 
-    public DateTime? DeleteDate { get; set; }
+    public DateTimeOffset? DeleteDate { get; set; }
 }

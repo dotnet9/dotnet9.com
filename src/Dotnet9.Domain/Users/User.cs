@@ -29,7 +29,7 @@ public class User : EntityBase
         }
     }
 
-    public DateTime? LastLoginDate { get; set; }
+    public DateTimeOffset? LastLoginDate { get; set; }
 
     public int LoginFailCount { get; set; }
 
