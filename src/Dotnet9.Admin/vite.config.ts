@@ -11,9 +11,21 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/admin": "http://localhost:5133/api",
-      "/upload": "http://localhost:5133",
-      "/img": "http://localhost:5133"
+      "/admin": {
+        target: "http://localhost:5133/api",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/admin/, "")
+      },
+      "/upload": {
+        target: "http://localhost:5133/upload",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/upload/, "")
+      },
+      "/img": {
+        target: "http://localhost:5133/img",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/img/, "")
+      },
     }
   },
   resolve: {
