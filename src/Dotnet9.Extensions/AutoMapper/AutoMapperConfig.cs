@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Dotnet9.Web.AutoMapper;
+namespace Dotnet9.Extensions.AutoMapper;
 
 public class AutoMapperConfig
 {

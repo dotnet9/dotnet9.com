@@ -19,5 +19,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Dotnet9.Application.Contracts\Dotnet9.Application.Contracts.csproj" />
+	  <ProjectReference Include="..\Dotnet9.Application\Dotnet9.Application.csproj" />
+	  <ProjectReference Include="..\Dotnet9.EntityFrameworkCore\Dotnet9.EntityFrameworkCore.csproj" />
 	</ItemGroup>
 </Project>

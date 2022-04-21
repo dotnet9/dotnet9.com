@@ -1,6 +1,6 @@
-﻿using Dotnet9.Web.AutoMapper;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Dotnet9.Web.ServiceExtensions;
+namespace Dotnet9.Extensions.AutoMapper;
 
 public static class AutoMapperSetup
 {

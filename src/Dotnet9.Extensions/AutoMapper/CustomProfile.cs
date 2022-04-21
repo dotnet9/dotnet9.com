@@ -18,7 +18,7 @@ using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 
-namespace Dotnet9.Web.AutoMapper;
+namespace Dotnet9.Extensions.AutoMapper;
 
 public class CustomProfile : Profile
 {

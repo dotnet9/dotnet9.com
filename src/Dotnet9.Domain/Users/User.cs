@@ -28,6 +28,12 @@ public class User : EntityBase
                 Role = (int)UserRoleKind.User;
         }
     }
+
+    public DateTime? LastLoginDate { get; set; }
+
+    public int LoginFailCount { get; set; }
+
+    public bool Disable { get; set; }
 }
 
 public enum UserRoleKind

@@ -1,7 +1,8 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Unicode;
+﻿using Dotnet9.Extensions.Repository;
 using Dotnet9.Web.ServiceExtensions;
 using Dotnet9.Web.Utils;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace Dotnet9.Web;
 
@@ -18,8 +19,6 @@ public static class Dotnet9WebExtension
         GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
 
         builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultConnection")!);
-        builder.Services.AddAutoMapperSetup();
-        builder.Services.AddRepositorySetup();
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
     }

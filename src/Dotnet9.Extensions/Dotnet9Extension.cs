@@ -1,4 +1,6 @@
-﻿using Dotnet9.Extensions.Caches;
+﻿using Dotnet9.Extensions.AutoMapper;
+using Dotnet9.Extensions.Caches;
+using Dotnet9.Extensions.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
@@ -9,5 +11,7 @@ public static class Dotnet9Extension
     public static void AddExtensions(this WebApplicationBuilder builder)
     {
         builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheConfig>()!);
+        builder.Services.AddAutoMapperSetup();
+        builder.Services.AddRepositorySetup();
     }
 }

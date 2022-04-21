@@ -16,6 +16,7 @@ using Dotnet9.Domain.Shared.Privacies;
 using Dotnet9.Domain.Shared.Tags;
 using Dotnet9.Domain.Shared.Timelines;
 using Dotnet9.Domain.Shared.UrlLinks;
+using Dotnet9.Domain.Shared.Users;
 using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
@@ -77,6 +78,21 @@ public class Dotnet9DbContext : DbContext
             b.ConfigureByConvention();
             b.Property(x => x.Name).IsRequired().HasMaxLength(TagConsts.MaxNameLength);
             b.HasIndex(x => x.Name);
+        });
+
+        modelBuilder.Entity<User>(b =>
+        {
+            b.ToTable($"{Dotnet9Consts.DbTablePrefix}Users", Dotnet9Consts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.Name).IsRequired().HasMaxLength(UserConsts.MaxNameLength);
+            b.Property(x => x.Account).IsRequired().HasMaxLength(UserConsts.MaxAccountLength);
+            b.Property(x => x.Password).IsRequired().HasMaxLength(UserConsts.MaxPasswordLength);
+            b.Property(x => x.Email).IsRequired().HasMaxLength(UserConsts.MaxEmailLength);
+            b.Property(x => x.Email).IsRequired().HasMaxLength(UserConsts.MaxEmailLength);
+            b.Property(x => x.Role);
+            b.Property(x => x.LastLoginDate);
+            b.Property(x => x.LoginFailCount);
+            b.HasIndex(x => x.Disable);
         });
 
         modelBuilder.Entity<BlogPost>(b =>

@@ -25,6 +25,7 @@ using Dotnet9.Domain.Privacies;
 using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
+using Dotnet9.Domain.Users;
 using Dotnet9.EntityFrameworkCore.Abouts;
 using Dotnet9.EntityFrameworkCore.ActionLogs;
 using Dotnet9.EntityFrameworkCore.Albums;
@@ -35,8 +36,10 @@ using Dotnet9.EntityFrameworkCore.Privacies;
 using Dotnet9.EntityFrameworkCore.Tags;
 using Dotnet9.EntityFrameworkCore.Timelines;
 using Dotnet9.EntityFrameworkCore.UrlLinks;
+using Dotnet9.EntityFrameworkCore.Users;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Dotnet9.Web.ServiceExtensions;
+namespace Dotnet9.Extensions.Repository;
 
 public static class RepositorySetup
 {
@@ -55,6 +58,8 @@ public static class RepositorySetup
         services.AddTransient<ITagRepository, EfCoreTagRepository>();
         services.AddTransient(typeof(TagManager));
         services.AddTransient<ITagAppService, TagAppService>();
+
+        services.AddTransient<IUserRepository, EfCoreUserRepository>();
 
         services.AddTransient<IBlogPostRepository, EfCoreBlogPostRepository>();
         services.AddTransient(typeof(BlogPostManager));
