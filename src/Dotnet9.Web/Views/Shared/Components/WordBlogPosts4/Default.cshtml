@@ -40,8 +40,12 @@
                                                     <em>推荐</em>
                                                 }
                                             </i>
-                                            <span>@blogPost.Title</span>
+                                            <span style="text-align: left;">@blogPost.Title</span>
                                         </a>
+
+                                        <small style="text-align: left;">
+                                            <a style="display: inline;" href="/user/@(blogPost.Original ?? "沙漠尽头的狼")">@(blogPost.Original ?? "沙漠尽头的狼")</a> - @blogPost.CreateDate?.ToString("yyyy-MM-dd")
+                                        </small>
                                     </li>
                                     isSet = true;
                                 }
