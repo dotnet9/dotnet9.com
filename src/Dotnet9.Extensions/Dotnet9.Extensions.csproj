@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="Serilog" Version="2.11.0-dev-01380" />
+		<PackageReference Include="Serilog" Version="2.11.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="6.0.0-dev-00265" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.2-dev-00890" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
