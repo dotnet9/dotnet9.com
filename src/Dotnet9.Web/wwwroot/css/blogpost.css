@@ -256,7 +256,6 @@
 #nice pre > code { white-space: pre; }
 
 #nice blockquote {
-    animation: shadows 5s linear infinite alternate;
     margin: 0;
     padding: 1em;
     background: #f9f9f9;
@@ -270,16 +269,4 @@
     line-height: 0.1em;
     margin-right: 0.25em;
     vertical-align: -0.4em;
-}
-
-@keyframes shadows {
-    0% {
-        box-shadow: 0 2px 4px -2px rgba(0, 0, 0, .25);
-        transform: scale(.99);
-    }
-
-    100% {
-        box-shadow: 0 0 4px 2px rgba(0, 0, 0, .25);
-        transform: scale(1);
-    }
 }
