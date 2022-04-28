@@ -5,14 +5,14 @@
                 <h1>初始化后台账号</h1>
             </div>
             <el-form :model="formData" label-width="70px" :rules="rules" ref="form" label-position="top">
-                <el-form-item label="用户名" prop="userName">
-                    <el-input placeholder="输入用户名" v-model="formData.userName"></el-input>
+                <el-form-item label="账号" prop="account">
+                    <el-input placeholder="输入账号" v-model="formData.account"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" prop="email">
-                    <el-input placeholder="输入用户名" v-model="formData.email"></el-input>
+                    <el-input placeholder="输入邮箱" v-model="formData.email"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="pwd">
-                    <el-input placeholder="输入密码" v-model="formData.pwd" show-password></el-input>
+                <el-form-item label="密码" prop="password">
+                    <el-input placeholder="输入密码" v-model="formData.password" show-password></el-input>
                 </el-form-item>
                 <el-form-item label>
                     <el-button type="primary" class="w_100" @click="submitHandler()">创建</el-button>
@@ -30,25 +30,25 @@ import { post, get } from 'shared/http/HttpClient'
 
 
 const formData = reactive({
-    userName: "",
-    pwd: "",
-    email: ''
+    account: "",
+    email: '',
+    password: ""
 });
 const loading = ref<boolean>(false);
 const rules = {
+    account: [
+        {
+            required: true,
+            message: "账号不能为空",
+            trigger: 'blur'
+        },
+    ],
     email: [
         {
             required: true,
             message: '邮箱不能为空',
             trigger: 'blur'
         }
-    ],
-    userName: [
-        {
-            required: true,
-            message: "用户名不能为空",
-            trigger: 'blur'
-        },
     ],
     pwd: [
         {

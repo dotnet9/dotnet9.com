@@ -6,7 +6,7 @@ public static class UserConsts
 
     public const int MaxAccountLength = 32;
 
-    public const int MaxPasswordLength = 64;
-    
+    public const int MaxPasswordLength = 96;
+
     public const int MaxEmailLength = 32;
 }
