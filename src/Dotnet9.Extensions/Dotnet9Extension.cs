@@ -13,5 +13,6 @@ public static class Dotnet9Extension
         builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheConfig>()!);
         builder.Services.AddAutoMapperSetup();
         builder.Services.AddRepositorySetup();
+        builder.Services.ConfigureNonBreakingSameSiteCookies();
     }
 }
