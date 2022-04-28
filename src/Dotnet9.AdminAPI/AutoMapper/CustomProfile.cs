@@ -11,5 +11,6 @@ public class CustomProfile : Profile
     {
         CreateMap<AdminAccountForCreationViewModel, UserForCreationDto>();
         CreateMap<UserForCreationDto, AdminAccountForCreation>();
+        CreateMap<AccountLoginViewModel, UserForLoginDto>();
     }
 }

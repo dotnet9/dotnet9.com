@@ -1,8 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Dotnet9.AdminAPI.ViewModels.Accounts;
 using Dotnet9.Application.Contracts.Users;
-using Dotnet9.Domain.Users;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.AdminAPI.Controllers;
@@ -12,12 +15,14 @@ namespace Dotnet9.AdminAPI.Controllers;
 [ApiController]
 public class AccountController : ControllerBase
 {
-    private readonly IUserAppService _userAppService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IMapper _mapper;
+    private readonly IUserAppService _userAppService;
 
-    public AccountController(IUserAppService userAppService, IMapper mapper)
+    public AccountController(IUserAppService userAppService, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
         _userAppService = userAppService;
+        _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
     }
 
@@ -40,5 +45,22 @@ public class AccountController : ControllerBase
         var adminAccountForDb = _mapper.Map<AdminAccountForCreationViewModel, UserForCreationDto>(request);
         await _userAppService.CreateAdminAccountAsync(adminAccountForDb);
         return Ok("初始化账号成功");
+    }
+
+    [AllowAnonymous]
+    [HttpPost("login")]
+    public async Task Login([FromBody] AccountLoginViewModel request)
+    {
+        var accountLoginForDb = _mapper.Map<AccountLoginViewModel, UserForLoginDto>(request);
+        var res = await _userAppService.LoginAsync(accountLoginForDb);
+        if (!res.IsSuccess) throw new UserException(res.Message);
+        var identity = new ClaimsIdentity(new Claim[]
+        {
+            new(ClaimTypes.Name, request.Account)
+        }, CookieAuthenticationDefaults.AuthenticationScheme);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        if (_httpContextAccessor.HttpContext != null)
+            await _httpContextAccessor.HttpContext.SignInAsync(claimsPrincipal);
     }
 }

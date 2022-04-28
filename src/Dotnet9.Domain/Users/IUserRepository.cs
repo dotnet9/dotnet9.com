@@ -7,4 +7,8 @@ public interface IUserRepository : IRepository<User>
     Task<bool> ExistAdminAccountAsync();
 
     Task<int> InitAccountAsync(AdminAccountForCreation adminAccountForCreation);
+
+    Task LoginFailAsync(User user);
+
+    Task LoginSuccessAsync(User user);
 }

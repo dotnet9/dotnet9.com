@@ -91,6 +91,7 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Email).IsRequired().HasMaxLength(UserConsts.MaxEmailLength);
             b.Property(x => x.Role);
             b.Property(x => x.LastLoginDate);
+            b.Property(x => x.LockedDate);
             b.Property(x => x.LoginFailCount);
             b.HasIndex(x => x.Disable);
         });
@@ -119,28 +120,28 @@ public class Dotnet9DbContext : DbContext
         modelBuilder.Entity<BlogPostAlbum>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostAlbums", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new { x.BlogPostId, x.AlbumId });
+            b.HasKey(x => new {x.BlogPostId, x.AlbumId});
             b.HasOne<BlogPost>().WithMany(x => x.Albums).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Album>().WithMany().HasForeignKey(x => x.AlbumId).IsRequired();
-            b.HasIndex(x => new { x.BlogPostId, x.AlbumId });
+            b.HasIndex(x => new {x.BlogPostId, x.AlbumId});
         });
 
         modelBuilder.Entity<BlogPostCategory>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostCategories", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new { x.BlogPostId, x.CategoryId });
+            b.HasKey(x => new {x.BlogPostId, x.CategoryId});
             b.HasOne<BlogPost>().WithMany(x => x.Categories).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Category>().WithMany().HasForeignKey(x => x.CategoryId).IsRequired();
-            b.HasIndex(x => new { x.BlogPostId, x.CategoryId });
+            b.HasIndex(x => new {x.BlogPostId, x.CategoryId});
         });
 
         modelBuilder.Entity<BlogPostTag>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostTags", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new { x.BlogPostId, x.TagId });
+            b.HasKey(x => new {x.BlogPostId, x.TagId});
             b.HasOne<BlogPost>().WithMany(x => x.Tags).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Tag>().WithMany().HasForeignKey(x => x.TagId).IsRequired();
-            b.HasIndex(x => new { x.BlogPostId, x.TagId });
+            b.HasIndex(x => new {x.BlogPostId, x.TagId});
         });
 
         modelBuilder.Entity<UrlLink>(b =>

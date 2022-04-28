@@ -12,11 +12,11 @@
         label-position="top"
         @keydown.native.enter="loginHandler()"
       >
-        <el-form-item label="账号" prop="userName">
-          <el-input placeholder="输入用户名" v-model="loginForm.userName"></el-input>
+        <el-form-item label="账号" prop="account">
+          <el-input placeholder="输入用户名" v-model="loginForm.account"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input placeholder="输入密码" v-model="loginForm.pass" show-password></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input placeholder="输入密码" v-model="loginForm.password" show-password></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="loginHandler()" class="w_100">登录</el-button>
@@ -38,19 +38,19 @@ import { onMounted } from 'vue';
 import { get, post } from "shared/http/HttpClient";
 
 const loginForm = reactive({
-  userName: "",
-  pass: "",
+  account: "",
+  password: "",
 });
 const loading = ref<boolean>(false);
 const rules = {
-  userName: [
+  account: [
     {
       required: true,
-      message: "用户名不能为空",
+      message: "账号不能为空",
       trigger: 'blur'
     },
   ],
-  pass: [
+  password: [
     {
       required: true,
       message: "密码不能为空",
@@ -65,7 +65,7 @@ const loginHandler = async () => {
   await form.value?.validate(async (valid) => {
     if (valid) {
       try {
-        await post("/admin/account/login", { userName: loginForm.userName, password: loginForm.pass })
+        await post("/admin/account/login", { account: loginForm.account, password: loginForm.password })
         setTimeout(() => {
           loading.value = false
           router.replace('/admin/dash')
