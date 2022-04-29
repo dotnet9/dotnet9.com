@@ -8,27 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="~/skin/menhu/css/base.css" rel="stylesheet">
     <link href="~/skin/menhu/css/m.css" rel="stylesheet">
-    <script src="~/skin/menhu/js/jquery-1.8.3.min.js"></script>
-    <script src="~/skin/menhu/js/main.js"></script>
     <link rel="stylesheet" href="~/skin/menhu/css/swiper.min.css">
-    <script src="~/skin/menhu/js/swiper.min.js"></script>
-    <script src="~/skin/menhu/js/banner.js"></script>
 
     @await RenderSectionAsync("Headers", false)
-
-    @*<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
-            crossorigin="anonymous"></script>*@
-
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-
 </head>
 <body>
 <header>
@@ -176,6 +158,25 @@
 <a href="#" title="返回顶部" class="icon-top"></a>
 
 
-@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
+
+            
+<script src="~/skin/menhu/js/jquery-1.8.3.min.js"></script>
+<script src="~/skin/menhu/js/main.js"></script>
+<script src="~/skin/menhu/js/swiper.min.js"></script>
+<script src="~/skin/menhu/js/banner.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+        crossorigin="anonymous"></script>
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+@await RenderSectionAsync("Scripts", false)
