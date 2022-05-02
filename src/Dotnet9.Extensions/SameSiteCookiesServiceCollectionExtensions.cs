@@ -13,7 +13,7 @@ public static class SameSiteCookiesServiceCollectionExtensions
     ///     <seealso cref="SameSiteMode" /> enum will have a definition for
     ///     Unspecified.
     /// </summary>
-    private const SameSiteMode Unspecified = (SameSiteMode)(-1);
+    private const SameSiteMode Unspecified = (SameSiteMode) (-1);
 
     /// <summary>
     ///     Configures a cookie policy to properly set the SameSite attribute
@@ -58,7 +58,7 @@ public static class SameSiteCookiesServiceCollectionExtensions
         return services;
     }
 
-    private static void CheckSameSite(HttpContext httpContext, CookieOptions options)
+    private static void CheckSameSite(Microsoft.AspNetCore.Http.HttpContext httpContext, CookieOptions options)
     {
         if (options.SameSite == SameSiteMode.None)
         {
@@ -93,9 +93,7 @@ public static class SameSiteCookiesServiceCollectionExtensions
         // need to check version 12.
         if (userAgent.Contains("CPU iPhone OS 12")
             || userAgent.Contains("iPad; CPU OS 12"))
-        {
             return Unspecified;
-        }
 
         // Cover Mac OS X based browsers that use the Mac OS networking stack.
         // This includes:
@@ -111,9 +109,7 @@ public static class SameSiteCookiesServiceCollectionExtensions
         if (userAgent.Contains("Safari")
             && userAgent.Contains("Macintosh; Intel Mac OS X 10_14")
             && userAgent.Contains("Version/"))
-        {
             return Unspecified;
-        }
 
 
         var ma = new Regex("Chrome/([0-9]+)").Match(userAgent);
@@ -127,15 +123,9 @@ public static class SameSiteCookiesServiceCollectionExtensions
             // We can not validate this assumption, but we trust Microsofts
             // evaluation. And overall not sending a SameSite value equals to the same
             // behavior as SameSite=None for these old versions anyways.
-            if (chromeVer >= 50 && chromeVer <= 69)
-            {
-                return Unspecified;
-            }
+            if (chromeVer >= 50 && chromeVer <= 69) return Unspecified;
 
-            if (chromeVer >= 80)
-            {
-                return SameSiteMode.Lax;
-            }
+            if (chromeVer >= 80) return SameSiteMode.Lax;
         }
 
         return SameSiteMode.None;
