@@ -6,11 +6,13 @@ using Dotnet9.Application.Contracts.Abouts;
 using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Categories;
+using Dotnet9.Application.Contracts.Dashboards;
 using Dotnet9.Application.Contracts.Donations;
 using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.UrlLinks;
 using Dotnet9.Application.Contracts.Users;
+using Dotnet9.Application.Dashboards;
 using Dotnet9.Application.Donations;
 using Dotnet9.Application.Privacies;
 using Dotnet9.Application.Tags;
@@ -85,5 +87,7 @@ public static class RepositorySetup
         services.AddTransient<IPrivacyAppService, PrivacyAppService>();
 
         services.AddTransient<IActionLogRepository, EfCoreActionLogRepository>();
+
+        services.AddTransient<IDashboardAppService, DashboardAppService>();
     }
 }

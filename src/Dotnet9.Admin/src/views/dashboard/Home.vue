@@ -12,17 +12,17 @@
       <el-col v-bind="grid">
         <el-card shadow="never" class="dash-card" v-loading="loading">
           <template #header>
-            <h4>访问IP数</h4>
+            <h4>24小时访问IP数</h4>
           </template>
-          <p class="dash-card-value">2324</p>
+          <p class="dash-card-value">{{model.ipOf24Hours}}</p>
         </el-card>
       </el-col>
       <el-col v-bind="grid">
         <el-card shadow="never" class="dash-card" v-loading="loading">
           <template #header>
-            <h4>图片数量</h4>
+            <h4>24小时404数</h4>
           </template>
-          <p class="dash-card-value">4546<span>张</span></p>
+          <p class="dash-card-value">{{model.notFoundRequestIn24Hours}}</p>
         </el-card>
       </el-col>
     </el-row>
@@ -50,7 +50,9 @@ const grid = ref({
 })
 
 const model = ref({
-  postCount: 0
+  postCount: 0,
+  ipOf24Hours: 0,
+  notFoundRequestIn24Hours: 0
 })
 
 const url = ref('')
@@ -61,7 +63,7 @@ const close = (e: { base64: string }) => {
 }
 
 onMounted(() => {
-  get('/admin/dashboard/statistic', {}).then((res: any) => {
+  get('/admin/dashboard/count', {}).then((res: any) => {
     model.value = res
   })
 })
