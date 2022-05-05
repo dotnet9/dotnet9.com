@@ -186,8 +186,38 @@
  * 内边距 padding: 5px 10px;
  */
 
-#nice table tr th,
-#nice table tr td { }
+#nice table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #c6c6c6 !important;
+    margin-bottom: 20px;
+}
+
+#nice table tr th {
+    border-collapse: collapse;
+    border-right: 1px solid #c6c6c6 !important;
+    border-bottom: 1px solid #c6c6c6 !important;
+    background-color: #ddeeff !important;
+    padding: 5px 9px;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+}
+
+#nice table tr td {
+    border-collapse: collapse;
+    border-right: 1px solid #c6c6c6 !important;
+    border-bottom: 1px solid #c6c6c6 !important;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+#nice table tr:nth-child(odd) { background-color: #fff !important; }
+
+#nice table tr:nth-child(even) { background-color: #f8f8f8 !important; }
 
 /* 脚注文字 */
 
