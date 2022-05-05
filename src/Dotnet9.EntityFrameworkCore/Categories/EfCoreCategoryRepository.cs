@@ -24,7 +24,7 @@ public class EfCoreCategoryRepository : EfCoreRepository<Category>, ICategoryRep
 
     public async Task<List<CategoryCount>> GetListCountAsync(Expression<Func<Category, bool>> whereLambda)
     {
-        var query = from category in DbContext.Set<Category>().Where(whereLambda)
+        var query = from category in DbContext.Set<Category>().Where(whereLambda).OrderByDescending(x => x.CreateDate)
             select new CategoryCount(category.Id, category.ParentId, category.Name, category.Slug, category.Cover,
                 DbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == category.Id));
 
