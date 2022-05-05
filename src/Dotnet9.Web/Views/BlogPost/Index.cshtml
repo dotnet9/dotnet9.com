@@ -32,7 +32,7 @@
                     <h1 class="news-title-h1">@Model.BlogPost.Title</h1>
                 </div>
                 <div class="picview-other">
-                    <span><a href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                    <span><a href="#">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a> - @Model.BlogPost.CreateDate?.ToString("yyyy-MM-dd HH:mm:ss")</span>
 
                     @if (Model.BlogPost.AlbumNames != null && Model.BlogPost.AlbumNames.Any())
                     {
@@ -89,7 +89,7 @@
                                 <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
                                 break;
                         }
-                        <p>原文作者：<a style="color: #262626;" href="/user/@(Model.BlogPost.Original ?? "沙漠尽头的狼")">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
+                        <p>原文作者：<a style="color: #262626;" href="#">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
                         @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
                         {
                             <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>

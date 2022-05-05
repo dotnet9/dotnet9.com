@@ -46,7 +46,7 @@ public class CategoryAppService : ICategoryAppService
         var blogPosts =
             await _blogPostRepository.SelectBlogPostBriefAsync(x =>
                     x.Categories != null && x.Categories.Any(d => d.CategoryId == category.Id), x => x.CreateDate,
-                SortDirectionKind.Ascending);
+                SortDirectionKind.Descending);
         if (!blogPosts.IsNullOrEmpty())
             vm.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPosts!);
 
