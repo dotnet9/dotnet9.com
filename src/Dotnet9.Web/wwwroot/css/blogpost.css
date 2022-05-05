@@ -21,7 +21,10 @@
  * 首行缩进 text-indent: 2em;
  */
 
-#nice p { margin: 1em 4px; }
+#nice p {
+    margin: 1em 4px;
+    line-height: 200%;
+}
 
 /* 一级标题 */
 
