@@ -30,8 +30,15 @@
       <el-col>
         <el-card shadow="never">
           <template #header>
-            <h2>今日评论</h2>
+            <h2>最近访问</h2>
           </template>
+          <el-table :data="list">
+            <el-table-column label="访问地址" prop="url"></el-table-column>
+            <el-table-column label="Ip" porp="ip"></el-table-column>
+            <el-table-column label="时间" prop="createDate"></el-table-column>
+            <el-table-column label="浏览器" prop="browser"></el-table-column>
+            <el-table-column label="操作系统" prop="os"></el-table-column>
+          </el-table>
         </el-card>
       </el-col>
     </el-row>
@@ -39,9 +46,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 
 import { get } from "shared/http/HttpClient"
+
+import { ElTable, ElTableColumn } from 'element-plus'
+import { react } from '@babel/types'
 
 const loading = ref(false)
 
@@ -55,6 +65,12 @@ const model = ref({
   notFoundRequestIn24Hours: 0
 })
 
+const list = reactive([
+
+])
+
+const page = ref(1)
+
 const url = ref('')
 
 const close = (e: { base64: string }) => {
@@ -66,7 +82,16 @@ onMounted(() => {
   get('/admin/dashboard/count', {}).then((res: any) => {
     model.value = res
   })
+  loadActionLogs();
 })
+
+const loadActionLogs = () => {
+  get('/admin/dashboard/GetActionLog', { page: page.value }).then((res: any) => {
+    console.log(res)
+    list.length = 0;
+    list.push(...res.datas)
+  });
+}
 
 </script>
 

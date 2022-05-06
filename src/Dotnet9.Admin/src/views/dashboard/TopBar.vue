@@ -34,7 +34,7 @@
         </div>
         <el-dropdown trigger="hover">
           <div class="q-toolbar-item">
-            <el-avatar :size="30" src="../../assets/logo.jpeg"></el-avatar>
+            <el-avatar :size="30" src="../../assets/logo.png"></el-avatar>
           </div>
           <template #dropdown>
             <el-dropdown-menu>

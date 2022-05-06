@@ -191,6 +191,12 @@ public class Dotnet9DbContext : DbContext
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}ActionLogs", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
+            b.Property(x => x.UId).HasMaxLength(ActionLogConsts.MaxUIdLength);
+            b.Property(x => x.UA).HasMaxLength(ActionLogConsts.MaxUALength);
+            b.Property(x => x.OS).HasMaxLength(ActionLogConsts.MaxOSLength);
+            b.Property(x => x.Browser).HasMaxLength(ActionLogConsts.MaxBrowserLength);
+            b.Property(x => x.Referer).HasMaxLength(ActionLogConsts.MaxRefererLength);
+            b.Property(x => x.AccessName).HasMaxLength(ActionLogConsts.MaxAccessName);
             b.Property(x => x.Original).HasMaxLength(ActionLogConsts.MaxOriginalLength);
             b.Property(x => x.IP).HasMaxLength(ActionLogConsts.MaxIPLength);
             b.Property(x => x.Url).HasMaxLength(ActionLogConsts.MaxUrlLength);

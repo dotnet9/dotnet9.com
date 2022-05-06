@@ -3,4 +3,6 @@
 public interface IDashboardAppService
 {
     Task<DashboardViewModel> GetDashboardAsync();
+
+    Task<ActionLogViewModel> GetActionLogAsync(int page);
 }

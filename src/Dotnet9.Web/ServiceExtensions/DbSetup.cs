@@ -7,7 +7,9 @@ public static class DbSetup
 {
     public static void AddDbSetup(this IServiceCollection services, string connectionStr)
     {
-        services.AddDbContext<Dotnet9DbContext>(option =>
-            option.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr)), ServiceLifetime.Transient);
+        services.AddDbContextPool<Dotnet9DbContext>(option =>
+            option.UseMySql(connectionStr, ServerVersion.AutoDetect(connectionStr))
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors());
     }
 }
