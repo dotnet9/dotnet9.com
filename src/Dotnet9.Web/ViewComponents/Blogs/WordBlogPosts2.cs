@@ -27,7 +27,7 @@ public class WordBlogPosts2 : ViewComponent
 
         var categories = new[]
         {
-            "more-language-java", "more-language-qt", "more-language-more-cpp"
+            "Large-front-end-flutter", "more-language-java", "more-language-qt", "more-language-more-cpp"
         };
 
         cacheData = new WordBlogPostsViewModel

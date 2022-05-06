@@ -27,7 +27,7 @@ public class WordBlogPosts3 : ViewComponent
 
         var categories = new[]
         {
-            "Large-front-end-flutter", "Large-front-end-vue", "database-mysql", "database-sqlite"
+            "Large-front-end-vue", "database-mysql", "database-sqlite"
         };
 
         cacheData = new WordBlogPostsViewModel
