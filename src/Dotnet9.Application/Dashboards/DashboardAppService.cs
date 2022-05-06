@@ -10,8 +10,8 @@ namespace Dotnet9.Application.Dashboards;
 public class DashboardAppService : IDashboardAppService
 {
     private readonly IActionLogRepository _actionLogRepository;
-    private readonly IMapper _mapper;
     private readonly IBlogPostRepository _blogPostRepository;
+    private readonly IMapper _mapper;
 
     public DashboardAppService(IBlogPostRepository blogPostRepository, IActionLogRepository actionLogRepository,
         IMapper mapper)
@@ -36,7 +36,7 @@ public class DashboardAppService : IDashboardAppService
     {
         var logs = await _actionLogRepository.SelectAsync(15, page, x => x.Id > 0, x => x.CreateDate,
             SortDirectionKind.Descending);
-        var vm = new ActionLogViewModel()
+        var vm = new ActionLogViewModel
         {
             Total = logs.Item2,
             ActionLogDtos = _mapper.Map<List<ActionLog>, List<ActionLogDto>>(logs.Item1)

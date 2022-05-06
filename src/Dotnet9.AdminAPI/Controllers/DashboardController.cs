@@ -31,7 +31,7 @@ public class DashboardController : ControllerBase
     {
         var result = await _dashboardAppService.GetActionLogAsync(page);
 
-        return new PageDto<ActionLogDto>()
+        return new PageDto<ActionLogDto>
         {
             Total = result.Total,
             Datas = result.ActionLogDtos
