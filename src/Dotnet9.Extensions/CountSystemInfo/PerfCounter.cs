@@ -39,7 +39,7 @@ public static class PerfCounter
     public static PerformanceCounter GetCurrentPerformanceCounter()
     {
         var time = DateTime.Now.GetTotalMilliseconds();
-        var load = SystemInfo.CpuLoad * 10;
+        var load = SystemInfo.CpuLoad;
         var mem =
             (1 - SystemInfo.MemoryAvailable.ConvertTo<float>() / SystemInfo.PhysicalMemory.ConvertTo<float>()) *
             100;
