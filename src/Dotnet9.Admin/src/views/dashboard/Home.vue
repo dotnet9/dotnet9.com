@@ -79,14 +79,14 @@ const close = (e: { base64: string }) => {
 }
 
 onMounted(() => {
-  get('/admin/dashboard/count', {}).then((res: any) => {
+  get('/api/dashboard/count', {}).then((res: any) => {
     model.value = res
   })
   loadActionLogs();
 })
 
 const loadActionLogs = () => {
-  get('/admin/dashboard/GetActionLog', { page: page.value }).then((res: any) => {
+  get('/api/dashboard/GetActionLog', { page: page.value }).then((res: any) => {
     console.log(res)
     list.length = 0;
     list.push(...res.datas)

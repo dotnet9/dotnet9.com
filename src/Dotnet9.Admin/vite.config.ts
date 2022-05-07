@@ -11,10 +11,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/admin": {
-        target: "http://localhost:5133/api",
+      "/api": {
+        target: "http://localhost:5133",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/admin/, "")
+        rewrite: (path) => path.replace(/^\/api/, "api")
       },
       "/upload": {
         target: "http://localhost:5133/upload",

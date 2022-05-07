@@ -66,7 +66,7 @@ const submitHandler = () => {
     form.value.validate((isvalid) => {
         if (isvalid) {
             loading.value = true;
-            post('/admin/account/createAdminAccount', formData).then(_ => {
+            post('/api/account/createAdminAccount', formData).then(_ => {
                 ElMessage({
                     message: '初始化管理员账号成功',
                     type: 'success'
@@ -79,7 +79,7 @@ const submitHandler = () => {
 }
 
 onMounted(() => {
-    get('/admin/account/checkLogin', {})
+    get('/api/account/checkLogin', {})
 })
 
 </script>

@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit --skipLibCheck && vite build --base=/admin",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build --base=/",
     "serve": "vite preview"
   },
   "dependencies": {

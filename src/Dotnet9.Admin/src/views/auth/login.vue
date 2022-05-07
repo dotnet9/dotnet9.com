@@ -65,7 +65,7 @@ const loginHandler = async () => {
   await form.value?.validate(async (valid) => {
     if (valid) {
       try {
-        await post("/admin/account/login", { account: loginForm.account, password: loginForm.password })
+        await post("/api/account/login", { account: loginForm.account, password: loginForm.password })
         setTimeout(() => {
           loading.value = false
           router.replace('/admin/dash')
@@ -83,7 +83,7 @@ const loginHandler = async () => {
 const checkLogin = async () => {
   loading.value = true
   try {
-    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/admin/account/checkLogin', {})
+    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/api/account/checkLogin', {})
     console.log('islogin ', isLogin)
     if (isLogin) {
       router.replace('/admin/dash')

@@ -80,7 +80,7 @@ h3 {
 .d-login {
   width: 100%;
   height: 100%;
-  background: url("../../assets/login_bg.svg");
+  background: url("./assets/login_bg.svg");
   padding-top: 200px;
   box-sizing: border-box;
 
