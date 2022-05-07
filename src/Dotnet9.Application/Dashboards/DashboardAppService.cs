@@ -4,6 +4,7 @@ using Dotnet9.Application.Contracts.Dashboards;
 using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.Application.Dashboards;
 
@@ -34,7 +35,8 @@ public class DashboardAppService : IDashboardAppService
 
     public async Task<ActionLogViewModel> GetActionLogAsync(int page)
     {
-        var logs = await _actionLogRepository.SelectAsync(15, page, x => x.Id > 0, x => x.CreateDate,
+        var logs = await _actionLogRepository.SelectAsync(15, page, x => !EF.Functions.Like(x.Url, "%/dashboard/%"),
+            x => x.CreateDate,
             SortDirectionKind.Descending);
         var vm = new ActionLogViewModel
         {

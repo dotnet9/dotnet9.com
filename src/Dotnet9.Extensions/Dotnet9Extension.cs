@@ -1,5 +1,6 @@
 ﻿using Dotnet9.Extensions.AutoMapper;
 using Dotnet9.Extensions.Caches;
+using Dotnet9.Extensions.CountSystemInfo;
 using Dotnet9.Extensions.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -14,5 +15,6 @@ public static class Dotnet9Extension
         builder.Services.AddAutoMapperSetup();
         builder.Services.AddRepositorySetup();
         builder.Services.ConfigureNonBreakingSameSiteCookies();
+        PerfCounter.Init();
     }
 }

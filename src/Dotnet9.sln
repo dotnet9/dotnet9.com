@@ -21,7 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.AdminAPI", "Dotnet9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Migrations", "Dotnet9.Migrations\Dotnet9.Migrations.csproj", "{2803D127-4FE5-46B1-B1E9-D77F4401C3FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Extensions", "Dotnet9.Extensions\Dotnet9.Extensions.csproj", "{5817D8BD-56F5-4D66-8874-F5380A8E7020}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Extensions", "Dotnet9.Extensions\Dotnet9.Extensions.csproj", "{5817D8BD-56F5-4D66-8874-F5380A8E7020}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E3E2926-0F22-466B-A39C-2F634644D9C6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

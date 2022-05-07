@@ -16,5 +16,5 @@ public class ActionLogDto : EntityDto
     public string? Method { get; set; }
     public string? Arguments { get; set; }
     public double Duration { get; set; }
-    public DateTimeOffset CreateDate { get; set; }
+    public string? CreateDate { get; set; }
 }
