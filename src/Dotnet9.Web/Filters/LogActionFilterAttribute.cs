@@ -20,10 +20,38 @@ public class LogActionFilterAttribute : ActionFilterAttribute
 
     private string? ActionArguments { get; set; }
     private Stopwatch? Stopwatch { get; set; }
+    private bool _isNotLog = false;
+
+    private static readonly string[] IgnoreActionNames =
+    {
+        "Dotnet9.AdminAPI.Controllers.DashboardController.GetActionLogs (Dotnet9.AdminAPI)",
+        "Dotnet9.AdminAPI.Controllers.DashboardController.Count (Dotnet9.AdminAPI)",
+        "Dotnet9.AdminAPI.Controllers.AccountController.Login (Dotnet9.AdminAPI)",
+        "Dotnet9.AdminAPI.Controllers.AccountController.CheckLogin (Dotnet9.AdminAPI)"
+    };
+
+    private static readonly string[] IgnoreIPs = {"::1"};
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
         base.OnActionExecuting(context);
+
+        var ip = context.HttpContext.GetClientIP();
+        var actionName = context.ActionDescriptor.DisplayName;
+
+        if (IgnoreIPs.Contains(ip))
+        {
+            _isNotLog = true;
+        }
+        else if (IgnoreActionNames.Contains(actionName))
+        {
+            _isNotLog = true;
+        }
+
+        if (_isNotLog)
+        {
+            return;
+        }
 
         ActionArguments = JsonConvert.SerializeObject(context.ActionArguments);
         Stopwatch = new Stopwatch();
@@ -33,6 +61,11 @@ public class LogActionFilterAttribute : ActionFilterAttribute
     public override void OnActionExecuted(ActionExecutedContext context)
     {
         base.OnActionExecuted(context);
+
+        if (_isNotLog)
+        {
+            return;
+        }
 
         Stopwatch?.Stop();
 
