@@ -69,8 +69,7 @@ public class LogActionFilterAttribute : ActionFilterAttribute
 
         Stopwatch?.Stop();
 
-        string uid;
-        if (context.HttpContext.Request.Cookies.TryGetValue("id", out uid) == false)
+        if (context.HttpContext.Request.Cookies.TryGetValue("id", out var uid) == false)
         {
             uid = Guid.NewGuid().ToString("N");
             context.HttpContext.Response.Cookies.Append("id", uid);
