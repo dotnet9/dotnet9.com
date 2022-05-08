@@ -2,56 +2,60 @@
   <div class="dash-content">
     <el-row :gutter="20">
       <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card"  v-loading="loading">
-          <template #header>
-            <h4>文章数</h4>
-          </template>
-          <p class="dash-card-value">{{model.postCount}}</p>
-        </el-card>
+        <div class="con_div_text">
+          <img src="./../../assets/post.png" class="left text_img">
+          <div class="left text_div">
+            <p>文章总数</p>
+            <p>{{ model.postCount }}篇</p>
+          </div>
+        </div>
       </el-col>
       <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card" v-loading="loading">
-          <template #header>
-            <h4>24小时访问IP数</h4>
-          </template>
-          <p class="dash-card-value">{{model.ipOf24Hours}}</p>
-        </el-card>
-      </el-col>      
-      <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card" v-loading="loading">
-          <template #header>
-            <h4>磁盘读</h4>
-          </template>
-          <p class="dash-card-value">{{model.diskRead}}</p>
-        </el-card>
+        <div class="con_div_text">
+          <img src="./../../assets/IP.png" class="left text_img">
+          <div class="left text_div">
+            <p>24时IP访问</p>
+            <p>{{ model.ipOf24Hours }}个</p>
+          </div>
+        </div>
       </el-col>
       <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card" v-loading="loading">
-          <template #header>
-            <h4>磁盘写</h4>
-          </template>
-          <p class="dash-card-value">{{model.diskWrite}}</p>
-        </el-card>
+        <div class="con_div_text">
+          <img src="./../../assets/disk-read.png" class="left text_img">
+          <div class="left text_div">
+            <p>磁盘读</p>
+            <p>{{ model.diskRead }}</p>
+          </div>
+        </div>
       </el-col>
       <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card"  v-loading="loading">
-          <template #header>
-            <h4>CPU当前负载</h4>
-          </template>
-          <p class="dash-card-value">
-            <el-progress type="dashboard" :percentage="model.cpuLoad" :color="colors" />
-          </p>
-        </el-card>
+        <div class="con_div_text">
+          <img src="./../../assets/disk-write.png" class="left text_img">
+          <div class="left text_div">
+            <p>磁盘写</p>
+            <p>{{ model.diskWrite }}</p>
+          </div>
+        </div>
       </el-col>
       <el-col v-bind="grid">
-        <el-card shadow="never" class="dash-card" v-loading="loading">
-          <template #header>
-            <h4>内存使用率</h4>
-          </template>
-          <p class="dash-card-value">
-            <el-progress type="dashboard" :percentage="model.memoryUsage" :color="colors" />
-          </p>
-        </el-card>
+        <div class="con_div_progress">
+          <el-progress type="dashboard" :percentage="model.cpuLoad" :color="colors">
+            <template #default="{ percentage }">
+              <span class="percentage-value">{{ model.cpuLoad }}%</span>
+              <span class="percentage-label">CPU当前负载</span>
+            </template>
+          </el-progress>
+        </div>
+      </el-col>
+      <el-col v-bind="grid">
+        <div class="con_div_progress">
+          <el-progress type="dashboard" :percentage="model.memoryUsage" :color="colors">
+            <template #default="{ percentage }">
+              <span class="percentage-value">{{ model.memoryUsage }}%</span>
+              <span class="percentage-label">内存使用率</span>
+            </template>
+          </el-progress>
+        </div>
       </el-col>
     </el-row>
     <el-row>
@@ -89,11 +93,11 @@ const grid = ref({
 })
 
 const colors = [
-  { color: '#f56c6c', percentage: 20 },
-  { color: '#e6a23c', percentage: 40 },
+  { color: '#f56c6c', percentage: 100 },
+  { color: '#e6a23c', percentage: 80 },
   { color: '#5cb87a', percentage: 60 },
-  { color: '#1989fa', percentage: 80 },
-  { color: '#6f7ad3', percentage: 100 },
+  { color: '#1989fa', percentage: 40 },
+  { color: '#6f7ad3', percentage: 20 },
 ]
 
 const model = ref({
@@ -148,24 +152,63 @@ body {
   padding: 10px;
 }
 
-.dash-card {
-  min-height: 130px;
-  margin-bottom: 20px;
+.left {
+  float: left;
 }
 
-.dash-content {
-  h4 {
-    margin: 0;
-  }
+.con_div_text {
+  height: 90%;
+  width: 90%;
+  margin-right: 1.3%;
+  margin-top: 1.3%;
+  background-color: #034c6a;
+}
 
-  .dash-card-value {
-    font-size: 2rem;
-    font-weight: 400;
+.text_img {
+  margin: 35px;
+}
 
-    span {
-      font-size: 1rem;
-      margin-left: 5px;
-    }
-  }
+.text_div {
+  margin-top: 15px;
+  margin-left: 5%;
+  text-align: center;
+
+}
+
+.text_div p {
+  line-height: 50px;
+}
+
+.text_div p:nth-child(1) {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.text_div p:nth-child(2) {
+  font-size: 28px;
+  color: #ffff43;
+  font-weight: 600;
+}
+
+.con_div_progress {
+  height: 90%;
+  width: 90%;
+  background-color: #fff;
+  margin-top: 1.3%;
+  margin-right: 1.3%;
+  text-align: center;
+  padding-top: 0 20px;
+}
+
+.percentage-value {
+  display: block;
+  margin-top: 10px;
+  font-size: 28px;
+}
+
+.percentage-label {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
 }
 </style>
