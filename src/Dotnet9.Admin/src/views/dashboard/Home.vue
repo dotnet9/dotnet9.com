@@ -81,7 +81,7 @@
       </el-card>
       <el-card shadow="never">
         <template #header>
-          <h2>实时访问：{{model.latestLogs?.latestDate}}</h2>
+          <h2>实时访问：{{latestDate}}</h2>
         </template>
         <el-table :data="latestActionLogs">
           <el-table-column label="时间" prop="createDate" />
@@ -121,7 +121,25 @@ const colors = [
   { color: "#6f7ad3", percentage: 20 },
 ];
 
-const model = ref({});
+const model = ref({
+  systemCountInfo: {
+    postCount: 0,
+    ipOf24Hours: 0,
+    cpuLoad: 0,
+    memoryUsage: 0,
+    diskRead: '',
+    diskWrite: '',
+  },
+  top10Searches: {
+    datas: []
+  },
+  latestLogs: {
+    latestDate: ''
+  },
+  top10AccessPages: {
+    datas: []
+  }
+});
 
 let latestDate = ref("")
 const latestActionLogs = reactive([]);
@@ -137,12 +155,14 @@ onMounted(() => {
 });
 
 const loadDatas = () => {
-  get("/api/dashboard/count", { request: latestDate }).then((res: any) => {
+  get("/api/dashboard/count", { request: latestDate.value ?? '' }).then((res: any) => {
     model.value = res;
-    latestDate = res.latestLogs?.latestDate;
-    latestActionLogs.push(...res.latestLogs?.datas);
-    if (latestActionLogs.length > 10) {
-      latestActionLogs.length = 10;
+    if(res.latestLogs?.latestDate !== null) {
+      latestDate.value = res.latestLogs?.latestDate;
+      latestActionLogs.unshift(...res.latestLogs?.datas)
+      if (latestActionLogs.length > 10) {
+        latestActionLogs.length = 10;
+      }
     }
   });
 };
