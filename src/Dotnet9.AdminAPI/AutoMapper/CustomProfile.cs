@@ -20,6 +20,17 @@ public class CustomProfile : Profile
             .ForMember(dest => dest.CreateDate,
                 opt => opt.MapFrom(
                     src => DateTimeToString(src.CreateDate)));
+        CreateMap<ActionLog, LatestActionLogItemDto>()
+            .ForMember(dest => dest.Url, opt => opt.MapFrom(src => WebUtility.UrlDecode(src.Url)))
+            .ForMember(dest => dest.CreateDate,
+                opt => opt.MapFrom(
+                    src => DateTimeToString(src.CreateDate)));
+        CreateMap<Top10AccessPageItem, Top10AccessPageItemDto>();
+        CreateMap<Top10AccessPage, Top10AccessPageDto>();
+        CreateMap<Top10SearchItem, Top10SearchItemDto>();
+        CreateMap<Top10Search, Top10SearchDto>();
+        CreateMap<LatestActionLog, LatestActionLogDto>()
+            .ForMember(dest => dest.LatestDate, opt => opt.MapFrom(src => DateTimeToString(src.LatestDate)));
     }
 
     public string? DateTimeToString(DateTimeOffset? date)

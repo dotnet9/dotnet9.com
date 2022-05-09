@@ -4,7 +4,7 @@ namespace Dotnet9.Domain.Repositories;
 
 public interface IRepository<T>
 {
-    Task<int> CountAsync();
+    Task<int> CountAsync(Expression<Func<T, bool>> whereLambda);
     Task<int> GetMaxIdAsync();
 
     Task<int> InsertAsync(T t);

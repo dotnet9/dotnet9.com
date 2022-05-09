@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Dotnet9.Application.Contracts;
-using Dotnet9.Application.Contracts.ActionLogs;
 using Dotnet9.Application.Contracts.Dashboards;
 using Dotnet9.Extensions.CountSystemInfo;
 using Microsoft.AspNetCore.Authorization;
@@ -21,26 +19,15 @@ public class DashboardController : ControllerBase
     }
 
     [HttpGet("count")]
-    public async Task<DashboardViewModel> Count()
+    public async Task<DashboardViewModel> Count(string? request)
     {
-        var vm = await _dashboardAppService.GetDashboardAsync();
+        var vm = await _dashboardAppService.GetDashboardAsync(request);
+
         var systemInfo = PerfCounter.List.LastOrDefault();
-        vm.CpuLoad = (int?)systemInfo?.CpuLoad;
-        vm.MemoryUsage = (int?)systemInfo?.MemoryUsage;
-        vm.DiskRead = $"{systemInfo?.DiskRead:N1}KB/s";
-        vm.DiskWrite = $"{systemInfo?.DiskWrite:N1}KB/s";
+        vm.SystemCountInfo!.CpuLoad = (int?)systemInfo?.CpuLoad;
+        vm.SystemCountInfo!.MemoryUsage = (int?)systemInfo?.MemoryUsage;
+        vm.SystemCountInfo!.DiskRead = $"{systemInfo?.DiskRead:N1}KB/s";
+        vm.SystemCountInfo!.DiskWrite = $"{systemInfo?.DiskWrite:N1}KB/s";
         return vm;
-    }
-
-    [HttpGet("GetActionLog")]
-    public async Task<PageDto<ActionLogDto>> GetActionLogs(int page)
-    {
-        var result = await _dashboardAppService.GetActionLogAsync(page);
-
-        return new PageDto<ActionLogDto>
-        {
-            Total = result.Total,
-            Datas = result.ActionLogDtos
-        };
     }
 }

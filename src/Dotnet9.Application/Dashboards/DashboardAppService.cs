@@ -22,27 +22,29 @@ public class DashboardAppService : IDashboardAppService
         _mapper = mapper;
     }
 
-    public async Task<DashboardViewModel> GetDashboardAsync()
+    public async Task<DashboardViewModel> GetDashboardAsync(string? latestTime)
     {
-        return new DashboardViewModel
+        var vm = new DashboardViewModel
         {
-            PostCount = await _blogPostRepository.CountAsync(),
-            IPOf24Hours = await _actionLogRepository.CountIPIn24HoursAsync(),
-            NotFoundRequestIn24Hours = await _actionLogRepository.CountNotFoundIn24HoursAsync()
+            SystemCountInfo = new SystemCountDto()
+            {
+                PostCount = await _blogPostRepository.CountAsync(x => x.Id > 0),
+                IPOf24Hours = await _actionLogRepository.CountIPIn24HoursAsync(),
+                NotFoundRequestIn24Hours = await _actionLogRepository.CountNotFoundIn24HoursAsync()
+            },
         };
-    }
 
-
-    public async Task<ActionLogViewModel> GetActionLogAsync(int page)
-    {
-        var logs = await _actionLogRepository.SelectAsync(15, page, x => !EF.Functions.Like(x.Url, "%/dashboard/%"),
-            x => x.CreateDate,
-            SortDirectionKind.Descending);
-        var vm = new ActionLogViewModel
+        var top10Searchs = await _actionLogRepository.CountTop10SearchAsync();
+        vm.Top10Searches = _mapper.Map<Top10Search, Top10SearchDto>(top10Searchs);
+        var top10AccessPages = await _actionLogRepository.CountTop10AccessPagesAsync();
+        vm.Top10AccessPages = _mapper.Map<Top10AccessPage, Top10AccessPageDto>(top10AccessPages);
+        var latestTimeForRepository = default(DateTimeOffset);
+        if (latestTime != null)
         {
-            Total = logs.Item2,
-            ActionLogDtos = _mapper.Map<List<ActionLog>, List<ActionLogDto>>(logs.Item1)
-        };
+            DateTimeOffset.TryParse(latestTime, out latestTimeForRepository);
+        }
+        var latestActionLog = await _actionLogRepository.GetLatestActionLogAsync(latestTimeForRepository);
+        vm.LatestLogs = _mapper.Map<LatestActionLog, LatestActionLogDto>(latestActionLog);
         return vm;
     }
 }

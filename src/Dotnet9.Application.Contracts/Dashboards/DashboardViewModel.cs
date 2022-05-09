@@ -1,18 +1,14 @@
-﻿namespace Dotnet9.Application.Contracts.Dashboards;
+﻿using Dotnet9.Application.Contracts.ActionLogs;
+
+namespace Dotnet9.Application.Contracts.Dashboards;
 
 public class DashboardViewModel
 {
-    public int PostCount { get; set; }
+    public SystemCountDto? SystemCountInfo { get; set; }
 
-    public int IPOf24Hours { get; set; }
+    public LatestActionLogDto? LatestLogs { get; set; }
 
-    public int NotFoundRequestIn24Hours { get; set; }
+    public Top10SearchDto? Top10Searches { get; set; }
 
-    public int? CpuLoad { get; set; }
-
-    public int? MemoryUsage { get; set; }
-
-    public string? DiskRead { get; set; }
-
-    public string? DiskWrite { get; set; }
+    public Top10AccessPageDto? Top10AccessPages { get; set; }
 }

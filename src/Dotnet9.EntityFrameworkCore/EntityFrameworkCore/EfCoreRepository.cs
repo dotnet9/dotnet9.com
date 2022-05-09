@@ -20,9 +20,9 @@ public class EfCoreRepository<T>
         return await Task.FromResult(DbContext);
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(Expression<Func<T, bool>> whereLambda)
     {
-        return await DbContext.Set<T>().CountAsync();
+        return await DbContext.Set<T>().CountAsync(whereLambda);
     }
 
     public async Task<int> GetMaxIdAsync()
