@@ -75,7 +75,7 @@ public class EfCoreActionLogRepository : EfCoreRepository<ActionLog>, IActionLog
             .GroupBy(c => c.Url, (k, g) => new Top10AccessPageItem
             {
                 Url = k,
-                Percent = $"{g.Count() * 1.0 / count.Total:P1}%",
+                Percent = $"{g.Count() * 1.0 / count.Total:P1}",
                 Pv = g.Count()
             }).OrderByDescending(x => x.Pv).Take(10);
 
@@ -101,7 +101,7 @@ public class EfCoreActionLogRepository : EfCoreRepository<ActionLog>, IActionLog
             .GroupBy(c => c.Arguments, (k, g) => new Top10SearchItem
             {
                 Key = k,
-                Percent = $"{g.Count() * 1.0 / count.Total:P1}%",
+                Percent = $"{g.Count() * 1.0 / count.Total:P1}",
                 Pv = g.Count()
             }).OrderByDescending(x => x.Pv).Take(10);
 

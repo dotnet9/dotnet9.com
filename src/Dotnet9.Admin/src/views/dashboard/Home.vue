@@ -58,46 +58,40 @@
         </div>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col>
-        <el-card shadow="never">
-          <template #header>
-            <h2>Top10搜索词</h2>
-          </template>
-          <el-table :data="model.top10Searches?.datas" :table-layout="fixed">
-            <el-table-column label="搜索词" prop="key" />
-            <el-table-column label="浏览量(PV)" prop="pv" />
-            <el-table-column label="占比" prop="percent" />
-          </el-table>
-        </el-card>
-      </el-col>
-      <el-col>
-        <el-card shadow="never">
-          <template #header>
-            <h2>Top10受访页面</h2>
-          </template>
-          <el-table :data="model.top10AccessPages?.datas">
-            <el-table-column label="受访页面" prop="url"/>
-            <el-table-column label="浏览量(PV)" prop="pv"/>
-            <el-table-column label="占比" prop="percent"/>
-          </el-table>
-        </el-card>
-      </el-col>
-      <el-col>
-        <el-card shadow="never">
-          <template #header>
-            <h2>实时访问</h2>
-          </template>
-          <el-table :data="model.latestLogs?.datas">
-            <el-table-column label="时间" prop="createDate" />
-            <el-table-column label="访问地址" prop="url" />
-            <el-table-column label="IP" prop="ip" />
-            <el-table-column label="浏览器" prop="browser" />
-            <el-table-column label="操作系统" prop="os" />
-          </el-table>
-        </el-card>
-      </el-col>
-    </el-row>
+    <div class="HomeTable">
+      <el-card shadow="never">
+        <template #header>
+          <h2>Top10搜索词</h2>
+        </template>
+        <el-table :data="model.top10Searches?.datas">
+          <el-table-column label="搜索词" prop="key" />
+          <el-table-column label="浏览量(PV)" prop="pv" />
+          <el-table-column label="占比" prop="percent" />
+        </el-table>
+      </el-card>
+      <el-card shadow="never">
+        <template #header>
+          <h2>Top10受访页面</h2>
+        </template>
+        <el-table :data="model.top10AccessPages?.datas">
+          <el-table-column label="受访页面" prop="url" />
+          <el-table-column label="浏览量(PV)" prop="pv" />
+          <el-table-column label="占比" prop="percent" />
+        </el-table>
+      </el-card>
+      <el-card shadow="never">
+        <template #header>
+          <h2>实时访问：{{model.latestLogs?.latestDate}}</h2>
+        </template>
+        <el-table :data="latestActionLogs">
+          <el-table-column label="时间" prop="createDate" />
+          <el-table-column label="访问地址" prop="url" />
+          <el-table-column label="IP" prop="ip" />
+          <el-table-column label="浏览器" prop="browser" />
+          <el-table-column label="操作系统" prop="os" />
+        </el-table>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -105,7 +99,7 @@
 import { ref, onMounted, reactive } from "vue";
 
 import { get } from "shared/http/HttpClient";
-import {ElTable, ElTableColumn} from 'element-plus';
+import { ElTable, ElTableColumn } from 'element-plus';
 import { react } from "@babel/types";
 import { Timer } from "@element-plus/icons";
 
@@ -139,14 +133,17 @@ const close = (e: { base64: string }) => {
 };
 
 onMounted(() => {
-  setInterval(loadDatas, 1000);
+  setInterval(loadDatas, 3000);
 });
 
 const loadDatas = () => {
-  get("/api/dashboard/count", {request: latestDate}).then((res: any) => {
+  get("/api/dashboard/count", { request: latestDate }).then((res: any) => {
     model.value = res;
     latestDate = res.latestLogs?.latestDate;
     latestActionLogs.push(...res.latestLogs?.datas);
+    if (latestActionLogs.length > 10) {
+      latestActionLogs.length = 10;
+    }
   });
 };
 </script>
@@ -202,7 +199,7 @@ body {
   height: 100%;
   width: 100%;
   background-color: #fff;
-  margin-top: 5%;
+  margin-top: 4%;
   margin-right: 1.3%;
   text-align: center;
   padding-top: 0 20px;
@@ -218,5 +215,29 @@ body {
   display: block;
   margin-top: 10px;
   font-size: 12px;
+}
+
+.HomeTable {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.6%;
+  > div {
+    &:last-child {
+      width: 50%;
+    }
+    width: 25%;
+    margin-right: .9%;
+  }
+}
+
+@media (max-width: 500px) {
+  .HomeTable {
+    flex-wrap: wrap;
+
+    >div {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
 }
 </style>
