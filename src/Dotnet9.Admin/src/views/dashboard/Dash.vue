@@ -9,8 +9,15 @@
     <el-container>
       <el-main>
         <tab></tab>
-        <div :class="[expandState ? 'q-content-open' : 'q-content-close']" class="q-content">
-          <router-view></router-view>
+        <div
+          :class="[expandState ? 'q-content-open' : 'q-content-close']"
+          class="q-content"
+        >
+          <router-view v-slot="{ Component }">
+            <transition name="fade-transform" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </div>
       </el-main>
     </el-container>
@@ -18,43 +25,57 @@
 </template>
 <script lang="ts">
 import SlideMenu from "../../components/SlideMenu.vue";
-import {Expand, FullScreen} from '@element-plus/icons'
-import {useRouter} from "vue-router";
-import {ref} from "@vue/reactivity";
-import {http} from "shared/http/HttpClient"
-import {defineComponent} from "vue";
+import { Expand, FullScreen } from "@element-plus/icons";
+import { useRouter } from "vue-router";
+import { ref } from "@vue/reactivity";
+import { http } from "shared/http/HttpClient";
+import { defineComponent } from "vue";
 
-import {expandState} from './ExpandState'
+import { expandState } from "./ExpandState";
 
 export default defineComponent({
   components: {
     SlideMenu,
     Expand,
-    FullScreen
+    FullScreen,
   },
   setup() {
-    const fullScreen = () => {
-    }
-    const isOpen = ref(true)
+    const fullScreen = () => {};
+    const isOpen = ref(true);
     const expandMenu = () => {
-      isOpen.value = !isOpen.value
-    }
+      isOpen.value = !isOpen.value;
+    };
     return {
       fullScreen,
       isOpen,
       expandMenu,
-      expandState
-    }
-  }
-})
+      expandState,
+    };
+  },
+});
 </script>
 <style lang="less" scoped>
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s !important;
+}
+
+.fade-transform-enter {
+  opacity: 0 !important;
+  transform: translateX(-30px) !important;
+}
+
+.fade-transform-leave-to {
+  opacity: 0 !important;
+  transform: translateX(30px) !important;
+}
+
 .q-content {
   padding: 70px 10px 10px;
   //background: #f6f8f9;
   transition: margin-left 0.3s linear;
   position: relative;
-
 }
 
 .q-content-open {
@@ -88,10 +109,7 @@ export default defineComponent({
     left: 70px !important;
     transition: left 0.3s linear;
   }
-
-
 }
-
 
 .el-main {
   box-sizing: border-box;
