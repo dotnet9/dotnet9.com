@@ -4,7 +4,7 @@
       <el-sub-menu :index="item.index" v-if="!item.hideGroup">
         <template #title>{{ item.label }}</template>
         <el-menu-item-group v-for="(subItem, i) in item.children" :key="i">
-          <el-menu-item :index="subItem.index">{{ subItem.label }}</el-menu-item>
+          <el-menu-item :index="subItem.index">{{ subItem.label }}asdasd</el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>
       <template v-if="item.hideGroup">
@@ -12,7 +12,7 @@
           v-for="(childItem, i) in item.children"
           :key="i"
           :index="childItem.index"
-        >{{ childItem.label }}</el-menu-item>
+        >{{ childItem.label }}dasdsadasd</el-menu-item>
       </template>
     </template>
   </el-menu>

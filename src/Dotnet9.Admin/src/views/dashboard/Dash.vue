@@ -54,7 +54,7 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="less" scoped>
+<style lang="less" >
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
@@ -70,10 +70,10 @@ export default defineComponent({
   opacity: 0 !important;
   transform: translateX(30px) !important;
 }
-
+</style>
+<style lang="less" scoped>
 .q-content {
   padding: 70px 10px 10px;
-  //background: #f6f8f9;
   transition: margin-left 0.3s linear;
   position: relative;
 }

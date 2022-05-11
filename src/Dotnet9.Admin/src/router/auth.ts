@@ -1,4 +1,4 @@
-import { RouteRecordRaw} from "vue-router";
+import { RouteRecordRaw } from "vue-router";
 import Login from '../views/auth/login.vue'
 import InitAccount from "../views/auth/InitAccount.vue"
 
@@ -12,8 +12,8 @@ const authRoute: RouteRecordRaw[] = [
         component: Login
     },
     {
-        path:'/initAccount',
-        component:InitAccount
+        path: '/initAccount',
+        component: InitAccount
     }
 ]
 
