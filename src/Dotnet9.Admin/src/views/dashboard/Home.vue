@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col v-bind="grid">
         <div class="con_div_text">
-          <img src="./../../assets/post.png" class="left text_img">
+          <img src="./../../assets/post.png" class="left text_img" />
           <div class="left text_div">
             <p>文章总数</p>
             <p>{{ model.systemCountInfo?.postCount }}篇</p>
@@ -12,7 +12,7 @@
       </el-col>
       <el-col v-bind="grid">
         <div class="con_div_text">
-          <img src="./../../assets/IP.png" class="left text_img">
+          <img src="./../../assets/IP.png" class="left text_img" />
           <div class="left text_div">
             <p>24时IP访问</p>
             <p>{{ model.systemCountInfo?.ipOf24Hours }}个</p>
@@ -21,7 +21,7 @@
       </el-col>
       <el-col v-bind="grid">
         <div class="con_div_text">
-          <img src="./../../assets/disk-read.png" class="left text_img">
+          <img src="./../../assets/disk-read.png" class="left text_img" />
           <div class="left text_div">
             <p>磁盘读</p>
             <p>{{ model.systemCountInfo?.diskRead }}</p>
@@ -30,7 +30,7 @@
       </el-col>
       <el-col v-bind="grid">
         <div class="con_div_text">
-          <img src="./../../assets/disk-write.png" class="left text_img">
+          <img src="./../../assets/disk-write.png" class="left text_img" />
           <div class="left text_div">
             <p>磁盘写</p>
             <p>{{ model.systemCountInfo?.diskWrite }}</p>
@@ -39,9 +39,15 @@
       </el-col>
       <el-col v-bind="grid">
         <div class="con_div_progress">
-          <el-progress type="dashboard" :percentage="model.systemCountInfo?.cpuLoad" :color="colors">
+          <el-progress
+            type="dashboard"
+            :percentage="model.systemCountInfo?.cpuLoad"
+            :color="colors"
+          >
             <template #default="{ percentage }">
-              <span class="percentage-value">{{ model.systemCountInfo?.cpuLoad }}%</span>
+              <span class="percentage-value"
+                >{{ model.systemCountInfo?.cpuLoad }}%</span
+              >
               <span class="percentage-label">CPU当前负载</span>
             </template>
           </el-progress>
@@ -49,9 +55,15 @@
       </el-col>
       <el-col v-bind="grid">
         <div class="con_div_progress">
-          <el-progress type="dashboard" :percentage="model.systemCountInfo?.memoryUsage" :color="colors">
+          <el-progress
+            type="dashboard"
+            :percentage="model.systemCountInfo?.memoryUsage"
+            :color="colors"
+          >
             <template #default="{ percentage }">
-              <span class="percentage-value">{{ model.systemCountInfo?.memoryUsage }}%</span>
+              <span class="percentage-value"
+                >{{ model.systemCountInfo?.memoryUsage }}%</span
+              >
               <span class="percentage-label">内存使用率</span>
             </template>
           </el-progress>
@@ -81,7 +93,7 @@
       </el-card>
       <el-card shadow="never">
         <template #header>
-          <h2>实时访问：{{latestDate}}</h2>
+          <h2>实时访问：{{ latestDate }}</h2>
         </template>
         <el-table :data="latestActionLogs">
           <el-table-column label="时间" prop="createDate" />
@@ -99,7 +111,7 @@
 import { ref, onMounted, reactive } from "vue";
 
 import { get } from "shared/http/HttpClient";
-import { ElTable, ElTableColumn } from 'element-plus';
+import { ElTable, ElTableColumn } from "element-plus";
 import { react } from "@babel/types";
 import { Timer } from "@element-plus/icons";
 
@@ -127,21 +139,21 @@ const model = ref({
     ipOf24Hours: 0,
     cpuLoad: 0,
     memoryUsage: 0,
-    diskRead: '',
-    diskWrite: '',
+    diskRead: "",
+    diskWrite: "",
   },
   top10Searches: {
-    datas: []
+    datas: [],
   },
   latestLogs: {
-    latestDate: ''
+    latestDate: "",
   },
   top10AccessPages: {
-    datas: []
-  }
+    datas: [],
+  },
 });
 
-let latestDate = ref("")
+let latestDate = ref("");
 const latestActionLogs = reactive([]);
 
 const url = ref("");
@@ -155,16 +167,18 @@ onMounted(() => {
 });
 
 const loadDatas = () => {
-  get("/api/dashboard/count", { request: latestDate.value ?? '' }).then((res: any) => {
-    model.value = res;
-    if(res.latestLogs?.latestDate !== null) {
-      latestDate.value = res.latestLogs?.latestDate;
-      latestActionLogs.unshift(...res.latestLogs?.datas)
-      if (latestActionLogs.length > 10) {
-        latestActionLogs.length = 10;
+  get("/api/dashboard/count", { request: latestDate.value ?? "" }).then(
+    (res: any) => {
+      model.value = res;
+      if (res.latestLogs?.latestDate !== null) {
+        latestDate.value = res.latestLogs?.latestDate;
+        latestActionLogs.unshift(...res.latestLogs?.datas);
+        if (latestActionLogs.length > 10) {
+          latestActionLogs.length = 10;
+        }
       }
     }
-  });
+  );
 };
 </script>
 
@@ -216,13 +230,13 @@ body {
 }
 
 .con_div_progress {
-  height: 100%;
+  height: 90%;
   width: 100%;
   background-color: #fff;
   margin-top: 4%;
   margin-right: 1.3%;
   text-align: center;
-  padding-top: 0 20px;
+  padding-top: 10px;
 }
 
 .percentage-value {
@@ -246,7 +260,7 @@ body {
       width: 50%;
     }
     width: 25%;
-    margin-right: .9%;
+    margin-right: 0.9%;
   }
 }
 
@@ -254,7 +268,7 @@ body {
   .HomeTable {
     flex-wrap: wrap;
 
-    >div {
+    > div {
       width: 100%;
       margin-top: 10px;
     }
