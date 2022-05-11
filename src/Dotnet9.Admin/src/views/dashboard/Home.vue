@@ -183,11 +183,14 @@ const loadDatas = () => {
       TopTenVisitTable.length = 0;
       TopTenVisitTable.push(...top10AccessPages.datas);
     }
-    if (latestLogs.datas.length) {
-      LatestActionLogs.length = 0;
-      LatestActionLogs.push(...latestLogs.datas);
+    if (latestLogs.latestDate) {
+      latestDate.value = latestLogs.latestDate;
+      LatestActionLogs.unshift(...res.latestLogs?.datas);
+      if (LatestActionLogs.length > 15) {
+        LatestActionLogs.length = 15;
+      }
     }
-    
+
     if (loadSwtch.value) {
       setTimeout(() => {
         loadDatas();
@@ -251,7 +254,6 @@ body {
   margin-top: 5%;
   margin-right: 1.3%;
   text-align: center;
-  padding-top: 0 20px;
 }
 
 .percentage-value {
@@ -269,14 +271,13 @@ body {
 .HomeTable {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
-  background: #fff;
-  padding: 10px;
+  margin-top: 2%;
   > div {
     &:last-child {
-      width: 45%;
+      width: 50%;
     }
-    width: 20%;
+    width: 25%;
+  margin-right: 0.9%;
   }
 }
 
