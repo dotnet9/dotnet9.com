@@ -40,7 +40,7 @@ public class AlbumAppService : IAlbumAppService
         var blogPostList =
             await _blogPostRepository.SelectBlogPostBriefAsync(
                 x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
-                SortDirectionKind.Ascending);
+                SortDirectionKind.Descending);
         if (!blogPostList.IsNullOrEmpty())
             vm.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPostList!);
 
