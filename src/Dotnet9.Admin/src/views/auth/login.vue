@@ -10,31 +10,52 @@
         :rules="rules"
         ref="form"
         label-position="top"
-        @keydown.native.enter="loginHandler()"
+        @keydown.enter="loginHandler()"
       >
-        <el-form-item label="账号" prop="account">
-          <el-input placeholder="输入用户名" v-model="loginForm.account"></el-input>
+        <el-form-item prop="account">
+          <span>
+            <img src="./assets/account.png" alt="" srcset="" />
+          </span>
+          <el-input
+            placeholder="输入用户名"
+            v-model="loginForm.account"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input placeholder="输入密码" v-model="loginForm.password" show-password></el-input>
+        <el-form-item prop="password">
+          <span>
+            <img src="./assets/pwd.png" alt="" srcset="" />
+          </span>
+          <el-input
+            placeholder="输入密码"
+            v-model="loginForm.password"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="loginHandler()" class="w_100">登录</el-button>
+          <el-button type="primary" @click="loginHandler()" class="w_100"
+            >登录</el-button
+          >
         </el-form-item>
         <el-form-item>
           <el-button type="default" class="w_100">重置密码</el-button>
         </el-form-item>
       </el-form>
     </div>
+    <div class="Login_Logo">
+      <img src="./assets/favicon.ico" alt="" srcset="" />
+      Dotnet9博客系统后台
+    </div>
+
+    <div class="Login_Tips">Copyright ©2022 Dotnet9博客系统后台</div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "@vue/reactivity";
-import { ElForm } from "element-plus"
+import { ElForm } from "element-plus";
 import { useRouter } from "vue-router";
-import { ElMessage } from 'element-plus'
-import { onMounted } from 'vue';
+import { ElMessage } from "element-plus";
+import { onMounted } from "vue";
 import { get, post } from "shared/http/HttpClient";
 
 const loginForm = reactive({
@@ -47,59 +68,147 @@ const rules = {
     {
       required: true,
       message: "账号不能为空",
-      trigger: 'blur'
+      trigger: "blur",
     },
   ],
   password: [
     {
       required: true,
       message: "密码不能为空",
-      trigger: 'blur'
+      trigger: "blur",
     },
   ],
 };
 const form = ref<InstanceType<typeof ElForm>>();
 const router = useRouter();
 const loginHandler = async () => {
-  loading.value = true
+  loading.value = true;
   await form.value?.validate(async (valid) => {
     if (valid) {
       try {
-        await post("/api/account/login", { account: loginForm.account, password: loginForm.password })
+        await post("/api/account/login", {
+          account: loginForm.account,
+          password: loginForm.password,
+        });
         setTimeout(() => {
-          loading.value = false
-          router.replace('/admin/dash')
-          ElMessage({ message: '登录成功！', showClose: false, type: 'success' })
+          loading.value = false;
+          router.replace("/admin/dash");
+          ElMessage({
+            message: "登录成功！",
+            showClose: false,
+            type: "success",
+          });
         }, 100);
       } finally {
-        loading.value = false
+        loading.value = false;
       }
     } else {
-      loading.value = false
+      loading.value = false;
     }
   });
-}
+};
 
 const checkLogin = async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    let { isLogin, isInit } = await get<{ isLogin: boolean, isInit: boolean }>('/api/account/checkLogin', {})
-    console.log('islogin ', isLogin)
+    let { isLogin, isInit } = await get<{ isLogin: boolean; isInit: boolean }>(
+      "/api/account/checkLogin",
+      {}
+    );
+    console.log("islogin ", isLogin);
     if (isLogin) {
-      router.replace('/admin/dash')
+      router.replace("/admin/dash");
     }
     if (!isInit) {
-      router.replace('/initAccount')
+      router.replace("/initAccount");
     }
   } finally {
-    loading.value = false
+    loading.value = false;
+  }
+};
+onMounted(() => {
+  console.log("Mounted");
+  checkLogin();
+});
+</script>
+<style lang="scss" scoped>
+// #496CD8
+.d-login {
+  background-image: url("./assets/loginBackground2.png");
+  background-repeat: no-repeat;
+  background-position: 340px 184px;
+  background-size: 26%;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
-onMounted(() => {
-  console.log('Mounted')
-  checkLogin();
-})
-</script>
+.Login_Logo {
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 22px;
+  color: #fff;
+  img {
+    width: 50px;
+    vertical-align: middle;
+    background: #2a50cd;
+    padding: 20px;
+    border-radius: 50%;
+    transform: rotate(360deg);
+    animation: rotation 5s linear infinite;
+  }
+}
 
-<style lang="less" scoped>
+.Login_Tips {
+  position: absolute;
+  bottom: 22px;
+  color: #b9cdff;
+  text-align: center;
+  font-size: 18px;
+  width: 100%;
+  letter-spacing: 1.5px;
+}
+
+:deep() {
+  .el-input__wrapper {
+    background: transparent;
+    box-shadow: none;
+  }
+  .el-input {
+    border-bottom: 1px solid #496cd8;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+  }
+  .el-input__inner {
+    font-size: 20px;
+    color: #fff;
+  }
+  .el-button {
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .el-form-item__content {
+    position: relative;
+    > span {
+      position: absolute;
+      top: 12px;
+      left: 11px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
 </style>

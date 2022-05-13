@@ -80,27 +80,36 @@ h3 {
 .d-login {
   width: 100%;
   height: 100%;
-  background: url("./assets/login_bg.svg");
-  padding-top: 200px;
+  background-color: #2259d8;
   box-sizing: border-box;
-
+  // background: url("./assets/login_bg.svg");
+  position: relative;
   .d-login-box {
-    width: 300px;
+    top: 200px;
+    width: 500px;
     padding: 2rem;
     border-radius: 5px;
-    background-color: white;
-    margin: 0 auto;
+    background-color: #2a50cd;
+    color: #fff;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
-
+    position: absolute;
+    right: 100px;
     .d-login-header {
       padding-bottom: 2rem;
       h1 {
-        font-size: 18px;
+        font-size: 40px;
         text-align: center;
-        color: #303133;
+        color: #fff;
       }
     }
   }
+
+  .el-form-item__label {
+    color: #fff;
+  }
+}
+input::-webkit-input-placeholder {
+  color: #fff !important;
 }
 
 .w_100 {
@@ -109,4 +118,9 @@ h3 {
 // .m_t_1{
 //   margin-top: 10px;
 // }
+
+
+*{
+  font-family:Arial, Helvetica, sans-serif;
+}
 </style>
