@@ -24,7 +24,7 @@ const getData = () => {
   get<PageResponse<UrlLinkDto>>("/api/urllink/list", page)
     .then((res) => {
       data.value = {
-        list: res.datas,
+        list: res.data,
         total: res.total,
       };
     })

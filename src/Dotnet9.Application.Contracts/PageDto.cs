@@ -2,15 +2,15 @@
 
 public class PageDto<T> : BaseResponse
 {
-    public List<T>? Datas { get; set; }
+    public List<T>? Data { get; set; }
     public int Total { get; set; }
 
-    public static PageDto<T> Success(List<T> datas, int total)
+    public static PageDto<T> Success(List<T> data, int total)
     {
         return new PageDto<T>
         {
             Total = total,
-            Datas = datas
+            Data = data
         };
     }
 
