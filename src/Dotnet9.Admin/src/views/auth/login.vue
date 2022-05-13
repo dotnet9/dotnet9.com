@@ -120,7 +120,7 @@ const checkLogin = async () => {
       router.replace("/admin/dash");
     }
     if (!isInit) {
-      router.replace("/initAccount");
+      // router.replace("/initAccount");
     }
   } finally {
     loading.value = false;
@@ -176,4 +176,18 @@ onMounted(() => {
   letter-spacing: 1.5px;
 }
 
+:deep() {
+  .el-form-item__content {
+    position: relative;
+    > span {
+      position: absolute;
+      top: 12px;
+      left: 11px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
 </style>

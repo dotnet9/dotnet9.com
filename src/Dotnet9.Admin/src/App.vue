@@ -142,18 +142,7 @@ input::-webkit-input-placeholder {
     margin-top: 20px;
   }
 
-  .el-form-item__content {
-    position: relative;
-    > span {
-      position: absolute;
-      top: 12px;
-      left: 11px;
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
+
 }
 
 

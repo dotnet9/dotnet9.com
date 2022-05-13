@@ -10,6 +10,7 @@
         :rules="rules"
         ref="form"
         label-position="top"
+        @keydown.enter="submitHandler()"
       >
         <el-form-item label="账号" prop="account">
           <el-input
