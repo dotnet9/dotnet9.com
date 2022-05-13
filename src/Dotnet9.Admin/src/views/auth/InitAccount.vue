@@ -64,11 +64,11 @@ const rules = {
       trigger: "blur",
     },
     {
-        min: 3,
-        max: 10,
-        message: '账号的长度在 3 ~ 10个字符之间',
-        trigger: 'blue'
-    }
+      min: 3,
+      max: 10,
+      message: "账号的长度在 3 ~ 10个字符之间",
+      trigger: "blue",
+    },
   ],
   email: [
     {
@@ -77,9 +77,9 @@ const rules = {
       trigger: "blur",
     },
     {
-        validator: checkEmail,
-        trigger: 'blur'
-    }
+      validator: checkEmail,
+      trigger: "blur",
+    },
   ],
   password: [
     {
@@ -88,11 +88,11 @@ const rules = {
       trigger: "blur",
     },
     {
-        min: 6,
-        max: 15,
-        message: '密码的长度在 6 ~ 15个字符之间',
-        trigger: 'blue'
-    }
+      min: 6,
+      max: 15,
+      message: "密码的长度在 6 ~ 15个字符之间",
+      trigger: "blue",
+    },
   ],
 };
 const form = ref<InstanceType<typeof ElForm>>();
@@ -120,3 +120,15 @@ onMounted(() => {
   get("/api/account/checkLogin", {});
 });
 </script>
+
+
+<style lang="scss" scoped>
+.el-button {
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  margin-top: 20px;
+}
+</style>
+
+
