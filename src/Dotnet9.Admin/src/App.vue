@@ -86,9 +86,9 @@ h3 {
   position: relative;
   .d-login-box {
     top: 200px;
-    width: 500px;
+    width: 450px;
     padding: 2rem;
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #2a50cd;
     color: #fff;
     box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
@@ -96,11 +96,17 @@ h3 {
     right: 100px;
     .d-login-header {
       padding-bottom: 2rem;
+      margin-top: 35px;
       h1 {
-        font-size: 40px;
+        font-size: 25px;
+        margin-top: 10px;
         text-align: center;
         color: #fff;
       }
+    }
+
+    .el-form-item {
+      height: 70px;
     }
   }
 
@@ -108,8 +114,11 @@ h3 {
     color: #fff;
   }
 }
+
+
+
 input::-webkit-input-placeholder {
-  color: #fff !important;
+  color: #ccc !important;
 }
 
 .w_100 {
@@ -119,34 +128,33 @@ input::-webkit-input-placeholder {
 //   margin-top: 10px;
 // }
 
-
-:deep() {
-  .el-input__wrapper {
-    background: transparent;
-    box-shadow: none;
-  }
-  .el-input {
-    border-bottom: 1px solid #496cd8;
-    height: 50px;
-    line-height: 50px;
-    padding-left: 30px;
-  }
-  .el-input__inner {
-    font-size: 20px;
-    color: #fff;
-  }
-  .el-button {
-    height: 60px;
-    line-height: 60px;
-    font-size: 20px;
-    margin-top: 20px;
-  }
-
-
+.el-input {
+  border-bottom: 1px solid #496cd8;
+  border-radius: 25px;
+  height: 55px;
+  line-height: 55px;
+  padding-left: 50px;
+  padding-bottom: 2px;
+  margin-right: 20px;
+}
+.el-input__wrapper {
+  background: transparent;
+  box-shadow: none;
+}
+.el-input__inner {
+  font-size: 30px;
+  color: #fff;
 }
 
+.el-button {
+  height: 80px;
+  width: 80%;
+  line-height: 80px;
+  font-size: 20px;
+  margin-top: 20px;
+}
 
-*{
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>

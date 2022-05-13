@@ -2,6 +2,9 @@
   <div class="d-login">
     <div class="d-login-box" v-loading="loading">
       <div class="d-login-header">
+        <div class="Login_Logo">
+          <img src="./assets/favicon.ico" alt="" srcset="" />
+        </div>
         <h1>Dotnet9博客系统后台</h1>
       </div>
       <el-form
@@ -33,20 +36,12 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="loginHandler()" class="w_100"
-            >登录</el-button
-          >
-        </el-form-item>
-        <el-form-item>
-          <el-button type="default" class="w_100">重置密码</el-button>
+            >登录</el-button>
         </el-form-item>
       </el-form>
     </div>
-    <div class="Login_Logo">
-      <img src="./assets/favicon.ico" alt="" srcset="" />
-      Dotnet9博客系统后台
-    </div>
 
-    <div class="Login_Tips">Copyright ©2022 Dotnet9博客系统后台</div>
+    <div class="Login_Tips">Copyright ©2019-2022 Dotnet9博客系统后台</div>
   </div>
 </template>
 
@@ -150,19 +145,17 @@ onMounted(() => {
   }
 }
 .Login_Logo {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-  position: absolute;
   top: 22px;
   color: #fff;
+  text-align: center;
   img {
-    width: 50px;
+    width: 60px;
     vertical-align: middle;
-    background: #2a50cd;
-    padding: 20px;
+    background: #e9edf7;
+    padding: 10px;
     border-radius: 50%;
-    transform: rotate(360deg);
-    animation: rotation 5s linear infinite;
   }
 }
 
@@ -184,8 +177,8 @@ onMounted(() => {
       top: 12px;
       left: 11px;
       img {
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 26px;
       }
     }
   }
