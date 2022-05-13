@@ -34,7 +34,7 @@
         </div>
         <el-dropdown trigger="hover">
           <div class="q-toolbar-item">
-            <el-avatar :size="30" src="../../assets/logo.png"></el-avatar>
+            <el-avatar :size="30" src="./../../assets/logo.png"></el-avatar>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
@@ -71,7 +71,7 @@ export default defineComponent({
     const router = useRouter()
     const quit = async () => {
       try {
-        await http.get('/admin/account/LoginOut')
+        await http.get('/api/account/logout')
         router?.replace({
           path: '/login'
         })
