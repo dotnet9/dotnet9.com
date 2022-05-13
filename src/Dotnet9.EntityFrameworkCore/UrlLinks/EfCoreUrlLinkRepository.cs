@@ -22,6 +22,7 @@ public class EfCoreUrlLinkRepository : EfCoreRepository<UrlLink>, IUrlLinkReposi
 
     public async Task<List<UrlLink>> GetListAsync()
     {
-        return await DbContext.UrlLinks!.OrderBy(x => x.Index).ToListAsync();
+        return await DbContext.UrlLinks!.Where(x => x.Kind == UrlLinkKind.Friend || x.Kind == UrlLinkKind.Owner)
+            .OrderBy(x => x.Index).ToListAsync();
     }
 }

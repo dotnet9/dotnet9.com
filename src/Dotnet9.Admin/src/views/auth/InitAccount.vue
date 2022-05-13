@@ -71,7 +71,7 @@ const rules = {
       min: 3,
       max: 10,
       message: "账号的长度在 3 ~ 10个字符之间",
-      trigger: "blue",
+      trigger: "blur",
     },
   ],
   email: [
@@ -95,7 +95,7 @@ const rules = {
       min: 6,
       max: 15,
       message: "密码的长度在 6 ~ 15个字符之间",
-      trigger: "blue",
+      trigger: "blur",
     },
   ],
 };

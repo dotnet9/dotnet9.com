@@ -15,7 +15,7 @@ import Categories from "../views/blogs/categories/Categories.vue"
 
 import EditCategory from "../views/blogs/categories/EditCategory.vue";
 
-import FriendLink from "../views/blogs/friendlink/FriendLink.vue";
+import UrlLink from "../views/blogs/urllink/UrlLink.vue";
 
 const dashRoute: RouteRecordRaw[] = [
     {
@@ -53,12 +53,12 @@ const dashRoute: RouteRecordRaw[] = [
             },
             {
                 path: "editcate",
-                name:'editcate',
+                name: 'editcate',
                 component: EditCategory,
             },
             {
-                path: "friendlink",
-                component: FriendLink,
+                path: "urllink",
+                component: UrlLink,
             },
             ...setting,
         ],

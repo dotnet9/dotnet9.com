@@ -9,6 +9,8 @@ public interface IRepository<T>
 
     Task<int> InsertAsync(T t);
 
+    Task<int> DeleteAsync(Expression<Func<T, bool>> whereLambda);
+
     Task<int> UpdateAsync(T t);
 
     Task<T?> GetAsync(Expression<Func<T, bool>> whereLambda,

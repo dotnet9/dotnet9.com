@@ -3,4 +3,5 @@
 public interface IUrlLinkAppService
 {
     Task<List<UrlLinkDto>> ListAllAsync();
+    Task<PageDto<UrlLinkDto>> AdminListAsync(UrlLinkRequest request);
 }

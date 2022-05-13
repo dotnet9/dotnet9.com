@@ -2,6 +2,7 @@
 using Dotnet9.Domain;
 using Dotnet9.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Z.EntityFramework.Plus;
 
 namespace Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 
@@ -36,6 +37,13 @@ public class EfCoreRepository<T>
     {
         await DbContext.Set<T>().AddAsync(t);
         return await DbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> DeleteAsync(Expression<Func<T, bool>> whereLambda)
+    {
+        var deleteResult = await DbContext.Set<T>().Where(whereLambda).DeleteAsync();
+        var saveResult = await DbContext.SaveChangesAsync();
+        return deleteResult;
     }
 
     public async Task<int> UpdateAsync(T t)
