@@ -120,7 +120,7 @@ const checkLogin = async () => {
       router.replace("/admin/dash");
     }
     if (!isInit) {
-      // router.replace("/initAccount");
+      router.replace("/initAccount");
     }
   } finally {
     loading.value = false;
