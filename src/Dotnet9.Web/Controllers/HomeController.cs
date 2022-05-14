@@ -316,11 +316,11 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkDto>>(fileContent)!;
+                var urlLinksFromFile = JsonConvert.DeserializeObject<List<UrlLinkSeed>>(fileContent)!;
                 var i = 1;
                 var urlLinks = urlLinksFromFile?.Select(x =>
                         _urlLinkManager.CreateAsync(i++, x.Index,
-                            (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind.ToString()),
+                            (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
                             x.Name, x.Description, x.Url).Result)
                     .ToList();
                 if (urlLinks != null && urlLinks.Any())
