@@ -27,7 +27,7 @@ public class WordBlogPosts5 : ViewComponent
 
         var categories = new[]
         {
-            "dotnet-more-dotnet-other", "dotnet-web-api", "dotnet-web-mvc", "dotnet-web-blazor", "dotnet-mobile-maui"
+            "dotnet-more-dotnet-other", "dotnet-web-api", "dotnet-web-blazor", "dotnet-mobile-maui", "dotnet-web-mvc"
         };
 
         cacheData = new WordBlogPostsViewModel
