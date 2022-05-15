@@ -27,7 +27,7 @@ public class WordBlogPosts : ViewComponent
 
         var categories = new[]
         {
-            "other-share-software", "other-Skill-sharing", "other-workplace-statement",
+            "other-workplace-statement", "other-share-software", "other-Skill-sharing",
             "other-science-and-technology-life"
         };
 
