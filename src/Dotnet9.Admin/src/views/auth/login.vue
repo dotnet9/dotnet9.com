@@ -176,8 +176,29 @@ onMounted(() => {
   letter-spacing: 1.5px;
 }
 
+
 :deep() {
-  .el-form-item__content {
+  .el-input__wrapper {
+    background: transparent;
+    box-shadow: none;
+  }
+  .el-input {
+    border-bottom: 1px solid #496cd8;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+  }
+  .el-input__inner {
+    font-size: 20px;
+    color: #fff;
+  }
+  .el-button {
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+    .el-form-item__content {
     position: relative;
     > span {
       position: absolute;
@@ -189,5 +210,10 @@ onMounted(() => {
       }
     }
   }
+
+
 }
+// :deep() {
+
+// }
 </style>
