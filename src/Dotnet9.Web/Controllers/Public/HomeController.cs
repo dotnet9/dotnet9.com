@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
+// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class HomeController : Controller
@@ -122,7 +123,7 @@ public class HomeController : Controller
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
         var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
-        if (bytes is {Length: > 0}) return File(bytes, contentType);
+        if (bytes is { Length: > 0 }) return File(bytes, contentType);
 
         var siteMapNodes = new List<SitemapNode>();
 
@@ -136,14 +137,17 @@ public class HomeController : Controller
 
         siteMapNodes.AddRange((await _categoryAppService.GetListCountAsync()).Select(x => new SitemapNode
         {
-            LastModified = DateTimeOffset.UtcNow, Priority = 0.8, Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
+            LastModified = DateTimeOffset.UtcNow,
+            Priority = 0.8,
+            Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
         }));
 
         siteMapNodes.AddRange((await GetAllBlogPostForSitemap()).Select(x =>
             new SitemapNode
             {
-                LastModified = x.CreateDate, Priority = 0.9,
+                LastModified = x.CreateDate,
+                Priority = 0.9,
                 Url =
                     $"{GlobalVar.SiteDomain}/{x.CreateDate.ToString("yyyy")}/{x.CreateDate.ToString("MM")}/{x.Slug}",
                 Frequency = SitemapFrequency.Daily
@@ -234,7 +238,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var privacy = new Privacy {Content = fileContent};
+                var privacy = new Privacy { Content = fileContent };
                 await _dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -276,7 +280,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var donation = new Donation {Content = fileContent};
+                var donation = new Donation { Content = fileContent };
                 await _dotnet9DbContext.Donations!.AddAsync(donation);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -296,7 +300,7 @@ public class HomeController : Controller
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var about = new About {Content = fileContent};
+                var about = new About { Content = fileContent };
                 await _dotnet9DbContext.Abouts!.AddAsync(about);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -320,7 +324,7 @@ public class HomeController : Controller
                 var i = 1;
                 var urlLinks = urlLinksFromFile?.Select(x =>
                         _urlLinkManager.CreateAsync(i++, x.Index,
-                            (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                            (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
                             x.Name, x.Description, x.Url).Result)
                     .ToList();
                 if (urlLinks != null && urlLinks.Any())
@@ -479,7 +483,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
     private void ReadCategory(List<Category> container, CategoryItem categoryFromFile, ref int id,
@@ -490,7 +494,7 @@ public class HomeController : Controller
             Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not {Count: > 0}) return;
+        if (categoryFromFile.Children is not { Count: > 0 }) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;

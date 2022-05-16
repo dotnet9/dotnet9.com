@@ -24,10 +24,10 @@ public class LogActionFilterAttribute : ActionFilterAttribute
 
     private static readonly string[] IgnoreActionNames =
     {
-        "Dotnet9.AdminAPI.Controllers.DashboardController.GetActionLogs (Dotnet9.AdminAPI)",
-        "Dotnet9.AdminAPI.Controllers.DashboardController.Count (Dotnet9.AdminAPI)",
-        "Dotnet9.AdminAPI.Controllers.AccountController.Login (Dotnet9.AdminAPI)",
-        "Dotnet9.AdminAPI.Controllers.AccountController.CheckLogin (Dotnet9.AdminAPI)"
+        "Dotnet9.Web.Controllers.DashboardController.GetActionLogs (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.DashboardController.Count (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.AccountController.Login (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.AccountController.CheckLogin (Dotnet9.Web)"
     };
 
     private static readonly string[] IgnoreIPs = {"::1"};

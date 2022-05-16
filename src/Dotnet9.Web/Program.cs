@@ -1,8 +1,15 @@
-using Dotnet9.AdminAPI;
-using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Dotnet9.Extensions;
-using Dotnet9.Extensions.Serilog;
-using Dotnet9.Web;
+using Dotnet9.Extensions.CountSystemInfo;
+using Dotnet9.Extensions.Repository;
+using Dotnet9.Web.AutoMapper;
+using Dotnet9.Web.Caches;
+using Dotnet9.Web.Filters;
+using Dotnet9.Web.Serilog;
+using Dotnet9.Web.ServiceExtensions;
+using Dotnet9.Web.Utils;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 
@@ -11,9 +18,25 @@ SerilogExtension.AddSerilogSetup();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
-builder.AddDotnet9Web();
-builder.AddAdminAPI<Dotnet9DbContext>();
-builder.AddExtensions();
+
+// Add services to the container.
+builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<GlobalExceptionFilter>(); });
+builder.Services.AddSwaggerSetup();
+
+GlobalVar.SiteDomain = builder.Configuration["SiteDomain"];
+GlobalVar.AssetsLocalPath = builder.Configuration["AssetsLocalPath"];
+GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
+
+builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultConnection")!);
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
+builder.Services.AddAutoMapperSetup();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheConfig>()!);
+builder.Services.AddRepositorySetup();
+builder.Services.ConfigureNonBreakingSameSiteCookies();
+PerfCounter.Init();
+
 
 var app = builder.Build();
 app.UseSerilogRequestLogging();

@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using Dotnet9.AdminAPI.ViewModels.Accounts;
-using Dotnet9.Extensions.HttpContext;
+using Dotnet9.Web.HttpContext;
+using Dotnet9.Web.ViewModels.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

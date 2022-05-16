@@ -3,6 +3,7 @@ using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Web.ViewModels.Privacies;
 using Microsoft.AspNetCore.Mvc;
 
+// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class PrivacyController : Controller

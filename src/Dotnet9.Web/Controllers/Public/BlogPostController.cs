@@ -11,6 +11,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Text.RegularExpressions;
 
+// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class BlogPostController : Controller
@@ -90,7 +91,7 @@ public class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))
@@ -129,7 +130,7 @@ public class BlogPostController : Controller
             var queryStr = WebUtility.UrlDecode(keyboard);
             whereLambda = x =>
                 Regex.IsMatch(x.Title, queryStr!) ||
-                (x.Original != null && Regex.IsMatch(x.Original, queryStr!)) ||
+                x.Original != null && Regex.IsMatch(x.Original, queryStr!) ||
                 Regex.IsMatch(x.Content, queryStr!);
         }
 

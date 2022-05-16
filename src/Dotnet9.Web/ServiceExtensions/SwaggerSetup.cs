@@ -31,8 +31,6 @@ public static class SwaggerSetup
 
             var mvcXmlFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dotnet9.Web.xml");
             options.IncludeXmlComments(mvcXmlFile, true);
-            var apiXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dotnet9.AdminAPI.xml");
-            options.IncludeXmlComments(apiXmlPath, true);
         });
     }
 }
