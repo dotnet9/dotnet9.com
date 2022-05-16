@@ -12,17 +12,17 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://admin.dotnet9.com",
+        target: "http://localhost:5133",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "api")
       },
       "/upload": {
-        target: "https://admin.dotnet9.com/upload",
+        target: "https://localhost:5133/upload",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/upload/, "")
       },
       "/img": {
-        target: "https://admin.dotnet9.com/img",
+        target: "https://localhost:5133/img",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/img/, "")
       },

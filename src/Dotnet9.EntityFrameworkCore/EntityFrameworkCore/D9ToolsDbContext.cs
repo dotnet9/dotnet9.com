@@ -68,6 +68,8 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Cover).IsRequired().HasMaxLength(CategoryConsts.MaxCoverLength);
             b.Property(x => x.Description).HasMaxLength(CategoryConsts.MaxDescriptionLength);
             b.Property(x => x.ParentId);
+            b.Property(x => x.Index);
+            b.Property(x => x.IsShow);
             b.HasIndex(x => x.Name);
             b.HasIndex(x => x.Slug);
         });

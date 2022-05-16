@@ -100,7 +100,7 @@ export default defineComponent({
         const form = ref<InstanceType<typeof ElForm>>();
 
         const formRule = reactive({
-            categoryName: {
+            name: {
                 required: true, message: '分类名称必填', trigger: 'blur'
             }
         })
@@ -108,8 +108,8 @@ export default defineComponent({
         const fromLoading = ref(false)
         const formModel = ref<CategoryItem>({
             id: 0,
-            categoryName: '',
-            pid: 0,
+            name: '',
+            parentId: 0,
             isShow: true
         })
 

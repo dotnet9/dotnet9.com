@@ -6,4 +6,6 @@ public class CategoryDto
     public string Slug { get; set; } = null!;
     public string Cover { get; set; } = null!;
     public string? Description { get; set; }
+    public int Index { get; set; }
+    public bool IsShow { get; set; }
 }

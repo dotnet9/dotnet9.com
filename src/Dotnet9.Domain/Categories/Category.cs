@@ -15,13 +15,17 @@ public class Category : EntityBase
         string slug,
         string cover,
         string? description,
-        int parentId) : base(id)
+        int parentId,
+        int index = 1,
+        bool isShow = true) : base(id)
     {
         SetName(name);
         SetSlug(slug);
         Cover = cover;
         Description = description;
         ParentId = parentId;
+        Index = index;
+        IsShow = isShow;
     }
 
     public string Name { get; set; } = null!;
@@ -29,6 +33,8 @@ public class Category : EntityBase
     public string Cover { get; set; } = null!;
     public string? Description { get; set; }
     public int? ParentId { get; set; }
+    public int Index { get; set; }
+    public bool IsShow { get; set; }
 
     internal Category ChangeName(string name)
     {

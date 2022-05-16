@@ -1,9 +1,11 @@
 interface CategoryItem{
     id?:number
-    categoryName?:string
-    pid?:number
-    num?:number
-    categoryDesc?:string
+    name?:string
+    slug?:string
+    cover?:string
+    description?:string
+    parentId?:number
+    index?:number
     isShow:boolean
 }
 

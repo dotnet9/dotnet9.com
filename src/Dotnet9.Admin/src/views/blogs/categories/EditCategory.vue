@@ -5,11 +5,11 @@
         </template>
         <div v-loading="loading">
             <el-form label-width="80px" :rules="formRule" :model="formModel" ref="form">
-                <el-form-item label="名称" prop="cateName">
-                    <el-input placeholder="输入分类名称" v-model="formModel.categoryName"></el-input>
+                <el-form-item label="名称" prop="name">
+                    <el-input placeholder="输入分类名称" v-model="formModel.name"></el-input>
                 </el-form-item>
-                <el-form-item label="描述" prop="categoryDesc">
-                    <el-input placeholder="描述" type="textarea" v-model="formModel.categoryDesc"></el-input>
+                <el-form-item label="描述" prop="description">
+                    <el-input placeholder="描述" type="textarea" v-model="formModel.description"></el-input>
                 </el-form-item>
                 <el-form-item label="是否显示">
                     <el-switch v-model="formModel.isShow"></el-switch>
@@ -68,9 +68,9 @@ onMounted(() => {
 const restore = () => {
     router.replace("/admin/editcate")
     formModel.value = {
-        categoryName: '111',
-        categoryDesc: '',
-        pid: 0,
+        name: '111',
+        description: '',
+        parentId: 0,
         isShow: false
     }
 }
