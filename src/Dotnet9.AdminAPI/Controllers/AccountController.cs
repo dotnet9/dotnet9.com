@@ -63,4 +63,10 @@ public class AccountController : ControllerBase
         if (_httpContextAccessor.HttpContext != null)
             await _httpContextAccessor.HttpContext.SignInAsync(claimsPrincipal);
     }
+
+    [HttpGet("logout")]
+    public async Task Logout()
+    {
+        await HttpContext.SignOutAsync();
+    }
 }

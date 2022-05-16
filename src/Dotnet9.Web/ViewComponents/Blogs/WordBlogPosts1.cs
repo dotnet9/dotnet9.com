@@ -27,8 +27,7 @@ public class WordBlogPosts1 : ViewComponent
 
         var categories = new[]
         {
-            "course-dotnet-course", "other-unit-test", "other-Open-source-project",
-            "other-architecture-design"
+            "other-architecture-design", "course-dotnet-course", "other-unit-test", "other-Open-source-project"
         };
 
         cacheData = new WordBlogPostsViewModel

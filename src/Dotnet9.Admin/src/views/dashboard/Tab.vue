@@ -2,18 +2,21 @@
   <div class="tab">
     <ul>
       <li
-          class="q-module-item"
-          v-for="(item, i) in moduleList"
-          :key="i"
-          :class="item.active ? 'active' : ''"
-          @click="handlerItem(item,true)"
+        class="q-module-item"
+        v-for="(item, i) in moduleList"
+        :key="i"
+        :class="item.active ? 'active' : ''"
+        @click="handlerItem(item, true)"
       >
         <i v-if="item.icon" :class="item.icon"></i>
         <span>{{ item.label }}</span>
       </li>
     </ul>
   </div>
-  <div class="q-menu-container" :class="[expandState ? 'q-menu-open' : 'q-menu-close']">
+  <div
+    class="q-menu-container"
+    :class="[expandState ? 'q-menu-open' : 'q-menu-close']"
+  >
     <template v-for="(item, i) in moduleList" :key="i">
       <SlideMenu :sub-menu="item.subMenu" v-if="item.active"></SlideMenu>
     </template>
@@ -23,148 +26,145 @@
 </template>
 
 <script lang="ts">
-import {useRouter} from 'vue-router'
-import {onMounted, ref, computed, defineComponent, nextTick} from 'vue';
+import { useRouter } from "vue-router";
+import { onMounted, ref, computed, defineComponent, nextTick } from "vue";
 import SlideMenu from "../../components/SlideMenu.vue";
-import {reactive} from "@vue/reactivity";
-import {SubMenu, PostMenu, tagMenu} from "../../components/MenuConfig"
-import {ElMessage} from 'element-plus'
+import { reactive } from "@vue/reactivity";
+import { SubMenu, PostMenu, tagMenu } from "../../components/MenuConfig";
+import { ElMessage } from "element-plus";
 import TopBar from "./TopBar.vue";
-import {expandState, handlerExpand, showExpandButton} from "./ExpandState"
+import { expandState, handlerExpand, showExpandButton } from "./ExpandState";
 
 export interface ModuleItem {
-  label: string
-  index?: string
-  icon?: string
-  subMenu?: SubMenu[]
-  active?: boolean
+  label: string;
+  index?: string;
+  icon?: string;
+  subMenu?: SubMenu[];
+  active?: boolean;
 }
 
 export default defineComponent({
-  name: 'tab',
-  components: {SlideMenu, TopBar},
+  name: "tab",
+  components: { SlideMenu, TopBar },
   props: {
-    expand: Boolean
+    expand: Boolean,
   },
-  emits: ['update:expand'],
+  emits: ["update:expand"],
   setup(props) {
     const router = useRouter();
     const isOpen = computed(() => {
-      return props.expand
-    })
-    const activePath = ref('')
+      return props.expand;
+    });
+    const activePath = ref("");
     onMounted(() => {
-      activePath.value = router.currentRoute.value.path
+      activePath.value = router.currentRoute.value.path;
       nextTick(() => {
         updateSelectStatus();
-      })
-    })
+      });
+    });
     router.afterEach(() => {
-      activePath.value = router.currentRoute.value.path
+      activePath.value = router.currentRoute.value.path;
       nextTick(() => {
         updateSelectStatus();
-      })
-    })
+      });
+    });
     const moduleList = reactive<ModuleItem[]>([
       {
-        label: '仪表盘',
+        label: "仪表盘",
         active: true,
-        index: '/admin/dash',
-        icon: 'ri-dashboard-2-line'
+        index: "/admin/dash",
+        icon: "ri-dashboard-2-line",
       },
       {
-        label: '文章',
-        icon: 'ri-article-line',
-        subMenu: PostMenu
+        label: "文章",
+        icon: "ri-article-line",
+        subMenu: PostMenu,
       },
       {
-        label: '评论',
-        icon: 'ri-message-3-line'
+        label: "评论",
+        icon: "ri-message-3-line",
       },
       {
-        label: '标签',
-        index: '/admin/tag',
-        icon: 'ri-price-tag-3-line',
-        subMenu: tagMenu
-
+        label: "标签",
+        index: "/admin/tag",
+        icon: "ri-price-tag-3-line",
+        subMenu: tagMenu,
       },
       {
-        label: '友链',
-        icon: 'ri-links-line',
-        index: '/admin/friendlink'
+        label: "链接",
+        icon: "ri-links-line",
+        index: "/admin/urllink",
       },
       {
-        label: '用户', icon: 'ri-user-line'
+        label: "用户",
+        icon: "ri-user-line",
       },
       {
-        label: '设置',
-        index: '/admin/setting',
-        icon: 'ri-settings-3-line'
-      }
-    ])
+        label: "设置",
+        index: "/admin/setting",
+        icon: "ri-settings-3-line",
+      },
+    ]);
 
     const handlerItem = (item: ModuleItem, updateRouter: boolean) => {
-      moduleList.forEach(temp => {
+      moduleList.forEach((temp) => {
         temp.active = temp == item;
         if (temp.active) {
           if (!temp.subMenu || temp.subMenu.length == 0) {
-            handlerExpand(false)
-            showExpandButton.value = false
+            handlerExpand(false);
+            showExpandButton.value = false;
           } else {
-            handlerExpand(true)
+            handlerExpand(true);
           }
           if (updateRouter) {
-            let path = '';
+            let path = "";
             if (temp.subMenu && temp.subMenu.length > 0) {
               path = temp.subMenu[0].children?.[0]?.index!;
-              showExpandButton.value = true
+              showExpandButton.value = true;
             } else {
-              path = temp.index!
-              showExpandButton.value = false
+              path = temp.index!;
+              showExpandButton.value = false;
             }
             if (path) {
-              router.replace(path)
+              router.replace(path);
             } else {
               ElMessage({
-                message: '跳转路径不存在',
-                type: 'error'
-              })
+                message: "跳转路径不存在",
+                type: "error",
+              });
             }
           }
         }
       });
-
-
-    }
+    };
     const updateSelectStatus = () => {
-      console.log('当前的路由:', activePath.value)
+      console.log("当前的路由:", activePath.value);
       let path = activePath.value;
-      moduleList.forEach(item => {
+      moduleList.forEach((item) => {
         if (item.index == path) {
-          handlerItem(item, false)
+          handlerItem(item, false);
         }
-        item.subMenu?.forEach(subItem => {
+        item.subMenu?.forEach((subItem) => {
           if (subItem.label == path) {
-            handlerItem(item, false)
+            handlerItem(item, false);
           }
-          subItem.children?.forEach(childrenItem => {
+          subItem.children?.forEach((childrenItem) => {
             if (childrenItem.index == path) {
-              handlerItem(item, false)
+              handlerItem(item, false);
             }
-          })
-        })
-      })
-    }
+          });
+        });
+      });
+    };
     return {
       activePath,
       isOpen,
       handlerItem,
       moduleList,
-      expandState
-    }
-
-  }
-})
+      expandState,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
@@ -268,7 +268,6 @@ export default defineComponent({
   }
 
   .el-menu-item.is-active {
-
     background: var(--el-color-primary-light-8);
     color: #0d1b25;
   }

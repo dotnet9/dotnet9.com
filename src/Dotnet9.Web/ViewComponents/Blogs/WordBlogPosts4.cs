@@ -27,7 +27,8 @@ public class WordBlogPosts4 : ViewComponent
 
         var categories = new[]
         {
-            "dotnet-ef-core", "dotnet-orm-dapper", "dotnet-orm-more", "dotnet-openxml", "More Other"
+            "dotnet-desktop-wpf", "dotnet-desktop-winform", "dotnet-ef-core", "dotnet-orm-dapper", "dotnet-orm-more",
+            "dotnet-openxml", "More Other"
         };
 
         cacheData = new WordBlogPostsViewModel

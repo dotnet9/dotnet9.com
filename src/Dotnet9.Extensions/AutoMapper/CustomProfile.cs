@@ -8,7 +8,7 @@ using Dotnet9.Application.Contracts.Privacies;
 using Dotnet9.Application.Contracts.Tags;
 using Dotnet9.Application.Contracts.Timelines;
 using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Application.Contracts.Users;
+using Dotnet9.Core;
 using Dotnet9.Domain.Abouts;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
@@ -41,7 +41,10 @@ public class CustomProfile : Profile
         CreateMap<BlogPost, BlogPostForSitemap>();
         CreateMap<BlogPostBrief, BlogPostBriefDto>();
 
-        CreateMap<UrlLink, UrlLinkDto>();
+        CreateMap<UrlLink, UrlLinkDto>()
+            .ForMember(dest => dest.CreateDate,
+                opt => opt.MapFrom(src => DateTimeOffsetHelper.DateTimeToString(src.CreateDate)));
+        ;
 
         CreateMap<About, AboutDto>().ReverseMap();
 

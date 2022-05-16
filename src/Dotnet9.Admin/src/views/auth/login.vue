@@ -1,52 +1,50 @@
 <template>
   <div class="d-login">
-    <div class="d-login-box" v-loading="loading">
-      <div class="d-login-header">
-        <h1>Dotnet9博客系统后台</h1>
+    <div class="d-Mantle">
+      <div class="d-login-box" v-loading="loading">
+        <div class="d-login-header">
+          <div class="Login_Logo">
+            <img src="./assets/favicon.ico" alt="" srcset="" />
+          </div>
+          <h1>Dotnet9博客系统后台</h1>
+        </div>
+        <el-form
+          :model="loginForm"
+          label-width="70px"
+          :rules="rules"
+          ref="form"
+          label-position="top"
+          @keydown.enter="loginHandler()"
+        >
+          <el-form-item prop="account">
+            <span>
+              <img src="./assets/account.png" alt="" srcset="" />
+            </span>
+            <el-input
+              placeholder="输入用户名"
+              v-model="loginForm.account"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <span>
+              <img src="./assets/pwd.png" alt="" srcset="" />
+            </span>
+            <el-input
+              placeholder="输入密码"
+              v-model="loginForm.password"
+              show-password
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="loginHandler()" class="w_100"
+              >登录</el-button
+            >
+          </el-form-item>
+        </el-form>
       </div>
-      <el-form
-        :model="loginForm"
-        label-width="70px"
-        :rules="rules"
-        ref="form"
-        label-position="top"
-        @keydown.enter="loginHandler()"
-      >
-        <el-form-item prop="account">
-          <span>
-            <img src="./assets/account.png" alt="" srcset="" />
-          </span>
-          <el-input
-            placeholder="输入用户名"
-            v-model="loginForm.account"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <span>
-            <img src="./assets/pwd.png" alt="" srcset="" />
-          </span>
-          <el-input
-            placeholder="输入密码"
-            v-model="loginForm.password"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="loginHandler()" class="w_100"
-            >登录</el-button
-          >
-        </el-form-item>
-        <el-form-item>
-          <el-button type="default" class="w_100">重置密码</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="Login_Logo">
-      <img src="./assets/favicon.ico" alt="" srcset="" />
-      Dotnet9博客系统后台
-    </div>
 
-    <div class="Login_Tips">Copyright ©2022 Dotnet9博客系统后台</div>
+      <div class="Login_Tips">Copyright ©2019-2022 Dotnet9博客系统后台</div>
+    </div>
   </div>
 </template>
 
@@ -120,7 +118,7 @@ const checkLogin = async () => {
       router.replace("/admin/dash");
     }
     if (!isInit) {
-      // router.replace("/initAccount");
+      router.replace("/initAccount");
     }
   } finally {
     loading.value = false;
@@ -138,6 +136,13 @@ onMounted(() => {
   background-repeat: no-repeat;
   background-position: 340px 184px;
   background-size: 26%;
+  .d-Mantle {
+    background: url("./assets/background.jpg") no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    overflow: hidden;
+  }
 }
 
 @keyframes rotation {
@@ -150,19 +155,19 @@ onMounted(() => {
   }
 }
 .Login_Logo {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-  position: absolute;
   top: 22px;
   color: #fff;
+  text-align: center;
   img {
-    width: 50px;
+    width: 60px;
     vertical-align: middle;
-    background: #2a50cd;
-    padding: 20px;
+    background: #e9edf7;
+    padding: 10px;
     border-radius: 50%;
-    transform: rotate(360deg);
-    animation: rotation 5s linear infinite;
+    position: relative;
+    left: -5px;
   }
 }
 
@@ -176,14 +181,13 @@ onMounted(() => {
   letter-spacing: 1.5px;
 }
 
-
 :deep() {
   .el-input__wrapper {
     background: transparent;
     box-shadow: none;
   }
   .el-input {
-    border-bottom: 1px solid #496cd8;
+    // border-bottom: 1px solid #496cd8;
     height: 50px;
     line-height: 50px;
     padding-left: 30px;
@@ -197,21 +201,30 @@ onMounted(() => {
     line-height: 60px;
     font-size: 20px;
     margin-top: 20px;
+    width: 100%;
+    background: #143560;
+    border: 1px solid #29548d;
   }
-    .el-form-item__content {
+  .el-form-item__error {
+    top: 111%;
+    left: 28px;
+  }
+  .el-form-item__content {
     position: relative;
     > span {
       position: absolute;
       top: 12px;
-      left: 11px;
+      left: 0px;
       img {
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 26px;
       }
     }
   }
 
-
+  .el-form-item.is-error .el-input__wrapper {
+    box-shadow: none;
+  }
 }
 // :deep() {
 

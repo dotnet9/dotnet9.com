@@ -2,7 +2,10 @@
   <div class="d-login">
     <div class="d-login-box" v-loading="loading">
       <div class="d-login-header">
-        <h1>初始化后台账号</h1>
+        <div class="Login_Logo">
+          <img src="./assets/favicon.ico" alt="" srcset="" />
+        </div>
+        <h1>创建管理员</h1>
       </div>
       <el-form
         :model="formData"
@@ -68,7 +71,7 @@ const rules = {
       min: 3,
       max: 10,
       message: "账号的长度在 3 ~ 10个字符之间",
-      trigger: "blue",
+      trigger: "blur",
     },
   ],
   email: [
@@ -92,7 +95,7 @@ const rules = {
       min: 6,
       max: 15,
       message: "密码的长度在 6 ~ 15个字符之间",
-      trigger: "blue",
+      trigger: "blur",
     },
   ],
 };
@@ -124,11 +127,40 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
+.Login_Logo {
+  font-size: 22px;
+  font-weight: bold;
+  top: 22px;
+  color: #fff;
+  text-align: center;
+  img {
+    width: 60px;
+    vertical-align: middle;
+    background: #e9edf7;
+    padding: 10px;
+    border-radius: 50%;
+  }
+}
 .el-button {
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
   font-size: 20px;
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+:deep() {
+  .el-form-item__content {
+    position: relative;
+    > span {
+      position: absolute;
+      top: 12px;
+      left: 11px;
+      img {
+        width: 25px;
+        height: 26px;
+      }
+    }
+  }
 }
 </style>
 

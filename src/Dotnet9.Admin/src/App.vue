@@ -80,27 +80,34 @@ h3 {
 .d-login {
   width: 100%;
   height: 100%;
-  background-color: #2259d8;
   box-sizing: border-box;
   // background: url("./assets/login_bg.svg");
   position: relative;
   .d-login-box {
-    top: 200px;
-    width: 500px;
+    display: block;
+    width: 450px;
     padding: 2rem;
-    border-radius: 5px;
-    background-color: #2a50cd;
+    border-radius: 15px;
+    background-color: #184376;
     color: #fff;
-    box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    right: 100px;
+    box-shadow: 1px 3px 8px rgb(0 0 0 / 10%);
+    margin-right: 200px;
+    margin: 0 auto;
+    margin-right: 200px;
+    margin-top: 200px;
     .d-login-header {
       padding-bottom: 2rem;
+      margin-top: 35px;
       h1 {
-        font-size: 40px;
+        font-size: 25px;
+        margin-top: 10px;
         text-align: center;
         color: #fff;
       }
+    }
+
+    .el-form-item {
+      height: 70px;
     }
   }
 
@@ -108,8 +115,9 @@ h3 {
     color: #fff;
   }
 }
+
 input::-webkit-input-placeholder {
-  color: #fff !important;
+  color: #ccc !important;
 }
 
 .w_100 {
@@ -119,10 +127,33 @@ input::-webkit-input-placeholder {
 //   margin-top: 10px;
 // }
 
+.el-input {
+  border-bottom: 1px solid #fff;
+  // border-radius: 25px;
+  height: 55px;
+  line-height: 55px;
+  padding-left: 50px;
+  padding-bottom: 2px;
+  margin-right: 20px;
+}
+.el-input__wrapper {
+  background: transparent;
+  box-shadow: none;
+}
+.el-input__inner {
+  font-size: 30px;
+  color: #fff;
+}
 
+.el-button {
+  height: 80px;
+  width: 80%;
+  line-height: 80px;
+  font-size: 20px;
+  margin-top: 20px;
+}
 
-
-*{
-  font-family:Arial, Helvetica, sans-serif;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>

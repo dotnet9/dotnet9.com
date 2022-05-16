@@ -37,7 +37,7 @@ public class WordBlogPosts3 : ViewComponent
         foreach (var categorySlug in categories)
         {
             var categoryViewMode = await _categoryAppService.GetCategoryAsync(categorySlug);
-            if (categoryViewMode != null)
+            if (categoryViewMode is {BlogPosts.Count: > 0})
                 cacheData.Items[categoryViewMode.Name] = new CategoryWordBlogPosts
                 {
                     Name = categoryViewMode.Name,

@@ -230,12 +230,12 @@ aside .ad-small { width: 100% }
 .qqinfo a:last-child { margin-bottom: 0 }
 .qqinfo a { display: block; color: #fff; font-size: 14px; }
 .weixin-info { text-align: center }
-.weixin-info img { max-width: 140px; margin: auto }
+.weixin-info img { max-width: 200px; margin: auto }
 .weixin-info .text12 { font-size: 12px; line-height: 24px }
 .dashang-section p { padding: 0 10px 5px }
 .dashang-section ul { text-align: center; }
 .dashang-section ul li { display: inline-block; }
-.dashang-section ul li img { width: 140px !important; height: 140px !important; }
+.dashang-section ul li img { width: 200px !important; }
 /*links*/
 .links ul { margin: 0 20px 20px; overflow: hidden; }
 .links ul li a { float: left; margin: 0 10px; line-height: 40px; padding: 0 5px; position: relative; display: block; }
