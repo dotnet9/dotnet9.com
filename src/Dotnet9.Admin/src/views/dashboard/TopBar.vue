@@ -1,8 +1,12 @@
 <template>
-  <el-header :class="[expandState?'open':'close']">
+  <el-header :class="[expandState ? 'open' : 'close']">
     <div class="q-header-container">
       <div class="q-header-left">
-        <div class="q-header-item" @click="handlerExpand(!expandState)" v-if="showExpandButton">
+        <div
+          class="q-header-item"
+          @click="handlerExpand(!expandState)"
+          v-if="showExpandButton"
+        >
           <div class="q-toolbar-item pointer">
             <i class="ri-menu-fold-line"></i>
           </div>
@@ -50,45 +54,43 @@
 </template>
 
 <script lang="ts">
-import {http} from "shared/http/HttpClient";
-import {ref} from "@vue/reactivity";
+import { http } from "shared/http/HttpClient";
+import { ref } from "@vue/reactivity";
 
-import {defineComponent} from 'vue'
-import {useRouter} from "vue-router";
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
-import {expandState, handlerExpand,showExpandButton} from './ExpandState'
+import { expandState, handlerExpand, showExpandButton } from "./ExpandState";
 
 export default defineComponent({
   name: "TopBar",
   props: {
     expand: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ["update:expand"],
   setup(props, context) {
-    const router = useRouter()
+    const router = useRouter();
     const quit = async () => {
       try {
-        await http.get('/api/account/logout')
+        await http.get("/api/account/logout");
         router?.replace({
-          path: '/login'
-        })
-      } catch (error) {
-
-      }
-    }
+          path: "/",
+        });
+      } catch (error) {}
+    };
 
     const toSetting = () => {
-      router.push('/admin/setting?type=3')
-    }
+      router.push("/admin/setting?type=3");
+    };
 
     const toHome = () => {
-      router.replace("/admin/dash")
-    }
+      router.replace("/admin/dash");
+    };
 
-    const notifySelect = ref('notify')
+    const notifySelect = ref("notify");
     return {
       quit,
       notifySelect,
@@ -96,10 +98,10 @@ export default defineComponent({
       handlerExpand,
       toSetting,
       toHome,
-      showExpandButton
-    }
-  }
-})
+      showExpandButton,
+    };
+  },
+});
 </script>
 
 <style scoped lang="scss">

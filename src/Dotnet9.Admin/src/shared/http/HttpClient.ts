@@ -66,7 +66,7 @@ http.interceptors.response.use((response) => {
             message: "访问需要登录",
             type: 'warning'
         })
-        router.push('/login')
+        router.push('/')
 
     }
     if (error.response?.status == 404) {
