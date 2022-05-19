@@ -88,7 +88,7 @@ const title = ref("新建")
 const loading = ref(false)
 const categoryItems = ref<CategoryItem[]>()
 const loadCategories = async () => {
-  var res = await get<CategoryItem[]>('/admin/category/getlist', {})
+  var res = await get<CategoryItem[]>('/api/category/list', {})
   categoryItems.value = res;
 }
 

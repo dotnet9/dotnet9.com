@@ -64,7 +64,7 @@ export default defineComponent({
         const getData = async () => {
             try {
                 loading.value = true
-                var res = await get<CategoryItem[]>('/admin/category/getlist', {});
+                var res = await get<CategoryItem[]>('/api/category/list', {});
                 tableData.value = res
             } finally {
                 loading.value = false

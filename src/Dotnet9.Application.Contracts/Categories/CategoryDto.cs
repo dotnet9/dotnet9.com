@@ -2,6 +2,8 @@
 
 public class CategoryDto
 {
+    public int Id { get; set; }
+    public int? ParentId { get; set; }
     public string Name { get; set; } = null!;
     public string Slug { get; set; } = null!;
     public string Cover { get; set; } = null!;

@@ -8,7 +8,7 @@ using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Application.Categories;
 
-public class CategoryAppService : ICategoryAppService
+public partial class CategoryAppService : ICategoryAppService
 {
     private readonly IBlogPostRepository _blogPostRepository;
     private readonly ICategoryRepository _categoryRepository;

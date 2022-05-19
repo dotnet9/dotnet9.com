@@ -1,11 +1,12 @@
 ﻿using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Application.Contracts.Categories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
 
-public class CategoryController : Controller
+public partial class CategoryController : Controller
 {
     private readonly IBlogPostAppService _blogPostAppService;
     private readonly ICacheService _cacheService;
