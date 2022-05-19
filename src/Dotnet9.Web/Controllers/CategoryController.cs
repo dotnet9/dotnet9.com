@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
 
+[Authorize]
 public partial class CategoryController : Controller
 {
     private readonly IBlogPostAppService _blogPostAppService;
@@ -22,6 +23,7 @@ public partial class CategoryController : Controller
 
     [HttpGet]
     [Route("cat/{slug?}")]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(string? slug)
     {
         var cacheKey = $"{nameof(CategoryController)}-{nameof(Index)}-{slug}";
