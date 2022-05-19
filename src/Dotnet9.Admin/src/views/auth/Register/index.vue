@@ -39,10 +39,11 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, onMounted } from "vue";
+import { reactive, ref, onMounted, defineEmits } from "vue";
 import { useRouter } from "vue-router";
 import { ElForm, ElMessage } from "element-plus";
 import { post, get } from "shared/http/HttpClient";
+import LoginSUB from "../Login/index.vue";
 
 const formData = reactive({
   account: "",
@@ -99,6 +100,7 @@ const rules = {
 const form = ref<InstanceType<typeof ElForm>>();
 
 const router = useRouter();
+const emit = defineEmits(["ChangeSub"]);
 
 const submitHandler = () => {
   form.value.validate((isvalid) => {
@@ -110,16 +112,15 @@ const submitHandler = () => {
             message: "初始化管理员账号成功",
             type: "success",
           });
-          router.replace("/login");
+
+          emit("ChangeSub", LoginSUB);
         })
         .finally(() => (loading.value = false));
     }
   });
 };
 
-onMounted(() => {
-    
-});
+onMounted(() => {});
 </script>
 
 

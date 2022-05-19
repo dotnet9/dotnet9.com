@@ -10,7 +10,7 @@
             {{ CurrentSUB == LoginSUB ? "Dotnet9博客系统后台" : "创建管理员" }}
           </h1>
         </div>
-        <component :is="CurrentSUB"> </component>
+        <component :is="CurrentSUB" @ChangeSub="ChangeSub"> </component>
         <div class="Login_Tips">Copyright ©2019-2022 Dotnet9博客系统后台</div>
       </div>
     </div>
@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import { reactive, ref, shallowRef } from "@vue/reactivity";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { onMounted, defineEmits } from "vue";
 import { get, post } from "shared/http/HttpClient";
 import LoginSUB from "./Login/index.vue";
 import RegisterSUB from "./Register/index.vue";
@@ -42,6 +42,11 @@ const checkLogin = async () => {
   } finally {
     console.error("Login question");
   }
+};
+
+const ChangeSub = (data: LoginSUB | RegisterSUB) => {
+  debugger
+  CurrentSUB.value = data;
 };
 onMounted(() => {
   checkLogin();
