@@ -77,44 +77,7 @@ h3 {
   animation: test1 0.3s ease-in-out;
 } */
 
-.d-login {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  // background: url("./assets/login_bg.svg");
-  position: relative;
-  .d-login-box {
-    display: block;
-    width: 450px;
-    padding: 2rem;
-    border-radius: 15px;
-    background-color: #184376;
-    color: #fff;
-    box-shadow: 1px 3px 8px rgb(0 0 0 / 10%);
-    margin-right: 200px;
-    margin: 0 auto;
-    margin-right: 200px;
-    margin-top: 200px;
-    .d-login-header {
-      padding-bottom: 2rem;
-      margin-top: 35px;
-      h1 {
-        font-size: 25px;
-        margin-top: 10px;
-        text-align: center;
-        color: #fff;
-      }
-    }
 
-    .el-form-item {
-      height: 70px;
-    }
-  }
-
-  .el-form-item__label {
-    color: #fff;
-  }
-}
 
 input::-webkit-input-placeholder {
   color: #ccc !important;

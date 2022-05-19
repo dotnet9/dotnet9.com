@@ -1,44 +1,41 @@
 <template>
-  <div class="d-login">
-    <div class="d-login-box" v-loading="loading">
-      <div class="d-login-header">
-        <div class="Login_Logo">
-          <img src="./assets/favicon.ico" alt="" srcset="" />
-        </div>
-        <h1>创建管理员</h1>
-      </div>
-      <el-form
-        :model="formData"
-        label-width="70px"
-        :rules="rules"
-        ref="form"
-        label-position="top"
-        @keydown.enter="submitHandler()"
+  <el-form
+    v-loading="loading"
+    :model="formData"
+    label-width="70px"
+    :rules="rules"
+    ref="form"
+    label-position="top"
+    @keydown.enter="submitHandler()"
+  >
+    <el-form-item prop="account">
+      <span>
+        <img src="../assets/account.png" alt="" srcset="" />
+      </span>
+      <el-input placeholder="输入账号" v-model="formData.account"></el-input>
+    </el-form-item>
+    <el-form-item prop="email">
+      <span>
+        <img src="../assets/Email.png" alt="" srcset="" />
+      </span>
+      <el-input placeholder="输入邮箱" v-model="formData.email"></el-input>
+    </el-form-item>
+    <el-form-item prop="password">
+      <span>
+        <img src="../assets/pwd.png" alt="" srcset="" />
+      </span>
+      <el-input
+        placeholder="输入密码"
+        v-model="formData.password"
+        show-password
+      ></el-input>
+    </el-form-item>
+    <el-form-item label>
+      <el-button type="primary" class="w_100" @click="submitHandler()"
+        >创建</el-button
       >
-        <el-form-item label="账号" prop="account">
-          <el-input
-            placeholder="输入账号"
-            v-model="formData.account"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input placeholder="输入邮箱" v-model="formData.email"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            placeholder="输入密码"
-            v-model="formData.password"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <el-form-item label>
-          <el-button type="primary" class="w_100" @click="submitHandler()"
-            >创建</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script lang="ts" setup>
@@ -121,7 +118,7 @@ const submitHandler = () => {
 };
 
 onMounted(() => {
-  get("/api/account/checkLogin", {});
+    
 });
 </script>
 
@@ -147,20 +144,6 @@ onMounted(() => {
   font-size: 20px;
   text-align: center;
   margin-top: 40px;
-}
-:deep() {
-  .el-form-item__content {
-    position: relative;
-    > span {
-      position: absolute;
-      top: 12px;
-      left: 11px;
-      img {
-        width: 25px;
-        height: 26px;
-      }
-    }
-  }
 }
 </style>
 
