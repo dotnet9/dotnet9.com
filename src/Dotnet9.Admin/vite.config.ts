@@ -7,7 +7,7 @@ import * as path from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    outDir: '../Dotnet9.Web/wwwroot/admin'
+    outDir: './build/'
   },
   server: {
     proxy: {
