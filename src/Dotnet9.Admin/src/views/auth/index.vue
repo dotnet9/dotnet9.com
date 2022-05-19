@@ -25,7 +25,7 @@ import { get, post } from "shared/http/HttpClient";
 import LoginSUB from "./Login/index.vue";
 import RegisterSUB from "./Register/index.vue";
 
-let CurrentSUB = shallowRef(LoginSUB);
+let CurrentSUB: any = shallowRef(LoginSUB);
 const router = useRouter();
 const checkLogin = async () => {
   try {
@@ -44,8 +44,8 @@ const checkLogin = async () => {
   }
 };
 
-const ChangeSub = (data: LoginSUB | RegisterSUB) => {
-  debugger
+const ChangeSub = (data: any) => {
+  debugger;
   CurrentSUB.value = data;
 };
 onMounted(() => {
