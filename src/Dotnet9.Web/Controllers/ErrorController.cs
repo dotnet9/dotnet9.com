@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class ErrorController : Controller

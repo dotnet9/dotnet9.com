@@ -29,7 +29,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class HomeController : Controller
@@ -95,13 +94,13 @@ public class HomeController : Controller
             _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend.Item1);
         cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
-            {"最新", LoadMoreKind.Latest},
-            {".NET", LoadMoreKind.Dotnet},
-            {"大前端", LoadMoreKind.Front},
-            {"数据库", LoadMoreKind.Database},
-            {"更多语言", LoadMoreKind.MoreLanguage},
-            {"课程", LoadMoreKind.Course},
-            {"其他", LoadMoreKind.Other}
+            { "最新", LoadMoreKind.Latest },
+            { ".NET", LoadMoreKind.Dotnet },
+            { "大前端", LoadMoreKind.Front },
+            { "数据库", LoadMoreKind.Database },
+            { "更多语言", LoadMoreKind.MoreLanguage },
+            { "课程", LoadMoreKind.Course },
+            { "其他", LoadMoreKind.Other }
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));

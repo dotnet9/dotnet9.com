@@ -3,7 +3,6 @@ using Dotnet9.Application.Contracts.Donations;
 using Dotnet9.Web.ViewModels.Donations;
 using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class DonationController : Controller

@@ -1,10 +1,8 @@
 ﻿using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Core;
 using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class AlbumController : Controller

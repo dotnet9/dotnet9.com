@@ -4,7 +4,6 @@ using Dotnet9.Application.Contracts.Timelines;
 using Dotnet9.Web.ViewModels.Timelines;
 using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class TimelineController : Controller

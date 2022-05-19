@@ -1,13 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using Dotnet9.Application.Contracts.Users;
+using Dotnet9.Web.ViewModels.Accounts;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using Dotnet9.Web.ViewModels.Accounts;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 [Route("api/account")]
@@ -30,7 +29,7 @@ public class AccountController : ControllerBase
     [HttpGet("checkLogin")]
     public async Task<LoginStatusViewModel> CheckLogin()
     {
-        var isLogin = HttpContext.User.Identity is {IsAuthenticated: true};
+        var isLogin = HttpContext.User.Identity is { IsAuthenticated: true };
         return new LoginStatusViewModel
         {
             IsLogin = isLogin,

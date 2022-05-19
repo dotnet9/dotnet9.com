@@ -3,7 +3,6 @@ using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Web.ViewModels.Abouts;
 using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class AboutController : Controller

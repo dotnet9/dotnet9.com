@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using System.Net;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Core;
@@ -7,11 +10,7 @@ using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
 using Dotnet9.Web.ViewModels.Blogs;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
-using System.Net;
-using System.Text.RegularExpressions;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 public class BlogPostController : Controller
@@ -24,12 +23,12 @@ public class BlogPostController : Controller
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
-        {LoadMoreKind.Dotnet, "dotnet"},
-        {LoadMoreKind.Front, "Large-front-end"},
-        {LoadMoreKind.Database, "database"},
-        {LoadMoreKind.MoreLanguage, "more-language"},
-        {LoadMoreKind.Course, "course"},
-        {LoadMoreKind.Other, "other"}
+        { LoadMoreKind.Dotnet, "dotnet" },
+        { LoadMoreKind.Front, "Large-front-end" },
+        { LoadMoreKind.Database, "database" },
+        { LoadMoreKind.MoreLanguage, "more-language" },
+        { LoadMoreKind.Course, "course" },
+        { LoadMoreKind.Other, "other" }
     };
 
     private readonly IMapper _mapper;
@@ -130,7 +129,7 @@ public class BlogPostController : Controller
             var queryStr = WebUtility.UrlDecode(keyboard);
             whereLambda = x =>
                 Regex.IsMatch(x.Title, queryStr!) ||
-                x.Original != null && Regex.IsMatch(x.Original, queryStr!) ||
+                (x.Original != null && Regex.IsMatch(x.Original, queryStr!)) ||
                 Regex.IsMatch(x.Content, queryStr!);
         }
 
@@ -145,9 +144,7 @@ public class BlogPostController : Controller
             Total = queryResult.Item2
         };
         if (queryResult.Item1.Any())
-        {
             cacheData.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1);
-        }
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 

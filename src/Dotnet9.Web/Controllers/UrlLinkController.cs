@@ -5,7 +5,6 @@ using Dotnet9.Domain.UrlLinks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-// ReSharper disable once CheckNamespace
 namespace Dotnet9.Web.Controllers;
 
 [Route("api/urllink")]
