@@ -11,8 +11,10 @@ import TagEdit from "../views/blogs/tag/tag-edit.vue";
 
 import TabItemContainer from "../views/TabItemContainer.vue";
 
-import Categories from "../views/blogs/categories/Categories.vue"
+import Albums from "../views/blogs/albums/Albums.vue"
+import EditAlbum from "../views/blogs/albums/EditAlbum.vue";
 
+import Categories from "../views/blogs/categories/Categories.vue"
 import EditCategory from "../views/blogs/categories/EditCategory.vue";
 
 import UrlLink from "../views/blogs/urllink/UrlLink.vue";
@@ -46,6 +48,15 @@ const dashRoute: RouteRecordRaw[] = [
                         name: "标签",
                     },
                 ],
+            },
+            {
+                path: "albums",
+                component: Albums,
+            },
+            {
+                path: "editalbum",
+                name: 'editalbum',
+                component: EditAlbum,
             },
             {
                 path: "categories",

@@ -2,13 +2,13 @@
 <template>
   <el-card>
     <template #header>
-      <h1>分类管理</h1>
+      <h1>专辑管理</h1>
     </template>
     <el-table :data="tableData" style="width: 100%" border v-loading="loading">
       <el-table-column prop="name" label="名称" width="180" />
       <el-table-column label="封面" width="230">
         <template #default="scope">
-          <img :src="scope.row.cover" class="category-img" />
+          <img :src="scope.row.cover" class="album-img" />
         </template>
       </el-table-column>
       <el-table-column prop="slug" label="别名" width="200" />
@@ -21,13 +21,10 @@
       <el-table-column prop="description" label="说明" />
       <el-table-column label="操作" fixed="right" width="150">
         <template #default="scope">
-          <el-button type="primary" size="mini" @click="editCategory(scope.row)"
+          <el-button type="primary" size="mini" @click="editAlbum(scope.row)"
             >编辑</el-button
           >
-          <el-popconfirm
-            title="确定删除吗？"
-            @confirm="delCategory(scope.row.id)"
-          >
+          <el-popconfirm title="确定删除吗？" @confirm="delAlbum(scope.row.id)">
             <template #reference>
               <el-button type="danger" size="mini">删除</el-button>
             </template>
@@ -40,25 +37,25 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref, toRefs } from "vue";
-import EditCategory from "./EditCategory.vue";
+import EditAlbum from "./EditAlbum.vue";
 import { get, http } from "shared/http/HttpClient";
 import { deepCopy } from "shared/utils/ObjectUtils";
-import { CategoryItem } from "./CategoryModel";
+import { AlbumItem } from "./AlbumModel";
 import LeftMenuLayout from "../../../components/LeftMenuLayout.vue";
 import LeftMenu from "../posts/LeftMenu.vue";
 import { ElForm, ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 export default defineComponent({
   components: {
-    EditCategory,
+    EditAlbum,
     LeftMenuLayout,
     LeftMenu,
   },
   setup() {
-    const tableData = ref<CategoryItem[]>([]);
+    const tableData = ref<AlbumItem[]>([]);
     const show = ref(false);
     const showDialog = () => {
-      cateItem.value = {
+      albumItem.value = {
         isShow: true,
       };
       show.value = !show.value;
@@ -66,14 +63,14 @@ export default defineComponent({
 
     const loading = ref(false);
 
-    const cateItem = ref<CategoryItem>();
+    const albumItem = ref<AlbumItem>();
 
     const close = () => {};
 
     const getData = async () => {
       try {
         loading.value = true;
-        var res = await get<CategoryItem[]>("/api/category/list", {});
+        var res = await get<AlbumItem[]>("/api/album/list", {});
         tableData.value = res;
       } finally {
         loading.value = false;
@@ -83,10 +80,10 @@ export default defineComponent({
       getData();
     });
 
-    const delCategory = async (id: number) => {
+    const delAlbum = async (id: number) => {
       try {
         loading.value = true;
-        await http.delete("/api/category/delete", {
+        await http.delete("/api/album/delete", {
           params: { id: id },
         });
         getData();
@@ -97,10 +94,10 @@ export default defineComponent({
 
     const router = useRouter();
 
-    const editCategory = (item: CategoryItem) => {
+    const editAlbum = (item: AlbumItem) => {
       let data = deepCopy(item);
       router.push({
-        name: "editcate",
+        name: "editalbum",
         params: {
           obj: JSON.stringify(data),
         },
@@ -118,7 +115,7 @@ export default defineComponent({
     });
 
     const fromLoading = ref(false);
-    const formModel = ref<CategoryItem>({
+    const formModel = ref<AlbumItem>({
       id: 0,
       name: "",
       parentId: 0,
@@ -155,9 +152,9 @@ export default defineComponent({
       close,
       getData,
       loading,
-      delCategory,
-      editCategory,
-      cateItem,
+      delAlbum,
+      editAlbum,
+      albumItem,
       formRule,
       form,
       fromLoading,
@@ -170,7 +167,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-.category-img {
+.album-img {
   width: 200px;
 }
 </style>

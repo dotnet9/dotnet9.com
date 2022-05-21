@@ -27,14 +27,28 @@ const PostMenu: SubMenu[] = [
                 label: '文章管理',
             }
         ]
-    },{
-        label:'分类',
-        index:'分类',
-        hideGroup:false,
-        children:[
+    }, {
+        label: '专辑',
+        index: '专辑',
+        hideGroup: false,
+        children: [
             {
-                index:'/admin/editcate',
-                label:'添加分类'
+                index: '/admin/editalbum',
+                label: '添加专辑'
+            },
+            {
+                index: '/admin/albums',
+                label: '专辑管理'
+            }
+        ]
+    }, {
+        label: '分类',
+        index: '分类',
+        hideGroup: false,
+        children: [
+            {
+                index: '/admin/editcate',
+                label: '添加分类'
             },
             {
                 index: '/admin/categories',
