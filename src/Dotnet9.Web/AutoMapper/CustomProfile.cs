@@ -40,6 +40,7 @@ public class CustomProfile : Profile
         CreateMap<CategoryCount, CategoryCountDto>();
         CreateMap<Category, CategoryDto>();
         CreateMap<CategoryBrief, CategoryBriefDto>();
+        CreateMap<AddOrUpdateCategoryDto, Category>();
 
         CreateMap<TagCount, TagCountDto>();
 

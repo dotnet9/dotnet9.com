@@ -3,8 +3,6 @@ using Dotnet9.Application.Contracts.ActionLogs;
 using Dotnet9.Application.Contracts.Dashboards;
 using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.Application.Dashboards;
 
@@ -26,12 +24,12 @@ public class DashboardAppService : IDashboardAppService
     {
         var vm = new DashboardViewModel
         {
-            SystemCountInfo = new SystemCountDto()
+            SystemCountInfo = new SystemCountDto
             {
                 PostCount = await _blogPostRepository.CountAsync(x => x.Id > 0),
                 IPOf24Hours = await _actionLogRepository.CountIPIn24HoursAsync(),
                 NotFoundRequestIn24Hours = await _actionLogRepository.CountNotFoundIn24HoursAsync()
-            },
+            }
         };
 
         var top10Searchs = await _actionLogRepository.CountTop10SearchAsync();
@@ -39,10 +37,7 @@ public class DashboardAppService : IDashboardAppService
         var top10AccessPages = await _actionLogRepository.CountTop10AccessPagesAsync();
         vm.Top10AccessPages = _mapper.Map<Top10AccessPage, Top10AccessPageDto>(top10AccessPages);
         var latestTimeForRepository = default(DateTimeOffset);
-        if (latestTime != null)
-        {
-            DateTimeOffset.TryParse(latestTime, out latestTimeForRepository);
-        }
+        if (latestTime != null) DateTimeOffset.TryParse(latestTime, out latestTimeForRepository);
         var latestActionLog = await _actionLogRepository.GetLatestActionLogAsync(latestTimeForRepository);
         vm.LatestLogs = _mapper.Map<LatestActionLog, LatestActionLogDto>(latestActionLog);
         return vm;

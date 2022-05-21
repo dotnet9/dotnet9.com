@@ -99,7 +99,6 @@ export default defineComponent({
 
     const editCategory = (item: CategoryItem) => {
       let data = deepCopy(item);
-      console.log(data);
       router.push({
         name: "editcate",
         params: {
