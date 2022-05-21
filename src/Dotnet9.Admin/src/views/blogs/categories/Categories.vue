@@ -86,8 +86,8 @@ export default defineComponent({
     const delCategory = async (id: number) => {
       try {
         loading.value = true;
-        await http.delete("/admin/category/delete", {
-          params: { categoryId: id },
+        await http.delete("/api/category/delete", {
+          params: { id: id },
         });
         getData();
       } finally {

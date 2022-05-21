@@ -1,6 +1,7 @@
 ﻿using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
 using Dotnet9.Application.Contracts.Categories;
+using Dotnet9.Domain.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +13,13 @@ public partial class CategoryController : Controller
     private readonly IBlogPostAppService _blogPostAppService;
     private readonly ICacheService _cacheService;
     private readonly ICategoryAppService _categoryAppService;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public CategoryController(ICategoryAppService categoryAppService, IBlogPostAppService blogPostAppService,
+    public CategoryController(ICategoryAppService categoryAppService,ICategoryRepository categoryRepository, IBlogPostAppService blogPostAppService,
         ICacheService cacheService)
     {
         _categoryAppService = categoryAppService;
+        _categoryRepository = categoryRepository;
         _blogPostAppService = blogPostAppService;
         _cacheService = cacheService;
     }

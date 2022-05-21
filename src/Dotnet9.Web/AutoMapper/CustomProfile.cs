@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using Dotnet9.Application.Contracts.Abouts;
 using Dotnet9.Application.Contracts.ActionLogs;
 using Dotnet9.Application.Contracts.Albums;
@@ -22,7 +23,6 @@ using Dotnet9.Domain.Tags;
 using Dotnet9.Domain.Timelines;
 using Dotnet9.Domain.UrlLinks;
 using Dotnet9.Domain.Users;
-using System.Net;
 using Dotnet9.Web.ViewModels.Accounts;
 
 namespace Dotnet9.Web.AutoMapper;
@@ -77,9 +77,7 @@ public class CustomProfile : Profile
         CreateMap<Top10AccessPage, Top10AccessPageDto>();
         CreateMap<Top10SearchItem, Top10SearchItemDto>();
         CreateMap<Top10Search, Top10SearchDto>();
-        CreateMap<LatestActionLog, LatestActionLogDto>()
-            .ForMember(dest => dest.LatestDate,
-                opt => opt.MapFrom(src => DateTimeOffsetHelper.DateTimeToString(src.LatestDate)));
+        CreateMap<LatestActionLog, LatestActionLogDto>();
 
         CreateMap<AddOrUpdateUrlLinkDto, UrlLink>();
     }

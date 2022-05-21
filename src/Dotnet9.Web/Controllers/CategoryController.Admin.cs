@@ -10,4 +10,10 @@ public partial class CategoryController
     {
         return await _categoryAppService.AdminListAsync();
     }
+
+    [HttpDelete("api/category/delete")]
+    public async Task Delete(int id)
+    {
+        await _categoryRepository.DeleteAsync(x => x.Id == id);
+    }
 }
