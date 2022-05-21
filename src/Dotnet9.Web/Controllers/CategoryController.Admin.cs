@@ -24,9 +24,10 @@ public partial class CategoryController
         var categoryFromDb = await _categoryRepository.GetAsync(x => x.Id == request.Id);
         if (categoryFromDb == null)
         {
-            var urlLinkForDb = _mapper.Map<AddOrUpdateCategoryDto, Category>(request);
-            urlLinkForDb.CreateDate = DateTimeOffset.Now;
-            await _categoryRepository.InsertAsync(urlLinkForDb);
+            var categoryForDb = _mapper.Map<AddOrUpdateCategoryDto, Category>(request);
+            categoryForDb.Id = await _categoryRepository.GetMaxIdAsync() + 1;
+            categoryForDb.CreateDate = DateTimeOffset.Now;
+            await _categoryRepository.InsertAsync(categoryForDb);
         }
         else
         {

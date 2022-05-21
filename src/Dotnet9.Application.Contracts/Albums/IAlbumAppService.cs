@@ -5,4 +5,6 @@ public interface IAlbumAppService
     Task<AlbumViewModel?> GetAlbumAsync(string? slug);
 
     Task<List<AlbumCountDto>> GetListCountAsync();
+
+    Task<List<AlbumDto>> AdminListAsync();
 }

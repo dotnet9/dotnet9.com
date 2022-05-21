@@ -11,7 +11,8 @@ public class AlbumManager
         _albumRepository = albumRepository;
     }
 
-    public async Task<Album> CreateAsync(int? id, string name, string slug, string cover, string? description)
+    public async Task<Album> CreateAsync(int? id, string name, string slug, string cover, string? description,
+        int parentId)
     {
         Check.NotNullOrWhiteSpace(name, nameof(name));
         Check.NotNullOrWhiteSpace(slug, nameof(slug));
@@ -23,12 +24,12 @@ public class AlbumManager
         existAlbum = await _albumRepository.FindBySlugAsync(slug);
         if (existAlbum != null) throw new Exception($"存在相同别名的专辑: {slug}");
 
-        if (id != null) return new Album(id.Value, name, slug, cover, description);
+        if (id != null) return new Album(id.Value, name, slug, cover, description, parentId);
 
         var maxIdOfAlbum = await _albumRepository.GetMaxIdAsync();
         id = maxIdOfAlbum + 1;
 
-        return new Album(id.Value, name, slug, cover, description);
+        return new Album(id.Value, name, slug, cover, description, parentId);
     }
 
     public async Task ChangeNameAsync(Album album, string newName)

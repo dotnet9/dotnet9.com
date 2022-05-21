@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dotnet9.Application.Contracts.Categories;
+namespace Dotnet9.Application.Contracts.Albums;
 
-public class AddOrUpdateCategoryDto
+public class AddOrUpdateAlbumDto
 {
     public int? Id { get; set; }
     public int? ParentId { get; set; }

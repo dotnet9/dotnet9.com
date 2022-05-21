@@ -55,6 +55,9 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Slug).IsRequired().HasMaxLength(AlbumConsts.MaxSlugLength);
             b.Property(x => x.Cover).IsRequired().HasMaxLength(AlbumConsts.MaxCoverLength);
             b.Property(x => x.Description).HasMaxLength(AlbumConsts.MaxDescriptionLength);
+            b.Property(x => x.ParentId);
+            b.Property(x => x.Index);
+            b.Property(x => x.IsShow);
             b.HasIndex(x => x.Name);
             b.HasIndex(x => x.Slug);
         });

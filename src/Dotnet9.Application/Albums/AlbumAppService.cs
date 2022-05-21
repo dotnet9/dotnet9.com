@@ -8,7 +8,7 @@ using Dotnet9.Domain.Repositories;
 
 namespace Dotnet9.Application.Albums;
 
-public class AlbumAppService : IAlbumAppService
+public partial class AlbumAppService : IAlbumAppService
 {
     private readonly AlbumManager _albumManager;
     private readonly IAlbumRepository _albumRepository;
@@ -30,11 +30,12 @@ public class AlbumAppService : IAlbumAppService
         {
             var albumCounts = await _albumRepository.GetListCountAsync();
 
-            return new AlbumViewModel {Albums = _mapper.Map<List<AlbumCount>, List<AlbumCountDto>>(albumCounts) };
+            return new AlbumViewModel {Albums = _mapper.Map<List<AlbumCount>, List<AlbumCountDto>>(albumCounts)};
         }
 
         var album = await _albumRepository.GetAsync(x => x.Slug == slug);
         if (album == null) return null;
+
         var vm = new AlbumViewModel {Name = album.Name};
 
         var blogPostList =

@@ -1,26 +1,36 @@
-﻿using Dotnet9.Application.Contracts.Albums;
+﻿using AutoMapper;
+using Dotnet9.Application.Contracts.Albums;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Application.Contracts.Caches;
+using Dotnet9.Domain.Albums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
 
-public class AlbumController : Controller
+[Authorize]
+public partial class AlbumController : Controller
 {
     private readonly IAlbumAppService _albumAppService;
+    private readonly IAlbumRepository _albumRepository;
     private readonly IBlogPostAppService _blogPostAppService;
     private readonly ICacheService _cacheService;
+    private readonly IMapper _mapper;
 
-    public AlbumController(IAlbumAppService albumAppService, IBlogPostAppService blogPostAppService,
-        ICacheService cacheService)
+    public AlbumController(IAlbumAppService albumAppService, IAlbumRepository albumRepository,
+        IBlogPostAppService blogPostAppService,
+        ICacheService cacheService, IMapper mapper)
     {
         _albumAppService = albumAppService;
+        _albumRepository = albumRepository;
         _blogPostAppService = blogPostAppService;
         _cacheService = cacheService;
+        _mapper = mapper;
     }
 
     [HttpGet]
     [Route("album/{slug?}")]
+    [AllowAnonymous]
     public async Task<IActionResult> Index(string? slug)
     {
         var cacheKey = $"{nameof(AlbumController)}-{nameof(Index)}-{slug}";
