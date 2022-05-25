@@ -5,4 +5,5 @@ public interface IBlogPostAppService
     Task<BlogPostViewModel?> FindBySlugAsync(string slug);
     Task<RecommendViewModel> GetRecommendBlogPostAsync();
     Task<List<BlogPostForSitemap>> GetListBlogPostForSitemapAsync();
+    Task<PageDto<BlogPostDto>> AdminListAsync(BlogPostRequest request);
 }

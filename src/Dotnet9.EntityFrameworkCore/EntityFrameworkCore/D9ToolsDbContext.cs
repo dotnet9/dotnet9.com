@@ -115,8 +115,11 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.Original).HasMaxLength(BlogPostConsts.MaxOriginalLength);
             b.Property(x => x.OriginalTitle).HasMaxLength(BlogPostConsts.MaxOriginalTitleLength);
             b.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);
-            b.HasIndex(x => x.Title);
-            b.HasIndex(x => x.Slug);
+            b.HasIndex(x => x.Title).HasMethod("GIN");
+            b.HasIndex(x => x.Original).HasMethod("GIN");
+            b.HasIndex(x => x.Slug).HasMethod("GIN");
+            b.HasIndex(x => x.BriefDescription).HasMethod("GIN");
+            b.HasIndex(x => x.Content).HasMethod("GIN");
             b.HasMany(x => x.Albums).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasMany(x => x.Tags).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();

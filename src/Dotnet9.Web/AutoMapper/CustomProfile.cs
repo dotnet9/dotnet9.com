@@ -47,6 +47,7 @@ public class CustomProfile : Profile
         CreateMap<BlogPostWithDetails, BlogPostWithDetailsDto>();
         CreateMap<BlogPost, BlogPostForSitemap>();
         CreateMap<BlogPostBrief, BlogPostBriefDto>();
+        CreateMap<BlogPost, BlogPostDto>();
 
         CreateMap<UrlLink, UrlLinkDto>()
             .ForMember(dest => dest.CreateDate,

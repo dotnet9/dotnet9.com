@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using Dotnet9.Application.Contracts;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Core;
 using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
+using System.Linq.Expressions;
+using System.Net;
+using System.Text.RegularExpressions;
 
 namespace Dotnet9.Application.Blogs;
 
@@ -99,5 +103,31 @@ public class BlogPostAppService : IBlogPostAppService
     {
         var blogPosts = await _blogPostRepository.SelectAsync();
         return _mapper.Map<List<BlogPost>, List<BlogPostForSitemap>>(blogPosts);
+    }
+
+
+    public async Task<PageDto<BlogPostDto>> AdminListAsync(BlogPostRequest request)
+    {
+        Expression<Func<BlogPost, bool>> whereLambda;
+        if (request.Keyword.IsNullOrWhiteSpace())
+        {
+            whereLambda = x => x.Id > 0;
+        }
+        else
+        {
+            var queryStr = WebUtility.UrlDecode(request.Keyword);
+            whereLambda = x =>
+                Regex.IsMatch(x.Title, queryStr!) ||
+                Regex.IsMatch(x.Slug, queryStr!) ||
+                (x.Original != null && Regex.IsMatch(x.Original, queryStr!)) ||
+                Regex.IsMatch(x.BriefDescription, queryStr!) ||
+                Regex.IsMatch(x.Content, queryStr!);
+        }
+        var (blogPostList, total) = await _blogPostRepository.SelectAsync(request.Size, request.Index, whereLambda,
+            x => x.CreateDate,
+            SortDirectionKind.Descending);
+        var blogPostListDto = _mapper.Map<List<BlogPost>, List<BlogPostDto>>(blogPostList);
+
+        return PageDto<BlogPostDto>.Success(blogPostListDto, total);
     }
 }
