@@ -5,7 +5,7 @@ namespace Dotnet9.Web.ServiceExtensions;
 
 public static class DbSetup
 {
-    public static readonly ILoggerFactory efLogger = LoggerFactory.Create(builder =>
+    public static readonly ILoggerFactory EfLogger = LoggerFactory.Create(builder =>
     {
         builder.AddFilter((category, level) =>
             category == DbLoggerCategory.Database.Command.Name && level == LogLevel.Information).AddConsole();
@@ -15,7 +15,7 @@ public static class DbSetup
     {
         services.AddDbContextPool<Dotnet9DbContext>(option =>
             option.UseNpgsql(connectionStr)
-                .UseLoggerFactory(efLogger));
+                .UseLoggerFactory(EfLogger));
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 }
