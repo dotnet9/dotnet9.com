@@ -38,7 +38,7 @@
             {
                 @for (var pageIndex = 0; pageIndex < Model.PageCount; pageIndex++)
                 {
-                    <a style="color: white; background-color: @(pageIndex == Model.PageIndex ? "#999" : "#ccc")" href="/q?keyboard=@(WebUtility.UrlEncode(Model.Query))&p=@pageIndex">@pageIndex</a>
+                    <a style="color: white; background-color: @(pageIndex == Model.PageIndex ? "#999" : "#ccc")" href="/q?keyword=@(WebUtility.UrlEncode(Model.Query))&p=@pageIndex">@pageIndex</a>
                 }
             }
         </div>
