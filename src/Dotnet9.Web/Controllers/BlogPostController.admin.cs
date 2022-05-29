@@ -11,4 +11,10 @@ public partial class BlogPostController
     {
         return await _blogPostAppService.AdminListAsync(request);
     }
+
+    [HttpDelete("api/post/delete")]
+    public async Task Delete(int id)
+    {
+        await _blogPostRepository.DeleteAsync(x => x.Id == id);
+    }
 }

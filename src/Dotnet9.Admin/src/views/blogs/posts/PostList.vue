@@ -125,7 +125,7 @@ export default defineComponent({
     const delHandler = (item: ArticleItem) => {
       ElMessageBox.confirm("确定删除吗?").then(() => {
         loading.value = true;
-        del("/admin/post/delete", { id: item.id })
+        del("/api/post/delete", { id: item.id })
           .then(() => {
             ElMessage.success("删除成功");
             loadData();
