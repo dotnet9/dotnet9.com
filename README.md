@@ -88,3 +88,39 @@ public async Task<bool> Seed()
 ## ☀️ License
 
 MIT
+
+## A few last screenshots of the website
+
+Introduction to website articles：[分享我做Dotnet9博客网站时积累的一些资料](https://dotnet9.com/2022/03/Share-some-learning-materials-I-accumulated-when-I-was-a-blog-website)
+
+![](./assets/01_front_home.gif)
+
+### Front
+
+**Album**
+
+![](./assets/02_front_album.gif)
+
+**Category**
+
+![](./assets/03_front_cat.gif)
+
+**Details of blog post**
+
+![](./assets/04_front_blogpost.gif)
+
+### 后台
+
+![](./assets/08_backend_all.gif)
+
+**Register page**
+
+![](./assets/05_backend_register_admin.png)
+
+**Login page**
+
+![](./assets/06_backend_login.png)
+
+**Dashboard**
+
+![](./assets/07_backend_home.png)
