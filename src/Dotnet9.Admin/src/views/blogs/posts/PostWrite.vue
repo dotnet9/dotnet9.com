@@ -64,24 +64,22 @@ import CropperBox from "../../../components/CropperBox.vue";
 import TagBox from "../../../components/TagBox.vue";
 import { CategoryItem } from "../categories/CategoryModel";
 import Reprint from "./Reprint.vue";
+import { BlogPostWithDetails } from './BlogPostModel'
 
-interface articleItem {
-  id: number;
-  title: string;
-  content: string;
-  markdown: string;
-  categories: number[];
-  cover: string;
-  tags: string[];
-}
 
-const formModel = ref<articleItem>({
+const formModel = ref<BlogPostWithDetails>({
   id: 0,
-  categories: [],
   title: "",
-  content: "",
-  markdown: "",
+  slug: "",
+  original: "",
+  originalTitle: "",
+  originalLink: "",
+  briefDescription: "",
+  inBanner: false,
   cover: "",
+  content: "",
+  updateTime: "",
+  categories: [],
   tags: [],
 });
 
@@ -107,7 +105,7 @@ const submitForm = async () => {
     if (valid) {
       try {
         loading.value = true;
-        await post("/admin/post/addorupdate", formModel.value);
+        await post("/api/post/addorupdate", formModel.value);
         ElMessage({
           type: "success",
           message: "保存成功",
@@ -172,15 +170,7 @@ const loadArticleData = async () => {
     loading.value = true;
     if (route.query.id) {
       title.value = "编辑";
-      var res = await get<{
-        title: string;
-        id: number;
-        content: string;
-        categories: { id: number; cateName: string }[];
-        tags: string[];
-        cover: string;
-        markDown: string;
-      }>("/admin/post/get", { id: route.query.id });
+      var res = await get<BlogPostWithDetails>("/api/post/get", { id: route.query.id });
       console.log("res:", res);
       formModel.value = {
         title: res.title,

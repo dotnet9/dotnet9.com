@@ -60,35 +60,17 @@ import LeftMenu from "./LeftMenu.vue";
 import { ElMessageBox } from "element-plus";
 import { ElMessage } from "element-plus/es";
 import Reprint from "./Reprint.vue";
-
-interface ArticleItem {
-  id: number;
-  title: string;
-  slug: string;
-  original: string;
-  originalTitle: string;
-  originalLink: string;
-  briefDescription: string;
-  inBanner: boolean;
-  cover: string;
-  updateTime: string;
-  categoryItems: Categories[];
-}
-
-interface Categories {
-  id: number;
-  cateName: string;
-}
+import { BlogPostWithDetails } from './BlogPostModel'
 
 export default defineComponent({
   components: { Reprint, LeftMenu },
   setup() {
     const router = useRouter();
-    const edit = (item: ArticleItem) => {
+    const edit = (item: BlogPostWithDetails) => {
       router.push({ path: "/admin/post/write", query: { id: item.id } });
     };
 
-    const data = ref<{ list: ArticleItem[]; total: number }>({
+    const data = ref<{ list: BlogPostWithDetails[]; total: number }>({
       list: [],
       total: 0,
     });
@@ -104,7 +86,7 @@ export default defineComponent({
     const loadData = async () => {
       loading.value = true;
       try {
-        const res = await get<PageResponse<ArticleItem>>(
+        const res = await get<PageResponse<BlogPostWithDetails>>(
           "/api/post/list",
           params.value
         );
@@ -122,7 +104,7 @@ export default defineComponent({
       await loadData();
     };
 
-    const delHandler = (item: ArticleItem) => {
+    const delHandler = (item: BlogPostWithDetails) => {
       ElMessageBox.confirm("确定删除吗?").then(() => {
         loading.value = true;
         del("/api/post/delete", { id: item.id })
