@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using System.Net;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using Dotnet9.Application.Contracts;
 using Dotnet9.Application.Contracts.Blogs;
 using Dotnet9.Core;
@@ -6,9 +9,6 @@ using Dotnet9.Domain.Albums;
 using Dotnet9.Domain.Blogs;
 using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
-using System.Linq.Expressions;
-using System.Net;
-using System.Text.RegularExpressions;
 
 namespace Dotnet9.Application.Blogs;
 
@@ -37,7 +37,7 @@ public class BlogPostAppService : IBlogPostAppService
         if (blogPostWithDetails == null) return null;
 
         var vm = new BlogPostViewModel
-            {BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails)};
+            { BlogPost = _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails) };
 
         var previewPost = await _blogPostRepository.GetBlogPostBriefAsync(
             x => x.CreateDate < blogPostWithDetails.CreateDate,
@@ -85,6 +85,15 @@ public class BlogPostAppService : IBlogPostAppService
         return vm;
     }
 
+    public async Task<BlogPostWithDetailsDto?> GetByIdAsync(int id)
+    {
+        var blogPostWithDetails =
+            await _blogPostRepository.GetBlogPostAsync(x => x.Id == id, x => x.Id, SortDirectionKind.Ascending);
+        if (blogPostWithDetails == null) return null;
+
+        return _mapper.Map<BlogPostWithDetails, BlogPostWithDetailsDto>(blogPostWithDetails);
+    }
+
     public async Task<RecommendViewModel> GetRecommendBlogPostAsync()
     {
         var vm = new RecommendViewModel();
@@ -123,6 +132,7 @@ public class BlogPostAppService : IBlogPostAppService
                 Regex.IsMatch(x.BriefDescription, queryStr!) ||
                 Regex.IsMatch(x.Content, queryStr!);
         }
+
         var (blogPostList, total) = await _blogPostRepository.SelectAsync(request.Size, request.Index, whereLambda,
             x => x.CreateDate,
             SortDirectionKind.Descending);

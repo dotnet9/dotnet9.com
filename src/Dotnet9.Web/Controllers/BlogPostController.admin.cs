@@ -12,6 +12,12 @@ public partial class BlogPostController
         return await _blogPostAppService.AdminListAsync(request);
     }
 
+    [HttpGet("api/post/get")]
+    public async Task<BlogPostWithDetailsDto?> Get(int id)
+    {
+        return await _blogPostAppService.GetByIdAsync(id);
+    }
+
     [HttpDelete("api/post/delete")]
     public async Task Delete(int id)
     {

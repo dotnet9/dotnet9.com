@@ -6,6 +6,7 @@ namespace Dotnet9.Application.Contracts.Blogs;
 
 public class BlogPostWithDetailsDto
 {
+    public int Id { get; set; }
     public string Title { get; set; } = null!;
 
     public string Slug { get; set; } = null!;
