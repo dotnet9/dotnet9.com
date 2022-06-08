@@ -43,7 +43,7 @@
                                             <span style="text-align: left;">@blogPost.Title</span>
                                         </a>
 
-                                        <small style="text-align: left;">
+                                        <small style="text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">
                                             <a style="display: inline;" href="#">@(blogPost.Original ?? "沙漠尽头的狼")</a> - @blogPost.CreateDate?.ToString("yyyy-MM-dd")
                                         </small>
                                     </li>
