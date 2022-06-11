@@ -95,10 +95,10 @@ const delItem = (item: UrlLinkDto) => {
       <el-table-column prop="createTime" label="添加时间"></el-table-column>
       <el-table-column label="操作">
         <template #default="scope">
-          <el-button type="default" size="mini" @click="editItem(scope.row)"
+          <el-button type="default" size="small" @click="editItem(scope.row)"
             >编辑</el-button
           >
-          <el-button type="danger" size="mini" @click="delItem(scope.row)"
+          <el-button type="danger" size="small" @click="delItem(scope.row)"
             >删除</el-button
           >
         </template>

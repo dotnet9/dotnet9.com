@@ -31,10 +31,10 @@
       ></el-table-column>
       <el-table-column label="操作" fixed="right" width="150">
         <template #default="scope">
-          <el-button type="default" size="mini" @click="edit(scope.row)"
+          <el-button type="default" size="small" @click="edit(scope.row)"
             >编辑</el-button
           >
-          <el-button type="danger" size="mini" @click="delHandler(scope.row)"
+          <el-button type="danger" size="small" @click="delHandler(scope.row)"
             >删除</el-button
           >
         </template>

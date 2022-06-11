@@ -20,16 +20,16 @@
           @upload-image="uploadImage"
           :disabled-menus="[]"
           @change="mdChange"
-          v-model="formModel.markdown"
+          v-model="formModel.content"
         ></v-md-editor>
       </el-form-item>
-      <el-form-item label="分类" prop="categories">
-        <el-checkbox-group v-model="formModel.categories">
+      <el-form-item label="分类" prop="categoryNames">
+        <el-checkbox-group v-model="formModel.categoryNames">
           <el-checkbox
             :label="item.id"
-            v-for="(item, i) in categoryItems"
+            v-for="(item, i) in categoryNames"
             :key="i"
-            name="categories"
+            name="categoryNames"
             >{{ item.name }}</el-checkbox
           >
         </el-checkbox-group>
@@ -64,24 +64,10 @@ import CropperBox from "../../../components/CropperBox.vue";
 import TagBox from "../../../components/TagBox.vue";
 import { CategoryItem } from "../categories/CategoryModel";
 import Reprint from "./Reprint.vue";
-import { BlogPostWithDetails } from './BlogPostModel'
+import { BlogPostWithDetails } from './BlogPostModel';
 
 
-const formModel = ref<BlogPostWithDetails>({
-  id: 0,
-  title: "",
-  slug: "",
-  original: "",
-  originalTitle: "",
-  originalLink: "",
-  briefDescription: "",
-  inBanner: false,
-  cover: "",
-  content: "",
-  updateTime: "",
-  categories: [],
-  tags: [],
-});
+const formModel = ref<any>();
 
 const coverBase64 = ref<string>("");
 const title = ref("新建");
@@ -171,16 +157,7 @@ const loadArticleData = async () => {
     if (route.query.id) {
       title.value = "编辑";
       var res = await get<BlogPostWithDetails>("/api/post/get", { id: route.query.id });
-      console.log("res:", res);
-      formModel.value = {
-        title: res.title,
-        content: res.content,
-        categories: res.categories.map((a) => a.id),
-        id: res.id,
-        tags: res.tags,
-        cover: res.cover,
-        markdown: res.markDown,
-      };
+      formModel.value = res;
       console.log("formModel:", formModel.value.tags);
     }
   } finally {

@@ -21,12 +21,12 @@
       <el-table-column prop="description" label="说明" />
       <el-table-column label="操作" fixed="right" width="150">
         <template #default="scope">
-          <el-button type="primary" size="mini" @click="editAlbum(scope.row)"
+          <el-button type="primary" size="small" @click="editAlbum(scope.row)"
             >编辑</el-button
           >
           <el-popconfirm title="确定删除吗？" @confirm="delAlbum(scope.row.id)">
             <template #reference>
-              <el-button type="danger" size="mini">删除</el-button>
+              <el-button type="danger" size="small">删除</el-button>
             </template>
           </el-popconfirm>
         </template>

@@ -4,8 +4,8 @@
     <el-table-column label="文章数" prop="count"></el-table-column>
     <el-table-column label="操作">
       <template #default="scope">
-        <el-button type="default" size="mini" @click="edit(scope.row)">编辑</el-button>
-        <el-button type="danger" size="mini" @click="del(scope.row)">删除</el-button>
+        <el-button type="default" size="small" @click="edit(scope.row)">编辑</el-button>
+        <el-button type="danger" size="small" @click="del(scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
