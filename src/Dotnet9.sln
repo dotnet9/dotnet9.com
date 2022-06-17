@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core", "Dotnet9.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Application.Contracts", "Dotnet9.Application.Contracts\Dotnet9.Application.Contracts.csproj", "{7FB76667-593A-46D6-865D-C4F6648657C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Admin", "Dotnet9.Admin\Dotnet9.Admin.csproj", "{47636B1D-0367-4353-8971-F2606441F8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Admin", "Dotnet9.Admin\Dotnet9.Admin.csproj", "{47636B1D-0367-4353-8971-F2606441F8E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
