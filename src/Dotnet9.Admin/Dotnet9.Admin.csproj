@@ -49,4 +49,8 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Masa.Blazor" Version="0.5.0-preview.2" />
+	</ItemGroup>
+
 </Project>

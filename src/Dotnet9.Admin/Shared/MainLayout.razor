@@ -1,17 +1,60 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-	<div class="sidebar">
-		<NavMenu />
-	</div>
+<MApp>
+    <MToolbar MaxHeight="64" Color="@_color" Dark>
+        <MAppBarNavIcon></MAppBarNavIcon>
+        <MSpacer></MSpacer>
+        Timeline
+        <MSpacer></MSpacer>
+        <MMenu Left
+               OffsetY
+               Transition="slide-x-transition"
+               Bottom>
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-dots-vertical</MIcon>
+                </MButton>
+            </ActivatorContent>
+            <ChildContent>
+                <MList>
+                    @foreach (var item in _colors)
+                    {
+                        <MListItem OnClick="()=>{_color = item.Value;}">
+                            <MListItemTitle>@item.Text</MListItemTitle>
+                        </MListItem>
+                    }
+                </MList>
+            </ChildContent>
+        </MMenu>
+    </MToolbar>
 
-	<main>
-		<div class="top-row px-4">
-			<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-		</div>
+    <div style="width:100%; height:100%">
+        <CascadingValue Value="_color">
+            @Body
+        </CascadingValue>
+    </div>
 
-		<article class="content px-4">
-			@Body
-		</article>
-	</main>
-</div>
+    <MFooter Color="#FAFAFA" Elevation="2">
+        <MRow NoGutters Justify="JustifyTypes.SpaceBetween">
+            <MCol Style="display:flex; justify-content:center;">
+                <MButton Color="@_color" Icon Class="my-2 white--text">
+                    <MBadge OverLap Color="error" Content="6">
+                        <ChildContent>
+                            <MIcon>mdi-chat</MIcon>
+                        </ChildContent>
+                    </MBadge>
+                </MButton>
+            </MCol>
+            <MCol Style="display:flex; justify-content:center;">
+                <MButton Color="@_color" Icon Class="my-2 white--text">
+                    <MIcon>mdi-account-details</MIcon>
+                </MButton>
+            </MCol>
+            <MCol Style="display:flex; justify-content:center;">
+                <MButton Color="@_color" Icon Class="my-2 white--text">
+                    <MIcon>mdi-compass</MIcon>
+                </MButton>
+            </MCol>
+        </MRow>
+    </MFooter>
+</MApp>
