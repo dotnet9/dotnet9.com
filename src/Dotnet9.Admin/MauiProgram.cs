@@ -11,12 +11,12 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .ConfigureFonts(fonts => { fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"); });
 
+        builder.Services.AddMasaBlazor();
         builder.Services.AddMauiBlazorWebView();
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
-        builder.Services.AddMasaBlazor();
-
+        builder.Services.AddSingleton<WeatherForecastService>();
         return builder.Build();
     }
 }
