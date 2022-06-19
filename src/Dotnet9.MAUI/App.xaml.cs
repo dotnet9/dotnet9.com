@@ -1,12 +1,11 @@
-﻿namespace Dotnet9.MAUI
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿namespace Dotnet9.MAUI;
 
-            MainPage = new MainPage();
-        }
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+
+        MainPage = new MainPage();
     }
 }

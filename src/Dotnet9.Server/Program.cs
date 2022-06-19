@@ -1,6 +1,4 @@
-using Dotnet9.Server.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Dotnet9.WebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

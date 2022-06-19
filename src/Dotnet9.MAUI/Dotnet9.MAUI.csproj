@@ -49,4 +49,8 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Dotnet9.WebApp\Dotnet9.WebApp.csproj" />
+	</ItemGroup>
+
 </Project>
