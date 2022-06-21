@@ -1,4 +1,4 @@
-﻿using Dotnet9.WebApp.Data;
+﻿using Dotnet9.WebApp.MasaExtensions;
 
 namespace Dotnet9.MAUI;
 
@@ -15,8 +15,7 @@ public static class MauiProgram
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
-
-        builder.Services.AddSingleton<WeatherForecastService>();
+        builder.Services.AddMasaSetup();
 
         return builder.Build();
     }

@@ -12,7 +12,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Masa.Blazor" Version="0.5.0-preview.3" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.Core\Dotnet9.Core.csproj" />
   </ItemGroup>
 
 </Project>

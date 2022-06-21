@@ -19,13 +19,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Application.Contrac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{EDCF0B80-87BA-4953-952B-8DEA2F78C680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebApp", "Dotnet9.WebApp\Dotnet9.WebApp.csproj", "{DF38AE37-C791-4E1E-BECB-63F174F2ADC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebApp", "Dotnet9.WebApp\Dotnet9.WebApp.csproj", "{DF38AE37-C791-4E1E-BECB-63F174F2ADC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Wasm", "Dotnet9.Wasm\Dotnet9.Wasm.csproj", "{5BBFEDB8-FAD3-441D-B12E-08ED1AB63CEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Wasm", "Dotnet9.Wasm\Dotnet9.Wasm.csproj", "{5BBFEDB8-FAD3-441D-B12E-08ED1AB63CEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Server", "Dotnet9.Server\Dotnet9.Server.csproj", "{D1B5EAE8-F3D0-40D2-B600-2099D6A10E66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Server", "Dotnet9.Server\Dotnet9.Server.csproj", "{D1B5EAE8-F3D0-40D2-B600-2099D6A10E66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.MAUI", "Dotnet9.MAUI\Dotnet9.MAUI.csproj", "{C9B93A06-FF48-42D9-92B9-52CAA7DCBD6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.MAUI", "Dotnet9.MAUI\Dotnet9.MAUI.csproj", "{C9B93A06-FF48-42D9-92B9-52CAA7DCBD6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
