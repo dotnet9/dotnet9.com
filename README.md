@@ -30,7 +30,7 @@ Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 
 - .NET 7.0
 - Visual Studio 2022
-- MySQL
+- PostgreSQL
 
 ### 3.1 Project configuration
 
@@ -42,7 +42,7 @@ Add connection string of MySQL to the `appsettings.json`:
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "server=localhost;user=[username];database=[databasename];port=[port];password=[password];SslMode=None"
+  "DefaultConnection": "Host=[host];Username=[username];Database=[database];port=[5432];password=[password];"
 }
 ```
 
