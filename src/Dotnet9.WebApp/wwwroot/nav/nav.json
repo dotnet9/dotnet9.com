@@ -1,0 +1,21 @@
+[
+  {
+    "Id": 100,
+    "Title": "主面板",
+    "Icon": "mdi-trending-up",
+    "Children": [
+    ]
+  },
+  {
+    "Id": 200,
+    "Title": "在线工具",
+    "Icon": "mdi-toolbox",
+    "Children": [
+      {
+        "Id": 201,
+        "Title": "时间戳",
+        "Icon": "mdi-timer-outline"
+      }
+    ]
+  }
+]

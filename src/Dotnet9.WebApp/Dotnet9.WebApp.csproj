@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -19,12 +19,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Masa.Blazor" Version="0.5.0-preview.3" />
+    <PackageReference Include="Masa.Blazor" Version="0.5.0-preview.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Dotnet9.Core\Dotnet9.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\nav\nav.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

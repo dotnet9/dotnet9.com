@@ -1,81 +1,56 @@
 ﻿@inherits LayoutComponentBase
+@inject GlobalConfig GlobalConfig
+@implements IDisposable
 
 <MApp>
-    <MCard Class="overflow-hidden">
-        <MAppBar Absolute
-                 Color="#6A76AB"
-                 Dark
-                 ShrinkOnScroll
-                 Prominent
-                 Src="https://picsum.photos/1920/1080?random"
-                 FadeImgOnScroll
-                 ScrollTarget="#scrolling-techniques-4">
-            <ImgContent>
-                <MImage @attributes="@context"
-                        Gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)">
-                </MImage>
-            </ImgContent>
+    <MAppBar Elevation="0" App MaxHeight="60" Class="@($"{(GlobalConfig.PageMode == PageModes.PageTab ? "mx-6" : "mx-6 rounded-b-4")}")">
+        <Favorite/>
+        <MSpacer/>
+        <Search/>
+        <MIcon Size="20" Class="ml-5" Color="neutrul-lighten-3">mdi-message-processing-outline</MIcon>
+        <MIcon Size="20" Class="ml-5" Color="neutral-lighten-3">mdi-cog</MIcon>
+        <Login/>
+    </MAppBar>
 
-            <ChildContent>
-                <MAppBarNavIcon></MAppBarNavIcon>
+    <Navigation/>
 
-                <MToolbarTitle>Title</MToolbarTitle>
+    <MMain Class="fill-lighten-1" Style="padding-top: 60px">
+        @switch (GlobalConfig.PageMode)
+        {
+            case PageModes.Breadcrumb:
+                <div class="pa-6 max-width">
+                    <Breadcrumb/>
+                    @Body
+                </div>
+                break;
+            case PageModes.PageTab:
+                <PageTabs>
+                    @Body
+                </PageTabs>
+                break;
+            default:
+                <div class="pa-6 max-width">
+                    @Body
+                </div>
+                break;
+        }
+    </MMain>
 
-                <MSpacer></MSpacer>
-
-                <MButton Icon>
-                    <MIcon>mdi-magnify</MIcon>
-                </MButton>
-
-                <MButton Icon>
-                    <MIcon>mdi-heart</MIcon>
-                </MButton>
-
-                <MMenu Bottom
-                       Left>
-                    <ActivatorContent>
-                        <MButton Icon
-                                 Color="yellow"
-                                 @attributes="@context.Attrs">
-                            <MIcon>mdi-dots-vertical</MIcon>
-                        </MButton>
-                    </ActivatorContent>
-
-                    <ChildContent>
-                        <MList>
-                            @foreach (var item in items)
-                            {
-                                <MListItem>
-                                    <MListItemTitle>@item</MListItemTitle>
-                                </MListItem>
-                            }
-                        </MList>
-                    </ChildContent>
-                </MMenu>
-            </ChildContent>
-
-            <ExtensionContent>
-                <MTabs AlignWithTitle>
-                    <MTab>首页</MTab>
-                    <MTab>时间戳</MTab>
-                </MTabs>
-            </ExtensionContent>
-        </MAppBar>
-        <MSheet id="scrolling-techniques-4"
-                Class="overflow-y-auto"
-                MaxHeight="600">
-            <MContainer Style="height: 1000px;"></MContainer>
-        </MSheet>
-    </MCard>
+    <Settings @bind-Show="_showSetting"/>
 </MApp>
+
 @code {
 
-    readonly List<string> items = new()
+    private bool _showSetting;
+
+    protected override void OnInitialized()
     {
-        "Click Me",
-        "Click Me",
-        "Click Me",
-        "Click Me 2",
-    };
+        GlobalConfig.OnPageModeChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        GlobalConfig.OnPageModeChanged -= StateHasChanged;
+    }
 
 }

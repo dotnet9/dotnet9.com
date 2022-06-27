@@ -1,0 +1,17 @@
+﻿@inject GlobalConfig GlobalConfig
+
+
+
+@code
+{
+    [Parameter]
+    public bool Show { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ShowChanged { get; set; }
+
+    void PageModeChanged(StringNumber value)
+    {
+        GlobalConfig.PageMode = value.ToString();
+    }
+}
