@@ -1,4 +1,20 @@
-﻿<h3>Navigation</h3>
+﻿@inherits ComponentBase
+@inject NavHelper NavHelper
+@inject GlobalConfig GlobalConfig;
+
+<MNavigationDrawer Class="navigation" Width="300" MiniVariantWidth="80" Fixed ExpandOnHover="GlobalConfig.ExpandOnHover"
+                   @bind-MiniVariant="GlobalConfig.NavigationMini" App>
+    <div style="height: 132px" class="@($"block-center {(GlobalConfig.NavigationMini ? "px-4" : "px-12")}")" @onclick="() => NavHelper.NavigateTo(GlobalVariables.DefaultRoute)">
+        @if (GlobalConfig.NavigationMini)
+        {
+            <img height="48" width="48" class="hover-pointer" src="https://dotnet9.com/logo.png"/>
+        }
+        else
+        {
+            <img height="48" class="hover-pointer" src="https://dotnet9.com/logo-head-dark.png" />
+        }
+    </div>
+</MNavigationDrawer>
 
 @code {
 

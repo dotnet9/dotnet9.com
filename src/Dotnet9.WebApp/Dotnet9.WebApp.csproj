@@ -13,6 +13,10 @@
     <None Remove="Extensions\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\dotnet9-blazor-admin.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -31,6 +35,10 @@
     <Content Update="wwwroot\nav\nav.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\dotnet9-blazor-admin.css" />
   </ItemGroup>
 
 </Project>
