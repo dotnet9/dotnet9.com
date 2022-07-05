@@ -1,20 +1,16 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
-
-namespace Dotnet9.Web.Caches;
+﻿namespace Dotnet9.Web.Caches;
 
 public static class CacheSetup
 {
-    public static void AddCacheSetup(this IServiceCollection services, CacheConfig cacheConfig)
+    public static void AddCacheSetup(this IServiceCollection services, CacheSettings cacheSettings)
     {
         services.AddMemoryCache();
-        if (cacheConfig.IsRedis)
+        if (cacheSettings.IsRedis)
         {
             services.AddSingleton(typeof(ICacheService), new RedisCacheService(new RedisCacheOptions
             {
-                Configuration = cacheConfig.RedisConnection,
-                InstanceName = cacheConfig.InstanceName
+                Configuration = cacheSettings.RedisConnection,
+                InstanceName = cacheSettings.InstanceDBName
             }));
         }
         else

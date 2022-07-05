@@ -1,18 +1,3 @@
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
-using Dotnet9.Extensions;
-using Dotnet9.Extensions.CountSystemInfo;
-using Dotnet9.Extensions.Repository;
-using Dotnet9.Web.AutoMapper;
-using Dotnet9.Web.Caches;
-using Dotnet9.Web.Filters;
-using Dotnet9.Web.Serilog;
-using Dotnet9.Web.ServiceExtensions;
-using Dotnet9.Web.Utils;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.HttpOverrides;
-using Serilog;
-
 SerilogExtension.AddSerilogSetup();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,16 +8,19 @@ builder.Host.UseSerilog();
 builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<GlobalExceptionFilter>(); });
 builder.Services.AddSwaggerSetup();
 
-GlobalVar.SiteDomain = builder.Configuration["SiteDomain"];
-GlobalVar.AssetsLocalPath = builder.Configuration["AssetsLocalPath"];
-GlobalVar.AssetsRemotePath = builder.Configuration["AssetsRemotePath"];
+var configBuilder = new ConfigurationBuilder();
+configBuilder.AddJsonFile("appsettings.json", false, true);
+var config = configBuilder.Build();
+builder.Services.AddOptions().Configure<SiteSettings>(e => config.GetSection("Site").Bind(e))
+    .Configure<CacheSettings>(e => config.GetSection("Cache").Bind(e))
+    .Configure<DbSettings>(e => config.GetSection("DB").Bind(e));
 
-builder.Services.AddDbSetup(builder.Configuration.GetConnectionString("DefaultConnection")!);
+builder.Services.AddDbSetup(builder.Configuration.GetSection("DB").Get<DbSettings>()!);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 builder.Services.AddAutoMapperSetup();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheConfig>()!);
+builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheSettings>()!);
 builder.Services.AddRepositorySetup();
 builder.Services.ConfigureNonBreakingSameSiteCookies();
 PerfCounter.Init();

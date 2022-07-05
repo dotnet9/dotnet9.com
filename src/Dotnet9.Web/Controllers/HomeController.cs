@@ -1,35 +1,4 @@
-﻿using System.Diagnostics;
-using System.Net.Mime;
-using System.Text;
-using AutoMapper;
-using Dotnet9.Application.Contracts.Albums;
-using Dotnet9.Application.Contracts.Blogs;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.Categories;
-using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Core;
-using Dotnet9.Domain.Abouts;
-using Dotnet9.Domain.Albums;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Categories;
-using Dotnet9.Domain.Donations;
-using Dotnet9.Domain.Privacies;
-using Dotnet9.Domain.Repositories;
-using Dotnet9.Domain.Shared.Blogs;
-using Dotnet9.Domain.Tags;
-using Dotnet9.Domain.Timelines;
-using Dotnet9.Domain.UrlLinks;
-using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Dotnet9.Web.Models;
-using Dotnet9.Web.Utils;
-using Dotnet9.Web.ViewModels.Abouts;
-using Dotnet9.Web.ViewModels.Blogs;
-using Dotnet9.Web.ViewModels.Homes;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 public class HomeController : Controller
 {
@@ -44,12 +13,14 @@ public class HomeController : Controller
     private readonly Dotnet9DbContext _dotnet9DbContext;
     private readonly ILogger<HomeController> _logger;
     private readonly IMapper _mapper;
+    private readonly IOptionsSnapshot<SiteSettings> _optSiteSettings;
     private readonly TagManager _tagManager;
     private readonly ITagRepository _tagRepository;
     private readonly UrlLinkManager _urlLinkManager;
 
     public HomeController(
         ILogger<HomeController> logger,
+        IOptionsSnapshot<SiteSettings> optSiteSettings,
         Dotnet9DbContext dotnet9DbContext,
         IAlbumAppService albumAppService,
         AlbumManager albumManager,
@@ -65,6 +36,7 @@ public class HomeController : Controller
         IMapper mapper)
     {
         _logger = logger;
+        _optSiteSettings = optSiteSettings;
         _dotnet9DbContext = dotnet9DbContext;
         _albumAppService = albumAppService;
         _albumManager = albumManager;
@@ -94,13 +66,13 @@ public class HomeController : Controller
             _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(recommend.Item1);
         cacheData.LoadMoreKinds = new Dictionary<string, LoadMoreKind>
         {
-            {"最新", LoadMoreKind.Latest},
-            {".NET", LoadMoreKind.Dotnet},
-            {"大前端", LoadMoreKind.Front},
-            {"数据库", LoadMoreKind.Database},
-            {"更多语言", LoadMoreKind.MoreLanguage},
-            {"课程", LoadMoreKind.Course},
-            {"其他", LoadMoreKind.Other}
+            { "最新", LoadMoreKind.Latest },
+            { ".NET", LoadMoreKind.Dotnet },
+            { "大前端", LoadMoreKind.Front },
+            { "数据库", LoadMoreKind.Database },
+            { "更多语言", LoadMoreKind.MoreLanguage },
+            { "课程", LoadMoreKind.Course },
+            { "其他", LoadMoreKind.Other }
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
@@ -122,7 +94,7 @@ public class HomeController : Controller
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
         var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
-        if (bytes is {Length: > 0}) return File(bytes, contentType);
+        if (bytes is { Length: > 0 }) return File(bytes, contentType);
 
         var siteMapNodes = new List<SitemapNode>();
 
@@ -130,7 +102,7 @@ public class HomeController : Controller
         {
             LastModified = DateTimeOffset.UtcNow,
             Priority = 0.8,
-            Url = $"{GlobalVar.SiteDomain}/album/{x.Slug}",
+            Url = $"{_optSiteSettings.Value.Domain}/album/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
         }));
 
@@ -138,7 +110,7 @@ public class HomeController : Controller
         {
             LastModified = DateTimeOffset.UtcNow,
             Priority = 0.8,
-            Url = $"{GlobalVar.SiteDomain}/cat/{x.Slug}",
+            Url = $"{_optSiteSettings.Value.Domain}/cat/{x.Slug}",
             Frequency = SitemapFrequency.Monthly
         }));
 
@@ -148,7 +120,7 @@ public class HomeController : Controller
                 LastModified = x.CreateDate,
                 Priority = 0.9,
                 Url =
-                    $"{GlobalVar.SiteDomain}/{x.CreateDate.ToString("yyyy")}/{x.CreateDate.ToString("MM")}/{x.Slug}",
+                    $"{_optSiteSettings.Value.Domain}/{x.CreateDate.ToString("yyyy")}/{x.CreateDate.ToString("MM")}/{x.Slug}",
                 Frequency = SitemapFrequency.Daily
             }));
 
@@ -233,11 +205,11 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Privacies!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "Privacy.md");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "site", "Privacy.md");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var privacy = new Privacy {Content = fileContent};
+                var privacy = new Privacy { Content = fileContent };
                 await _dotnet9DbContext.Privacies!.AddAsync(privacy);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -253,7 +225,7 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Timelines!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "timelines.json");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "site", "timelines.json");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
@@ -275,11 +247,11 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Donations!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "pays", "Donation.md");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "pays", "Donation.md");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var donation = new Donation {Content = fileContent};
+                var donation = new Donation { Content = fileContent };
                 await _dotnet9DbContext.Donations!.AddAsync(donation);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -295,11 +267,11 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Abouts!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "about.md");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "site", "about.md");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
-                var about = new About {Content = fileContent};
+                var about = new About { Content = fileContent };
                 await _dotnet9DbContext.Abouts!.AddAsync(about);
                 await _dotnet9DbContext.SaveChangesAsync();
                 addCount = 1;
@@ -315,7 +287,7 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.UrlLinks!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "site", "link.json");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "site", "link.json");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
@@ -323,7 +295,7 @@ public class HomeController : Controller
                 var i = 1;
                 var urlLinks = urlLinksFromFile?.Select(x =>
                         _urlLinkManager.CreateAsync(i++, x.Index,
-                            (UrlLinkKind) Enum.Parse(typeof(UrlLinkKind), x.Kind),
+                            (UrlLinkKind)Enum.Parse(typeof(UrlLinkKind), x.Kind),
                             x.Name, x.Description, x.Url).Result)
                     .ToList();
                 if (urlLinks != null && urlLinks.Any())
@@ -345,7 +317,8 @@ public class HomeController : Controller
         var errCount = 0;
         if (await _dotnet9DbContext.BlogPosts!.CountAsync() <= 0)
         {
-            var blogPostFiles = Directory.GetFiles(GlobalVar.AssetsLocalPath!, "*.info", SearchOption.AllDirectories);
+            var blogPostFiles = Directory.GetFiles(_optSiteSettings.Value.AssetsLocalPath!, "*.info",
+                SearchOption.AllDirectories);
             var blogPostCount = blogPostFiles.Length;
             var index = 0;
             foreach (var blogPostFile in blogPostFiles)
@@ -425,7 +398,7 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Categories!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "cats", "category.json");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "cats", "category.json");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
@@ -456,14 +429,14 @@ public class HomeController : Controller
         var addCount = 0;
         if (await _dotnet9DbContext.Albums!.CountAsync() <= 0)
         {
-            var filePath = Path.Combine(GlobalVar.AssetsLocalPath!, "albums", "album.json");
+            var filePath = Path.Combine(_optSiteSettings.Value.AssetsLocalPath!, "albums", "album.json");
             if (System.IO.File.Exists(filePath))
             {
                 var fileContent = await System.IO.File.ReadAllTextAsync(filePath);
                 var albumsFromFile = JsonConvert.DeserializeObject<List<AlbumItem>>(fileContent);
                 var i = 1;
                 var albums = albumsFromFile?.Select(x => _albumManager.CreateAsync(i++, x.Name, x.Slug,
-                        Path.Combine(GlobalVar.AssetsRemotePath!, x.Cover), null, -1).Result
+                        Path.Combine(_optSiteSettings.Value.AssetsRemotePath!, x.Cover), null, -1).Result
                     )
                     .ToList();
                 if (albums != null && albums.Any())
@@ -482,7 +455,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
     private void ReadCategory(List<Category> container, CategoryItem categoryFromFile, ref int id,
@@ -490,10 +463,10 @@ public class HomeController : Controller
     {
         var currentId = id;
         var category = _categoryManager.CreateAsync(currentId, categoryFromFile.Name, categoryFromFile.Slug,
-            Path.Combine(GlobalVar.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
+            Path.Combine(_optSiteSettings.Value.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not {Count: > 0}) return;
+        if (categoryFromFile.Children is not { Count: > 0 }) return;
         foreach (var child in categoryFromFile.Children)
         {
             id++;
