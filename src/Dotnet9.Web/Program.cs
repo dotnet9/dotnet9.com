@@ -10,6 +10,7 @@ builder.Services.AddSwaggerSetup();
 
 var configBuilder = new ConfigurationBuilder();
 configBuilder.AddJsonFile("appsettings.json", false, true);
+configBuilder.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true);
 var config = configBuilder.Build();
 builder.Services.AddOptions().Configure<SiteSettings>(e => config.GetSection("Site").Bind(e))
     .Configure<CacheSettings>(e => config.GetSection("Cache").Bind(e))
