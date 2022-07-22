@@ -10,7 +10,7 @@ public class RedisCacheService : ICacheService
 
     public RedisCacheService(RedisCacheOptions options, int database = 0)
     {
-        _connection = ConnectionMultiplexer.Connect(options.Configuration);
+        _connection = ConnectionMultiplexer.Connect(options.Configuration!);
         Cache = _connection.GetDatabase(database);
         _instance = options.InstanceName;
     }
@@ -54,8 +54,8 @@ public class RedisCacheService : ICacheService
     {
         var value = Cache.StringGet(GetKeyForRedis(key));
         await Task.CompletedTask;
-
-        return !value.HasValue ? default : JsonConvert.DeserializeObject<T>(value);
+        
+        return !value.HasValue ? default : JsonConvert.DeserializeObject<T>(value!);
     }
 
     public async Task<object?> GetAsync(string key)
@@ -63,7 +63,7 @@ public class RedisCacheService : ICacheService
         var value = Cache.StringGet(GetKeyForRedis(key));
         await Task.CompletedTask;
 
-        return !value.HasValue ? null : JsonConvert.DeserializeObject(value);
+        return !value.HasValue ? null : JsonConvert.DeserializeObject(value!);
     }
 
     public async Task<IDictionary<string, object?>> GetAllAsync(IEnumerable<string> keys)

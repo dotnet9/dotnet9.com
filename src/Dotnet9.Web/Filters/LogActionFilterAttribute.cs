@@ -1,16 +1,19 @@
-﻿using System.Diagnostics;
-using Dotnet9.Domain.ActionLogs;
-using Dotnet9.Web.Utils;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Newtonsoft.Json;
-using UAParser;
-
-namespace Dotnet9.Web.Filters;
+﻿namespace Dotnet9.Web.Filters;
 
 public class LogActionFilterAttribute : ActionFilterAttribute
 {
+    private static readonly string[] IgnoreActionNames =
+    {
+        "Dotnet9.Web.Controllers.DashboardController.GetActionLogs (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.DashboardController.Count (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.AccountController.Login (Dotnet9.Web)",
+        "Dotnet9.Web.Controllers.AccountController.CheckLogin (Dotnet9.Web)"
+    };
+
+    private static readonly string[] IgnoreIPs = { "::1" };
     private readonly IActionLogRepository _actionLogRepository;
     private readonly ILogger<LogActionFilterAttribute> _logger;
+    private bool _isNotLog;
 
     public LogActionFilterAttribute(ILogger<LogActionFilterAttribute> logger, IActionLogRepository actionLogRepository)
     {
@@ -20,17 +23,6 @@ public class LogActionFilterAttribute : ActionFilterAttribute
 
     private string? ActionArguments { get; set; }
     private Stopwatch? Stopwatch { get; set; }
-    private bool _isNotLog = false;
-
-    private static readonly string[] IgnoreActionNames =
-    {
-        "Dotnet9.Web.Controllers.DashboardController.GetActionLogs (Dotnet9.Web)",
-        "Dotnet9.Web.Controllers.DashboardController.Count (Dotnet9.Web)",
-        "Dotnet9.Web.Controllers.AccountController.Login (Dotnet9.Web)",
-        "Dotnet9.Web.Controllers.AccountController.CheckLogin (Dotnet9.Web)"
-    };
-
-    private static readonly string[] IgnoreIPs = {"::1"};
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
@@ -40,18 +32,10 @@ public class LogActionFilterAttribute : ActionFilterAttribute
         var actionName = context.ActionDescriptor.DisplayName;
 
         if (IgnoreIPs.Contains(ip))
-        {
             _isNotLog = true;
-        }
-        else if (IgnoreActionNames.Contains(actionName))
-        {
-            _isNotLog = true;
-        }
+        else if (IgnoreActionNames.Contains(actionName)) _isNotLog = true;
 
-        if (_isNotLog)
-        {
-            return;
-        }
+        if (_isNotLog) return;
 
         ActionArguments = JsonConvert.SerializeObject(context.ActionArguments);
         Stopwatch = new Stopwatch();
@@ -62,10 +46,7 @@ public class LogActionFilterAttribute : ActionFilterAttribute
     {
         base.OnActionExecuted(context);
 
-        if (_isNotLog)
-        {
-            return;
-        }
+        if (_isNotLog) return;
 
         Stopwatch?.Stop();
 

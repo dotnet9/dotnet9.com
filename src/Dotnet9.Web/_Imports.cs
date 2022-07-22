@@ -57,3 +57,8 @@ global using Dotnet9.Web.ViewModels.Donations;
 global using Dotnet9.Application.Contracts.Privacies;
 global using Dotnet9.Web.ViewModels.Privacies;
 global using Dotnet9.Application.Contracts.Tags;
+global using Dotnet9.Web.HttpContext;
+global using Dotnet9.Web.ViewModels.Accounts;
+global using Microsoft.AspNetCore.Mvc.Filters;
+global using Dotnet9.Domain.ActionLogs;
+global using UAParser;

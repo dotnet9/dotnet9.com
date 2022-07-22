@@ -15,11 +15,7 @@ public static class CacheSetup
         }
         else
         {
-            services.AddSingleton<IMemoryCache>(factory =>
-            {
-                var cache = new MemoryCache(new MemoryCacheOptions());
-                return cache;
-            });
+            services.AddSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
             services.AddSingleton<ICacheService, MemoryCacheService>();
         }
     }

@@ -163,7 +163,7 @@ public class HomeController : Controller
         return View(vm);
     }
 
-    public async Task<List<BlogPostForSitemap>> GetAllBlogPostForSitemap()
+    public async Task<List<BlogPostForSitemap>?> GetAllBlogPostForSitemap()
     {
         var cacheData = await _cacheService.GetOrCreateAsync(
             $"{nameof(BlogPostController)}-{nameof(GetAllBlogPostForSitemap)}",

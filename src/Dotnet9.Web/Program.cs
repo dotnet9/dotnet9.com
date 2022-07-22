@@ -5,7 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(opt => { opt.Filters.Add<GlobalExceptionFilter>(); });
+builder.Services.AddControllersWithViews(opt =>
+{
+    opt.Filters.Add<GlobalExceptionFilter>();
+    opt.Filters.Add<RateLimitFilter>();
+});
 builder.Services.AddSwaggerSetup();
 
 var configBuilder = new ConfigurationBuilder();

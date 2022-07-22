@@ -1,28 +1,29 @@
-﻿using System.Net;
-using Dotnet9.Web.HttpContext;
-using Dotnet9.Web.ViewModels.Accounts;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿namespace Dotnet9.Web.Filters;
 
-namespace Dotnet9.Web.Filters;
-
-public class GlobalExceptionFilter : IExceptionFilter
+public class GlobalExceptionFilter : IAsyncExceptionFilter
 {
-    public void OnException(ExceptionContext context)
-    {
-        if (context.Exception is not UserException exception) return;
+    private readonly IHostEnvironment _env;
+    private readonly ILogger<GlobalExceptionFilter> _logger;
 
-        if (context.HttpContext.Request.IsAjax())
+    public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger, IHostEnvironment env)
+    {
+        _logger = logger;
+        _env = env;
+    }
+
+    public async Task OnExceptionAsync(ExceptionContext context)
+    {
+        var message = _env.IsDevelopment() ? context.Exception.ToString() : "程序中出现未处理异常";
+        var result = new ObjectResult(new
         {
-            context.Result = new JsonResult(new {exception.Message});
-            context.ExceptionHandled = true;
-            context.HttpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
-        }
-        else
+            code = (int)HttpStatusCode.InternalServerError, message
+        })
         {
-            context.HttpContext.Items["ErrorMsg"] = exception.Message;
-            context.ExceptionHandled = true;
-            context.HttpContext.Response.Redirect("/404.html");
-        }
+            StatusCode = (int)HttpStatusCode.InternalServerError
+        };
+        context.Result = result;
+        context.ExceptionHandled = true;
+        _logger.LogError(context.Exception, message);
+        await Task.CompletedTask;
     }
 }

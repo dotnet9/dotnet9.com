@@ -31,6 +31,8 @@ public partial class AlbumController
         else
         {
             var albumFromDb = await _albumRepository.GetAsync(x => x.Id == request.Id);
+            if (albumFromDb == null) return;
+
             _mapper.Map(request, albumFromDb, typeof(AddOrUpdateAlbumDto), typeof(Album));
             albumFromDb.UpdateDate = DateTimeOffset.Now;
             await _albumRepository.UpdateAsync(albumFromDb);
