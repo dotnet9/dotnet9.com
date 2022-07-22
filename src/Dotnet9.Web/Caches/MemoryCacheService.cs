@@ -1,7 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Microsoft.Extensions.Caching.Memory;
-
-namespace Dotnet9.Web.Caches;
+﻿namespace Dotnet9.Web.Caches;
 
 public class MemoryCacheService : ICacheService
 {
@@ -24,12 +21,12 @@ public class MemoryCacheService : ICacheService
         return await ExistsAsync(key);
     }
 
-    public async Task<bool> AddAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
+    public async Task<bool> AddAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
         Cache.Set(key, value,
             new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(expiresSliding)
-                .SetAbsoluteExpiration(expiressAbsoulte)
+                .SetSlidingExpiration(expireSliding)
+                .SetAbsoluteExpiration(expireAbsoulte)
         );
 
         return await ExistsAsync(key);
@@ -96,14 +93,14 @@ public class MemoryCacheService : ICacheService
         return await AddAsync(key, value);
     }
 
-    public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
+    public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expiresSliding, expiressAbsoulte);
+        if (!await ExistsAsync(key)) return await AddAsync(key, value, expireSliding, expireAbsoulte);
 
         if (!await RemoveAsync(key))
             return false;
 
-        return await AddAsync(key, value, expiresSliding, expiressAbsoulte);
+        return await AddAsync(key, value, expireSliding, expireAbsoulte);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
@@ -114,6 +111,20 @@ public class MemoryCacheService : ICacheService
             return false;
 
         return await AddAsync(key, value, expiresIn, isSliding);
+    }
+
+    public async Task<T?> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, int expireSlidingSeconds,
+        int expireAbsoulteSeconds) where T : class
+    {
+        if (!await ExistsAsync(key))
+        {
+            var value = await factory();
+            await AddAsync(key, value, TimeSpan.FromSeconds(expireSlidingSeconds),
+                TimeSpan.FromSeconds(expireAbsoulteSeconds));
+            return value;
+        }
+
+        return await GetAsync<T>(key);
     }
 
     public void Dispose()

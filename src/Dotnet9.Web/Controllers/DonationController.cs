@@ -1,9 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.Donations;
-using Dotnet9.Web.ViewModels.Donations;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 public class DonationController : Controller
 {
@@ -19,17 +14,12 @@ public class DonationController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        const string cacheKey = $"{nameof(DonationController)}-{nameof(Index)}";
-        var cacheData = await _cacheService.GetAsync<DonationViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
-
-        cacheData = new DonationViewModel
-        {
-            Donation = await _donationAppService.GetAsync()
-        };
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
-
+        var cacheData = await _cacheService.GetOrCreateAsync(
+            $"{nameof(DonationController)}-{nameof(Index)}",
+            async () => new DonationViewModel
+            {
+                Donation = await _donationAppService.GetAsync()
+            });
         return View(cacheData);
     }
 }

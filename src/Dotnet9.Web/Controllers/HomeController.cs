@@ -165,14 +165,9 @@ public class HomeController : Controller
 
     public async Task<List<BlogPostForSitemap>> GetAllBlogPostForSitemap()
     {
-        var cacheKey = $"{nameof(BlogPostController)}-{nameof(GetAllBlogPostForSitemap)}";
-        var cacheData = await _cacheService.GetAsync<List<BlogPostForSitemap>>(cacheKey);
-        if (cacheData != null) return cacheData;
-
-        cacheData = await _blogPostAppService.GetListBlogPostForSitemapAsync();
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData);
-
+        var cacheData = await _cacheService.GetOrCreateAsync(
+            $"{nameof(BlogPostController)}-{nameof(GetAllBlogPostForSitemap)}",
+            async () => await _blogPostAppService.GetListBlogPostForSitemapAsync());
         return cacheData;
     }
 

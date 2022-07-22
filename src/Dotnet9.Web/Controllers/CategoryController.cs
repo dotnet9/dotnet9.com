@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts.Blogs;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.Categories;
-using Dotnet9.Domain.Categories;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 [Authorize]
 public partial class CategoryController : Controller
@@ -33,15 +25,9 @@ public partial class CategoryController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(string? slug)
     {
-        var cacheKey = $"{nameof(CategoryController)}-{nameof(Index)}-{slug}";
-        var cacheData = await _cacheService.GetAsync<CategoryViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
-
-        cacheData = await _categoryAppService.GetCategoryAsync(slug!);
-        if (cacheData == null) return NotFound();
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData!, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
-
+        var cacheData = await _cacheService.GetOrCreateAsync(
+            $"{nameof(CategoryController)}-{nameof(Index)}-{slug}",
+            async () => await _categoryAppService.GetCategoryAsync(slug!));
         return View(cacheData);
     }
 }

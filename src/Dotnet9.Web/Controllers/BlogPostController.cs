@@ -1,18 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts.Blogs;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Core;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Categories;
-using Dotnet9.Domain.Repositories;
-using Dotnet9.Web.ViewModels.Blogs;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
-using System.Net;
-using System.Text.RegularExpressions;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 [Authorize]
 public partial class BlogPostController : Controller
@@ -25,12 +11,12 @@ public partial class BlogPostController : Controller
 
     private readonly Dictionary<LoadMoreKind, string> _kindKeys = new()
     {
-        {LoadMoreKind.Dotnet, "dotnet"},
-        {LoadMoreKind.Front, "Large-front-end"},
-        {LoadMoreKind.Database, "database"},
-        {LoadMoreKind.MoreLanguage, "more-language"},
-        {LoadMoreKind.Course, "course"},
-        {LoadMoreKind.Other, "other"}
+        { LoadMoreKind.Dotnet, "dotnet" },
+        { LoadMoreKind.Front, "Large-front-end" },
+        { LoadMoreKind.Database, "database" },
+        { LoadMoreKind.MoreLanguage, "more-language" },
+        { LoadMoreKind.Course, "course" },
+        { LoadMoreKind.Other, "other" }
     };
 
     private readonly IMapper _mapper;
@@ -57,15 +43,9 @@ public partial class BlogPostController : Controller
     {
         if (slug.IsNullOrWhiteSpace()) return NotFound();
 
-        var cacheKey = $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}";
-        var cacheData = await _cacheService.GetAsync<BlogPostViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
-
-        cacheData = await _blogPostAppService.FindBySlugAsync(slug!);
-        if (cacheData == null) return NotFound();
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
-
+        var cacheData = await _cacheService.GetOrCreateAsync(
+            $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}",
+            async () => await _blogPostAppService.FindBySlugAsync(slug!));
         return View(cacheData);
     }
 
@@ -74,13 +54,9 @@ public partial class BlogPostController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Recommend()
     {
-        const string cacheKey = $"{nameof(BlogPostController)}-{nameof(Recommend)}";
-        var cacheData = await _cacheService.GetAsync<RecommendViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
-
-        cacheData = await _blogPostAppService.GetRecommendBlogPostAsync();
-
-        await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
+        var cacheData = await _cacheService.GetOrCreateAsync(
+            $"{nameof(BlogPostController)}-{nameof(Recommend)}",
+            async () => await _blogPostAppService.GetRecommendBlogPostAsync());
         return View(cacheData);
     }
 
@@ -95,7 +71,7 @@ public partial class BlogPostController : Controller
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
-            loadKind = (LoadMoreKind) Enum.Parse(typeof(LoadMoreKind), kind);
+            loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))

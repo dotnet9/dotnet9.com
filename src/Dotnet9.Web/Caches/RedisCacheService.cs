@@ -1,10 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
-using StackExchange.Redis;
-using System.Text;
-using Newtonsoft.Json;
-
-namespace Dotnet9.Web.Caches;
+﻿namespace Dotnet9.Web.Caches;
 
 public class RedisCacheService : ICacheService
 {
@@ -32,11 +26,11 @@ public class RedisCacheService : ICacheService
             Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))));
     }
 
-    public async Task<bool> AddAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
+    public async Task<bool> AddAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
         return await Task.FromResult(Cache.StringSet(GetKeyForRedis(key),
             Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value)),
-            expiressAbsoulte));
+            expireAbsoulte));
     }
 
     public async Task<bool> AddAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
@@ -90,14 +84,14 @@ public class RedisCacheService : ICacheService
         return await AddAsync(key, value);
     }
 
-    public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresSliding, TimeSpan expiressAbsoulte)
+    public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expiresSliding, expiressAbsoulte);
+        if (!await ExistsAsync(key)) return await AddAsync(key, value, expireSliding, expireAbsoulte);
 
         if (!await RemoveAsync(key))
             return false;
 
-        return await AddAsync(key, value, expiresSliding, expiressAbsoulte);
+        return await AddAsync(key, value, expireSliding, expireAbsoulte);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
@@ -108,6 +102,20 @@ public class RedisCacheService : ICacheService
             return false;
 
         return await AddAsync(key, value, expiresIn, isSliding);
+    }
+
+    public async Task<T?> GetOrCreateAsync<T>(string key, Func<Task<T>> factory, int expireSlidingSeconds,
+        int expireAbsoulteSeconds) where T : class
+    {
+        if (!await ExistsAsync(key))
+        {
+            var value = await factory();
+            await AddAsync(key, value, TimeSpan.FromSeconds(expireSlidingSeconds),
+                TimeSpan.FromSeconds(expireAbsoulteSeconds));
+            return value;
+        }
+
+        return await GetAsync<T>(key);
     }
 
     public string GetKeyForRedis(string key)
