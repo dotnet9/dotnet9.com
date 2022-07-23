@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿namespace Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 
-namespace Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-
-public class Dotnet9DbContext : IdentityDbContext<User, Role, long>
+public class Dotnet9DbContext : IdentityDbContext<IdentityUser>
 {
     public Dotnet9DbContext(DbContextOptions<Dotnet9DbContext> options) : base(options)
     {

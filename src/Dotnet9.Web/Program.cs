@@ -18,13 +18,34 @@ configBuilder.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.js
 var config = configBuilder.Build();
 builder.Services.AddOptions().Configure<SiteSettings>(e => config.GetSection("Site").Bind(e))
     .Configure<CacheSettings>(e => config.GetSection("Cache").Bind(e))
-    .Configure<DbSettings>(e => config.GetSection("DB").Bind(e));
+    .Configure<DbSettings>(e => config.GetSection("DB").Bind(e))
+    .Configure<JwtSettings>(e => config.GetSection("JWT").Bind(e));
 
 builder.Services.AddDbSetup(builder.Configuration.GetSection("DB").Get<DbSettings>()!);
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 builder.Services.AddAutoMapperSetup();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+var jwtSettings = builder.Configuration.GetSection("JWT").Get<JwtSettings>()!;
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.SaveToken = true;
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidAudience = jwtSettings.ValidAudience,
+            ValidIssuer = jwtSettings.ValidIssuer,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret!))
+        };
+    });
 builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheSettings>()!);
 builder.Services.AddRepositorySetup();
 builder.Services.ConfigureNonBreakingSameSiteCookies();
