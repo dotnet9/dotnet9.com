@@ -26,26 +26,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 builder.Services.AddAutoMapperSetup();
 
-var jwtSettings = builder.Configuration.GetSection("JWT").Get<JwtSettings>()!;
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.SaveToken = true;
-        options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidAudience = jwtSettings.ValidAudience,
-            ValidIssuer = jwtSettings.ValidIssuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret!))
-        };
-    });
+builder.Services.AddAuthenticationSetup(builder.Configuration.GetSection("JWT").Get<JwtSettings>()!);
 builder.Services.AddCacheSetup(builder.Configuration.GetSection("Cache").Get<CacheSettings>()!);
 builder.Services.AddRepositorySetup();
 builder.Services.ConfigureNonBreakingSameSiteCookies();

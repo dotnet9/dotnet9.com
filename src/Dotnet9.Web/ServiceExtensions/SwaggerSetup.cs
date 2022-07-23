@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using Dotnet9.Web.Filters;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 
 namespace Dotnet9.Web.ServiceExtensions;
 
@@ -31,6 +29,20 @@ public static class SwaggerSetup
 
             var mvcXmlFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Dotnet9.Web.xml");
             options.IncludeXmlComments(mvcXmlFile, true);
+
+            var scheme = new OpenApiSecurityScheme
+            {
+                Description = "Authorization header. \r\nExample: 'Bearer 354687354'",
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Authorization" },
+                Scheme = "oauth2", Name = "Authorization",
+                In = ParameterLocation.Header, Type = SecuritySchemeType.ApiKey
+            };
+            options.AddSecurityDefinition("Authorization", scheme);
+            var requirement = new OpenApiSecurityRequirement
+            {
+                [scheme] = new List<string>()
+            };
+            options.AddSecurityRequirement(requirement);
         });
     }
 }
