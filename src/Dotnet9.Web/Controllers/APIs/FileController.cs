@@ -1,7 +1,8 @@
 ﻿namespace Dotnet9.Web.Controllers.APIs;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class FileController : ControllerBase
 {
     [HttpGet]

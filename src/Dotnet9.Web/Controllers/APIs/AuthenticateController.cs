@@ -4,13 +4,13 @@ namespace Dotnet9.Web.Controllers.APIs;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class LoginController : ControllerBase
+public class AuthenticateController : ControllerBase
 {
     private readonly IOptionsSnapshot<JwtSettings> _jwtSettings;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly UserManager<IdentityUser> _userManager;
 
-    public LoginController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,
+    public AuthenticateController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,
         IOptionsSnapshot<JwtSettings> jwtSettings)
     {
         _userManager = userManager;
@@ -22,9 +22,21 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<LoginResult>> Login([FromBody] LoginRequest loginRequest)
     {
         var user = await _userManager.FindByNameAsync(loginRequest.UserName);
-        if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
+        if (user == null)
         {
-            return Unauthorized();
+            return NotFound($"用户名不存在{loginRequest.UserName}");
+        }
+
+        if (await _userManager.IsLockedOutAsync(user))
+        {
+            return BadRequest("用户已经被锁定");
+        }
+
+        var success = await _userManager.CheckPasswordAsync(user, loginRequest.Password);
+        if (!success)
+        {
+            await _userManager.AccessFailedAsync(user);
+            return NotFound("密码不正确");
         }
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -51,7 +63,7 @@ public class LoginController : ControllerBase
         var userExists = await _userManager.FindByNameAsync(registerRequest.UserName);
         if (userExists != null)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError,
+            return BadRequest(
                 new RegisterResult
                     { Code = StatusCodes.Status500InternalServerError.ToString(), Message = "已经存在的用户名" });
         }
@@ -65,7 +77,7 @@ public class LoginController : ControllerBase
         var result = await _userManager.CreateAsync(user, registerRequest.Password);
         if (!result.Succeeded)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError,
+            return BadRequest(
                 new RegisterResult
                     { Code = StatusCodes.Status500InternalServerError.ToString(), Message = "创建用户失败，请检查用户信息再尝试" });
         }
@@ -79,7 +91,7 @@ public class LoginController : ControllerBase
         var userExists = await _userManager.FindByNameAsync(registerRequest.UserName);
         if (userExists != null)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError,
+            return BadRequest(
                 new RegisterResult
                     { Code = StatusCodes.Status500InternalServerError.ToString(), Message = "已经存在的用户名" });
         }
@@ -93,7 +105,7 @@ public class LoginController : ControllerBase
         var result = await _userManager.CreateAsync(user, registerRequest.Password);
         if (!result.Succeeded)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError,
+            return BadRequest(
                 new RegisterResult
                     { Code = StatusCodes.Status500InternalServerError.ToString(), Message = "创建用户失败，请检查用户信息再尝试" });
         }
