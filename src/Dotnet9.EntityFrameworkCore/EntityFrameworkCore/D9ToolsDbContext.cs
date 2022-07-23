@@ -1,31 +1,8 @@
-﻿using Dotnet9.Domain;
-using Dotnet9.Domain.Abouts;
-using Dotnet9.Domain.ActionLogs;
-using Dotnet9.Domain.Albums;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Categories;
-using Dotnet9.Domain.Donations;
-using Dotnet9.Domain.Privacies;
-using Dotnet9.Domain.Shared.Abouts;
-using Dotnet9.Domain.Shared.ActionLogs;
-using Dotnet9.Domain.Shared.Albums;
-using Dotnet9.Domain.Shared.Blogs;
-using Dotnet9.Domain.Shared.Categories;
-using Dotnet9.Domain.Shared.Donations;
-using Dotnet9.Domain.Shared.Privacies;
-using Dotnet9.Domain.Shared.Tags;
-using Dotnet9.Domain.Shared.Timelines;
-using Dotnet9.Domain.Shared.UrlLinks;
-using Dotnet9.Domain.Shared.Users;
-using Dotnet9.Domain.Tags;
-using Dotnet9.Domain.Timelines;
-using Dotnet9.Domain.UrlLinks;
-using Dotnet9.Domain.Users;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 
-public class Dotnet9DbContext : DbContext
+public class Dotnet9DbContext : IdentityDbContext<User, Role, long>
 {
     public Dotnet9DbContext(DbContextOptions<Dotnet9DbContext> options) : base(options)
     {
@@ -35,7 +12,7 @@ public class Dotnet9DbContext : DbContext
     public DbSet<Album>? Albums { get; set; }
     public DbSet<Category>? Categories { get; set; }
     public DbSet<Tag>? Tags { get; set; }
-    public DbSet<User>? Users { get; set; }
+    public DbSet<CustomUser>? Users { get; set; }
     public DbSet<UrlLink>? UrlLinks { get; set; }
     public DbSet<About>? Abouts { get; set; }
     public DbSet<Donation>? Donations { get; set; }
@@ -85,7 +62,7 @@ public class Dotnet9DbContext : DbContext
             b.HasIndex(x => x.Name);
         });
 
-        modelBuilder.Entity<User>(b =>
+        modelBuilder.Entity<CustomUser>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}Users", Dotnet9Consts.DbSchema);
             b.ConfigureByConvention();
@@ -116,10 +93,10 @@ public class Dotnet9DbContext : DbContext
             b.Property(x => x.OriginalTitle).HasMaxLength(BlogPostConsts.MaxOriginalTitleLength);
             b.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);
             // TODO GIN索引异常，暂时注释
-            b.HasIndex(x => x.Title);//.HasMethod("GIN");
-            b.HasIndex(x => x.Original);//.HasMethod("GIN");
-            b.HasIndex(x => x.Slug);//.HasMethod("GIN");
-            b.HasIndex(x => x.BriefDescription);//.HasMethod("GIN");
+            b.HasIndex(x => x.Title); //.HasMethod("GIN");
+            b.HasIndex(x => x.Original); //.HasMethod("GIN");
+            b.HasIndex(x => x.Slug); //.HasMethod("GIN");
+            b.HasIndex(x => x.BriefDescription); //.HasMethod("GIN");
             //b.HasIndex(x => x.Content);//.HasMethod("GIN");
             b.HasMany(x => x.Albums).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
@@ -129,28 +106,28 @@ public class Dotnet9DbContext : DbContext
         modelBuilder.Entity<BlogPostAlbum>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostAlbums", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.AlbumId});
+            b.HasKey(x => new { x.BlogPostId, x.AlbumId });
             b.HasOne<BlogPost>().WithMany(x => x.Albums).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Album>().WithMany().HasForeignKey(x => x.AlbumId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.AlbumId});
+            b.HasIndex(x => new { x.BlogPostId, x.AlbumId });
         });
 
         modelBuilder.Entity<BlogPostCategory>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostCategories", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.CategoryId});
+            b.HasKey(x => new { x.BlogPostId, x.CategoryId });
             b.HasOne<BlogPost>().WithMany(x => x.Categories).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Category>().WithMany().HasForeignKey(x => x.CategoryId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.CategoryId});
+            b.HasIndex(x => new { x.BlogPostId, x.CategoryId });
         });
 
         modelBuilder.Entity<BlogPostTag>(b =>
         {
             b.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPostTags", Dotnet9Consts.DbSchema);
-            b.HasKey(x => new {x.BlogPostId, x.TagId});
+            b.HasKey(x => new { x.BlogPostId, x.TagId });
             b.HasOne<BlogPost>().WithMany(x => x.Tags).HasForeignKey(x => x.BlogPostId).IsRequired();
             b.HasOne<Tag>().WithMany().HasForeignKey(x => x.TagId).IsRequired();
-            b.HasIndex(x => new {x.BlogPostId, x.TagId});
+            b.HasIndex(x => new { x.BlogPostId, x.TagId });
         });
 
         modelBuilder.Entity<UrlLink>(b =>

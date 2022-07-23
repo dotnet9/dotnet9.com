@@ -2,13 +2,13 @@
 
 namespace Dotnet9.Domain.Users;
 
-public interface IUserRepository : IRepository<User>
+public interface IUserRepository : IRepository<CustomUser>
 {
     Task<bool> ExistAdminAccountAsync();
 
     Task<int> InitAccountAsync(AdminAccountForCreation adminAccountForCreation);
 
-    Task LoginFailAsync(User user);
+    Task LoginFailAsync(CustomUser user);
 
-    Task LoginSuccessAsync(User user);
+    Task LoginSuccessAsync(CustomUser user);
 }

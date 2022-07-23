@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dotnet9.Core\Dotnet9.Core.csproj" />
     <ProjectReference Include="..\Dotnet9.Domain.Shared\Dotnet9.Domain.Shared.csproj" />
   </ItemGroup>
