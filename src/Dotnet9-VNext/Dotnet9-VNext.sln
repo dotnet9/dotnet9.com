@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32714.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{ABDB48C0-9118-42B1-8C63-DCC8C02E9058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8856FC8-315F-47F5-8FB9-9389B4AA6143}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.build.props = Directory.build.props
+		Directory.Build.Targets = Directory.Build.Targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{AE150C06-1686-47F3-A3D6-939684B4433D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "IdentityService.Domain\IdentityService.Domain.csproj", "{8EE3B8ED-5D45-4086-9E13-271314EE2374}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EE3B8ED-5D45-4086-9E13-271314EE2374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE3B8ED-5D45-4086-9E13-271314EE2374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE3B8ED-5D45-4086-9E13-271314EE2374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE3B8ED-5D45-4086-9E13-271314EE2374}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EE3B8ED-5D45-4086-9E13-271314EE2374} = {ABDB48C0-9118-42B1-8C63-DCC8C02E9058}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22BB9A9A-F093-4303-990E-CF7839160C59}
+	EndGlobalSection
+EndGlobal
