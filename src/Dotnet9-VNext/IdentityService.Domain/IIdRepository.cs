@@ -12,7 +12,7 @@ public interface IIdRepository
     Task<IdentityResult> ChangePasswordAsync(Guid userId, string password);
     Task<IList<string>> GetRolesAsync(User user);
     Task<IdentityResult> AddToRoleAsync(User user, string role);
-    Task<SignInResult> CheckPasswordSignInAsync(User user, string password, bool lockoutOnFailure);
+    Task<SignInResult> CheckForSignInAsync(User user, string password, bool lockoutOnFailure);
     Task ConfirmPhoneNumberAsync(Guid id);
     public Task UpdatePhoneNumber(Guid id, string phoneNumber);
     Task<IdentityResult> RemoveUserAsync(Guid id);
