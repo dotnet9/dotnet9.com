@@ -18,9 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.Domain", "I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.DomainCommons", "Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj", "{3A3DBF9B-0B15-422F-BF60-DAB48397624A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.JWT", "Dotnet9.JWT\Dotnet9.JWT.csproj", "{118FC6C4-80BD-4715-8498-476024F5ACAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.JWT", "Dotnet9.JWT\Dotnet9.JWT.csproj", "{118FC6C4-80BD-4715-8498-476024F5ACAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Commons", "Dotnet9.Commons\Dotnet9.Commons.csproj", "{EC09FC4C-22D4-4D7A-8762-8ECAED615396}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Commons", "Dotnet9.Commons\Dotnet9.Commons.csproj", "{EC09FC4C-22D4-4D7A-8762-8ECAED615396}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.Infrastructure", "IdentityService.Infrastructure\IdentityService.Infrastructure.csproj", "{0998BCB9-9346-4180-A038-CBED353C4DCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{EC09FC4C-22D4-4D7A-8762-8ECAED615396}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC09FC4C-22D4-4D7A-8762-8ECAED615396}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC09FC4C-22D4-4D7A-8762-8ECAED615396}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0998BCB9-9346-4180-A038-CBED353C4DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0998BCB9-9346-4180-A038-CBED353C4DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0998BCB9-9346-4180-A038-CBED353C4DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0998BCB9-9346-4180-A038-CBED353C4DCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{3A3DBF9B-0B15-422F-BF60-DAB48397624A} = {AE150C06-1686-47F3-A3D6-939684B4433D}
 		{118FC6C4-80BD-4715-8498-476024F5ACAB} = {AE150C06-1686-47F3-A3D6-939684B4433D}
 		{EC09FC4C-22D4-4D7A-8762-8ECAED615396} = {AE150C06-1686-47F3-A3D6-939684B4433D}
+		{0998BCB9-9346-4180-A038-CBED353C4DCF} = {ABDB48C0-9118-42B1-8C63-DCC8C02E9058}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22BB9A9A-F093-4303-990E-CF7839160C59}
