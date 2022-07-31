@@ -1,0 +1,11 @@
+﻿global using IdentityService.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using IdentityService.Domain;
+global using Microsoft.Extensions.Logging;
+global using Dotnet9.Commons;
+global using IdentityService.Infrastructure.Options;
+global using Microsoft.Extensions.Options;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.Extensions.DependencyInjection;
