@@ -10,4 +10,8 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.EventBus\Dotnet9.EventBus.csproj" />
+  </ItemGroup>
+
 </Project>

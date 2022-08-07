@@ -65,7 +65,7 @@ internal class IdRepository : IIdRepository
     {
         if (password.Length < 6)
         {
-            IdentityError error = new IdentityError
+            IdentityError error = new()
             {
                 Code = "Password Invalid",
                 Description = "密码长度不能少于6"
@@ -94,7 +94,7 @@ internal class IdRepository : IIdRepository
     {
         if (!await _roleManager.RoleExistsAsync(roleName))
         {
-            Role role = new Role { Name = roleName };
+            Role role = new() { Name = roleName };
             IdentityResult result = await _roleManager.CreateAsync(role);
             if (result.Succeeded == false)
             {
@@ -161,7 +161,7 @@ internal class IdRepository : IIdRepository
     {
         User? user = await FindByIdAsync(id);
         IUserLoginStore<User> userLoginStore = _userManager.UserLoginStore;
-        CancellationToken noneCT = default(CancellationToken);
+        CancellationToken noneCT = default;
         IList<UserLoginInfo> logins = await userLoginStore.GetLoginsAsync(user!, noneCT);
         foreach (UserLoginInfo login in logins)
         {
@@ -185,7 +185,7 @@ internal class IdRepository : IIdRepository
             return (ErrorResult($"已经存在手机号{phoneNumber}"), null, null);
         }
 
-        User user = new User(userName);
+        User user = new(userName);
         user.PhoneNumber = phoneNumber;
         user.PhoneNumberConfirmed = true;
         string password = GeneratePassword();
@@ -220,7 +220,7 @@ internal class IdRepository : IIdRepository
 
     private static IdentityResult ErrorResult(string msg)
     {
-        IdentityError idError = new IdentityError { Description = msg };
+        IdentityError idError = new() { Description = msg };
         return IdentityResult.Failed(idError);
     }
 
@@ -232,8 +232,8 @@ internal class IdRepository : IIdRepository
         bool digit = options.RequireDigit;
         bool lowercase = options.RequireLowercase;
         bool uppercase = options.RequireUppercase;
-        StringBuilder password = new StringBuilder();
-        Random random = new Random();
+        StringBuilder password = new();
+        Random random = new();
         while (password.Length < length)
         {
             char c = (char)random.Next(32, 126);

@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Infrastructure", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService.WebAPI", "IdentityService.WebAPI\IdentityService.WebAPI.csproj", "{184A06D5-7F91-4B8F-B8A1-CED1AC25D1CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInitializer", "CommonInitializer\CommonInitializer.csproj", "{9B74B488-FA96-4496-AAC1-4BD887B7DC88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonInitializer", "CommonInitializer\CommonInitializer.csproj", "{9B74B488-FA96-4496-AAC1-4BD887B7DC88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.EventBus", "Dotnet9.EventBus\Dotnet9.EventBus.csproj", "{6BDC4722-E5E9-42F7-9613-50FF24B375A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,10 @@ Global
 		{9B74B488-FA96-4496-AAC1-4BD887B7DC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B74B488-FA96-4496-AAC1-4BD887B7DC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B74B488-FA96-4496-AAC1-4BD887B7DC88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BDC4722-E5E9-42F7-9613-50FF24B375A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BDC4722-E5E9-42F7-9613-50FF24B375A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BDC4722-E5E9-42F7-9613-50FF24B375A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BDC4722-E5E9-42F7-9613-50FF24B375A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{8D7F630B-63F4-4A55-8DC9-AAF14ADC6E44} = {AE150C06-1686-47F3-A3D6-939684B4433D}
 		{184A06D5-7F91-4B8F-B8A1-CED1AC25D1CF} = {ABDB48C0-9118-42B1-8C63-DCC8C02E9058}
 		{9B74B488-FA96-4496-AAC1-4BD887B7DC88} = {AE150C06-1686-47F3-A3D6-939684B4433D}
+		{6BDC4722-E5E9-42F7-9613-50FF24B375A5} = {AE150C06-1686-47F3-A3D6-939684B4433D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22BB9A9A-F093-4303-990E-CF7839160C59}

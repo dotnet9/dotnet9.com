@@ -7,7 +7,7 @@ public static class HashHelper
 {
     private static string ToHashString(byte[] bytes)
     {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new();
         foreach (byte t in bytes)
         {
             builder.Append(t.ToString("x2"));

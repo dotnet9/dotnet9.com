@@ -17,7 +17,7 @@ internal class SendCloudEmailSender : IEmailSender
     public async Task SendAsync(string toEmail, string subject, string body)
     {
         _logger.LogInformation($"SendCloud Email sent to {toEmail} with subject {subject} and body {body}");
-        Dictionary<string, string> postBody = new Dictionary<string, string>
+        Dictionary<string, string> postBody = new()
         {
             { "from", _sendCloudSettings.Value.From! },
             { "to", toEmail },
@@ -27,7 +27,7 @@ internal class SendCloudEmailSender : IEmailSender
         postBody["apiUser"] = _sendCloudSettings.Value.ApiUser!;
         postBody["apiKey"] = _sendCloudSettings.Value.ApiKey!;
 
-        using FormUrlEncodedContent httpContent = new FormUrlEncodedContent(postBody);
+        using FormUrlEncodedContent httpContent = new(postBody);
         HttpClient httpClient = _httpClientFactory.CreateClient();
         HttpResponseMessage responseMsg =
             await httpClient.PostAsync("https://api.sendcloud.net/apiv2/mail/send", httpContent);

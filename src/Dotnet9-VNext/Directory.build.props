@@ -1,9 +1,9 @@
 ﻿<Project>
-	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
-		<LangVersion>latest</LangVersion>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<OutputPath>$(SolutionDir)Publish/$(SolutionName)-$(Configuration)/</OutputPath>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <OutputPath>$(SolutionDir)Publish/$(SolutionName)-$(Configuration)/</OutputPath>
+    </PropertyGroup>
 </Project>

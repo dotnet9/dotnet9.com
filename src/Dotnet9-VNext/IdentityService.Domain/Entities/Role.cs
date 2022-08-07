@@ -4,6 +4,6 @@ public class Role : IdentityRole<Guid>
 {
     public Role()
     {
-        this.Id = Guid.NewGuid();
+        Id = Guid.NewGuid();
     }
 }

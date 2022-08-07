@@ -1,6 +1,6 @@
 ﻿namespace IdentityService.Infrastructure;
 
-internal class IdUserManager : UserManager<User>
+public class IdUserManager : UserManager<User>
 {
     public IdUserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor,
         IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,

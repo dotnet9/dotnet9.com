@@ -18,7 +18,7 @@ internal class SendCloudSmsSender : ISmsSender
     public async Task SendAsync(string toPhoneNumber, params string[] args)
     {
         _logger.LogInformation($"Send Sms to {toPhoneNumber}, args:{string.Join("|", args)}");
-        Dictionary<string, string> postBody = new Dictionary<string, string>
+        Dictionary<string, string> postBody = new()
         {
             ["smsUser"] = _smsSettings.Value.SmsUser!,
             ["templateId"] = "10010",
@@ -28,7 +28,7 @@ internal class SendCloudSmsSender : ISmsSender
 
         string signature = CalcSignature(postBody);
         postBody["signature"] = signature;
-        using FormUrlEncodedContent httpContent = new FormUrlEncodedContent(postBody);
+        using FormUrlEncodedContent httpContent = new(postBody);
         HttpClient httpClient = _httpClientFactory.CreateClient();
         HttpResponseMessage responseMsg =
             await httpClient.PostAsync("http://www.sendcloud.net/smsapi/send", httpContent);

@@ -6,7 +6,7 @@ public static class JsonExtentions
 
     public static JsonSerializerOptions CreateJsonSerializerOptions(bool camelCase = false)
     {
-        JsonSerializerOptions opt = new JsonSerializerOptions
+        JsonSerializerOptions opt = new()
         {
             Encoder = Encoder
         };
