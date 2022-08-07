@@ -108,19 +108,3 @@ Introduction to website articles：[分享我做Dotnet9博客网站时积累的�
 **Details of blog post**
 
 ![](./assets/04_front_blogpost.gif)
-
-### 后台
-
-![](./assets/08_backend_all.gif)
-
-**Register page**
-
-![](./assets/05_backend_register_admin.png)
-
-**Login page**
-
-![](./assets/06_backend_login.png)
-
-**Dashboard**
-
-![](./assets/07_backend_home.png)

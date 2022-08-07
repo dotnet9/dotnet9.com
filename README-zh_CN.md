@@ -108,19 +108,3 @@ MIT
 **文章详情**
 
 ![](./assets/04_front_blogpost.gif)
-
-### 后台
-
-![](./assets/08_backend_all.gif)
-
-**注册**
-
-![](./assets/05_backend_register_admin.png)
-
-**登录**
-
-![](./assets/06_backend_login.png)
-
-**面板**
-
-![](./assets/07_backend_home.png)
