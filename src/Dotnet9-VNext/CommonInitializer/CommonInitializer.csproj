@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.1.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-preview.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.AnyDBConfigProvider\Dotnet9.AnyDBConfigProvider.csproj" />
     <ProjectReference Include="..\Dotnet9.EventBus\Dotnet9.EventBus.csproj" />
   </ItemGroup>
 
