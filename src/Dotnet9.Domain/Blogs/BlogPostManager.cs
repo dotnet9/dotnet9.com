@@ -1,7 +1,4 @@
 ﻿using Dotnet9.Core;
-using Dotnet9.Domain.Albums;
-using Dotnet9.Domain.Categories;
-using Dotnet9.Domain.Shared.Blogs;
 using Dotnet9.Domain.Tags;
 
 namespace Dotnet9.Domain.Blogs;
@@ -32,7 +29,7 @@ public class BlogPostManager
         bool inBanner,
         string cover,
         string content,
-        CopyrightType blogCopyrightType,
+        CopyRightType blogCopyrightType,
         string? original = default,
         string? originalAvatar = default,
         string? originalTitle = default,
@@ -47,10 +44,16 @@ public class BlogPostManager
         Check.NotNullOrWhiteSpace(content, nameof(content));
 
         var existingBlogPost = await _blogPostRepository.GetAsync(x => x.Title == title);
-        if (existingBlogPost != null) throw new Exception($"存在相同标题的博文，标题：{title}");
+        if (existingBlogPost != null)
+        {
+            throw new Exception($"存在相同标题的博文，标题：{title}");
+        }
 
         existingBlogPost = await _blogPostRepository.GetAsync(x => x.Slug == slug);
-        if (existingBlogPost != null) throw new Exception($"存在相同别名的博文，别名：{slug}");
+        if (existingBlogPost != null)
+        {
+            throw new Exception($"存在相同别名的博文，别名：{slug}");
+        }
 
         var maxId = await _blogPostRepository.GetMaxIdAsync();
         var blogPost = new BlogPost(maxId + 1, title, slug, briefDescription, inBanner, cover, content,
@@ -78,11 +81,17 @@ public class BlogPostManager
             .Distinct();
 
         var albumIds = query.ToList();
-        if (!albumIds.Any()) return;
+        if (!albumIds.Any())
+        {
+            return;
+        }
 
         blogPost.RemoveAllAlbumsExceptGivenIds(albumIds);
 
-        foreach (var albumId in albumIds) blogPost.AddAlbum(albumId);
+        foreach (var albumId in albumIds)
+        {
+            blogPost.AddAlbum(albumId);
+        }
     }
 
     public async Task SetCategoriesAsync(BlogPost blogPost, string[]? categoryNames)
@@ -99,11 +108,17 @@ public class BlogPostManager
             .Distinct();
 
         var categoryIds = query.ToList();
-        if (!categoryIds.Any()) return;
+        if (!categoryIds.Any())
+        {
+            return;
+        }
 
         blogPost.RemoveAllCategoriesExceptGivenIds(categoryIds);
 
-        foreach (var categoryId in categoryIds) blogPost.AddCategory(categoryId);
+        foreach (var categoryId in categoryIds)
+        {
+            blogPost.AddCategory(categoryId);
+        }
     }
 
     public async Task SetTagsAsync(BlogPost blogPost, string[]? tagNames)
@@ -120,11 +135,17 @@ public class BlogPostManager
             .Distinct();
 
         var tagIds = query.ToList();
-        if (!tagIds.Any()) return;
+        if (!tagIds.Any())
+        {
+            return;
+        }
 
         blogPost.RemoveAllTagsExceptGivenIds(tagIds);
 
-        foreach (var tagId in tagIds) blogPost.AddTag(tagId);
+        foreach (var tagId in tagIds)
+        {
+            blogPost.AddTag(tagId);
+        }
     }
 
     public async Task ChangeTitleAsync(BlogPost blogPost, string newTitle)
@@ -134,7 +155,9 @@ public class BlogPostManager
 
         var existingBlogPost = await _blogPostRepository.GetAsync(x => x.Title == newTitle);
         if (existingBlogPost != null && existingBlogPost.Id != blogPost.Id)
+        {
             throw new Exception($"存在相同标题的博文：{newTitle}");
+        }
 
         blogPost.ChangeTitle(newTitle);
     }
@@ -145,7 +168,10 @@ public class BlogPostManager
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug));
 
         var existingBlogPost = await _blogPostRepository.GetAsync(x => x.Slug == newSlug);
-        if (existingBlogPost != null && existingBlogPost.Id != blogPost.Id) throw new Exception($"存在相同别名的博文：{newSlug}");
+        if (existingBlogPost != null && existingBlogPost.Id != blogPost.Id)
+        {
+            throw new Exception($"存在相同别名的博文：{newSlug}");
+        }
 
         blogPost.ChangeSlug(newSlug);
     }

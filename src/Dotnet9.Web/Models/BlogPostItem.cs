@@ -1,6 +1,4 @@
-﻿using Dotnet9.Domain.Shared.Blogs;
-
-namespace Dotnet9.Web.Models;
+﻿namespace Dotnet9.Web.Models;
 
 public class BlogPostItem
 {
@@ -20,7 +18,7 @@ public class BlogPostItem
 
     public string[]? Albums { get; set; }
 
-    public CopyrightType? CopyrightType { get; set; }
+    public CopyRightType? CopyrightType { get; set; }
 
     public string? Original { get; set; }
     public string? OriginalTitle { get; set; }
@@ -32,4 +30,26 @@ public class BlogPostItem
     public string? UpdateDate { get; set; }
 
     public string? Content { get; set; }
+
+    public static BlogPostItem ConvertFromMarkdownV2(PostOfMarkdown post)
+    {
+        return new BlogPostItem
+        {
+            Title = post.Title!,
+            Slug = post.Slug!,
+            BriefDescription = post.Description,
+            InBanner = post.Banner,
+            Cover = post.Cover!,
+            Categories = post.Categories,
+            Tags = post.Tags,
+            Albums = post.Albums,
+            CopyrightType = post.Copyright,
+            Original = post.Author,
+            OriginalTitle = post.OriginalTitle,
+            OriginalLink = post.OriginalLink,
+            CreateDate = post.Date.ToString("yyyy-MM-dd HH:mm:ss"),
+            UpdateDate = post.LastModifyDate?.ToString("yyyy-MM-dd HH:mm:ss"),
+            Content = post.Content
+        };
+    }
 }

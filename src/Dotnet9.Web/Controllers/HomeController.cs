@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Web.Controllers;
+﻿using MarkdownHelper = Dotnet9.Core.FileHelpers.MarkdownHelper;
+
+namespace Dotnet9.Web.Controllers;
 
 public class HomeController : Controller
 {
@@ -57,7 +59,10 @@ public class HomeController : Controller
     {
         const string cacheKey = $"{nameof(HomeController)}-{nameof(Index)}";
         var cacheData = await _cacheService.GetAsync<HomeViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         cacheData = new HomeViewModel();
         var recommend = await _blogPostRepository.SelectBlogPostBriefAsync(8, 1, x => x.InBanner, x => x.CreateDate,
@@ -94,7 +99,10 @@ public class HomeController : Controller
         Response.Headers.Append("Content-Disposition", cd.ToString());
 
         var bytes = await _cacheService.GetAsync<byte[]>(cacheKey);
-        if (bytes is { Length: > 0 }) return File(bytes, contentType);
+        if (bytes is { Length: > 0 })
+        {
+            return File(bytes, contentType);
+        }
 
         var siteMapNodes = new List<SitemapNode>();
 
@@ -312,31 +320,44 @@ public class HomeController : Controller
         var errCount = 0;
         if (await _dotnet9DbContext.BlogPosts!.CountAsync() <= 0)
         {
-            var blogPostFiles = Directory.GetFiles(_optSiteSettings.Value.AssetsLocalPath!, "*.info",
-                SearchOption.AllDirectories);
-            var blogPostCount = blogPostFiles.Length;
+            var blogPostFiles = new List<string>();
+            for (var i = 2019; i <= DateTime.Now.Year; i++)
+            {
+                blogPostFiles.AddRange(Directory.GetFiles($"{_optSiteSettings.Value.AssetsLocalPath!}\\{i}", "*.md",
+                    SearchOption.AllDirectories));
+            }
+
+            var blogPostCount = blogPostFiles.Count;
             var index = 0;
             foreach (var blogPostFile in blogPostFiles)
             {
                 _logger.LogInformation($"添加博文{++index}/{blogPostCount}");
-                var blogPostSeed =
-                    JsonConvert.DeserializeObject<BlogPostItem>(await System.IO.File.ReadAllTextAsync(blogPostFile))!;
-                blogPostSeed.Content = await System.IO.File.ReadAllTextAsync(blogPostFile.Replace(".info", ".md"));
+                var post = MarkdownHelper.Read(blogPostFile);
+                var blogPostSeed = BlogPostItem.ConvertFromMarkdownV2(post);
                 if (blogPostSeed.BriefDescription.IsNullOrWhiteSpace())
                 {
-                    if (blogPostSeed.Content.Length < BlogPostConsts.MaxBriefDescriptionLength)
+                    if (blogPostSeed.Content!.Length < BlogPostConsts.MaxBriefDescriptionLength)
+                    {
                         blogPostSeed.BriefDescription = blogPostSeed.Content;
+                    }
                     else
+                    {
                         blogPostSeed.BriefDescription =
                             blogPostSeed.Content.Substring(0, BlogPostConsts.MaxBriefDescriptionLength - 5) + "...";
+                    }
                 }
 
                 if (blogPostSeed.Tags != null && blogPostSeed.Tags.Any())
+                {
                     foreach (var tagName in blogPostSeed.Tags)
+                    {
                         try
                         {
                             var existTag = await _tagRepository.FindByNameAsync(tagName);
-                            if (existTag != null) continue;
+                            if (existTag != null)
+                            {
+                                continue;
+                            }
 
                             existTag = await _tagManager.CreateAsync(null, tagName);
                             await _dotnet9DbContext.Tags!.AddAsync(existTag);
@@ -350,6 +371,8 @@ public class HomeController : Controller
                             _logger.LogError($"保存标签异常：{ex}", ex);
                             // ignored
                         }
+                    }
+                }
 
                 try
                 {
@@ -461,7 +484,11 @@ public class HomeController : Controller
             Path.Combine(_optSiteSettings.Value.AssetsRemotePath!, categoryFromFile.Cover), null, parentId).Result;
         container.Add(category);
 
-        if (categoryFromFile.Children is not { Count: > 0 }) return;
+        if (categoryFromFile.Children is not { Count: > 0 })
+        {
+            return;
+        }
+
         foreach (var child in categoryFromFile.Children)
         {
             id++;

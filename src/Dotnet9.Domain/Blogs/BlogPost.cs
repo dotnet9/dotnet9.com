@@ -16,7 +16,7 @@ public class BlogPost : EntityBase
         bool inBanner,
         string cover,
         string content,
-        CopyrightType copyrightType,
+        CopyRightType copyrightType,
         string? original,
         string? originalAvatar,
         string? originalTitle,
@@ -43,11 +43,11 @@ public class BlogPost : EntityBase
 
     public string Title { get; set; } = null!;
     public string Slug { get; set; } = null!;
-    public string BriefDescription { get; set; } = null!;
+    public string? BriefDescription { get; set; }
     public bool InBanner { get; set; }
     public string Cover { get; set; } = null!;
     public string Content { get; set; } = null!;
-    public CopyrightType CopyrightType { get; set; }
+    public CopyRightType CopyrightType { get; set; }
     public string? Original { get; set; }
     public string? OriginalAvatar { get; set; }
     public string? OriginalTitle { get; set; }
@@ -90,7 +90,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(albumId, nameof(albumId));
 
-        if (IsInAlbum(albumId)) return;
+        if (IsInAlbum(albumId))
+        {
+            return;
+        }
 
         Albums!.Add(new BlogPostAlbum(Id, albumId));
     }
@@ -99,7 +102,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(albumId, nameof(albumId));
 
-        if (!IsInAlbum(albumId)) return;
+        if (!IsInAlbum(albumId))
+        {
+            return;
+        }
 
         Albums!.RemoveAll(x => x.AlbumId == albumId);
     }
@@ -129,7 +135,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(categoryId, nameof(categoryId));
 
-        if (IsInCategory(categoryId)) return;
+        if (IsInCategory(categoryId))
+        {
+            return;
+        }
 
         Categories!.Add(new BlogPostCategory(Id, categoryId));
     }
@@ -138,7 +147,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(categoryId, nameof(categoryId));
 
-        if (!IsInCategory(categoryId)) return;
+        if (!IsInCategory(categoryId))
+        {
+            return;
+        }
 
         Categories!.RemoveAll(x => x.CategoryId == categoryId);
     }
@@ -168,7 +180,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(tagId, nameof(tagId));
 
-        if (IsInTag(tagId)) return;
+        if (IsInTag(tagId))
+        {
+            return;
+        }
 
         Tags!.Add(new BlogPostTag(Id, tagId));
     }
@@ -177,7 +192,10 @@ public class BlogPost : EntityBase
     {
         Check.NotNull(tagId, nameof(tagId));
 
-        if (!IsInTag(tagId)) return;
+        if (!IsInTag(tagId))
+        {
+            return;
+        }
 
         Tags!.RemoveAll(x => x.TagId == tagId);
     }

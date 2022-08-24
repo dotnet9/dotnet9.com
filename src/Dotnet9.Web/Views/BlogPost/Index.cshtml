@@ -79,10 +79,10 @@
                         <p>扫码关注Dotnet9微信公众号，第一时间获取网站更新动态</p>
                         @switch (Model.BlogPost.CopyrightType)
                         {
-                            case CopyrightType.Reprint:
+                            case CopyRightType.Reprint:
                                 <p>本文来自转载，如若二次转载请联系原作者。</p>
                                 break;
-                            case CopyrightType.Contribution:
+                            case CopyRightType.Contribution:
                                 <p>本文来自网友投稿，如若转载请联系原作者。</p>
                                 break;
                             default:
@@ -90,7 +90,7 @@
                                 break;
                         }
                         <p>原文作者：<a style="color: #262626;" href="#">@(Model.BlogPost.Original ?? "沙漠尽头的狼")</a></p>
-                        @if (Model.BlogPost.CopyrightType == CopyrightType.Default)
+                        @if (Model.BlogPost.CopyrightType == CopyRightType.Default)
                         {
                             <p>原文标题：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
                             <p>原文链接：<a href="/@Model.BlogPost.CreateDate?.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreateDate ?? DateTimeOffset.Now:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>

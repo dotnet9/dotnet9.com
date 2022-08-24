@@ -1,10 +1,13 @@
-﻿namespace Dotnet9.Core.FileHelpers;
+﻿using System.Text.Json;
+
+namespace Dotnet9.Core.FileHelpers;
 
 public static class MarkdownHelper
 {
     private const string Title = "title: ";
     private const string Slug = "slug: ";
     private const string Description = "description: ";
+    private const string Banner = "banner: ";
     private const string Date = "date: ";
     private const string LastModifyDate = "lastmod: ";
     private const string Copyright = "copyright: ";
@@ -51,6 +54,10 @@ public static class MarkdownHelper
             else if (lines[i].StartsWith(Description))
             {
                 postInfo.Description = lines[i][Description.Length..];
+            }
+            else if (lines[i].StartsWith(Banner))
+            {
+                postInfo.Banner = bool.Parse(lines[i][Banner.Length..]);
             }
             else if (lines[i].StartsWith(Date))
             {
@@ -126,7 +133,7 @@ public static class MarkdownHelper
             lines.Add($"{Date}{postOfMarkdown.Date:yyyy-MM-dd HH:mm:ss}");
         }
 
-        if (postOfMarkdown.LastModifyDate != default(DateTime))
+        if (postOfMarkdown.LastModifyDate != null && postOfMarkdown.LastModifyDate != default(DateTime))
         {
             lines.Add($"{LastModifyDate}{postOfMarkdown.LastModifyDate:yyyy-MM-dd HH:mm:ss}");
         }
@@ -177,6 +184,47 @@ public static class MarkdownHelper
         }
 
         File.WriteAllLines(markdownAbsolutePath, lines);
-        File.AppendAllText(markdownAbsolutePath, postOfMarkdown.Content);
+        File.AppendAllText(markdownAbsolutePath, $"\n{postOfMarkdown.Content}");
+    }
+
+    public static void UpgradeMarkdown2(string sourceDir)
+    {
+        var markdownV1InfoFiles = Directory.GetFiles(sourceDir, "*.info", SearchOption.AllDirectories);
+        foreach (var markdownV1InfoFile in markdownV1InfoFiles)
+        {
+            var markdownV1ContentFile = markdownV1InfoFile.Replace(".info", ".md");
+            var infoJson = File.ReadAllText(markdownV1InfoFile);
+            var contentMarkdown = File.ReadAllText(markdownV1ContentFile);
+            var infoObj = JsonSerializer.Deserialize<PostOfMarkdownV1>(infoJson);
+            infoObj!.Content = contentMarkdown;
+
+            var markdownV2 = MarkdownV1ToMarkdownV2(infoObj!);
+            File.Delete(markdownV1InfoFile);
+            File.Delete(markdownV1ContentFile);
+            var markdownV2FilePath = $"{Path.GetDirectoryName(markdownV1InfoFile)}/{infoObj.Slug}.md";
+            Write(markdownV2FilePath, markdownV2);
+        }
+    }
+
+    public static PostOfMarkdown MarkdownV1ToMarkdownV2(PostOfMarkdownV1 postOfMarkdownV1)
+    {
+        return new PostOfMarkdown
+        {
+            Title = postOfMarkdownV1.Title,
+            Slug = postOfMarkdownV1.Slug,
+            Description = postOfMarkdownV1.BriefDescription,
+            Date = DateTime.Parse(postOfMarkdownV1.CreateDate!),
+            Banner = postOfMarkdownV1.Banner,
+            Copyright = (CopyRightType)Enum.Parse(typeof(CopyRightType), postOfMarkdownV1.CopyrightType!),
+            Author = postOfMarkdownV1.CopyrightType == default ? "沙漠尽头的狼" : postOfMarkdownV1.Original,
+            OriginalTitle = postOfMarkdownV1.CopyrightType == default ? null : postOfMarkdownV1.Title,
+            OriginalLink = postOfMarkdownV1.OriginalLink,
+            Draft = false,
+            Cover = postOfMarkdownV1.Cover,
+            Albums = postOfMarkdownV1.Albums,
+            Categories = postOfMarkdownV1.Categories,
+            Tags = postOfMarkdownV1.Tags,
+            Content = postOfMarkdownV1.Content
+        };
     }
 }

@@ -1,8 +1,4 @@
-﻿using Dotnet9.Domain.Albums;
-using Dotnet9.Domain.Categories;
-using Dotnet9.Domain.Shared.Blogs;
-
-namespace Dotnet9.Domain.Blogs;
+﻿namespace Dotnet9.Domain.Blogs;
 
 public class BlogPostWithDetails
 {
@@ -20,7 +16,7 @@ public class BlogPostWithDetails
 
     public string Cover { get; set; } = null!;
 
-    public CopyrightType CopyrightType { get; set; }
+    public CopyRightType CopyrightType { get; set; }
 
     public string? Original { get; set; }
 

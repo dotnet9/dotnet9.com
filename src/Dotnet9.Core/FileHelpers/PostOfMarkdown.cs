@@ -9,6 +9,7 @@ public class PostOfMarkdown
     public string? Description { get; set; }
     public DateTime Date { get; set; }
     public DateTime? LastModifyDate { get; set; }
+    public bool Banner { get; set; }
     public CopyRightType Copyright { get; set; }
     public string? Author { get; set; }
     public string? OriginalTitle { get; set; }

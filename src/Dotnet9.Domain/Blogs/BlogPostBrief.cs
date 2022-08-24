@@ -1,6 +1,4 @@
-﻿using Dotnet9.Domain.Shared.Blogs;
-
-namespace Dotnet9.Domain.Blogs;
+﻿namespace Dotnet9.Domain.Blogs;
 
 public class BlogPostBrief
 {
@@ -12,7 +10,7 @@ public class BlogPostBrief
 
     public string Cover { get; set; } = null!;
 
-    public CopyrightType CopyrightType { get; set; }
+    public CopyRightType CopyrightType { get; set; }
 
     public string? Original { get; set; }
 

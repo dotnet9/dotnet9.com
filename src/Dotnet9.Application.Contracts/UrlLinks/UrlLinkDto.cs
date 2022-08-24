@@ -19,5 +19,5 @@ public class UrlLinkSeed
     public string Url { get; set; } = null!;
     public string? Description { get; set; }
     public int Index { get; set; }
-    public string Kind { get; set; }
+    public string? Kind { get; set; }
 }
