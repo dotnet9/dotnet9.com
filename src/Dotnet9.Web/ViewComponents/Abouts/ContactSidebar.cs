@@ -1,10 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Repositories;
-using Dotnet9.Web.ViewModels.Abouts;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.ViewComponents.Abouts;
+﻿namespace Dotnet9.Web.ViewComponents.Abouts;
 
 public class ContactSidebar : ViewComponent
 {
@@ -21,7 +15,10 @@ public class ContactSidebar : ViewComponent
     {
         const string cacheKey = $"{nameof(ContactSidebar)}-{nameof(InvokeAsync)}";
         var cacheData = await _cacheService.GetAsync<ContactSidebarViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         var maxBlogPostId = await _blogPostRepository.GetMaxIdAsync();
         cacheData = new ContactSidebarViewModel

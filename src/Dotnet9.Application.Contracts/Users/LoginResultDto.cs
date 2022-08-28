@@ -8,11 +8,11 @@ public class LoginResultDto
 
     public static LoginResultDto Success()
     {
-        return new LoginResultDto {IsSuccess = true};
+        return new LoginResultDto { IsSuccess = true };
     }
 
     public static LoginResultDto Fail(string message)
     {
-        return new LoginResultDto {Message = message};
+        return new LoginResultDto { Message = message };
     }
 }

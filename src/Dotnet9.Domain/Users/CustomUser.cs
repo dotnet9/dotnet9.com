@@ -21,9 +21,13 @@ public class CustomUser : EntityBase
         set
         {
             if (value.HasValue)
+            {
                 Role = (int)value.Value;
+            }
             else
+            {
                 Role = (int)UserRoleKind.User;
+            }
         }
     }
 

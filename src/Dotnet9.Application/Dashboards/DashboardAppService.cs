@@ -37,7 +37,11 @@ public class DashboardAppService : IDashboardAppService
         var top10AccessPages = await _actionLogRepository.CountTop10AccessPagesAsync();
         vm.Top10AccessPages = _mapper.Map<Top10AccessPage, Top10AccessPageDto>(top10AccessPages);
         var latestTimeForRepository = default(DateTimeOffset);
-        if (latestTime != null) DateTimeOffset.TryParse(latestTime, out latestTimeForRepository);
+        if (latestTime != null)
+        {
+            DateTimeOffset.TryParse(latestTime, out latestTimeForRepository);
+        }
+
         var latestActionLog = await _actionLogRepository.GetLatestActionLogAsync(latestTimeForRepository);
         vm.LatestLogs = _mapper.Map<LatestActionLog, LatestActionLogDto>(latestActionLog);
         return vm;

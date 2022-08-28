@@ -1,6 +1,4 @@
-﻿using Dotnet9.Domain;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Dotnet9.EntityFrameworkCore;
 

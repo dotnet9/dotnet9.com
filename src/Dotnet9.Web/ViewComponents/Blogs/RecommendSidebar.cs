@@ -1,12 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts.Blogs;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Repositories;
-using Dotnet9.Web.ViewModels.Blogs;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.ViewComponents.Blogs;
+﻿namespace Dotnet9.Web.ViewComponents.Blogs;
 
 public class RecommendSidebar : ViewComponent
 {
@@ -25,7 +17,10 @@ public class RecommendSidebar : ViewComponent
     {
         const string cacheKey = $"{nameof(RecommendSidebar)}-{nameof(InvokeAsync)}";
         var cacheData = await _cacheService.GetAsync<LatestViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         cacheData = new LatestViewModel();
 

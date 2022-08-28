@@ -16,9 +16,15 @@ public class TagManager
         Check.NotNullOrWhiteSpace(name, nameof(name));
 
         var existTag = await _tagRepository.FindByNameAsync(name);
-        if (existTag != null) throw new Exception($"存在同名的标签: {name}");
+        if (existTag != null)
+        {
+            throw new Exception($"存在同名的标签: {name}");
+        }
 
-        if (id != null) return new Tag(id.Value, name);
+        if (id != null)
+        {
+            return new Tag(id.Value, name);
+        }
 
         var maxIdOfTag = await _tagRepository.GetMaxIdAsync();
         id = maxIdOfTag + 1;
@@ -31,7 +37,10 @@ public class TagManager
         Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
         var existTag = await _tagRepository.FindByNameAsync(newName);
-        if (existTag != null && existTag.Id != tag.Id) throw new Exception("存在同名的标签");
+        if (existTag != null && existTag.Id != tag.Id)
+        {
+            throw new Exception("存在同名的标签");
+        }
 
         tag.ChangeName(newName);
     }

@@ -1,6 +1,4 @@
-﻿using Dotnet9.Application.Contracts.UrlLinks;
-
-namespace Dotnet9.Web.ViewModels.UrlLinks;
+﻿namespace Dotnet9.Web.ViewModels.UrlLinks;
 
 public class FriendLinkViewModel
 {

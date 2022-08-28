@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.ViewComponents.Abouts;
+﻿namespace Dotnet9.Web.ViewComponents.Abouts;
 
 public class SidebarRight : ViewComponent
 {

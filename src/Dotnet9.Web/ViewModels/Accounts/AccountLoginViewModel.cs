@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Dotnet9.Web.ViewModels.Accounts;
+﻿namespace Dotnet9.Web.ViewModels.Accounts;
 
 public class AccountLoginViewModel
 {

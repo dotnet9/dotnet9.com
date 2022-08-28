@@ -6,7 +6,10 @@ public class IdentitySecurity
 {
     public static string HashPassword(string password)
     {
-        if (password == null) throw new ArgumentNullException(nameof(password));
+        if (password == null)
+        {
+            throw new ArgumentNullException(nameof(password));
+        }
 
         byte[] salt;
         byte[] bytes;
@@ -24,12 +27,21 @@ public class IdentitySecurity
 
     public static bool VerifyHashedPassword(string hashedPassword, string password)
     {
-        if (string.IsNullOrWhiteSpace(hashedPassword)) return false;
+        if (string.IsNullOrWhiteSpace(hashedPassword))
+        {
+            return false;
+        }
 
-        if (password == null) throw new ArgumentNullException(nameof(password));
+        if (password == null)
+        {
+            throw new ArgumentNullException(nameof(password));
+        }
 
         var array = Convert.FromBase64String(hashedPassword);
-        if (array.Length != 49 || array[0] != 0) return false;
+        if (array.Length != 49 || array[0] != 0)
+        {
+            return false;
+        }
 
         var array2 = new byte[16];
         Buffer.BlockCopy(array, 1, array2, 0, 16);
@@ -46,12 +58,21 @@ public class IdentitySecurity
 
     private static bool ByteArraysEqual(byte[] a, byte[] b)
     {
-        if (ReferenceEquals(a, b)) return true;
+        if (ReferenceEquals(a, b))
+        {
+            return true;
+        }
 
-        if (a == null || b == null || a.Length != b.Length) return false;
+        if (a == null || b == null || a.Length != b.Length)
+        {
+            return false;
+        }
 
         var flag = true;
-        for (var i = 0; i < a.Length; i++) flag &= a[i] == b[i];
+        for (var i = 0; i < a.Length; i++)
+        {
+            flag &= a[i] == b[i];
+        }
 
         return flag;
     }
@@ -64,10 +85,15 @@ public class IdentitySecurity
     public static Strength PasswordStrength(string password)
     {
         //空字符串强度值为0
-        if (password == "") return Strength.Invalid;
+        if (password == "")
+        {
+            return Strength.Invalid;
+        }
+
         //字符统计
         int iNum = 0, iLtt = 0, iSym = 0;
         foreach (var c in password)
+        {
             switch (c)
             {
                 case >= '0' and <= '9':
@@ -81,14 +107,43 @@ public class IdentitySecurity
                     iSym++;
                     break;
             }
+        }
 
-        if (iLtt == 0 && iSym == 0) return Strength.Weak; //纯数字密码
-        if (iNum == 0 && iLtt == 0) return Strength.Weak; //纯符号密码
-        if (iNum == 0 && iSym == 0) return Strength.Weak; //纯字母密码
-        if (password.Length <= 6) return Strength.Weak; //长度不大于6的密码
-        if (iLtt == 0) return Strength.Normal; //数字和符号构成的密码
-        if (iSym == 0) return Strength.Normal; //数字和字母构成的密码
-        if (iNum == 0) return Strength.Normal; //字母和符号构成的密码
+        if (iLtt == 0 && iSym == 0)
+        {
+            return Strength.Weak; //纯数字密码
+        }
+
+        if (iNum == 0 && iLtt == 0)
+        {
+            return Strength.Weak; //纯符号密码
+        }
+
+        if (iNum == 0 && iSym == 0)
+        {
+            return Strength.Weak; //纯字母密码
+        }
+
+        if (password.Length <= 6)
+        {
+            return Strength.Weak; //长度不大于6的密码
+        }
+
+        if (iLtt == 0)
+        {
+            return Strength.Normal; //数字和符号构成的密码
+        }
+
+        if (iSym == 0)
+        {
+            return Strength.Normal; //数字和字母构成的密码
+        }
+
+        if (iNum == 0)
+        {
+            return Strength.Normal; //字母和符号构成的密码
+        }
+
         return password.Length <= 10 ? Strength.Normal : Strength.Strong;
     }
 }

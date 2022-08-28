@@ -6,7 +6,10 @@ public static class HttpContextExtensions
     {
         var request = httpContextAccessor.HttpContext!.Request;
         const string readIpKey = "X-Real-IP";
-        if (request.Headers.ContainsKey(readIpKey)) return request.Headers[readIpKey].ToString();
+        if (request.Headers.ContainsKey(readIpKey))
+        {
+            return request.Headers[readIpKey].ToString();
+        }
 
         const string forwardedForKey = "X-Forwarded-For";
         return request.Headers.ContainsKey(forwardedForKey) ? request.Headers[forwardedForKey].ToString() : "";
@@ -18,7 +21,10 @@ public static class HttpContextExtensions
 
         var requestedWith = "x-requested-with";
         var xreq = req.Headers.ContainsKey(requestedWith);
-        if (xreq) result = req.Headers[requestedWith] == "XMLHttpRequest";
+        if (xreq)
+        {
+            result = req.Headers[requestedWith] == "XMLHttpRequest";
+        }
 
         return result;
     }

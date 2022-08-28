@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Dotnet9.Domain.Users;
+﻿using Dotnet9.Domain.Users;
 
 namespace Dotnet9.Domain;
 

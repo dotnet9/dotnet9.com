@@ -19,12 +19,21 @@ public class AlbumManager
         Check.NotNullOrWhiteSpace(cover, nameof(cover));
 
         var existAlbum = await _albumRepository.FindByNameAsync(name);
-        if (existAlbum != null) throw new Exception($"存在同名的专辑: {name}");
+        if (existAlbum != null)
+        {
+            throw new Exception($"存在同名的专辑: {name}");
+        }
 
         existAlbum = await _albumRepository.FindBySlugAsync(slug);
-        if (existAlbum != null) throw new Exception($"存在相同别名的专辑: {slug}");
+        if (existAlbum != null)
+        {
+            throw new Exception($"存在相同别名的专辑: {slug}");
+        }
 
-        if (id != null) return new Album(id.Value, name, slug, cover, description, parentId);
+        if (id != null)
+        {
+            return new Album(id.Value, name, slug, cover, description, parentId);
+        }
 
         var maxIdOfAlbum = await _albumRepository.GetMaxIdAsync();
         id = maxIdOfAlbum + 1;
@@ -38,7 +47,10 @@ public class AlbumManager
         Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
         var existAlbum = await _albumRepository.FindByNameAsync(newName);
-        if (existAlbum != null && existAlbum.Id != album.Id) throw new Exception("存在同名的专辑");
+        if (existAlbum != null && existAlbum.Id != album.Id)
+        {
+            throw new Exception("存在同名的专辑");
+        }
 
         album.ChangeName(newName);
     }
@@ -49,7 +61,10 @@ public class AlbumManager
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug));
 
         var existAlbum = await _albumRepository.FindBySlugAsync(newSlug);
-        if (existAlbum != null && existAlbum.Id != album.Id) throw new Exception("存在相同别名的专辑");
+        if (existAlbum != null && existAlbum.Id != album.Id)
+        {
+            throw new Exception("存在相同别名的专辑");
+        }
 
         album.ChangeSlug(newSlug);
     }

@@ -1,7 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Web.ViewModels.UrlLinks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Dotnet9.Web.ViewModels.UrlLinks;
 
 namespace Dotnet9.Web.ViewComponents.UrlLinks;
 
@@ -20,7 +17,10 @@ public class FriendLink : ViewComponent
     {
         const string cacheKey = $"{nameof(FriendLink)}";
         var cacheData = await _cacheService.GetAsync<FriendLinkViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         cacheData = new FriendLinkViewModel
         {

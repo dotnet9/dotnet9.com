@@ -1,6 +1,4 @@
-﻿using Dotnet9.Domain.Timelines;
-using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.Timelines;
 

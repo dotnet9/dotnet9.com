@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 public class ErrorController : Controller
 {

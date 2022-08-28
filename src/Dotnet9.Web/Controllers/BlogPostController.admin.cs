@@ -1,6 +1,4 @@
 ﻿using Dotnet9.Application.Contracts;
-using Dotnet9.Application.Contracts.Blogs;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
 

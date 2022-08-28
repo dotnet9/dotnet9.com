@@ -23,7 +23,10 @@ public static class PerfCounter
                 }
                 catch (Exception e)
                 {
-                    if (errorCount > 20) break;
+                    if (errorCount > 20)
+                    {
+                        break;
+                    }
 
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(e.Message);

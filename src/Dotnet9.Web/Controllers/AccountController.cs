@@ -1,11 +1,5 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-using Dotnet9.Application.Contracts.Users;
-using Dotnet9.Web.ViewModels.Accounts;
+﻿using Dotnet9.Application.Contracts.Users;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.Controllers;
 
@@ -52,7 +46,11 @@ public class AccountController : ControllerBase
     {
         var accountLoginForDb = _mapper.Map<AccountLoginViewModel, UserForLoginDto>(request);
         var res = await _userAppService.LoginAsync(accountLoginForDb);
-        if (!res.IsSuccess) throw new UserException(res.Message);
+        if (!res.IsSuccess)
+        {
+            throw new UserException(res.Message);
+        }
+
         var identity = new ClaimsIdentity(new Claim[]
         {
             new(ClaimTypes.Name, request.Account)
@@ -60,7 +58,9 @@ public class AccountController : ControllerBase
         var claimsPrincipal = new ClaimsPrincipal(identity);
 
         if (_httpContextAccessor.HttpContext != null)
+        {
             await _httpContextAccessor.HttpContext.SignInAsync(claimsPrincipal);
+        }
     }
 
     [HttpGet("logout")]

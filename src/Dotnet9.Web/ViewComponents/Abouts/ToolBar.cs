@@ -1,7 +1,4 @@
-﻿using Dotnet9.Web.ViewModels.Homes;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.ViewComponents.Abouts;
+﻿namespace Dotnet9.Web.ViewComponents.Abouts;
 
 public class ToolBar : ViewComponent
 {

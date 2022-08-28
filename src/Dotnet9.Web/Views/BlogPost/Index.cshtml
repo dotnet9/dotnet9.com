@@ -1,8 +1,5 @@
-﻿@using Dotnet9.Web.Utils
-@using Dotnet9.Domain.Shared.Blogs
-@using System.Net
-@using System.Web
-@model Dotnet9.Application.Contracts.Blogs.BlogPostViewModel
+﻿@using MarkdownHelper = Dotnet9.Web.Utils.MarkdownHelper
+@model BlogPostViewModel
 @{
     ViewData["Title"] = Model.BlogPost.Title;
     Layout = "~/Views/Shared/_PublicLayout.cshtml";
@@ -15,7 +12,7 @@
     <link href="~/skin/menhu/css/picswiper.min.css" rel="stylesheet">
     <script src="~/skin/menhu/js/picswiper.min.js"></script>
     @*<script src="~/skin/menhu/js/picview.js"></script>*@
-    
+
     <link rel="stylesheet" href="~/css/blogpost.css"/>
     <link rel="stylesheet" href="~/css/prism.css"/>
 }

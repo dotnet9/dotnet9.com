@@ -16,7 +16,7 @@ public class PageDto<T> : BaseResponse
 
     public static PageDto<T> Fail(string message)
     {
-        return new PageDto<T> {Message = message};
+        return new PageDto<T> { Message = message };
     }
 }
 

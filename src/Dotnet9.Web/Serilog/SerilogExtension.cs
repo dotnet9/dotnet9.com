@@ -1,5 +1,4 @@
-﻿using Serilog;
-using Serilog.Events;
+﻿using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Dotnet9.Web.Serilog;

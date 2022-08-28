@@ -1,10 +1,5 @@
-﻿using Dotnet9.Application.Contracts.Albums;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.Categories;
-using Dotnet9.Application.Contracts.Tools;
+﻿using Dotnet9.Application.Contracts.Tools;
 using Dotnet9.Web.ViewModels.Categories;
-using Dotnet9.Web.ViewModels.Homes;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Dotnet9.Web.ViewComponents.Abouts;
 
@@ -26,18 +21,21 @@ public class MenuHorizontal : ViewComponent
     {
         const string cacheKey = $"{nameof(MenuHorizontal)}";
         var cacheData = await _cacheService.GetAsync<NavigationMenuViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         cacheData = new NavigationMenuViewModel
         {
             ToolCountDtos = new List<ToolCountDto>
             {
-                new() {Name = "时间戳", RelativeUrl = "/tools/timestamp"},
-                new() {Name = "Icon转换", RelativeUrl = "/tools/icon"},
-                new() {Name = "正则表达式", RelativeUrl = "/tools/regular"}
+                new() { Name = "时间戳", RelativeUrl = "/tools/timestamp" },
+                new() { Name = "Icon转换", RelativeUrl = "/tools/icon" },
+                new() { Name = "正则表达式", RelativeUrl = "/tools/regular" }
             },
             AlbumCountDtos = await _albumAppService.GetListCountAsync(),
-            CategoryForMenuViewModels = ReadChildren(await _categoryAppService.GetListCountAsync(), -1)
+            CategoryForMenuViewModels = ReadChildren(await _categoryAppService.GetListCountAsync())
         };
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
@@ -49,7 +47,10 @@ public class MenuHorizontal : ViewComponent
         int parentId = -1)
     {
         var children = sourceCategoryCountDtos.FindAll(x => x.ParentId == parentId);
-        if (!children.Any()) return null;
+        if (!children.Any())
+        {
+            return null;
+        }
 
         var categoryForMenuViewModels = new List<CategoryForMenuViewModel>();
         foreach (var categoryCountDto in children)
@@ -59,7 +60,7 @@ public class MenuHorizontal : ViewComponent
                 continue;
             }
 
-            var child = new CategoryForMenuViewModel {Name = categoryCountDto.Name, Slug = categoryCountDto.Slug};
+            var child = new CategoryForMenuViewModel { Name = categoryCountDto.Name, Slug = categoryCountDto.Slug };
             categoryForMenuViewModels.Add(child);
             child.Children = ReadChildren(sourceCategoryCountDtos, categoryCountDto.Id);
         }

@@ -1,8 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Categories;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.Categories;
 

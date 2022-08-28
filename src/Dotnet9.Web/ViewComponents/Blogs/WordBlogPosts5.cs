@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts.Caches;
-using Dotnet9.Application.Contracts.Categories;
-using Dotnet9.Web.ViewModels.Blogs;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.ViewComponents.Blogs;
+﻿namespace Dotnet9.Web.ViewComponents.Blogs;
 
 public class WordBlogPosts5 : ViewComponent
 {
@@ -23,7 +17,10 @@ public class WordBlogPosts5 : ViewComponent
     {
         const string cacheKey = $"{nameof(WordBlogPosts5)}-{nameof(InvokeAsync)}";
         var cacheData = await _cacheService.GetAsync<WordBlogPostsViewModel>(cacheKey);
-        if (cacheData != null) return View(cacheData);
+        if (cacheData != null)
+        {
+            return View(cacheData);
+        }
 
         var categories = new[]
         {
@@ -38,12 +35,14 @@ public class WordBlogPosts5 : ViewComponent
         {
             var categoryViewMode = await _categoryAppService.GetCategoryAsync(categorySlug);
             if (categoryViewMode != null)
+            {
                 cacheData.Items[categoryViewMode.Name] = new CategoryWordBlogPosts
                 {
                     Name = categoryViewMode.Name,
                     Slug = categorySlug,
                     BlogPosts = categoryViewMode.BlogPosts
                 };
+            }
         }
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));

@@ -41,7 +41,10 @@ public partial class BlogPostController : Controller
     [AllowAnonymous]
     public async Task<IActionResult> Index(int year, int month, string? slug)
     {
-        if (slug.IsNullOrWhiteSpace()) return NotFound();
+        if (slug.IsNullOrWhiteSpace())
+        {
+            return NotFound();
+        }
 
         var cacheData = await _cacheService.GetOrCreateAsync(
             $"{nameof(BlogPostController)}-{nameof(Index)}-{year}-{month}-{slug}",
@@ -67,11 +70,16 @@ public partial class BlogPostController : Controller
     {
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(LoadLatest)}-{kind}-{page}";
         var cacheData = await _cacheService.GetAsync<LatestViewModel>(cacheKey);
-        if (cacheData != null) return PartialView(cacheData);
+        if (cacheData != null)
+        {
+            return PartialView(cacheData);
+        }
 
         var loadKind = LoadMoreKind.Dotnet;
         if (Enum.TryParse(typeof(LoadMoreKind), kind, out var enumKind))
+        {
             loadKind = (LoadMoreKind)Enum.Parse(typeof(LoadMoreKind), kind);
+        }
 
         Expression<Func<BlogPost, bool>> whereLambda = x => x.Id > 0;
         if (_kindKeys.ContainsKey(loadKind))
@@ -85,7 +93,11 @@ public partial class BlogPostController : Controller
 
         var latest = await _blogPostRepository.SelectBlogPostBriefAsync(8, page, whereLambda, x => x.CreateDate,
             SortDirectionKind.Descending);
-        if (!latest.Item1.Any()) return Json("");
+        if (!latest.Item1.Any())
+        {
+            return Json("");
+        }
+
         cacheData = new LatestViewModel
         {
             BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(latest.Item1)
@@ -102,7 +114,10 @@ public partial class BlogPostController : Controller
     {
         var cacheKey = $"{nameof(BlogPostController)}-{nameof(Query)}-{keyword}-{p}";
         var cacheData = await _cacheService.GetAsync<QueryViewModel>(cacheKey);
-        if (cacheData != null) return PartialView(cacheData);
+        if (cacheData != null)
+        {
+            return PartialView(cacheData);
+        }
 
         Expression<Func<BlogPost, bool>> whereLambda;
         if (keyword.IsNullOrWhiteSpace())
@@ -131,7 +146,9 @@ public partial class BlogPostController : Controller
             Total = queryResult.Item2
         };
         if (queryResult.Item1.Any())
+        {
             cacheData.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(queryResult.Item1);
+        }
 
         await _cacheService.ReplaceAsync(cacheKey, cacheData, TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(30));
 

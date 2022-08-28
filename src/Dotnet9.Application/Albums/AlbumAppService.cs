@@ -30,20 +30,25 @@ public partial class AlbumAppService : IAlbumAppService
         {
             var albumCounts = await _albumRepository.GetListCountAsync();
 
-            return new AlbumViewModel {Albums = _mapper.Map<List<AlbumCount>, List<AlbumCountDto>>(albumCounts)};
+            return new AlbumViewModel { Albums = _mapper.Map<List<AlbumCount>, List<AlbumCountDto>>(albumCounts) };
         }
 
         var album = await _albumRepository.GetAsync(x => x.Slug == slug);
-        if (album == null) return null;
+        if (album == null)
+        {
+            return null;
+        }
 
-        var vm = new AlbumViewModel {Name = album.Name};
+        var vm = new AlbumViewModel { Name = album.Name };
 
         var blogPostList =
             await _blogPostRepository.SelectBlogPostBriefAsync(
                 x => x.Albums != null && x.Albums.Any(d => d.AlbumId == album.Id), x => x.CreateDate,
                 SortDirectionKind.Descending);
         if (!blogPostList.IsNullOrEmpty())
+        {
             vm.BlogPosts = _mapper.Map<List<BlogPostBrief>, List<BlogPostBriefDto>>(blogPostList!);
+        }
 
         return vm;
     }

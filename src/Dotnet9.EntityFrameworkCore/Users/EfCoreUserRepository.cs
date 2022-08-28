@@ -1,7 +1,5 @@
 ﻿using Dotnet9.Core;
-using Dotnet9.Domain.Users;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.Users;
 
@@ -18,7 +16,10 @@ public class EfCoreUserRepository : EfCoreRepository<CustomUser>, IUserRepositor
 
     public async Task<int> InitAccountAsync(AdminAccountForCreation adminAccountForCreation)
     {
-        if (await ExistAdminAccountAsync()) throw new AdminAccountAlreadyExistsException("系统已经初始化，重复操作失败");
+        if (await ExistAdminAccountAsync())
+        {
+            throw new AdminAccountAlreadyExistsException("系统已经初始化，重复操作失败");
+        }
 
         await DbContext.Set<CustomUser>().AddAsync(new CustomUser
         {
@@ -34,7 +35,10 @@ public class EfCoreUserRepository : EfCoreRepository<CustomUser>, IUserRepositor
     public async Task LoginFailAsync(CustomUser user)
     {
         user.LoginFailCount += 1;
-        if (user.LoginFailCount >= 5 && !IsLocked(user)) user.LockedDate = DateTimeOffset.Now.AddMinutes(15);
+        if (user.LoginFailCount >= 5 && !IsLocked(user))
+        {
+            user.LockedDate = DateTimeOffset.Now.AddMinutes(15);
+        }
 
         await DbContext.SaveChangesAsync();
     }

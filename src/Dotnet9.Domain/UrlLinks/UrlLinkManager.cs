@@ -18,12 +18,21 @@ public class UrlLinkManager
         Check.NotNullOrWhiteSpace(url, nameof(url));
 
         var existUrlLink = await _urlLinkRepository.FindByNameAsync(name);
-        if (existUrlLink != null) throw new Exception($"存在同名的链接: {name}");
+        if (existUrlLink != null)
+        {
+            throw new Exception($"存在同名的链接: {name}");
+        }
 
         existUrlLink = await _urlLinkRepository.FindByUrlAsync(url);
-        if (existUrlLink != null) throw new Exception($"存在相同Url的链接: {url}");
+        if (existUrlLink != null)
+        {
+            throw new Exception($"存在相同Url的链接: {url}");
+        }
 
-        if (id != null) return new UrlLink(id.Value, index, kind, name, description, url);
+        if (id != null)
+        {
+            return new UrlLink(id.Value, index, kind, name, description, url);
+        }
 
         var maxIdOfUrlLink = await _urlLinkRepository.GetMaxIdAsync();
         id = maxIdOfUrlLink + 1;
@@ -37,7 +46,10 @@ public class UrlLinkManager
         Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
         var existUrlLink = await _urlLinkRepository.FindByNameAsync(newName);
-        if (existUrlLink != null && existUrlLink.Id != urlLink.Id) throw new Exception("存在同名的链接");
+        if (existUrlLink != null && existUrlLink.Id != urlLink.Id)
+        {
+            throw new Exception("存在同名的链接");
+        }
 
         urlLink.ChangeName(newName);
     }
@@ -48,7 +60,10 @@ public class UrlLinkManager
         Check.NotNullOrWhiteSpace(newUrl, nameof(newUrl));
 
         var existUrlLink = await _urlLinkRepository.FindByUrlAsync(newUrl);
-        if (existUrlLink != null && existUrlLink.Id != urlLink.Id) throw new Exception("存在相同Url的链接");
+        if (existUrlLink != null && existUrlLink.Id != urlLink.Id)
+        {
+            throw new Exception("存在相同Url的链接");
+        }
 
         urlLink.ChangeUrl(newUrl);
     }

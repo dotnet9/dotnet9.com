@@ -32,10 +32,18 @@ public class LogActionFilterAttribute : ActionFilterAttribute
         var actionName = context.ActionDescriptor.DisplayName;
 
         if (IgnoreIPs.Contains(ip))
+        {
             _isNotLog = true;
-        else if (IgnoreActionNames.Contains(actionName)) _isNotLog = true;
+        }
+        else if (IgnoreActionNames.Contains(actionName))
+        {
+            _isNotLog = true;
+        }
 
-        if (_isNotLog) return;
+        if (_isNotLog)
+        {
+            return;
+        }
 
         ActionArguments = JsonConvert.SerializeObject(context.ActionArguments);
         Stopwatch = new Stopwatch();
@@ -46,7 +54,10 @@ public class LogActionFilterAttribute : ActionFilterAttribute
     {
         base.OnActionExecuted(context);
 
-        if (_isNotLog) return;
+        if (_isNotLog)
+        {
+            return;
+        }
 
         Stopwatch?.Stop();
 

@@ -35,15 +35,19 @@ public class MemoryCacheService : ICacheService
     public async Task<bool> AddAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
     {
         if (isSliding)
+        {
             Cache.Set(key, value,
                 new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(expiresIn)
             );
+        }
         else
+        {
             Cache.Set(key, value,
                 new MemoryCacheEntryOptions()
                     .SetAbsoluteExpiration(expiresIn)
             );
+        }
 
         return await ExistsAsync(key);
     }
@@ -85,30 +89,45 @@ public class MemoryCacheService : ICacheService
 
     public async Task<bool> ReplaceAsync(string key, object value)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expireSliding, expireAbsoulte);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value, expireSliding, expireAbsoulte);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value, expireSliding, expireAbsoulte);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expiresIn, isSliding);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value, expiresIn, isSliding);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value, expiresIn, isSliding);
     }

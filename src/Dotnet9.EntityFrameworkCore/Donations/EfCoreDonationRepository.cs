@@ -1,5 +1,4 @@
-﻿using Dotnet9.Domain.Donations;
-using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
+﻿using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.Donations;
 

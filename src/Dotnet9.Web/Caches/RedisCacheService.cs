@@ -47,14 +47,17 @@ public class RedisCacheService : ICacheService
 
     public async Task RemoveAllAsync(IEnumerable<string> keys)
     {
-        foreach (var key in keys) await RemoveAsync(key);
+        foreach (var key in keys)
+        {
+            await RemoveAsync(key);
+        }
     }
 
     public async Task<T?> GetAsync<T>(string key) where T : class
     {
         var value = Cache.StringGet(GetKeyForRedis(key));
         await Task.CompletedTask;
-        
+
         return !value.HasValue ? default : JsonConvert.DeserializeObject<T>(value!);
     }
 
@@ -69,37 +72,55 @@ public class RedisCacheService : ICacheService
     public async Task<IDictionary<string, object?>> GetAllAsync(IEnumerable<string> keys)
     {
         var dict = new Dictionary<string, object?>();
-        foreach (var key in keys) dict.Add(key, await GetAsync(GetKeyForRedis(key)));
+        foreach (var key in keys)
+        {
+            dict.Add(key, await GetAsync(GetKeyForRedis(key)));
+        }
 
         return dict;
     }
 
     public async Task<bool> ReplaceAsync(string key, object value)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expireSliding, TimeSpan expireAbsoulte)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expireSliding, expireAbsoulte);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value, expireSliding, expireAbsoulte);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value, expireSliding, expireAbsoulte);
     }
 
     public async Task<bool> ReplaceAsync(string key, object value, TimeSpan expiresIn, bool isSliding = false)
     {
-        if (!await ExistsAsync(key)) return await AddAsync(key, value, expiresIn, isSliding);
+        if (!await ExistsAsync(key))
+        {
+            return await AddAsync(key, value, expiresIn, isSliding);
+        }
 
         if (!await RemoveAsync(key))
+        {
             return false;
+        }
 
         return await AddAsync(key, value, expiresIn, isSliding);
     }

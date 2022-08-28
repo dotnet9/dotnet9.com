@@ -1,7 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Dotnet9.Domain;
 using Dotnet9.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 using Z.EntityFramework.Plus;
 
 namespace Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
@@ -28,7 +26,10 @@ public class EfCoreRepository<T>
 
     public async Task<int> GetMaxIdAsync()
     {
-        if (await DbContext.Set<T>().AnyAsync() == false) return 0;
+        if (await DbContext.Set<T>().AnyAsync() == false)
+        {
+            return 0;
+        }
 
         return await DbContext.Set<T>().MaxAsync(x => x.Id);
     }
@@ -82,12 +83,21 @@ public class EfCoreRepository<T>
         IQueryable<T>? query;
 
         if (sortDirection == SortDirectionKind.Ascending)
+        {
             query = DbContext.Set<T>().AsNoTracking().Where(whereLambda)
                 .OrderBy(orderByLambda);
+        }
         else
+        {
             query = DbContext.Set<T>().AsNoTracking().Where(whereLambda)
                 .OrderByDescending(orderByLambda);
-        foreach (var include in includes) query = query.Include(include);
+        }
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
         return await query.ToListAsync();
     }
 
@@ -100,12 +110,21 @@ public class EfCoreRepository<T>
         IQueryable<T>? query = null;
 
         if (sortDirection == SortDirectionKind.Ascending)
+        {
             query = DbContext.Set<T>().Where(whereLambda)
                 .OrderBy(orderByLambda);
+        }
         else
+        {
             query = DbContext.Set<T>().Where(whereLambda)
                 .OrderByDescending(orderByLambda);
-        foreach (var include in includes) query = query.Include(include);
+        }
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
         var lst = await query.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToListAsync();
         return new Tuple<List<T>, int>(lst, total);
     }

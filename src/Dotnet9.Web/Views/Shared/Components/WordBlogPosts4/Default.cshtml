@@ -1,4 +1,4 @@
-﻿@model Dotnet9.Web.ViewModels.Blogs.WordBlogPostsViewModel
+﻿@model WordBlogPostsViewModel
 
 
 <div class="pics box whitebg tab-num02">
@@ -43,7 +43,7 @@
                                             <span style="text-align: left;">@blogPost.Title</span>
                                         </a>
 
-                                        <small style="text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">
+                                        <small style="display: block; overflow: hidden; text-align: left; text-overflow: ellipsis; white-space: nowrap;">
                                             <a style="display: inline;" href="#">@(blogPost.Original ?? "沙漠尽头的狼")</a> - @blogPost.CreateDate?.ToString("yyyy-MM-dd")
                                         </small>
                                     </li>

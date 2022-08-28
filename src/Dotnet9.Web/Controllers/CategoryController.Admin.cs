@@ -1,8 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Categories;
-using Dotnet9.Domain.Categories;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 public partial class CategoryController
 {

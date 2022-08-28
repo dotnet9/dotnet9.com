@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts.Dashboards;
-using Dotnet9.Extensions.CountSystemInfo;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Dotnet9.Application.Contracts.Dashboards;
 
 namespace Dotnet9.Web.Controllers;
 

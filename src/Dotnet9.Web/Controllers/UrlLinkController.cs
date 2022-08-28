@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-using Dotnet9.Application.Contracts;
-using Dotnet9.Application.Contracts.UrlLinks;
-using Dotnet9.Domain.UrlLinks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Dotnet9.Application.Contracts;
 
 namespace Dotnet9.Web.Controllers;
 

@@ -1,8 +1,4 @@
-﻿using Dotnet9.Application.Contracts.Albums;
-using Dotnet9.Domain.Albums;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Dotnet9.Web.Controllers;
+﻿namespace Dotnet9.Web.Controllers;
 
 public partial class AlbumController
 {
@@ -31,7 +27,10 @@ public partial class AlbumController
         else
         {
             var albumFromDb = await _albumRepository.GetAsync(x => x.Id == request.Id);
-            if (albumFromDb == null) return;
+            if (albumFromDb == null)
+            {
+                return;
+            }
 
             _mapper.Map(request, albumFromDb, typeof(AddOrUpdateAlbumDto), typeof(Album));
             albumFromDb.UpdateDate = DateTimeOffset.Now;

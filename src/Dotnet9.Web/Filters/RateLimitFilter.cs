@@ -12,7 +12,10 @@ public class RateLimitFilter : IAsyncActionFilter
     public Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         var remoteIp = context.HttpContext.Connection.RemoteIpAddress?.ToString();
-        if (remoteIp == null) return Task.CompletedTask;
+        if (remoteIp == null)
+        {
+            return Task.CompletedTask;
+        }
 
         var cacheKey = $"LastVisitTick_{remoteIp}";
         var lastTick = _memCache.Get<long?>(cacheKey);

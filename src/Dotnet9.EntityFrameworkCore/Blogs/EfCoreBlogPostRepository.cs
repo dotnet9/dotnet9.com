@@ -1,11 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Dotnet9.Domain.Albums;
-using Dotnet9.Domain.Blogs;
-using Dotnet9.Domain.Categories;
 using Dotnet9.Domain.Repositories;
-using Dotnet9.Domain.Tags;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.Blogs;
 

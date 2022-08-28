@@ -1,8 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Dotnet9.Domain.ActionLogs;
 using Dotnet9.Domain.Repositories;
 using Dotnet9.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet9.EntityFrameworkCore.ActionLogs;
 
