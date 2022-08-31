@@ -32,27 +32,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{9D645E3E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI", "admin\Dotnet9.WebAPI\Dotnet9.WebAPI.csproj", "{939F5148-134A-4281-94BE-720011DD03C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.CommonInitializer", "Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj", "{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.CommonInitializer", "Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj", "{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebAPI.Application.Contracts", "Dotnet9.WebAPI.Application.Contracts\Dotnet9.WebAPI.Application.Contracts.csproj", "{B095565D-3D4D-49AB-B127-4BAA4CE302A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Application.Contracts", "Dotnet9.WebAPI.Application.Contracts\Dotnet9.WebAPI.Application.Contracts.csproj", "{B095565D-3D4D-49AB-B127-4BAA4CE302A7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commons", "commons", "{6115DDB3-D836-4DE9-B431-D9C4FF92E47E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebAPI.Domain", "Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj", "{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Domain", "Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj", "{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.DomainCommons", "Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj", "{5E955C3F-F114-44E8-9B74-132CFD18D658}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.DomainCommons", "Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj", "{5E955C3F-F114-44E8-9B74-132CFD18D658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.JWT", "Dotnet9.JWT\Dotnet9.JWT.csproj", "{0422A2AD-A9F3-4325-AFAE-B1D0DBF5784A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.JWT", "Dotnet9.JWT\Dotnet9.JWT.csproj", "{0422A2AD-A9F3-4325-AFAE-B1D0DBF5784A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Commons", "Dotnet9.Commons\Dotnet9.Commons.csproj", "{C33CBE6E-93A9-4548-858C-6A609045991B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Commons", "Dotnet9.Commons\Dotnet9.Commons.csproj", "{C33CBE6E-93A9-4548-858C-6A609045991B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebAPI.Domain.Shared", "Dotnet9.WebAPI.Domain.Shared\Dotnet9.WebAPI.Domain.Shared.csproj", "{3A3B05A4-F979-47A8-8CD1-A524B2AE0290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Domain.Shared", "Dotnet9.WebAPI.Domain.Shared\Dotnet9.WebAPI.Domain.Shared.csproj", "{3A3B05A4-F979-47A8-8CD1-A524B2AE0290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.EventBus", "Dotnet9.EventBus\Dotnet9.EventBus.csproj", "{B472595F-0A45-47B8-ABE4-2BE00229422E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.EventBus", "Dotnet9.EventBus\Dotnet9.EventBus.csproj", "{B472595F-0A45-47B8-ABE4-2BE00229422E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.ASPNETCore", "Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj", "{C00FEFA7-3938-42E4-897E-92970F77C6DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.ASPNETCore", "Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj", "{C00FEFA7-3938-42E4-897E-92970F77C6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Infrastructure", "Dotnet9.Infrastructure\Dotnet9.Infrastructure.csproj", "{A1A0EA35-066A-4046-B7F0-6197158C34CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Infrastructure", "Dotnet9.Infrastructure\Dotnet9.Infrastructure.csproj", "{A1A0EA35-066A-4046-B7F0-6197158C34CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.AnyDBConfigProvider", "Dotnet9.AnyDBConfigProvider\Dotnet9.AnyDBConfigProvider.csproj", "{6476440A-B089-4323-9DF3-0E5007D387EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,6 +138,10 @@ Global
 		{A1A0EA35-066A-4046-B7F0-6197158C34CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1A0EA35-066A-4046-B7F0-6197158C34CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1A0EA35-066A-4046-B7F0-6197158C34CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6476440A-B089-4323-9DF3-0E5007D387EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6476440A-B089-4323-9DF3-0E5007D387EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6476440A-B089-4323-9DF3-0E5007D387EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6476440A-B089-4323-9DF3-0E5007D387EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +159,7 @@ Global
 		{B472595F-0A45-47B8-ABE4-2BE00229422E} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{C00FEFA7-3938-42E4-897E-92970F77C6DE} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{A1A0EA35-066A-4046-B7F0-6197158C34CA} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
+		{6476440A-B089-4323-9DF3-0E5007D387EF} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23F5EB67-5874-4763-88EF-473C3EB6DD51}
