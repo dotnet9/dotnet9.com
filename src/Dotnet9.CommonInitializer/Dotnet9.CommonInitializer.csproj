@@ -1,23 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dotnet9.AnyDBConfigProvider\Dotnet9.AnyDBConfigProvider.csproj" />
-    <ProjectReference Include="..\Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj" />
-    <ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
-    <ProjectReference Include="..\Dotnet9.EventBus\Dotnet9.EventBus.csproj" />
-    <ProjectReference Include="..\Dotnet9.Infrastructure\Dotnet9.Infrastructure.csproj" />
-    <ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Dotnet9.AnyDBConfigProvider\Dotnet9.AnyDBConfigProvider.csproj" />
+		<ProjectReference Include="..\Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj" />
+		<ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
+		<ProjectReference Include="..\Dotnet9.EventBus\Dotnet9.EventBus.csproj" />
+		<ProjectReference Include="..\Dotnet9.Infrastructure\Dotnet9.Infrastructure.csproj" />
+		<ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
+	</ItemGroup>
 
 </Project>
