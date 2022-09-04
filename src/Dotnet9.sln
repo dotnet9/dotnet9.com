@@ -10,17 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.Targets = Directory.Build.Targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A358FCB2-95D9-4452-9854-A09C5BBD8BD4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A358FCB2-95D9-4452-9854-A09C5BBD8BD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core.Test", "test\Dotnet9.Core.Test\Dotnet9.Core.Test.csproj", "{EC5F6653-7129-41C0-96E1-51E65F2F5D07}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{9D645E3E-49AE-43F9-A6D7-29060BF7867E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{9D645E3E-49AE-43F9-A6D7-29060BF7867E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.CommonInitializer", "Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj", "{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Application.Contracts", "Dotnet9.WebAPI.Application.Contracts\Dotnet9.WebAPI.Application.Contracts.csproj", "{B095565D-3D4D-49AB-B127-4BAA4CE302A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commons", "commons", "{6115DDB3-D836-4DE9-B431-D9C4FF92E47E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{6115DDB3-D836-4DE9-B431-D9C4FF92E47E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Domain", "Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj", "{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}"
 EndProject
@@ -44,16 +42,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI", "Dotnet9.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core", "Dotnet9.Core\Dotnet9.Core.csproj", "{1BB55356-262E-4490-95E6-43D01AEBF47D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core.Test", "Dotnet9.Core.Test\Dotnet9.Core.Test.csproj", "{341D8EF4-74B9-455D-83FC-940BA13BABB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC5F6653-7129-41C0-96E1-51E65F2F5D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC5F6653-7129-41C0-96E1-51E65F2F5D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC5F6653-7129-41C0-96E1-51E65F2F5D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC5F6653-7129-41C0-96E1-51E65F2F5D07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -106,12 +102,15 @@ Global
 		{1BB55356-262E-4490-95E6-43D01AEBF47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BB55356-262E-4490-95E6-43D01AEBF47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BB55356-262E-4490-95E6-43D01AEBF47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{341D8EF4-74B9-455D-83FC-940BA13BABB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341D8EF4-74B9-455D-83FC-940BA13BABB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341D8EF4-74B9-455D-83FC-940BA13BABB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341D8EF4-74B9-455D-83FC-940BA13BABB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EC5F6653-7129-41C0-96E1-51E65F2F5D07} = {A358FCB2-95D9-4452-9854-A09C5BBD8BD4}
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{B095565D-3D4D-49AB-B127-4BAA4CE302A7} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
 		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
@@ -125,6 +124,7 @@ Global
 		{6476440A-B089-4323-9DF3-0E5007D387EF} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{C2E5DB78-7518-4A92-95CC-B1F400ED437A} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
 		{1BB55356-262E-4490-95E6-43D01AEBF47D} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
+		{341D8EF4-74B9-455D-83FC-940BA13BABB5} = {A358FCB2-95D9-4452-9854-A09C5BBD8BD4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23F5EB67-5874-4763-88EF-473C3EB6DD51}
