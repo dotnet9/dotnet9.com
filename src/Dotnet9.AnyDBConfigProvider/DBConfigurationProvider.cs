@@ -2,11 +2,10 @@
 
 public class DBConfigurationProvider : ConfigurationProvider, IDisposable
 {
-    private bool isDisposed;
-
     //allow multi reading and single writing
     private readonly ReaderWriterLockSlim lockObj = new();
     private readonly DBConfigOptions options;
+    private bool isDisposed;
 
     public DBConfigurationProvider(DBConfigOptions options)
     {

@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.UserAdmin;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]

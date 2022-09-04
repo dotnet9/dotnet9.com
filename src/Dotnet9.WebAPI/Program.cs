@@ -1,4 +1,5 @@
-using Dotnet9.WebAPI.Domain.UserAdmin;
+using Dotnet9.WebAPI.Infrastructure.Services;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,9 @@ builder.ConfigureExtraServices(new InitializerOptions
     LogFilePath = $"{AppDomain.CurrentDomain.BaseDirectory}Dotnet9.WebAPI.log"
 });
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "Dotnet9.WebAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dotnet9.WebAPI", Version = "v1" });
     //c.AddAuthenticationHeader();
 });
 builder.Services.AddDataProtection();
@@ -22,7 +21,7 @@ builder.Services.AddDataProtection();
 //不要用AddIdentity，而是用AddIdentityCore
 //因为用AddIdentity会导致JWT机制不起作用，AddJwtBearer中回调不会被执行，因此总是Authentication校验失败
 //https://github.com/aspnet/Identity/issues/1376
-IdentityBuilder idBuilder = builder.Services.AddIdentityCore<User>(options =>
+var idBuilder = builder.Services.AddIdentityCore<User>(options =>
     {
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;
@@ -37,24 +36,32 @@ IdentityBuilder idBuilder = builder.Services.AddIdentityCore<User>(options =>
     }
 );
 idBuilder = new IdentityBuilder(idBuilder.UserType, typeof(Role), builder.Services);
-//idBuilder.AddEntityFrameworkStores<IdDbContext>().AddDefaultTokenProviders()
-    //.AddRoleValidator<RoleValidator<Role>>()
-    //.AddRoleManager<RoleManager<Role>>()
-    //.AddUserManager<IdUserManager>();
+idBuilder.AddEntityFrameworkStores<IdDbContext>().AddDefaultTokenProviders()
+    .AddRoleValidator<RoleValidator<Role>>()
+    .AddRoleManager<RoleManager<Role>>()
+    .AddUserManager<IdUserManager>();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddScoped<IEmailSender, MockEmailSender>();
+    builder.Services.AddScoped<ISmsSender, MockSmsSender>();
+}
+else
+{
+    builder.Services.AddScoped<IEmailSender, SendCloudEmailSender>();
+    builder.Services.AddScoped<ISmsSender, SendCloudSmsSender>();
+}
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dotnet9.WebAPI v1"));
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseDotnet9Default();
 app.MapControllers();
-
 app.Run();

@@ -2,12 +2,12 @@
 
 internal class RabbitMQEventBus : IEventBus, IDisposable
 {
+    private readonly IModel _consumerChannel;
     private readonly string _exchangeName;
     private readonly RabbitMQConnection _persistentConnection;
     private readonly IServiceProvider _serviceProvider;
     private readonly SubscriptionsManager _subsManager;
     private readonly IServiceScope serviceScope;
-    private readonly IModel _consumerChannel;
     private string _queueName;
 
     public RabbitMQEventBus(RabbitMQConnection persistentConnection,

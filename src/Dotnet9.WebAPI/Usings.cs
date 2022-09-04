@@ -7,3 +7,5 @@ global using System.Diagnostics;
 global using System.Net;
 global using System.Security.Claims;
 global using Dotnet9.CommonInitializer;
+global using Dotnet9.WebAPI.Domain.UserAdmin;
+global using Dotnet9.WebAPI.Infrastructure.UserAdmin;

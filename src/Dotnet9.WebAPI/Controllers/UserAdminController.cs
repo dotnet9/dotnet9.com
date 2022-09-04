@@ -1,6 +1,5 @@
 ﻿using Dotnet9.EventBus;
 using Dotnet9.WebAPI.Application.Contracts.UserAdmin;
-using Dotnet9.WebAPI.Domain.UserAdmin;
 using Dotnet9.WebAPI.Events;
 using Microsoft.EntityFrameworkCore;
 
