@@ -8,8 +8,8 @@ public static class WebApplicationBuilderExtensions
         {
             //不能使用ConfigureAppConfiguration中的configBuilder去读取配置，否则就循环调用了，因此这里直接自己去读取配置文件
             //var configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            //string connStr = configRoot.GetValue<string>("DefaultDB:ConnStr");
-            var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnStr");
+            //string connStr = configRoot.GetValue<string>("DefaultDB:ConnectionString");
+            var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
 
             configBuilder.AddDbConfiguration(() => new NpgsqlConnection(connStr), reloadOnChange: true,
                 reloadInterval: TimeSpan.FromSeconds(5));
