@@ -3,13 +3,13 @@
 public class DBConfigurationProvider : ConfigurationProvider, IDisposable
 {
     //allow multi reading and single writing
-    private readonly ReaderWriterLockSlim lockObj = new();
-    private readonly DBConfigOptions options;
-    private bool isDisposed;
+    private readonly ReaderWriterLockSlim _lockObj = new();
+    private readonly DBConfigOptions _options;
+    private bool _isDisposed;
 
     public DBConfigurationProvider(DBConfigOptions options)
     {
-        this.options = options;
+        _options = options;
         var interval = TimeSpan.FromSeconds(3);
         if (options.ReloadInterval != null)
         {
@@ -20,7 +20,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         {
             ThreadPool.QueueUserWorkItem(obj =>
             {
-                while (!isDisposed)
+                while (!_isDisposed)
                 {
                     Load();
                     Thread.Sleep(interval);
@@ -31,50 +31,48 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
 
     public void Dispose()
     {
-        isDisposed = true;
+        _isDisposed = true;
     }
 
     public override IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
     {
-        lockObj.EnterReadLock();
+        _lockObj.EnterReadLock();
         try
         {
             return base.GetChildKeys(earlierKeys, parentPath);
         }
         finally
         {
-            lockObj.ExitReadLock();
+            _lockObj.ExitReadLock();
         }
     }
 
     public override bool TryGet(string key, out string value)
     {
-        lockObj.EnterReadLock();
+        _lockObj.EnterReadLock();
         try
         {
             return base.TryGet(key, out value);
         }
         finally
         {
-            lockObj.ExitReadLock();
+            _lockObj.ExitReadLock();
         }
     }
 
     public override void Load()
     {
         base.Load();
-        IDictionary<string, string> clonedData = null;
+        IDictionary<string, string>? clonedData = null;
         try
         {
-            lockObj.EnterWriteLock();
+            _lockObj.EnterWriteLock();
             clonedData = Data.Clone();
-            var tableName = options.TableName;
+            var tableName = _options.TableName;
             Data.Clear();
-            using (var conn = options.CreateDbConnection())
-            {
-                conn.Open();
-                DoLoad(tableName, conn);
-            }
+            using var conn = _options.CreateDbConnection?.Invoke();
+            conn?.Open();
+            DoLoad(tableName, conn);
         }
         catch (DbException)
         {
@@ -84,7 +82,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         }
         finally
         {
-            lockObj.ExitWriteLock();
+            _lockObj.ExitWriteLock();
         }
 
         //OnReload cannot be between EnterWriteLock and ExitWriteLock, or "A read lock may not be acquired with the write lock held in this mode" will be thrown.
@@ -96,35 +94,31 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
 
     private void DoLoad(string tableName, IDbConnection conn)
     {
-        using (var cmd = conn.CreateCommand())
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText =
+            $@"select ""Name"",""Value"" from ""{tableName}"" where ""Id"" in(select Max(""Id"") from ""{tableName}"" group by ""Name"")";
+        using var reader = cmd.ExecuteReader();
+        while (reader.Read())
         {
-            cmd.CommandText =
-                $"select Name,Value from {tableName} where Id in(select Max(Id) from {tableName} group by Name)";
-            using (var reader = cmd.ExecuteReader())
+            var name = reader.GetString(0);
+            var value = reader.GetString(1);
+            if (value == null)
             {
-                while (reader.Read())
-                {
-                    var name = reader.GetString(0);
-                    var value = reader.GetString(1);
-                    if (value == null)
-                    {
-                        Data[name] = value;
-                        continue;
-                    }
+                Data[name] = value;
+                continue;
+            }
 
-                    value = value.Trim();
-                    //if the value is like [...] or {} , it may be a json array value or json object value,
-                    //so try to parse it as json
-                    if ((value.StartsWith("[") && value.EndsWith("]"))
-                        || (value.StartsWith("{") && value.EndsWith("}")))
-                    {
-                        TryLoadAsJson(name, value);
-                    }
-                    else
-                    {
-                        Data[name] = value;
-                    }
-                }
+            value = value.Trim();
+            //if the value is like [...] or {} , it may be a json array value or json object value,
+            //so try to parse it as json
+            if ((value.StartsWith("[") && value.EndsWith("]"))
+                || (value.StartsWith("{") && value.EndsWith("}")))
+            {
+                TryLoadAsJson(name, value);
+            }
+            else
+            {
+                Data[name] = value;
             }
         }
     }
