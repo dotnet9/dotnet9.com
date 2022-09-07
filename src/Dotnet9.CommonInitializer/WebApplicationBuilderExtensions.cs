@@ -27,7 +27,7 @@ public static class WebApplicationBuilderExtensions
             //连接字符串如果放到appsettings.json中，会有泄密的风险
             //如果放到UserSecrets中，每个项目都要配置，很麻烦
             //因此这里推荐放到环境变量中。
-            var connStr = configuration.GetValue<string>("DefaultDB:ConnStr");
+            var connStr = configuration.GetValue<string>("DefaultDB:ConnectionString");
             ctx.UseNpgsql(connStr);
         }, assemblies);
 
@@ -56,9 +56,12 @@ public static class WebApplicationBuilderExtensions
                 //更好的在Program.cs中用绑定方式读取配置的方法：https://github.com/dotnet/aspnetcore/issues/21491
                 //不过比较麻烦。
                 var corsOpt = configuration.GetSection("Cors").Get<CorsSettings>();
-                var urls = corsOpt.Origins;
-                options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
-                    .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                var urls = corsOpt?.Origins;
+                if (urls != null && urls.Any())
+                {
+                    options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
+                        .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                }
             }
         );
         services.AddLogging(builder =>
@@ -76,7 +79,7 @@ public static class WebApplicationBuilderExtensions
         services.AddEventBus(initOptions.EventBusQueueName, assemblies);
 
         //Redis的配置
-        var redisConnStr = configuration.GetValue<string>("Redis:ConnStr");
+        var redisConnStr = configuration.GetValue<string>("Redis:ConnectionString");
         IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConnStr);
         services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
         services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.All; });

@@ -36,6 +36,8 @@ public class UserAdminController : ControllerBase
         return new UserDTO(user.Id, user.UserName, user.PhoneNumber, user.CreationTime);
     }
 
+    [HttpPost]
+    [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ActionResult> AddAdminUser(AddAdminUserRequest req)
     {
         var (result, user, password) = await _repository.AddAdminUserAsync(req.UserName, req.PhoneNumber);
