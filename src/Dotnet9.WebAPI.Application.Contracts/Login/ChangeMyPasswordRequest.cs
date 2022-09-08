@@ -7,7 +7,7 @@ public class ChangePasswordRequestValidator : AbstractValidator<ChangeMyPassword
     public ChangePasswordRequestValidator()
     {
         RuleFor(e => e.Password).NotNull().NotEmpty()
-            .Equal(e => e.Password2);
+            .NotEqual(e => e.Password2);
         RuleFor(e => e.Password2).NotNull().NotEmpty();
     }
 }
