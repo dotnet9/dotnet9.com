@@ -110,12 +110,13 @@ public interface IIdRepository
     Task<IdentityResult> RemoveUserAsync(Guid userId);
 
     /// <summary>
-    ///     添加管理员
+    ///     添加
     /// </summary>
     /// <param name="userName"></param>
+    /// <param name="roleName"></param>
     /// <param name="phoneNumber"></param>
     /// <returns>返回值第三个是生成的密码</returns>
-    Task<(IdentityResult, User?, string? password)> AddAdminUserAsync(string userName, string phoneNumber);
+    Task<(IdentityResult, User?, string? password)> AddUserAsync(string userName, string roleName, string phoneNumber);
 
     /// <summary>
     ///     重置密码

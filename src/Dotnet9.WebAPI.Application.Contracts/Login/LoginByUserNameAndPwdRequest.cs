@@ -6,7 +6,7 @@ public class LoginByUserNameAndPwdRequestValidator : AbstractValidator<LoginByUs
 {
     public LoginByUserNameAndPwdRequestValidator()
     {
-        RuleFor(e => e.UserName).NotNull().NotEmpty();
-        RuleFor(e => e.Password).NotNull().NotEmpty();
+        RuleFor(e => e.UserName).NotNull().WithMessage("用户名不能为Null").NotEmpty().WithMessage("用户名不能为空");
+        RuleFor(e => e.Password).NotNull().WithMessage("密码不能为Null").NotEmpty().WithMessage("密码不能为空");
     }
 }

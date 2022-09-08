@@ -6,7 +6,7 @@ public class LoginByPhoneAndPwdRequestValidator : AbstractValidator<LoginByPhone
 {
     public LoginByPhoneAndPwdRequestValidator()
     {
-        RuleFor(e => e.PhoneNumber).NotNull().NotEmpty();
-        RuleFor(e => e.Password).NotNull().NotEmpty();
+        RuleFor(e => e.PhoneNumber).NotNull().WithMessage("电话号码不能为Null").NotEmpty().WithMessage("电话号码不能为空");
+        RuleFor(e => e.Password).NotNull().WithMessage("密码不能为Null").NotEmpty().WithMessage("密码不能为空");
     }
 }

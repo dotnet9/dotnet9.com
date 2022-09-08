@@ -36,6 +36,7 @@ var idBuilder = builder.Services.AddIdentityCore<User>(options =>
     }
 );
 idBuilder = new IdentityBuilder(idBuilder.UserType, typeof(Role), builder.Services);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 idBuilder.AddEntityFrameworkStores<IdDbContext>().AddDefaultTokenProviders()
     .AddRoleValidator<RoleValidator<Role>>()
     .AddRoleManager<RoleManager<Role>>()

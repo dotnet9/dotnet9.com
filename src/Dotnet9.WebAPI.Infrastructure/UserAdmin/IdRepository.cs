@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Dotnet9.WebAPI.Domain.Shared;
 using Microsoft.AspNetCore.Identity;
 
 namespace Dotnet9.WebAPI.Infrastructure.UserAdmin;
@@ -187,7 +188,8 @@ internal class IdRepository : IIdRepository
         return result;
     }
 
-    public async Task<(IdentityResult, User?, string? password)> AddAdminUserAsync(string userName, string phoneNum)
+    public async Task<(IdentityResult, User?, string? password)> AddUserAsync(string userName, string roleName,
+        string phoneNum)
     {
         if (await FindByNameAsync(userName) != null)
         {
@@ -209,10 +211,19 @@ internal class IdRepository : IIdRepository
             return (result, null, null);
         }
 
-        result = await AddToRolesAsync(user, "Admin");
+        result = await AddToRolesAsync(user, UserRoleConst.User);
         if (!result.Succeeded)
         {
             return (result, null, null);
+        }
+
+        if (roleName == UserRoleConst.Admin)
+        {
+            result = await AddToRolesAsync(user, UserRoleConst.Admin);
+            if (!result.Succeeded)
+            {
+                return (result, null, null);
+            }
         }
 
         return (IdentityResult.Success, user, password);
