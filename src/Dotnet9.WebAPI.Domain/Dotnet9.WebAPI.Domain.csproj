@@ -11,8 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.Core\Dotnet9.Core.csproj" />
     <ProjectReference Include="..\Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj" />
     <ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
+    <ProjectReference Include="..\Dotnet9.WebAPI.Domain.Shared\Dotnet9.WebAPI.Domain.Shared.csproj" />
   </ItemGroup>
 
 </Project>
