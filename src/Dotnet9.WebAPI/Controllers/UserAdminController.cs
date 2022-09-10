@@ -1,8 +1,4 @@
-﻿using Dotnet9.EventBus;
-using Dotnet9.WebAPI.Application.Contracts.UserAdmin;
-using Dotnet9.WebAPI.Events;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]

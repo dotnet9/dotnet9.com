@@ -9,7 +9,7 @@ public class AboutDomainService
         _repository = repository;
     }
 
-    public async Task<About> AddAboutAsync(string content)
+    public About AddAbout(string content)
     {
         var id = Guid.NewGuid();
         return new About(id, content);

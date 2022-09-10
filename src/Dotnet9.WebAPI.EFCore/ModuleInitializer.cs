@@ -7,5 +7,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<IdDomainService>();
         services.AddScoped<IIdRepository, IdRepository>();
         services.AddScoped<IAboutRepository, AboutRepository>();
+        services.AddScoped<IActionLogRepository, ActionLogRepository>();
     }
 }

@@ -44,7 +44,7 @@ public class AboutController : ControllerBase
         var about = await _repository.GetAboutAsync();
         if (about == null)
         {
-            about = await _domainService.AddAboutAsync(request.Content);
+            about = _domainService.AddAbout(request.Content);
             await _dbContext.AddAsync(about);
         }
         else
