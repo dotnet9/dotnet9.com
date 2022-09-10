@@ -71,8 +71,11 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
             var tableName = _options.TableName;
             Data.Clear();
             using var conn = _options.CreateDbConnection?.Invoke();
-            conn?.Open();
-            DoLoad(tableName, conn);
+            if (conn != null)
+            {
+                conn.Open();
+                DoLoad(tableName, conn);
+            }
         }
         catch (DbException)
         {

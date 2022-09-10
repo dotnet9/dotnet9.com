@@ -44,7 +44,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core", "Dotnet9.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Core.Test", "Dotnet9.Core.Test\Dotnet9.Core.Test.csproj", "{341D8EF4-74B9-455D-83FC-940BA13BABB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebAPI.Infrastructure", "Dotnet9.WebAPI.Infrastructure\Dotnet9.WebAPI.Infrastructure.csproj", "{F3A6CBCE-6697-43C7-B474-CA4466D9E497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.EFCore", "Dotnet9.WebAPI.EFCore\Dotnet9.WebAPI.EFCore.csproj", "{F3A6CBCE-6697-43C7-B474-CA4466D9E497}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

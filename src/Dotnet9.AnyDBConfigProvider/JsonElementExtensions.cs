@@ -2,21 +2,13 @@
 
 internal static class JsonElementExtensions
 {
-    public static string GetValueForConfig(this JsonElement e)
+    public static string? GetValueForConfig(this JsonElement e)
     {
-        if (e.ValueKind == JsonValueKind.String)
+        return e.ValueKind switch
         {
-            //remove the quotes, "ab"-->ab
-            return e.GetString();
-        }
-
-        if (e.ValueKind == JsonValueKind.Null
-            || e.ValueKind == JsonValueKind.Undefined)
-        {
-            //remove the quotes, "null"-->null
-            return null;
-        }
-
-        return e.GetRawText();
+            JsonValueKind.String => e.GetString(),
+            JsonValueKind.Null or JsonValueKind.Undefined => null,
+            _ => e.GetRawText()
+        };
     }
 }

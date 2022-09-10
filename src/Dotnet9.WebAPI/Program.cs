@@ -1,4 +1,4 @@
-using Dotnet9.WebAPI.Infrastructure.Services;
+using Dotnet9.WebAPI.EFCore.Services;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +37,7 @@ var idBuilder = builder.Services.AddIdentityCore<User>(options =>
 );
 idBuilder = new IdentityBuilder(idBuilder.UserType, typeof(Role), builder.Services);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-idBuilder.AddEntityFrameworkStores<IdDbContext>().AddDefaultTokenProviders()
+idBuilder.AddEntityFrameworkStores<Dotnet9DbContext>().AddDefaultTokenProviders()
     .AddRoleValidator<RoleValidator<Role>>()
     .AddRoleManager<RoleManager<Role>>()
     .AddUserManager<IdUserManager>();

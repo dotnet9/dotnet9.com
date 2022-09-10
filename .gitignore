@@ -349,14 +349,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 *.jwk
-src/Dotnet9.Web/appsettings.Development.json
-src/Dotnet9.Web/appsettings.Production.json
-src/Dotnet9.Web/sitemap.xml
-src/Dotnet9.EntityFrameworkCore/Migrations/
-src/Dotnet9.Admin/package-lock.json
-src/Dotnet9.Admin/build/
-src/Dotnet9-VNext/IdentityService.WebAPI/appsettings.Development.json
-src/admin/Dotnet9.WebAPI/appsettings.Development.json
 src/Dotnet9.WebAPI/appsettings.Development.json
 src/Dotnet9.WebAPI/appsettings.Production.json
-src/Dotnet9.WebAPI.Infrastructure/Migrations/
+src/Dotnet9.WebAPI.EFCore/Migrations/
