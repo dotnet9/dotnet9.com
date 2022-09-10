@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.Shared.Abouts;
-
-namespace Dotnet9.WebAPI.Application.Contracts.Abouts;
+﻿namespace Dotnet9.WebAPI.Domain.Shared.Abouts;
 
 public record AddOrUpdateAboutRequest(string Content);
 

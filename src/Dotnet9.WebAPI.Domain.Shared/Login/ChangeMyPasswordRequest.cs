@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.Application.Contracts.Login;
+﻿namespace Dotnet9.WebAPI.Domain.Shared.Login;
 
 public record ChangeMyPasswordRequest(string Password, string Password2);
 

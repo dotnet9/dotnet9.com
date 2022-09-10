@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.Shared;
-
-namespace Dotnet9.WebAPI.Application.Contracts.UserAdmin;
+﻿namespace Dotnet9.WebAPI.Domain.Shared.UserAdmin;
 
 public record EditUserRequest(string RoleName, string PhoneNumber);
 
