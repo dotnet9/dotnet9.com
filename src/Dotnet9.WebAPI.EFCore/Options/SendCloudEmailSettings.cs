@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.Options;
+﻿namespace Dotnet9.WebAPI.EFCore.Options;
 
 public class SendCloudEmailSettings
 {

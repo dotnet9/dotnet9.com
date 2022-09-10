@@ -2,7 +2,7 @@
 using Dotnet9.WebAPI.Domain.Shared;
 using Microsoft.AspNetCore.Identity;
 
-namespace Dotnet9.WebAPI.Infrastructure.UserAdmin;
+namespace Dotnet9.WebAPI.EFCore.UserAdmin;
 
 internal class IdRepository : IIdRepository
 {

@@ -1,11 +1,13 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.UserAdmin;
+﻿namespace Dotnet9.WebAPI.EFCore;
 
-public class IdDbContext : IdentityDbContext<User, Role, Guid>
+public class Dotnet9DbContext : IdentityDbContext<User, Role, Guid>
 {
-    public IdDbContext(DbContextOptions<IdDbContext> options)
+    public Dotnet9DbContext(DbContextOptions<Dotnet9DbContext> options)
         : base(options)
     {
     }
+
+    public DbSet<About> Abouts { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

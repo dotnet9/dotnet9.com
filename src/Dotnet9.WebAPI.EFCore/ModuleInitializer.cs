@@ -1,7 +1,4 @@
-﻿using Dotnet9.WebAPI.Infrastructure.UserAdmin;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Dotnet9.WebAPI.Infrastructure;
+﻿namespace Dotnet9.WebAPI.EFCore;
 
 internal class ModuleInitializer : IModuleInitializer
 {
@@ -9,5 +6,6 @@ internal class ModuleInitializer : IModuleInitializer
     {
         services.AddScoped<IdDomainService>();
         services.AddScoped<IIdRepository, IdRepository>();
+        services.AddScoped<IAboutRepository, AboutRepository>();
     }
 }
