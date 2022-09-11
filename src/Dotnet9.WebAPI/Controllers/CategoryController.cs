@@ -17,7 +17,6 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<QueryCategoryResponse> List([FromQuery] QueryCategoryRequest request)
     {
         return await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);

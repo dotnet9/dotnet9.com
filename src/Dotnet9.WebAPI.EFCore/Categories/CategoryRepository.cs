@@ -43,7 +43,7 @@ internal class CategoryRepository : ICategoryRepository
             whereLambda = log =>
                 EF.Functions.Like(log.Name, $"%{keywords}%")
                 || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || EF.Functions.Like(log.Description, $"%{keywords}%");
+                || (!log.Description.IsNullOrWhiteSpace() && EF.Functions.Like(log.Description!, $"%{keywords}%"));
         }
 
         var categoryFromDb = _dbContext.Categories.Where(whereLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize);
