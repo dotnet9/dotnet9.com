@@ -37,6 +37,6 @@ public class ActionLogController : ControllerBase
         var actionLog = _domainService.AddActionLog(request);
         var actionLogFromDb = await _dbContext.AddAsync(actionLog);
         await _dbContext.SaveChangesAsync();
-        return actionLogFromDb.Adapt<ActionLogDto>();
+        return actionLogFromDb.Entity.Adapt<ActionLogDto>();
     }
 }
