@@ -34,19 +34,19 @@ public class CategoryController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<CategoryDTO> Add([FromBody] AddCategoryRequest request)
     {
-        var actionLog = await _manager.CreateAsync(request);
-        var actionLogFromDb = await _dbContext.AddAsync(actionLog);
+        var category = await _manager.CreateAsync(request);
+        var categoryFromDb = await _dbContext.AddAsync(category);
         await _dbContext.SaveChangesAsync();
-        return actionLogFromDb.Entity.Adapt<CategoryDTO>();
+        return categoryFromDb.Entity.Adapt<CategoryDTO>();
     }
 
     [HttpPut]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<CategoryDTO> Update(Guid id, [FromBody] UpdateCategoryRequest request)
     {
-        var actionLog = await _manager.CreateAsync(id, request);
-        var actionLogFromDb = await _dbContext.AddAsync(actionLog);
+        var category = await _manager.CreateAsync(id, request);
+        var categoryFromDb = await _dbContext.AddAsync(category);
         await _dbContext.SaveChangesAsync();
-        return actionLogFromDb.Entity.Adapt<CategoryDTO>();
+        return categoryFromDb.Entity.Adapt<CategoryDTO>();
     }
 }
