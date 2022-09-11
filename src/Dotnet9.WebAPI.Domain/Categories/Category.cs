@@ -41,40 +41,40 @@ public record Category : AggregateRootEntity
         return this;
     }
 
-    internal Category ChangeName(string name)
+    public Category ChangeName(string name)
     {
         Name = Check.NotNullOrWhiteSpace(name, nameof(name), CategoryConsts.MaxNameLength,
             CategoryConsts.MinNameLength);
         return this;
     }
 
-    internal Category ChangeSlug(string slug)
+    public Category ChangeSlug(string slug)
     {
         Slug = Check.NotNullOrWhiteSpace(slug, nameof(slug), CategoryConsts.MaxSlugLength,
             CategoryConsts.MinSlugLength);
         return this;
     }
 
-    internal Category ChangeCover(string cover)
+    public Category ChangeCover(string cover)
     {
         Cover = Check.NotNullOrWhiteSpace(cover, nameof(cover), CategoryConsts.MaxCoverLength,
             CategoryConsts.MinCoverLength);
         return this;
     }
 
-    internal Category ChangeDescription(string? description)
+    public Category ChangeDescription(string? description)
     {
         Description = Check.NotNullOrWhiteSpace(description, nameof(description), CategoryConsts.MaxDescriptionLength);
         return this;
     }
 
-    internal Category ChangeVisible(bool visible)
+    public Category ChangeVisible(bool visible)
     {
         Visible = visible;
         return this;
     }
 
-    internal Category ChangeParentId(Guid? parentId)
+    public Category ChangeParentId(Guid? parentId)
     {
         ParentId = parentId;
         return this;

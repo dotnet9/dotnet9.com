@@ -11,7 +11,7 @@ public record ActionLog : IEntity, IHasCreationTime
         string ua,
         string os,
         string browser,
-        string? ip,
+        string ip,
         string? referer = null,
         string? accessName = null,
         string? original = null,
@@ -64,25 +64,25 @@ public record ActionLog : IEntity, IHasCreationTime
     public DateTime CreationTime { get; } = DateTime.Now;
 
 
-    public ActionLog ChangeUId(string? uid)
+    public ActionLog ChangeUId(string uid)
     {
         UId = Check.NotNullOrWhiteSpace(uid, nameof(uid), ActionLogConsts.MaxUIdLength, ActionLogConsts.MinUIdLength);
         return this;
     }
 
-    public ActionLog ChangeUA(string? ua)
+    public ActionLog ChangeUA(string ua)
     {
         UA = Check.NotNullOrWhiteSpace(ua, nameof(ua), ActionLogConsts.MaxUALength, ActionLogConsts.MinUALength);
         return this;
     }
 
-    public ActionLog ChangeOS(string? os)
+    public ActionLog ChangeOS(string os)
     {
         OS = Check.NotNullOrWhiteSpace(os, nameof(os), ActionLogConsts.MaxOSLength, ActionLogConsts.MinOSLength);
         return this;
     }
 
-    public ActionLog ChangeBrowser(string? browser)
+    public ActionLog ChangeBrowser(string browser)
     {
         Browser = Check.NotNullOrWhiteSpace(browser, nameof(browser), ActionLogConsts.MaxBrowserLength,
             ActionLogConsts.MinBrowserLength);
@@ -107,7 +107,7 @@ public record ActionLog : IEntity, IHasCreationTime
         return this;
     }
 
-    public ActionLog ChangeIP(string? ip)
+    public ActionLog ChangeIP(string ip)
     {
         IP = Check.NotNullOrWhiteSpace(ip, nameof(ip), ActionLogConsts.MaxIPLength, ActionLogConsts.MinIPLength);
         return this;

@@ -2,6 +2,6 @@
 
 public interface IActionLogRepository
 {
-    Task<QueryActionLogResponse> QueryAsync(string? keywords, int pageIndex, int pageSize);
+    Task<(ActionLog[]? Logs, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize);
     Task<int> DeleteAsync(Guid[] ids);
 }

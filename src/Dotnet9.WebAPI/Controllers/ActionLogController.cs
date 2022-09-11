@@ -20,7 +20,8 @@ public class ActionLogController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<QueryActionLogResponse> List([FromQuery] QueryActionLogRequest request)
     {
-        return await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        return new QueryActionLogResponse(result.Logs?.Adapt<ActionLogDTO[]>(), result.Count);
     }
 
     [HttpDelete]
@@ -34,7 +35,10 @@ public class ActionLogController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ActionLogDTO> Add([FromBody] AddActionLogRequest request)
     {
-        var actionLog = _manager.Create(request);
+        var actionLog = _manager.Create(request.UId, request.UA, request.OS, request.Browser, request.IP,
+            request.Referer, request.AccessName,
+            request.Original, request.Url, request.Controller, request.Action, request.Method, request.Arguments,
+            request.Duration);
         var actionLogFromDb = await _dbContext.AddAsync(actionLog);
         await _dbContext.SaveChangesAsync();
         return actionLogFromDb.Entity.Adapt<ActionLogDTO>();

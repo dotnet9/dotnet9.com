@@ -10,9 +10,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj" />
-    <ProjectReference Include="..\Dotnet9.WebAPI.Domain.Shared\Dotnet9.WebAPI.Domain.Shared.csproj" />
     <ProjectReference Include="..\Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj" />
-    <ProjectReference Include="..\Dotnet9.WebAPI.EFCore\Dotnet9.WebAPI.EFCore.csproj" />
+    <ProjectReference Include="..\Dotnet9.WebAPI.Infrastructure\Dotnet9.WebAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

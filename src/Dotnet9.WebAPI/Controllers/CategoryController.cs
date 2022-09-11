@@ -4,22 +4,26 @@
 [ApiController]
 public class CategoryController : ControllerBase
 {
+    private readonly IAlbumRepository _albumRepository;
     private readonly Dotnet9DbContext _dbContext;
     private readonly CategoryManager _manager;
     private readonly ICategoryRepository _repository;
 
     public CategoryController(Dotnet9DbContext dbContext, ICategoryRepository repository,
+        IAlbumRepository albumRepository,
         CategoryManager manager)
     {
         _dbContext = dbContext;
         _repository = repository;
+        _albumRepository = albumRepository;
         _manager = manager;
     }
 
     [HttpGet]
     public async Task<QueryCategoryResponse> List([FromQuery] QueryCategoryRequest request)
     {
-        return await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        return new QueryCategoryResponse(result.Categories?.Adapt<CategoryDTO[]>(), result.Count);
     }
 
     [HttpDelete]
@@ -33,18 +37,21 @@ public class CategoryController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<CategoryDTO> Add([FromBody] AddCategoryRequest request)
     {
-        var category = await _manager.CreateAsync(request);
+        var category = await _manager.CreateAsync(null, request.SequenceNumber, request.Name, request.Slug,
+            request.Cover, request.Description, request.Visible, request.ParentId);
         var categoryFromDb = await _dbContext.AddAsync(category);
         await _dbContext.SaveChangesAsync();
         return categoryFromDb.Entity.Adapt<CategoryDTO>();
     }
 
     [HttpPut]
+    [Route("{id}")]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<CategoryDTO> Update(Guid id, [FromBody] UpdateCategoryRequest request)
     {
-        var category = await _manager.CreateAsync(id, request);
-        var categoryFromDb = await _dbContext.AddAsync(category);
+        var category = await _manager.CreateAsync(id, request.SequenceNumber, request.Name, request.Slug,
+            request.Cover, request.Description, request.Visible, request.ParentId);
+        var categoryFromDb = _dbContext.Update(category);
         await _dbContext.SaveChangesAsync();
         return categoryFromDb.Entity.Adapt<CategoryDTO>();
     }

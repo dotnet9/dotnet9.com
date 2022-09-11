@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.Shared.Timelines;
-
-namespace Dotnet9.WebAPI.Domain.Timelines;
+﻿namespace Dotnet9.WebAPI.Domain.Timelines;
 
 public record Timeline : AggregateRootEntity
 {

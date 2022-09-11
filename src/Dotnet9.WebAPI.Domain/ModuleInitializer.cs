@@ -7,5 +7,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<AboutManager>();
         services.AddScoped<ActionLogManager>();
         services.AddScoped<CategoryManager>();
+        services.AddScoped<AlbumManager>();
     }
 }

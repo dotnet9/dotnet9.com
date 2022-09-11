@@ -1,6 +1,3 @@
-using Dotnet9.WebAPI.EFCore.Services;
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
