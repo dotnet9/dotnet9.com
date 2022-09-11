@@ -1,6 +1,4 @@
-﻿using Dotnet9.Core;
-
-namespace Dotnet9.DomainCommons.Models;
+﻿namespace Dotnet9.DomainCommons.Models;
 
 public abstract record BaseEntity : IEntity, IDomainEvents
 {

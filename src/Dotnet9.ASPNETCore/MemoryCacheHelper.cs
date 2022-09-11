@@ -18,7 +18,7 @@ public class MemoryCacheHelper : IMemoryCacheHelper
         ValidateValueType<TResult>();
         //因为IMemoryCache保存的是一个CacheEntry，所以null值也认为是合法的，因此返回null不会有“缓存穿透”的问题
         //不调用系统内置的CacheExtensions.GetOrCreate，而是直接用GetOrCreate的代码，这样免得包装一次委托
-        if (!memoryCache.TryGetValue(cacheKey, out TResult result))
+        if (!memoryCache.TryGetValue(cacheKey, out TResult? result))
         {
             using var entry = memoryCache.CreateEntry(cacheKey);
             InitCacheEntry(entry, baseExpireSeconds);
@@ -33,7 +33,7 @@ public class MemoryCacheHelper : IMemoryCacheHelper
         Func<ICacheEntry, Task<TResult?>> valueFactory, int baseExpireSeconds = 60)
     {
         ValidateValueType<TResult>();
-        if (!memoryCache.TryGetValue(cacheKey, out TResult result))
+        if (!memoryCache.TryGetValue(cacheKey, out TResult? result))
         {
             using var entry = memoryCache.CreateEntry(cacheKey);
             InitCacheEntry(entry, baseExpireSeconds);

@@ -20,6 +20,11 @@ public static class EFCoreInitializerHelper
         };
         var methodAddDbContext = typeof(EntityFrameworkServiceCollectionExtensions)
             .GetMethod(nameof(EntityFrameworkServiceCollectionExtensions.AddDbContext), 1, types);
+        if (methodAddDbContext == null)
+        {
+            return services;
+        }
+
         foreach (var asmToLoad in assemblies)
         {
             var typesInAsm = asmToLoad.GetTypes();

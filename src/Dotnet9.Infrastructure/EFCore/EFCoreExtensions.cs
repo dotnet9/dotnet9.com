@@ -14,6 +14,11 @@ public static class EFCoreExtensions
         foreach (var entityType in entityTypesHasSoftDeletion)
         {
             var isDeletedProperty = entityType.FindProperty(nameof(ISoftDelete.IsDeleted));
+            if (isDeletedProperty?.PropertyInfo == null)
+            {
+                continue;
+            }
+
             var parameter = Expression.Parameter(entityType.ClrType, "p");
             var filter =
                 Expression.Lambda(Expression.Not(Expression.Property(parameter, isDeletedProperty.PropertyInfo)),

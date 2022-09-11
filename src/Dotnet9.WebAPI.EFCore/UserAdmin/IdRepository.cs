@@ -81,8 +81,8 @@ internal class IdRepository : IIdRepository
         }
 
         var user = await _userManager.FindByIdAsync(userId.ToString());
-        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-        var resetPwdResult = await _userManager.ResetPasswordAsync(user, token, password);
+        var token = await _userManager.GeneratePasswordResetTokenAsync(user!);
+        var resetPwdResult = await _userManager.ResetPasswordAsync(user!, token, password);
         return resetPwdResult;
     }
 
@@ -177,13 +177,13 @@ internal class IdRepository : IIdRepository
         //一定要删除aspnetuserlogins表中的数据，否则再次用这个外部登录登录的话
         //就会报错：The instance of entity type 'IdentityUserLogin<Guid>' cannot be tracked because another instance with the same key value for {'LoginProvider', 'ProviderKey'} is already being tracked.
         //而且要先删除aspnetuserlogins数据，再软删除User
-        var logins = await userLoginStore.GetLoginsAsync(user, noneCT);
+        var logins = await userLoginStore.GetLoginsAsync(user!, noneCT);
         foreach (var login in logins)
         {
-            await userLoginStore.RemoveLoginAsync(user, login.LoginProvider, login.ProviderKey, noneCT);
+            await userLoginStore.RemoveLoginAsync(user!, login.LoginProvider, login.ProviderKey, noneCT);
         }
 
-        user.SoftDelete();
+        user!.SoftDelete();
         var result = await _userManager.UpdateAsync(user);
         return result;
     }

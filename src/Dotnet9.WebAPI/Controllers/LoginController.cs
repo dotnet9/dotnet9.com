@@ -40,13 +40,13 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<UserResponse>> GetUserInfo()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _repository.FindByIdAsync(Guid.Parse(userId));
+        var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
         if (user == null)
         {
             return NotFound();
         }
 
-        return new UserResponse(user.Id, user.PhoneNumber, user.CreationTime);
+        return new UserResponse(user.Id, user.PhoneNumber!, user.CreationTime);
     }
 
     [HttpPost]
@@ -54,7 +54,7 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<IdentityResult>> ChangePassword(ChangeMyPasswordRequest req)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _repository.FindByIdAsync(Guid.Parse(userId));
+        var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
         if (user == null)
         {
             return NotFound();

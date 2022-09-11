@@ -50,34 +50,32 @@ internal class RabbitMQEventBus : IEventBus, IDisposable
         //Channel 是建立在 Connection 上的虚拟连接
         //创建和销毁 TCP 连接的代价非常高，
         //Connection 可以创建多个 Channel ，Channel 不是线程安全的所以不能在线程间共享。
-        using (var channel = _persistentConnection.CreateModel())
+        using var channel = _persistentConnection.CreateModel();
+        channel.ExchangeDeclare(_exchangeName, "direct");
+
+        byte[] body;
+        if (eventData == null)
         {
-            channel.ExchangeDeclare(_exchangeName, "direct");
-
-            byte[] body;
-            if (eventData == null)
-            {
-                body = new byte[0];
-            }
-            else
-            {
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true
-                };
-                body = JsonSerializer.SerializeToUtf8Bytes(eventData, eventData.GetType(), options);
-            }
-
-            var properties = channel.CreateBasicProperties();
-            properties.DeliveryMode = 2; // persistent
-
-            channel.BasicPublish(
-                _exchangeName,
-                eventName,
-                true,
-                properties,
-                body);
+            body = Array.Empty<byte>();
         }
+        else
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            body = JsonSerializer.SerializeToUtf8Bytes(eventData, eventData.GetType(), options);
+        }
+
+        var properties = channel!.CreateBasicProperties();
+        properties.DeliveryMode = 2; // persistent
+
+        channel.BasicPublish(
+            _exchangeName,
+            eventName,
+            true,
+            properties,
+            body);
     }
 
     public void Subscribe(string eventName, Type handlerType)
@@ -182,10 +180,11 @@ internal class RabbitMQEventBus : IEventBus, IDisposable
         }
 
         var channel = _persistentConnection.CreateModel();
-        channel.ExchangeDeclare(_exchangeName,
+        
+        channel!.ExchangeDeclare(_exchangeName,
             "direct");
 
-        channel.QueueDeclare(_queueName,
+        channel!.QueueDeclare(_queueName,
             true,
             false,
             false,
@@ -225,7 +224,7 @@ internal class RabbitMQEventBus : IEventBus, IDisposable
         }
         else
         {
-            var entryAsm = Assembly.GetEntryAssembly().GetName().Name;
+            var entryAsm = Assembly.GetEntryAssembly()?.GetName().Name;
             Debug.WriteLine($"找不到可以处理eventName={eventName}的处理程序，entryAsm:{entryAsm}");
         }
     }

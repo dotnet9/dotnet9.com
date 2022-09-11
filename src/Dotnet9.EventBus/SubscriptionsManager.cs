@@ -7,7 +7,7 @@ internal class SubscriptionsManager
 
     public bool IsEmpty => !_handlers.Keys.Any();
 
-    public event EventHandler<string> OnEventRemoved;
+    public event EventHandler<string>? OnEventRemoved;
 
     public void Clear()
     {

@@ -1,6 +1,5 @@
 ﻿global using Dotnet9.Commons;
-global using Dotnet9.Core;
-global using Dotnet9.Core.FileHelpers;
+global using Dotnet9.Commons.FileHelpers;
 global using Dotnet9.DomainCommons.Models;
 global using Dotnet9.JWT;
 global using Dotnet9.WebAPI.Domain.Abouts;

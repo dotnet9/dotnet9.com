@@ -11,7 +11,7 @@ public static class WebApplicationBuilderExtensions
             //string connStr = configRoot.GetValue<string>("DefaultDB:ConnectionString");
             var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
 
-            configBuilder.AddDbConfiguration(() => new NpgsqlConnection(connStr), reloadOnChange: true,
+            _ = configBuilder.AddDbConfiguration(() => new NpgsqlConnection(connStr!), reloadOnChange: true,
                 reloadInterval: TimeSpan.FromSeconds(5));
         });
     }
@@ -37,7 +37,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication();
         var jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
-        builder.Services.AddJWTAuthentication(jwtOpt);
+        builder.Services.AddJWTAuthentication(jwtOpt!);
         //启用Swagger中的【Authorize】按钮。这样就不用每个项目的AddSwaggerGen中单独配置了
         builder.Services.Configure<SwaggerGenOptions>(c => { c.AddAuthenticationHeader(); });
         //结束:Authentication,Authorization
@@ -69,14 +69,15 @@ public static class WebApplicationBuilderExtensions
             Log.Logger = new LoggerConfiguration()
                 // .MinimumLevel.Information().Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File(initOptions.LogFilePath)
+                .WriteTo.File(initOptions.LogFilePath!)
                 .CreateLogger();
             builder.AddSerilog();
         });
+
         services.AddFluentValidation(fv => { fv.RegisterValidatorsFromAssemblies(assemblies); });
         services.Configure<JWTOptions>(configuration.GetSection("JWT"));
         services.Configure<IntegrationEventRabbitMQOptions>(configuration.GetSection("RabbitMQ"));
-        services.AddEventBus(initOptions.EventBusQueueName, assemblies);
+        services.AddEventBus(initOptions.EventBusQueueName!, assemblies);
 
         //Redis的配置
         var redisConnStr = configuration.GetValue<string>("Redis:ConnectionString");

@@ -1,5 +1,6 @@
 ﻿namespace Dotnet9.AnyDBConfigProvider;
 
+// ReSharper disable once InconsistentNaming
 public class DBConfigurationProvider : ConfigurationProvider, IDisposable
 {
     //allow multi reading and single writing
@@ -34,7 +35,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         _isDisposed = true;
     }
 
-    public override IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
+    public override IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string? parentPath)
     {
         _lockObj.EnterReadLock();
         try
@@ -47,7 +48,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         }
     }
 
-    public override bool TryGet(string key, out string value)
+    public override bool TryGet(string key, out string? value)
     {
         _lockObj.EnterReadLock();
         try
@@ -67,7 +68,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         try
         {
             _lockObj.EnterWriteLock();
-            clonedData = Data.Clone();
+            clonedData = Data!.Clone();
             var tableName = _options.TableName;
             Data.Clear();
             using var conn = _options.CreateDbConnection?.Invoke();
@@ -80,7 +81,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         catch (DbException)
         {
             //if DbException is thrown, restore to the original data.
-            Data = clonedData;
+            Data = clonedData!;
             throw;
         }
         finally
@@ -89,7 +90,7 @@ public class DBConfigurationProvider : ConfigurationProvider, IDisposable
         }
 
         //OnReload cannot be between EnterWriteLock and ExitWriteLock, or "A read lock may not be acquired with the write lock held in this mode" will be thrown.
-        if (Helper.IsChanged(clonedData, Data))
+        if (Helper.IsChanged(clonedData, Data!))
         {
             OnReload();
         }

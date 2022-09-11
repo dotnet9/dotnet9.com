@@ -1,10 +1,11 @@
 ﻿namespace Dotnet9.EventBus;
 
+// ReSharper disable once InconsistentNaming
 internal class RabbitMQConnection
 {
     private readonly IConnectionFactory _connectionFactory;
-    private readonly object sync_root = new();
-    private IConnection _connection;
+    private readonly object _syncRoot = new();
+    private IConnection? _connection;
     private bool _disposed;
 
     public RabbitMQConnection(IConnectionFactory connectionFactory)
@@ -14,14 +15,14 @@ internal class RabbitMQConnection
 
     public bool IsConnected => _connection != null && _connection.IsOpen && !_disposed;
 
-    public IModel CreateModel()
+    public IModel? CreateModel()
     {
         if (!IsConnected)
         {
             throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
         }
 
-        return _connection.CreateModel();
+        return _connection?.CreateModel();
     }
 
     public void Dispose()
@@ -32,16 +33,16 @@ internal class RabbitMQConnection
         }
 
         _disposed = true;
-        _connection.Dispose();
+        _connection?.Dispose();
     }
 
     public bool TryConnect()
     {
-        lock (sync_root)
+        lock (_syncRoot)
         {
             _connection = _connectionFactory.CreateConnection();
 
-            if (IsConnected)
+            if (IsConnected && _connection != null)
             {
                 _connection.ConnectionShutdown += OnConnectionShutdown;
                 _connection.CallbackException += OnCallbackException;
@@ -53,7 +54,7 @@ internal class RabbitMQConnection
         }
     }
 
-    private void OnConnectionBlocked(object sender, ConnectionBlockedEventArgs e)
+    private void OnConnectionBlocked(object? sender, ConnectionBlockedEventArgs e)
     {
         if (_disposed)
         {
@@ -63,7 +64,7 @@ internal class RabbitMQConnection
         TryConnect();
     }
 
-    private void OnCallbackException(object sender, CallbackExceptionEventArgs e)
+    private void OnCallbackException(object? sender, CallbackExceptionEventArgs e)
     {
         if (_disposed)
         {
@@ -73,7 +74,7 @@ internal class RabbitMQConnection
         TryConnect();
     }
 
-    private void OnConnectionShutdown(object sender, ShutdownEventArgs reason)
+    private void OnConnectionShutdown(object? sender, ShutdownEventArgs reason)
     {
         if (_disposed)
         {

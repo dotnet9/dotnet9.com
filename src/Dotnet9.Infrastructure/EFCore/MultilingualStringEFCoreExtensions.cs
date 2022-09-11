@@ -13,12 +13,12 @@ public static class MultilingualStringEFCoreExtensions
          * instance won't be created in the query. Add a required property to create instances with null values for other properties or mark the
          * incoming navigation as required to always create an instance.
          */
-        entityTypeBuilder.OwnsOne(navigationExpression, dp =>
+        _ = entityTypeBuilder.OwnsOne(navigationExpression!, dp =>
         {
             dp.Property(c => c.Chinese).IsRequired(required).HasMaxLength(maxLength).IsUnicode();
             dp.Property(c => c.English).IsRequired(required).HasMaxLength(maxLength).IsUnicode();
         });
-        entityTypeBuilder.Navigation(navigationExpression).IsRequired(required);
+        entityTypeBuilder.Navigation(navigationExpression!).IsRequired(required);
         return entityTypeBuilder;
     }
 }

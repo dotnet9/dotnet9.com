@@ -1,5 +1,4 @@
 ﻿global using Dotnet9.Commons;
-global using Dotnet9.Core;
 global using Dotnet9.Infrastructure.EFCore;
 global using Dotnet9.WebAPI.Domain;
 global using Dotnet9.WebAPI.Domain.Abouts;

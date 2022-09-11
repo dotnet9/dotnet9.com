@@ -1,5 +1,6 @@
 ﻿namespace Dotnet9.Infrastructure.EFCore;
 
+// ReSharper disable once InconsistentNaming
 public static class EFCoreHelper
 {
     /// <summary>
@@ -8,7 +9,7 @@ public static class EFCoreHelper
     /// <typeparam name="TEntity"></typeparam>
     /// <param name="dbCtx"></param>
     /// <returns></returns>
-    public static string GetTableName<TEntity>(this DbContext dbCtx)
+    public static string? GetTableName<TEntity>(this DbContext dbCtx)
     {
         var entityType = dbCtx.Model.FindEntityType(typeof(TEntity));
         if (entityType == null)
@@ -27,7 +28,7 @@ public static class EFCoreHelper
     /// <param name="dbCtx"></param>
     /// <param name="propertyLambda"></param>
     /// <returns></returns>
-    public static string GetColumnName<TEntity>(this DbContext dbCtx, Expression<Func<TEntity, object>> propertyLambda)
+    public static string? GetColumnName<TEntity>(this DbContext dbCtx, Expression<Func<TEntity, object>> propertyLambda)
     {
         var entityType = dbCtx.Model.FindEntityType(typeof(TEntity));
         if (entityType == null)
@@ -59,7 +60,8 @@ public static class EFCoreHelper
         }
 
         var type = typeof(TEntity);
-        if (type != propInfo.ReflectedType && !type.IsSubclassOf(propInfo.ReflectedType))
+        if (propInfo.ReflectedType != null && type != propInfo.ReflectedType &&
+            !type.IsSubclassOf(propInfo.ReflectedType))
         {
             throw new ArgumentException(string.Format(
                 "Expression '{0}' refers to a property that is not from type {1}.",
@@ -68,6 +70,6 @@ public static class EFCoreHelper
 
         var propertyName = propInfo.Name;
         var objId = StoreObjectIdentifier.Create(entityType, StoreObjectType.Table);
-        return entityType.FindProperty(propertyName).GetColumnName(objId.Value);
+        return entityType.FindProperty(propertyName)?.GetColumnName(objId!.Value);
     }
 }

@@ -54,7 +54,7 @@ public static class ServicesCollectionExtensions
             //eventbus的Dispose中会销毁RabbitMQConnection
             var mqConnection = new RabbitMQConnection(factory);
             var serviceScopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
-            var eventBus = new RabbitMQEventBus(mqConnection, serviceScopeFactory, optionMQ.ExchangeName, queueName);
+            var eventBus = new RabbitMQEventBus(mqConnection, serviceScopeFactory, optionMQ.ExchangeName!, queueName);
             //遍历所有实现了IIntegrationEventHandler接口的类，然后把它们批量注册到eventBus
             foreach (var type in eventHandlerTypes)
             {

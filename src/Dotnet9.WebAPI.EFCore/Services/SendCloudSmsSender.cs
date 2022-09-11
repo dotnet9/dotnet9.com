@@ -19,7 +19,7 @@ public class SendCloudSmsSender : ISmsSender
     {
         logger.LogInformation("Send Sms to {0},args:{1}", phoneNum, string.Join("|", args));
         var postBody = new Dictionary<string, string>();
-        postBody["smsUser"] = smsSettings.Value.SmsUser;
+        postBody["smsUser"] = smsSettings.Value.SmsUser!;
         postBody["templateId"] = "10010";
         postBody["phone"] = phoneNum;
         postBody["vars"] = args.ToJsonString();
@@ -37,7 +37,7 @@ public class SendCloudSmsSender : ISmsSender
 
             var respBody = await responseMsg.Content.ReadAsStringAsync();
             var respModel = respBody.ParseJson<SendCloudResponseModel>();
-            if (!respModel.Result)
+            if (!respModel!.Result)
             {
                 throw new ApplicationException($"发送短信失败：{respModel.Message}");
             }
