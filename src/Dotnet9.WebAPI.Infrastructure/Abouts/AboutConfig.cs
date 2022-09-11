@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.Abouts;
+﻿namespace Dotnet9.WebAPI.Infrastructure.Abouts;
 
 internal class AboutConfig : IEntityTypeConfiguration<About>
 {

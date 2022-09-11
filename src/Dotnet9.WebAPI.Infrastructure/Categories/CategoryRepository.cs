@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.Categories;
+﻿namespace Dotnet9.WebAPI.Infrastructure.Categories;
 
 internal class CategoryRepository : ICategoryRepository
 {
@@ -31,7 +31,7 @@ internal class CategoryRepository : ICategoryRepository
         return await _dbContext.Categories.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<QueryCategoryResponse> QueryAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Category[]? Categories, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize)
     {
         Expression<Func<Category, bool>> whereLambda;
         if (keywords.IsNullOrWhiteSpace())
@@ -43,17 +43,11 @@ internal class CategoryRepository : ICategoryRepository
             whereLambda = log =>
                 EF.Functions.Like(log.Name, $"%{keywords}%")
                 || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (!log.Description.IsNullOrWhiteSpace() && EF.Functions.Like(log.Description!, $"%{keywords}%"));
+                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%"));
         }
 
-        var categoryFromDb = _dbContext.Categories.Where(whereLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize);
-        var categoryCount = categoryFromDb.LongCount();
-        if (categoryCount <= 0)
-        {
-            return new QueryCategoryResponse(null, 0);
-        }
-
-        var categoryDatas = await categoryFromDb.ToListAsync();
-        return new QueryCategoryResponse(categoryDatas.Adapt<CategoryDTO[]>(), categoryCount);
+        var query = _dbContext.Categories.Where(whereLambda);
+        var categoriesFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

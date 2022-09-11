@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.ActionLogs;
+﻿namespace Dotnet9.WebAPI.Infrastructure.ActionLogs;
 
 internal class ActionLogConfig : IEntityTypeConfiguration<ActionLog>
 {

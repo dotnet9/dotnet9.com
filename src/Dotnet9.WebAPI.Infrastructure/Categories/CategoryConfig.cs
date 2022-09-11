@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.Categories;
+﻿namespace Dotnet9.WebAPI.Infrastructure.Categories;
 
 internal class CategoryConfig : IEntityTypeConfiguration<Category>
 {

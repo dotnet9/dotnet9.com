@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.Services;
+﻿namespace Dotnet9.WebAPI.Infrastructure.Services;
 
 public class SendCloudEmailSender : IEmailSender
 {
@@ -10,9 +10,9 @@ public class SendCloudEmailSender : IEmailSender
         IHttpClientFactory httpClientFactory,
         IOptionsSnapshot<SendCloudEmailSettings> sendCloudSettings)
     {
-        this._logger = logger;
-        this._httpClientFactory = httpClientFactory;
-        this._sendCloudSettings = sendCloudSettings;
+        _logger = logger;
+        _httpClientFactory = httpClientFactory;
+        _sendCloudSettings = sendCloudSettings;
     }
 
     public async Task SendAsync(string toEmail, string subject, string body)

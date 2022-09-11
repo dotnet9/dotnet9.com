@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.EFCore.Services;
+﻿namespace Dotnet9.WebAPI.Infrastructure.Services;
 
 internal class SendCloudResponseModel
 {
