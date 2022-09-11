@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Dotnet9.Core.FileHelpers;
+﻿namespace Dotnet9.Commons.FileHelpers;
 
 public static class MarkdownHelper
 {

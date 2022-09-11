@@ -1,6 +1,6 @@
-using Dotnet9.Core.FileHelpers;
+using Dotnet9.Commons.FileHelpers;
 
-namespace Dotnet9.Core.Test.FileHelpers;
+namespace Dotnet9.Commons.Test.FileHelpers;
 
 public class UnitTest1
 {

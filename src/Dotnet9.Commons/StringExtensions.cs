@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Core;
+﻿namespace Dotnet9.Commons;
 
 public static class StringExtensions
 {

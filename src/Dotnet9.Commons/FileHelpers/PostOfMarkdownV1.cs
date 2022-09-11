@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Core.FileHelpers;
+﻿namespace Dotnet9.Commons.FileHelpers;
 
 public class PostOfMarkdownV1
 {
