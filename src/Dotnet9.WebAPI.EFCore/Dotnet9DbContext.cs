@@ -9,6 +9,7 @@ public class Dotnet9DbContext : IdentityDbContext<User, Role, Guid>
 
     public DbSet<About> Abouts { get; private set; }
     public DbSet<ActionLog> ActionLogs { get; private set; }
+    public DbSet<Category> Categories { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

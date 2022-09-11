@@ -1,12 +1,12 @@
 ﻿namespace Dotnet9.WebAPI.Domain.UserAdmin;
 
-public class IdDomainService
+public class IdManager
 {
     private readonly IOptions<JWTOptions> _optJwt;
     private readonly IIdRepository _repository;
     private readonly ITokenService _tokenService;
 
-    public IdDomainService(IIdRepository repository, ITokenService tokenService, IOptions<JWTOptions> optJWT)
+    public IdManager(IIdRepository repository, ITokenService tokenService, IOptions<JWTOptions> optJWT)
     {
         _repository = repository;
         _tokenService = tokenService;

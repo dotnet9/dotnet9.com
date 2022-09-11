@@ -18,3 +18,4 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using System.ComponentModel;
 global using System.Security.Claims;
+global using Dotnet9.WebAPI.Domain.Categories;

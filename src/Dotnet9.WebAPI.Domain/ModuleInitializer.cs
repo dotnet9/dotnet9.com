@@ -4,7 +4,8 @@ internal class ModuleInitializer : IModuleInitializer
 {
     public void Initialize(IServiceCollection services)
     {
-        services.AddScoped<AboutDomainService>();
-        services.AddScoped<ActionLogDomainService>();
+        services.AddScoped<AboutManager>();
+        services.AddScoped<ActionLogManager>();
+        services.AddScoped<CategoryManager>();
     }
 }

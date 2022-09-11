@@ -1,8 +1,8 @@
 ﻿namespace Dotnet9.WebAPI.Domain.ActionLogs;
 
-public class ActionLogDomainService
+public class ActionLogManager
 {
-    public ActionLog AddActionLog(AddActionLogRequest request)
+    public ActionLog Create(AddActionLogRequest request)
     {
         var id = Guid.NewGuid();
         return new ActionLog(id, request.UId, request.UA, request.OS, request.Browser, request.IP, request.Referer,

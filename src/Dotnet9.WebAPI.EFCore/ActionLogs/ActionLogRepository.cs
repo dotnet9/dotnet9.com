@@ -9,12 +9,12 @@ internal class ActionLogRepository : IActionLogRepository
         _dbContext = dbContext;
     }
 
-    public async Task<QueryActionLogResponse> List(string? keywords, int pageIndex, int pageSize)
+    public async Task<QueryActionLogResponse> QueryAsync(string? keywords, int pageIndex, int pageSize)
     {
         Expression<Func<ActionLog, bool>> whereLambda;
         if (keywords.IsNullOrWhiteSpace())
         {
-            whereLambda = log => log.Id != default;
+            whereLambda = log => true;
         }
         else
         {
@@ -25,16 +25,16 @@ internal class ActionLogRepository : IActionLogRepository
 
         var logs = _dbContext.ActionLogs.Where(whereLambda).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         var logCount = logs.LongCount();
-        if (logCount > 0)
+        if (logCount <= 0)
         {
-            var logDatas = await logs.ToListAsync();
-            return new QueryActionLogResponse(logDatas.Adapt<ActionLogDto[]>(), logCount);
+            return new QueryActionLogResponse(null, 0);
         }
 
-        return new QueryActionLogResponse(null, 0);
+        var logDatas = await logs.ToListAsync();
+        return new QueryActionLogResponse(logDatas.Adapt<ActionLogDTO[]>(), logCount);
     }
 
-    public async Task<int> DeleteActionLogsAsync(Guid[] ids)
+    public async Task<int> DeleteAsync(Guid[] ids)
     {
         var logs = await _dbContext.ActionLogs.Where(log => ids.Contains(log.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);

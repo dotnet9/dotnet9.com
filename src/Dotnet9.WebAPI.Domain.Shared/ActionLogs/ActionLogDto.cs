@@ -1,6 +1,7 @@
 ﻿namespace Dotnet9.WebAPI.Domain.Shared.ActionLogs;
 
-public record ActionLogDto(Guid Id,
+// ReSharper disable once InconsistentNaming
+public record ActionLogDTO(Guid Id,
     string? UId,
     string? UA,
     string? OS,

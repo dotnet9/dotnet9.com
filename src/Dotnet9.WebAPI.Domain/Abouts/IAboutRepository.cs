@@ -2,5 +2,5 @@
 
 public interface IAboutRepository
 {
-    Task<About?> GetAboutAsync();
+    Task<About?> GetAsync();
 }

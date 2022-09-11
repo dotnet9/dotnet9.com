@@ -4,12 +4,12 @@
 [ApiController]
 public class LoginController : ControllerBase
 {
-    private readonly IdDomainService _idService;
+    private readonly IdManager _manager;
     private readonly IIdRepository _repository;
 
-    public LoginController(IdDomainService idService, IIdRepository repository)
+    public LoginController(IdManager manager, IIdRepository repository)
     {
-        _idService = idService;
+        _manager = manager;
         _repository = repository;
     }
 
@@ -81,7 +81,7 @@ public class LoginController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<string?>> LoginByPhoneAndPwd(LoginByPhoneAndPwdRequest req)
     {
-        var (checkResult, token) = await _idService.LoginByPhoneAndPwdAsync(req.PhoneNumber, req.Password);
+        var (checkResult, token) = await _manager.LoginByPhoneAndPwdAsync(req.PhoneNumber, req.Password);
         if (checkResult.Succeeded)
         {
             return token;
@@ -97,7 +97,7 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<string?>> LoginByUserNameAndPwd(
         LoginByUserNameAndPwdRequest req)
     {
-        var (checkResult, token) = await _idService.LoginByUserNameAndPwdAsync(req.UserName, req.Password);
+        var (checkResult, token) = await _manager.LoginByUserNameAndPwdAsync(req.UserName, req.Password);
         if (checkResult.Succeeded)
         {
             return token;

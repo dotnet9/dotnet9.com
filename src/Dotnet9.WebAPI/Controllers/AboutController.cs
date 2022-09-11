@@ -6,15 +6,15 @@ public class AboutController : ControllerBase
 {
     private readonly IMemoryCacheHelper _cacheHelper;
     private readonly Dotnet9DbContext _dbContext;
-    private readonly AboutDomainService _domainService;
+    private readonly AboutManager _manager;
     private readonly IAboutRepository _repository;
 
-    public AboutController(Dotnet9DbContext dbContext, IAboutRepository repository, AboutDomainService domainService,
+    public AboutController(Dotnet9DbContext dbContext, IAboutRepository repository, AboutManager manager,
         IMemoryCacheHelper cacheHelper)
     {
         _dbContext = dbContext;
         _repository = repository;
-        _domainService = domainService;
+        _manager = manager;
         _cacheHelper = cacheHelper;
     }
 
@@ -23,7 +23,7 @@ public class AboutController : ControllerBase
     {
         async Task<AboutDTO?> GetAboutFromDb()
         {
-            var aboutFromDb = await _repository.GetAboutAsync();
+            var aboutFromDb = await _repository.GetAsync();
             return aboutFromDb == null ? null : new AboutDTO(aboutFromDb.Content!);
         }
 
@@ -41,10 +41,10 @@ public class AboutController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ActionResult> AddOrUpdate(AddOrUpdateAboutRequest request)
     {
-        var about = await _repository.GetAboutAsync();
+        var about = await _repository.GetAsync();
         if (about == null)
         {
-            about = _domainService.AddAbout(request.Content);
+            about = _manager.Create(request.Content);
             await _dbContext.AddAsync(about);
         }
         else

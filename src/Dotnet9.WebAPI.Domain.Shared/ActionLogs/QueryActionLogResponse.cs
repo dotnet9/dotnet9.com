@@ -1,3 +1,3 @@
 ﻿namespace Dotnet9.WebAPI.Domain.Shared.ActionLogs;
 
-public record QueryActionLogResponse(IEnumerable<ActionLogDto>? ActionLogs, long TotalCount);
+public record QueryActionLogResponse(IEnumerable<ActionLogDTO>? ActionLogs, long TotalCount);

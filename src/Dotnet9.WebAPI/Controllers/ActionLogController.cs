@@ -5,38 +5,38 @@
 public class ActionLogController : ControllerBase
 {
     private readonly Dotnet9DbContext _dbContext;
-    private readonly ActionLogDomainService _domainService;
+    private readonly ActionLogManager _manager;
     private readonly IActionLogRepository _repository;
 
     public ActionLogController(Dotnet9DbContext dbContext, IActionLogRepository repository,
-        ActionLogDomainService domainService)
+        ActionLogManager manager)
     {
         _dbContext = dbContext;
         _repository = repository;
-        _domainService = domainService;
+        _manager = manager;
     }
 
     [HttpGet]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<QueryActionLogResponse> List([FromQuery] QueryActionLogRequest request)
     {
-        return await _repository.List(request.Keywords, request.PageIndex, request.PageSize);
+        return await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
     }
 
     [HttpDelete]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<int> Delete([FromBody] DeleteActionLogRequest request)
     {
-        return await _repository.DeleteActionLogsAsync(request.Ids);
+        return await _repository.DeleteAsync(request.Ids);
     }
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<ActionLogDto> Add([FromBody] AddActionLogRequest request)
+    public async Task<ActionLogDTO> Add([FromBody] AddActionLogRequest request)
     {
-        var actionLog = _domainService.AddActionLog(request);
+        var actionLog = _manager.Create(request);
         var actionLogFromDb = await _dbContext.AddAsync(actionLog);
         await _dbContext.SaveChangesAsync();
-        return actionLogFromDb.Entity.Adapt<ActionLogDto>();
+        return actionLogFromDb.Entity.Adapt<ActionLogDTO>();
     }
 }

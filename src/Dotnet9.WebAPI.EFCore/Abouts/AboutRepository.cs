@@ -9,7 +9,7 @@ public class AboutRepository : IAboutRepository
         _dbContext = dbContext;
     }
 
-    public async Task<About?> GetAboutAsync()
+    public async Task<About?> GetAsync()
     {
         return await _dbContext.Abouts.FirstOrDefaultAsync();
     }
