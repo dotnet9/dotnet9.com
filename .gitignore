@@ -351,4 +351,3 @@ MigrationBackup/
 *.jwk
 src/Dotnet9.WebAPI/appsettings.Development.json
 src/Dotnet9.WebAPI/appsettings.Production.json
-src/Dotnet9.WebAPI.EFCore/Migrations/
