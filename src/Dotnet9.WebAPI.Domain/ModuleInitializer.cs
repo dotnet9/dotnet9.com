@@ -11,5 +11,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<AlbumManager>();
         services.AddScoped<TagManager>();
         services.AddScoped<BlogPostManager>();
+        services.AddScoped<DonationManager>();
     }
 }

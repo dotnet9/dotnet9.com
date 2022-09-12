@@ -12,11 +12,12 @@ public record Donation : AggregateRootEntity
         ChangeContent(content);
     }
 
-    public string? Content { get; private set; }
+    public string Content { get; private set; } = null!;
 
     public Donation ChangeContent(string content)
     {
-        Content = Check.NotNullOrWhiteSpace(content, nameof(content));
+        Content = Check.NotNullOrWhiteSpace(content, nameof(content), DonationConsts.MaxContentLength,
+            DonationConsts.MinContentLength);
         return this;
     }
 }
