@@ -32,3 +32,5 @@ global using Microsoft.OpenApi.Models;
 global using System.Diagnostics;
 global using System.Net;
 global using System.Security.Claims;
+global using Dotnet9.WebAPI.Domain.Privacies;
+global using Dotnet9.WebAPI.ViewModels.Privacies;

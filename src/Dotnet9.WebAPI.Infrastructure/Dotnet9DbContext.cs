@@ -14,6 +14,7 @@ public class Dotnet9DbContext : IdentityDbContext<User, Role, Guid>
     public DbSet<Tag> Tags { get; private set; }
     public DbSet<BlogPost> BlogPosts { get; private set; }
     public DbSet<Donation> Donations { get; private set; }
+    public DbSet<Privacy> Privacies { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

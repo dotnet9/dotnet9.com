@@ -12,7 +12,7 @@ public record Privacy : AggregateRootEntity
         ChangeContent(content);
     }
 
-    public string? Content { get; private set; }
+    public string Content { get; private set; } = null!;
 
     public Privacy ChangeContent(string content)
     {

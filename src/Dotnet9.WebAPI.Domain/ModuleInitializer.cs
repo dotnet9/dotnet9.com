@@ -12,5 +12,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<TagManager>();
         services.AddScoped<BlogPostManager>();
         services.AddScoped<DonationManager>();
+        services.AddScoped<PrivacyManager>();
     }
 }
