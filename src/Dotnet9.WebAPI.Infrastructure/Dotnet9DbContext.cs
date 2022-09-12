@@ -16,6 +16,7 @@ public class Dotnet9DbContext : IdentityDbContext<User, Role, Guid>
     public DbSet<Donation> Donations { get; private set; }
     public DbSet<Privacy> Privacies { get; private set; }
     public DbSet<Link> Links { get; private set; }
+    public DbSet<Timeline> Timelines { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

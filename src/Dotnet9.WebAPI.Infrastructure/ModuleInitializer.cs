@@ -14,5 +14,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IPrivacyRepository, PrivacyRepository>();
         services.AddScoped<ILinkRepository, LinkRepository>();
+        services.AddScoped<ITimelineRepository, TimelineRepository>();
     }
 }

@@ -11,6 +11,7 @@ global using Dotnet9.WebAPI.Domain.Donations;
 global using Dotnet9.WebAPI.Domain.Links;
 global using Dotnet9.WebAPI.Domain.Privacies;
 global using Dotnet9.WebAPI.Domain.Tags;
+global using Dotnet9.WebAPI.Domain.Timelines;
 global using Dotnet9.WebAPI.Domain.UserAdmin;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.DependencyInjection;
