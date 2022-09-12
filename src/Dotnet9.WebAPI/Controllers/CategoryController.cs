@@ -20,10 +20,10 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<QueryCategoryResponse> List([FromQuery] QueryCategoryRequest request)
+    public async Task<GetCategoryListResponse> List([FromQuery] GetCategoryListRequest request)
     {
         var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryCategoryResponse(result.Categories?.Adapt<CategoryDto[]>(), result.Count);
+        return new GetCategoryListResponse(result.Categories?.Adapt<CategoryDto[]>(), result.Count);
     }
 
     [HttpDelete]
