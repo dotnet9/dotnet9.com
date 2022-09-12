@@ -30,11 +30,6 @@ public class AlbumManager
             }
         }
 
-        Check.NotNullOrWhiteSpace(name, nameof(name), CategoryConsts.MaxNameLength, CategoryConsts.MinNameLength);
-        Check.NotNullOrWhiteSpace(slug, nameof(slug), CategoryConsts.MaxSlugLength, CategoryConsts.MinSlugLength);
-        Check.NotNullOrWhiteSpace(cover, nameof(cover), CategoryConsts.MaxCoverLength, CategoryConsts.MinCoverLength);
-
-
         var existAlbum = await _albumRepository.FindByNameAsync(name);
         if ((isNew && existAlbum != null) ||
             (isNew == false && existAlbum != null && existAlbum.Id != oldAlbum!.Id))
@@ -56,14 +51,14 @@ public class AlbumManager
         else
         {
             oldAlbum!.ChangeSequenceNumber(sequenceNumber);
-            oldAlbum.ChangeName(name);
-            oldAlbum.ChangeSlug(slug);
             oldAlbum.ChangeCover(cover);
             oldAlbum.ChangeDescription(description);
             oldAlbum.ChangeVisible(visible);
         }
 
         await ChangeCategoryAsync(oldAlbum, categoryIds);
+        await ChangeNameAsync(isNew, oldAlbum, name);
+        await ChangeSlugAsync(isNew, oldAlbum, slug);
         return oldAlbum;
     }
 
@@ -75,10 +70,9 @@ public class AlbumManager
             throw new ArgumentNullException(nameof(categoryIds), "分类不能为空");
         }
 
-        Category? existCategory = null;
         foreach (var categoryId in categoryIds)
         {
-            existCategory = await _categoryRepository.FindByIdAsync(categoryId);
+            var existCategory = await _categoryRepository.FindByIdAsync(categoryId);
             if (existCategory == null)
             {
                 throw new Exception($"不存在的分类: {categoryId}");
@@ -92,29 +86,31 @@ public class AlbumManager
         }
     }
 
-    public async Task ChangeNameAsync(Album album, string newName)
+    public async Task ChangeNameAsync(bool isNew, Album album, string newName)
     {
         Check.NotNull(album, nameof(album));
         Check.NotNullOrWhiteSpace(newName, nameof(newName), AlbumConsts.MaxNameLength, AlbumConsts.MinNameLength);
 
         var existAlbum = await _albumRepository.FindByNameAsync(newName);
-        if (existAlbum != null && existAlbum.Id != album.Id)
+        if ((isNew && existAlbum != null) ||
+            (isNew == false && existAlbum != null && existAlbum.Id != album!.Id))
         {
-            throw new Exception("存在同名的专辑");
+            throw new Exception($"存在同名的专辑: {newName}");
         }
 
         album.ChangeName(newName);
     }
 
-    public async Task ChangeSlugAsync(Album album, string newSlug)
+    public async Task ChangeSlugAsync(bool isNew, Album album, string newSlug)
     {
         Check.NotNull(album, nameof(album));
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug), AlbumConsts.MaxSlugLength, AlbumConsts.MinSlugLength);
 
         var existAlbum = await _albumRepository.FindBySlugAsync(newSlug);
-        if (existAlbum != null && existAlbum.Id != album.Id)
+        if ((isNew && existAlbum != null) ||
+            (isNew == false && existAlbum != null && existAlbum.Id != album!.Id))
         {
-            throw new Exception("存在相同别名的专辑");
+            throw new Exception($"存在相同别名的专辑: {newSlug}");
         }
 
         album.ChangeSlug(newSlug);
