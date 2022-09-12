@@ -36,6 +36,7 @@ public static class WebApplicationBuilderExtensions
         //IdentityService项目还需要启用AddIdentityCore
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication();
+        builder.Services.AddOptions().Configure<SiteOptions>(e => configuration.GetSection("Site").Bind(e));
         var jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
         builder.Services.AddJWTAuthentication(jwtOpt!);
         //启用Swagger中的【Authorize】按钮。这样就不用每个项目的AddSwaggerGen中单独配置了

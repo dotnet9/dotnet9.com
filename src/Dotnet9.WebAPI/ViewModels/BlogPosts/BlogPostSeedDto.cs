@@ -1,6 +1,6 @@
-﻿namespace Dotnet9.Commons.FileHelpers;
+﻿namespace Dotnet9.WebAPI.ViewModels.BlogPosts;
 
-public class PostOfMarkdown
+public class BlogPostSeedDto
 {
     public string? Title { get; set; }
     public string? Slug { get; set; }
@@ -18,11 +18,4 @@ public class PostOfMarkdown
     public string[]? Categories { get; set; }
     public string[]? Tags { get; set; }
     public string? Content { get; set; }
-}
-
-public enum CopyRightType
-{
-    [EnumMember(Value = "default")] Default,
-    [EnumMember(Value = "contribution")] Contribution,
-    [EnumMember(Value = "reprint")] Reprint
 }

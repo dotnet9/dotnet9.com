@@ -2,13 +2,15 @@
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class LoginController : ControllerBase
+public partial class LoginController : ControllerBase
 {
     private readonly IdManager _manager;
     private readonly IIdRepository _repository;
+    private readonly IOptionsSnapshot<SiteOptions> _siteOptions;
 
-    public LoginController(IdManager manager, IIdRepository repository)
+    public LoginController(IOptionsSnapshot<SiteOptions> siteOptions, IdManager manager, IIdRepository repository)
     {
+        _siteOptions = siteOptions;
         _manager = manager;
         _repository = repository;
     }
