@@ -10,5 +10,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IAlbumRepository, AlbumRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IBlogPostRepository, BlogPostRepository>();
     }
 }

@@ -10,7 +10,7 @@ public record BlogPost : AggregateRootEntity
         Guid id,
         string title,
         string slug,
-        string? description,
+        string description,
         string cover,
         string content,
         CopyRightType copyrightType,
@@ -40,7 +40,7 @@ public record BlogPost : AggregateRootEntity
 
     public string Title { get; private set; } = null!;
     public string Slug { get; private set; } = null!;
-    public string? Description { get; private set; }
+    public string Description { get; private set; } = null!;
     public string Cover { get; private set; } = null!;
     public string Content { get; private set; } = null!;
     public CopyRightType CopyrightType { get; private set; }
@@ -69,7 +69,7 @@ public record BlogPost : AggregateRootEntity
         return this;
     }
 
-    internal BlogPost ChangeDescription(string? description)
+    internal BlogPost ChangeDescription(string description)
     {
         Description = Check.NotNullOrWhiteSpace(description, nameof(description), BlogPostConsts.MaxDescriptionLength,
             BlogPostConsts.MinDescriptionLength);
@@ -98,27 +98,27 @@ public record BlogPost : AggregateRootEntity
 
     internal BlogPost ChangeOriginal(string? original)
     {
-        Original = Check.NotNullOrWhiteSpace(original, nameof(original), BlogPostConsts.MaxOriginalLength);
+        Original = Check.Length(original, nameof(original), BlogPostConsts.MaxOriginalLength);
         return this;
     }
 
     internal BlogPost ChangeOriginalAvatar(string? originalAvatar)
     {
-        OriginalAvatar = Check.NotNullOrWhiteSpace(originalAvatar, nameof(originalAvatar),
+        OriginalAvatar = Check.Length(originalAvatar, nameof(originalAvatar),
             BlogPostConsts.MaxOriginalAvatarLength);
         return this;
     }
 
     internal BlogPost ChangeOriginalTitle(string? originalTitle)
     {
-        OriginalTitle = Check.NotNullOrWhiteSpace(originalTitle, nameof(originalTitle),
+        OriginalTitle = Check.Length(originalTitle, nameof(originalTitle),
             BlogPostConsts.MaxOriginalTitleLength);
         return this;
     }
 
     internal BlogPost ChangeOriginalLink(string? originalLink)
     {
-        OriginalLink = Check.NotNullOrWhiteSpace(originalLink, nameof(originalLink),
+        OriginalLink = Check.Length(originalLink, nameof(originalLink),
             BlogPostConsts.MaxOriginalLinkLength);
         return this;
     }

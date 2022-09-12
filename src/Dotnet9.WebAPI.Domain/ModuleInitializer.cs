@@ -10,5 +10,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<CategoryManager>();
         services.AddScoped<AlbumManager>();
         services.AddScoped<TagManager>();
+        services.AddScoped<BlogPostManager>();
     }
 }
