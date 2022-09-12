@@ -8,6 +8,7 @@ global using Dotnet9.WebAPI.Domain.Albums;
 global using Dotnet9.WebAPI.Domain.BlogPosts;
 global using Dotnet9.WebAPI.Domain.Categories;
 global using Dotnet9.WebAPI.Domain.Donations;
+global using Dotnet9.WebAPI.Domain.Links;
 global using Dotnet9.WebAPI.Domain.Privacies;
 global using Dotnet9.WebAPI.Domain.Tags;
 global using Dotnet9.WebAPI.Domain.UserAdmin;

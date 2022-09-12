@@ -13,5 +13,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<BlogPostManager>();
         services.AddScoped<DonationManager>();
         services.AddScoped<PrivacyManager>();
+        services.AddScoped<LinkManager>();
     }
 }

@@ -13,5 +13,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<IBlogPostRepository, BlogPostRepository>();
         services.AddScoped<IDonationRepository, DonationRepository>();
         services.AddScoped<IPrivacyRepository, PrivacyRepository>();
+        services.AddScoped<ILinkRepository, LinkRepository>();
     }
 }
