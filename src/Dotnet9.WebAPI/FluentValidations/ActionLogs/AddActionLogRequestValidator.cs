@@ -6,9 +6,9 @@ public class AddActionLogRequestValidator : AbstractValidator<AddActionLogReques
     {
         RuleFor(x => x.UId).NotNull().Length(ActionLogConsts.MinUIdLength, ActionLogConsts.MaxUIdLength)
             .WithMessage($"UId长度范围[{ActionLogConsts.MinUIdLength},{ActionLogConsts.MaxUIdLength}]");
-        RuleFor(x => x.UA).NotNull().Length(ActionLogConsts.MinUALength, ActionLogConsts.MaxUALength)
+        RuleFor(x => x.Ua).NotNull().Length(ActionLogConsts.MinUALength, ActionLogConsts.MaxUALength)
             .WithMessage($"UA长度范围[{ActionLogConsts.MinUALength},{ActionLogConsts.MaxUALength}]");
-        RuleFor(x => x.OS).NotNull().Length(ActionLogConsts.MinOSLength, ActionLogConsts.MaxOSLength)
+        RuleFor(x => x.Os).NotNull().Length(ActionLogConsts.MinOSLength, ActionLogConsts.MaxOSLength)
             .WithMessage($"OS长度范围[{ActionLogConsts.MinOSLength},{ActionLogConsts.MaxOSLength}]");
         RuleFor(x => x.Browser).NotNull().Length(ActionLogConsts.MinBrowserLength, ActionLogConsts.MaxBrowserLength)
             .WithMessage($"Browser长度范围[{ActionLogConsts.MinBrowserLength},{ActionLogConsts.MaxBrowserLength}]");
@@ -18,7 +18,7 @@ public class AddActionLogRequestValidator : AbstractValidator<AddActionLogReques
             .WithMessage($"AccessName长度不能大于{ActionLogConsts.MaxAccessName}");
         RuleFor(x => x.Original).MaximumLength(ActionLogConsts.MaxOriginalLength)
             .WithMessage($"Original长度不能大于{ActionLogConsts.MaxOriginalLength}");
-        RuleFor(x => x.IP).NotNull().Length(ActionLogConsts.MinIPLength, ActionLogConsts.MaxIPLength)
+        RuleFor(x => x.Ip).NotNull().Length(ActionLogConsts.MinIPLength, ActionLogConsts.MaxIPLength)
             .WithMessage($"IP长度范围[{ActionLogConsts.MinIPLength},{ActionLogConsts.MaxIPLength}]");
         RuleFor(x => x.Url).MaximumLength(ActionLogConsts.MaxUrlLength)
             .WithMessage($"Url长度不能大于{ActionLogConsts.MaxUrlLength}");

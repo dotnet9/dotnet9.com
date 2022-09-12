@@ -19,12 +19,12 @@ public class AboutController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<AboutDTO>> Get()
+    public async Task<ActionResult<AboutDto>> Get()
     {
-        async Task<AboutDTO?> GetAboutFromDb()
+        async Task<AboutDto?> GetAboutFromDb()
         {
             var aboutFromDb = await _repository.GetAsync();
-            return aboutFromDb == null ? null : new AboutDTO(aboutFromDb.Content!);
+            return aboutFromDb == null ? null : new AboutDto(aboutFromDb.Content!);
         }
 
         var about = await _cacheHelper.GetOrCreateAsync("AboutController.GetAbout",

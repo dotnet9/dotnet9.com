@@ -17,18 +17,18 @@ public class AlbumController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<QueryAlbumResponse> List([FromQuery] QueryAlbumRequest request)
+    public async Task<GetAlbumListResponse> List([FromQuery] GetAlbumListRequest request)
     {
         var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryAlbumResponse(result.Albums.ConvertToAlbumDtoArray(), result.Count);
+        return new GetAlbumListResponse(result.Albums.ConvertToAlbumDtoArray(), result.Count);
     }
 
     [HttpGet]
     [Route("/api/[controller]/Categories")]
-    public async Task<CategoryDTO[]> GetCategoriesOfAlbum()
+    public async Task<CategoryDto[]> GetCategoriesOfAlbum()
     {
         var categories = await _repository.GetCategoriesOfAlbumAsync();
-        return categories.Adapt<CategoryDTO[]>();
+        return categories.Adapt<CategoryDto[]>();
     }
 
 
@@ -50,7 +50,7 @@ public class AlbumController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<AlbumDTO?> Add([FromBody] AddAlbumRequest request)
+    public async Task<AlbumDto?> Add([FromBody] AddAlbumRequest request)
     {
         var album = await _manager.CreateAsync(null, request.CategoryIds, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);
@@ -63,7 +63,7 @@ public class AlbumController : ControllerBase
     [HttpPut]
     [Route("{id}")]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<AlbumDTO?> Update(Guid id, [FromBody] UpdateAlbumRequest request)
+    public async Task<AlbumDto?> Update(Guid id, [FromBody] UpdateAlbumRequest request)
     {
         var album = await _manager.CreateAsync(id, request.CategoryIds, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);

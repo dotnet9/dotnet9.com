@@ -23,25 +23,11 @@ public class AlbumManager
         }
         else
         {
-            oldAlbum = await _albumRepository.FindByIdAsync(id.Value);
+            oldAlbum = await _albumRepository.FindByIdAsync(id!.Value);
             if (oldAlbum == null)
             {
                 throw new Exception($"不存在的专辑: {id}");
             }
-        }
-
-        var existAlbum = await _albumRepository.FindByNameAsync(name);
-        if ((isNew && existAlbum != null) ||
-            (isNew == false && existAlbum != null && existAlbum.Id != oldAlbum!.Id))
-        {
-            throw new Exception($"存在同名的专辑: {name}");
-        }
-
-        existAlbum = await _albumRepository.FindBySlugAsync(slug);
-        if ((isNew && existAlbum != null) ||
-            (isNew == false && existAlbum != null && existAlbum.Id != oldAlbum!.Id))
-        {
-            throw new Exception($"存在相同别名的专辑: {slug}");
         }
 
         if (isNew)

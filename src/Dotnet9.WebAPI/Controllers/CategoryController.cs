@@ -23,7 +23,7 @@ public class CategoryController : ControllerBase
     public async Task<QueryCategoryResponse> List([FromQuery] QueryCategoryRequest request)
     {
         var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryCategoryResponse(result.Categories?.Adapt<CategoryDTO[]>(), result.Count);
+        return new QueryCategoryResponse(result.Categories?.Adapt<CategoryDto[]>(), result.Count);
     }
 
     [HttpDelete]
@@ -35,24 +35,24 @@ public class CategoryController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<CategoryDTO> Add([FromBody] AddCategoryRequest request)
+    public async Task<CategoryDto> Add([FromBody] AddCategoryRequest request)
     {
         var category = await _manager.CreateAsync(null, request.SequenceNumber, request.Name, request.Slug,
             request.Cover, request.Description, request.Visible, request.ParentId);
         var categoryFromDb = await _dbContext.AddAsync(category);
         await _dbContext.SaveChangesAsync();
-        return categoryFromDb.Entity.Adapt<CategoryDTO>();
+        return categoryFromDb.Entity.Adapt<CategoryDto>();
     }
 
     [HttpPut]
     [Route("{id}")]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<CategoryDTO> Update(Guid id, [FromBody] UpdateCategoryRequest request)
+    public async Task<CategoryDto> Update(Guid id, [FromBody] UpdateCategoryRequest request)
     {
         var category = await _manager.CreateAsync(id, request.SequenceNumber, request.Name, request.Slug,
             request.Cover, request.Description, request.Visible, request.ParentId);
         var categoryFromDb = _dbContext.Update(category);
         await _dbContext.SaveChangesAsync();
-        return categoryFromDb.Entity.Adapt<CategoryDTO>();
+        return categoryFromDb.Entity.Adapt<CategoryDto>();
     }
 }

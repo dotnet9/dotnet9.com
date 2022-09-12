@@ -18,10 +18,10 @@ public class ActionLogController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<QueryActionLogResponse> List([FromQuery] QueryActionLogRequest request)
+    public async Task<GetActionLogListResponse> List([FromQuery] GetActionLogListRequest request)
     {
         var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryActionLogResponse(result.Logs?.Adapt<ActionLogDTO[]>(), result.Count);
+        return new GetActionLogListResponse(result.Logs?.Adapt<ActionLogDto[]>(), result.Count);
     }
 
     [HttpDelete]
@@ -33,14 +33,14 @@ public class ActionLogController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<ActionLogDTO> Add([FromBody] AddActionLogRequest request)
+    public async Task<ActionLogDto> Add([FromBody] AddActionLogRequest request)
     {
-        var actionLog = _manager.Create(request.UId, request.UA, request.OS, request.Browser, request.IP,
+        var actionLog = _manager.Create(request.UId, request.Ua, request.Os, request.Browser, request.Ip,
             request.Referer, request.AccessName,
             request.Original, request.Url, request.Controller, request.Action, request.Method, request.Arguments,
             request.Duration);
         var actionLogFromDb = await _dbContext.AddAsync(actionLog);
         await _dbContext.SaveChangesAsync();
-        return actionLogFromDb.Entity.Adapt<ActionLogDTO>();
+        return actionLogFromDb.Entity.Adapt<ActionLogDto>();
     }
 }

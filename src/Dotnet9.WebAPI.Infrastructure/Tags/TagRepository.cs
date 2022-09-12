@@ -29,17 +29,12 @@ internal class TagRepository : ITagRepository
 
     public async Task<(Tag[]? Tags, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        Expression<Func<Tag, bool>> whereLambda;
-        if (keywords.IsNullOrWhiteSpace())
+        var query = _dbContext.Tags.AsQueryable();
+        if (!keywords.IsNullOrWhiteSpace())
         {
-            whereLambda = log => true;
-        }
-        else
-        {
-            whereLambda = log => EF.Functions.Like(log.Name!, $"%{keywords}%");
+            query = query.Where(log => EF.Functions.Like(log.Name!, $"%{keywords}%"));
         }
 
-        var query = _dbContext.Tags.Where(whereLambda);
         var dataFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         return (await dataFromDb.ToArrayAsync(), await query.LongCountAsync());
     }

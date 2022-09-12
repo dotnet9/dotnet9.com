@@ -11,19 +11,13 @@ internal class ActionLogRepository : IActionLogRepository
 
     public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        Expression<Func<ActionLog, bool>> whereLambda;
-        if (keywords.IsNullOrWhiteSpace())
+        var query = _dbContext.ActionLogs.AsQueryable();
+        if (!keywords.IsNullOrWhiteSpace())
         {
-            whereLambda = log => true;
-        }
-        else
-        {
-            whereLambda = log =>
-                EF.Functions.Like(log.IP, $"%{keywords}%")
-                || EF.Functions.Like(log.OS, $"%{keywords}%");
+            query = query.Where(log =>
+                EF.Functions.Like(log.IP, $"%{keywords}%"));
         }
 
-        var query = _dbContext.ActionLogs.Where(whereLambda);
         var logsFromDB = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
         return (await logsFromDB.ToArrayAsync(), await query.LongCountAsync());

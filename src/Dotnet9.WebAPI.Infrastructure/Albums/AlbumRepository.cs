@@ -33,20 +33,15 @@ internal class AlbumRepository : IAlbumRepository
 
     public async Task<(Album[]? Albums, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        Expression<Func<Album, bool>> whereLambda;
-        if (keywords.IsNullOrWhiteSpace())
+        var query = _dbContext.Albums.AsQueryable();
+        if (!keywords.IsNullOrWhiteSpace())
         {
-            whereLambda = log => true;
-        }
-        else
-        {
-            whereLambda = log =>
+            query = query.Where(log =>
                 EF.Functions.Like(log.Name, $"%{keywords}%")
                 || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%"));
+                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%")));
         }
 
-        var query = _dbContext.Albums.Where(whereLambda);
         var albumsFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(album => album.Categories);
 
         return (await albumsFromDb.ToArrayAsync(), await query.LongCountAsync());

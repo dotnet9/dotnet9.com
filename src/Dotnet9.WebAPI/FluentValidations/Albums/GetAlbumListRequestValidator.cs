@@ -1,8 +1,8 @@
-﻿namespace Dotnet9.WebAPI.FluentValidations.ActionLogs;
+﻿namespace Dotnet9.WebAPI.FluentValidations.Albums;
 
-public class QueryActionLogRequestValidator : AbstractValidator<QueryActionLogRequest>
+public class GetAlbumListRequestValidator : AbstractValidator<GetAlbumListRequest>
 {
-    public QueryActionLogRequestValidator()
+    public GetAlbumListRequestValidator()
     {
         RuleFor(e => e.Keywords).MaximumLength(100).WithMessage("查询关键字长度不能超过100");
         RuleFor(e => e.PageIndex).GreaterThan(0).WithMessage("页索引从1开始"); //页号从1开始

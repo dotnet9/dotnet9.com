@@ -33,20 +33,15 @@ internal class CategoryRepository : ICategoryRepository
 
     public async Task<(Category[]? Categories, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        Expression<Func<Category, bool>> whereLambda;
-        if (keywords.IsNullOrWhiteSpace())
+        var query = _dbContext.Categories.AsQueryable();
+        if (!keywords.IsNullOrWhiteSpace())
         {
-            whereLambda = log => true;
-        }
-        else
-        {
-            whereLambda = log =>
+            query = query.Where(log =>
                 EF.Functions.Like(log.Name, $"%{keywords}%")
                 || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%"));
+                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%")));
         }
 
-        var query = _dbContext.Categories.Where(whereLambda);
         var categoriesFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
     }

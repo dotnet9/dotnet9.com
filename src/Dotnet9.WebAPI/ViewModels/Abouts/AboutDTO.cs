@@ -1,3 +1,3 @@
 ﻿namespace Dotnet9.WebAPI.ViewModels.Abouts;
 
-public record AboutDTO(string Content);
+public record AboutDto(string Content);
