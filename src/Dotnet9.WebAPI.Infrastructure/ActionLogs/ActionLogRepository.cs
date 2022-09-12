@@ -9,7 +9,7 @@ internal class ActionLogRepository : IActionLogRepository
         _dbContext = dbContext;
     }
 
-    public async Task<(ActionLog[]? Logs, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
         Expression<Func<ActionLog, bool>> whereLambda;
         if (keywords.IsNullOrWhiteSpace())

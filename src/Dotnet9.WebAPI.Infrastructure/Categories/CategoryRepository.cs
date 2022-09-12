@@ -31,7 +31,7 @@ internal class CategoryRepository : ICategoryRepository
         return await _dbContext.Categories.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(Category[]? Categories, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Category[]? Categories, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
         Expression<Func<Category, bool>> whereLambda;
         if (keywords.IsNullOrWhiteSpace())

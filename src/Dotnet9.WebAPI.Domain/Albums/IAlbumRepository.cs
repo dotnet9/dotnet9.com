@@ -2,7 +2,7 @@
 
 public interface IAlbumRepository
 {
-    Task<(Album[]? Albums, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize);
+    Task<(Album[]? Albums, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize);
     Task<Category[]> GetCategoriesOfAlbumAsync();
     Task<(Album[]? Albums, long Count)> GetAlbumsByCategoryAsync(Guid categoryId, int pageIndex, int pageSize);
     Task<int> DeleteAsync(Guid[] ids);

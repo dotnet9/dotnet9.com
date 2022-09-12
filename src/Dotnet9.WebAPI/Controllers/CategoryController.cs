@@ -22,7 +22,7 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public async Task<QueryCategoryResponse> List([FromQuery] QueryCategoryRequest request)
     {
-        var result = await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
         return new QueryCategoryResponse(result.Categories?.Adapt<CategoryDTO[]>(), result.Count);
     }
 

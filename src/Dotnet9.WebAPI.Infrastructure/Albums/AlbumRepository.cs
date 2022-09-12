@@ -31,7 +31,7 @@ internal class AlbumRepository : IAlbumRepository
         return await _dbContext.Albums.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(Album[]? Albums, long Count)> QueryAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Album[]? Albums, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
         Expression<Func<Album, bool>> whereLambda;
         if (keywords.IsNullOrWhiteSpace())

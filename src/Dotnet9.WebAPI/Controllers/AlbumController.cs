@@ -19,7 +19,7 @@ public class AlbumController : ControllerBase
     [HttpGet]
     public async Task<QueryAlbumResponse> List([FromQuery] QueryAlbumRequest request)
     {
-        var result = await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
         return new QueryAlbumResponse(result.Albums.ConvertToAlbumDtoArray(), result.Count);
     }
 

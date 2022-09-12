@@ -20,7 +20,7 @@ public class ActionLogController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<QueryActionLogResponse> List([FromQuery] QueryActionLogRequest request)
     {
-        var result = await _repository.QueryAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
         return new QueryActionLogResponse(result.Logs?.Adapt<ActionLogDTO[]>(), result.Count);
     }
 
