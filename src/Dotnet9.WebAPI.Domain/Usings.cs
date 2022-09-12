@@ -6,6 +6,8 @@ global using Dotnet9.WebAPI.Domain.Abouts;
 global using Dotnet9.WebAPI.Domain.ActionLogs;
 global using Dotnet9.WebAPI.Domain.Albums;
 global using Dotnet9.WebAPI.Domain.Categories;
+global using Dotnet9.WebAPI.Domain.Tags;
+global using Dotnet9.WebAPI.Domain.UserAdmin;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

@@ -7,10 +7,11 @@ public class Dotnet9DbContext : IdentityDbContext<User, Role, Guid>
     {
     }
 
-    public DbSet<About> Abouts { get; private set; }
-    public DbSet<ActionLog> ActionLogs { get; private set; }
-    public DbSet<Category> Categories { get; private set; }
-    public DbSet<Album> Albums { get; private set; }
+    public DbSet<About> Abouts { get; } = null!;
+    public DbSet<ActionLog> ActionLogs { get; } = null!;
+    public DbSet<Category> Categories { get; } = null!;
+    public DbSet<Album> Albums { get; } = null!;
+    public DbSet<Tag> Tags { get; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
