@@ -64,7 +64,7 @@ public record Category : AggregateRootEntity
 
     public Category ChangeDescription(string? description)
     {
-        Description = Check.NotNullOrWhiteSpace(description, nameof(description), CategoryConsts.MaxDescriptionLength);
+        Description = Check.Length(description, nameof(description), CategoryConsts.MaxDescriptionLength);
         return this;
     }
 

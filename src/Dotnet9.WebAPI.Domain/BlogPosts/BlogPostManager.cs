@@ -74,6 +74,51 @@ public class BlogPostManager
         return oldData;
     }
 
+    public BlogPost CreateForSeed(
+        string title,
+        string slug,
+        string description,
+        string cover,
+        string content,
+        CopyRightType copyrightType,
+        string? original,
+        string? originalAvatar,
+        string? originalTitle,
+        string? originalLink,
+        bool visible,
+        Guid[]? albumIds,
+        Guid[]? categoryIds,
+        Guid[]? tagIds)
+    {
+        var blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType, original,
+            originalAvatar, originalTitle, originalLink, visible);
+        if (albumIds != null)
+        {
+            foreach (var albumId in albumIds)
+            {
+                blogPost.AddAlbum(albumId);
+            }
+        }
+
+        if (categoryIds != null)
+        {
+            foreach (var categoryId in categoryIds)
+            {
+                blogPost.AddCategory(categoryId);
+            }
+        }
+
+        if (tagIds != null)
+        {
+            foreach (var tagId in tagIds)
+            {
+                blogPost.AddTag(tagId);
+            }
+        }
+
+        return blogPost;
+    }
+
     public async Task ChangeTitleAsync(bool isNew, BlogPost blogPost, string newTitle)
     {
         Check.NotNull(blogPost, nameof(blogPost));

@@ -22,7 +22,7 @@ internal class BlogPostConfig : IEntityTypeConfiguration<BlogPost>
         builder.HasIndex(x => x.Original); //.HasMethod("GIN");
         builder.HasIndex(x => x.OriginalTitle); //.HasMethod("GIN");
         builder.HasIndex(x => x.Description); //.HasMethod("GIN");
-        builder.HasIndex(x => x.Content); //.HasMethod("GIN");
+        //builder.HasIndex(x => x.Content); //.HasMethod("GIN");
         builder.HasMany(x => x.Albums).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
         builder.HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();
         builder.HasMany(x => x.Tags).WithOne().HasForeignKey(x => x.BlogPostId).IsRequired();

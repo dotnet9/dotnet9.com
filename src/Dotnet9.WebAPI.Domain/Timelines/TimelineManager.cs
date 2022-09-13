@@ -39,4 +39,9 @@ public class TimelineManager
 
         return oldData;
     }
+
+    public Timeline CreateForSeed(DateTime time, string title, string content)
+    {
+        return new Timeline(Guid.NewGuid(), time, title, content);
+    }
 }

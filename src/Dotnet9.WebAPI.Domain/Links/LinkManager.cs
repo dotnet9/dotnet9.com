@@ -44,6 +44,13 @@ public class LinkManager
         return oldData;
     }
 
+    public Link CreateForSeed(int sequenceNumber, string name, string url, string? description,
+        string kind)
+    {
+        return new Link(Guid.NewGuid(), sequenceNumber, name, url, description,
+            (LinkKind)Enum.Parse(typeof(LinkKind), kind));
+    }
+
     public async Task ChangeNameAsync(bool isNew, Link data, string newName)
     {
         Check.NotNull(data, nameof(data));

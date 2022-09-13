@@ -12,7 +12,7 @@ public static class BlogPostConsts
 
     public const int MaxDescriptionLength = 256;
 
-    public const int MinDescriptionLength = 5;
+    public const int MinDescriptionLength = 2;
 
     public const int MaxCoverLength = 128;
     public const int MinCoverLength = 2;

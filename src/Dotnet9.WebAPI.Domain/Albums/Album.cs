@@ -64,7 +64,7 @@ public record Album : AggregateRootEntity
 
     internal Album ChangeDescription(string? description)
     {
-        Description = Check.NotNullOrWhiteSpace(description, nameof(description), AlbumConsts.MaxDescriptionLength);
+        Description = Check.Length(description, nameof(description), AlbumConsts.MaxDescriptionLength);
         return this;
     }
 

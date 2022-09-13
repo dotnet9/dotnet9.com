@@ -2,10 +2,27 @@
 
 public partial class LoginController
 {
+    private const string Title = "title: ";
+    private const string Slug = "slug: ";
+    private const string Description = "description: ";
+    private const string Date = "date: ";
+    private const string LastModifyDate = "lastmod: ";
+    private const string Copyright = "copyright: ";
+    private const string Author = "author: ";
+    private const string OriginalTitle = "originaltitle: ";
+    private const string OriginalLink = "originallink: ";
+    private const string Draft = "draft: ";
+    private const string Cover = "cover: ";
+    private const string Albums = "albums: ";
+    private const string Categories = "categories: ";
+    private const string Tags = "tags: ";
+
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<bool> Seed()
     {
+        var sw = new Stopwatch();
+        sw.Start();
         var blogPostInfo = await CheckBlogPosts();
         if (!blogPostInfo.Status)
         {
@@ -13,13 +30,18 @@ public partial class LoginController
         }
 
         await SeedAbouts();
-        await SeedAlbums();
-        await SeedBlogPosts();
-        await SeedCategories();
+        var albumsOfDb = await SeedAlbums(blogPostInfo.Albums);
+        var categoriesOfDb = await SeedCategories(blogPostInfo.Categories);
+        var tagsOfDb = await SeedTags(blogPostInfo.Tags);
+        await SeedBlogPosts(blogPostInfo.BlogPosts?.ToList(), albumsOfDb?.ToList(), categoriesOfDb?.ToList(),
+            tagsOfDb?.ToList());
+
         await SeedDonations();
         await SeedLinks();
         await SeedPrivacies();
         await SeedTimelines();
+        sw.Stop();
+        Console.WriteLine($"Seed time: {sw.ElapsedMilliseconds} ms");
         return true;
     }
 
@@ -128,18 +150,116 @@ public partial class LoginController
         var content =
             await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
                 "about.md"));
+
+        var about = await _aboutRepository.GetAsync();
+        if (about == null)
+        {
+            about = _aboutManager.Create(content);
+            await _dbContext.AddAsync(about);
+        }
+        else
+        {
+            about.ChangeContent(content);
+        }
+
+        await _dbContext.SaveChangesAsync();
     }
 
-    private async Task SeedAlbums()
+    private async Task<List<Album>?> SeedAlbums(AlbumSeedDto[]? albumSeeds)
     {
+        if (albumSeeds == null || !albumSeeds.Any())
+        {
+            return null;
+        }
+
+        var albumsForDb = albumSeeds.Select(x => _albumManager.CreateForSeed(x.Name, x.Slug, x.Cover)).ToList();
+        await _dbContext.AddRangeAsync(albumsForDb);
+        await _dbContext.SaveChangesAsync();
+        return albumsForDb;
     }
 
-    private async Task SeedBlogPosts()
+    private async Task SeedBlogPosts(List<BlogPostSeedDto>? blogPostSeeds, List<Album>? albums,
+        List<Category>? categories, List<Tag>? tags)
     {
+        if (blogPostSeeds == null || !blogPostSeeds.Any())
+        {
+            return;
+        }
+
+        var allBlogPosts = new List<BlogPost>();
+        foreach (var blogPostSeed in blogPostSeeds)
+        {
+            var albumIds = albums?.Where(x => blogPostSeed.Albums?.Contains(x.Name) ?? false).Select(x => x.Id)
+                .ToArray();
+            var categoryIds = categories?.Where(x => blogPostSeed.Categories?.Contains(x.Name) ?? false)
+                .Select(x => x.Id).ToArray();
+            var tagIds = tags?.Where(x => blogPostSeed.Tags?.Contains(x.Name) ?? false).Select(x => x.Id).ToArray();
+            var blogPost = _blogPostManager.CreateForSeed(blogPostSeed.Title, blogPostSeed.Slug,
+                blogPostSeed.Description, blogPostSeed.Cover, blogPostSeed.Content, blogPostSeed.Copyright,
+                blogPostSeed.Author, null, blogPostSeed.OriginalTitle, blogPostSeed.OriginalLink, true, albumIds,
+                categoryIds, tagIds);
+            allBlogPosts.Add(blogPost);
+        }
+
+        var pageIndex = 0;
+        const int pageSize = 100;
+        while (true)
+        {
+            var temp = allBlogPosts.Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            if (temp.Length <= 0)
+            {
+                break;
+            }
+
+            await _dbContext.AddRangeAsync(temp);
+            await _dbContext.SaveChangesAsync();
+
+            pageIndex++;
+        }
     }
 
-    private async Task SeedCategories()
+    private async Task<List<Category>?> SeedCategories(CategorySeedDto[]? categorySeeds)
     {
+        if (categorySeeds == null || !categorySeeds.Any())
+        {
+            return null;
+        }
+
+        var allCategories = new List<Category>();
+
+        void ReadChildren(Guid? parentId, CategorySeedDto[]? seeds)
+        {
+            if (seeds == null || !seeds.Any())
+            {
+                return;
+            }
+
+            foreach (var seed in seeds)
+            {
+                var category = _categoryManager.CreateForSeed(seed.Name, seed.Slug, seed.Cover, parentId);
+                allCategories!.Add(category);
+                ReadChildren(category.Id, seed.Children);
+            }
+        }
+
+        ReadChildren(null, categorySeeds);
+
+        await _dbContext.AddRangeAsync(allCategories);
+        await _dbContext.SaveChangesAsync();
+        return allCategories;
+    }
+
+    private async Task<List<Tag>?> SeedTags(string[]? tagSeeds)
+    {
+        if (tagSeeds == null || !tagSeeds.Any())
+        {
+            return null;
+        }
+
+        var tagsForDb = tagSeeds.Select(x => _tagManager.CreateForSeed(x)).ToList();
+        await _dbContext.AddRangeAsync(tagsForDb);
+        await _dbContext.SaveChangesAsync();
+        return tagsForDb;
     }
 
     private async Task SeedDonations()
@@ -147,6 +267,19 @@ public partial class LoginController
         var content =
             await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "pays",
                 "Donation.md"));
+
+        var donation = await _donationRepository.GetAsync();
+        if (donation == null)
+        {
+            donation = _donationManager.Create(content);
+            await _dbContext.AddAsync(donation);
+        }
+        else
+        {
+            donation.ChangeContent(content);
+        }
+
+        await _dbContext.SaveChangesAsync();
     }
 
     private async Task SeedLinks()
@@ -154,6 +287,10 @@ public partial class LoginController
         var links = JsonSerializer.Deserialize<List<LinkSeedDto>>(
             await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
                 "link.json")));
+        var linksForDb = links!.Select(x =>
+            _linkManager.CreateForSeed(x.SequenceNumber, x.Name, x.Url, x.Description, x.Kind!));
+        await _dbContext.AddRangeAsync(linksForDb);
+        await _dbContext.SaveChangesAsync();
     }
 
     private async Task SeedPrivacies()
@@ -161,6 +298,18 @@ public partial class LoginController
         var content =
             await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
                 "Privacy.md"));
+        var privacy = await _privacyRepository.GetAsync();
+        if (privacy == null)
+        {
+            privacy = _privacyManager.Create(content);
+            await _dbContext.AddAsync(privacy);
+        }
+        else
+        {
+            privacy.ChangeContent(content);
+        }
+
+        await _dbContext.SaveChangesAsync();
     }
 
     private async Task SeedTimelines()
@@ -168,23 +317,11 @@ public partial class LoginController
         var timelines = JsonSerializer.Deserialize<List<TimelineSeedDto>>(
             await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
                 "timelines.json")));
+        var timelinesForDb = timelines!.Select(x =>
+            _timelineManager.CreateForSeed(x.Time, x.Title, x.Content));
+        await _dbContext.AddRangeAsync(timelinesForDb);
+        await _dbContext.SaveChangesAsync();
     }
-
-    private const string Title = "title: ";
-    private const string Slug = "slug: ";
-    private const string Description = "description: ";
-    private const string Banner = "banner: ";
-    private const string Date = "date: ";
-    private const string LastModifyDate = "lastmod: ";
-    private const string Copyright = "copyright: ";
-    private const string Author = "author: ";
-    private const string OriginalTitle = "originaltitle: ";
-    private const string OriginalLink = "originallink: ";
-    private const string Draft = "draft: ";
-    private const string Cover = "cover: ";
-    private const string Albums = "albums: ";
-    private const string Categories = "categories: ";
-    private const string Tags = "tags: ";
 
     private static BlogPostSeedDto Read(string markdownAbsolutePath)
     {
@@ -220,10 +357,6 @@ public partial class LoginController
             else if (lines[i].StartsWith(Description))
             {
                 blogPostOfMarkdown.Description = lines[i][Description.Length..];
-            }
-            else if (lines[i].StartsWith(Banner))
-            {
-                blogPostOfMarkdown.Banner = bool.Parse(lines[i][Banner.Length..]);
             }
             else if (lines[i].StartsWith(Date))
             {

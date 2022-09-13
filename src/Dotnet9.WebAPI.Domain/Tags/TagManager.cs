@@ -47,4 +47,9 @@ public class TagManager
 
         return oldTag;
     }
+
+    public Tag CreateForSeed(string name)
+    {
+        return new Tag(Guid.NewGuid(), name);
+    }
 }
