@@ -45,7 +45,11 @@ public static class WebApplicationBuilderExtensions
 
         services.AddMediatR(assemblies);
         //现在不用手动AddMVC了，因此把文档中的services.AddMvc(options =>{})改写成Configure<MvcOptions>(options=> {})这个问题很多都类似
-        services.Configure<MvcOptions>(options => { options.Filters.Add<UnitOfWorkFilter>(); });
+        services.Configure<MvcOptions>(options =>
+        {
+            options.Filters.Add<UnitOfWorkFilter>();
+            options.Filters.Add<RateLimitFilter>();
+        });
         services.Configure<JsonOptions>(options =>
         {
             //设置时间格式。而非“2008-08-08T08:08:08”这样的格式
