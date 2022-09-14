@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.ASPNETCore;
+﻿namespace Dotnet9.ASPNETCore.Filters;
 
 public class RateLimitFilter : IAsyncActionFilter
 {
@@ -30,6 +30,6 @@ public class RateLimitFilter : IAsyncActionFilter
             await next();
         }
 
-        context.Result = new ContentResult { StatusCode = (int)HttpStatusCode.Conflict,Content = "访问过于频繁"};
+        context.Result = new ContentResult { StatusCode = (int)HttpStatusCode.Conflict, Content = "访问过于频繁" };
     }
 }

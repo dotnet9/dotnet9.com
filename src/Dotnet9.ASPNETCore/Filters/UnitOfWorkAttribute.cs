@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.ASPNETCore;
+﻿namespace Dotnet9.ASPNETCore.Filters;
 
 [AttributeUsage(AttributeTargets.Class
                 | AttributeTargets.Method)]

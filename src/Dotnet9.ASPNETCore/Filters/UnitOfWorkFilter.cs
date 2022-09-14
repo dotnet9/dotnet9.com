@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.ASPNETCore;
+﻿namespace Dotnet9.ASPNETCore.Filters;
 
 public class UnitOfWorkFilter : IAsyncActionFilter
 {

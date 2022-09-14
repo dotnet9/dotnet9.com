@@ -15,3 +15,4 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Serilog;
 global using StackExchange.Redis;
 global using Swashbuckle.AspNetCore.SwaggerGen;
+global using Dotnet9.ASPNETCore.Filters;
