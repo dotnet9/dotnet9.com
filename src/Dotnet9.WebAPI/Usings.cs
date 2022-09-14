@@ -40,3 +40,5 @@ global using System.Diagnostics;
 global using System.Net;
 global using System.Security.Claims;
 global using System.Text.Json;
+global using Dotnet9.ASPNETCore.Filters;
+global using MediatR;

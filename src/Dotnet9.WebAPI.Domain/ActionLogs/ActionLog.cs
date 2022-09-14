@@ -24,10 +24,10 @@ public record ActionLog : IEntity, IHasCreationTime
     {
         Id = id;
         ChangeUId(uid);
-        ChangeUA(ua);
-        ChangeOS(os);
+        ChangeUa(ua);
+        ChangeOs(os);
         ChangeBrowser(browser);
-        ChangeIP(ip);
+        ChangeIp(ip);
         ChangeReferer(referer);
         ChangeAccessName(accessName);
         ChangeOriginal(original);
@@ -40,13 +40,13 @@ public record ActionLog : IEntity, IHasCreationTime
     }
 
     public string UId { get; set; } = null!;
-    public string UA { get; set; } = null!;
-    public string OS { get; set; } = null!;
+    public string Ua { get; set; } = null!;
+    public string Os { get; set; } = null!;
     public string Browser { get; set; } = null!;
     public string? Referer { get; set; }
     public string? AccessName { get; set; }
     public string? Original { get; set; }
-    public string IP { get; set; } = null!;
+    public string Ip { get; set; } = null!;
     public string? Url { get; set; }
     public string? Controller { get; set; }
     public string? Action { get; set; }
@@ -70,15 +70,15 @@ public record ActionLog : IEntity, IHasCreationTime
         return this;
     }
 
-    public ActionLog ChangeUA(string ua)
+    public ActionLog ChangeUa(string ua)
     {
-        UA = Check.NotNullOrWhiteSpace(ua, nameof(ua), ActionLogConsts.MaxUALength, ActionLogConsts.MinUALength);
+        Ua = Check.NotNullOrWhiteSpace(ua, nameof(ua), ActionLogConsts.MaxUALength, ActionLogConsts.MinUALength);
         return this;
     }
 
-    public ActionLog ChangeOS(string os)
+    public ActionLog ChangeOs(string os)
     {
-        OS = Check.NotNullOrWhiteSpace(os, nameof(os), ActionLogConsts.MaxOSLength, ActionLogConsts.MinOSLength);
+        Os = Check.NotNullOrWhiteSpace(os, nameof(os), ActionLogConsts.MaxOSLength, ActionLogConsts.MinOSLength);
         return this;
     }
 
@@ -107,9 +107,9 @@ public record ActionLog : IEntity, IHasCreationTime
         return this;
     }
 
-    public ActionLog ChangeIP(string ip)
+    public ActionLog ChangeIp(string ip)
     {
-        IP = Check.NotNullOrWhiteSpace(ip, nameof(ip), ActionLogConsts.MaxIPLength, ActionLogConsts.MinIPLength);
+        Ip = Check.NotNullOrWhiteSpace(ip, nameof(ip), ActionLogConsts.MaxIPLength, ActionLogConsts.MinIPLength);
         return this;
     }
 

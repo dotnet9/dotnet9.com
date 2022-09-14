@@ -50,6 +50,7 @@ public static class WebApplicationBuilderExtensions
             options.Filters.Add<GlobalExceptionFilter>();
             options.Filters.Add<UnitOfWorkFilter>();
             options.Filters.Add<RateLimitFilter>();
+            options.Filters.Add<ActionLogFilterAttribute>();
         });
         services.Configure<JsonOptions>(options =>
         {

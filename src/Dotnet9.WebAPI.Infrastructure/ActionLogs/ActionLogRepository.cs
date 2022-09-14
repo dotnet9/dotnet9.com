@@ -15,7 +15,7 @@ internal class ActionLogRepository : IActionLogRepository
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
-                EF.Functions.Like(log.IP, $"%{keywords}%"));
+                EF.Functions.Like(log.Ip, $"%{keywords}%"));
         }
 
         var logsFromDB = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);

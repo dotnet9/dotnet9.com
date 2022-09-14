@@ -12,20 +12,23 @@ public class RateLimitFilter : IAsyncActionFilter
 
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var remoteIp = context.HttpContext.Connection.RemoteIpAddress?.ToString();
+        var remoteIp = context.HttpContext.GetClientIP();
         if (remoteIp == null)
         {
             return;
         }
 
-        async Task<long?> GetLastVisitTick()
+        var isFirst = false;
+
+        async Task<long> GetLastVisitTick()
         {
+            isFirst = true;
             return await Task.FromResult(Environment.TickCount64);
         }
 
         var lastTick = await _cacheHelper.GetOrCreateAsync($"RateLimitFilter_OnActionExecutionAsync_{remoteIp}",
             async e => await GetLastVisitTick());
-        if (lastTick == null || Environment.TickCount64 - lastTick > 1000)
+        if (isFirst || Environment.TickCount64 - lastTick > 1000)
         {
             await next();
         }
