@@ -47,6 +47,7 @@ public static class WebApplicationBuilderExtensions
         //现在不用手动AddMVC了，因此把文档中的services.AddMvc(options =>{})改写成Configure<MvcOptions>(options=> {})这个问题很多都类似
         services.Configure<MvcOptions>(options =>
         {
+            options.Filters.Add<ResultWrapperFilter>();
             options.Filters.Add<GlobalExceptionFilter>();
             options.Filters.Add<UnitOfWorkFilter>();
             options.Filters.Add<RateLimitFilter>();

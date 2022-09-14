@@ -21,7 +21,7 @@ public class GlobalExceptionFilter : IAsyncExceptionFilter
         {
             StatusCode = (int)HttpStatusCode.InternalServerError
         };
-        context.Result = result;
+        context.Result = new ObjectResult(ResponseResult<object>.Error(HttpStatusCode.InternalServerError, message));
         context.ExceptionHandled = true;
         _logger.LogError(context.Exception, message);
         await Task.CompletedTask;

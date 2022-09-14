@@ -1,4 +1,5 @@
-﻿global using Dotnet9.Commons;
+﻿global using Dotnet9.ASPNETCore.ResponseResults;
+global using Dotnet9.Commons;
 global using MediatR;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc;
