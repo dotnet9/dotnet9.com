@@ -19,7 +19,7 @@ public class TagController : ControllerBase
     public async Task<QueryTagResponse> List([FromQuery] QueryTagRequest request)
     {
         var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryTagResponse(result.Tags?.Adapt<TagDTO[]>(), result.Count);
+        return new QueryTagResponse(result.Tags?.Adapt<TagDto[]>(), result.Count);
     }
 
     [HttpDelete]
@@ -31,22 +31,22 @@ public class TagController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<TagDTO> Add([FromBody] AddTagRequest request)
+    public async Task<TagDto> Add([FromBody] AddTagRequest request)
     {
         var data = await _manager.CreateAsync(null, request.Name);
         var dataFromDb = await _dbContext.AddAsync(data);
         await _dbContext.SaveChangesAsync();
-        return dataFromDb.Entity.Adapt<TagDTO>();
+        return dataFromDb.Entity.Adapt<TagDto>();
     }
 
     [HttpPut]
     [Route("{id}")]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<TagDTO> Update(Guid id, [FromBody] UpdateTagRequest request)
+    public async Task<TagDto> Update(Guid id, [FromBody] UpdateTagRequest request)
     {
         var data = await _manager.CreateAsync(id, request.Name);
         var dataFromDb = _dbContext.Update(data);
         await _dbContext.SaveChangesAsync();
-        return dataFromDb.Entity.Adapt<TagDTO>();
+        return dataFromDb.Entity.Adapt<TagDto>();
     }
 }

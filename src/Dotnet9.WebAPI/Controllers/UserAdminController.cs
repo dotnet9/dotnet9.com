@@ -17,13 +17,13 @@ public class UserAdminController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<UserDTO[]> GetAllUsers()
+    public async Task<UserDto[]> GetAllUsers()
     {
-        var userWithRoles = new List<UserDTO>();
+        var userWithRoles = new List<UserDto>();
         foreach (var user in _userManager.Users.ToList())
         {
             var roleNames = await _userManager.GetRolesAsync(user);
-            userWithRoles.Add(new UserDTO(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!,
+            userWithRoles.Add(new UserDto(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!,
                 user.CreationTime));
         }
 
@@ -32,7 +32,7 @@ public class UserAdminController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<UserDTO?> FindById(Guid id)
+    public async Task<UserDto?> FindById(Guid id)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
         if (user == null)
@@ -41,7 +41,7 @@ public class UserAdminController : ControllerBase
         }
 
         var roleNames = await _userManager.GetRolesAsync(user);
-        return new UserDTO(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!, user.CreationTime);
+        return new UserDto(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!, user.CreationTime);
     }
 
     [HttpPost]
