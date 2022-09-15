@@ -64,9 +64,9 @@ export default () => {
   return (
     <HeaderSearch
       placeholder="站内搜索"
-      defaultValue="umi ui"
+      defaultValue="Dotnet"
       options={[
-        { label: 'Ant Design Pro', value: 'Ant Design Pro' },
+        { label: 'Dotnet9', value: 'Dotnet9' },
         {
           label: 'Ant Design',
           value: 'Ant Design',

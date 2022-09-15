@@ -33,7 +33,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'your pre url',
+      target: 'https://localhost:7129/api',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

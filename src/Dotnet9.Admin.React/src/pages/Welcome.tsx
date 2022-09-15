@@ -105,7 +105,7 @@ const Welcome: React.FC = () => {
               color: '#1A1A1A',
             }}
           >
-            欢迎使用 Ant Design Pro
+            Dotnet9博客系统管理后台
           </div>
           <p
             style={{
@@ -117,8 +117,7 @@ const Welcome: React.FC = () => {
               width: '65%',
             }}
           >
-            Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
-            的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
+            正在开发中
           </p>
           <div
             style={{
@@ -128,21 +127,21 @@ const Welcome: React.FC = () => {
           >
             <InfoCard
               index={1}
-              href="https://umijs.org/docs/introduce/introduce"
-              title="了解 umi"
-              desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
+              href="https://dotnet9.com"
+              title="博客前台"
+              desc="主要记录开发相关的博客，全部在这里展示"
             />
             <InfoCard
               index={2}
-              title="了解 ant design"
-              href="https://ant.design"
-              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
+              title="网站源码"
+              href="https://github.com/dotnet9/Dotnet9"
+              desc="前台(Razor Pages)、后台前端(Antd Pro)、后端(ASP.NET Core Web API)源码都在这里"
             />
             <InfoCard
               index={3}
-              title="了解 Pro Components"
-              href="https://procomponents.ant.design"
-              desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
+              title="博客资源"
+              href="https://github.com/dotnet9/Assets.Dotnet9"
+              desc="收集的博文都放在这个仓库"
             />
           </div>
         </div>
