@@ -83,14 +83,11 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.lang} data-lang>
-        {SelectLang && <SelectLang />}
-      </div>
       <div className={styles.content}>
         <LoginForm
-          logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
+          logo={<img alt="logo" src="/favicon.ico" />}
+          title="Dotnet9博客系统管理后台"
+          subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title',defaultMessage:'Dotnet9后台' })}
           initialValues={{
             autoLogin: true,
           }}
@@ -143,7 +140,7 @@ const Login: React.FC = () => {
                 }}
                 placeholder={intl.formatMessage({
                   id: 'pages.login.username.placeholder',
-                  defaultMessage: '用户名: admin or user',
+                  defaultMessage: '用户名',
                 })}
                 rules={[
                   {
