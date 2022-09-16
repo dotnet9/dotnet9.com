@@ -1,4 +1,5 @@
-﻿using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+﻿using Dotnet9.WebAPI.Domain.UserAdmin;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Dotnet9.WebAPI.Controllers;
 
@@ -76,7 +77,7 @@ public partial class LoginController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<UserResponse>> GetUserInfo()
+    public async Task<ActionResult<UserResponse>> CurrentUser()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
@@ -118,10 +119,11 @@ public partial class LoginController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
-    public async Task<ActionResult<string?>> Account(LoginRequest req)
+    [NoWrapper]
+    public async Task<LoginResponse> Account(LoginRequest req)
     {
         (SignInResult Result, string? Token) loginResult;
-        if ("account" == req.Type)
+        if (LoginRequestType.Account == req.Type)
         {
             loginResult = await _manager.LoginByUserNameAndPwdAsync(req.UserName, req.Password);
         }
@@ -130,13 +132,25 @@ public partial class LoginController : ControllerBase
             loginResult = await _manager.LoginByPhoneAndPwdAsync(req.UserName, req.Password);
         }
 
+        var status = loginResult.Result.Succeeded ? "ok" : "error";
+        var currentAuthority = "guest";
+        var token = loginResult.Token;
         if (loginResult.Result.Succeeded)
         {
-            return loginResult.Token;
-        }
+            if (LoginRequestType.Account != req.Type)
+            {
+                return new LoginResponse("ok", req.Type!, currentAuthority, token);
+            }
 
-        return loginResult.Result.IsLockedOut
-            ? StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定")
-            : BadRequest($"登录失败：{loginResult.Result}");
+            var user = await _repository.FindByNameAsync(req.UserName);
+            var roles = await _repository.GetRolesAsync(user!);
+            currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
+
+            return new LoginResponse("ok", req.Type!, currentAuthority, token);
+        }
+        else
+        {
+            return new LoginResponse("error", req.Type!, currentAuthority, token);
+        }
     }
 }
