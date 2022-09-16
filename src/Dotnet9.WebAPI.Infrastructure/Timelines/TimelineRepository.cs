@@ -11,19 +11,19 @@ internal class TimelineRepository : ITimelineRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var datas = await _dbContext.Timelines.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        var datas = await _dbContext.Timelines!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(datas);
         return await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Timeline?> FindByIdAsync(Guid id)
     {
-        return await _dbContext.Timelines.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Timelines!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<(Timeline[]? Timelines, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        var query = _dbContext.Timelines.AsQueryable();
+        var query = _dbContext.Timelines!.AsQueryable();
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(data =>

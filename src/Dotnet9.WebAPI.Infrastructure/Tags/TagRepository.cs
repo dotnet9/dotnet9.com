@@ -11,25 +11,25 @@ internal class TagRepository : ITagRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Tags.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        var logs = await _dbContext.Tags!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Tag?> FindByIdAsync(Guid id)
     {
-        return await _dbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Tags!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Tag?> FindByNameAsync(string name)
     {
-        return await _dbContext.Tags.FirstOrDefaultAsync(x => x.Name == name);
+        return await _dbContext.Tags!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
 
     public async Task<(Tag[]? Tags, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        var query = _dbContext.Tags.AsQueryable();
+        var query = _dbContext.Tags!.AsQueryable();
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log => EF.Functions.Like(log.Name!, $"%{keywords}%"));

@@ -11,7 +11,7 @@ internal class ActionLogRepository : IActionLogRepository
 
     public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        var query = _dbContext.ActionLogs.AsQueryable();
+        var query = _dbContext.ActionLogs!.AsQueryable();
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
@@ -25,7 +25,7 @@ internal class ActionLogRepository : IActionLogRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.ActionLogs.Where(log => ids.Contains(log.Id)).ToListAsync();
+        var logs = await _dbContext.ActionLogs!.Where(log => ids.Contains(log.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }

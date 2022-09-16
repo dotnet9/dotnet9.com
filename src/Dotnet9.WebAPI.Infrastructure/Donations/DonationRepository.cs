@@ -11,6 +11,6 @@ public class DonationRepository : IDonationRepository
 
     public async Task<Donation?> GetAsync()
     {
-        return await _dbContext.Donations.FirstOrDefaultAsync();
+        return await _dbContext.Donations!.FirstOrDefaultAsync();
     }
 }

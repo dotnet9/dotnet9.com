@@ -11,29 +11,29 @@ internal class AlbumRepository : IAlbumRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Albums.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        var logs = await _dbContext.Albums!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Album?> FindByIdAsync(Guid id)
     {
-        return await _dbContext.Albums.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Albums!.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Album?> FindByNameAsync(string name)
     {
-        return await _dbContext.Albums.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Name == name);
+        return await _dbContext.Albums!.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Name == name);
     }
 
     public async Task<Album?> FindBySlugAsync(string slug)
     {
-        return await _dbContext.Albums.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Slug == slug);
+        return await _dbContext.Albums!.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
     public async Task<(Album[]? Albums, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        var query = _dbContext.Albums.AsQueryable();
+        var query = _dbContext.Albums!.AsQueryable();
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>

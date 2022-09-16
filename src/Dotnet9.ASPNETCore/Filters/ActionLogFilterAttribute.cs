@@ -53,7 +53,7 @@ public class ActionLogFilterAttribute : ActionFilterAttribute
         var duration = _stopwatch!.Elapsed.TotalMilliseconds;
         var createDate = DateTimeOffset.Now;
 
-        var actionLogCreatedEvent = new ActionLogCreatedEvent(uid, ua, os, browser, ip, referer, null, original, url,
+        var actionLogCreatedEvent = new ActionLogCreatedEvent(uid, ua, os, browser, ip!, referer, null, original, url,
             controller, action, method, _actionArguments, duration);
         _mediator.Publish(actionLogCreatedEvent);
     }

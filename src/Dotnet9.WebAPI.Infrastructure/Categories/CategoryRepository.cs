@@ -11,29 +11,29 @@ internal class CategoryRepository : ICategoryRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Categories.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        var logs = await _dbContext.Categories!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
 
     public async Task<Category?> FindByIdAsync(Guid id)
     {
-        return await _dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+        return await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Category?> FindByNameAsync(string name)
     {
-        return await _dbContext.Categories.FirstOrDefaultAsync(x => x.Name == name);
+        return await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
     public async Task<Category?> FindBySlugAsync(string slug)
     {
-        return await _dbContext.Categories.FirstOrDefaultAsync(x => x.Slug == slug);
+        return await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
     public async Task<(Category[]? Categories, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
     {
-        var query = _dbContext.Categories.AsQueryable();
+        var query = _dbContext.Categories!.AsQueryable();
         if (!keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>

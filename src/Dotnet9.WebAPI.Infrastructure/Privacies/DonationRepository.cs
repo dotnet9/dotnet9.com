@@ -11,6 +11,6 @@ public class PrivacyRepository : IPrivacyRepository
 
     public async Task<Privacy?> GetAsync()
     {
-        return await _dbContext.Privacies.FirstOrDefaultAsync();
+        return await _dbContext.Privacies!.FirstOrDefaultAsync();
     }
 }

@@ -11,6 +11,6 @@ public class AboutRepository : IAboutRepository
 
     public async Task<About?> GetAsync()
     {
-        return await _dbContext.Abouts.FirstOrDefaultAsync();
+        return await _dbContext.Abouts!.FirstOrDefaultAsync();
     }
 }
