@@ -22,11 +22,12 @@ public class ResultWrapperFilter : ActionFilterAttribute
         if (objectResult is BadRequestObjectResult)
         {
             context.Result =
-                new ObjectResult(ResponseResult<object>.Result(HttpStatusCode.BadRequest, "", objectResult.Value));
+                new ObjectResult(ResponseResult<object>.GetResult(false, HttpStatusCode.BadRequest, "",
+                    objectResult.Value));
         }
         else if (objectResult.Value == null)
         {
-            context.Result = new ObjectResult(ResponseResult<object>.Error(HttpStatusCode.NotFound, "未找到资源"));
+            context.Result = new ObjectResult(ResponseResult<object>.GetError(HttpStatusCode.NotFound, "未找到资源"));
         }
         else
         {
@@ -37,7 +38,7 @@ public class ResultWrapperFilter : ActionFilterAttribute
                 return;
             }
 
-            context.Result = new ObjectResult(ResponseResult<object>.Success(objectResult.Value));
+            context.Result = new ObjectResult(ResponseResult<object>.GetSuccess(objectResult.Value));
         }
     }
 }

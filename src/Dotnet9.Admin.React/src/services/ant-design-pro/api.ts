@@ -8,6 +8,9 @@ export async function currentUser(options?: { [key: string]: any }) {
     data: API.CurrentUser;
   }>('/api/login/currentUser', {
     method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
     ...(options || {}),
   });
 }
@@ -16,6 +19,9 @@ export async function currentUser(options?: { [key: string]: any }) {
 export async function outLogin(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/login/outLogin', {
     method: 'POST',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
     ...(options || {}),
   });
 }

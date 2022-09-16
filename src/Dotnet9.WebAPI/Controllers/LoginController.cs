@@ -1,5 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.UserAdmin;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+﻿using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Dotnet9.WebAPI.Controllers;
 
@@ -86,7 +85,11 @@ public partial class LoginController : ControllerBase
             return NotFound();
         }
 
-        return new UserResponse(user.Id, user.PhoneNumber!, user.CreationTime);
+        return new UserResponse
+        {
+            UserId = user.Id, Name = user.UserName, Phone = user.PhoneNumber, Avatar =
+                "https://img1.dotnet9.com/site/logo.png"
+        };
     }
 
     [HttpPost]
@@ -139,18 +142,25 @@ public partial class LoginController : ControllerBase
         {
             if (LoginRequestType.Account != req.Type)
             {
-                return new LoginResponse("ok", req.Type!, currentAuthority, token);
+                return new LoginResponse(true, "ok", req.Type!, currentAuthority, token);
             }
 
             var user = await _repository.FindByNameAsync(req.UserName);
             var roles = await _repository.GetRolesAsync(user!);
             currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
 
-            return new LoginResponse("ok", req.Type!, currentAuthority, token);
+            return new LoginResponse(true, "ok", req.Type!, currentAuthority, token);
         }
         else
         {
-            return new LoginResponse("error", req.Type!, currentAuthority, token);
+            return new LoginResponse(false, "error", req.Type!, currentAuthority, token);
         }
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult<bool>?> OutLogin()
+    {
+        return await Task.FromResult(true);
     }
 }
