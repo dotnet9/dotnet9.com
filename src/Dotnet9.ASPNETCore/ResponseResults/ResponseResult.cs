@@ -7,7 +7,7 @@ public class ResponseResult<T>
 
     public string? ErrorCode
     {
-        get { return Code.ToString(); }
+        get { return ((int)Code).ToString(); }
     }
 
     public string? ErrorMessage { get; set; }

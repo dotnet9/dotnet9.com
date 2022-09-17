@@ -1,3 +1,3 @@
 ﻿namespace Dotnet9.WebAPI.ViewModels.Links;
 
-public record GetLinkListRequest(string? Keywords, int PageIndex, int PageSize);
+public record GetLinkListRequest(string? Name,string? Url,string? Description,LinkKind? Kind, int Current, int PageSize);

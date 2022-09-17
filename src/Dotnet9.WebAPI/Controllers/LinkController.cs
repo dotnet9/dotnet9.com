@@ -16,10 +16,13 @@ public class LinkController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = UserRoleConst.Admin)]
+    [NoWrapper]
     public async Task<GetLinkListResponse> List([FromQuery] GetLinkListRequest request)
     {
-        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new GetLinkListResponse(result.Links?.Adapt<LinkDto[]>(), result.Count);
+        var result = await _repository.GetListAsync(request.Name,request.Url,request.Description,request.Kind, request.Current, request.PageSize);
+        return new GetLinkListResponse(result.Links?.Adapt<LinkDto[]>(), result.Count, true, request.PageSize,
+            request.Current);
     }
 
     [HttpDelete]

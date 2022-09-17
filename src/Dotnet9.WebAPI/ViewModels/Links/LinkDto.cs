@@ -1,4 +1,13 @@
 ﻿namespace Dotnet9.WebAPI.ViewModels.Links;
 
-public record LinkDto(Guid Id, int SequenceNumber, string Name, string Url,
-    string? Description = null, LinkKind Kind = LinkKind.Friend);
+public record LinkDto
+{
+    public Guid Id { get; set; }
+    public int SequenceNumber { get; set; }
+    public string Name { get; set; } = null!;
+    public string Url { get; set; } = null!;
+    public string? Description { get; set; }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public LinkKind Kind { get; set; }
+}

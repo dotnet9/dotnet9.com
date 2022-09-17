@@ -153,7 +153,8 @@ public partial class LoginController : ControllerBase
         }
         else
         {
-            return new LoginResponse(false, "error", req.Type!, currentAuthority, token);
+            return new LoginResponse(false, "error", req.Type!, currentAuthority, token,
+                loginResult.Result == SignInResult.LockedOut ? "已被锁定！" : "登录失败，请重试！");
         }
     }
 

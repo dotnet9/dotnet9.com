@@ -35,6 +35,22 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type LinkListItem = {
+    id?: string;
+    sequencenumber?: number;
+    name?: string;
+    url?: string;
+    description?: string;
+    kind?: number;
+  };
+
+  type LinkList = {
+    data?: LinkListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
+
   type RuleListItem = {
     key?: number;
     disabled?: boolean;

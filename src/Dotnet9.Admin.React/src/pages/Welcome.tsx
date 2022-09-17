@@ -105,7 +105,7 @@ const Welcome: React.FC = () => {
               color: '#1A1A1A',
             }}
           >
-            Dotnet9博客系统管理后台
+            Dotnet9博客后台
           </div>
           <p
             style={{

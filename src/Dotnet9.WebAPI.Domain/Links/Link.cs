@@ -51,7 +51,7 @@ public record Link : AggregateRootEntity
 
     internal Link ChangeDescription(string? description)
     {
-        Description = Check.NotNullOrWhiteSpace(description, nameof(description), LinkConsts.MaxDescriptionLength);
+        Description = Check.Length(description, nameof(description), LinkConsts.MaxDescriptionLength);
         return this;
     }
 

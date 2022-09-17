@@ -22,8 +22,8 @@ export default [
   },
   {
     path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
+    name: '首页',
+    icon: 'dashboard',
     component: './Welcome',
   },
   {
@@ -44,7 +44,13 @@ export default [
     ],
   },
   {
-    name: 'list.table-list',
+    name: '链接',
+    icon: 'link',
+    path: '/link',
+    component: './LinkMrg',
+  },
+  {
+    name: '表格案例',
     icon: 'table',
     path: '/list',
     component: './TableList',

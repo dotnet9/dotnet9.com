@@ -46,6 +46,67 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
+/** 获取链接列表 GET /api/kubj */
+export async function link(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.LinkList>('/api/link', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新链接 PUT /api/link */
+export async function updateLink(body: API.LinkListItem, options?: { [key: string]: any }) {
+  return request<API.LinkListItem>(`/api/link/${body.id}`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建链接 POST /api/link */
+export async function addLink(body: API.LinkListItem, options?: { [key: string]: any }) {
+  return request<API.LinkListItem>('/api/link', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除链接 DELETE /api/link */
+export async function removeLink(ids?: { [id: string]: any }, options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/link', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: ids,
+    ...(options || {}),
+  });
+}
+
 /** 获取规则列表 GET /api/rule */
 export async function rule(
   params: {

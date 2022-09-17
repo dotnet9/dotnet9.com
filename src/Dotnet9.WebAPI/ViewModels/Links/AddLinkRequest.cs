@@ -1,3 +1,12 @@
 ﻿namespace Dotnet9.WebAPI.ViewModels.Links;
 
-public record AddLinkRequest(int SequenceNumber, string Name, string Url, string? Description, LinkKind Kind);
+public record AddLinkRequest
+{
+    public int SequenceNumber { get; set; }
+    public string Name { get; set; } = null!;
+    public string Url { get; set; } = null!;
+    public string? Description { get; set; }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public LinkKind Kind { get; set; }
+}

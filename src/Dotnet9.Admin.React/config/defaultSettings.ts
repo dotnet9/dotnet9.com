@@ -15,7 +15,7 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Dotnet9博客系统管理后台',
+  title: 'Dotnet9博客后台',
   pwa: false,
   logo: 'https://img1.dotnet9.com/site/logo.png',
   iconfontUrl: '',
