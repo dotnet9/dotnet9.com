@@ -50,6 +50,31 @@ declare namespace API {
     total?: number;
     success?: boolean;
   };
+  
+  type ActionLogListItem = {
+    id?: string;
+    uid?: string;
+    os?: string;
+    browser?: string;
+    ip?: string;
+    referer?: string;
+    accessName?: string;
+    original?: string;
+    url?: string;
+    controller?: string;
+    action?: string;
+    method?: string;
+    arguments?: string;
+    duration?: string;
+    creationTime?: Date;
+  };
+
+  type ActionLogList = {
+    data?: ActionLogListItem[];
+    /** 列表的内容总数 */
+    total?: number;
+    success?: boolean;
+  };
 
   type RuleListItem = {
     key?: number;

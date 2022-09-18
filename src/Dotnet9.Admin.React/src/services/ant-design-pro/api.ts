@@ -107,6 +107,42 @@ export async function removeLink(data: string[], options?: { [key: string]: any 
   });
 }
 
+/** 获取操作日志列表 GET /api/actionlog */
+export async function actionLog(
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.ActionLogList>('/api/actionlog', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 删除操作日志 DELETE /api/actionlog */
+export async function removeActionLog(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/actionlog', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
+
 /** 获取规则列表 GET /api/rule */
 export async function rule(
   params: {

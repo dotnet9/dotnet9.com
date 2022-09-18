@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -18,9 +20,10 @@ public class ActionLogController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = UserRoleConst.Admin)]
+    [NoWrapper]
     public async Task<GetActionLogListResponse> List([FromQuery] GetActionLogListRequest request)
     {
-        var result = await _repository.GetListAsync(request);
+        (ActionLog[]? Logs, long Count) result = await _repository.GetListAsync(request);
         return new GetActionLogListResponse(result.Logs?.Adapt<ActionLogDto[]>(), result.Count, true, request.Current,
             request.PageSize);
     }
@@ -36,11 +39,11 @@ public class ActionLogController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ActionLogDto> Add([FromBody] AddActionLogRequest request)
     {
-        var actionLog = _manager.Create(request.UId, request.Ua, request.Os, request.Browser, request.Ip,
+        ActionLog actionLog = _manager.Create(request.UId, request.Ua, request.Os, request.Browser, request.Ip,
             request.Referer, request.AccessName,
             request.Original, request.Url, request.Controller, request.Action, request.Method, request.Arguments,
             request.Duration);
-        var actionLogFromDb = await _dbContext.AddAsync(actionLog);
+        EntityEntry<ActionLog> actionLogFromDb = await _dbContext.AddAsync(actionLog);
         await _dbContext.SaveChangesAsync();
         return actionLogFromDb.Entity.Adapt<ActionLogDto>();
     }

@@ -47,13 +47,12 @@ export default [
     name: '链接',
     icon: 'link',
     path: '/link',
-    component: './LinkMrg',
-  },
-  {
-    name: '表格案例',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
+    component: './Link',
+  },{
+    name: '操作日志',
+    icon: 'log',
+    path: '/log',
+    component: './ActionLog',
   },
   {
     path: '/',
