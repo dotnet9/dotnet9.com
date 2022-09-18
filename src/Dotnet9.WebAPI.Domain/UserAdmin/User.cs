@@ -8,7 +8,7 @@ public class User : IdentityUser<Guid>, IHasCreationTime, IHasDeletionTime, ISof
         CreationTime = DateTime.Now;
     }
 
-    public DateTime CreationTime { get; }
+    public DateTime CreationTime { get; internal set; }
     public DateTime? DeletionTime { get; private set; }
 
     public bool IsDeleted { get; private set; }

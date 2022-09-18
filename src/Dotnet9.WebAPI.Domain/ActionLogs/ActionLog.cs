@@ -61,7 +61,7 @@ public record ActionLog : IEntity, IHasCreationTime
         return new object[] { Id };
     }
 
-    public DateTime CreationTime { get; } = DateTime.Now;
+    public DateTime CreationTime { get; internal set; } = DateTime.Now;
 
 
     public ActionLog ChangeUId(string uid)

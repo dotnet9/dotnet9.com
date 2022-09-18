@@ -3,7 +3,7 @@
 public record AggregateRootEntity : BaseEntity, IAggregateRoot, ISoftDelete, IHasCreationTime, IHasDeletionTime,
     IHasModificationTime
 {
-    public DateTime CreationTime { get; } = DateTime.Now;
+    public DateTime CreationTime { get; internal set; } = DateTime.Now;
 
     public DateTime? DeletionTime { get; private set; }
 
