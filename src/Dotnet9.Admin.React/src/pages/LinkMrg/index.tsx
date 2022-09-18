@@ -24,7 +24,8 @@ const handleAdd = async (fields: API.LinkListItem) => {
     return false;
   }
 };
-const handleEdit = async (fields: API.LinkListItem) => {
+
+const handleUpdate = async (fields: API.LinkListItem) => {
   const hide = message.loading('正在更新');
   try {
     await updateLink({ ...fields });
@@ -38,25 +39,17 @@ const handleEdit = async (fields: API.LinkListItem) => {
   }
 };
 
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.LinkListItem[]) => {
+const handleRemove = async (data: string[]) => {
   const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
+  if (!data) return true;
   try {
-    await removeLink({
-      ids: selectedRows.map((row) => row.id)
-    });
+    await removeLink(data);
     hide();
-    message.success('删除成功即将刷新！');
+    message.success('删除成功，即将刷新');
     return true;
   } catch (error) {
     hide();
-    message.error('删除失败，请重试！');
+    message.error('删除失败，请重试');
     return false;
   }
 };
@@ -75,14 +68,24 @@ const TableList: React.FC = () => {
     setCurrent(undefined);
   };
 
-  const handleSubmit = async (values: API.LinkListItem) => {
-    console.log(values);
-    if (values.id) {
-      await handleEdit(values);
-    } else {
-      await handleAdd(values);
+  const handleAddOrUpdateSubmit = async (values: API.LinkListItem) => {
+    const success = values.id ? await handleUpdate(values) : await handleAdd(values);
+    if (success) {
+      handleDone();
+      if (actionRef.current) {
+        actionRef.current.reload();
+      }
     }
-    setDone(true);
+  };
+
+  const handleRemoveSubmit = async (id: string) => {
+    const success = await handleRemove([id]);
+    if (success) {
+      handleDone();
+      if (actionRef.current) {
+        actionRef.current.reload();
+      }
+    }
   };
 
   const columns: ProColumns<API.LinkListItem>[] = [
@@ -168,7 +171,7 @@ const TableList: React.FC = () => {
               content: '确定删除该任务吗？',
               okText: '确认',
               cancelText: '取消',
-              onOk: () => removeLink({ids: [record.id]}),
+              onOk: () => handleRemoveSubmit(record.id!),
             });
           }}
         >
@@ -218,7 +221,7 @@ const TableList: React.FC = () => {
         >
           <Button
             onClick={async () => {
-              await handleRemove(selectedRowsState);
+              await handleRemove(selectedRowsState.map((row) => row.id!));
               setSelectedRows([]);
               actionRef.current?.reloadAndRest?.();
             }}
@@ -233,7 +236,7 @@ const TableList: React.FC = () => {
         open={visible}
         current={current}
         onDone={handleDone}
-        onSubmit={handleSubmit}
+        onSubmit={handleAddOrUpdateSubmit}
       />
 
       <Drawer

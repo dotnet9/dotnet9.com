@@ -13,7 +13,7 @@ export type OperationModalProps = {
   open: boolean;
   current: Partial<API.LinkListItem> | undefined;
   onDone: () => void;
-  onSubmit: (values: API.LinkListItem) => void;
+  onSubmit: (values: API.LinkListItem) => Promise<void>;
 };
 
 const OperationModal: React.FC<OperationModalProps> = (props) => {

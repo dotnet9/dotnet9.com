@@ -95,14 +95,14 @@ export async function addLink(body: API.LinkListItem, options?: { [key: string]:
 }
 
 /** 删除链接 DELETE /api/link */
-export async function removeLink(ids?: { [id: string]: any }, options?: { [key: string]: any }) {
+export async function removeLink(data: string[], options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/link', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    data: ids,
+    data: { ids: data },
     ...(options || {}),
   });
 }
