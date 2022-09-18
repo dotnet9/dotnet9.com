@@ -78,14 +78,27 @@ const TableList: React.FC = () => {
     }
   };
 
-  const handleRemoveSubmit = async (id: string) => {
-    const success = await handleRemove([id]);
-    if (success) {
-      handleDone();
-      if (actionRef.current) {
-        actionRef.current.reload();
-      }
-    }
+  const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
+    Modal.confirm({
+      title: '删除任务',
+      content: '确定删除该任务吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const success = await handleRemove(ids);
+        if (success) {
+          if (isBatch) {
+            setSelectedRows([]);
+            actionRef.current?.reloadAndRest?.();
+          } else {
+            handleDone();
+            if (actionRef.current) {
+              actionRef.current.reload();
+            }
+          }
+        }
+      },
+    });
   };
 
   const columns: ProColumns<API.LinkListItem>[] = [
@@ -166,13 +179,7 @@ const TableList: React.FC = () => {
         <a
           key="delete"
           onClick={() => {
-            Modal.confirm({
-              title: '删除任务',
-              content: '确定删除该任务吗？',
-              okText: '确认',
-              cancelText: '取消',
-              onOk: () => handleRemoveSubmit(record.id!),
-            });
+            handleRemoveSubmit([record.id!], false);
           }}
         >
           删除
@@ -221,9 +228,10 @@ const TableList: React.FC = () => {
         >
           <Button
             onClick={async () => {
-              await handleRemove(selectedRowsState.map((row) => row.id!));
-              setSelectedRows([]);
-              actionRef.current?.reloadAndRest?.();
+              handleRemoveSubmit(
+                selectedRowsState.map((row) => row.id!),
+                true,
+              );
             }}
           >
             批量删除
