@@ -27,15 +27,15 @@ internal class TagRepository : ITagRepository
     }
 
 
-    public async Task<(Tag[]? Tags, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Tag[]? Tags, long Count)> GetListAsync(GetTagListRequest request)
     {
         var query = _dbContext.Tags!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Keywords.IsNullOrWhiteSpace())
         {
-            query = query.Where(log => EF.Functions.Like(log.Name!, $"%{keywords}%"));
+            query = query.Where(log => EF.Functions.Like(log.Name!, $"%{request.Keywords}%"));
         }
 
-        var dataFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        var dataFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await dataFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

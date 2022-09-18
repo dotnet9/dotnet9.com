@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.Links;
+﻿using Dotnet9.WebAPI.ViewModel.Links;
+
+namespace Dotnet9.WebAPI.Infrastructure.Links;
 
 internal class LinkRepository : ILinkRepository
 {
@@ -31,35 +33,33 @@ internal class LinkRepository : ILinkRepository
         return await _dbContext.Links!.FirstOrDefaultAsync(x => x.Url == url);
     }
 
-    public async Task<(Link[]? Links, long Count)> GetListAsync(string? name, string? url, string? description,
-        LinkKind? kind,
-        int pageIndex, int pageSize)
+    public async Task<(Link[]? Links, long Count)> GetListAsync(GetLinkListRequest request)
     {
         var query = _dbContext.Links!.AsQueryable();
-        if (!name.IsNullOrWhiteSpace())
+        if (!request.Name.IsNullOrWhiteSpace())
         {
             query = query.Where(data =>
-                EF.Functions.Like(data.Name, $"%{name}%"));
+                EF.Functions.Like(data.Name, $"%{request.Name}%"));
         }
 
-        if (!url.IsNullOrWhiteSpace())
+        if (!request.Url.IsNullOrWhiteSpace())
         {
             query = query.Where(data =>
-                EF.Functions.Like(data.Url, $"%{url}%"));
+                EF.Functions.Like(data.Url, $"%{request.Url}%"));
         }
 
-        if (!description.IsNullOrWhiteSpace())
+        if (!request.Description.IsNullOrWhiteSpace())
         {
             query = query.Where(data =>
-                data.Description != null && EF.Functions.Like(data.Description, $"%{description}%"));
+                data.Description != null && EF.Functions.Like(data.Description, $"%{request.Description}%"));
         }
 
-        if (kind != null)
+        if (request.Kind != null)
         {
-            query = query.Where(data => data.Kind == kind);
+            query = query.Where(data => data.Kind == request.Kind);
         }
 
-        var datasFromDb = query.OrderBy(x => x.SequenceNumber).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        var datasFromDb = query.OrderBy(x => x.SequenceNumber).Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

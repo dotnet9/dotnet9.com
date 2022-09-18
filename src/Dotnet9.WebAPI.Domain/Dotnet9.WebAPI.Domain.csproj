@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj" />
     <ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
+    <ProjectReference Include="..\Dotnet9.WebAPI.ViewModel\Dotnet9.WebAPI.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 public interface IBlogPostRepository
 {
-    Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize);
+    Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(GetBlogPostListRequest request);
     Task<(BlogPost[]? BlogPosts, long Count)> GetListByCategoryIdAsync(Guid categoryId, int pageIndex, int pageSize);
     Task<(BlogPost[]? BlogPosts, long Count)> GetListByAlbumIdAsync(Guid albumId, int pageIndex, int pageSize);
     Task<(BlogPost[]? BlogPosts, long Count)> GetListByTagIdAsync(Guid tagId, int pageIndex, int pageSize);

@@ -19,7 +19,7 @@ public class BlogPostController : ControllerBase
     [HttpGet]
     public async Task<GetBlogPostListResponse> List([FromQuery] GetBlogPostListRequest request)
     {
-        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.GetListAsync(request);
         return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(), result.Count);
     }
 

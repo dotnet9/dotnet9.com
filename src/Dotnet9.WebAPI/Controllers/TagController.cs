@@ -16,10 +16,10 @@ public class TagController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<QueryTagResponse> List([FromQuery] QueryTagRequest request)
+    public async Task<GetTagListResponse> List([FromQuery] GetTagListRequest request)
     {
-        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
-        return new QueryTagResponse(result.Tags?.Adapt<TagDto[]>(), result.Count);
+        var result = await _repository.GetListAsync(request);
+        return new GetTagListResponse(result.Tags?.Adapt<TagDto[]>(), result.Count);
     }
 
     [HttpDelete]

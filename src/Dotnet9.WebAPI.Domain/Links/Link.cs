@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Domain.Links;
+﻿
+
+namespace Dotnet9.WebAPI.Domain.Links;
 
 public record Link : AggregateRootEntity
 {

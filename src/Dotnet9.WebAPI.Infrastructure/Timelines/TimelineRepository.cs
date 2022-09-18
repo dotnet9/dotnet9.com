@@ -21,17 +21,17 @@ internal class TimelineRepository : ITimelineRepository
         return await _dbContext.Timelines!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<(Timeline[]? Timelines, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Timeline[]? Timelines, long Count)> GetListAsync(GetTimelineListRequest request)
     {
         var query = _dbContext.Timelines!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(data =>
-                EF.Functions.Like(data.Title, $"%{keywords}%")
-                || EF.Functions.Like(data.Content, $"%{keywords}%"));
+                EF.Functions.Like(data.Title, $"%{request.Keywords}%")
+                || EF.Functions.Like(data.Content, $"%{request.Keywords}%"));
         }
 
-        var datasFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        var datasFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

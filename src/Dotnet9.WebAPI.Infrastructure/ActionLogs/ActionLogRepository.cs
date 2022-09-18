@@ -9,16 +9,16 @@ internal class ActionLogRepository : IActionLogRepository
         _dbContext = dbContext;
     }
 
-    public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(GetActionLogListRequest request)
     {
         var query = _dbContext.ActionLogs!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Ua.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
-                EF.Functions.Like(log.Ip, $"%{keywords}%"));
+                EF.Functions.Like(log.Ip, $"%{request.Ua}%"));
         }
 
-        var logsFromDB = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        var logsFromDB = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
 
         return (await logsFromDB.ToArrayAsync(), await query.LongCountAsync());
     }

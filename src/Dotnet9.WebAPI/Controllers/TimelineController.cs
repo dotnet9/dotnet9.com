@@ -18,7 +18,7 @@ public class TimelineController : ControllerBase
     [HttpGet]
     public async Task<GetTimelineListResponse> List([FromQuery] GetTimelineListRequest request)
     {
-        var result = await _repository.GetListAsync(request.Keywords, request.PageIndex, request.PageSize);
+        var result = await _repository.GetListAsync(request);
         return new GetTimelineListResponse(result.Timelines?.Adapt<TimelineDto[]>(), result.Count);
     }
 

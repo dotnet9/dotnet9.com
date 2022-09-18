@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.BlogPosts;
+﻿
+
+namespace Dotnet9.WebAPI.Infrastructure.BlogPosts;
 
 internal class BlogPostRepository : IBlogPostRepository
 {
@@ -37,21 +39,21 @@ internal class BlogPostRepository : IBlogPostRepository
             .FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(GetBlogPostListRequest request)
     {
         var query = _dbContext.BlogPosts!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
-                EF.Functions.Like(log.Title, $"%{keywords}%")
-                || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (log.Original != null && EF.Functions.Like(log.Original!, $"%{keywords}%"))
-                || (log.OriginalTitle != null && EF.Functions.Like(log.OriginalTitle!, $"%{keywords}%"))
-                || EF.Functions.Like(log.Description!, $"%{keywords}%")
-                || EF.Functions.Like(log.Content!, $"%{keywords}%"));
+                EF.Functions.Like(log.Title, $"%{request.Keywords}%")
+                || EF.Functions.Like(log.Slug, $"%{request.Keywords}%")
+                || (log.Original != null && EF.Functions.Like(log.Original!, $"%{request.Keywords}%"))
+                || (log.OriginalTitle != null && EF.Functions.Like(log.OriginalTitle!, $"%{request.Keywords}%"))
+                || EF.Functions.Like(log.Description!, $"%{request.Keywords}%")
+                || EF.Functions.Like(log.Content!, $"%{request.Keywords}%"));
         }
 
-        var datasFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(blogPost => blogPost.Albums)
+        var datasFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }

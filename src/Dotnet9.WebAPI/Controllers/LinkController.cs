@@ -20,7 +20,7 @@ public class LinkController : ControllerBase
     [NoWrapper]
     public async Task<GetLinkListResponse> List([FromQuery] GetLinkListRequest request)
     {
-        var result = await _repository.GetListAsync(request.Name,request.Url,request.Description,request.Kind, request.Current, request.PageSize);
+        var result = await _repository.GetListAsync(request);
         return new GetLinkListResponse(result.Links?.Adapt<LinkDto[]>(), result.Count, true, request.PageSize,
             request.Current);
     }

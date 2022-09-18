@@ -2,8 +2,7 @@
 
 public interface ILinkRepository
 {
-    Task<(Link[]? Links, long Count)> GetListAsync(string? name, string? url, string? description, LinkKind? kind,
-        int pageIndex, int pageSize);
+    Task<(Link[]? Links, long Count)> GetListAsync(GetLinkListRequest request);
 
     Task<int> DeleteAsync(Guid[] ids);
     Task<Link?> FindByIdAsync(Guid id);

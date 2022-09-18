@@ -31,18 +31,18 @@ internal class CategoryRepository : ICategoryRepository
         return await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(Category[]? Categories, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Category[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request)
     {
         var query = _dbContext.Categories!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
-                EF.Functions.Like(log.Name, $"%{keywords}%")
-                || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%")));
+                EF.Functions.Like(log.Name, $"%{request.Keywords}%")
+                || EF.Functions.Like(log.Slug, $"%{request.Keywords}%")
+                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{request.Keywords}%")));
         }
 
-        var categoriesFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        var categoriesFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

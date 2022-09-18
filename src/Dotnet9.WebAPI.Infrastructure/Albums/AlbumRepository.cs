@@ -31,18 +31,19 @@ internal class AlbumRepository : IAlbumRepository
         return await _dbContext.Albums!.Include(album => album.Categories).FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(Album[]? Albums, long Count)> GetListAsync(string? keywords, int pageIndex, int pageSize)
+    public async Task<(Album[]? Albums, long Count)> GetListAsync(GetAlbumListRequest request)
     {
         var query = _dbContext.Albums!.AsQueryable();
-        if (!keywords.IsNullOrWhiteSpace())
+        if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
-                EF.Functions.Like(log.Name, $"%{keywords}%")
-                || EF.Functions.Like(log.Slug, $"%{keywords}%")
-                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{keywords}%")));
+                EF.Functions.Like(log.Name, $"%{request.Keywords}%")
+                || EF.Functions.Like(log.Slug, $"%{request.Keywords}%")
+                || (log.Description != null && EF.Functions.Like(log.Description!, $"%{request.Keywords}%")));
         }
 
-        var albumsFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(album => album.Categories);
+        var albumsFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize)
+            .Include(album => album.Categories);
 
         return (await albumsFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
