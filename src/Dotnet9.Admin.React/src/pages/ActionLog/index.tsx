@@ -8,6 +8,7 @@ import {
 } from '@ant-design/pro-components';
 import { Button, Drawer, message, Modal } from 'antd';
 import React, { useRef, useState } from 'react';
+import moment from 'moment';
 
 const handleRemove = async (data: string[]) => {
   const hide = message.loading('正在删除');
@@ -76,50 +77,62 @@ const TableList: React.FC = () => {
       title: '代理',
       dataIndex: 'ua',
       ellipsis: true,
+      sorter: true,
+      
     },
     {
       title: '操作系统',
       dataIndex: 'os',
+      sorter: true,
     },
     {
       title: '浏览器',
       dataIndex: 'browser',
+      sorter: true,
     },
     {
       title: '主机地址',
       dataIndex: 'ip',
+      sorter: true,
     },
     {
       title: '访问来源',
       dataIndex: 'referer',
+      sorter: true,
     },
     {
       title: 'AccessName',
       dataIndex: 'accessName',
       hideInSearch: true,
+      sorter: true,
     },
     {
       title: 'Original',
       dataIndex: 'original',
+      sorter: true,
     },
     {
       title: '请求Url',
       dataIndex: 'url',
       ellipsis: true,
+      sorter: true,
     },
     {
       title: '控制器',
       dataIndex: 'controller',
       ellipsis: true,
+      sorter: true,
     },
     {
       title: '接口',
       dataIndex: 'action',
       ellipsis: true,
+      sorter: true,
     },
     {
       title: '请求方式',
       dataIndex: 'method',
+      sorter: true,
       valueEnum: {
         GET: {
           text: 'GET',
@@ -143,32 +156,23 @@ const TableList: React.FC = () => {
       title: '参数',
       dataIndex: 'arguments',
       ellipsis: true,
+      sorter: true,
     },
     {
       title: '周期(ms)',
       dataIndex: 'duration',
       hideInSearch: true,
+      sorter: true,
     },
     {
       title: '创建时间',
-      key: 'showTime',
-      dataIndex: 'creationTime',
-      valueType: 'date',
-      hideInSearch: true,
-    },
-    {
-      title: '创建时间',
-      key: 'showTime',
       dataIndex: 'creationTime',
       valueType: 'dateTimeRange',
-      hideInTable: true,
+      sorter: true,
+      initialValue: [moment().add(-1, 'day').format('YYYY-MM-DD HH:mm:ss'), moment().format('YYYY-MM-DD HH:mm:ss')],
+      render: (_, record) => record.creationTime,
       search: {
-        transform: (value) => {
-          return {
-            startTime: value[0],
-            endTime: value[1],
-          };
-        },
+        transform: (value: any) => ({ startCreationTime: value[0], endCreationTime: value[1] }),
       },
     },
     {
@@ -197,7 +201,14 @@ const TableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
-        request={actionLog}
+        request={async (params, sort, filter) => {     
+          console.log(params)  
+          console.log(sort.key)
+          console.log(sort.sort)
+          console.log(filter)
+          const res: any = await actionLog({...params, ...sort, ...filter});
+          return res;
+        }}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {

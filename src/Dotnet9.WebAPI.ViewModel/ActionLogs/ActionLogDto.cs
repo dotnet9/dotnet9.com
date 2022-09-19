@@ -15,4 +15,4 @@ public record ActionLogDto(Guid Id,
     string? Method,
     string? Arguments,
     double Duration,
-    DateTime CreateTime);
+    DateTime CreationTime);

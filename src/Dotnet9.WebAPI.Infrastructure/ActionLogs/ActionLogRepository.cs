@@ -79,14 +79,18 @@ internal class ActionLogRepository : IActionLogRepository
                 EF.Functions.Like(log.Arguments.ToLower(), $"%{request.Arguments!.ToLower()}%"));
         }
 
-        if (request.StartCreationTime != null)
+        if (request.StartCreationTime != null && request.EndCreationTime == null)
         {
             query = query.Where(log => log.CreationTime >= request.StartCreationTime);
         }
-
-        if (request.EndCreationTime != null)
+        else if (request.StartCreationTime == null && request.EndCreationTime != null)
         {
             query = query.Where(log => log.CreationTime <= request.EndCreationTime);
+        }
+        else if (request.StartCreationTime != null && request.EndCreationTime != null)
+        {
+            query = query.Where(log =>
+                log.CreationTime >= request.StartCreationTime && log.CreationTime <= request.EndCreationTime);
         }
 
         IQueryable<ActionLog> logsFromDB = query.OrderByDescending(x => x.CreationTime)
