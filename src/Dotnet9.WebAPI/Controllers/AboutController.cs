@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Dotnet9.ASPNETCore.ResponseResults;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -19,6 +21,7 @@ public class AboutController : ControllerBase
     }
 
     [HttpGet]
+    [NoWrapper]
     public async Task<ActionResult<AboutDto>> Get()
     {
         async Task<AboutDto?> GetAboutFromDb()
@@ -39,7 +42,7 @@ public class AboutController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<ActionResult> AddOrUpdate(AddOrUpdateAboutRequest request)
+    public async Task<ActionResult<ResponseResult<bool>>> AddOrUpdate(AddOrUpdateAboutRequest request)
     {
         var about = await _repository.GetAsync();
         if (about == null)
@@ -53,6 +56,6 @@ public class AboutController : ControllerBase
         }
 
         await _dbContext.SaveChangesAsync();
-        return Ok();
+        return ResponseResult<bool>.GetSuccess(true);
     }
 }

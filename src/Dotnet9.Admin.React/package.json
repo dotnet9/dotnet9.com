@@ -32,9 +32,15 @@
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": ["prettier --write"]
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 10"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-components": "^2.0.0",
@@ -42,6 +48,7 @@
     "antd": "^4.20.0",
     "classnames": "^2.3.0",
     "lodash": "^4.17.0",
+    "markdown-it": "^13.0.1",
     "moment": "^2.29.0",
     "omit.js": "^2.0.2",
     "rc-menu": "^9.1.0",
@@ -49,7 +56,8 @@
     "react": "^17.0.0",
     "react-dev-inspector": "^1.7.0",
     "react-dom": "^17.0.0",
-    "react-helmet-async": "^1.2.0"
+    "react-helmet-async": "^1.2.0",
+    "react-markdown-editor-lite": "^1.3.3"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",
@@ -58,6 +66,7 @@
     "@types/express": "^4.17.0",
     "@types/history": "^4.7.0",
     "@types/lodash": "^4.14.0",
+    "@types/markdown-it": "^12.2.3",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.0",
@@ -78,5 +87,7 @@
     "umi-presets-pro": "^1.0.1",
     "umi-serve": "^1.9.10"
   },
-  "engines": { "node": ">=12.0.0" }
+  "engines": {
+    "node": ">=12.0.0"
+  }
 }

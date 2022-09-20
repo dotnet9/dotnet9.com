@@ -40,7 +40,7 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
-/** 获取链接列表 GET /api/kubj */
+/** 获取链接列表 GET /api/link */
 export async function link(
   params: {
     // query
@@ -114,6 +114,25 @@ export async function removeActionLog(data: string[], options?: { [key: string]:
   return request<Record<string, any>>('/api/actionlog', {
     method: 'DELETE',
     data: { ids: data },
+    ...(options || {}),
+  });
+}
+
+/** 获取关于 GET /api/about */
+export async function about(
+  options?: { [key: string]: any },
+) {
+  return request<API.AboutItem>('/api/about', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 添加或更新关于 POST /api/about */
+export async function addOrUpdateAbout(body: { [key: string]: any }, options?: { [key: string]: any }) {
+  return request<string>('/api/about', {
+    method: 'POST',
+    data: body,
     ...(options || {}),
   });
 }

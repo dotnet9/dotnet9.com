@@ -48,11 +48,18 @@ export default [
     icon: 'link',
     path: '/link',
     component: './Link',
-  },{
+  }, 
+  {
     name: '操作日志',
     icon: 'log',
     path: '/log',
     component: './ActionLog',
+  },
+  {
+    name: '关于',
+    icon: 'about',
+    path: '/about',
+    component: './About',
   },
   {
     path: '/',
