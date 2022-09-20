@@ -8,9 +8,6 @@ export async function currentUser(options?: { [key: string]: any }) {
     data: API.CurrentUser;
   }>('/api/login/currentUser', {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     ...(options || {}),
   });
 }
@@ -19,9 +16,6 @@ export async function currentUser(options?: { [key: string]: any }) {
 export async function outLogin(options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/login/outLogin', {
     method: 'POST',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     ...(options || {}),
   });
 }
@@ -62,9 +56,6 @@ export async function link(
     params: {
       ...params,
     },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     ...(options || {}),
   });
 }
@@ -73,9 +64,6 @@ export async function link(
 export async function updateLink(body: API.LinkListItem, options?: { [key: string]: any }) {
   return request<API.LinkListItem>(`/api/link/${body.id}`, {
     method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     data: body,
     ...(options || {}),
   });
@@ -85,10 +73,6 @@ export async function updateLink(body: API.LinkListItem, options?: { [key: strin
 export async function addLink(body: API.LinkListItem, options?: { [key: string]: any }) {
   return request<API.LinkListItem>('/api/link', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     data: body,
     ...(options || {}),
   });
@@ -98,10 +82,6 @@ export async function addLink(body: API.LinkListItem, options?: { [key: string]:
 export async function removeLink(data: string[], options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/link', {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     data: { ids: data },
     ...(options || {}),
   });
@@ -116,15 +96,14 @@ export async function actionLog(
     /** 页面的容量 */
     pageSize?: number;
   },
+  sort: { [key: string]: any },
   options?: { [key: string]: any },
 ) {
   return request<API.ActionLogList>('/api/actionlog', {
     method: 'GET',
     params: {
       ...params,
-    },
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      sort,
     },
     ...(options || {}),
   });
@@ -134,10 +113,6 @@ export async function actionLog(
 export async function removeActionLog(data: string[], options?: { [key: string]: any }) {
   return request<Record<string, any>>('/api/actionlog', {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
     data: { ids: data },
     ...(options || {}),
   });

@@ -201,12 +201,8 @@ const TableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
-        request={async (params, sort, filter) => {     
-          console.log(params)  
-          console.log(sort.key)
-          console.log(sort.sort)
-          console.log(filter)
-          const res: any = await actionLog({...params, ...sort, ...filter});
+        request={async (params, sort) => {   
+          const res: any = await actionLog(params, sort);
           return res;
         }}
         columns={columns}

@@ -1,6 +1,9 @@
 ﻿import type { RequestOptions } from '@@/plugin-request/request';
 import type { RequestConfig } from '@umijs/max';
+import { history } from '@umijs/max';
 import { message, notification } from 'antd';
+
+const loginPath = '/user/login';
 
 // 错误处理方案： 错误类型
 enum ErrorShowType {
@@ -90,6 +93,13 @@ export const errorConfig: RequestConfig = {
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
       const url = config?.url?.concat('?token = 123');
+      if (localStorage.getItem('token')) {
+        const token = `Bearer ${localStorage.getItem('token')}`;
+        config.headers = {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        };
+      }
       return { ...config, url };
     },
   ],
@@ -101,6 +111,13 @@ export const errorConfig: RequestConfig = {
       const { data } = response as unknown as ResponseStructure;
       if (!data.success) {
         message.error('请求失败！');
+        switch (response.status) {
+          case 401:
+            notification.warn({
+              message: '登录超时，请重新登录!',
+            });
+            history.push(loginPath);
+        }
       }
       return response;
     },

@@ -1,4 +1,8 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.ActionLogs;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+
+namespace Dotnet9.WebAPI.Infrastructure.ActionLogs;
 
 internal class ActionLogRepository : IActionLogRepository
 {
@@ -9,9 +13,49 @@ internal class ActionLogRepository : IActionLogRepository
         _dbContext = dbContext;
     }
 
+    public async Task<int> DeleteAsync(Guid[] ids)
+    {
+        List<ActionLog> logs = await _dbContext.ActionLogs!.Where(log => ids.Contains(log.Id)).ToListAsync();
+        _dbContext.RemoveRange(logs);
+        return await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<(ActionLog[]? Logs, long Count)> GetListAsync(GetActionLogListRequest request)
     {
         IQueryable<ActionLog> query = _dbContext.ActionLogs!.AsQueryable();
+        query = CheckAddQuery(request, query);
+
+        void UseDefaultSort()
+        {
+            query = query.OrderByDescending(x => x.CreationTime);
+        }
+
+        if (!request.Sort.IsNullOrWhiteSpace())
+        {
+            var sort = JsonSerializer.Deserialize<Dictionary<string, string>>(request.Sort!);
+            var sortFieldName = sort?.Keys.FirstOrDefault();
+            var sortOrder = sort?.Values.FirstOrDefault();
+            if (sortFieldName.IsNullOrWhiteSpace() || sortOrder.IsNullOrWhiteSpace())
+            {
+                UseDefaultSort();
+            }
+            else
+            {
+                query = query.OrderBy(sortFieldName, "ascend" == sortOrder);
+            }
+        }
+        else
+        {
+            UseDefaultSort();
+        }
+
+        IQueryable<ActionLog> logsFromDB = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
+
+        return (await logsFromDB.ToArrayAsync(), await query.LongCountAsync());
+    }
+
+    private static IQueryable<ActionLog> CheckAddQuery(GetActionLogListRequest request, IQueryable<ActionLog> query)
+    {
         if (!request.Ua.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
@@ -93,17 +137,6 @@ internal class ActionLogRepository : IActionLogRepository
                 log.CreationTime >= request.StartCreationTime && log.CreationTime <= request.EndCreationTime);
         }
 
-        IQueryable<ActionLog> logsFromDB = query.OrderByDescending(x => x.CreationTime)
-            .Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize);
-
-        return (await logsFromDB.ToArrayAsync(), await query.LongCountAsync());
-    }
-
-    public async Task<int> DeleteAsync(Guid[] ids)
-    {
-        List<ActionLog> logs = await _dbContext.ActionLogs!.Where(log => ids.Contains(log.Id)).ToListAsync();
-        _dbContext.RemoveRange(logs);
-        return await _dbContext.SaveChangesAsync();
+        return query;
     }
 }
