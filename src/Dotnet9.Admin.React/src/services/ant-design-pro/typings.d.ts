@@ -84,6 +84,10 @@ declare namespace API {
     content: string;
   }
 
+  type PrivacyItem = {
+    content: string;
+  }
+
   type FakeCaptcha = {
     code?: number;
     status?: string;

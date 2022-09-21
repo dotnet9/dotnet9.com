@@ -17,7 +17,7 @@ public static class LinqExtensions
         {
             var method = typeof(Queryable).GetMethods()
                 .FirstOrDefault(m => m.Name == "OrderBy" && m.GetParameters().Length == 2);
-            var genericMethod = method.MakeGenericMethod(typeof(T), propInfo.PropertyType);
+            var genericMethod = method!.MakeGenericMethod(typeof(T), propInfo.PropertyType);
             return (IQueryable<T>)genericMethod.Invoke(null, new object[] { query, expr });
         }
         else

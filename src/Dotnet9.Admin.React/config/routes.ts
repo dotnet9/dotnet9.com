@@ -44,13 +44,13 @@ export default [
     ],
   },
   {
-    name: '赞助',
+    name: '网站赞助',
     icon: 'donation',
     path: '/donation',
     component: './Donation',
   },
   {
-    name: '链接',
+    name: '链接管理',
     icon: 'link',
     path: '/link',
     component: './Link',
@@ -62,7 +62,13 @@ export default [
     component: './ActionLog',
   },
   {
-    name: '关于',
+    name: '隐私声明',
+    icon: 'privacy',
+    path: '/privacy',
+    component: './Privacy',
+  },
+  {
+    name: '关于网站',
     icon: 'about',
     path: '/about',
     component: './About',

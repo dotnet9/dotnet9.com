@@ -8,6 +8,7 @@ public class AboutController : ControllerBase
     private readonly Dotnet9DbContext _dbContext;
     private readonly AboutManager _manager;
     private readonly IAboutRepository _repository;
+    private const string GetAboutCacheKey = "AboutController.GetAbout";
 
     public AboutController(Dotnet9DbContext dbContext, IAboutRepository repository, AboutManager manager,
         IMemoryCacheHelper cacheHelper)
@@ -28,7 +29,7 @@ public class AboutController : ControllerBase
             return aboutFromDb == null ? null : new AboutDto(aboutFromDb.Content!);
         }
 
-        var about = await _cacheHelper.GetOrCreateAsync("AboutController.GetAbout",
+        var about = await _cacheHelper.GetOrCreateAsync(GetAboutCacheKey,
             async e => await GetAboutFromDb());
         if (about == null)
         {
@@ -54,6 +55,7 @@ public class AboutController : ControllerBase
         }
 
         await _dbContext.SaveChangesAsync();
+        _cacheHelper.Remove(GetAboutCacheKey);
         return ResponseResult<bool>.GetSuccess(true);
     }
 }

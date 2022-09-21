@@ -155,3 +155,22 @@ export async function addOrUpdateAbout(body: { [key: string]: any }, options?: {
     ...(options || {}),
   });
 }
+
+/** 获取隐私声明 GET /api/privacy */
+export async function privacy(
+  options?: { [key: string]: any },
+) {
+  return request<API.PrivacyItem>('/api/privacy', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 添加或更新隐私声明 POST /api/privacy */
+export async function addOrUpdatePrivacy(body: { [key: string]: any }, options?: { [key: string]: any }) {
+  return request<string>('/api/privacy', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}

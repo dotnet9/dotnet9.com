@@ -8,6 +8,7 @@ public class DonationController : ControllerBase
     private readonly Dotnet9DbContext _dbContext;
     private readonly DonationManager _manager;
     private readonly IDonationRepository _repository;
+    private const string GetDonationCacheKey = "DonationController.GetDonation";
 
     public DonationController(Dotnet9DbContext dbContext, IDonationRepository repository, DonationManager manager,
         IMemoryCacheHelper cacheHelper)
@@ -28,7 +29,7 @@ public class DonationController : ControllerBase
             return dataFromDb == null ? null : new DonationDto(dataFromDb.Content!);
         }
 
-        var data = await _cacheHelper.GetOrCreateAsync("DonationController.GetDonation",
+        var data = await _cacheHelper.GetOrCreateAsync(GetDonationCacheKey,
             async e => await GetDonationFromDb());
         if (data == null)
         {
@@ -54,6 +55,7 @@ public class DonationController : ControllerBase
         }
 
         await _dbContext.SaveChangesAsync();
+        _cacheHelper.Remove(GetDonationCacheKey);
         return ResponseResult<bool>.GetSuccess(true);
     }
 }

@@ -8,6 +8,7 @@ public class PrivacyController : ControllerBase
     private readonly Dotnet9DbContext _dbContext;
     private readonly PrivacyManager _manager;
     private readonly IPrivacyRepository _repository;
+    private const string GetPrivacyCacheKey = "PrivacyController.GetPrivacy";
 
     public PrivacyController(Dotnet9DbContext dbContext, IPrivacyRepository repository, PrivacyManager manager,
         IMemoryCacheHelper cacheHelper)
@@ -19,6 +20,7 @@ public class PrivacyController : ControllerBase
     }
 
     [HttpGet]
+    [NoWrapper]
     public async Task<ActionResult<PrivacyDto?>> Get()
     {
         async Task<PrivacyDto?> GetPrivacyFromDb()
@@ -27,7 +29,7 @@ public class PrivacyController : ControllerBase
             return dataFromDb == null ? null : new PrivacyDto(dataFromDb.Content!);
         }
 
-        var data = await _cacheHelper.GetOrCreateAsync("PrivacyController.GetPrivacy",
+        var data = await _cacheHelper.GetOrCreateAsync(GetPrivacyCacheKey,
             async e => await GetPrivacyFromDb());
         if (data == null)
         {
@@ -39,7 +41,7 @@ public class PrivacyController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<ActionResult> AddOrUpdate(AddOrUpdatePrivacyRequest request)
+    public async Task<ActionResult<ResponseResult<bool>>> AddOrUpdate(AddOrUpdatePrivacyRequest request)
     {
         var data = await _repository.GetAsync();
         if (data == null)
@@ -53,6 +55,7 @@ public class PrivacyController : ControllerBase
         }
 
         await _dbContext.SaveChangesAsync();
-        return Ok();
+        _cacheHelper.Remove(GetPrivacyCacheKey);
+        return ResponseResult<bool>.GetSuccess(true);
     }
 }
