@@ -44,6 +44,12 @@ export default [
     ],
   },
   {
+    name: '赞助',
+    icon: 'donation',
+    path: '/donation',
+    component: './Donation',
+  },
+  {
     name: '链接',
     icon: 'link',
     path: '/link',

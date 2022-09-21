@@ -1,6 +1,4 @@
-﻿using Dotnet9.ASPNETCore.ResponseResults;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

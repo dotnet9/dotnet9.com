@@ -80,6 +80,10 @@ declare namespace API {
     content: string;
   }
 
+  type DonationItem = {
+    content: string;
+  }
+
   type FakeCaptcha = {
     code?: number;
     status?: string;

@@ -54,7 +54,7 @@ const handleRemove = async (data: string[]) => {
   }
 };
 
-const TableList: React.FC = () => {
+const LinkTableList: React.FC = () => {
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
   const [current, setCurrent] = useState<API.LinkListItem | undefined>(undefined);
@@ -274,4 +274,4 @@ const TableList: React.FC = () => {
   );
 };
 
-export default TableList;
+export default LinkTableList;

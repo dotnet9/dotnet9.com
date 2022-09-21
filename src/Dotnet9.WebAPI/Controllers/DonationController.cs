@@ -19,6 +19,7 @@ public class DonationController : ControllerBase
     }
 
     [HttpGet]
+    [NoWrapper]
     public async Task<ActionResult<DonationDto?>> Get()
     {
         async Task<DonationDto?> GetDonationFromDb()
@@ -39,7 +40,7 @@ public class DonationController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<ActionResult> AddOrUpdate(AddOrUpdateDonationRequest request)
+    public async Task<ActionResult<ResponseResult<bool>>> AddOrUpdate(AddOrUpdateDonationRequest request)
     {
         var data = await _repository.GetAsync();
         if (data == null)
@@ -53,6 +54,6 @@ public class DonationController : ControllerBase
         }
 
         await _dbContext.SaveChangesAsync();
-        return Ok();
+        return ResponseResult<bool>.GetSuccess(true);
     }
 }

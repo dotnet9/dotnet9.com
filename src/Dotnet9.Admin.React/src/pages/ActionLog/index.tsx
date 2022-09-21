@@ -25,7 +25,7 @@ const handleRemove = async (data: string[]) => {
   }
 };
 
-const TableList: React.FC = () => {
+const ActionLogTableList: React.FC = () => {
   const [current, setCurrent] = useState<API.ActionLogListItem | undefined>(undefined);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
@@ -261,4 +261,4 @@ const TableList: React.FC = () => {
   );
 };
 
-export default TableList;
+export default ActionLogTableList;

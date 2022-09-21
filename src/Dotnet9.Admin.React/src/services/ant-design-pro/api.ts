@@ -118,6 +118,25 @@ export async function removeActionLog(data: string[], options?: { [key: string]:
   });
 }
 
+/** 获取赞助 GET /api/donation */
+export async function donation(
+  options?: { [key: string]: any },
+) {
+  return request<API.DonationItem>('/api/donation', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 添加或更新赞助 POST /api/donation */
+export async function addOrUpdateDonation(body: { [key: string]: any }, options?: { [key: string]: any }) {
+  return request<string>('/api/donation', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 获取关于 GET /api/about */
 export async function about(
   options?: { [key: string]: any },

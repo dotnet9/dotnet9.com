@@ -1,4 +1,4 @@
-import { addOrUpdateAbout, about } from '@/services/ant-design-pro/api';
+import { addOrUpdateDonation, donation } from '@/services/ant-design-pro/api';
 import { useEffect, useState } from 'react';
 import { Button, message } from 'antd';
 import MarkdownIt from 'markdown-it';
@@ -11,7 +11,7 @@ const mdParser = new MarkdownIt({
   typographer: true,
 });
 
-const About: React.FC = () => {
+const Donation: React.FC = () => {
   const [value, setValue] = useState<string>('');
 
   function handleEditorChange({ text }: { html: string; text: string }) {
@@ -21,7 +21,7 @@ const About: React.FC = () => {
   const handleRead = async () => {
     const hide = message.loading('正在读取');
     try {
-      const data = await about();
+      const data = await donation();
       setValue(data.content);
       hide();
       message.success('读取成功');
@@ -36,7 +36,7 @@ const About: React.FC = () => {
   const handleSave = async () => {
     const hide = message.loading('正在保存');
     try {
-      await addOrUpdateAbout({ content: value });
+      await addOrUpdateDonation({ content: value });
       hide();
       message.success('保存成功');
       return true;
@@ -53,7 +53,7 @@ const About: React.FC = () => {
 
   return (
     <div>
-      <h2>关于管理</h2>
+      <h2>赞助管理</h2>
       <Button
         style={{ margin: 10, width: 300, textAlign: 'center' }}
         size="large"
@@ -83,4 +83,4 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+export default Donation;

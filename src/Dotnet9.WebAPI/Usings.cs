@@ -1,5 +1,6 @@
 ﻿global using Dotnet9.ASPNETCore;
 global using Dotnet9.ASPNETCore.Filters;
+global using Dotnet9.ASPNETCore.ResponseResults;
 global using Dotnet9.CommonInitializer;
 global using Dotnet9.Commons;
 global using Dotnet9.EventBus;
