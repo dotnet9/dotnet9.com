@@ -30,6 +30,11 @@ declare namespace API {
     token?: string;
   };
 
+  type ChangePasswordParams = {
+    oldPassword?: string;
+    newPassword?: string;
+  };
+
   type PageParams = {
     current?: number;
     pageSize?: number;

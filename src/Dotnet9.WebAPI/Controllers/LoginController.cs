@@ -94,30 +94,25 @@ public partial class LoginController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<IdentityResult>> ChangePassword(ChangeMyPasswordRequest req)
+    public async Task<ResponseResult<bool>> ChangePassword(ChangeMyPasswordRequest req)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
         if (user == null)
         {
-            return NotFound();
+            return ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, "不存在的用户");
         }
 
-        var checkResult = await _repository.CheckForSignInAsync(user, req.Password, false);
+        var checkResult = await _repository.CheckForSignInAsync(user, req.OldPassword, false);
         if (!checkResult.Succeeded)
         {
             return checkResult.IsLockedOut
-                ? StatusCode((int)HttpStatusCode.Locked, "用户已经被锁定")
-                : BadRequest($"修改失败：{checkResult}");
+                ? ResponseResult<bool>.GetError(HttpStatusCode.Locked, "用户已经被锁定")
+                : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败：{checkResult}");
         }
 
-        var changeResult = await _repository.ChangePasswordAsync(user.Id, req.Password2);
-        if (changeResult.Succeeded)
-        {
-            return changeResult;
-        }
-
-        return BadRequest("修改失败");
+        var changeResult = await _repository.ChangePasswordAsync(user.Id, req.NewPassword);
+        return changeResult.Succeeded ? true : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败，请检查原密码是否输入正确");
     }
 
     [AllowAnonymous]

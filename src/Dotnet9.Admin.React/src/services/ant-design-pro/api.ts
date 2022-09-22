@@ -32,6 +32,18 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
   });
 }
 
+/** 修改密码接口 POST /api/login/changepassword */
+export async function changepassword(body: API.ChangePasswordParams, options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/login/changepassword', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {

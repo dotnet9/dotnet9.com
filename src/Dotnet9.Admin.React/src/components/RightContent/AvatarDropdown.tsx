@@ -1,11 +1,12 @@
 import { outLogin } from '@/services/ant-design-pro/api';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import ChangePassword from '../../pages/User/Login/ChangePassword';
 import { history, useModel } from '@umijs/max';
-import { Avatar, Menu, Spin } from 'antd';
+import { Avatar, Menu, Spin, Modal } from 'antd';
 import type { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { stringify } from 'querystring';
 import type { MenuInfo } from 'rc-menu/lib/interface';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 
@@ -35,13 +36,39 @@ const loginOut = async () => {
 
 const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
   const { initialState, setInitialState } = useModel('@@initialState');
+  const [openChangePassword, setOpenChangePassword] = useState<boolean>(false);
+
+  const handleLogout = () => {
+    setInitialState((s) => ({ ...s, currentUser: undefined }));
+    loginOut();
+  };
+
+  const handleDoneChangePassword = () => {
+    setOpenChangePassword(false);
+  };
+
+  const handleCommitChangePassword = async () => {
+    setOpenChangePassword(false);
+    Modal.confirm({
+      title: '密码修改成功',
+      content: '是否重新登录？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        handleLogout();
+      },
+    });
+  };
 
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
       const { key } = event;
       if (key === 'logout') {
-        setInitialState((s) => ({ ...s, currentUser: undefined }));
-        loginOut();
+        handleLogout();
+        return;
+      }
+      if (key == 'changepassword') {
+        setOpenChangePassword(true);
         return;
       }
       history.push(`/account/${key}`);
@@ -90,6 +117,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         ]
       : []),
     {
+      key: 'changepassword',
+      icon: <LogoutOutlined />,
+      label: '修改密码',
+    },
+    {
       key: 'logout',
       icon: <LogoutOutlined />,
       label: '退出登录',
@@ -105,6 +137,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       <span className={`${styles.action} ${styles.account}`}>
         <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
         <span className={`${styles.name} anticon`}>{currentUser.name}</span>
+        <ChangePassword
+          open={openChangePassword}
+          onDone={handleDoneChangePassword}
+          onSubmit={handleCommitChangePassword}
+        />
       </span>
     </HeaderDropdown>
   );

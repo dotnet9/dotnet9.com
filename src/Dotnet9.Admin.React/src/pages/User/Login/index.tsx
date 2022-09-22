@@ -9,7 +9,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
-import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
+import { history, useModel } from '@umijs/max';
 import { Alert, message } from 'antd';
 import React, { useState } from 'react';
 import styles from './index.less';
