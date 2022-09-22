@@ -33,8 +33,8 @@ const ActionLogTableList: React.FC = () => {
 
   const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
     Modal.confirm({
-      title: '删除任务',
-      content: '确定删除该任务吗？',
+      title: '删除操作日志',
+      content: '确定删除该操作日志吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: async () => {
@@ -55,6 +55,7 @@ const ActionLogTableList: React.FC = () => {
 
   const columns: ProColumns<API.ActionLogListItem>[] = [
     {
+      title: 'id',
       dataIndex: 'id',
       tip: '操作日志Id是唯一的 key',
       hideInForm: true,
@@ -78,7 +79,6 @@ const ActionLogTableList: React.FC = () => {
       dataIndex: 'ua',
       ellipsis: true,
       sorter: true,
-      
     },
     {
       title: '操作系统',
@@ -169,7 +169,10 @@ const ActionLogTableList: React.FC = () => {
       dataIndex: 'creationTime',
       valueType: 'dateTimeRange',
       sorter: true,
-      initialValue: [moment().add(-1, 'day').format('YYYY-MM-DD HH:mm:ss'), moment().format('YYYY-MM-DD HH:mm:ss')],
+      initialValue: [
+        moment().add(-1, 'day').format('YYYY-MM-DD HH:mm:ss'),
+        moment().format('YYYY-MM-DD HH:mm:ss'),
+      ],
       render: (_, record) => record.creationTime,
       search: {
         transform: (value: any) => ({ startCreationTime: value[0], endCreationTime: value[1] }),
@@ -180,6 +183,15 @@ const ActionLogTableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
+        <a
+          key="showDetail"
+          onClick={() => {
+            setCurrent(record);
+            setShowDetail(true);
+          }}
+        >
+          查看
+        </a>,
         <a
           key="delete"
           onClick={() => {
@@ -201,7 +213,7 @@ const ActionLogTableList: React.FC = () => {
         search={{
           labelWidth: 120,
         }}
-        request={async (params, sort) => {   
+        request={async (params, sort) => {
           const res: any = await actionLog(params, sort);
           return res;
         }}
@@ -243,15 +255,15 @@ const ActionLogTableList: React.FC = () => {
         }}
         closable={false}
       >
-        {current?.uid && (
+        {current?.id && (
           <ProDescriptions<API.ActionLogListItem>
-            column={2}
-            title={current?.uid}
+            column={1}
+            title={current?.ip}
             request={async () => ({
               data: current || {},
             })}
             params={{
-              id: current?.uid,
+              id: current?.id,
             }}
             columns={columns as ProDescriptionsItemProps<API.ActionLogListItem>[]}
           />

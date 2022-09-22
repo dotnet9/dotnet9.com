@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]/[action]")]
+[Route("api/user")]
 [ApiController]
 [Authorize(Roles = UserRoleConst.Admin)]
 public class UserAdminController : ControllerBase
@@ -17,7 +17,8 @@ public class UserAdminController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<UserDto[]> GetAllUsers()
+    [NoWrapper]
+    public async Task<GetUserListResponse> GetAllUsers(GetUserListRequest request)
     {
         var userWithRoles = new List<UserDto>();
         foreach (var user in _userManager.Users.ToList())
@@ -27,7 +28,7 @@ public class UserAdminController : ControllerBase
                 user.CreationTime));
         }
 
-        return userWithRoles.ToArray();
+        return new GetUserListResponse(userWithRoles.ToArray(), true, request.PageSize, request.Current);
     }
 
     [HttpGet]

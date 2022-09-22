@@ -9,7 +9,7 @@ import {
 } from '@ant-design/pro-components';
 import { Button, Drawer, message, Modal } from 'antd';
 import React, { useRef, useState } from 'react';
-import OperationModal from './components/OperationModal';
+import AddOrUpdateLink from './components/AddOrUpdateLink';
 
 const handleAdd = async (fields: API.LinkListItem) => {
   const hide = message.loading('正在添加');
@@ -80,8 +80,8 @@ const LinkTableList: React.FC = () => {
 
   const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
     Modal.confirm({
-      title: '删除任务',
-      content: '确定删除该任务吗？',
+      title: '删除链接',
+      content: '确定删除该链接吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: async () => {
@@ -103,23 +103,12 @@ const LinkTableList: React.FC = () => {
 
   const columns: ProColumns<API.LinkListItem>[] = [
     {
+      title: 'ID',
       dataIndex: 'id',
       tip: '链接Id是唯一的 key',
       hideInForm: true,
       hideInSearch: true,
       hideInTable: true,
-      render: (dom, entity) => {
-        return (
-          <a
-            onClick={() => {
-              setCurrent(entity);
-              setShowDetail(true);
-            }}
-          >
-            {dom}
-          </a>
-        );
-      },
     },
     {
       title: '链接名称',
@@ -166,7 +155,15 @@ const LinkTableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => [
+      render: (_, record) => [<a
+          key="showDetail"
+          onClick={() => {            
+            setCurrent(record);
+            setShowDetail(true);
+          }}
+        >
+          查看
+        </a>,
         <a
           key="edit"
           onClick={() => {
@@ -239,7 +236,7 @@ const LinkTableList: React.FC = () => {
         </FooterToolbar>
       )}
 
-      <OperationModal
+      <AddOrUpdateLink
         done={done}
         open={visible}
         current={current}
@@ -258,7 +255,7 @@ const LinkTableList: React.FC = () => {
       >
         {current?.name && (
           <ProDescriptions<API.LinkListItem>
-            column={2}
+            column={1}
             title={current?.name}
             request={async () => ({
               data: current || {},

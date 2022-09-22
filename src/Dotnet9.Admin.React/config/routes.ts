@@ -44,6 +44,27 @@ export default [
     ],
   },
   {
+    path: '/user',
+    name: '用户管理',
+    icon: 'user',
+    routes: [
+      {
+        path: '/user',
+        redirect: '/user/list',
+      },
+      {
+        path: '/user/list',
+        name: '用户列表',
+        component: './User/List',
+      },
+      {
+        path: '/user/add',
+        name: '添加用户',
+        component: './User/List/components/AddOrUpdateUser',
+      },
+    ],
+  },
+  {
     name: '网站赞助',
     icon: 'donation',
     path: '/donation',
@@ -54,7 +75,7 @@ export default [
     icon: 'link',
     path: '/link',
     component: './Link',
-  }, 
+  },
   {
     name: '操作日志',
     icon: 'log',

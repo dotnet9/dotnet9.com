@@ -8,7 +8,7 @@ import {
 import { Button, Result } from 'antd';
 import React from 'react';
 
-export type OperationModalProps = {
+export type AddOrUpdateUserProps = {
   done: boolean;
   open: boolean;
   current: Partial<API.LinkListItem> | undefined;
@@ -16,7 +16,7 @@ export type OperationModalProps = {
   onSubmit: (values: API.LinkListItem) => Promise<void>;
 };
 
-const OperationModal: React.FC<OperationModalProps> = (props) => {
+const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
   const { done, open, current, onDone, onSubmit, children } = props;
   if (!open) {
     return null;
@@ -130,4 +130,4 @@ const OperationModal: React.FC<OperationModalProps> = (props) => {
   );
 };
 
-export default OperationModal;
+export default AddOrUpdateUser;

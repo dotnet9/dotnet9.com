@@ -35,6 +35,20 @@ declare namespace API {
     newPassword?: string;
   };
 
+  type UserListItem = {
+    id?: string;
+    userName?: string;
+    roleNames?: string[];
+    phoneNumber?: string;
+    creationTime?: Date;
+  };
+
+  type UserList = {
+    data?: UserListItem[];
+    total?: number;
+    success?: boolean;
+  }
+
   type PageParams = {
     current?: number;
     pageSize?: number;
@@ -51,7 +65,6 @@ declare namespace API {
 
   type LinkList = {
     data?: LinkListItem[];
-    /** 列表的内容总数 */
     total?: number;
     success?: boolean;
   };

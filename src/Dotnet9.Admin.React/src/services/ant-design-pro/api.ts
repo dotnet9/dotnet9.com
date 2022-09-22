@@ -52,6 +52,53 @@ export async function getNotices(options?: { [key: string]: any }) {
   });
 }
 
+/** 获取所有用户列表 GET /api/user */
+export async function user(  
+  params: {
+    // query
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.UserList>('/api/user', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新用户 PUT /api/user */
+export async function updateUser(body: API.UserListItem, options?: { [key: string]: any }) {
+  return request<API.UserListItem>(`/api/user/${body.id}`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建用户 POST /api/user */
+export async function addUser(body: API.UserListItem, options?: { [key: string]: any }) {
+  return request<API.UserListItem>('/api/user', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除用户 DELETE /api/user */
+export async function removeUser(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/user', {
+    method: 'DELETE',
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
+
 /** 获取链接列表 GET /api/link */
 export async function link(
   params: {
