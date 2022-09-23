@@ -1,14 +1,43 @@
-import { removeUser, user } from '@/services/ant-design-pro/api';
+import { addUser, removeUser, user, updateUser } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
   FooterToolbar,
   PageContainer,
+  ProDescriptions,
   ProTable,
 } from '@ant-design/pro-components';
-import { Button, message, Modal } from 'antd';
+import { Button, Drawer, message, Modal } from 'antd';
 import React, { useRef, useState } from 'react';
-import moment from 'moment';
+import AddOrUpdateUser from './components/AddOrUpdateUser';
+
+const handleAdd = async (fields: API.UserListItem) => {
+  const hide = message.loading('正在添加');
+  try {
+    await addUser({ ...fields });
+    hide();
+    message.success('添加成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('添加失败，请重试！');
+    return false;
+  }
+};
+
+const handleUpdate = async (fields: API.UserListItem) => {
+  const hide = message.loading('正在更新');
+  try {
+    await updateUser({ ...fields });
+    hide();
+    message.success('更新成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('更新失败，请重试！');
+    return false;
+  }
+};
 
 const handleRemove = async (data: string[]) => {
   const hide = message.loading('正在删除');
@@ -26,8 +55,28 @@ const handleRemove = async (data: string[]) => {
 };
 
 const UserTableList: React.FC = () => {
+  const [done, setDone] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [current, setCurrent] = useState<API.UserListItem | undefined>(undefined);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [selectedRowsState, setSelectedRows] = useState<API.UserListItem[]>([]);
+
+  const handleDone = () => {
+    setDone(false);
+    setVisible(false);
+    setCurrent(undefined);
+  };
+
+  const handleAddOrUpdateSubmit = async (values: API.UserListItem) => {
+    const success = values.id ? await handleUpdate(values) : await handleAdd(values);
+    if (success) {
+      handleDone();
+      if (actionRef.current) {
+        actionRef.current.reload();
+      }
+    }
+  };
 
   const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
     Modal.confirm({
@@ -42,6 +91,7 @@ const UserTableList: React.FC = () => {
             setSelectedRows([]);
             actionRef.current?.reloadAndRest?.();
           } else {
+            handleDone();
             if (actionRef.current) {
               actionRef.current.reload();
             }
@@ -53,9 +103,11 @@ const UserTableList: React.FC = () => {
 
   const columns: ProColumns<API.UserListItem>[] = [
     {
+      title: 'ID',
       dataIndex: 'id',
-      tip: '用户Id是唯一的 key',
+      tip: '链接Id是唯一的 key',
       hideInForm: true,
+      hideInDescriptions: true,
       hideInSearch: true,
       hideInTable: true,
     },
@@ -65,36 +117,31 @@ const UserTableList: React.FC = () => {
     },
     {
       title: '角色',
-      hideInSearch: true,
       dataIndex: 'roleNames',
     },
     {
-      title: '手机号码',
+      title: '电话号码',
       dataIndex: 'phoneNumber',
-    },
-    {
-      title: '创建时间',
-      dataIndex: 'creationTime',
-      valueType: 'dateTimeRange',
-      sorter: true,
-      initialValue: [
-        moment().add(-1, 'year').format('YYYY-MM-DD HH:mm:ss'),
-        moment().format('YYYY-MM-DD HH:mm:ss'),
-      ],
-      render: (_, record) => record.creationTime,
-      search: {
-        transform: (value: any) => ({ startCreationTime: value[0], endCreationTime: value[1] }),
-      },
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
-      render: (_, record) => [
+      hideInDescriptions: true,
+      render: (_, record) => [<a
+          key="showDetail"
+          onClick={() => {            
+            setCurrent(record);
+            setShowDetail(true);
+          }}
+        >
+          查看
+        </a>,
         <a
           key="edit"
           onClick={() => {
-            // TODO 跳转编辑用户页面
+            setVisible(true);
+            setCurrent(record);
           }}
         >
           编辑
@@ -125,7 +172,8 @@ const UserTableList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              // 跳转新增用户页面
+              setVisible(true);
+              setCurrent(undefined);
             }}
           >
             <PlusOutlined /> 新建
@@ -160,6 +208,38 @@ const UserTableList: React.FC = () => {
           </Button>
         </FooterToolbar>
       )}
+
+      <AddOrUpdateUser
+        done={done}
+        open={visible}
+        current={current}
+        onDone={handleDone}
+        onSubmit={handleAddOrUpdateSubmit}
+      />
+
+      <Drawer
+        width={600}
+        open={showDetail}
+        onClose={() => {
+          setCurrent(undefined);
+          setShowDetail(false);
+        }}
+        closable={false}
+      >
+        {current?.userName && (
+          <ProDescriptions<API.UserListItem>
+            column={1}
+            title={current?.userName}
+            request={async () => ({
+              data: current || {},
+            })}
+            params={{
+              id: current?.userName,
+            }}
+            columns={columns as ProDescriptionsItemProps<API.UserListItem>[]}
+          />
+        )}
+      </Drawer>
     </PageContainer>
   );
 };

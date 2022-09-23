@@ -5,10 +5,9 @@ public class User : IdentityUser<Guid>, IHasCreationTime, IHasDeletionTime, ISof
     public User(string userName) : base(userName)
     {
         Id = Guid.NewGuid();
-        CreationTime = DateTime.Now;
     }
 
-    public DateTime CreationTime { get; internal set; }
+    public DateTime CreationTime { get; internal set; } = DateTime.Now;
     public DateTime? DeletionTime { get; private set; }
 
     public bool IsDeleted { get; private set; }

@@ -1,19 +1,13 @@
-import {
-  ModalForm,
-  ProFormSelect,
-  ProFormText,
-  ProFormDigit,
-  ProFormTextArea,
-} from '@ant-design/pro-components';
+import { ModalForm, ProFormSelect, ProFormText, ProFormDigit } from '@ant-design/pro-components';
 import { Button, Result } from 'antd';
 import React from 'react';
 
 export type AddOrUpdateUserProps = {
   done: boolean;
   open: boolean;
-  current: Partial<API.LinkListItem> | undefined;
+  current: Partial<API.UserListItem> | undefined;
   onDone: () => void;
-  onSubmit: (values: API.LinkListItem) => Promise<void>;
+  onSubmit: (values: API.UserListItem) => Promise<void>;
 };
 
 const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
@@ -22,9 +16,9 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
     return null;
   }
   return (
-    <ModalForm<API.LinkListItem>
+    <ModalForm<API.UserListItem>
       open={open}
-      title={done ? null : `链接${current ? '编辑' : `添加`}`}
+      title={done ? null : `用户${current ? '编辑' : `添加`}`}
       width="400px"
       onFinish={async (values) => {
         onSubmit(values);
@@ -42,10 +36,10 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
     >
       {!done ? (
         <>
-          <ProFormText name="id" label="id" hidden/>
+          <ProFormText name="id" label="id" hidden />
           <ProFormText
-            name="name"
-            label="名称"
+            name="userName"
+            label="用户名"
             placeholder="请输入2-32个字符"
             width="md"
             rules={[
@@ -57,59 +51,29 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
               },
             ]}
           />
-          <ProFormText
-            name="url"
-            label="链接"
-            placeholder="请输入2-256个字符"
+          <ProFormSelect
+            name="RoleNames"
             width="md"
+            label="角色"
+            request={async () => [
+              { label: '普通用户', value: 'User' },
+              { label: '管理员', value: 'Admin' },
+            ]}
             rules={[
               {
                 required: true,
-                message: '请输入链接，长度为2-256个字符',
-                min: 2,
-                max: 256,
+                message: '请选择角色！',
               },
             ]}
           />
           <ProFormDigit
-            name="sequenceNumber"
-            label="序号"
-            min={0}
-            max={100}
+            name="phoneNumber"
+            label="手机号码"
             width="md"
             rules={[
               {
                 required: true,
-                message: '请输入序号！',
-              },
-            ]}
-          />
-          <ProFormSelect
-            name="kind"
-            width="md"
-            label="链接类型"
-            request={async () => [
-              { label: '私密', value: 'Private' },
-              { label: '网站相关', value: 'Owner' },
-              { label: '友情链接', value: 'Friend' },
-              { label: '课程链接', value: 'Course' },
-            ]}
-            rules={[
-              {
-                required: true,
-                message: '请选择链接类型！',
-              },
-            ]}
-          />
-          <ProFormTextArea
-            name="description"
-            width="md"
-            label="描述"
-            placeholder="请输入不多于256个字符"
-            rules={[
-              {
-                message: '请输入不多于256个字符的描述！',
-                max: 256,
+                message: '请输入手机号码',
               },
             ]}
           />

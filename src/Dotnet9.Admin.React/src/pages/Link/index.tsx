@@ -109,6 +109,7 @@ const LinkTableList: React.FC = () => {
       hideInForm: true,
       hideInSearch: true,
       hideInTable: true,
+      hideInDescriptions: true,
     },
     {
       title: '链接名称',
@@ -155,6 +156,7 @@ const LinkTableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      hideInDescriptions: true,
       render: (_, record) => [<a
           key="showDetail"
           onClick={() => {            

@@ -57,6 +57,7 @@ const ActionLogTableList: React.FC = () => {
     {
       title: 'id',
       dataIndex: 'id',
+      hideInDescriptions: true,
       tip: '操作日志Id是唯一的 key',
       hideInForm: true,
       hideInSearch: true,
@@ -182,6 +183,7 @@ const ActionLogTableList: React.FC = () => {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      hideInDescriptions: true,
       render: (_, record) => [
         <a
           key="showDetail"

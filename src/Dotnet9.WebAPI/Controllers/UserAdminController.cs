@@ -1,4 +1,7 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/user")]
 [ApiController]
@@ -18,13 +21,26 @@ public class UserAdminController : ControllerBase
 
     [HttpGet]
     [NoWrapper]
-    public async Task<GetUserListResponse> GetAllUsers(GetUserListRequest request)
+    public async Task<GetUserListResponse> GetAllUsers([FromQuery] GetUserListRequest request)
     {
         var userWithRoles = new List<UserDto>();
-        foreach (var user in _userManager.Users.ToList())
+        var users = _userManager.Users.AsQueryable().AsNoTracking();
+        if (request.UserName != null)
+        {
+            users = users.Where(x =>
+                EF.Functions.Like(x.UserName.ToLower(), $"%{request.UserName!.ToLower()}%"));
+        }
+
+        if (request.PhoneNumber != null)
+        {
+            users = users.Where(x =>
+                EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{request.PhoneNumber!.ToLower()}%"));
+        }
+
+        foreach (var user in users.ToList())
         {
             var roleNames = await _userManager.GetRolesAsync(user);
-            userWithRoles.Add(new UserDto(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!,
+            userWithRoles.Add(new UserDto(user.Id, user.UserName!, roleNames.JoinAsString(","), user.PhoneNumber!,
                 user.CreationTime));
         }
 
@@ -42,7 +58,7 @@ public class UserAdminController : ControllerBase
         }
 
         var roleNames = await _userManager.GetRolesAsync(user);
-        return new UserDto(user.Id, user.UserName!, roleNames.ToArray(), user.PhoneNumber!, user.CreationTime);
+        return new UserDto(user.Id, user.UserName!, roleNames.JoinAsString(","), user.PhoneNumber!, user.CreationTime);
     }
 
     [HttpPost]

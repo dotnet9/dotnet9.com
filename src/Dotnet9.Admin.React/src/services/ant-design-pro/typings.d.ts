@@ -38,7 +38,7 @@ declare namespace API {
   type UserListItem = {
     id?: string;
     userName?: string;
-    roleNames?: string[];
+    roleNames?: string;
     phoneNumber?: string;
     creationTime?: Date;
   };

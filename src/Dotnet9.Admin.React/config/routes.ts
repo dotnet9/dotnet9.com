@@ -44,29 +44,14 @@ export default [
     ],
   },
   {
-    path: '/user',
+    path: '/user/mrg',
     name: '用户管理',
     icon: 'user',
-    routes: [
-      {
-        path: '/user',
-        redirect: '/user/list',
-      },
-      {
-        path: '/user/list',
-        name: '用户列表',
-        component: './User/List',
-      },
-      {
-        path: '/user/add',
-        name: '添加用户',
-        component: './User/List/components/AddOrUpdateUser',
-      },
-    ],
+    component: './User/List',
   },
   {
     name: '网站赞助',
-    icon: 'donation',
+    icon: 'AccountBookOutlined',
     path: '/donation',
     component: './Donation',
   },
@@ -78,19 +63,19 @@ export default [
   },
   {
     name: '操作日志',
-    icon: 'log',
+    icon: 'FileTextOutlined',
     path: '/log',
     component: './ActionLog',
   },
   {
     name: '隐私声明',
-    icon: 'privacy',
+    icon: 'LockOutlined',
     path: '/privacy',
     component: './Privacy',
   },
   {
     name: '关于网站',
-    icon: 'about',
+    icon: 'UserOutlined',
     path: '/about',
     component: './About',
   },
