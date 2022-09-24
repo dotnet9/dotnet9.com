@@ -77,6 +77,19 @@ declare namespace API {
     success?: boolean;
   };
 
+  type TimelineListItem = {
+    id?: string;
+    time?: Date;
+    title?: string;
+    content?: string;
+  };
+
+  type TimelineList = {
+    data?: TimelineListItem[];
+    total?: number;
+    success?: boolean;
+  };
+
   type ActionLogListItem = {
     id?: string;
     uid?: string;

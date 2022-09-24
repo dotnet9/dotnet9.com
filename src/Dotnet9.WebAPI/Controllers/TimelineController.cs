@@ -16,10 +16,12 @@ public class TimelineController : ControllerBase
     }
 
     [HttpGet]
+    [NoWrapper]
     public async Task<GetTimelineListResponse> List([FromQuery] GetTimelineListRequest request)
     {
         var result = await _repository.GetListAsync(request);
-        return new GetTimelineListResponse(result.Timelines?.Adapt<TimelineDto[]>(), result.Count);
+        return new GetTimelineListResponse(result.Timelines?.Adapt<TimelineDto[]>(), result.Count, true,
+            request.PageSize, request.Current);
     }
 
     [HttpDelete]

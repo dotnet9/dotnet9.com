@@ -31,7 +31,8 @@ internal class TimelineRepository : ITimelineRepository
                 || EF.Functions.Like(data.Content, $"%{request.Keywords}%"));
         }
 
-        var datasFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
+        var datasFromDb = query.OrderByDescending(x => x.Time).Skip((request.Current - 1) * request.PageSize)
+            .Take(request.PageSize);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

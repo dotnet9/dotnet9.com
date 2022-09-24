@@ -50,6 +50,12 @@ export default [
     component: './User/List',
   },
   {
+    name: '时间线',
+    icon: 'FieldTimeOutlined',
+    path: '/timeline',
+    component: './Timeline',
+  },
+  {
     name: '网站赞助',
     icon: 'AccountBookOutlined',
     path: '/donation',

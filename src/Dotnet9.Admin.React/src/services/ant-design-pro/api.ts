@@ -104,13 +104,55 @@ export async function removeUser(data: string[], options?: { [key: string]: any 
   });
 }
 
+
+/** 获取时间线列表 GET /api/timeline */
+export async function timeline(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.TimelineList>('/api/timeline', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新时间线 PUT /api/timeline */
+export async function updateTimeline(body: API.LinkListItem, options?: { [key: string]: any }) {
+  return request<API.TimelineListItem>(`/api/timeline/${body.id}`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建时间线 POST /api/timeline */
+export async function addTimeline(body: API.TimelineListItem, options?: { [key: string]: any }) {
+  return request<API.TimelineListItem>('/api/timeline', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除时间线 DELETE /api/timeline */
+export async function removeTimeline(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/timeline', {
+    method: 'DELETE',
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
+
 /** 获取链接列表 GET /api/link */
 export async function link(
   params: {
-    // query
-    /** 当前的页码 */
     current?: number;
-    /** 页面的容量 */
     pageSize?: number;
   },
   options?: { [key: string]: any },
