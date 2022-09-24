@@ -75,7 +75,12 @@ export const errorConfig: RequestConfig = {
       } else if (error.response) {
         // Axios 的错误
         // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
-        message.error('Response status:', error.response.status);
+        console.log(error);
+        if (error.response.status === 403) {
+          message.error('您没有权限执行相应的操作');
+        } else {
+          message.error('Response status:', error.response.status);
+        }
       } else if (error.request) {
         // 请求已经成功发起，但没有收到响应
         // \`error.request\` 在浏览器中是 XMLHttpRequest 的实例，
@@ -110,7 +115,7 @@ export const errorConfig: RequestConfig = {
       // 拦截响应数据，进行个性化处理
       const { data } = response as unknown as ResponseStructure;
       if (!data.success) {
-        message.error('请求失败！');
+        //message.error('请求失败！');
         switch (response.status) {
           case 401:
             notification.warn({

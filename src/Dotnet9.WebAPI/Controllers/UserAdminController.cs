@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/user")]
 [ApiController]
@@ -23,8 +20,8 @@ public class UserAdminController : ControllerBase
     [NoWrapper]
     public async Task<GetUserListResponse> GetAllUsers([FromQuery] GetUserListRequest request)
     {
-        var userWithRoles = new List<UserDto>();
-        var users = _userManager.Users.AsQueryable().AsNoTracking();
+        List<UserDto> userWithRoles = new List<UserDto>();
+        IQueryable<User> users = _userManager.Users.AsQueryable().AsNoTracking();
         if (request.UserName != null)
         {
             users = users.Where(x =>
@@ -37,9 +34,9 @@ public class UserAdminController : ControllerBase
                 EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{request.PhoneNumber!.ToLower()}%"));
         }
 
-        foreach (var user in users.ToList())
+        foreach (User user in users.ToList())
         {
-            var roleNames = await _userManager.GetRolesAsync(user);
+            IList<string>? roleNames = await _userManager.GetRolesAsync(user);
             userWithRoles.Add(new UserDto(user.Id, user.UserName!, roleNames.JoinAsString(","), user.PhoneNumber!,
                 user.CreationTime));
         }
@@ -51,49 +48,53 @@ public class UserAdminController : ControllerBase
     [Route("{id}")]
     public async Task<UserDto?> FindById(Guid id)
     {
-        var user = await _userManager.FindByIdAsync(id.ToString());
+        User? user = await _userManager.FindByIdAsync(id.ToString());
         if (user == null)
         {
             return null;
         }
 
-        var roleNames = await _userManager.GetRolesAsync(user);
+        IList<string>? roleNames = await _userManager.GetRolesAsync(user);
         return new UserDto(user.Id, user.UserName!, roleNames.JoinAsString(","), user.PhoneNumber!, user.CreationTime);
     }
 
     [HttpPost]
-    public async Task<ActionResult> AddUser(AddUserRequest req)
+    public async Task<ActionResult<AddUserResponse>> AddUser([FromBody] AddUserRequest req)
     {
-        var (result, user, password) = await _repository.AddUserAsync(req.UserName, req.RoleName, req.PhoneNumber);
+        (IdentityResult result, User? user, string? password) =
+            await _repository.AddUserAsync(req.UserName, req.RoleNames, req.PhoneNumber);
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors.SumErrors());
         }
 
-        var userCreatedEvent = new UserCreatedEvent(user!.Id, req.UserName, password!, req.PhoneNumber);
+        UserCreatedEvent userCreatedEvent = new UserCreatedEvent(user!.Id, req.UserName, password!, req.PhoneNumber);
         _eventBus.Publish("Dotnet9.WebAPI.User.Created", userCreatedEvent);
-        return Ok();
+        return new AddUserResponse(req.UserName, password!);
     }
 
     [HttpDelete]
-    [Route("{id}")]
-    public async Task<ActionResult> DeleteUser(Guid id)
+    public async Task<ResponseResult<bool>> DeleteUser([FromBody] DeleteUserRequest request)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (userId == id.ToString())
+        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (request.Ids.Contains(Guid.Parse(userId)))
         {
-            return BadRequest("管理员不能删除自己");
+            return ResponseResult<bool>.GetError("不能删除自己");
         }
 
-        await _repository.RemoveUserAsync(id);
-        return Ok();
+        foreach (Guid id in request.Ids)
+        {
+            await _repository.RemoveUserAsync(id);
+        }
+
+        return true;
     }
 
     [HttpPut]
     [Route("{id}")]
-    public async Task<ActionResult> UpdateUser(Guid id, EditUserRequest req)
+    public async Task<ActionResult> UpdateUser(Guid id, [FromBody] EditUserRequest req)
     {
-        var user = await _repository.FindByIdAsync(id);
+        User? user = await _repository.FindByIdAsync(id);
         if (user == null)
         {
             return NotFound("用户没找到");
@@ -101,11 +102,11 @@ public class UserAdminController : ControllerBase
 
         user.PhoneNumber = req.PhoneNumber;
         await _userManager.UpdateAsync(user);
-        if (req.RoleName == UserRoleConst.User && await _userManager.IsInRoleAsync(user, UserRoleConst.Admin))
+        if (req.RoleNames == UserRoleConst.User && await _userManager.IsInRoleAsync(user, UserRoleConst.Admin))
         {
             await _userManager.RemoveFromRoleAsync(user, UserRoleConst.Admin);
         }
-        else if (req.RoleName == UserRoleConst.Admin &&
+        else if (req.RoleNames == UserRoleConst.Admin &&
                  await _userManager.IsInRoleAsync(user, UserRoleConst.Admin) == false)
         {
             await _userManager.AddToRoleAsync(user, UserRoleConst.Admin);
@@ -116,16 +117,16 @@ public class UserAdminController : ControllerBase
 
     [HttpPost]
     [Route("{id}")]
-    public async Task<ActionResult> ResetUserPassword(Guid id)
+    public async Task<ActionResult<ResetPasswordResponse>> ResetUserPassword(Guid id)
     {
-        var (result, user, password) = await _repository.ResetPasswordAsync(id);
+        (IdentityResult result, User? user, string? password) = await _repository.ResetPasswordAsync(id);
         if (!result.Succeeded)
         {
             return BadRequest(result.Errors.SumErrors());
         }
 
-        var eventData = new ResetPasswordEvent(user!.Id, user.UserName!, password!, user.PhoneNumber!);
+        ResetPasswordEvent eventData = new ResetPasswordEvent(user!.Id, user.UserName!, password!, user.PhoneNumber!);
         _eventBus.Publish("Dotnet9.WebAPI.User.PasswordReset", eventData);
-        return Ok();
+        return new ResetPasswordResponse(user.UserName, password!);
     }
 }

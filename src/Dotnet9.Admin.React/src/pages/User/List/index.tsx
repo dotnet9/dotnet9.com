@@ -1,4 +1,10 @@
-import { addUser, removeUser, user, updateUser } from '@/services/ant-design-pro/api';
+import {
+  addUser,
+  removeUser,
+  user,
+  updateUser,
+  resetUserPassword,
+} from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -14,10 +20,18 @@ import AddOrUpdateUser from './components/AddOrUpdateUser';
 const handleAdd = async (fields: API.UserListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addUser({ ...fields });
+    const result = await addUser({ ...fields });
     hide();
-    message.success('添加成功');
-    return true;
+    if (result.success) {
+      Modal.success({
+        title: '添加成功',
+        content: `请牢记：\r\n用户名：${result.data.userName}\r\n密码：${result.data.password}`,
+        okText: '知道了',
+      });
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     hide();
     message.error('添加失败，请重试！');
@@ -39,6 +53,28 @@ const handleUpdate = async (fields: API.UserListItem) => {
   }
 };
 
+const handleResetPassword = async (data: string) => {
+  const hide = message.loading('正在重置密码');
+  if (!data) return true;
+  try {
+    const result = await resetUserPassword(data);
+    hide();
+    if (result.success) {
+      Modal.success({
+        title: '重置密码成功',
+        content: `请牢记：\r\n用户名：${result.data.userName}\r\n密码：${result.data.password}`,
+        okText: '知道了',
+      });
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    hide();
+    return false;
+  }
+};
+
 const handleRemove = async (data: string[]) => {
   const hide = message.loading('正在删除');
   if (!data) return true;
@@ -49,7 +85,6 @@ const handleRemove = async (data: string[]) => {
     return true;
   } catch (error) {
     hide();
-    message.error('删除失败，请重试');
     return false;
   }
 };
@@ -76,6 +111,18 @@ const UserTableList: React.FC = () => {
         actionRef.current.reload();
       }
     }
+  };
+
+  const handleResetPasswordSubmit = async (id: string) => {
+    Modal.confirm({
+      title: '重置密码',
+      content: '确定重置该用户密码吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        await handleResetPassword(id);
+      },
+    });
   };
 
   const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
@@ -128,9 +175,10 @@ const UserTableList: React.FC = () => {
       dataIndex: 'option',
       valueType: 'option',
       hideInDescriptions: true,
-      render: (_, record) => [<a
+      render: (_, record) => [
+        <a
           key="showDetail"
-          onClick={() => {            
+          onClick={() => {
             setCurrent(record);
             setShowDetail(true);
           }}
@@ -145,6 +193,14 @@ const UserTableList: React.FC = () => {
           }}
         >
           编辑
+        </a>,
+        <a
+          key="resetPassword"
+          onClick={() => {
+            handleResetPasswordSubmit(record.id!);
+          }}
+        >
+          重置密码
         </a>,
         <a
           key="delete"

@@ -55,10 +55,7 @@ export async function getNotices(options?: { [key: string]: any }) {
 /** 获取所有用户列表 GET /api/user */
 export async function user(  
   params: {
-    // query
-    /** 当前的页码 */
     current?: number;
-    /** 页面的容量 */
     pageSize?: number;
   },
   options?: { [key: string]: any },
@@ -83,9 +80,17 @@ export async function updateUser(body: API.UserListItem, options?: { [key: strin
 
 /** 新建用户 POST /api/user */
 export async function addUser(body: API.UserListItem, options?: { [key: string]: any }) {
-  return request<API.UserListItem>('/api/user', {
+  return request<API.AddOrResetUserResponse>('/api/user', {
     method: 'POST',
     data: body,
+    ...(options || {}),
+  });
+}
+
+/** 重置用户密码 Post /api/user/id */
+export async function resetUserPassword(data: string, options?: { [key: string]: any }) {
+  return request<API.AddOrResetUserResponse>(`/api/user/${data}`, {
+    method: 'POST',
     ...(options || {}),
   });
 }

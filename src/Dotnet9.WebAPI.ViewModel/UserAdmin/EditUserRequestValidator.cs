@@ -4,7 +4,7 @@ public class EditUserRequestValidator : AbstractValidator<EditUserRequest>
 {
     public EditUserRequestValidator()
     {
-        RuleFor(e => e.RoleName).Must(e => e is UserRoleConst.Admin or UserRoleConst.User)
+        RuleFor(e => e.RoleNames).Must(e => e is UserRoleConst.Admin or UserRoleConst.User)
             .WithMessage($"角色需要填写为【{UserRoleConst.Admin}】或【{UserRoleConst.User}】");
         RuleFor(e => e.PhoneNumber)
             .NotNull().WithMessage("电话号码不能为Null")

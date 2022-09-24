@@ -1,4 +1,4 @@
-import { ModalForm, ProFormSelect, ProFormText, ProFormDigit } from '@ant-design/pro-components';
+import { ModalForm, ProFormSelect, ProFormText } from '@ant-design/pro-components';
 import { Button, Result } from 'antd';
 import React from 'react';
 
@@ -39,7 +39,8 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
           <ProFormText name="id" label="id" hidden />
           <ProFormText
             name="userName"
-            label="用户名"
+            label="用户名" 
+            readonly={current?.id ? true : false}
             placeholder="请输入2-32个字符"
             width="md"
             rules={[
@@ -52,7 +53,7 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
             ]}
           />
           <ProFormSelect
-            name="RoleNames"
+            name="roleNames"
             width="md"
             label="角色"
             request={async () => [
@@ -66,7 +67,7 @@ const AddOrUpdateUser: React.FC<AddOrUpdateUserProps> = (props) => {
               },
             ]}
           />
-          <ProFormDigit
+          <ProFormText
             name="phoneNumber"
             label="手机号码"
             width="md"

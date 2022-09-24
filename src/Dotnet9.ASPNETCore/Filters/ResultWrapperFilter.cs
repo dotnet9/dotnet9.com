@@ -4,10 +4,10 @@ public class ResultWrapperFilter : ActionFilterAttribute
 {
     public override void OnResultExecuting(ResultExecutingContext context)
     {
-        var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
-        var actionWrapper = controllerActionDescriptor?.MethodInfo
+        ControllerActionDescriptor? controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+        object? actionWrapper = controllerActionDescriptor?.MethodInfo
             .GetCustomAttributes(typeof(NoWrapperAttribute), false).FirstOrDefault();
-        var controllerWrapper = controllerActionDescriptor?.ControllerTypeInfo
+        object? controllerWrapper = controllerActionDescriptor?.ControllerTypeInfo
             .GetCustomAttributes(typeof(NoWrapperAttribute), false).FirstOrDefault();
         if (actionWrapper != null || controllerWrapper != null)
         {
@@ -21,9 +21,23 @@ public class ResultWrapperFilter : ActionFilterAttribute
 
         if (objectResult is BadRequestObjectResult)
         {
-            context.Result =
-                new ObjectResult(ResponseResult<object>.GetResult(false, HttpStatusCode.BadRequest, "",
-                    objectResult.Value));
+            if (!context.ModelState.IsValid)
+            {
+                List<string> errors = context.ModelState.Values.Where(v => v.Errors.Count > 0)
+                    .SelectMany(v => v.Errors)
+                    .Select(v => v.ErrorMessage)
+                    .ToList();
+
+                context.Result =
+                    new ObjectResult(ResponseResult<object>.GetError(HttpStatusCode.BadRequest,
+                        errors.JoinAsString(",")));
+            }
+            else
+            {
+                context.Result =
+                    new ObjectResult(ResponseResult<object>.GetResult(false, HttpStatusCode.BadRequest, "",
+                        objectResult.Value));
+            }
         }
         else if (objectResult.Value == null)
         {

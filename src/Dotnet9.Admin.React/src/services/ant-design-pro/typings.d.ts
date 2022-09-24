@@ -43,6 +43,14 @@ declare namespace API {
     creationTime?: Date;
   };
 
+  type AddOrResetUserResponse = {
+    success?: boolean;
+    data: {
+      userName?: string;
+      password?: string;
+    };
+  };
+
   type UserList = {
     data?: UserListItem[];
     total?: number;
@@ -68,7 +76,7 @@ declare namespace API {
     total?: number;
     success?: boolean;
   };
-  
+
   type ActionLogListItem = {
     id?: string;
     uid?: string;

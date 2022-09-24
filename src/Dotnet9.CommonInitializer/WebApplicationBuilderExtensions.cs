@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.CommonInitializer;
+﻿using System.Reflection;
+
+namespace Dotnet9.CommonInitializer;
 
 public static class WebApplicationBuilderExtensions
 {
@@ -9,7 +11,7 @@ public static class WebApplicationBuilderExtensions
             //不能使用ConfigureAppConfiguration中的configBuilder去读取配置，否则就循环调用了，因此这里直接自己去读取配置文件
             //var configRoot = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             //string connStr = configRoot.GetValue<string>("DefaultDB:ConnectionString");
-            var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
+            string? connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
 
             _ = configBuilder.AddDbConfiguration(() => new NpgsqlConnection(connStr!), reloadOnChange: true,
                 reloadInterval: TimeSpan.FromSeconds(5));
@@ -18,16 +20,16 @@ public static class WebApplicationBuilderExtensions
 
     public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
     {
-        var services = builder.Services;
+        IServiceCollection services = builder.Services;
         IConfiguration configuration = builder.Configuration;
-        var assemblies = ReflectionHelper.GetAllReferencedAssemblies();
+        IEnumerable<Assembly> assemblies = ReflectionHelper.GetAllReferencedAssemblies();
         services.RunModuleInitializers(assemblies);
         services.AddAllDbContexts(ctx =>
         {
             //连接字符串如果放到appsettings.json中，会有泄密的风险
             //如果放到UserSecrets中，每个项目都要配置，很麻烦
             //因此这里推荐放到环境变量中。
-            var connStr = configuration.GetValue<string>("DefaultDB:ConnectionString");
+            string? connStr = configuration.GetValue<string>("DefaultDB:ConnectionString");
             ctx.UseNpgsql(connStr);
         }, assemblies);
 
@@ -37,7 +39,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddAuthorization();
         builder.Services.AddAuthentication();
         builder.Services.AddOptions().Configure<SiteOptions>(e => configuration.GetSection("Site").Bind(e));
-        var jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
+        JWTOptions? jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
         builder.Services.AddJWTAuthentication(jwtOpt!);
         //启用Swagger中的【Authorize】按钮。这样就不用每个项目的AddSwaggerGen中单独配置了
         builder.Services.Configure<SwaggerGenOptions>(c => { c.AddAuthenticationHeader(); });
@@ -48,9 +50,9 @@ public static class WebApplicationBuilderExtensions
         services.Configure<MvcOptions>(options =>
         {
             options.Filters.Add<ResultWrapperFilter>();
+            options.Filters.Add<CustomValidationAttribute>();
             options.Filters.Add<GlobalExceptionFilter>();
             options.Filters.Add<UnitOfWorkFilter>();
-            options.Filters.Add<RateLimitFilter>();
             options.Filters.Add<ActionLogFilterAttribute>();
         });
         services.Configure<JsonOptions>(options =>
@@ -63,8 +65,8 @@ public static class WebApplicationBuilderExtensions
             {
                 //更好的在Program.cs中用绑定方式读取配置的方法：https://github.com/dotnet/aspnetcore/issues/21491
                 //不过比较麻烦。
-                var corsOpt = configuration.GetSection("Cors").Get<CorsSettings>();
-                var urls = corsOpt?.Origins;
+                CorsSettings? corsOpt = configuration.GetSection("Cors").Get<CorsSettings>();
+                string[]? urls = corsOpt?.Origins;
                 if (urls != null && urls.Any())
                 {
                     options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
@@ -88,7 +90,7 @@ public static class WebApplicationBuilderExtensions
         services.AddEventBus(initOptions.EventBusQueueName!, assemblies);
 
         //Redis的配置
-        var redisConnStr = configuration.GetValue<string>("Redis:ConnectionString");
+        string? redisConnStr = configuration.GetValue<string>("Redis:ConnectionString");
         IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConnStr);
         services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
         services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.All; });
