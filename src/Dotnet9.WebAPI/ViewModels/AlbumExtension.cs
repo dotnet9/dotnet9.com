@@ -2,25 +2,30 @@
 
 public static class AlbumExtension
 {
-    public static AlbumDto? ConvertToAlbumDto(this Album? album)
+    public static AlbumDto? ConvertToAlbumDto(this Album? album, string assetsRemotePath,
+        Dictionary<Guid, string>? categoryIdAndNames)
     {
         if (album == null)
         {
             return null;
         }
 
-        var categoryIds = album.Categories!.Select(category => category.CategoryId).ToArray();
-        return new AlbumDto(album.Id, categoryIds, album.SequenceNumber, album.Name, album.Slug, album.Cover,
+        string[] categoryNames = album.Categories!.Where(category =>
+                categoryIdAndNames != null && categoryIdAndNames.ContainsKey(category.CategoryId))
+            .Select(category => categoryIdAndNames![category.CategoryId]).ToArray();
+        return new AlbumDto(album.Id, categoryNames, album.SequenceNumber, album.Name, album.Slug,
+            $"{assetsRemotePath}/{album.Cover}",
             album.Description, album.Visible);
     }
 
-    public static AlbumDto[]? ConvertToAlbumDtoArray(this Album[]? albums)
+    public static AlbumDto[]? ConvertToAlbumDtoArray(this Album[]? albums, string assetsRemotePath,
+        Dictionary<Guid, string>? categoryIdAndNames)
     {
         if (albums == null || !albums.Any())
         {
             return null;
         }
 
-        return albums.Select(album => album.ConvertToAlbumDto()!).ToArray();
+        return albums.Select(album => album.ConvertToAlbumDto(assetsRemotePath, categoryIdAndNames)!).ToArray();
     }
 }

@@ -1,33 +1,45 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AlbumController : ControllerBase
 {
+    private readonly IMemoryCacheHelper _cacheHelper;
     private readonly Dotnet9DbContext _dbContext;
     private readonly AlbumManager _manager;
     private readonly IAlbumRepository _repository;
+    private readonly IOptionsSnapshot<SiteOptions> _siteOptions;
 
     public AlbumController(Dotnet9DbContext dbContext, IAlbumRepository repository,
-        AlbumManager manager)
+        AlbumManager manager, IOptionsSnapshot<SiteOptions> siteOptions,
+        IMemoryCacheHelper cacheHelper)
     {
         _dbContext = dbContext;
         _repository = repository;
         _manager = manager;
+        _siteOptions = siteOptions;
+        _cacheHelper = cacheHelper;
     }
 
     [HttpGet]
+    [NoWrapper]
     public async Task<GetAlbumListResponse> List([FromQuery] GetAlbumListRequest request)
     {
-        var result = await _repository.GetListAsync(request);
-        return new GetAlbumListResponse(result.Albums.ConvertToAlbumDtoArray(), result.Count);
+        (Album[]? Albums, long Count) result = await _repository.GetListAsync(request);
+        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIDAndNames();
+        return new GetAlbumListResponse(
+            result.Albums.ConvertToAlbumDtoArray(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames),
+            result.Count, true, request.PageSize,
+            request.Current);
     }
 
     [HttpGet]
     [Route("/api/[controller]/Categories")]
     public async Task<CategoryDto[]> GetCategoriesOfAlbum()
     {
-        var categories = await _repository.GetCategoriesOfAlbumAsync();
+        Category[] categories = await _repository.GetCategoriesOfAlbumAsync();
         return categories.Adapt<CategoryDto[]>();
     }
 
@@ -37,8 +49,13 @@ public class AlbumController : ControllerBase
     public async Task<GetAlbumsByCategoryResponse> GetAlbumsByCategory(Guid categoryId,
         [FromQuery] GetAlbumsByCategoryRequest request)
     {
-        var result = await _repository.GetAlbumsByCategoryAsync(categoryId, request.PageIndex, request.PageSize);
-        return new GetAlbumsByCategoryResponse(result.Albums.ConvertToAlbumDtoArray(), result.Count);
+        (Album[]? Albums, long Count) result =
+            await _repository.GetAlbumsByCategoryAsync(categoryId, request.PageIndex, request.PageSize);
+
+        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIDAndNames();
+        return new GetAlbumsByCategoryResponse(
+            result.Albums.ConvertToAlbumDtoArray(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames),
+            result.Count);
     }
 
     [HttpDelete]
@@ -52,12 +69,13 @@ public class AlbumController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<AlbumDto?> Add([FromBody] AddAlbumRequest request)
     {
-        var album = await _manager.CreateAsync(null, request.CategoryIds, request.SequenceNumber, request.Name,
+        Album album = await _manager.CreateAsync(null, request.CategoryNames, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);
-        var albumFromDb = await _dbContext.AddAsync(album);
+        EntityEntry<Album> albumFromDb = await _dbContext.AddAsync(album);
         await _dbContext.SaveChangesAsync();
+        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIDAndNames();
 
-        return albumFromDb.Entity.ConvertToAlbumDto();
+        return albumFromDb.Entity.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
     }
 
     [HttpPut]
@@ -65,11 +83,36 @@ public class AlbumController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<AlbumDto?> Update(Guid id, [FromBody] UpdateAlbumRequest request)
     {
-        var album = await _manager.CreateAsync(id, request.CategoryIds, request.SequenceNumber, request.Name,
+        Album album = await _manager.CreateAsync(id, request.CategoryNames, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);
-        var albumFromDb = _dbContext.Update(album);
+        EntityEntry<Album> albumFromDb = _dbContext.Update(album);
+        await _dbContext.SaveChangesAsync();
+        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIDAndNames();
+
+        return albumFromDb.Entity.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
+    }
+
+    [HttpPut]
+    [Route("/api/[controller]/{id}/changeVisible")]
+    [Authorize(Roles = UserRoleConst.Admin)]
+    public async Task<ResponseResult<AlbumDto?>> UpdateAlbumVisible(Guid id,
+        [FromBody] UpdateAlbumVisibleRequest request)
+    {
+        Album album = await _manager.ChangeVisible(id, request.Visible);
+
         await _dbContext.SaveChangesAsync();
 
-        return albumFromDb.Entity.ConvertToAlbumDto();
+        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIDAndNames();
+        return album.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
+    }
+
+    private async Task<Dictionary<Guid, string>?> GetCategoryIDAndNames()
+    {
+        async Task<Dictionary<Guid, string>?> GetIdAndNamesFromDb()
+        {
+            return await _dbContext.Categories!.ToDictionaryAsync(category => category.Id, category => category.Name);
+        }
+
+        return await _cacheHelper.GetOrCreateAsync("CategoryIDAndNames", async e => await GetIdAndNamesFromDb());
     }
 }

@@ -149,6 +149,69 @@ export async function removeTimeline(data: string[], options?: { [key: string]: 
   });
 }
 
+/** 获取分类名列表 GET /api/category/names */
+export async function categoryNames(
+  options?: { [key: string]: any },
+) {
+  return request<API.CategoryNames>('/api/category/names', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 获取专辑列表 GET /api/album */
+export async function album(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.AlbumList>('/api/album', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新专辑 PUT /api/album */
+export async function updateAlbum(body: API.AlbumListItem, options?: { [key: string]: any }) {
+  return request<API.AlbumListItem>(`/api/album/${body.id}`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 更新专辑可见性 PUT /api/album/{id}/changeVisible */
+export async function changeAlbumVisible(body: API.ChangeAlbumVisible, options?: { [key: string]: any }) {
+  return request<API.AlbumListItem>(`/api/album/${body.id}/changeVisible`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建专辑 POST /api/album */
+export async function addAlbum(body: API.AlbumListItem, options?: { [key: string]: any }) {
+  return request<API.LinkListItem>('/api/album', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除专辑 DELETE /api/album */
+export async function removeAlbum(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/album', {
+    method: 'DELETE',
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
+
 /** 获取链接列表 GET /api/link */
 export async function link(
   params: {

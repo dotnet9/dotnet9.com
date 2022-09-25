@@ -1,12 +1,4 @@
 ﻿namespace Dotnet9.WebAPI.ViewModel.Albums;
 
-public class UpdateAlbumRequest
-{
-    public Guid[] CategoryIds { get; set; } = null!;
-    public int SequenceNumber { get; set; }
-    public string Name { get; set; } = null!;
-    public string Slug { get; set; } = null!;
-    public string Cover { get; set; } = null!;
-    public string? Description { get; set; }
-    public bool Visible { get; set; }
-}
+public record UpdateAlbumRequest(string[] CategoryNames, int SequenceNumber, string Name, string Slug, string Cover,
+    string? Description, bool Visible);

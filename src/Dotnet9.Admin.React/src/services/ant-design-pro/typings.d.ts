@@ -62,6 +62,35 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type CategoryNames = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: string[],
+  };
+
+  type ChangeAlbumVisible = {
+    id?: string;
+    visible?: boolean;
+  };
+
+  type AlbumListItem = {
+    id?: string;
+    categoryNames?: string[];
+    sequencenumber?: number;
+    name?: string;
+    slug?: string;
+    cover?: string;
+    description?: string;
+    visible?: boolean | undefined;
+  };
+
+  type AlbumList = {
+    data?: AlbumListItem[];
+    total?: number;
+    success?: boolean;
+  };
+
   type LinkListItem = {
     id?: string;
     sequencenumber?: number;

@@ -44,6 +44,12 @@ export default [
     ],
   },
   {
+    name: '专辑',
+    icon: 'SnippetsOutlined',
+    path: '/album',
+    component: './Album',
+  },
+  {
     path: '/user/mrg',
     name: '用户管理',
     icon: 'user',
