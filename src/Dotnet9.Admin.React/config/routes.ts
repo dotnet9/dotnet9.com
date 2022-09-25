@@ -68,12 +68,6 @@ export default [
     component: './Timeline',
   },
   {
-    name: '网站赞助',
-    icon: 'AccountBookOutlined',
-    path: '/donation',
-    component: './Donation',
-  },
-  {
     name: '链接管理',
     icon: 'link',
     path: '/link',
@@ -84,6 +78,12 @@ export default [
     icon: 'FileTextOutlined',
     path: '/log',
     component: './ActionLog',
+  },
+  {
+    name: '网站赞助',
+    icon: 'AccountBookOutlined',
+    path: '/donation',
+    component: './Donation',
   },
   {
     name: '隐私声明',

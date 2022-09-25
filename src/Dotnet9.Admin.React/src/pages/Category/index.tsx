@@ -154,14 +154,14 @@ const CategoryTableList: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '父级分类',
-      dataIndex: 'parentName',
-      hideInSearch: true,
-    },
-    {
       title: '显示序号',
       hideInSearch: true,
       dataIndex: 'sequenceNumber',
+    },
+    {
+      title: '父级分类',
+      dataIndex: 'parentName',
+      hideInSearch: true,
     },
     {
       title: '别名',
