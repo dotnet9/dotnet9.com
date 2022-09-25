@@ -69,6 +69,28 @@ declare namespace API {
     data: string[],
   };
 
+  type ChangeCategoryVisible = {
+    id?: string;
+    visible?: boolean;
+  };
+
+  type CategoryListItem = {
+    id?: string;
+    parentId?: string;
+    sequencenumber?: number;
+    name?: string;
+    slug?: string;
+    cover?: string;
+    description?: string;
+    visible?: boolean | undefined;
+  };
+
+  type CategoryList = {
+    data?: CategoryListItem[];
+    total?: number;
+    success?: boolean;
+  };
+
   type ChangeAlbumVisible = {
     id?: string;
     visible?: boolean;

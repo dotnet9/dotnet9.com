@@ -44,6 +44,12 @@ export default [
     ],
   },
   {
+    name: '分类',
+    icon: 'AppstoreOutlined',
+    path: '/category',
+    component: './Category',
+  },
+  {
     name: '专辑',
     icon: 'SnippetsOutlined',
     path: '/album',

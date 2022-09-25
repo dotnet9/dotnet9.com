@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Infrastructure.Albums;
+﻿using Microsoft.EntityFrameworkCore.Query;
+
+namespace Dotnet9.WebAPI.Infrastructure.Albums;
 
 internal class AlbumRepository : IAlbumRepository
 {
@@ -11,7 +13,7 @@ internal class AlbumRepository : IAlbumRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Albums!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        List<Album> logs = await _dbContext.Albums!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
@@ -33,7 +35,7 @@ internal class AlbumRepository : IAlbumRepository
 
     public async Task<(Album[]? Albums, long Count)> GetListAsync(GetAlbumListRequest request)
     {
-        var query = _dbContext.Albums!.AsQueryable();
+        IQueryable<Album> query = _dbContext.Albums!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
@@ -42,7 +44,8 @@ internal class AlbumRepository : IAlbumRepository
                 || (log.Description != null && EF.Functions.Like(log.Description!, $"%{request.Keywords}%")));
         }
 
-        var albumsFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize)
+        IIncludableQueryable<Album, List<AlbumCategory>?> albumsFromDb = query
+            .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize)
             .Include(album => album.Categories);
 
         return (await albumsFromDb.ToArrayAsync(), await query.LongCountAsync());
@@ -50,7 +53,7 @@ internal class AlbumRepository : IAlbumRepository
 
     public async Task<Category[]> GetCategoriesOfAlbumAsync()
     {
-        var categoryIds = await _dbContext.Set<AlbumCategory>().Select(albumCategory => albumCategory.CategoryId)
+        List<Guid> categoryIds = await _dbContext.Set<AlbumCategory>().Select(albumCategory => albumCategory.CategoryId)
             .ToListAsync();
         return await _dbContext.Set<Category>().Where(category => categoryIds.Contains(category.Id)).ToArrayAsync();
     }
@@ -58,12 +61,14 @@ internal class AlbumRepository : IAlbumRepository
     public async Task<(Album[]? Albums, long Count)> GetAlbumsByCategoryAsync(Guid categoryId, int pageIndex,
         int pageSize)
     {
-        var albumIds = await _dbContext.Set<AlbumCategory>()
+        List<Guid> albumIds = await _dbContext.Set<AlbumCategory>()
             .Where(albumCategory => albumCategory.CategoryId == categoryId)
             .Select(albumCategory => albumCategory.AlbumId)
             .ToListAsync();
-        var query = _dbContext.Set<Album>().Where(album => albumIds.Contains(album.Id));
-        var albumsFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(album => album.Categories);
+        IQueryable<Album> query = _dbContext.Set<Album>().Where(album => albumIds.Contains(album.Id));
+        IIncludableQueryable<Album, List<AlbumCategory>?> albumsFromDb = query.OrderByDescending(x => x.CreationTime)
+            .Skip((pageIndex - 1) * pageSize).Take(pageSize)
+            .Include(album => album.Categories);
         return (await albumsFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }

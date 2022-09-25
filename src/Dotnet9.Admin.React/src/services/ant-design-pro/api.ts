@@ -159,6 +159,59 @@ export async function categoryNames(
   });
 }
 
+/** 获取分类列表 GET /api/category */
+export async function category(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.CategoryList>('/api/category', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新分类 PUT /api/category */
+export async function updateCategory(body: API.CategoryListItem, options?: { [key: string]: any }) {
+  return request<API.CategoryListItem>(`/api/category/${body.id}`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 更新分类可见性 PUT /api/category/{id}/changeVisible */
+export async function changeCategoryVisible(body: API.ChangeCategoryVisible, options?: { [key: string]: any }) {
+  return request<API.CategoryListItem>(`/api/category/${body.id}/changeVisible`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建分类 POST /api/category */
+export async function addCategory(body: API.CategoryListItem, options?: { [key: string]: any }) {
+  return request<API.CategoryListItem>('/api/category', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除分类 DELETE /api/category */
+export async function removeCategory(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/category', {
+    method: 'DELETE',
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
+
 /** 获取专辑列表 GET /api/album */
 export async function album(
   params: {

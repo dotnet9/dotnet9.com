@@ -1,9 +1,9 @@
 import {
-  addAlbum,
-  removeAlbum,
-  album,
-  updateAlbum,
-  changeAlbumVisible,
+  addCategory,
+  removeCategory,
+  category,
+  updateCategory,
+  changeCategoryVisible,
 } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
@@ -15,12 +15,12 @@ import {
 } from '@ant-design/pro-components';
 import { Button, Drawer, message, Modal, Switch } from 'antd';
 import React, { useRef, useState } from 'react';
-import AddOrUpdateAlbum from './components/AddOrUpdateAlbum';
+import AddOrUpdateCategory from './components/AddOrUpdateCategory';
 
-const handleAdd = async (fields: API.AlbumListItem) => {
+const handleAdd = async (fields: API.CategoryListItem) => {
   const hide = message.loading('正在添加');
   try {
-    await addAlbum({ ...fields });
+    await addCategory({ ...fields });
     hide();
     message.success('添加成功');
     return true;
@@ -31,10 +31,10 @@ const handleAdd = async (fields: API.AlbumListItem) => {
   }
 };
 
-const handleUpdate = async (fields: API.AlbumListItem) => {
+const handleUpdate = async (fields: API.CategoryListItem) => {
   const hide = message.loading('正在更新');
   try {
-    await updateAlbum({ ...fields });
+    await updateCategory({ ...fields });
     hide();
     message.success('更新成功');
     return true;
@@ -45,10 +45,10 @@ const handleUpdate = async (fields: API.AlbumListItem) => {
   }
 };
 
-const handleChangeVisible = async (id?: string, albumVisible?: boolean) => {
+const handleChangeVisible = async (id?: string, categoryVisible?: boolean) => {
   const hide = message.loading('正在更新');
   try {
-    await changeAlbumVisible({ id, visible: albumVisible });
+    await changeCategoryVisible({ id, visible: categoryVisible });
     hide();
     message.success('更新成功');
     return true;
@@ -63,7 +63,7 @@ const handleRemove = async (data: string[]) => {
   const hide = message.loading('正在删除');
   if (!data) return true;
   try {
-    await removeAlbum(data);
+    await removeCategory(data);
     hide();
     message.success('删除成功，即将刷新');
     return true;
@@ -74,13 +74,13 @@ const handleRemove = async (data: string[]) => {
   }
 };
 
-const AlbumTableList: React.FC = () => {
+const CategoryTableList: React.FC = () => {
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [current, setCurrent] = useState<API.AlbumListItem | undefined>(undefined);
+  const [current, setCurrent] = useState<API.CategoryListItem | undefined>(undefined);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
-  const [selectedRowsState, setSelectedRows] = useState<API.AlbumListItem[]>([]);
+  const [selectedRowsState, setSelectedRows] = useState<API.CategoryListItem[]>([]);
 
   const handleDone = () => {
     setDone(false);
@@ -88,7 +88,7 @@ const AlbumTableList: React.FC = () => {
     setCurrent(undefined);
   };
 
-  const handleAddOrUpdateSubmit = async (values: API.AlbumListItem) => {
+  const handleAddOrUpdateSubmit = async (values: API.CategoryListItem) => {
     const success = values.id ? await handleUpdate(values) : await handleAdd(values);
     if (success) {
       handleDone();
@@ -100,8 +100,8 @@ const AlbumTableList: React.FC = () => {
 
   const handleRemoveSubmit = async (ids: string[], isBatch: boolean) => {
     Modal.confirm({
-      title: '删除专辑',
-      content: '确定删除该专辑吗？删除专辑不会删除专辑下的文章',
+      title: '删除分类',
+      content: '确定删除该分类吗？删除分类不会删除分类下的文章',
       okText: '确认',
       cancelText: '取消',
       onOk: async () => {
@@ -121,11 +121,11 @@ const AlbumTableList: React.FC = () => {
     });
   };
 
-  const handleChangeVisibleCommit = (albumVisible: boolean, record: API.AlbumListItem) => {
-    handleChangeVisible(record.id, albumVisible);
+  const handleChangeVisibleCommit = (categoryVisible: boolean, record: API.CategoryListItem) => {
+    handleChangeVisible(record.id, categoryVisible);
   };
 
-  const columns: ProColumns<API.AlbumListItem>[] = [
+  const columns: ProColumns<API.CategoryListItem>[] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -138,8 +138,8 @@ const AlbumTableList: React.FC = () => {
     {
       title: '关键字',
       dataIndex: 'keywords',
-      hideInForm: true,
       hideInTable: true,
+      hideInForm: true,
       hideInDescriptions: true,
     },
     {
@@ -149,20 +149,19 @@ const AlbumTableList: React.FC = () => {
       hideInSearch: true,
     },
     {
-      title: '专辑名称',
+      title: '分类名称',
       dataIndex: 'name',
+      hideInSearch: true,
+    },
+    {
+      title: '父级分类',
+      dataIndex: 'parentName',
       hideInSearch: true,
     },
     {
       title: '显示序号',
       hideInSearch: true,
       dataIndex: 'sequenceNumber',
-    },
-    {
-      title: '所属分类',
-      dataIndex: 'categoryNames',
-      hideInSearch: true,
-      render: (_, record) => <span>{record.categoryNames?.join(',')}</span>,
     },
     {
       title: '别名',
@@ -224,7 +223,7 @@ const AlbumTableList: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<API.AlbumListItem, API.PageParams>
+      <ProTable<API.CategoryListItem, API.PageParams>
         headerTitle="查询表格"
         actionRef={actionRef}
         rowKey="id"
@@ -243,7 +242,7 @@ const AlbumTableList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={album}
+        request={category}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
@@ -273,7 +272,7 @@ const AlbumTableList: React.FC = () => {
         </FooterToolbar>
       )}
 
-      <AddOrUpdateAlbum
+      <AddOrUpdateCategory
         done={done}
         open={visible}
         current={current}
@@ -291,7 +290,7 @@ const AlbumTableList: React.FC = () => {
         closable={false}
       >
         {current?.name && (
-          <ProDescriptions<API.AlbumListItem>
+          <ProDescriptions<API.CategoryListItem>
             column={1}
             title={current?.name}
             request={async () => ({
@@ -300,7 +299,7 @@ const AlbumTableList: React.FC = () => {
             params={{
               id: current?.name,
             }}
-            columns={columns as ProDescriptionsItemProps<API.AlbumListItem>[]}
+            columns={columns as ProDescriptionsItemProps<API.CategoryListItem>[]}
           />
         )}
       </Drawer>
@@ -308,4 +307,4 @@ const AlbumTableList: React.FC = () => {
   );
 };
 
-export default AlbumTableList;
+export default CategoryTableList;

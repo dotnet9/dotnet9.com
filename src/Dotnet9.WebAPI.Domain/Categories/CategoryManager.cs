@@ -11,9 +11,9 @@ public class CategoryManager
 
     public async Task<Category> CreateAsync(Guid? id, int sequenceNumber, string name, string slug, string cover,
         string? description, bool visible,
-        Guid? parentId)
+        string? parentName)
     {
-        var isNew = id == null;
+        bool isNew = id == null;
         Category? oldCategory = null;
         if (isNew)
         {
@@ -28,13 +28,16 @@ public class CategoryManager
             }
         }
 
-        if (parentId is not null)
+        Guid? parentId = null;
+        if (parentName is not null)
         {
-            var existCategory = await _categoryRepository.FindByIdAsync(parentId.Value);
+            Category? existCategory = await _categoryRepository.FindByNameAsync(parentName);
             if (existCategory == null)
             {
-                throw new Exception($"不存在的父级分类: {parentId}");
+                throw new Exception($"不存在的父级分类: {parentName}");
             }
+
+            parentId = existCategory.Id;
         }
 
         if (isNew)
@@ -67,7 +70,7 @@ public class CategoryManager
         Check.NotNull(category, nameof(category));
         Check.NotNullOrWhiteSpace(newName, nameof(newName), CategoryConsts.MaxNameLength, CategoryConsts.MinNameLength);
 
-        var existCategory = await _categoryRepository.FindByNameAsync(newName);
+        Category? existCategory = await _categoryRepository.FindByNameAsync(newName);
         if ((isNew && existCategory != null) ||
             (isNew == false && existCategory != null && existCategory.Id != category!.Id))
         {
@@ -82,7 +85,7 @@ public class CategoryManager
         Check.NotNull(category, nameof(category));
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug), CategoryConsts.MaxSlugLength, CategoryConsts.MinSlugLength);
 
-        var existCategory = await _categoryRepository.FindBySlugAsync(newSlug);
+        Category? existCategory = await _categoryRepository.FindBySlugAsync(newSlug);
         if ((isNew && existCategory != null) ||
             (isNew == false && existCategory != null && existCategory.Id != category!.Id))
         {

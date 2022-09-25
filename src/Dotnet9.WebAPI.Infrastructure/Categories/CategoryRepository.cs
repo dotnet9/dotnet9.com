@@ -11,7 +11,7 @@ internal class CategoryRepository : ICategoryRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Categories!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        List<Category> logs = await _dbContext.Categories!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
@@ -33,7 +33,7 @@ internal class CategoryRepository : ICategoryRepository
 
     public async Task<(Category[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request)
     {
-        var query = _dbContext.Categories!.AsQueryable();
+        IQueryable<Category> query = _dbContext.Categories!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
@@ -42,7 +42,8 @@ internal class CategoryRepository : ICategoryRepository
                 || (log.Description != null && EF.Functions.Like(log.Description!, $"%{request.Keywords}%")));
         }
 
-        var categoriesFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
+        IQueryable<Category> categoriesFromDb = query.OrderByDescending(x => x.CreationTime)
+            .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
 }
