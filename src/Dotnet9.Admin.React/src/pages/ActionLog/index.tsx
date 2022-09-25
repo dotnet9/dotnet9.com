@@ -76,30 +76,42 @@ const ActionLogTableList: React.FC = () => {
       },
     },
     {
+      title: '关键字',
+      dataIndex: 'keywords',
+      hideInTable: true,
+      hideInForm: true,
+      hideInDescriptions: true,
+    },
+    {
       title: '代理',
       dataIndex: 'ua',
       ellipsis: true,
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '操作系统',
       dataIndex: 'os',
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '浏览器',
       dataIndex: 'browser',
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '主机地址',
       dataIndex: 'ip',
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '访问来源',
       dataIndex: 'referer',
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: 'AccessName',
@@ -111,29 +123,34 @@ const ActionLogTableList: React.FC = () => {
       title: 'Original',
       dataIndex: 'original',
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '请求Url',
       dataIndex: 'url',
       ellipsis: true,
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '控制器',
       dataIndex: 'controller',
       ellipsis: true,
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '接口',
       dataIndex: 'action',
       ellipsis: true,
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '请求方式',
       dataIndex: 'method',
       sorter: true,
+      hideInSearch: true,
       valueEnum: {
         GET: {
           text: 'GET',
@@ -158,6 +175,7 @@ const ActionLogTableList: React.FC = () => {
       dataIndex: 'arguments',
       ellipsis: true,
       sorter: true,
+      hideInSearch: true,
     },
     {
       title: '周期(ms)',

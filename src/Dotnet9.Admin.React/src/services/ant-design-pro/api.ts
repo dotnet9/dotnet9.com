@@ -312,10 +312,7 @@ export async function removeLink(data: string[], options?: { [key: string]: any 
 /** 获取操作日志列表 GET /api/actionlog */
 export async function actionLog(
   params: {
-    // query
-    /** 当前的页码 */
     current?: number;
-    /** 页面的容量 */
     pageSize?: number;
   },
   sort: { [key: string]: any },
