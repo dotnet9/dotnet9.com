@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -23,7 +21,8 @@ public class BlogPostController : ControllerBase
     public async Task<GetBlogPostListResponse> List([FromQuery] GetBlogPostListRequest request)
     {
         (BlogPost[]? BlogPosts, long Count) result = await _repository.GetListAsync(request);
-        return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(), result.Count);
+        return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count, true,
+            request.PageSize, request.Current);
     }
 
 
@@ -34,7 +33,7 @@ public class BlogPostController : ControllerBase
     {
         (BlogPost[]? BlogPosts, long Count) result =
             await _repository.GetListByAlbumIdAsync(albumId, request.PageIndex, request.PageSize);
-        return new GetBlogPostsByAlbumResponse(result.BlogPosts.ConvertToBlogPostDtoArray(), result.Count);
+        return new GetBlogPostsByAlbumResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 
 
@@ -45,7 +44,7 @@ public class BlogPostController : ControllerBase
     {
         (BlogPost[]? BlogPosts, long Count) result =
             await _repository.GetListByCategoryIdAsync(categoryId, request.PageIndex, request.PageSize);
-        return new GetBlogPostsByCategoryResponse(result.BlogPosts.ConvertToBlogPostDtoArray(), result.Count);
+        return new GetBlogPostsByCategoryResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 
 
@@ -56,7 +55,7 @@ public class BlogPostController : ControllerBase
     {
         (BlogPost[]? BlogPosts, long Count) result =
             await _repository.GetListByTagIdAsync(tagId, request.PageIndex, request.PageSize);
-        return new GetBlogPostsByTagResponse(result.BlogPosts.ConvertToBlogPostDtoArray(), result.Count);
+        return new GetBlogPostsByTagResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 
     [HttpDelete]
@@ -77,7 +76,7 @@ public class BlogPostController : ControllerBase
         EntityEntry<BlogPost> dataFromDb = await _dbContext.AddAsync(data);
         await _dbContext.SaveChangesAsync();
 
-        return dataFromDb.Entity.ConvertToBlogPostDto();
+        return dataFromDb.Entity.ConvertToBlogPostDto(_dbContext);
     }
 
     [HttpPut]
@@ -91,6 +90,6 @@ public class BlogPostController : ControllerBase
         EntityEntry<BlogPost> dataFromDb = _dbContext.Update(data);
         await _dbContext.SaveChangesAsync();
 
-        return dataFromDb.Entity.ConvertToBlogPostDto();
+        return dataFromDb.Entity.ConvertToBlogPostDto(_dbContext);
     }
 }

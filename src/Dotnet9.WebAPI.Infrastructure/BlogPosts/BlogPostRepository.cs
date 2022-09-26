@@ -53,7 +53,7 @@ internal class BlogPostRepository : IBlogPostRepository
                 || EF.Functions.Like(log.Content!, $"%{request.Keywords}%"));
         }
 
-        var datasFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Include(blogPost => blogPost.Albums)
+        var datasFromDb = query.OrderByDescending(x=>x.CreationTime).Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }

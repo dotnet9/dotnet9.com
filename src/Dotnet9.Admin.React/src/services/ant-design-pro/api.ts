@@ -104,6 +104,58 @@ export async function removeUser(data: string[], options?: { [key: string]: any 
   });
 }
 
+/** 获取文章列表 GET /api/blogpost */
+export async function blogpost(
+  params: {
+    current?: number;
+    pageSize?: number;
+  },
+  options?: { [key: string]: any },
+) {
+  return request<API.BlogPostList>('/api/blogpost', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}
+
+/** 更新文章 PUT /api/blogpost */
+export async function updateBlogPost(body: API.BlogPostListItem, options?: { [key: string]: any }) {
+  return request<API.BlogPostListItem>(`/api/blogpost/${body.id}`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 更新文章可见性 PUT /api/blogpost/{id}/changeVisible */
+export async function changeBlogPostVisible(body: API.ChangeBlogPostVisible, options?: { [key: string]: any }) {
+  return request<API.BlogPostListItem>(`/api/blogpost/${body.id}/changeVisible`, {
+    method: 'PUT',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 新建文章 POST /api/category */
+export async function addBlogPost(body: API.BlogPostListItem, options?: { [key: string]: any }) {
+  return request<API.BlogPostListItem>('/api/blogpost', {
+    method: 'POST',
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 删除文章 DELETE /api/category */
+export async function removeBlogPost(data: string[], options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/blogpost', {
+    method: 'DELETE',
+    data: { ids: data },
+    ...(options || {}),
+  });
+}
 
 /** 获取时间线列表 GET /api/timeline */
 export async function timeline(

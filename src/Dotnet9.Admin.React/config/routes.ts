@@ -44,6 +44,30 @@ export default [
     ],
   },
   {
+    path: '/blogpost',
+    name: '博客文章',
+    icon: 'SnippetsOutlined',
+    routes: [
+      {
+        path: '/blogpost/add',
+        name: '添加文章',
+        icon: 'FormOutlined',
+        component: './BlogPost/components/AddOrUpdateBlogPost.tsx',
+      },
+      {
+        path: '/blogpost/update/:id',
+        name: '修改文章',
+        component: './BlogPost/components/AddOrUpdateBlogPost.tsx',
+      },
+      {
+        path: '/blogpost',
+        name: '文章列表',
+        icon: 'UnorderedListOutlined',
+        component: './BlogPost',
+      }
+    ]
+  },
+  {
     name: '分类',
     icon: 'AppstoreOutlined',
     path: '/category',

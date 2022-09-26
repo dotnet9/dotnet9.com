@@ -69,6 +69,34 @@ declare namespace API {
     data: string[],
   };
 
+  type ChangeBlogPostVisible = {
+    id?: string;
+    visible?: boolean;
+  };
+
+  type BlogPostListItem = {
+    id?: string;
+    title?: string;
+    slug?: string;
+    description?: string;
+    cover?: string;
+    copyRightType?: string;
+    original?: string;
+    originalAvatar?: string;
+    originalTitle?: string;
+    originalLink?: string;
+    albumNames?: string[];
+    categoryNames?: string[];
+    tagNames?: string[];
+    visible?: boolean | undefined;
+  };
+
+  type BlogPostList = {
+    data?: CategoryListItem[];
+    total?: number;
+    success?: boolean;
+  };
+
   type ChangeCategoryVisible = {
     id?: string;
     visible?: boolean;

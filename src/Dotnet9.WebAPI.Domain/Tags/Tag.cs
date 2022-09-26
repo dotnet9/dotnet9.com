@@ -12,7 +12,7 @@ public record Tag : AggregateRootEntity
         ChangeName(name);
     }
 
-    public string? Name { get; private set; }
+    public string Name { get; private set; } = null!;
 
     public Tag ChangeName(string name)
     {
