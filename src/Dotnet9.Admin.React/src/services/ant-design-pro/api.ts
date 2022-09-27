@@ -264,6 +264,16 @@ export async function removeCategory(data: string[], options?: { [key: string]: 
   });
 }
 
+/** 获取专辑名列表 GET /api/album/names */
+export async function albumNames(
+  options?: { [key: string]: any },
+) {
+  return request<API.AlbumNames>('/api/album/names', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 获取专辑列表 GET /api/album */
 export async function album(
   params: {

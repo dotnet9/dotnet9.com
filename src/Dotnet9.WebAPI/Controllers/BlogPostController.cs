@@ -58,6 +58,14 @@ public class BlogPostController : ControllerBase
         return new GetBlogPostsByTagResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<BlogPostDetailDto?> Get(Guid id)
+    {
+        var blogPost = await _repository.FindByIdAsync(id);
+        return blogPost?.ConvertToBlogPostDetailDto(_dbContext);
+    }
+
     [HttpDelete]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<int> Delete([FromBody] DeleteBlogPostRequest request)

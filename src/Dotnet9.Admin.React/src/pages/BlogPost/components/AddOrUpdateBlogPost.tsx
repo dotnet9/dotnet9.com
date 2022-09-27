@@ -1,31 +1,43 @@
-import { categoryNames } from '@/services/ant-design-pro/api';
+import { albumNames, categoryNames } from '@/services/ant-design-pro/api';
 import {
-  ModalForm,
   ProFormText,
   ProFormDigit,
   ProFormTextArea,
   ProFormRadio,
+  ProForm,
 } from '@ant-design/pro-components';
-import { Button, Result, message } from 'antd';
+
+import { PageContainer } from '@ant-design/pro-layout';
+import { Card, Col, Row, message } from 'antd';
 import React, { useEffect, useState } from 'react';
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
 
-export type AddOrUpdateBlogPostProps = {
-  done: boolean;
-  open: boolean;
-  current: Partial<API.BlogPostListItem> | undefined;
-  onDone: () => void;
-  onSubmit: (values: API.BlogPostListItem) => Promise<void>;
-};
+const mdParser = new MarkdownIt({
+  html: true,
+  linkify: false,
+  typographer: true,
+});
 
-const AddOrUpdateBlogPost: React.FC<AddOrUpdateBlogPostProps> = (props) => {
-  const { done, open, current, onDone, onSubmit, children } = props;
-  const [names, setNames] = useState<string[]>([]);
+const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
+  const [albumNameList, setAlbumNameList] = useState<string[]>([]);
+  const [categoryNameList, setCategoryNameList] = useState<string[]>([]);
+  const [markdownValue, setMarkdownValue] = useState<string>('');
+
+  function handleEditorChange({ text }: { html: string; text: string }) {
+    setMarkdownValue(text);
+  }
 
   const handleRead = async () => {
     const hide = message.loading('正在读取');
-    try {
-      const data = await categoryNames();
-      setNames(data.data);
+    try {      
+      const albumNameResult = await albumNames();
+      setAlbumNameList(albumNameResult.data);
+
+      const categoryNameResult = await categoryNames();
+      setCategoryNameList(categoryNameResult.data);
+
       hide();
       message.success('读取成功');
       return true;
@@ -36,6 +48,18 @@ const AddOrUpdateBlogPost: React.FC<AddOrUpdateBlogPostProps> = (props) => {
     }
   };
 
+  const onFinish = async (values: Record<string, any>) => {
+    try {
+      console.log(values);
+      message.success('提交成功');
+    } catch {
+      // console.log
+    }
+  };
+
+  const onFinishFailed = () => {
+  };
+
   useEffect(() => {
     handleRead();
   }, []);
@@ -44,30 +68,93 @@ const AddOrUpdateBlogPost: React.FC<AddOrUpdateBlogPostProps> = (props) => {
   }
 
   return (
-    <ModalForm<API.BlogPostListItem>
-      open={open}
-      title={done ? null : `文章${current ? '编辑' : `添加`}`}
-      width={600}
-      onFinish={async (values) => {
-        onSubmit(values);
-      }}
-      initialValues={current}
-      submitter={{
-        render: (_, dom) => (done ? null : dom),
-      }}
-      trigger={<>{children}</>}
-      modalProps={{
-        onCancel: () => onDone(),
-        destroyOnClose: true,
-        bodyStyle: done ? { padding: '72px 0' } : {},
-      }}
-    >
-      {!done ? (
-        <>
+    <ProForm
+    layout='vertical'
+    requiredMark
+    onFinish={onFinish}
+    onFinishFailed={onFinishFailed}>
+      <PageContainer content="文章编辑">
+        <Card bordered={false}>
           <ProFormText name="id" label="id" hidden />
+          <Row gutter={16}>
+            <Col lg={24} md={24} sm={24}>
+              <ProFormText
+                name="title"
+                label="标题"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入链接，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col lg={24} md={24} sm={24}>
+              <ProForm.Item
+                label="内容"
+                name="content"
+                shouldUpdate
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入文章内容，长度为10-2560个字符',
+                    min: 10,
+                    max: 2560,
+                  },
+                ]}
+              >
+                <MdEditor
+                  value={markdownValue}
+                  style={{ height: '800px' }}
+                  renderHTML={(text) => mdParser.render(text)}
+                  onChange={handleEditorChange}
+                />
+              </ProForm.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col lg={24} md={24} sm={24}>
+              <ProFormText
+                name="slug"
+                label="别名"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入别名，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col lg={24} md={24} sm={24}>
+              <ProFormText
+                name="cover"
+                label="封面"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入别名，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col lg={24} md={24} sm={24}>
+              <ProFormTextArea
+                name="description"
+                label="简述"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入别名，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+          </Row>
           <ProFormText
-            name="cover"
-            label="封面"
+            name="tagNames"
+            label="标签"
             placeholder="请输入2-256个字符"
             width="md"
             rules={[
@@ -78,36 +165,131 @@ const AddOrUpdateBlogPost: React.FC<AddOrUpdateBlogPostProps> = (props) => {
                 max: 256,
               },
             ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
+            fieldProps={{ style: { width: '100%' } }}
           />
           <ProFormRadio.Group
-            name="visible"
-            label="是否可见"
+            name="albumNames"
+            width="md"
+            label="所属专辑"
             required
-            initialValue={true}
-            options={[
+            options={albumNameList}
+            rules={[
               {
-                value: true,
-                label: '显示',
-              },
-              {
-                value: false,
-                label: '隐藏',
+                required: true,
+                message: '所属专辑',
               },
             ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
           />
+          <ProFormRadio.Group
+            name="albumNames"
+            width="md"
+            label="所属分类"
+            required
+            options={categoryNameList}
+            rules={[
+              {
+                required: true,
+                message: '所属分类',
+              },
+            ]}
+          />
+          <Row gutter={16}>
+            <Col lg={6} md={12} sm={24}>
+              <ProFormDigit
+                name="sequenceNumber"
+                label="序号"
+                min={0}
+                max={100}
+                width="md"
+                rules={[
+                  {
+                    required: true,
+                    message: '请输入序号！',
+                  },
+                ]}
+                fieldProps={{
+                  style: { width: '100%' },
+                }}
+              />
+            </Col>
+            <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+              <ProFormRadio.Group
+                name="visible"
+                label="是否可见"
+                required
+                initialValue={true}
+                options={[
+                  {
+                    value: true,
+                    label: '显示',
+                  },
+                  {
+                    value: false,
+                    label: '隐藏',
+                  },
+                ]}
+              />
+            </Col>
+            <Col xl={{ span: 8, offset: 2 }} lg={{ span: 10 }} md={{ span: 24 }} sm={24}>
+              <ProFormRadio.Group
+                name="copyRightType"
+                label="版权"
+                required
+                options={[
+                  {
+                    value: 'default',
+                    label: '原创',
+                  },
+                  {
+                    value: 'reprint',
+                    label: '转载',
+                  },
+                  {
+                    value: 'reprint',
+                    label: '投稿',
+                  },
+                ]}
+              />
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col lg={6} md={12} sm={24}>
+              <ProFormText
+                name="original"
+                label="来源"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入来源，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+            <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
+              <ProFormText
+                name="originalAvatar"
+                label="来源头像"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入别名，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+            <Col xl={{ span: 8, offset: 2 }} lg={{ span: 10 }} md={{ span: 24 }} sm={24}>
+              <ProFormText
+                name="originalTitle"
+                label="来源标题"
+                placeholder="请输入2-256个字符"
+                rules={[
+                  { required: true, message: '请输入别名，长度为2-256个字符', min: 2, max: 256 },
+                ]}
+                fieldProps={{ style: { width: '100%' } }}
+              />
+            </Col>
+          </Row>
           <ProFormText
-            name="name"
-            label="名称"
+            name="originalLink"
+            label="来源链接"
             placeholder="请输入2-32个字符"
             width="md"
             rules={[
@@ -118,98 +300,10 @@ const AddOrUpdateBlogPost: React.FC<AddOrUpdateBlogPostProps> = (props) => {
                 max: 32,
               },
             ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
           />
-          <ProFormDigit
-            name="sequenceNumber"
-            label="序号"
-            min={0}
-            max={100}
-            width="md"
-            rules={[
-              {
-                required: true,
-                message: '请输入序号！',
-              },
-            ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
-          />
-          <ProFormText
-            name="slug"
-            label="别名"
-            placeholder="请输入2-256个字符"
-            width="md"
-            rules={[
-              {
-                required: true,
-                message: '请输入链接，长度为2-256个字符',
-                min: 2,
-                max: 256,
-              },
-            ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
-          />
-          <ProFormRadio.Group
-            name="parentName"
-            width="md"
-            label="父级分类"
-            required
-            options={names}
-            rules={[
-              {
-                required: true,
-                message: '父级分类',
-              },
-            ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
-          />
-          <ProFormTextArea
-            name="description"
-            width="md"
-            label="描述"
-            placeholder="请输入不多于256个字符"
-            rules={[
-              {
-                message: '请输入不多于256个字符的描述！',
-                max: 256,
-              },
-            ]}
-            fieldProps={{
-              style: {
-                width: '100%',
-              },
-            }}
-          />
-        </>
-      ) : (
-        <Result
-          status="success"
-          title="操作成功"
-          subTitle="感觉没用的提示"
-          extra={
-            <Button type="primary" onClick={onDone}>
-              知道了
-            </Button>
-          }
-        />
-      )}
-    </ModalForm>
+        </Card>
+      </PageContainer>
+    </ProForm>
   );
 };
 

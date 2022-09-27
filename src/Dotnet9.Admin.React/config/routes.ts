@@ -55,7 +55,7 @@ export default [
         component: './BlogPost/components/AddOrUpdateBlogPost.tsx',
       },
       {
-        path: '/blogpost/update/:id',
+        path: '/blogpost/edit',
         name: '修改文章',
         component: './BlogPost/components/AddOrUpdateBlogPost.tsx',
       },

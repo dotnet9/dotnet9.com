@@ -162,7 +162,6 @@ const BlogPostTableList: React.FC = () => {
       title: '描述',
       hideInSearch: true,
       dataIndex: 'description',
-      hideInSearch: true,
     },
     {
       title: '别名',
@@ -188,18 +187,22 @@ const BlogPostTableList: React.FC = () => {
       title: '来源',
       dataIndex: 'originalAvatar',
       valueType: 'image',
+      hideInSearch: true,
     },    
     {
       title: '来源',
       dataIndex: 'original',
+      hideInSearch: true,
     },
     {
       title: '原文标题',
       dataIndex: 'originalTitle',
+      hideInSearch: true,
     },
     {
       title: '原文链接',
       dataIndex: 'originalLink',
+      hideInSearch: true,
     },
     {
       title: '可见',

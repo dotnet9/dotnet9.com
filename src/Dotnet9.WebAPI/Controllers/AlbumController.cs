@@ -33,6 +33,14 @@ public class AlbumController : ControllerBase
             request.Current);
     }
 
+
+    [HttpGet]
+    [Route("/api/[controller]/names")]
+    public async Task<string[]> GetAlbumNames()
+    {
+        return await _dbContext.Albums!.Select(x => x.Name).ToArrayAsync();
+    }
+
     [HttpGet]
     [Route("/api/[controller]/Categories")]
     public async Task<CategoryDto[]> GetCategoriesOfAlbum()

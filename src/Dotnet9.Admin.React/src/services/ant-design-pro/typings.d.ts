@@ -68,9 +68,35 @@ declare namespace API {
     errorMessage: string,
     data: string[],
   };
+  
+
+  type AlbumNames = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: string[],
+  };
 
   type ChangeBlogPostVisible = {
     id?: string;
+    visible?: boolean;
+  };
+
+  type AddOrUpdateBlogPostRequest = {
+    id?: string;
+    title?: string;
+    slug?: string;
+    description?: string;
+    cover?: string;
+    content?: string;
+    copyRightType?: string;
+    original?: string;
+    originalAvatar?: string;
+    originalTitle?: string;
+    originalLink?: string;
+    albumNames?: string[];
+    categoryNames?: string[];
+    tagNames?: string[];
     visible?: boolean;
   };
 
@@ -85,9 +111,9 @@ declare namespace API {
     originalAvatar?: string;
     originalTitle?: string;
     originalLink?: string;
-    albumNames?: string[];
-    categoryNames?: string[];
-    tagNames?: string[];
+    albumNames?: string;
+    categoryNames?: string;
+    tagNames?: string;
     visible?: boolean | undefined;
   };
 
