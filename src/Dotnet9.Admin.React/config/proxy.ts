@@ -26,7 +26,7 @@ export default {
    */
   test: {
     '/api/': {
-      target: 'https://proapi.azurewebsites.net',
+      target: 'https://api.dotnet9.com',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
