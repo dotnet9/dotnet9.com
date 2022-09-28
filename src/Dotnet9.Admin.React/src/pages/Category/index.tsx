@@ -160,6 +160,13 @@ const CategoryTableList: React.FC = () => {
     },
     {
       title: '父级分类',
+      dataIndex: 'parentId',
+      hideInSearch: true,
+      hideInTable: true,
+      hideInDescriptions: true,
+    },
+    {
+      title: '父级分类',
       dataIndex: 'parentName',
       hideInSearch: true,
     },

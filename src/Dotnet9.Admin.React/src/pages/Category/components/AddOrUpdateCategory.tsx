@@ -1,12 +1,13 @@
-import { categoryNames } from '@/services/ant-design-pro/api';
+import { categoryTree } from '@/services/ant-design-pro/api';
 import {
   ModalForm,
   ProFormText,
   ProFormDigit,
   ProFormTextArea,
   ProFormRadio,
+  ProFormTreeSelect,
 } from '@ant-design/pro-components';
-import { Button, Result, message } from 'antd';
+import { Button, Result, message, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 export type AddOrUpdateCategoryProps = {
@@ -19,13 +20,13 @@ export type AddOrUpdateCategoryProps = {
 
 const AddOrUpdateCategory: React.FC<AddOrUpdateCategoryProps> = (props) => {
   const { done, open, current, onDone, onSubmit, children } = props;
-  const [names, setNames] = useState<string[]>([]);
+  const [categoryTreeItems, setCategoryTreeItems] = useState<API.CategoryTreeItem[]>([]);
 
   const handleRead = async () => {
     const hide = message.loading('正在读取');
     try {
-      const data = await categoryNames();
-      setNames(data.data);
+      const data = await categoryTree();
+      setCategoryTreeItems(data.data);
       hide();
       message.success('读取成功');
       return true;
@@ -161,22 +162,22 @@ const AddOrUpdateCategory: React.FC<AddOrUpdateCategoryProps> = (props) => {
               },
             }}
           />
-          <ProFormRadio.Group
-            name="parentName"
-            width="md"
-            label="父级分类"
-            required
-            options={names}
-            rules={[
-              {
-                required: true,
-                message: '父级分类',
-              },
-            ]}
+          <ProFormTreeSelect
+            name="parentId"
+            label="所属分类"
+            request={async () => categoryTreeItems}
             fieldProps={{
-              style: {
-                width: '100%',
+              autoClearSearchValue: true,
+              multiple: false,
+              onChange: (value) => {
+                return value;
               },
+              fieldNames: {
+                label: 'title',
+              },
+              treeCheckable: false,
+              showCheckedStrategy: TreeSelect.SHOW_PARENT,
+              placeholder: '请选择',
             }}
           />
           <ProFormTextArea

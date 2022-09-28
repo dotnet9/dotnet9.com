@@ -29,7 +29,7 @@ public class CategoryController : ControllerBase
     public async Task<GetCategoryListResponse> List([FromQuery] GetCategoryListRequest request)
     {
         (Category[]? Categories, long Count) result = await _repository.GetListAsync(request);
-        Dictionary<Guid, string>? categoryIdAndNames = await GetCategoryIdAndNames();
+        Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
         List<CategoryDto> categoryDtos = new();
         if (result.Categories == null)
         {
@@ -46,19 +46,13 @@ public class CategoryController : ControllerBase
             }
 
             CategoryDto categoryDto = category.Adapt<CategoryDto>();
+            categoryDto.ParentId = category.ParentId;
             categoryDto.ParentName = parentName;
             categoryDto.Cover = $"{_siteOptions.Value.AssetsRemotePath}/{categoryDto.Cover}";
             categoryDtos.Add(categoryDto);
         }
 
         return new GetCategoryListResponse(categoryDtos, result.Count, true, request.PageSize, request.Current);
-    }
-
-    [HttpGet]
-    [Route("/api/[controller]/names")]
-    public async Task<string[]> GetCategoryNames()
-    {
-        return await _dbContext.Categories!.Select(x => x.Name).ToArrayAsync();
     }
 
     [HttpGet]
@@ -74,7 +68,7 @@ public class CategoryController : ControllerBase
 
             foreach (Category item in items)
             {
-                CategoryTreeItem data = new CategoryTreeItem
+                CategoryTreeItem data = new()
                 {
                     Title = item.Name,
                     Value = item.Id.ToString(),
@@ -110,7 +104,7 @@ public class CategoryController : ControllerBase
     public async Task<CategoryDto> Add([FromBody] AddCategoryRequest request)
     {
         Category category = await _manager.CreateAsync(null, request.SequenceNumber, request.Name, request.Slug,
-            request.Cover, request.Description, request.Visible, request.ParentName);
+            request.Cover, request.Description, request.Visible, request.ParentId);
         EntityEntry<Category> categoryFromDb = await _dbContext.AddAsync(category);
         await _dbContext.SaveChangesAsync();
         return categoryFromDb.Entity.Adapt<CategoryDto>();
@@ -122,21 +116,9 @@ public class CategoryController : ControllerBase
     public async Task<CategoryDto> Update(Guid id, [FromBody] UpdateCategoryRequest request)
     {
         Category category = await _manager.CreateAsync(id, request.SequenceNumber, request.Name, request.Slug,
-            request.Cover, request.Description, request.Visible, request.ParentName);
+            request.Cover, request.Description, request.Visible, request.ParentId);
         EntityEntry<Category> categoryFromDb = _dbContext.Update(category);
         await _dbContext.SaveChangesAsync();
         return categoryFromDb.Entity.Adapt<CategoryDto>();
-    }
-
-
-    private async Task<Dictionary<Guid, string>?> GetCategoryIdAndNames()
-    {
-        async Task<Dictionary<Guid, string>?> GetIdAndNamesFromDb()
-        {
-            return await _dbContext.Categories!.ToDictionaryAsync(category => category.Id,
-                category => category.Name);
-        }
-
-        return await _cacheHelper.GetOrCreateAsync("CategoryIDAndNames", async e => await GetIdAndNamesFromDb());
     }
 }

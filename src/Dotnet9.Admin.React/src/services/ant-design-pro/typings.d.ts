@@ -62,13 +62,6 @@ declare namespace API {
     pageSize?: number;
   };
 
-  type CategoryNames = {
-    success: boolean;
-    errorCode: string,
-    errorMessage: string,
-    data: string[],
-  };
-
   type CategoryTreeItem = {
     title?: string;
     value?: string;
@@ -144,6 +137,7 @@ declare namespace API {
   type CategoryListItem = {
     id?: string;
     parentId?: string;
+    parentName?: string;
     sequencenumber?: number;
     name?: string;
     slug?: string;

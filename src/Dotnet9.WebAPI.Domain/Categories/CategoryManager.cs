@@ -11,7 +11,7 @@ public class CategoryManager
 
     public async Task<Category> CreateAsync(Guid? id, int sequenceNumber, string name, string slug, string cover,
         string? description, bool visible,
-        string? parentName)
+        Guid? parentId)
     {
         bool isNew = id == null;
         Category? oldCategory = null;
@@ -28,16 +28,13 @@ public class CategoryManager
             }
         }
 
-        Guid? parentId = null;
-        if (parentName is not null)
+        if (parentId is not null)
         {
-            Category? existCategory = await _categoryRepository.FindByNameAsync(parentName);
+            Category? existCategory = await _categoryRepository.FindByIdAsync(parentId.Value);
             if (existCategory == null)
             {
-                throw new Exception($"不存在的父级分类: {parentName}");
+                throw new Exception($"不存在的父级分类: {parentId}");
             }
-
-            parentId = existCategory.Id;
         }
 
         if (isNew)

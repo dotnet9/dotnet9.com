@@ -172,7 +172,7 @@ const AddOrUpdateAlbum: React.FC<AddOrUpdateAlbumProps> = (props) => {
               },
               treeCheckable: true,
               showCheckedStrategy: TreeSelect.SHOW_PARENT,
-              placeholder: 'Please select',
+              placeholder: '请选择',
             }}
           />
           <ProFormTextArea

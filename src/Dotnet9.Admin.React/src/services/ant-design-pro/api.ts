@@ -201,16 +201,6 @@ export async function removeTimeline(data: string[], options?: { [key: string]: 
   });
 }
 
-/** 获取分类名列表 GET /api/category/names */
-export async function categoryNames(
-  options?: { [key: string]: any },
-) {
-  return request<API.CategoryNames>('/api/category/names', {
-    method: 'GET',
-    ...(options || {}),
-  });
-}
-
 /** 获取分类树 GET /api/category/tree */
 export async function categoryTree(
   options?: { [key: string]: any },

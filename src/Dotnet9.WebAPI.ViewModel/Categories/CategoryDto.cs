@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.ViewModel.Categories;
 
-public class CategoryDto
+public record CategoryDto
 {
     public Guid Id { get; set; }
     public int SequenceNumber { get; set; }
@@ -9,5 +9,6 @@ public class CategoryDto
     public string Cover { get; set; } = null!;
     public string Description { get; set; } = null!;
     public bool Visible { get; set; }
+    public Guid? ParentId { get; set; }
     public string? ParentName { get; set; }
 }
