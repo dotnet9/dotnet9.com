@@ -7,14 +7,14 @@ public interface IIdRepository
     /// </summary>
     /// <param name="userId"></param>
     /// <returns></returns>
-    Task<User> FindByIdAsync(Guid userId);
+    Task<User?> FindByIdAsync(Guid userId);
 
     /// <summary>
     ///     根据用户名获取用户
     /// </summary>
     /// <param name="userName"></param>
     /// <returns></returns>
-    Task<User> FindByNameAsync(string userName);
+    Task<User?> FindByNameAsync(string userName);
 
     /// <summary>
     ///     根据手机号获取用户

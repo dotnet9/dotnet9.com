@@ -2,7 +2,7 @@
 
 public class ActionLogManager
 {
-    public ActionLog Create(string uid, string ua, string os, string browser, string ip, string? referer = null,
+    public ActionLog Create(string uid, string? ua, string os, string browser, string ip, string? referer = null,
         string? accessName = null,
         string? original = null,
         string? url = null,

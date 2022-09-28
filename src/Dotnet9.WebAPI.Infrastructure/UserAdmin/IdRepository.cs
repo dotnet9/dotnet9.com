@@ -14,12 +14,12 @@ internal class IdRepository : IIdRepository
         _logger = logger;
     }
 
-    public Task<User> FindByIdAsync(Guid userId)
+    public Task<User?> FindByIdAsync(Guid userId)
     {
         return _userManager.FindByIdAsync(userId.ToString());
     }
 
-    public Task<User> FindByNameAsync(string userName)
+    public Task<User?> FindByNameAsync(string userName)
     {
         return _userManager.FindByNameAsync(userName);
     }

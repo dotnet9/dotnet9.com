@@ -60,7 +60,7 @@ internal class ActionLogRepository : IActionLogRepository
         {
             var keywords = $"%{request.Keywords!.ToLower()}%";
             query = query.Where(log =>
-                EF.Functions.Like(log.Ua.ToLower(), keywords)
+                (log.Ua!=null&& EF.Functions.Like(log.Ua.ToLower(), keywords))
                 || EF.Functions.Like(log.Os.ToLower(), keywords)
                 || EF.Functions.Like(log.Browser.ToLower(), keywords)
                 || EF.Functions.Like(log.Ip.ToLower(), keywords)

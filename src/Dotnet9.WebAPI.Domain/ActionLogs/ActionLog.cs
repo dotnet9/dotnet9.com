@@ -8,7 +8,7 @@ public record ActionLog : IEntity, IHasCreationTime
 
     internal ActionLog(Guid id,
         string uid,
-        string ua,
+        string? ua,
         string os,
         string browser,
         string ip,
@@ -40,7 +40,7 @@ public record ActionLog : IEntity, IHasCreationTime
     }
 
     public string UId { get; set; } = null!;
-    public string Ua { get; set; } = null!;
+    public string? Ua { get; set; }
     public string Os { get; set; } = null!;
     public string Browser { get; set; } = null!;
     public string? Referer { get; set; }
@@ -70,9 +70,9 @@ public record ActionLog : IEntity, IHasCreationTime
         return this;
     }
 
-    public ActionLog ChangeUa(string ua)
+    public ActionLog ChangeUa(string? ua)
     {
-        Ua = Check.NotNullOrWhiteSpace(ua, nameof(ua), ActionLogConsts.MaxUALength, ActionLogConsts.MinUALength);
+        Ua = Check.Length(ua, nameof(ua), ActionLogConsts.MaxUALength, ActionLogConsts.MinUALength);
         return this;
     }
 

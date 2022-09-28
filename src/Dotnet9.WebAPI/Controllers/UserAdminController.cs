@@ -25,13 +25,13 @@ public class UserAdminController : ControllerBase
         if (request.UserName != null)
         {
             users = users.Where(x =>
-                EF.Functions.Like(x.UserName.ToLower(), $"%{request.UserName!.ToLower()}%"));
+                EF.Functions.Like(x.UserName!.ToLower(), $"%{request.UserName!.ToLower()}%"));
         }
 
         if (request.PhoneNumber != null)
         {
             users = users.Where(x =>
-                EF.Functions.Like(x.PhoneNumber.ToLower(), $"%{request.PhoneNumber!.ToLower()}%"));
+                EF.Functions.Like(x.PhoneNumber!.ToLower(), $"%{request.PhoneNumber!.ToLower()}%"));
         }
 
         foreach (User user in users.ToList())
@@ -76,7 +76,7 @@ public class UserAdminController : ControllerBase
     [HttpDelete]
     public async Task<ResponseResult<bool>> DeleteUser([FromBody] DeleteUserRequest request)
     {
-        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         if (request.Ids.Contains(Guid.Parse(userId)))
         {
             return ResponseResult<bool>.GetError("不能删除自己");
@@ -127,6 +127,6 @@ public class UserAdminController : ControllerBase
 
         ResetPasswordEvent eventData = new ResetPasswordEvent(user!.Id, user.UserName!, password!, user.PhoneNumber!);
         _eventBus.Publish("Dotnet9.WebAPI.User.PasswordReset", eventData);
-        return new ResetPasswordResponse(user.UserName, password!);
+        return new ResetPasswordResponse(user.UserName!, password!);
     }
 }
