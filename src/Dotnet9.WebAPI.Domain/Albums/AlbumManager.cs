@@ -11,7 +11,7 @@ public class AlbumManager
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<Album> CreateAsync(Guid? id, string[] categoryNames, int sequenceNumber, string name, string slug,
+    public async Task<Album> CreateAsync(Guid? id, Guid[]? categoryIds, int sequenceNumber, string name, string slug,
         string cover,
         string? description, bool visible)
     {
@@ -42,7 +42,7 @@ public class AlbumManager
             oldAlbum.ChangeVisible(visible);
         }
 
-        await ChangeCategoryAsync(oldAlbum, categoryNames);
+        await ChangeCategoryAsync(oldAlbum, categoryIds);
         await ChangeNameAsync(isNew, oldAlbum, name);
         await ChangeSlugAsync(isNew, oldAlbum, slug);
         return oldAlbum;
@@ -53,24 +53,21 @@ public class AlbumManager
         return new Album(Guid.NewGuid(), 1, name, slug, cover, null, true);
     }
 
-    public async Task ChangeCategoryAsync(Album album, string[] categoryNames)
+    public async Task ChangeCategoryAsync(Album album, Guid[]? categoryIds)
     {
         Check.NotNull(album, nameof(album));
-        if (categoryNames.IsNullOrEmpty())
+        if (categoryIds.IsNullOrEmpty())
         {
-            throw new ArgumentNullException(nameof(categoryNames), "分类不能为空");
+            return;
         }
 
-        List<Guid> categoryIds = new List<Guid>();
-        foreach (string categoryName in categoryNames)
+        foreach (Guid id in categoryIds)
         {
-            Category? existCategory = await _categoryRepository.FindByNameAsync(categoryName);
+            Category? existCategory = await _categoryRepository.FindByIdAsync(id);
             if (existCategory == null)
             {
-                throw new Exception($"不存在的分类: {categoryName}");
+                throw new Exception($"不存在的分类: {id}");
             }
-
-            categoryIds.Add(existCategory.Id);
         }
 
         album.RemoveAllCategoriesExceptGivenIds(categoryIds);

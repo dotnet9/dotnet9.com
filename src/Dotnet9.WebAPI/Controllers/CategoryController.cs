@@ -61,6 +61,43 @@ public class CategoryController : ControllerBase
         return await _dbContext.Categories!.Select(x => x.Name).ToArrayAsync();
     }
 
+    [HttpGet]
+    [Route("/api/[controller]/tree")]
+    public async Task<List<CategoryTreeItem>> GetCategoryTree()
+    {
+        List<CategoryTreeItem> treeItems = new();
+        List<Category>? listItems = await _dbContext.Categories!.ToListAsync();
+
+        void ReadChildren(CategoryTreeItem? parentItem, Guid? parentId)
+        {
+            List<Category> items = listItems.Where(x => x.ParentId == parentId).ToList();
+
+            foreach (Category item in items)
+            {
+                CategoryTreeItem data = new CategoryTreeItem
+                {
+                    Title = item.Name,
+                    Value = item.Id.ToString(),
+                    Key = item.Id.ToString()
+                };
+
+                parentItem?.Children.Add(data);
+
+                if (parentId == null)
+                {
+                    treeItems.Add(data);
+                }
+
+                ReadChildren(data, item.Id);
+            }
+        }
+
+        ReadChildren(null, null);
+
+
+        return treeItems;
+    }
+
     [HttpDelete]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<int> Delete([FromBody] DeleteCategoryRequest request)

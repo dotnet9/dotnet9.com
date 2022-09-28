@@ -53,7 +53,7 @@ export async function getNotices(options?: { [key: string]: any }) {
 }
 
 /** 获取所有用户列表 GET /api/user */
-export async function user(  
+export async function user(
   params: {
     current?: number;
     pageSize?: number;
@@ -210,6 +210,17 @@ export async function categoryNames(
     ...(options || {}),
   });
 }
+
+/** 获取分类树 GET /api/category/tree */
+export async function categoryTree(
+  options?: { [key: string]: any },
+) {
+  return request<API.CategoryTree>('/api/category/Tree', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 
 /** 获取分类列表 GET /api/category */
 export async function category(

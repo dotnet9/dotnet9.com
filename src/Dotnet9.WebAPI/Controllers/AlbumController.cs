@@ -75,7 +75,7 @@ public class AlbumController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<AlbumDto?> Add([FromBody] AddAlbumRequest request)
     {
-        Album album = await _manager.CreateAsync(null, request.CategoryNames, request.SequenceNumber, request.Name,
+        Album album = await _manager.CreateAsync(null, request.CategoryIds, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);
         EntityEntry<Album> albumFromDb = await _dbContext.AddAsync(album);
         await _dbContext.SaveChangesAsync();
@@ -89,7 +89,7 @@ public class AlbumController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<AlbumDto?> Update(Guid id, [FromBody] UpdateAlbumRequest request)
     {
-        Album album = await _manager.CreateAsync(id, request.CategoryNames, request.SequenceNumber, request.Name,
+        Album album = await _manager.CreateAsync(id, request.CategoryIds, request.SequenceNumber, request.Name,
             request.Slug, request.Cover, request.Description, request.Visible);
         EntityEntry<Album> albumFromDb = _dbContext.Update(album);
         await _dbContext.SaveChangesAsync();

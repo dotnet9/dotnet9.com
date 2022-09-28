@@ -162,7 +162,13 @@ const AlbumTableList: React.FC = () => {
       title: '所属分类',
       dataIndex: 'categoryNames',
       hideInSearch: true,
-      render: (_, record) => <span>{record.categoryNames?.join(',')}</span>,
+    },
+    {
+      title: '所属分类',
+      dataIndex: 'categoryIds',
+      hideInSearch: true,
+      hideInTable: true,
+      hideInDescriptions: true,
     },
     {
       title: '别名',

@@ -10,10 +10,11 @@ public static class AlbumExtension
             return null;
         }
 
-        string[] categoryNames = album.Categories!.Where(category =>
-                categoryIdAndNames != null && categoryIdAndNames.ContainsKey(category.CategoryId))
-            .Select(category => categoryIdAndNames![category.CategoryId]).ToArray();
-        return new AlbumDto(album.Id, categoryNames, album.SequenceNumber, album.Name, album.Slug,
+        List<AlbumCategory> queryList = album.Categories!.Where(category =>
+            categoryIdAndNames != null && categoryIdAndNames.ContainsKey(category.CategoryId)).ToList();
+        string categoryNames = queryList.Select(category => categoryIdAndNames![category.CategoryId]).JoinAsString(",");
+        Guid[] categoryIds = queryList.Select(category => category.CategoryId).ToArray();
+        return new AlbumDto(album.Id, categoryNames, categoryIds, album.SequenceNumber, album.Name, album.Slug,
             $"{assetsRemotePath}/{album.Cover}",
             album.Description, album.Visible);
     }

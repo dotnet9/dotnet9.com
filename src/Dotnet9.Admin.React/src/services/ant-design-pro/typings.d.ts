@@ -68,7 +68,20 @@ declare namespace API {
     errorMessage: string,
     data: string[],
   };
-  
+
+  type CategoryTreeItem = {
+    title?: string;
+    value?: string;
+    key?: string;
+    children?: CategoryTreeItem[];
+  }
+
+  type CategoryTree = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: CategoryTreeItem[],
+  };
 
   type AlbumNames = {
     success: boolean;
@@ -152,7 +165,8 @@ declare namespace API {
 
   type AlbumListItem = {
     id?: string;
-    categoryNames?: string[];
+    categoryNames?: string;
+    categoryIds?: string;
     sequencenumber?: number;
     name?: string;
     slug?: string;
