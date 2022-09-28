@@ -1,14 +1,15 @@
-import { albumNames, categoryNames } from '@/services/ant-design-pro/api';
+import { albumTree, categoryTree, tagTree } from '@/services/ant-design-pro/api';
 import {
   ProFormText,
   ProFormDigit,
   ProFormTextArea,
   ProFormRadio,
   ProForm,
+  ProFormTreeSelect,
 } from '@ant-design/pro-components';
 
 import { PageContainer } from '@ant-design/pro-layout';
-import { Card, Col, Row, message } from 'antd';
+import { Card, Col, Row, message, TreeSelect } from 'antd';
 import React, { useEffect, useState } from 'react';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
@@ -21,8 +22,9 @@ const mdParser = new MarkdownIt({
 });
 
 const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
-  const [albumNameList, setAlbumNameList] = useState<string[]>([]);
-  const [categoryNameList, setCategoryNameList] = useState<string[]>([]);
+  const [albumTreeItems, setAlbumTreeItems] = useState<API.AlbumTreeItem[]>([]);
+  const [categoryTreeItems, setCategoryTreeItems] = useState<API.CategoryTreeItem[]>([]);
+  const [tagTreeItems, setTagTreeItems] = useState<API.TagTreeItem[]>([]);
   const [markdownValue, setMarkdownValue] = useState<string>('');
 
   function handleEditorChange({ text }: { html: string; text: string }) {
@@ -31,12 +33,15 @@ const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
 
   const handleRead = async () => {
     const hide = message.loading('正在读取');
-    try {      
-      const albumNameResult = await albumNames();
-      setAlbumNameList(albumNameResult.data);
+    try {
+      const albumTreeResult = await albumTree();
+      setAlbumTreeItems(albumTreeResult.data);
 
-      const categoryNameResult = await categoryNames();
-      setCategoryNameList(categoryNameResult.data);
+      const categoryTreeResult = await categoryTree();
+      setCategoryTreeItems(categoryTreeResult.data);
+
+      const tagTreeResult = await tagTree();
+      setTagTreeItems(tagTreeResult.data);
 
       hide();
       message.success('读取成功');
@@ -57,8 +62,7 @@ const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
     }
   };
 
-  const onFinishFailed = () => {
-  };
+  const onFinishFailed = () => {};
 
   useEffect(() => {
     handleRead();
@@ -68,11 +72,7 @@ const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
   }
 
   return (
-    <ProForm
-    layout='vertical'
-    requiredMark
-    onFinish={onFinish}
-    onFinishFailed={onFinishFailed}>
+    <ProForm layout="vertical" requiredMark onFinish={onFinish} onFinishFailed={onFinishFailed}>
       <PageContainer content="文章编辑">
         <Card bordered={false}>
           <ProFormText name="id" label="id" hidden />
@@ -151,47 +151,54 @@ const AddOrUpdateBlogPost: React.FC<Record<string, any>> = () => {
                 fieldProps={{ style: { width: '100%' } }}
               />
             </Col>
-          </Row>
-          <ProFormText
-            name="tagNames"
-            label="标签"
-            placeholder="请输入2-256个字符"
-            width="md"
-            rules={[
-              {
-                required: true,
-                message: '请输入链接，长度为2-256个字符',
-                min: 2,
-                max: 256,
-              },
-            ]}
-            fieldProps={{ style: { width: '100%' } }}
-          />
-          <ProFormRadio.Group
-            name="albumNames"
-            width="md"
+          </Row>        
+          <ProFormTreeSelect
+            name="albumIds"
+            key={'albumIds'}
             label="所属专辑"
-            required
-            options={albumNameList}
-            rules={[
-              {
-                required: true,
-                message: '所属专辑',
+            request={async () => albumTreeItems}
+            fieldProps={{
+              fieldNames: {
+                label: 'title',
+                key: 'key',
+                value: 'value',
               },
-            ]}
+              treeCheckable: true,
+              showCheckedStrategy: TreeSelect.SHOW_PARENT,
+              placeholder: '请选择',
+            }}
           />
-          <ProFormRadio.Group
-            name="albumNames"
-            width="md"
+          <ProFormTreeSelect
+            name="categoryIds"
+            key={'categoryIds'}
             label="所属分类"
-            required
-            options={categoryNameList}
-            rules={[
-              {
-                required: true,
-                message: '所属分类',
+            request={async () => categoryTreeItems}
+            fieldProps={{
+              fieldNames: {
+                label: 'title',
+                key: 'key',
+                value: 'value',
               },
-            ]}
+              treeCheckable: true,
+              showCheckedStrategy: TreeSelect.SHOW_PARENT,
+              placeholder: '请选择',
+            }}
+          />
+          <ProFormTreeSelect
+            name="tagIds"
+            key={'tagIds'}
+            label="所属标签"
+            request={async () => tagTreeItems}
+            fieldProps={{
+              fieldNames: {
+                label: 'title',
+                key: 'key',
+                value: 'value',
+              },
+              treeCheckable: true,
+              showCheckedStrategy: TreeSelect.SHOW_PARENT,
+              placeholder: '请选择',
+            }}
           />
           <Row gutter={16}>
             <Col lg={6} md={12} sm={24}>
