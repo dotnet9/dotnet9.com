@@ -60,7 +60,7 @@ export default [
         component: './BlogPost/components/AddOrUpdateBlogPost.tsx',
       },
       {
-        path: '/blogpost',
+        path: '/blogpost/list',
         name: '文章列表',
         icon: 'UnorderedListOutlined',
         component: './BlogPost',

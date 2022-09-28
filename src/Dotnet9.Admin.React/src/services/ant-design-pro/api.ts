@@ -211,7 +211,6 @@ export async function categoryTree(
   });
 }
 
-
 /** 获取分类列表 GET /api/category */
 export async function category(
   params: {
@@ -266,10 +265,10 @@ export async function removeCategory(data: string[], options?: { [key: string]: 
 }
 
 /** 获取专辑名列表 GET /api/album/names */
-export async function albumNames(
+export async function albumTree(
   options?: { [key: string]: any },
 ) {
-  return request<API.AlbumNames>('/api/album/names', {
+  return request<API.AlbumTree>('/api/album/tree', {
     method: 'GET',
     ...(options || {}),
   });
@@ -324,6 +323,16 @@ export async function removeAlbum(data: string[], options?: { [key: string]: any
   return request<Record<string, any>>('/api/album', {
     method: 'DELETE',
     data: { ids: data },
+    ...(options || {}),
+  });
+}
+
+/** 获取标签树 GET /api/tag/tree */
+export async function tagTree(
+  options?: { [key: string]: any },
+) {
+  return request<API.TagTree>('/api/tag/Tree', {
+    method: 'GET',
     ...(options || {}),
   });
 }

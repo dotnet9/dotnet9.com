@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.ViewModel.Categories;
 
-public class CategoryTreeItem
+public class CategoryTreeItemDto
 {
     public string Title { get; set; } = null!;
 
@@ -8,5 +8,5 @@ public class CategoryTreeItem
 
     public string Key { get; set; } = null!;
 
-    public List<CategoryTreeItem> Children { get; } = new();
+    public List<CategoryTreeItemDto> Children { get; } = new();
 }

@@ -62,7 +62,7 @@ public class BlogPostController : ControllerBase
     [Route("{id}")]
     public async Task<BlogPostDetailDto?> Get(Guid id)
     {
-        var blogPost = await _repository.FindByIdAsync(id);
+        BlogPost? blogPost = await _repository.FindByIdAsync(id);
         return blogPost?.ConvertToBlogPostDetailDto(_dbContext);
     }
 
@@ -99,5 +99,17 @@ public class BlogPostController : ControllerBase
         await _dbContext.SaveChangesAsync();
 
         return dataFromDb.Entity.ConvertToBlogPostDto(_dbContext);
+    }
+
+    [HttpPut]
+    [Route("/api/[controller]/{id}/changeVisible")]
+    [Authorize(Roles = UserRoleConst.Admin)]
+    public async Task<ResponseResult<BlogPostDetailDto?>> UpdateVisible(Guid id,
+        [FromBody] UpdateAlbumVisibleRequest request)
+    {
+        BlogPost data = await _manager.ChangeVisible(id, request.Visible);
+
+        await _dbContext.SaveChangesAsync();
+        return data.Adapt<BlogPostDetailDto>();
     }
 }

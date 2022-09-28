@@ -57,18 +57,18 @@ public class CategoryController : ControllerBase
 
     [HttpGet]
     [Route("/api/[controller]/tree")]
-    public async Task<List<CategoryTreeItem>> GetCategoryTree()
+    public async Task<List<CategoryTreeItemDto>> GetCategoryTree()
     {
-        List<CategoryTreeItem> treeItems = new();
+        List<CategoryTreeItemDto> treeItems = new();
         List<Category>? listItems = await _dbContext.Categories!.ToListAsync();
 
-        void ReadChildren(CategoryTreeItem? parentItem, Guid? parentId)
+        void ReadChildren(CategoryTreeItemDto? parentItem, Guid? parentId)
         {
             List<Category> items = listItems.Where(x => x.ParentId == parentId).ToList();
 
             foreach (Category item in items)
             {
-                CategoryTreeItem data = new()
+                CategoryTreeItemDto data = new()
                 {
                     Title = item.Name,
                     Value = item.Id.ToString(),

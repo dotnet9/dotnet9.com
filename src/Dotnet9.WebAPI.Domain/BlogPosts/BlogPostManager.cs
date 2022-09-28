@@ -33,7 +33,7 @@ public class BlogPostManager
         Guid[]? categoryIds,
         Guid[]? tagIds)
     {
-        var isNew = id == null;
+        bool isNew = id == null;
         BlogPost? oldData = null;
         if (isNew)
         {
@@ -90,11 +90,12 @@ public class BlogPostManager
         Guid[]? categoryIds,
         Guid[]? tagIds)
     {
-        var blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType, original,
+        BlogPost blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
+            original,
             originalAvatar, originalTitle, originalLink, visible);
         if (albumIds != null)
         {
-            foreach (var albumId in albumIds)
+            foreach (Guid albumId in albumIds)
             {
                 blogPost.AddAlbum(albumId);
             }
@@ -102,7 +103,7 @@ public class BlogPostManager
 
         if (categoryIds != null)
         {
-            foreach (var categoryId in categoryIds)
+            foreach (Guid categoryId in categoryIds)
             {
                 blogPost.AddCategory(categoryId);
             }
@@ -110,7 +111,7 @@ public class BlogPostManager
 
         if (tagIds != null)
         {
-            foreach (var tagId in tagIds)
+            foreach (Guid tagId in tagIds)
             {
                 blogPost.AddTag(tagId);
             }
@@ -125,7 +126,7 @@ public class BlogPostManager
         Check.NotNullOrWhiteSpace(newTitle, nameof(newTitle), BlogPostConsts.MaxTitleLength,
             BlogPostConsts.MinTitleLength);
 
-        var existData = await _blogPostRepository.FindByTitleAsync(newTitle);
+        BlogPost? existData = await _blogPostRepository.FindByTitleAsync(newTitle);
         if (existData != null && existData.Id != blogPost.Id)
         {
             throw new Exception("存在相同标题的文章");
@@ -139,7 +140,7 @@ public class BlogPostManager
         Check.NotNull(blogPost, nameof(blogPost));
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug), BlogPostConsts.MaxSlugLength, BlogPostConsts.MinSlugLength);
 
-        var existData = await _blogPostRepository.FindBySlugAsync(newSlug);
+        BlogPost? existData = await _blogPostRepository.FindBySlugAsync(newSlug);
         if (existData != null && existData.Id != blogPost.Id)
         {
             throw new Exception("存在相同别名的文章");
@@ -156,9 +157,9 @@ public class BlogPostManager
             return;
         }
 
-        foreach (var id in albumIds)
+        foreach (Guid id in albumIds)
         {
-            var existData = await _albumRepository.FindByIdAsync(id);
+            Album? existData = await _albumRepository.FindByIdAsync(id);
             if (existData == null)
             {
                 throw new Exception($"不存在的专辑: {id}");
@@ -166,7 +167,7 @@ public class BlogPostManager
         }
 
         blogPost.RemoveAllAlbumsExceptGivenIds(albumIds.ToList());
-        foreach (var id in albumIds)
+        foreach (Guid id in albumIds)
         {
             blogPost.AddAlbum(id);
         }
@@ -180,9 +181,9 @@ public class BlogPostManager
             return;
         }
 
-        foreach (var id in categoryIds)
+        foreach (Guid id in categoryIds)
         {
-            var existData = await _categoryRepository.FindByIdAsync(id);
+            Category? existData = await _categoryRepository.FindByIdAsync(id);
             if (existData == null)
             {
                 throw new Exception($"不存在的分类: {id}");
@@ -190,7 +191,7 @@ public class BlogPostManager
         }
 
         blogPost.RemoveAllCategoriesExceptGivenIds(categoryIds.ToList());
-        foreach (var id in categoryIds)
+        foreach (Guid id in categoryIds)
         {
             blogPost.AddCategory(id);
         }
@@ -204,9 +205,9 @@ public class BlogPostManager
             return;
         }
 
-        foreach (var id in tagIds)
+        foreach (Guid id in tagIds)
         {
-            var existData = await _tagRepository.FindByIdAsync(id);
+            Tag? existData = await _tagRepository.FindByIdAsync(id);
             if (existData == null)
             {
                 throw new Exception($"不存在的标签: {id}");
@@ -214,9 +215,22 @@ public class BlogPostManager
         }
 
         blogPost.RemoveAllTagsExceptGivenIds(tagIds.ToList());
-        foreach (var id in tagIds)
+        foreach (Guid id in tagIds)
         {
             blogPost.AddTag(id);
         }
+    }
+
+
+    public async Task<BlogPost> ChangeVisible(Guid id, bool visible)
+    {
+        BlogPost? oldData = await _blogPostRepository.FindByIdAsync(id);
+        if (oldData == null)
+        {
+            throw new Exception($"不存在的文章: {id}");
+        }
+
+        oldData.ChangeVisible(visible);
+        return oldData;
     }
 }

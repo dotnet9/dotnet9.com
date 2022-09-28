@@ -12,7 +12,7 @@ public static class BlogPostExtension
         string[]? albumNames = null;
         if (blogPost.Albums != null && blogPost.Albums.Any())
         {
-            var albumIds = blogPost.Albums?.Select(album => album.AlbumId).ToArray()!;
+            Guid[] albumIds = blogPost.Albums?.Select(album => album.AlbumId).ToArray()!;
             albumNames = dbContext.Albums!.Where(album => albumIds.Contains(album.Id)).Select(album => album.Name)
                 .ToArray();
         }
@@ -20,7 +20,7 @@ public static class BlogPostExtension
         string[]? categoryNames = null;
         if (blogPost.Categories != null && blogPost.Categories.Any())
         {
-            var categoryIds = blogPost.Categories?.Select(category => category.CategoryId).ToArray()!;
+            Guid[] categoryIds = blogPost.Categories?.Select(category => category.CategoryId).ToArray()!;
             categoryNames = dbContext.Categories!.Where(category => categoryIds.Contains(category.Id))
                 .Select(category => category.Name).ToArray();
         }
@@ -28,7 +28,7 @@ public static class BlogPostExtension
         string[]? tagNames = null;
         if (blogPost.Tags != null && blogPost.Tags.Any())
         {
-            var tagIds = blogPost.Tags?.Select(tag => tag.TagId).ToArray()!;
+            Guid[] tagIds = blogPost.Tags?.Select(tag => tag.TagId).ToArray()!;
             tagNames = dbContext.Tags!.Where(tag => tagIds.Contains(tag.Id)).Select(tag => tag.Name!).ToArray();
         }
 
@@ -45,33 +45,41 @@ public static class BlogPostExtension
             return null;
         }
 
-        string[]? albumNames = null;
+        string? albumNames = null;
+        Guid[]? albumIds = null;
         if (blogPost.Albums != null && blogPost.Albums.Any())
         {
-            var albumIds = blogPost.Albums?.Select(album => album.AlbumId).ToArray()!;
-            albumNames = dbContext.Albums!.Where(album => albumIds.Contains(album.Id)).Select(album => album.Name)
-                .ToArray();
+            Guid[] allAlbumIds = blogPost.Albums?.Select(album => album.AlbumId).ToArray()!;
+            IQueryable<Album> queryList = dbContext.Albums!.Where(album => allAlbumIds.Contains(album.Id));
+            albumNames = queryList.Select(album => album.Name).JoinAsString(",");
+            albumIds = queryList.Select(x => x.Id).ToArray();
         }
 
-        string[]? categoryNames = null;
+        string? categoryNames = null;
+        Guid[]? categoryIds = null;
         if (blogPost.Categories != null && blogPost.Categories.Any())
         {
-            var categoryIds = blogPost.Categories?.Select(category => category.CategoryId).ToArray()!;
-            categoryNames = dbContext.Categories!.Where(category => categoryIds.Contains(category.Id))
-                .Select(category => category.Name).ToArray();
+            Guid[] allCategoryIds = blogPost.Categories?.Select(category => category.CategoryId).ToArray()!;
+            IQueryable<Category> queryList =
+                dbContext.Categories!.Where(category => allCategoryIds.Contains(category.Id));
+            categoryNames = queryList.Select(category => category.Name).JoinAsString(",");
+            categoryIds = queryList.Select(x => x.Id).ToArray();
         }
 
-        string[]? tagNames = null;
+        string? tagNames = null;
+        Guid[]? tagIds = null;
         if (blogPost.Tags != null && blogPost.Tags.Any())
         {
-            var tagIds = blogPost.Tags?.Select(tag => tag.TagId).ToArray()!;
-            tagNames = dbContext.Tags!.Where(tag => tagIds.Contains(tag.Id)).Select(tag => tag.Name!).ToArray();
+            Guid[] allTagIds = blogPost.Tags?.Select(tag => tag.TagId).ToArray()!;
+            IQueryable<Tag> queryList = dbContext.Tags!.Where(tag => allTagIds.Contains(tag.Id));
+            tagNames = queryList.Select(tag => tag.Name!).JoinAsString(",");
+            tagIds = queryList.Select(x => x.Id).ToArray();
         }
 
         return new BlogPostDto(blogPost.Id, blogPost.Title, blogPost.Slug, blogPost.Description, blogPost.Cover,
             blogPost.CopyrightType.GetDescription(), blogPost.Original, blogPost.OriginalAvatar,
-            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, albumNames?.JoinAsString(","),
-            categoryNames?.JoinAsString(","), tagNames?.JoinAsString(","));
+            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, albumNames, albumIds,
+            categoryNames, categoryIds, tagNames, tagIds);
     }
 
     public static BlogPostDto[]? ConvertToBlogPostDtoArray(this BlogPost[]? blogPosts, Dotnet9DbContext dbContext)

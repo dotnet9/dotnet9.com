@@ -35,10 +35,11 @@ public class AlbumController : ControllerBase
 
 
     [HttpGet]
-    [Route("/api/[controller]/names")]
-    public async Task<string[]> GetAlbumNames()
+    [Route("/api/[controller]/tree")]
+    public async Task<AlbumListItemDto[]> GetTree()
     {
-        return await _dbContext.Albums!.Select(x => x.Name).ToArrayAsync();
+        return await _dbContext.Albums!.Select(x => new AlbumListItemDto(x.Name, x.Id.ToString(), x.Id.ToString()))
+            .ToArrayAsync();
     }
 
     [HttpGet]

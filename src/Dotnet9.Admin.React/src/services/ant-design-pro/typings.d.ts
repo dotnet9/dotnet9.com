@@ -62,27 +62,6 @@ declare namespace API {
     pageSize?: number;
   };
 
-  type CategoryTreeItem = {
-    title?: string;
-    value?: string;
-    key?: string;
-    children?: CategoryTreeItem[];
-  }
-
-  type CategoryTree = {
-    success: boolean;
-    errorCode: string,
-    errorMessage: string,
-    data: CategoryTreeItem[],
-  };
-
-  type AlbumNames = {
-    success: boolean;
-    errorCode: string,
-    errorMessage: string,
-    data: string[],
-  };
-
   type ChangeBlogPostVisible = {
     id?: string;
     visible?: boolean;
@@ -118,8 +97,11 @@ declare namespace API {
     originalTitle?: string;
     originalLink?: string;
     albumNames?: string;
+    albumIds?: string[];
     categoryNames?: string;
+    categoryIds?: string[];
     tagNames?: string;
+    tagIds?: string[];
     visible?: boolean | undefined;
   };
 
@@ -132,6 +114,20 @@ declare namespace API {
   type ChangeCategoryVisible = {
     id?: string;
     visible?: boolean;
+  };
+
+  type CategoryTreeItem = {
+    title?: string;
+    value?: string;
+    key?: string;
+    children?: CategoryTreeItem[];
+  }
+
+  type CategoryTree = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: CategoryTreeItem[],
   };
 
   type CategoryListItem = {
@@ -150,6 +146,19 @@ declare namespace API {
     data?: CategoryListItem[];
     total?: number;
     success?: boolean;
+  };
+
+  type AlbumTreeItem = {
+    title?: string;
+    value?: string;
+    key?: string;
+  }
+
+  type AlbumTree = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: AlbumTreeItem[],
   };
 
   type ChangeAlbumVisible = {
@@ -173,6 +182,19 @@ declare namespace API {
     data?: AlbumListItem[];
     total?: number;
     success?: boolean;
+  };
+
+  type TagTreeItem = {
+    title?: string;
+    value?: string;
+    key?: string;
+  }
+
+  type TagTree = {
+    success: boolean;
+    errorCode: string,
+    errorMessage: string,
+    data: TagTreeItem[],
   };
 
   type LinkListItem = {

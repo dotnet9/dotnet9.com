@@ -18,8 +18,16 @@ public class TagController : ControllerBase
     [HttpGet]
     public async Task<GetTagListResponse> List([FromQuery] GetTagListRequest request)
     {
-        var result = await _repository.GetListAsync(request);
+        (Tag[]? Tags, long Count) result = await _repository.GetListAsync(request);
         return new GetTagListResponse(result.Tags?.Adapt<TagDto[]>(), result.Count);
+    }
+
+    [HttpGet]
+    [Route("/api/[controller]/tree")]
+    public async Task<TagListItemDto[]> GetTree()
+    {
+        return await _dbContext.Tags!.Select(x => new TagListItemDto(x.Name, x.Id.ToString(), x.Id.ToString()))
+            .ToArrayAsync();
     }
 
     [HttpDelete]
@@ -33,8 +41,8 @@ public class TagController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<TagDto> Add([FromBody] AddTagRequest request)
     {
-        var data = await _manager.CreateAsync(null, request.Name);
-        var dataFromDb = await _dbContext.AddAsync(data);
+        Tag data = await _manager.CreateAsync(null, request.Name);
+        EntityEntry<Tag> dataFromDb = await _dbContext.AddAsync(data);
         await _dbContext.SaveChangesAsync();
         return dataFromDb.Entity.Adapt<TagDto>();
     }
@@ -44,8 +52,8 @@ public class TagController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<TagDto> Update(Guid id, [FromBody] UpdateTagRequest request)
     {
-        var data = await _manager.CreateAsync(id, request.Name);
-        var dataFromDb = _dbContext.Update(data);
+        Tag data = await _manager.CreateAsync(id, request.Name);
+        EntityEntry<Tag> dataFromDb = _dbContext.Update(data);
         await _dbContext.SaveChangesAsync();
         return dataFromDb.Entity.Adapt<TagDto>();
     }

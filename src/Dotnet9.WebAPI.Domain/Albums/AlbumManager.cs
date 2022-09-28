@@ -61,7 +61,7 @@ public class AlbumManager
             return;
         }
 
-        foreach (Guid id in categoryIds)
+        foreach (Guid id in categoryIds!)
         {
             Category? existCategory = await _categoryRepository.FindByIdAsync(id);
             if (existCategory == null)
