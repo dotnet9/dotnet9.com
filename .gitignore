@@ -349,5 +349,5 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 *.jwk
-src/Dotnet9.WebAPI/appsettings.Development.json
-src/Dotnet9.WebAPI/appsettings.Production.json
+src/Dotnet9.Admin.WebAPI/Dotnet9.WebAPI/appsettings.Development.json
+src/Dotnet9.Admin.WebAPI/Dotnet9.WebAPI/appsettings.Production.json
