@@ -37,7 +37,8 @@ function initEditor() {
 function uploadImage(file, cb) {
   const config = {
     useCdnDomain: true,
-    region: qiniu.region.z0
+    //自行去改七牛云的空间区域的配置
+    region: qiniu.region.z1
   };
   const putExtra = {
   };
@@ -59,7 +60,7 @@ function uploadImage(file, cb) {
         },
         complete(res){
           console.log(res)
-          cb("http://rhs4ma2fm.hd-bkt.clouddn.com/" + res.key)
+          cb("https://static.mszlu.com/" + res.key)
         }
       }
       const subscription = observable.subscribe(observer) // 上传开始
@@ -159,7 +160,7 @@ $(function () {
   var back = $(".home-btn");
   back.click(function () {
     saveHandler();
-    location.href = ArticleItem.pid ? "/p/" + ArticleItem.pid: "/";
+    location.href = ArticleItem.pid ? "/p/" + ArticleItem.pid + ".html" : "/";
   });
   if (location.search) back.text("查看");
   // 保存

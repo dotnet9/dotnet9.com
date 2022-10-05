@@ -2,7 +2,7 @@
 <ul class="post-box">
   {{range $index, $elem := .Posts}}
   <li class="post-label">
-    <a href="/p/{{$elem.Pid}}"><h2>{{$elem.Title}}</h2></a>
+    <a href="/p/{{$elem.Pid}}.html"><h2>{{$elem.Title}}</h2></a>
     <p>{{$elem.Content}}</p>
     <div class="post-action">
       <span>

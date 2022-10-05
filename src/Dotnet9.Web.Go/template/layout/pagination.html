@@ -6,14 +6,14 @@
     <li class="pagination-prev iconfont icon-jiantouyou"></li>
     {{end}} {{range $index, $elem := .Pages}}
     <li
-            class="pagination-btn"
-            {{if
-            eq
-            $elem
-            $.Page}}
-            active
-            {{end}}
-            value="{{$elem}}"
+      class="pagination-btn"
+      {{if
+      eq
+      $elem
+      $.Page}}
+      active
+      {{end}}
+      value="{{$elem}}"
     >
       <a href="?page={{$elem}}">{{$elem}}</a>
     </li>
@@ -22,9 +22,9 @@
     {{end}}
   </ul>
   {{else}}
-  <ul class="pagination">
-    <li class="pagination-total">共{{.Total}}条</li>
-  </ul>
+    <ul class="pagination">
+      <li class="pagination-total">共{{.Total}}条</li>
+    </ul>
   {{end}}
 </div>
 {{end}}
