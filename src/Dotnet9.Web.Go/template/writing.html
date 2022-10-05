@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{.CdnURL}}/css/editormd.min.css" />
+    <link
+      rel="stylesheet"
+      href="/resource/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/resource/css/writing.css" />
+    <link rel="icon" href="/resource/images/favicon.png" />
+    <title>写作 - {{.Title}}</title>
+  </head>
+  <body>
+    <header class="header">
+      <input class="header-input" placeholder="请输入标题..." type="text" />
+      <div class="header-action">
+        <button class="home-btn">首页</button>
+        <button class="save-btn">保存</button>
+        <div class="publish">
+          <button class="publish-show">发布</button>
+          <div class="publish-drop">
+            <span class="publish-close">×</span>
+            <h1 class="category-label">分类：</h1>
+            <ul class="category category-style">
+              {{range $index, $elem := .Categorys}}
+              <li value="{{$elem.Cid}}">{{$elem.Name}}</li>
+              {{end}}
+            </ul>
+            <h1 class="category-label">类型：</h1>
+            <ul class="category-style type-box">
+              <li class="active" value="0">普通文章</li>
+              <li value="1">自定义页</li>
+            </ul>
+            <h1 class="category-label">自定义链接：</h1>
+            <input class="slug-input" type="text" />
+            <div class="publish-action">
+              <span class="publish-tip"></span>
+              <button class="cancel-btn">取消</button>
+              <button class="publish-btn">发布</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="editormd"></div>
+  </body>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="/resource/js/editormd.js"></script>
+  <script src="{{.CdnURL}}/js/cos-js-sdk-v5.min.js"></script>
+  <script src="https://cdn.staticfile.org/qiniu-js/3.4.0/qiniu.min.js"></script>
+  <script>
+    var CNDURL = "{{.CdnURL}}";
+  </script>
+  <script src="/resource/js/writing.js"></script>
+</html>

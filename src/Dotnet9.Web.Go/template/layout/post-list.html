@@ -1,0 +1,28 @@
+{{define "post-list"}}
+<ul class="post-box">
+  {{range $index, $elem := .Posts}}
+  <li class="post-label">
+    <a href="/p/{{$elem.Pid}}"><h2>{{$elem.Title}}</h2></a>
+    <p>{{$elem.Content}}</p>
+    <div class="post-action">
+      <span>
+        <i class="iconfont icon-yonghu"></i>
+        &nbsp; {{$elem.UserName}}
+      </span>
+      <span>
+        <i class="iconfont icon-wenjianjia"></i>
+        &nbsp;<a href="/c/{{$elem.CategoryId}}">{{$elem.CategoryName}}</a>
+      </span>
+      <span>
+        <i class="iconfont icon-riqi"></i>
+        &nbsp;{{$elem.CreateAt}}
+      </span>
+      <span>
+        <i class="iconfont icon-yanjing"></i>
+        &nbsp;{{$elem.ViewCount}}
+      </span>
+    </div>
+  </li>
+  {{end}}
+</ul>
+{{end}}

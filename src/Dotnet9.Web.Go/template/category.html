@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="referrer" content="no-referrer"> -->
+  <meta name="description" content="{{.Description}}" />
+  <title>{{.Title}}</title>
+  <link rel="stylesheet"  href="//at.alicdn.com/t/font_2974461_sdshp7jo1jj.css"/>
+  <link rel="stylesheet"  href="//at.alicdn.com/t/font_3180954_chol8bk1q14.css"/>
+  <link rel="stylesheet" href="/resource/css/index.css" />
+  <link rel="icon" href="/resource/images/favicon.png" />
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+{{template "header" .}}
+<main class="container">
+  <div class="container-left">{{template "personal" .}}</div>
+  <div class="container-right">
+    <h1 class="category-title">分类：{{.CategoryName}}</h1>
+    <!-- 文章列表 -->
+    {{template "post-list" .}}
+    <!-- pagination -->
+    {{template "pagination" .}}
+  </div>
+</main>
+{{template "footer" .}}
+</body>
+<script src="/resource/js/index.js"></script>
+</html>
+

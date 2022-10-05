@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <meta name="referrer" content="no-referrer"> -->
+  <meta name="description" content="{{.Description}}" />
+  <title>{{.Title}}</title>
+  <link rel="stylesheet"  href="//at.alicdn.com/t/font_2974461_sdshp7jo1jj.css"/>
+  <link rel="stylesheet"  href="//at.alicdn.com/t/font_3180954_chol8bk1q14.css"/>
+  <link rel="stylesheet" href="/resource/css/index.css" />
+  <link rel="icon" href="/resource/images/favicon.png" />
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+{{template "header" .}}
+<main class="container">
+<link rel="stylesheet" href="/resource/css/detail.css" />
+{{if .Valine}}
+<script src="{{.CdnURL}}/js/valine.min.js"></script>
+{{end}}
+<div class="detail">
+  <div class="detail-left">
+    <h1 class="detail-title">{{.Article.Title}}</h1>
+    <div class="detail-action">
+      <span>
+        <i class="iconfont icon-yonghu"></i>
+        &nbsp; {{.Article.UserName}}
+      </span>
+      <span>
+        <i class="iconfont icon-wenjianjia"></i>
+        &nbsp;<a href="/c/{{.Article.CategoryId}}">{{.Article.CategoryName}}</a>
+      </span>
+      <span>
+        <i class="iconfont icon-riqi"></i>
+        &nbsp;{{.Article.CreateAt}}
+      </span>
+      <span>
+        <i class="iconfont icon-yanjing"></i>
+        &nbsp;{{.Article.ViewCount}}
+      </span>
+      <span class="detail-edit">
+        <i class="iconfont icon-wenbenshuru"></i>
+        <a href="/writing?id={{.Article.Pid}}">编辑</a>
+      </span>
+      <span class="detail-edit detail-delete" pid="{{.Article.Pid}}">
+        <i class="iconfont icon-shanchu"></i>
+        删除
+      </span>
+    </div>
+    <div class="gap-solid"></div>
+    <div id="view-content" class="detail-content">{{.Article.Content}}</div>
+    {{if .Valine}}
+    <div class="gap-solid vcomments-gap"></div>
+    <div id="vcomments" class="vcomments"></div>
+    <div class="vcomments-copyright">Comment Powered By Valine</div>
+    {{end}}
+  </div>
+  <div class="detail-right">
+    <div class="toc-card">
+      <h1 class="toc-card-list">目录</h1>
+      <div class="toc-box" id="toc-box"></div>
+    </div>
+  </div>
+</div>
+<div class="zoom-prev">
+  <div class="zoom-container"></div>
+</div>
+
+</main>
+{{template "footer" .}}
+</body>
+<script src="/resource/js/index.js"></script>
+
+{{if .Valine}}
+<script>
+  new Valine({
+    el: "#vcomments",
+    appId: "{{.ValineAppid}}",
+    appKey: "{{.ValineAppkey}}",
+    serverURLs: "{{.ValineServerURL}}",
+    placeholder: "What are you talking about?"
+  });
+</script>
+{{end}}
+</html>
+
+
