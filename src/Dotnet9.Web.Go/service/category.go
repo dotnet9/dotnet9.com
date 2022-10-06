@@ -46,7 +46,7 @@ func GetBlogPostByCategorySlug(slug string, current int, pageSize int) (*models.
 		blogPostMores = append(blogPostMores, blogPostMore)
 	}
 	var hr = &models.HomeResponse{
-		Viewer: config.Cfg.Viewer,
+		Viewer: config.AppCfg.Viewer,
 		Categories: categories,
 		Posts: blogPostMores,
 		Total: total,

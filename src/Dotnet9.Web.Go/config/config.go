@@ -5,12 +5,9 @@ import (
 	"os"
 )
 
-type TomlConfig struct {
+type AppSettings struct {
 	Viewer Viewer
 	System SystemConfig
-}
-
-type AppSettings struct {
 	Db DBConfig
 	Site SiteConfig
 	Admin AdminConfig
@@ -52,22 +49,16 @@ type AdminConfig struct {
 	Api string
 }
 
-var Cfg *TomlConfig
 var AppCfg *AppSettings
 func init() {
-	Cfg = new(TomlConfig)
 	AppCfg = new(AppSettings)
 	currentDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	Cfg.System.AppName = "Dotnet9"
-	Cfg.System.Version = 0.1
-	Cfg.System.CurrentDir = currentDir
-	_, err = toml.DecodeFile("config/config.toml", &Cfg)
-	if err != nil {
-		panic(err)
-	}
+	AppCfg.System.AppName = "Dotnet9"
+	AppCfg.System.Version = 0.1
+	AppCfg.System.CurrentDir = currentDir
 	_, err = toml.DecodeFile("appsettings.toml", &AppCfg)
 	if err != nil {
 		panic(err)

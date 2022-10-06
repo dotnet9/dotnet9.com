@@ -14,7 +14,7 @@ func LoadTemplate() {
 	go func() {
 		// 耗时
 		var err error
-		Template, err = models.InitTemplate(config.Cfg.System.CurrentDir + "/template/")
+		Template, err = models.InitTemplate(config.AppCfg.System.CurrentDir + "/template/")
 		if err != nil {
 			panic(err)
 		}

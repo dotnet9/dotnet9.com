@@ -41,8 +41,8 @@ func GetBlogPostDetail(slug string) (*models.BlogPostRes, error) {
 		blogPostMore.Original = blogpost.Original
 	}
 	var postRes = &models.BlogPostRes{
-		Viewer: config.Cfg.Viewer,
-		SystemConfig: config.Cfg.System,
+		Viewer: config.AppCfg.Viewer,
+		SystemConfig: config.AppCfg.System,
 		Article: blogPostMore,
 	}
 	return postRes, nil

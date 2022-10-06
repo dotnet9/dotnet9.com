@@ -18,9 +18,28 @@ http://127.0.0.1:5141/api/login/account
 [site]
     DefaultAuthor = "沙漠尽头的狼"
 [db]
-    ConnectionString = "host=127.0.0.1 port=5432 user=postgres password=fcY5riX64opfZFhEs dbname=dotnet9 sslmode=disable TimeZone=Asia/Shanghai"
+    ConnectionString = "host=127.0.0.1 port=5432 user=postgres password=fcs3x5rX7f6ZFhEs dbname=dotnet9 sslmode=disable TimeZone=Asia/Shanghai"
 [admin]
-    Api = "http://127.0.0.1:5141"
+    Api = "http://127.0.0.1:5164"
+[viewer]
+    Title = "Dotnet9"
+    Description = "一个专注于软件开发技术分享的网站"
+    Logo = "https://img1.dotnet9.com/site/logo.png"
+    Navigation = ["首页", "/", "Dotnet", "/c/dotnet", "Go语言", "/c/more-language-go", "归档", "/pigeonhole", "关于", "/about"]
+    Github = "https://github.com/dotnet9/Dotnet9"
+    Bilibili = "https://space.bilibili.com/470546606"
+    Zhihu = "https://www.zhihu.com/people/dotnet9"
+    Avatar = "https://img1.dotnet9.com/site/cat.png"
+    UserName = "Dotnet9"
+    UserDesc = "一个热衷于互联网分享精神的程序员"
+[system]
+    CdnURL = ""
+	QiniuAccessKey = ""
+	QiniuSecretKey = ""
+	Valine = true
+	ValineAppId = "j8ELbjeA487uingrummes-gzGzoHsz"
+	ValineAppKey = "OT6bYtVpY1456lggrTaMUuW"
+	ValineServerURL = "https://j8hllbjea.lcrhcn-n1-dfared.com"
 ```
 
 ## 致谢

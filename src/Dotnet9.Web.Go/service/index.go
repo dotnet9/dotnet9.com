@@ -46,7 +46,7 @@ func GetAllIndexInfo(keywords string, page int, pageSize int) *models.HomeRespon
 		blogPostMores = append(blogPostMores, blogPostMore)
 	}
 	var hr = &models.HomeResponse{
-		Viewer: config.Cfg.Viewer,
+		Viewer: config.AppCfg.Viewer,
 		Categories: categories,
 		Posts: blogPostMores,
 		Total: total,
