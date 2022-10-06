@@ -88,7 +88,8 @@ public class BlogPostManager
         bool visible,
         Guid[]? albumIds,
         Guid[]? categoryIds,
-        Guid[]? tagIds)
+        Guid[]? tagIds,
+        DateTime creationTime)
     {
         BlogPost blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
             original,
@@ -116,6 +117,7 @@ public class BlogPostManager
                 blogPost.AddTag(tagId);
             }
         }
+        blogPost.SetCreationTime(creationTime);
 
         return blogPost;
     }

@@ -197,7 +197,7 @@ public partial class LoginController
             var blogPost = _blogPostManager.CreateForSeed(blogPostSeed.Title, blogPostSeed.Slug,
                 blogPostSeed.Description, blogPostSeed.Cover, blogPostSeed.Content, blogPostSeed.Copyright,
                 blogPostSeed.Author, null, blogPostSeed.OriginalTitle, blogPostSeed.OriginalLink, true, albumIds,
-                categoryIds, tagIds);
+                categoryIds, tagIds,blogPostSeed.Date);
             allBlogPosts.Add(blogPost);
         }
 

@@ -38,6 +38,7 @@ public record BlogPost : AggregateRootEntity
         Tags = new List<BlogPostTag>();
     }
 
+    public new DateTime CreationTime { get; private set; }
     public string Title { get; private set; } = null!;
     public string Slug { get; private set; } = null!;
     public string Description { get; private set; } = null!;
@@ -126,6 +127,12 @@ public record BlogPost : AggregateRootEntity
     internal BlogPost ChangeVisible(bool visible)
     {
         Visible = visible;
+        return this;
+    }
+
+    internal BlogPost SetCreationTime(DateTime creationTime)
+    {
+        CreationTime = creationTime;
         return this;
     }
 
