@@ -1,8 +1,13 @@
 package models
 
 type Category struct {
-	Cid int
+	Id string
 	Name string
-	CreateAt string
-	UpdateAt string
+	Slug string
+	CreationTime string
+	LastModificationTime string
+}
+
+func (v Category) TableName() string {
+	return "AppCategories"
 }

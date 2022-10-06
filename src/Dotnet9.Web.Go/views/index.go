@@ -1,10 +1,13 @@
 package views
 
 import (
+	"errors"
+	"log"
 	"net/http"
+	"strconv"
+
 	"dotnet9.com/goweb/common"
-	"dotnet9.com/goweb/config"
-	"dotnet9.com/goweb/models"
+	"dotnet9.com/goweb/service"
 )
 
 
@@ -15,42 +18,23 @@ type IndexData struct {
 
 func (*HTMLApi) Index(w http.ResponseWriter, r *http.Request) {
 	index := common.Template.Index
-
-	// 页面上涉及到的所有的数据，必须有定义
-	var categories = []models.Category{
-		{
-			Cid: 1,
-			Name: "Dotnet", 
-		},
-		{
-			Cid: 2,
-			Name: "GoLang", 
-		},
+	if err := r.ParseForm(); err != nil {
+		log.Println("表单获取失败：", err)
+		index.WriteError(w, errors.New("系统错误，请联系管理员！！"))
+		return
+	}	
+	keywords := r.Form.Get("keywords")
+	currentStr := r.Form.Get("current")
+	current := 1
+	if currentStr != "" {
+		current, _ = strconv.Atoi(currentStr)
 	}
-	var posts = []models.PostMore{
-		{
-			Pid: 1, 
-			Title: "go博客", 
-			Slug: "go-blog", 
-			Content: "This is a simple example of GoLang", 
-			CategoryId: 1, 
-			CategoryName: "GoLang", 
-			UserId: 1, 
-			UserName: "dotnet9", 
-			ViewCount: 1, 
-			Type: 0, 
-			CreateAt: "2022-10-05",
-		},
+	pageSizeStr := r.Form.Get("pageSize")
+	pageSize := 10
+	if pageSizeStr != "" {
+		pageSize, _ = strconv.Atoi(pageSizeStr)
 	}
 
-	var hr = &models.HomeResponse{
-		Viewer: config.Cfg.Viewer,
-		Categories: categories,
-		Posts: posts,
-		Total: 1,
-		Page: 1,
-		Pages: []int{1},
-		PageEnd: true,
-	}
+	hr := service.GetAllIndexInfo(keywords, current, pageSize)
 	index.WriteData(w, hr)
 }

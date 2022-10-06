@@ -351,3 +351,5 @@ MigrationBackup/
 *.jwk
 src/Dotnet9.Admin.WebAPI/Dotnet9.WebAPI/appsettings.Development.json
 src/Dotnet9.Admin.WebAPI/Dotnet9.WebAPI/appsettings.Production.json
+src/Dotnet9.Web.Go/appsettings.toml
+src/Dotnet9.Web.Go/goweb.exe

@@ -10,6 +10,10 @@ type TomlConfig struct {
 	System SystemConfig
 }
 
+type AppSettings struct {
+	Db DBConfig
+}
+
 type Viewer struct {
 	Title string
 	Description string
@@ -34,9 +38,15 @@ type SystemConfig struct {
 	ValineServerURL string
 }
 
+type DBConfig struct {
+	ConnectionString string
+}
+
 var Cfg *TomlConfig
+var AppCfg *AppSettings
 func init() {
 	Cfg = new(TomlConfig)
+	AppCfg = new(AppSettings)
 	currentDir, err := os.Getwd()
 	if err != nil {
 		panic(err)
@@ -45,6 +55,10 @@ func init() {
 	Cfg.System.Version = 0.1
 	Cfg.System.CurrentDir = currentDir
 	_, err = toml.DecodeFile("config/config.toml", &Cfg)
+	if err != nil {
+		panic(err)
+	}
+	_, err = toml.DecodeFile("appsettings.toml", &AppCfg)
 	if err != nil {
 		panic(err)
 	}
