@@ -13,7 +13,7 @@ import (
 func (*HTMLApi) Category(w http.ResponseWriter, r *http.Request) {
 	categoryTemplate := common.Template.Category
 	path := r.URL.Path
-	slug := strings.TrimPrefix(path, "/cat/")
+	slug := strings.TrimPrefix(path, "/c/")
 	if len(slug) == 0 {
 		categoryTemplate.WriteError(w, errors.New("分类不存在"))
 	}

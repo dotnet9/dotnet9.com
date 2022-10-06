@@ -2,8 +2,6 @@ package service
 
 import (
 	"fmt"
-	"html/template"
-
 	"dotnet9.com/goweb/config"
 	"dotnet9.com/goweb/dao"
 	"dotnet9.com/goweb/models"
@@ -31,7 +29,6 @@ func GetBlogPostByCategorySlug(slug string, current int, pageSize int) (*models.
 			Slug:                 blogpost.Slug,
 			Description:          blogpost.Description,
 			Cover:                blogpost.Cover,
-			Content:              template.HTML(blogpost.Content),
 			CopyrightType:        blogpost.CopyrightType,
 			OriginalAvatar:       blogpost.OriginalAvatar,
 			OriginalTitle:        blogpost.OriginalTitle,

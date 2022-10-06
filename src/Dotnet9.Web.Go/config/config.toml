@@ -2,11 +2,11 @@
     Title = "Dotnet9"
     Description = "一个专注于软件开发技术分享的网站"
     Logo = "https://img1.dotnet9.com/site/logo.png"
-    Navigation = ["首页", "/", "Dotnet", "/dotnet", "Go语言", "/golang", "归档", "/pigeonhole", "关于", "/about"]
+    Navigation = ["首页", "/", "Dotnet", "/c/dotnet", "Go语言", "/c/more-language-go", "归档", "/pigeonhole", "关于", "/about"]
     Github = "https://github.com/dotnet9/Dotnet9"
     Bilibili = "https://space.bilibili.com/470546606"
     Zhihu = "https://www.zhihu.com/people/dotnet9"
-    Avatar = "https://img1.dotnet9.com/site/logo.png"
+    Avatar = "https://img1.dotnet9.com/site/cat.png"
     UserName = "Dotnet9"
     UserDesc = "一个热衷于互联网分享精神的程序员"
 [system]

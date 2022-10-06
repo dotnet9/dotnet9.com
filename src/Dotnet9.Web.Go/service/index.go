@@ -1,7 +1,6 @@
 package service
 
 import (
-	"html/template"
 	"fmt"
 	"dotnet9.com/goweb/config"
 	"dotnet9.com/goweb/dao"
@@ -30,7 +29,6 @@ func GetAllIndexInfo(keywords string, page int, pageSize int) *models.HomeRespon
 			Slug:                 blogpost.Slug,
 			Description:          blogpost.Description,
 			Cover:                blogpost.Cover,
-			Content:              template.HTML(blogpost.Content),
 			CopyrightType:        blogpost.CopyrightType,
 			OriginalAvatar:       blogpost.OriginalAvatar,
 			OriginalTitle:        blogpost.OriginalTitle,

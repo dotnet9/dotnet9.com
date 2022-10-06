@@ -2,7 +2,7 @@
 <ul class="post-box">
   {{range $index, $elem := .Posts}}
   <li class="post-label">
-    <a href="/p/{{$elem.Slug}}.html"><h2>{{$elem.Title}}</h2></a>
+    <a href="/p/{{$elem.Slug}}"><h2>{{$elem.Title}}</h2></a>
     <p>{{$elem.Description}}</p>
     <div class="post-action">
       <span>
@@ -12,7 +12,7 @@
       <span>
         <i class="iconfont icon-wenjianjia"></i>
         {{range $catIndex, $cat := $elem.Categories}}
-        &nbsp;<a href="/cat/{{$cat.Slug}}">{{$cat.Name}}</a>
+        &nbsp;<a href="/c/{{$cat.Slug}}">{{$cat.Name}}</a>
         {{end}}
       </span>
       <span>

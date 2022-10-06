@@ -26,15 +26,17 @@
     <div class="detail-action">
       <span>
         <i class="iconfont icon-yonghu"></i>
-        &nbsp; {{.Article.UserName}}
+        &nbsp; {{.Article.Original}}
       </span>
       <span>
         <i class="iconfont icon-wenjianjia"></i>
-        &nbsp;<a href="/c/{{.Article.CategoryId}}">{{.Article.CategoryName}}</a>
+        {{range $catIndex, $cat := .Article.Categories}}
+        &nbsp;<a href="/c/{{$cat.Slug}}">{{$cat.Name}}</a>
+        {{end}}
       </span>
       <span>
         <i class="iconfont icon-riqi"></i>
-        &nbsp;{{.Article.CreateAt}}
+        &nbsp;{{.Article.CreationTime}}
       </span>
       <span>
         <i class="iconfont icon-yanjing"></i>
@@ -42,9 +44,9 @@
       </span>
       <span class="detail-edit">
         <i class="iconfont icon-wenbenshuru"></i>
-        <a href="/writing?id={{.Article.Pid}}">编辑</a>
+        <a href="/writing?slug={{.Article.Slug}}">编辑</a>
       </span>
-      <span class="detail-edit detail-delete" pid="{{.Article.Pid}}">
+      <span class="detail-edit detail-delete" pid="{{.Article.Slug}}">
         <i class="iconfont icon-shanchu"></i>
         删除
       </span>

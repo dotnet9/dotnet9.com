@@ -36,3 +36,9 @@ func GetBlogPostByCategorySlug(categorySlug string, page int, pageSize int) (int
 	err = db.Order("\"CreationTime\" desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&posts).Error
 	return total, posts, err
 }
+
+func GetBlogPostBySlug(slug string) (*models.BlogPostDetail, error) {
+	var post models.BlogPostDetail
+	err := DB.Table("\"AppBlogPosts\" as b").Where("b.\"Slug\" = ?", slug).First(&post).Error
+	return &post, err
+}

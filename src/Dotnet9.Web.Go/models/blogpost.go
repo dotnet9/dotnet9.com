@@ -2,8 +2,8 @@ package models
 
 import (
 	"html/template"
-	"dotnet9.com/goweb/config"
 	"time"
+	"dotnet9.com/goweb/config"
 )
 
 type BlogPost struct {
@@ -12,7 +12,6 @@ type BlogPost struct {
 	Slug 			string		`json:"slug" gorm:"column:Slug"`
 	Description 	string		`json:"description" gorm:"column:Description"`
 	Cover 			string		`json:"cover" gorm:"column:Cover"`
-	Content 		string 		`json:"content" gorm:"column:Content"`
 	CopyrightType 	int			`json:"copyrightType" gorm:"column:CopyrightType"`
 	Original 		string		`json:"original" gorm:"column:Original"`
 	OriginalAvatar 	string		`json:"originalAvatar" gorm:"column:OriginalAvatar"`
@@ -33,7 +32,8 @@ type BlogPostMore struct {
 	Slug 			string		`json:"slug"`
 	Description 	string		`json:"description"`
 	Cover 			string		`json:"cover"`
-	Content 		template.HTML 	`json:"content"`	// 文章的html
+	Markdown 		string		`json:"markdown"`
+	Content 		template.HTML		`json:"content"`
 	CopyrightType 	int			`json:"copyrightType"`
 	Original 		string		`json:"original"`
 	OriginalAvatar 	string		`json:"originalAvatar"`
@@ -46,7 +46,12 @@ type BlogPostMore struct {
 	LastModificationTime 	string 	`json:"lastModificationTime"`
 }
 
-type BlogPostReq struct {
+type BlogPostDetail struct {
+	BlogPost
+	Markdown 		string		`json:"markdown" gorm:"column:Content"`
+}
+
+type BlogPostRe struct {
 	Pid 		int		`json:"pid"`
 	Title 		string	`json:"title"`
 	Slug 		string	`json:"slug"`
@@ -57,12 +62,12 @@ type BlogPostReq struct {
 	Type 		int 	`json:"type"`
 }
 
-type SearchResp struct {
+type SearchRes struct {
 	Pid 	int 	`orm:"pid" json:"pid"`		// 文章ID
 	Title 	string 	`orm:"title" json:"title"`	// 文章标题
 }
 
-type BlogPostResp struct {
+type BlogPostRes struct {
 	config.Viewer
 	config.SystemConfig
 	Article BlogPostMore
