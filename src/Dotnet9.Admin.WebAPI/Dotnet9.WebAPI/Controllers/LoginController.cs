@@ -112,7 +112,9 @@ public partial class LoginController : ControllerBase
         }
 
         var changeResult = await _repository.ChangePasswordAsync(user.Id, req.NewPassword);
-        return changeResult.Succeeded ? true : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败，请检查原密码是否输入正确");
+        return changeResult.Succeeded
+            ? true
+            : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败，请检查原密码是否输入正确");
     }
 
     [AllowAnonymous]
@@ -144,7 +146,14 @@ public partial class LoginController : ControllerBase
             var roles = await _repository.GetRolesAsync(user!);
             currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
 
-            return new LoginResponse(true, "ok", req.Type!, currentAuthority, token);
+            return new LoginResponse(true, "ok", req.Type!, currentAuthority, token, User: new UserResponse
+            {
+                UserId = user!.Id,
+                Name = user.UserName,
+                Phone = user.PhoneNumber,
+                Avatar =
+                    "https://img1.dotnet9.com/site/logo.png"
+            });
         }
         else
         {

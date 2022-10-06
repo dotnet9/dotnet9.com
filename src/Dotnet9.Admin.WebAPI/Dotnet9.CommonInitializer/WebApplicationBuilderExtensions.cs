@@ -60,19 +60,19 @@ public static class WebApplicationBuilderExtensions
                 string[]? urls = corsOpt?.Origins;
                 if (urls != null && urls.Any())
                 {
-                    options.AddDefaultPolicy(builder => builder.WithOrigins(urls)
+                    options.AddDefaultPolicy(corsBuilder => corsBuilder.WithOrigins(urls)
                         .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
                 }
             }
         );
-        services.AddLogging(builder =>
+        services.AddLogging(logBuilder =>
         {
             Log.Logger = new LoggerConfiguration()
                 // .MinimumLevel.Information().Enrich.FromLogContext()
                 .WriteTo.Console()
                 .WriteTo.File(initOptions.LogFilePath!)
                 .CreateLogger();
-            builder.AddSerilog();
+            logBuilder.AddSerilog();
         });
         
         services.AddFluentValidationAutoValidation();

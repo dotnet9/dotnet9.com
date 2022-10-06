@@ -1,6 +1,6 @@
 var TOKEN_KEY = "AUTH_TOKEN";
 var USER_KEY = "USER_INFO";
-var SALT = "mszlu"; // 加盐
+var SALT = "dotnet9"; // 加盐
 
 $(function () {
   // 登录
@@ -45,7 +45,7 @@ function loginLogic() {
     $(".login-action").hide();
     $(".login-end").show();
     var userInfo = JSON.parse(localStorage.getItem(USER_KEY)) || {};
-    $(".login-username").text(userInfo.userName);
+    $(".login-username").text(userInfo.name);
   }
   // 登录
   $(".login-submint").click(function () {
@@ -58,17 +58,16 @@ function loginLogic() {
     // md5加密
     var MD5Passwd = new Hashes.MD5().hex(passwd + SALT);
     $.ajax({
-      url: "/api/v1/login",
-      data: JSON.stringify({ username: name, passwd: MD5Passwd }),
+      url: "http://127.0.0.1:5141/api/login/account",
+      data: JSON.stringify({ username: name, password: passwd, type: "account", autologin: false }),
       contentType: "application/json",
       type: "POST",
       success: function (res) {
-          if (res.code !== 200) {
-            return tipEle.show().text(res.error);
+          if (res.success !== true) {
+            return tipEle.show().text(res.errorMessage);
           }
-          var data = res.data || {};
-          localStorage.setItem(TOKEN_KEY, data.token);
-          localStorage.setItem(USER_KEY, JSON.stringify(data.userInfo));
+          localStorage.setItem(TOKEN_KEY, res.token);
+          localStorage.setItem(USER_KEY, JSON.stringify(res.user));
           location.href = "/";
       },
       error: function (err) {

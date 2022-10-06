@@ -1,12 +1,26 @@
 # Dotnet9网站前台
 
+## 待完善
+
+### 登录接口地址
+
+目前是写死在`public/resource/js/index.js`，后面需要读配置文件
+
+```js
+http://127.0.0.1:5141/api/login/account
+```
+
 ## 配置文件
 
-配置数据库连接字符串,创建 `/appsettings.toml` 文件，配置内容如下
+创建 `/appsettings.toml` 文件，配置内容如下
 
 ```toml
+[site]
+    DefaultAuthor = "沙漠尽头的狼"
 [db]
-    ConnectionString = "host=127.0.0.1 port=5432 user=postgres password=【密码】 dbname=dotnet9 sslmode=disable TimeZone=Asia/Shanghai"
+    ConnectionString = "host=127.0.0.1 port=5432 user=postgres password=fcY5riX64opfZFhEs dbname=dotnet9 sslmode=disable TimeZone=Asia/Shanghai"
+[admin]
+    Api = "http://127.0.0.1:5141"
 ```
 
 ## 致谢

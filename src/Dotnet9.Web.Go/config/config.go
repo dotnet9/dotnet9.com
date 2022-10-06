@@ -13,6 +13,7 @@ type TomlConfig struct {
 type AppSettings struct {
 	Db DBConfig
 	Site SiteConfig
+	Admin AdminConfig
 }
 
 type Viewer struct {
@@ -45,6 +46,10 @@ type DBConfig struct {
 
 type SiteConfig struct {
 	DefaultAuthor string
+}
+
+type AdminConfig struct {
+	Api string
 }
 
 var Cfg *TomlConfig
