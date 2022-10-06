@@ -1,20 +1,21 @@
 package service
 
 import (
-	"html/template"
 	"fmt"
+	"html/template"
+
 	"dotnet9.com/goweb/config"
 	"dotnet9.com/goweb/dao"
 	"dotnet9.com/goweb/models"
 )
 
-func GetAllIndexInfo(keywords string, page int, pageSize int) *models.HomeResponse {
-	// 页面上涉及到的所有的数据，必须有定义
+func GetBlogPostByCategorySlug(slug string, current int, pageSize int) (*models.CategoryResponse, error) {
 	var categories = dao.GetAllCategory()
-	total, blogPosts, err := dao.GetBlogPost(keywords, page, pageSize)
+	total, blogPosts, err := dao.GetBlogPostByCategorySlug(slug, current, pageSize)
+	fmt.Println("查旬文章总数：", total)
 	if err != nil {
 		fmt.Println("查询文章出错：", err)
-		return nil
+		return nil, err
 	}
 	pageCount := int(total-1)/pageSize+1
 	var pages []int
@@ -52,9 +53,14 @@ func GetAllIndexInfo(keywords string, page int, pageSize int) *models.HomeRespon
 		Categories: categories,
 		Posts: blogPostMores,
 		Total: total,
-		Page: page,
+		Page: current,
 		Pages: pages,
-		PageEnd: page != pageCount,
+		PageEnd: current != pageCount,
 	}
-	return hr
+	categoryName := dao.GetCategoryNameBySlug(slug)
+	categoryResponse := &models.CategoryResponse{
+		HomeResponse: hr,
+		CategoryName: categoryName,
+	}
+	return categoryResponse, nil
 }

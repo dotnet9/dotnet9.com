@@ -12,6 +12,7 @@ type TomlConfig struct {
 
 type AppSettings struct {
 	Db DBConfig
+	Site SiteConfig
 }
 
 type Viewer struct {
@@ -40,6 +41,10 @@ type SystemConfig struct {
 
 type DBConfig struct {
 	ConnectionString string
+}
+
+type SiteConfig struct {
+	DefaultAuthor string
 }
 
 var Cfg *TomlConfig

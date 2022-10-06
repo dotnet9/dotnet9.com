@@ -5,16 +5,9 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-
 	"dotnet9.com/goweb/common"
 	"dotnet9.com/goweb/service"
 )
-
-
-type IndexData struct {
-	Title string `json:"title"`
-	Desc string `json:"desc"`
-}
 
 func (*HTMLApi) Index(w http.ResponseWriter, r *http.Request) {
 	index := common.Template.Index
@@ -30,7 +23,7 @@ func (*HTMLApi) Index(w http.ResponseWriter, r *http.Request) {
 		current, _ = strconv.Atoi(currentStr)
 	}
 	pageSizeStr := r.Form.Get("pageSize")
-	pageSize := 10
+	pageSize := 15
 	if pageSizeStr != "" {
 		pageSize, _ = strconv.Atoi(pageSizeStr)
 	}

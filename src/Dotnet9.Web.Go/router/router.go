@@ -8,6 +8,7 @@ import (
 
 func Router() {
 	http.HandleFunc("/", views.HTML.Index)
+	http.HandleFunc("/cat/", views.HTML.Category)
 	http.HandleFunc("/api/v1/post", api.API.SaveAndUpdatePost)
 	http.Handle("/resource/", http.StripPrefix("/resource/", http.FileServer(http.Dir("public/resource/"))))
 }
