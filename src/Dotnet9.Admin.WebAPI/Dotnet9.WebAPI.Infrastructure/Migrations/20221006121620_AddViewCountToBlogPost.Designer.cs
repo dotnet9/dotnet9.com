@@ -3,6 +3,7 @@ using System;
 using Dotnet9.WebAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dotnet9.WebAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    partial class Dotnet9DbContextModelSnapshot : ModelSnapshot
+    [Migration("20221006121620_AddViewCountToBlogPost")]
+    partial class AddViewCountToBlogPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

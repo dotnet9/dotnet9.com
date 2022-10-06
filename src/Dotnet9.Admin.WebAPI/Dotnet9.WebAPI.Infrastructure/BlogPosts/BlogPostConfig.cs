@@ -16,6 +16,7 @@ internal class BlogPostConfig : IEntityTypeConfiguration<BlogPost>
         builder.Property(x => x.OriginalTitle).HasMaxLength(BlogPostConsts.MaxOriginalTitleLength);
         builder.Property(x => x.OriginalLink).HasMaxLength(BlogPostConsts.MaxOriginalLinkLength);
         builder.Property(x => x.Visible);
+        builder.Property(x => x.ViewCount);
         /// TODO GIN索引异常，暂时注释
         builder.HasIndex(x => x.Title); //.HasMethod("GIN");
         builder.HasIndex(x => x.Slug); //.HasMethod("GIN");

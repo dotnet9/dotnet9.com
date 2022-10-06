@@ -50,6 +50,7 @@ public record BlogPost : AggregateRootEntity
     public string? OriginalTitle { get; set; }
     public string? OriginalLink { get; set; }
     public bool Visible { get; private set; }
+    public int ViewCount { get; private set; }
 
     public List<BlogPostAlbum>? Albums { get; }
     public List<BlogPostCategory>? Categories { get; }
@@ -127,6 +128,12 @@ public record BlogPost : AggregateRootEntity
     internal BlogPost ChangeVisible(bool visible)
     {
         Visible = visible;
+        return this;
+    }
+
+    internal BlogPost IncreaseViewCount()
+    {
+        ViewCount++;
         return this;
     }
 
