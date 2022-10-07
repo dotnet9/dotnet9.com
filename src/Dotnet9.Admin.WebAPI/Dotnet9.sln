@@ -3,22 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{36A57A1A-35F9-46A1-880C-A40F476DEEEE}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		Directory.build.props = Directory.build.props
-		Directory.Build.Targets = Directory.Build.Targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{A358FCB2-95D9-4452-9854-A09C5BBD8BD4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{9D645E3E-49AE-43F9-A6D7-29060BF7867E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.CommonInitializer", "Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj", "{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{6115DDB3-D836-4DE9-B431-D9C4FF92E47E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Domain", "Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj", "{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.DomainCommons", "Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj", "{5E955C3F-F114-44E8-9B74-132CFD18D658}"
 EndProject
@@ -38,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI", "Dotnet9.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Infrastructure", "Dotnet9.WebAPI.Infrastructure\Dotnet9.WebAPI.Infrastructure.csproj", "{F3A6CBCE-6697-43C7-B474-CA4466D9E497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.WebAPI.ViewModel", "Dotnet9.WebAPI.ViewModel\Dotnet9.WebAPI.ViewModel.csproj", "{57AA4247-75C1-4B70-AC45-E831B2079F59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.ViewModel", "Dotnet9.WebAPI.ViewModel\Dotnet9.WebAPI.ViewModel.csproj", "{57AA4247-75C1-4B70-AC45-E831B2079F59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,10 +39,6 @@ Global
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E955C3F-F114-44E8-9B74-132CFD18D658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E955C3F-F114-44E8-9B74-132CFD18D658}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E955C3F-F114-44E8-9B74-132CFD18D658}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,7 +85,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2BA9F779-D2F3-4E11-A680-D5B4B9D61350} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
-		{EFF1F2BA-CD8E-4CD7-965D-0CEDEFBEFC49} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
 		{5E955C3F-F114-44E8-9B74-132CFD18D658} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{0422A2AD-A9F3-4325-AFAE-B1D0DBF5784A} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
 		{C33CBE6E-93A9-4548-858C-6A609045991B} = {6115DDB3-D836-4DE9-B431-D9C4FF92E47E}
