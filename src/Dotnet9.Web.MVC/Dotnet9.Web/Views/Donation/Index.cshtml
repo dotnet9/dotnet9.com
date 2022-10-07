@@ -1,0 +1,32 @@
+﻿@using Dotnet9.Web.Utils
+@model Dotnet9.Web.ViewModels.Donations.DonationViewModel
+@{
+    ViewData["Title"] = "赞助";
+    Layout = "~/Views/Shared/_PublicLayout.cshtml";
+}
+
+@section Headers {
+    @*<script src="~/skin/menhu/js/hc-sticky.js"></script>
+    <script src="~/skin/menhu/js/aside-sticky.js"></script>
+    <script src="~/skin/menhu/js/side-tab.js"></script>*@
+    <link href="~/skin/menhu/css/picswiper.min.css" rel="stylesheet">
+    <script src="~/skin/menhu/js/picswiper.min.js"></script>
+    @*<script src="~/skin/menhu/js/picview.js"></script>*@
+
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+    <link rel="stylesheet" href="~/css/prism.css"/>
+
+}
+
+<article>
+    <div id="nice">
+        @if (Model.Donation != null)
+        {
+            @Html.Raw(MarkdownHelper.Render(Model.Donation.Content))
+        }
+    </div>
+</article>
+
+@section Scripts {
+    <script src="~/js/prism.js"></script>
+}

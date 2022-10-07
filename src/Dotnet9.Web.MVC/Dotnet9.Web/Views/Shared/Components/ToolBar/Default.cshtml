@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model Dotnet9.Web.ViewModels.Homes.ToolBarViewModel
+
+<ul class="list-unstyled topbar-menu float-end mb-0">
+
+    <li class="dropdown notification-list d-xl-none">
+        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="/" role="button" aria-haspopup="false" aria-expanded="false">
+            <i class="dripicons-search noti-icon"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+            <form method="get" asp-controller="BlogPost" asp-action="Query" role="form" class="p-3">
+                <input name="s" type="text" class="form-control" placeholder="搜索内容..." aria-label="Recipient's username">
+            </form>
+        </div>
+    </li>
+
+    <li class="dropdown notification-list d-none d-sm-inline-block">
+        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="/" role="button" aria-haspopup="false" aria-expanded="false">
+            <i class="dripicons-view-apps noti-icon"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
+
+            <div class="p-2">
+                <div class="row g-0">
+                    <div class="col">
+                        <a class="dropdown-icon-item" href="https://github.com/dotnet9/Dotnet9">
+                            <img src="~/images/brands/github.png" alt="Github">
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a class="dropdown-icon-item" href="https://gitee.com/dotnet9/Dotnet9">
+                            <img src="~/images/brands/gitee.png" alt="Gitee">
+                            <span>Gitee</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </li>
+
+    <li class="notification-list">
+        <a class="nav-link end-bar-toggle" href="javascript: void(0);">
+            <i class="dripicons-gear noti-icon"></i>
+        </a>
+    </li>
+
+    <li class="dropdown notification-list">
+        <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" id="topbar-userdrop" href="/" role="button" aria-haspopup="true"
+           aria-expanded="false">
+            <span class="account-user-avatar">
+                <img src="~/favicon.ico" alt="user-image" class="rounded-circle">
+            </span>
+            <span>
+                <span class="account-user-name">沙漠尽头的狼</span>
+                <span class="account-position">欢迎！</span>
+            </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
+            <!-- item-->
+            <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">欢迎!</h6>
+            </div>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="mdi mdi-account-circle me-1"></i>
+                <span>我的账号</span>
+            </a>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="mdi mdi-account-edit me-1"></i>
+                <span>设置</span>
+            </a>
+
+            <!-- item-->
+            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <i class="mdi mdi-logout me-1"></i>
+                <span>注销</span>
+            </a>
+
+        </div>
+    </li>
+
+</ul>
+<a class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+    <div class="lines">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</a>
+@if (Model.ShowMenu)
+{
+    <button class="button-menu-mobile open-left">
+        <i class="mdi mdi-menu"></i>
+    </button>
+}
+@await Html.PartialAsync("Public/QueryForm")

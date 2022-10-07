@@ -1,0 +1,74 @@
+﻿@using System.Net
+@using Dotnet9.Core
+@model Dotnet9.Application.Contracts.Tags.TagViewModel
+
+<style type="text/css">
+    a {
+        color: #444;
+        text-decoration: none;
+    }
+
+    a:hover { color: red; }
+
+    #tagscloud {
+        color: #333;
+        font-size: 12px;
+        height: 200px;
+        margin: 20px auto 0;
+        position: relative;
+        text-align: center;
+    }
+
+    #tagscloud a {
+        border-radius: 3px;
+        color: #333;
+        display: inline-block;
+        font-family: Arial;
+        font-size: 12px;
+        left: 0px;
+        line-height: 18px;
+        margin: 0 10px 15px 0;
+        padding: 1px 5px;
+        position: absolute;
+        text-align: center;
+        text-decoration: none;
+        top: 0px;
+    }
+
+    #tagscloud a.tagc1 {
+        background: #666;
+        color: #fff;
+    }
+
+    #tagscloud a.tagc2 {
+        background: #F16E50;
+        color: #fff;
+    }
+
+    #tagscloud a.tagc5 {
+        background: #006633;
+        color: #fff;
+    }
+
+    #tagscloud a:hover {
+        background: #0099ff;
+        color: #fff;
+    }
+</style>
+
+<div class="whitebg cloud">
+    <h2 class="side-title">标签云</h2>
+    <div id="tagscloud">
+
+        @if (Model.Tags != null)
+        {
+            @foreach (var tag in Model.Tags.Random(30))
+            {
+                <a href="/tag/@WebUtility.UrlEncode(tag.Name)" class="tagc1">@tag.Name</a>
+            }
+        }
+
+    </div>
+</div>
+
+<script src="~/js/tagscloud.js" type="text/javascript"></script>

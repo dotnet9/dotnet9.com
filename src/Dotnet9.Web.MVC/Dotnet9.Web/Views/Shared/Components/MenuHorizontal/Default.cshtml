@@ -1,0 +1,82 @@
+﻿@model Dotnet9.Web.ViewModels.Homes.NavigationMenuViewModel
+<nav>
+    <ul id="starlist">
+        <li>
+            <a href="/">网站首页</a>
+        </li>
+        <li class="menu">
+            <a href="/tool">在线工具</a>
+            <ul class="sub">
+                @if (Model.ToolCountDtos != null)
+                {
+                    @foreach (var toolItem in Model.ToolCountDtos)
+                    {
+                        <li>
+                            <a href="@toolItem.RelativeUrl">@toolItem.Name</a>
+                        </li>
+                    }
+                }
+            </ul><span></span>
+        </li>
+        <li class="menu">
+            <a href="/album">特色专辑</a>
+            <ul class="sub">
+                @if (Model.AlbumCountDtos != null)
+                {
+                    @foreach (var albumItem in Model.AlbumCountDtos)
+                    {
+                        <li>
+                            <a href="/album/@albumItem.Slug">@albumItem.Name</a>
+                        </li>
+                    }
+                }
+            </ul><span></span>
+        </li>
+        @if (Model.CategoryForMenuViewModels != null)
+        {
+            @foreach (var category in Model.CategoryForMenuViewModels)
+            {
+                <li class="menu">
+                    <a href="/cat/@category.Slug">@category.Name</a>
+                    <ul class="sub">
+                        @if (category.Children != null)
+                        {
+                            @foreach (var secondCategory in category.Children)
+                            {
+                                <li>
+                                    <a href="/cat/@secondCategory.Slug">@secondCategory.Name</a>
+                                </li>
+                            }
+                        }
+                    </ul><span></span>
+                </li>
+            }
+        }
+        <li class="menu">
+            <a href="/about">关于我们</a>
+            <ul class="sub">
+                <li>
+                    <a href="/about">关于我们</a>
+                </li>
+                <li>
+                    <a href="/donation">赞助我们</a>
+                </li>
+                <li>
+                    <a href="/archive">文章归档</a>
+                </li>
+                <li>
+                    <a href="/timeline">时间轴</a>
+                </li>
+                <li>
+                    <a href="/sitemap.xml">站点地图</a>
+                </li>
+                <li>
+                    <a href="/tag">标签云</a>
+                </li>
+                <li>
+                    <a href="/privacy">隐私政策</a>
+                </li>
+            </ul><span></span>
+        </li>
+    </ul>
+</nav>

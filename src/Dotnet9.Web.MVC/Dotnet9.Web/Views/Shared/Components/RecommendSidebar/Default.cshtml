@@ -1,0 +1,30 @@
+﻿@model Dotnet9.Web.ViewModels.Blogs.LatestViewModel
+
+<div class="tuijian">
+    @if (Model.BlogPosts.Any())
+    {
+        var first = Model.BlogPosts.First();
+        var blogPosts = Model.BlogPosts.Count > 1 ? Model.BlogPosts.GetRange(1, Model.BlogPosts.Count - 1) : null;
+        <section class="topnews imgscale">
+            <a href="/@first.CreateDate?.ToString("yyyy/MM")/@first.Slug">
+                <img src="@first.Cover" alt="@first.Title"><span>@first.Title</span>
+            </a>
+        </section>
+        <ul>
+            @if (blogPosts != null && blogPosts.Any())
+            {
+                @foreach (var item in blogPosts)
+                {
+                    <li>
+                        <a href="/@item.CreateDate?.ToString("yyyy/MM")/@item.Slug" title="@item.Title">
+                            <i>
+                                <img src="@item.Cover" alt="@item.Title">
+                            </i>
+                            <p>@item.Title</p>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    }
+</div>
