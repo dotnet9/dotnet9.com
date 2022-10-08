@@ -113,4 +113,10 @@ internal class BlogPostService : IBlogPostService
         blogPost.IncreaseViewCount();
         return await _dbContext.SaveChangesAsync() > 0;
     }
+
+    public async Task<List<BlogPostArchiveItem>?> GetArchivesAsync()
+    {
+        return await _dbContext.BlogPosts!.Select(x => new BlogPostArchiveItem(x.Title, x.Slug, x.CreationTime))
+            .ToListAsync();
+    }
 }
