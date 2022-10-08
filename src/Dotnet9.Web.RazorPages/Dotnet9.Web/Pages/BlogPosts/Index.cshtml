@@ -22,13 +22,15 @@
                 &nbsp; @(Model.BlogPost?.Original ?? SiteOptions.Value.Owner)
             </span>
             @if (Model.BlogPost?.Categories != null && Model.BlogPost?.Categories.Any() == true)
-            <span>
-                <i class="iconfont icon-wenjianjia"></i>
-                @foreach (var cat in Model.BlogPost!.Categories!)
-                {
-                    <a href="/cat/@cat.Slug">@cat.Name</a>
-                }
-            </span>
+            {
+                <span>
+                    <i class="iconfont icon-wenjianjia"></i>
+                    @foreach (var cat in Model.BlogPost!.Categories!)
+                    {
+                        <a href="/cat/@cat.Slug">@cat.Name</a>
+                    }
+                </span>
+            }
             <span>
                 <i class="iconfont icon-riqi"></i>
                 &nbsp;@Model.BlogPost.CreationTime.ToString("yyyy-MM-dd")
