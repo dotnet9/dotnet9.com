@@ -2,6 +2,7 @@
 @inject IOptionsSnapshot<SiteOptions> SiteOptions
 @model IndexModel
 @{
+    ViewData["Title"] = Model.BlogPost?.Title;
 }
 
 @section Headers{

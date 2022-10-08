@@ -131,7 +131,7 @@ public record BlogPost : AggregateRootEntity
         return this;
     }
 
-    internal BlogPost IncreaseViewCount()
+    public BlogPost IncreaseViewCount()
     {
         ViewCount++;
         return this;

@@ -101,4 +101,16 @@ internal class BlogPostService : IBlogPostService
             blogPost.CreationTime,
             blogPost.ViewCount);
     }
+
+    public async Task<bool> IncreaseViewCountAsync(string slug)
+    {
+        var blogPost = await _dbContext.BlogPosts!.FirstOrDefaultAsync(x => x.Slug == slug);
+        if (blogPost == null)
+        {
+            return false;
+        }
+
+        blogPost.IncreaseViewCount();
+        return await _dbContext.SaveChangesAsync() > 0;
+    }
 }
