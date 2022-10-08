@@ -1,0 +1,35 @@
+﻿@model Dotnet9.Web.ViewModel.Commons.PaginationModel
+@{
+}
+
+<div>
+    @if (Model.Total > Model.PageSize)
+    {
+        <ul class="pagination">
+            @if (Model.Current > 1)
+            {
+                <li class="pagination-prev iconfont icon-jiantouyou"></li>
+            }
+            @if (Model.Pages?.Any() == true)
+            {
+                @foreach (var pageIndex in Model.Pages)
+                {
+                    <li class="pagination-btn @(pageIndex == Model.Current ? "active" : "")"
+                        value="@pageIndex">
+                        <a href="?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
+                    </li>
+                }
+            }
+            @if (Model.Current != Model.Pages?.Length)
+            {
+                <li class="pagination-next iconfont icon-jiantouyou"></li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul class="pagination">
+            <li class="pagination-total">共 @Model.Total 条</li>
+        </ul>
+    }
+</div>

@@ -1,0 +1,17 @@
+﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+
+<footer>
+    <div>
+        Copyright © @(SiteOptions.Value.Start)-@(DateTime.Now.Year) &nbsp;
+        &nbsp; | @SiteOptions.Value.Domain & @SiteOptions.Value.Owner 版权所有
+        &nbsp; | <a href="@(SiteOptions.Value.BeiAnUrl)" target="_blank">@SiteOptions.Value.BeiAn</a>
+        &nbsp; | <a href="/sitemap.xml" target="_blank">网站地图</a>
+    </div>
+    <div>
+        &nbsp; 由 .NET 7.0 强力驱动
+        &nbsp; | <a href="@SiteOptions.Value.Github" target="_blank">Github</a>
+        &nbsp; | 前台&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/razor-pages/?view=aspnetcore-7.0&tabs=visual-studio" target="_blank">Razor Pages</a>
+        &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-7.0" target="_blank">.NET Web API</a>
+        &nbsp; | 后台前端&nbsp;<a href="https://pro.ant.design/" target="_blank">Ant Design Pro</a>
+    </div>
+</footer>

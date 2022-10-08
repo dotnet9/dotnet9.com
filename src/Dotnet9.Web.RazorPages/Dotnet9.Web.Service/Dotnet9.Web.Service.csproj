@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dotnet9.Admin.WebAPI\Dotnet9.WebAPI.Infrastructure\Dotnet9.WebAPI.Infrastructure.csproj" />
+    <ProjectReference Include="..\Dotnet9.Web.ViewModel\Dotnet9.Web.ViewModel.csproj" />
+  </ItemGroup>
+</Project>

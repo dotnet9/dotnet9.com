@@ -1,0 +1,39 @@
+﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+<header>
+    <div class="header-wrap">
+        <!-- logo -->
+        <div class="header-left">
+            <h1>
+                <a href="/">
+                    <img class="logo-img" src="@SiteOptions.Value.Logo" alt="@SiteOptions.Value.AppName" />
+                </a>
+            </h1>
+            <!-- 导航 -->
+            <ul class="header-nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="/cat/dotnet">Dotnet</a></li>
+                <li><a href="/cat/more-language-go">Go语言</a></li>
+                <li><a href="/pigeonhole">归档</a></li>
+                <li><a href="/about">关于</a></li>
+            </ul>
+        </div>
+        <div class="header-right">
+            <div class="header-search">
+                <input id="search-input" type="text" placeholder="搜索一下" />
+                <i class="iconfont icon-search"></i>
+                <div class="search-drop"></div>
+            </div>
+            <a class="login-action" href="/login">
+                <button class="login-btn">登录</button>
+            </a>
+            <div class="login-end">
+                <p class="iconfont icon-yonghu"><span class="login-username"></span></p>
+                <ul class="login-drop">
+                    <a href="/writing">
+                    <li>写作</li></a>
+                    <li class="login-out">退出登录</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>

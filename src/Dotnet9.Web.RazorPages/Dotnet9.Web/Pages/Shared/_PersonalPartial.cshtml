@@ -1,0 +1,34 @@
+﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@inject ICategoryService CategoryService
+
+<div class="personal">
+    <div class="personal-box">
+        <img class="personal-avatar" src="@SiteOptions.Value.OwnerAvatar" alt="@SiteOptions.Value.Owner"/>
+        <h1 class="personal-name">@SiteOptions.Value.Owner</h1>
+        <p class="personal-desc">@SiteOptions.Value.OwnerDesc</p>
+        <span class="gap-dashed"></span>
+        <ul class="personal-action">
+            <li>
+                <i class="iconfont icon-bilibili-line"></i>
+                <a href="@SiteOptions.Value.Bilibili" target="_blank"> Bilibili</a>
+            </li>
+            <li>
+                <i class="iconfont icon-zhihu-circle"></i>
+                <a href="@SiteOptions.Value.Zhihu" target="_blank"> 知乎</a>
+            </li>
+        </ul>
+    </div>
+    <span class="gap-solid"></span>
+    <div class="personal-box">
+        <div class="personal-cteg">
+            <h2>分类：</h2>
+            @foreach (var cat in await CategoryService.GetCategoriesAsync())
+            {
+                <div>
+                    <i class="iconfont icon-fenlei-copy"></i>
+                    <a href="/cat/@cat.Slug" target="_blank" title="@cat.Description">@cat.Name</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

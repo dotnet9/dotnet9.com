@@ -6,7 +6,7 @@ public static class WebApplicationBuilderExtensions
     {
         var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
         builder.Configuration.AddDbConfiguration(() => new NpgsqlConnection(connStr), reloadOnChange: true,
-                reloadInterval: TimeSpan.FromSeconds(5));
+            reloadInterval: TimeSpan.FromSeconds(5));
     }
 
     public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
@@ -31,7 +31,11 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddAuthentication();
         builder.Services.AddOptions().Configure<SiteOptions>(e => configuration.GetSection("Site").Bind(e));
         JWTOptions? jwtOpt = configuration.GetSection("JWT").Get<JWTOptions>();
-        builder.Services.AddJWTAuthentication(jwtOpt!);
+        if (jwtOpt != null)
+        {
+            builder.Services.AddJWTAuthentication(jwtOpt);
+        }
+
         //启用Swagger中的【Authorize】按钮。这样就不用每个项目的AddSwaggerGen中单独配置了
         builder.Services.Configure<SwaggerGenOptions>(c => { c.AddAuthenticationHeader(); });
         //结束:Authentication,Authorization
@@ -74,7 +78,7 @@ public static class WebApplicationBuilderExtensions
                 .CreateLogger();
             logBuilder.AddSerilog();
         });
-        
+
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblies(assemblies);
         services.Configure<JWTOptions>(configuration.GetSection("JWT"));
