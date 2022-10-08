@@ -9,8 +9,15 @@ internal class CategoryService : ICategoryService
         _dbContext = dbContext;
     }
 
-    public Task<List<CategoryBrief>> GetCategoriesAsync()
+    public async Task<List<CategoryBrief>> GetCategoriesAsync()
     {
-        return _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name, c.Description)).ToListAsync();
+        var categories = await _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name, c.Description,
+                _dbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == c.Id)))
+            .ToListAsync();
+        var distinctCategories = from cat in categories
+            where cat.BlogCount > 0
+            orderby cat.BlogCount descending
+            select cat;
+        return distinctCategories.ToList();
     }
 }

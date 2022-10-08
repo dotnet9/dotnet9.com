@@ -38,9 +38,43 @@ internal class BlogPostService : IBlogPostService
             x.Original,
             (from blogPostCategory in x.Categories
                 join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name, category.Description)).ToList(),
+                select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
             x.CreationTime,
             x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListResponse(data, total, true, request.PageSize, request.Current);
+    }
+
+    public async Task<GetBlogPostBriefListByCategorySlugResponse> GetBlogPostBriefListByCategorySlugAsync(
+        GetBlogPostBriefListByCategorySlugRequest request)
+    {
+        var query = _dbContext.BlogPosts!.AsQueryable();
+        var category = await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == request.Slug);
+        if (category == null)
+        {
+            return new GetBlogPostBriefListByCategorySlugResponse(null, null, 0, false, request.PageSize,
+                request.Current);
+        }
+
+        var datasFromDb =
+            query.OrderByDescending(x => x.CreationTime)
+                .Include(blogPost => blogPost.Albums)
+                .Include(blogPost => blogPost.Categories)
+                .Include(blogPost => blogPost.Tags)
+                .Where(x => x.Categories != null && x.Categories.Any(y => y.CategoryId == category.Id) == true);
+
+        var total = await datasFromDb.CountAsync();
+        datasFromDb.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
+        var data = await datasFromDb.Select(x => new BlogPostBrief(
+            x.Title,
+            x.Slug,
+            x.Description,
+            x.Original,
+            (from blogPostCategory in x.Categories
+                join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
+                select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
+            x.CreationTime,
+            x.ViewCount)).ToListAsync();
+        return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
+            request.Current);
     }
 }
