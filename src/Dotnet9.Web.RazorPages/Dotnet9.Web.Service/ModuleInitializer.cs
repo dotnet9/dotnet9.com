@@ -6,5 +6,6 @@ internal class ModuleInitializer : IModuleInitializer
     {
         services.AddScoped<IBlogPostService, BlogPostService>();
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<ILinkService, LinkService>();
     }
 }
