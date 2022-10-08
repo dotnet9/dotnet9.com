@@ -23,6 +23,7 @@ public class IndexModel : PageModel
 
     public int Total { get; set; }
     public int[]? Pages { get; set; }
+    public int PageCount { get; set; }
 
 
     public async Task OnGet()
@@ -32,6 +33,7 @@ public class IndexModel : PageModel
         CategoryName = response.CategoryName;
         BlogPosts = response.Data;
         Total = response.Total;
-        Pages = response.Total.GetPages(PageSize, Current, 5);
+        PageCount = response.Total.GetPageCount(PageSize);
+        Pages = response.Total.GetPages(PageSize, Current, 10);
     }
 }

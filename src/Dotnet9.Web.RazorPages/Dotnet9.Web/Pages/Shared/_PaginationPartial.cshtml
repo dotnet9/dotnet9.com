@@ -1,28 +1,52 @@
 ﻿@model Dotnet9.Web.ViewModel.Commons.PaginationModel
 @{
+    var showFirst = Model.PageCount > 1;
+    var showPrev = Model.Current > 1;
+    var prevPageIndex = Model.Current - 1;
+    var showNext = Model.Current != Model.PageCount;
+    var nextPageIndex = Model.Current + 1;
+    var showLast = showFirst;
 }
 
 <div>
     @if (Model.Total > Model.PageSize)
     {
         <ul class="pagination">
-            @if (Model.Current > 1)
+            @if (showFirst)
             {
-                <li class="pagination-prev iconfont icon-jiantouyou"></li>
+                <li class="pagination-btn">
+                    <a href="?current=1&pageSize=@Model.PageSize">⇤</a>
+                </li>
+            }
+            @if (showPrev)
+            {
+                <li class="pagination-btn">
+                    <a href="?current=@prevPageIndex&pageSize=@Model.PageSize">←</a>
+                </li>
             }
             @if (Model.Pages?.Any() == true)
             {
                 @foreach (var pageIndex in Model.Pages)
                 {
-                    <li class="pagination-btn @(pageIndex == Model.Current ? "active" : "")"
+                    <li class="pagination-btn" active="@(pageIndex == Model.Current)"
                         value="@pageIndex">
                         <a href="?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
                     </li>
                 }
             }
-            @if (Model.Current != Model.Pages?.Length)
+            
+            @if (showNext)
             {
-                <li class="pagination-next iconfont icon-jiantouyou"></li>
+                <li class="pagination-btn">
+                    <a href="?current=@nextPageIndex&pageSize=@Model.PageSize">→</a>
+                </li>
+            }
+
+            @if (showLast)
+            {
+                <li class="pagination-btn">
+                    <a href="?current=@Model.PageCount&pageSize=@Model.PageSize">⇥</a>
+                </li>
             }
         </ul>
     }

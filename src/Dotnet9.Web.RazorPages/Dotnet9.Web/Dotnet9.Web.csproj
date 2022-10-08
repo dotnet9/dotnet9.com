@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.30.4" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Dotnet9.Admin.WebAPI\Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj" />
     <ProjectReference Include="..\..\Dotnet9.Admin.WebAPI\Dotnet9.WebAPI.Infrastructure\Dotnet9.WebAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Dotnet9.Dotnet.Commons\Dotnet9.CommonInitializer\Dotnet9.CommonInitializer.csproj" />
     <ProjectReference Include="..\Dotnet9.Web.Service\Dotnet9.Web.Service.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\BlogPosts\" />
   </ItemGroup>
 </Project>

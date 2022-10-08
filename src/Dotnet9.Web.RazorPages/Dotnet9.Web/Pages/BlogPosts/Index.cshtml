@@ -1,0 +1,80 @@
+﻿@page "/{Year}/{Month}/{Slug}"
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@model IndexModel
+@{
+}
+
+@section Headers{
+    <link rel="stylesheet" href="/css/detail.css"/>
+    @if (SiteOptions.Value.Valine)
+    {
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    }
+}
+
+<div class="detail">
+    <div class="detail-left">
+        <h1 class="detail-title">@Model.BlogPost?.Title</h1>
+        <div class="detail-action">
+            <span>
+                <i class="iconfont icon-yonghu"></i>
+                &nbsp; @(Model.BlogPost?.Original ?? SiteOptions.Value.Owner)
+            </span>
+            @if (Model.BlogPost?.Categories != null && Model.BlogPost?.Categories.Any() == true)
+            <span>
+                <i class="iconfont icon-wenjianjia"></i>
+                @foreach (var cat in Model.BlogPost!.Categories!)
+                {
+                    <a href="/cat/@cat.Slug">@cat.Name</a>
+                }
+            </span>
+            <span>
+                <i class="iconfont icon-riqi"></i>
+                &nbsp;@Model.BlogPost.CreationTime.ToString("yyyy-MM-dd")
+            </span>
+            <span>
+                <i class="iconfont icon-yanjing"></i>
+                &nbsp;@Model.BlogPost.ViewCount
+            </span>
+            <span class="detail-edit">
+                <i class="iconfont icon-wenbenshuru"></i>
+                <a href="/writing?slug=@Model.BlogPost.Slug">编辑</a>
+            </span>
+            <span class="detail-edit detail-delete" slug="@Model.BlogPost.Slug">
+                <i class="iconfont icon-shanchu"></i>
+                删除
+            </span>
+        </div>
+        <div class="gap-solid"></div>
+        <div id="view-content" class="detail-content">@Html.Raw(@Model.ContentHtml)</div>
+        @if (SiteOptions.Value.Valine)
+        {
+            <div class="gap-solid vcomments-gap"></div>
+            <div id="vcomments" class="vcomments"></div>
+            <div class="vcomments-copyright">评论由Valine提供支持</div>
+        }
+    </div>
+    <div class="detail-right">
+        <div class="toc-card">
+            <h1 class="toc-card-list">目录</h1>
+            <div class="toc-box" id="toc-box"></div>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-prev">
+    <div class="zoom-container"></div>
+</div>
+
+@if (SiteOptions.Value.Valine)
+{
+    <script>
+  new Valine({
+    el: "#vcomments",
+    appId: "@SiteOptions.Value.ValineConfig!.AppId",
+    appKey: "@SiteOptions.Value.ValineConfig.AppKey",
+    serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
+            placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
+  });
+</script>
+}

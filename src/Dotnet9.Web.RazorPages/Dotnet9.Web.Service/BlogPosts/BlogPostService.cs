@@ -77,4 +77,28 @@ internal class BlogPostService : IBlogPostService
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
             request.Current);
     }
+
+    public async Task<BlogPostDetails?> GetBlogPostDetailsBySlugAsync(string slug)
+    {
+        var blogPost = await _dbContext.BlogPosts!.Include(x => x.Albums)
+            .Include(x => x.Categories)
+            .Include(x => x.Tags)
+            .FirstOrDefaultAsync(x => x.Slug == slug);
+        if (blogPost == null)
+        {
+            return null;
+        }
+
+        return new BlogPostDetails(
+            blogPost.Title,
+            blogPost.Slug,
+            blogPost.Description,
+            blogPost.Content,
+            blogPost.Original,
+            (from blogPostCategory in blogPost.Categories
+                join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
+                select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
+            blogPost.CreationTime,
+            blogPost.ViewCount);
+    }
 }

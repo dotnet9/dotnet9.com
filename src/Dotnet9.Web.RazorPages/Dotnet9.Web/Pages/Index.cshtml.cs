@@ -1,14 +1,20 @@
-﻿namespace Dotnet9.Web.Pages;
+﻿using Dotnet9.ASPNETCore;
+using Dotnet9.Web.Service.Categories;
+using Dotnet9.Web.ViewModel.Categories;
+
+namespace Dotnet9.Web.Pages;
 
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
     private readonly IBlogPostService _blogPostService;
+    private readonly IMemoryCacheHelper _cacheHelper;
 
-    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService)
+    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService, IMemoryCacheHelper cacheHelper)
     {
         _logger = logger;
         _blogPostService = blogPostService;
+        _cacheHelper = cacheHelper;
     }
 
     public List<BlogPostBrief>? BlogPosts { get; set; }
@@ -21,14 +27,26 @@ public class IndexModel : PageModel
 
     public int Total { get; set; }
     public int[]? Pages { get; set; }
+    public int PageCount { get; set; }
 
 
     public async Task OnGet()
     {
-        var request = new GetBlogPostBriefListRequest(Keywords, Current, PageSize);
-        var response = await _blogPostService.GetBlogPostBriefListAsync(request);
-        BlogPosts = response.Data;
+        string cacheKey = $"BlogPostBriefList_{Keywords}_{Current}_{PageSize}";
+
+        async Task<GetBlogPostBriefListResponse?> GetBlogPostsFromDb()
+        {
+            var request = new GetBlogPostBriefListRequest(Keywords, Current, PageSize);
+            return await _blogPostService.GetBlogPostBriefListAsync(request);
+        }
+
+        var response = await _cacheHelper.GetOrCreateAsync(cacheKey,
+            async e => await GetBlogPostsFromDb());
+
+
+        BlogPosts = response!.Data;
         Total = response.Total;
-        Pages = response.Total.GetPages(PageSize, Current, 5);
+        PageCount = response.Total.GetPageCount(PageSize);
+        Pages = response.Total.GetPages(PageSize, Current, 10);
     }
 }
