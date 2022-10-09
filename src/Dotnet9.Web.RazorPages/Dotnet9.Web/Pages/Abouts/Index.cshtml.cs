@@ -2,11 +2,11 @@ namespace Dotnet9.Web.Pages.Abouts;
 
 public class IndexModel : PageModel
 {
+    private readonly IDistributedCacheHelper _cacheHelper;
     private readonly IAboutRepository _repository;
-    private readonly IMemoryCacheHelper _cacheHelper;
 
     public IndexModel(IAboutRepository repository,
-        IMemoryCacheHelper cacheHelper)
+        IDistributedCacheHelper cacheHelper)
     {
         _repository = repository;
         _cacheHelper = cacheHelper;
@@ -16,14 +16,14 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        string cacheKey = $"About";
+        string cacheKey = "About";
 
         async Task<About?> GetAboutFromDb()
         {
             return await _repository.GetAsync();
         }
 
-        var about = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        About? about = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetAboutFromDb());
         ContentHtml = about?.Content.Convert2Html();
     }

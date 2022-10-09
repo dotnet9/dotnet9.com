@@ -1,16 +1,12 @@
-﻿using Dotnet9.ASPNETCore;
-using Dotnet9.Web.Service.Categories;
-using Dotnet9.Web.ViewModel.Categories;
-
-namespace Dotnet9.Web.Pages;
+﻿namespace Dotnet9.Web.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     private readonly IBlogPostService _blogPostService;
-    private readonly IMemoryCacheHelper _cacheHelper;
+    private readonly IDistributedCacheHelper _cacheHelper;
+    private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService, IMemoryCacheHelper cacheHelper)
+    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService, IDistributedCacheHelper cacheHelper)
     {
         _logger = logger;
         _blogPostService = blogPostService;
@@ -36,11 +32,11 @@ public class IndexModel : PageModel
 
         async Task<GetBlogPostBriefListResponse?> GetBlogPostsFromDb()
         {
-            var request = new GetBlogPostBriefListRequest(Keywords, Current, PageSize);
+            GetBlogPostBriefListRequest request = new GetBlogPostBriefListRequest(Keywords, Current, PageSize);
             return await _blogPostService.GetBlogPostBriefListAsync(request);
         }
 
-        var response = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        GetBlogPostBriefListResponse? response = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetBlogPostsFromDb());
 
 

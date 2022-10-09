@@ -2,11 +2,11 @@ namespace Dotnet9.Web.Pages.Categories;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     private readonly IBlogPostService _blogPostService;
-    private readonly IMemoryCacheHelper _cacheHelper;
+    private readonly IDistributedCacheHelper _cacheHelper;
+    private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService, IMemoryCacheHelper cacheHelper)
+    public IndexModel(ILogger<IndexModel> logger, IBlogPostService blogPostService, IDistributedCacheHelper cacheHelper)
     {
         _logger = logger;
         _blogPostService = blogPostService;
@@ -34,13 +34,14 @@ public class IndexModel : PageModel
 
         async Task<GetBlogPostBriefListByCategorySlugResponse?> GetBlogPostsFromDb()
         {
-            var request = new GetBlogPostBriefListByCategorySlugRequest(Slug, Current, PageSize);
+            GetBlogPostBriefListByCategorySlugRequest request =
+                new GetBlogPostBriefListByCategorySlugRequest(Slug, Current, PageSize);
             return await _blogPostService.GetBlogPostBriefListByCategorySlugAsync(request);
         }
 
-        var response = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        GetBlogPostBriefListByCategorySlugResponse? response = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetBlogPostsFromDb());
-        
+
         CategoryName = response!.CategoryName;
         BlogPosts = response.Data;
         Total = response.Total;

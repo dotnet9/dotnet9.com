@@ -2,11 +2,11 @@ namespace Dotnet9.Web.Pages.Archives;
 
 public class IndexModel : PageModel
 {
+    private readonly IDistributedCacheHelper _cacheHelper;
     private readonly IBlogPostService _service;
-    private readonly IMemoryCacheHelper _cacheHelper;
 
     public IndexModel(IBlogPostService service,
-        IMemoryCacheHelper cacheHelper)
+        IDistributedCacheHelper cacheHelper)
     {
         _service = service;
         _cacheHelper = cacheHelper;
@@ -16,7 +16,7 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        string cacheKey = $"BlogPostArchive";
+        string cacheKey = "BlogPostArchive";
 
         async Task<List<BlogPostArchiveItem>?> GetBlogPostsFromDb()
         {
