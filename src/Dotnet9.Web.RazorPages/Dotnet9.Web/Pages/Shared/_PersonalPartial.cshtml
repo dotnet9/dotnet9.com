@@ -35,12 +35,15 @@
     <div class="personal-box">
         <div class="personal-cteg">
             <h2>分类：</h2>
-            @foreach (var cat in categories)
+            @if (categories != null)
             {
-                <div>
-                    <i class="iconfont icon-fenlei-copy"></i>
-                    <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name (@cat.BlogCount)</a>
-                </div>
+                @foreach (var cat in categories)
+                {
+                    <div>
+                        <i class="iconfont icon-fenlei-copy"></i>
+                        <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name (@cat.BlogCount)</a>
+                    </div>
+                }
             }
         </div>
     </div>

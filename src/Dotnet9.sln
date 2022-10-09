@@ -35,9 +35,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{ABAEEE32-C5F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web", "Dotnet9.Web.RazorPages\Dotnet9.Web\Dotnet9.Web.csproj", "{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Web.Service", "Dotnet9.Web.RazorPages\Dotnet9.Web.Service\Dotnet9.Web.Service.csproj", "{56AD1208-7A5B-4D34-A70A-CD93828F74A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.Service", "Dotnet9.Web.RazorPages\Dotnet9.Web.Service\Dotnet9.Web.Service.csproj", "{56AD1208-7A5B-4D34-A70A-CD93828F74A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Web.ViewModel", "Dotnet9.Web.RazorPages\Dotnet9.Web.ViewModel\Dotnet9.Web.ViewModel.csproj", "{01D64427-183D-47CC-8772-E1D33CF44D27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.ViewModel", "Dotnet9.Web.RazorPages\Dotnet9.Web.ViewModel\Dotnet9.Web.ViewModel.csproj", "{01D64427-183D-47CC-8772-E1D33CF44D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -37,7 +37,7 @@ internal class BlogPostService : IBlogPostService
             x.Description,
             x.Original,
             (from blogPostCategory in x.Categories
-                join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
+                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                 select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
             x.CreationTime,
             x.ViewCount)).ToListAsync();
@@ -70,7 +70,7 @@ internal class BlogPostService : IBlogPostService
             x.Description,
             x.Original,
             (from blogPostCategory in x.Categories
-                join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
+                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                 select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
             x.CreationTime,
             x.ViewCount)).ToListAsync();
@@ -96,7 +96,7 @@ internal class BlogPostService : IBlogPostService
             blogPost.Content,
             blogPost.Original,
             (from blogPostCategory in blogPost.Categories
-                join category in _dbContext.Categories on blogPostCategory.CategoryId equals category.Id
+                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                 select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
             blogPost.CreationTime,
             blogPost.ViewCount);

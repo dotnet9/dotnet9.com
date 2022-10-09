@@ -25,7 +25,7 @@
             {
                 <span>
                     <i class="iconfont icon-wenjianjia"></i>
-                    @foreach (var cat in Model.BlogPost!.Categories!)
+                    @foreach (var cat in Model.BlogPost!.Categories)
                     {
                         <a href="/cat/@cat.Slug">@cat.Name</a>
                     }
@@ -33,17 +33,17 @@
             }
             <span>
                 <i class="iconfont icon-riqi"></i>
-                &nbsp;@Model.BlogPost.CreationTime.ToString("yyyy-MM-dd")
+                &nbsp;@Model.BlogPost?.CreationTime.ToString("yyyy-MM-dd")
             </span>
             <span>
                 <i class="iconfont icon-yanjing"></i>
-                &nbsp;@Model.BlogPost.ViewCount
+                &nbsp;@Model.BlogPost?.ViewCount
             </span>
             <span class="detail-edit">
                 <i class="iconfont icon-wenbenshuru"></i>
-                <a href="/writing?slug=@Model.BlogPost.Slug">编辑</a>
+                <a href="/writing?slug=@Model.BlogPost?.Slug">编辑</a>
             </span>
-            <span class="detail-edit detail-delete" slug="@Model.BlogPost.Slug">
+            <span class="detail-edit detail-delete" slug="@Model.BlogPost?.Slug">
                 <i class="iconfont icon-shanchu"></i>
                 删除
             </span>
