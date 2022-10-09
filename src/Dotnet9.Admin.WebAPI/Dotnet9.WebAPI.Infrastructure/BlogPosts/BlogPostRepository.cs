@@ -1,4 +1,4 @@
-﻿
+﻿using Microsoft.EntityFrameworkCore.Query;
 
 namespace Dotnet9.WebAPI.Infrastructure.BlogPosts;
 
@@ -13,7 +13,7 @@ internal class BlogPostRepository : IBlogPostRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        List<BlogPost> logs = await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
@@ -41,7 +41,7 @@ internal class BlogPostRepository : IBlogPostRepository
 
     public async Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(GetBlogPostListRequest request)
     {
-        var query = _dbContext.BlogPosts!.AsQueryable();
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log =>
@@ -53,7 +53,9 @@ internal class BlogPostRepository : IBlogPostRepository
                 || EF.Functions.Like(log.Content!, $"%{request.Keywords}%"));
         }
 
-        var datasFromDb = query.OrderByDescending(x=>x.CreationTime).Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Include(blogPost => blogPost.Albums)
+        IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb = query.OrderByDescending(x => x.CreationTime)
+            .Skip((request.Current - 1) * request.PageSize)
+            .Take(request.PageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
@@ -62,11 +64,12 @@ internal class BlogPostRepository : IBlogPostRepository
     public async Task<(BlogPost[]? BlogPosts, long Count)> GetListByCategoryIdAsync(Guid categoryId, int pageIndex,
         int pageSize)
     {
-        var blogPostIds = await _dbContext.Set<BlogPostCategory>().Where(x => x.CategoryId == categoryId)
+        Guid[] blogPostIds = await _dbContext.Set<BlogPostCategory>().Where(x => x.CategoryId == categoryId)
             .Select(x => x.BlogPostId).ToArrayAsync();
-        var query = _dbContext.BlogPosts!.Where(blogPost =>
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.Where(blogPost =>
             blogPostIds.Contains(blogPost.Id));
-        var datasFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(blogPost => blogPost.Albums)
+        IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb = query.Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
@@ -75,11 +78,12 @@ internal class BlogPostRepository : IBlogPostRepository
     public async Task<(BlogPost[]? BlogPosts, long Count)> GetListByAlbumIdAsync(Guid albumId, int pageIndex,
         int pageSize)
     {
-        var blogPostIds = await _dbContext.Set<BlogPostAlbum>().Where(x => x.AlbumId == albumId)
+        Guid[] blogPostIds = await _dbContext.Set<BlogPostAlbum>().Where(x => x.AlbumId == albumId)
             .Select(x => x.BlogPostId).ToArrayAsync();
-        var query = _dbContext.BlogPosts!.Where(blogPost =>
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.Where(blogPost =>
             blogPostIds.Contains(blogPost.Id));
-        var datasFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(blogPost => blogPost.Albums)
+        IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb = query.Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
     }
@@ -87,12 +91,32 @@ internal class BlogPostRepository : IBlogPostRepository
 
     public async Task<(BlogPost[]? BlogPosts, long Count)> GetListByTagIdAsync(Guid tagId, int pageIndex, int pageSize)
     {
-        var blogPostIds = await _dbContext.Set<BlogPostTag>().Where(x => x.TagId == tagId)
+        Guid[] blogPostIds = await _dbContext.Set<BlogPostTag>().Where(x => x.TagId == tagId)
             .Select(x => x.BlogPostId).ToArrayAsync();
-        var query = _dbContext.BlogPosts!.Where(blogPost =>
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.Where(blogPost =>
             blogPostIds.Contains(blogPost.Id));
-        var datasFromDb = query.Skip((pageIndex - 1) * pageSize).Take(pageSize).Include(blogPost => blogPost.Albums)
+        IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb = query.Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize).Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags);
         return (await datasFromDb.ToArrayAsync(), await query.LongCountAsync());
+    }
+
+    public async Task<BlogPostBrief[]?> GetListBriefAsync(string? keywords)
+    {
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
+        if (!keywords.IsNullOrWhiteSpace())
+        {
+            query = query.Where(log =>
+                EF.Functions.Like(log.Title, $"%{keywords}%")
+                || EF.Functions.Like(log.Slug, $"%{keywords}%")
+                || (log.Original != null && EF.Functions.Like(log.Original!, $"%{keywords}%"))
+                || (log.OriginalTitle != null && EF.Functions.Like(log.OriginalTitle!, $"%{keywords}%"))
+                || EF.Functions.Like(log.Description!, $"%{keywords}%")
+                || EF.Functions.Like(log.Content!, $"%{keywords}%"));
+        }
+
+        return await query.Take(10).Select(x =>
+                new BlogPostBrief(x.CreationTime.ToString("yyyy"), x.CreationTime.ToString("MM"), x.Slug, x.Title))
+            .ToArrayAsync();
     }
 }

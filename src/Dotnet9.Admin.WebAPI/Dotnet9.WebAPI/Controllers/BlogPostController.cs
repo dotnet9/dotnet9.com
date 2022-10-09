@@ -4,16 +4,18 @@
 [ApiController]
 public class BlogPostController : ControllerBase
 {
+    private readonly IDistributedCacheHelper _cacheHelper;
     private readonly Dotnet9DbContext _dbContext;
     private readonly BlogPostManager _manager;
     private readonly IBlogPostRepository _repository;
 
     public BlogPostController(Dotnet9DbContext dbContext, IBlogPostRepository repository,
-        BlogPostManager manager)
+        BlogPostManager manager, IDistributedCacheHelper cacheHelper)
     {
         _dbContext = dbContext;
         _repository = repository;
         _manager = manager;
+        _cacheHelper = cacheHelper;
     }
 
     [HttpGet]
@@ -23,6 +25,23 @@ public class BlogPostController : ControllerBase
         (BlogPost[]? BlogPosts, long Count) result = await _repository.GetListAsync(request);
         return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count, true,
             request.PageSize, request.Current);
+    }
+
+    [HttpGet]
+    [Route("/api/search/")]
+    public async Task<ResponseResult<BlogPostBrief[]?>> ListBrief([FromQuery] string? keywords)
+    {
+        string cacheKey = $"BlogPostController_ListBrief_{keywords}";
+
+        async Task<BlogPostBrief[]?> GetFromDb()
+        {
+            return await _repository.GetListBriefAsync(keywords);
+        }
+
+        BlogPostBrief[]? blogPosts = await _cacheHelper.GetOrCreateAsync(cacheKey,
+            async e => await GetFromDb());
+
+        return ResponseResult<BlogPostBrief[]?>.GetSuccess(blogPosts);
     }
 
 
