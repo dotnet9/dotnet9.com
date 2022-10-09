@@ -18,13 +18,13 @@ public class IndexModel : PageModel
     {
         string cacheKey = "About";
 
-        async Task<About?> GetAboutFromDb()
+        async Task<string?> GetAboutFromDb()
         {
-            return await _repository.GetAsync();
+            var about = await _repository.GetAsync();
+            return about?.Content.Convert2Html();
         }
 
-        About? about = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        ContentHtml = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetAboutFromDb());
-        ContentHtml = about?.Content.Convert2Html();
     }
 }
