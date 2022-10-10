@@ -44,6 +44,18 @@
 
 Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 
+后端API
+
+![](./assets/01-web-api-swagger.gif)
+
+后台前端
+
+![](./assets/02-react-admin.gif)
+
+前台两个版本：Razor Pages和go web
+
+![](./assets/03-front-blog.gif)
+
 ## 🖥 3. 支持环境
 
 - .NET 7.0
@@ -71,7 +83,7 @@ Dotnet9：[https://dotnet9.com](https://dotnet9.com)
 
 MIT
 
-## 最后来几张网站截图
+## 建站文章分享
 
 网站文章介绍：[分享我做Dotnet9博客网站时积累的一些资料](https://dotnet9.com/2022/03/Share-some-learning-materials-I-accumulated-when-I-was-a-blog-website)
 
@@ -84,5 +96,5 @@ MIT
 ## 💕 支持本项目
 
 <div align="center">
-<img src="https://img1.dotnet9.com/pays/WeChatPay.jpg" width="256" alt="Wechat"><img src="https://img1.Dotnet9.com/pays/AliPay.jpg" style="margin-left: 5px; margin-right: 5px;" width="256" alt="Alipay"><img src="https://img1.dotnet9.com/pays/QQPay.jpg" width="256" alt="QQpay">
+<img src="./assets/WeChatPay.jpg" width="256" alt="Wechat"><img src="./assets/AliPay.jpg" style="margin-left: 5px; margin-right: 5px;" width="256" alt="Alipay"><img src="./assets/QQPay.jpg" width="256" alt="QQpay">
 </div>
