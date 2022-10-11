@@ -1,0 +1,52 @@
+﻿@page "/album/{Slug}/"
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@using Dotnet9.Web.ViewModel.Commons
+@model IndexModel
+@{
+    ViewData["Title"] = "专辑";
+}
+
+<h1 class="category-title">专辑：@Model.AlbumName</h1>
+
+<ul class="post-box">
+    @if (Model.BlogPosts?.Any() == false)
+    {
+        <span>没有数据哦</span>
+    }
+    else
+    {
+        @foreach (var blogPost in Model.BlogPosts!)
+        {
+            <li class="post-label">
+                <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
+                    <h2>@blogPost.Title</h2>
+                </a>
+                <p>@blogPost.Description</p>
+                <div class="post-action">
+                    <span>
+                        <i class="iconfont icon-yonghu"></i>
+                        &nbsp; @(blogPost.Original.IsNullOrWhiteSpace() ? SiteOptions.Value.Owner : blogPost.Original)
+                    </span>
+                    <span>
+                        <i class="iconfont icon-wenjianjia"></i>
+                        &nbsp;
+                        @foreach (var cat in blogPost.Categories)
+                        {
+                            <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name</a>
+                        }
+                    </span>
+                    <span>
+                        <i class="iconfont icon-riqi"></i>
+                        &nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
+                    </span>
+                    <span>
+                        <i class="iconfont icon-yanjing"></i>
+                        &nbsp;@blogPost.ViewCount
+                    </span>
+                </div>
+            </li>
+        }
+    }
+</ul>
+
+@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))

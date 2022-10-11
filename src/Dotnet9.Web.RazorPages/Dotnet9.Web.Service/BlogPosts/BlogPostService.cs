@@ -1,8 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.Categories;
-using Dotnet9.WebAPI.ViewModel.BlogPosts;
-using Microsoft.EntityFrameworkCore.Query;
-
-namespace Dotnet9.Web.Service.BlogPosts;
+﻿namespace Dotnet9.Web.Service.BlogPosts;
 
 internal class BlogPostService : IBlogPostService
 {
@@ -81,6 +77,43 @@ internal class BlogPostService : IBlogPostService
                     x.CreationTime,
                     x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
+            request.Current);
+    }
+
+
+    public async Task<GetBlogPostBriefListByAlbumSlugResponse> GetBlogPostBriefListByAlbumSlugAsync(
+        GetBlogPostBriefListByAlbumSlugRequest request)
+    {
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
+        Album? album = await _dbContext.Albums!.FirstOrDefaultAsync(x => x.Slug == request.Slug);
+        if (album == null)
+        {
+            return new GetBlogPostBriefListByAlbumSlugResponse(null, null, 0, false, request.PageSize,
+                request.Current);
+        }
+
+        IQueryable<BlogPost> datasFromDb =
+            query.OrderByDescending(x => x.CreationTime)
+                .Include(blogPost => blogPost.Albums)
+                .Include(blogPost => blogPost.Categories)
+                .Include(blogPost => blogPost.Tags)
+                .Where(x => x.Albums != null && x.Albums.Any(y => y.AlbumId == album.Id) == true);
+
+        int total = await datasFromDb.CountAsync();
+
+        List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
+            .Take(request.PageSize).Select(x =>
+                new BlogPostBriefForFront(
+                    x.Title,
+                    x.Slug,
+                    x.Description,
+                    x.Original,
+                    (from blogPostCategory in x.Categories
+                        join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
+                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0)).ToList(),
+                    x.CreationTime,
+                    x.ViewCount)).ToListAsync();
+        return new GetBlogPostBriefListByAlbumSlugResponse(album.Name, data, total, true, request.PageSize,
             request.Current);
     }
 

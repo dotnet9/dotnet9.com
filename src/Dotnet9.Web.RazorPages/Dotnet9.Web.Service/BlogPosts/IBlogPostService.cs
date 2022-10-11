@@ -7,6 +7,9 @@ public interface IBlogPostService
     Task<GetBlogPostBriefListByCategorySlugResponse> GetBlogPostBriefListByCategorySlugAsync(
         GetBlogPostBriefListByCategorySlugRequest request);
 
+    Task<GetBlogPostBriefListByAlbumSlugResponse> GetBlogPostBriefListByAlbumSlugAsync(
+        GetBlogPostBriefListByAlbumSlugRequest request);
+
     Task<BlogPostDetails?> GetBlogPostDetailsBySlugAsync(string slug);
     Task<bool> IncreaseViewCountAsync(string slug);
     Task<List<BlogPostArchiveItem>?> GetArchivesAsync();
