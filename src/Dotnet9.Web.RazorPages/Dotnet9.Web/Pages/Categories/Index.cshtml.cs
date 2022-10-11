@@ -34,8 +34,7 @@ public class IndexModel : PageModel
 
         async Task<GetBlogPostBriefListByCategorySlugResponse?> GetBlogPostsFromDb()
         {
-            GetBlogPostBriefListByCategorySlugRequest request =
-                new GetBlogPostBriefListByCategorySlugRequest(Slug, Current, PageSize);
+            GetBlogPostBriefListByCategorySlugRequest request = new(Slug, Current, PageSize);
             return await _blogPostService.GetBlogPostBriefListByCategorySlugAsync(request);
         }
 

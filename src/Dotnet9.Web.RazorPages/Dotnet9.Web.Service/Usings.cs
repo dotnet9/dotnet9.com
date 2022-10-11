@@ -1,12 +1,17 @@
 ﻿global using Dotnet9.Commons;
+global using Dotnet9.Web.Service.Albums;
 global using Dotnet9.Web.Service.BlogPosts;
 global using Dotnet9.Web.Service.Categories;
 global using Dotnet9.Web.Service.Links;
+global using Dotnet9.Web.ViewModel.Albums;
 global using Dotnet9.Web.ViewModel.BlogPosts;
 global using Dotnet9.Web.ViewModel.Categories;
 global using Dotnet9.Web.ViewModel.Links;
+global using Dotnet9.WebAPI.Domain.Albums;
 global using Dotnet9.WebAPI.Domain.BlogPosts;
+global using Dotnet9.WebAPI.Domain.Categories;
 global using Dotnet9.WebAPI.Infrastructure;
 global using Dotnet9.WebAPI.ViewModel.Links;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Query;
 global using Microsoft.Extensions.DependencyInjection;
