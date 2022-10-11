@@ -1,4 +1,5 @@
 ﻿using Dotnet9.WebAPI.Domain.Categories;
+using Dotnet9.WebAPI.ViewModel.BlogPosts;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace Dotnet9.Web.Service.BlogPosts;
@@ -34,7 +35,7 @@ internal class BlogPostService : IBlogPostService
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags);
-        List<BlogPostBrief> data = await datasFromDb.Select(x => new BlogPostBrief(
+        List<BlogPostBriefForFront> data = await datasFromDb.Select(x => new BlogPostBriefForFront(
             x.Title,
             x.Slug,
             x.Description,
@@ -67,9 +68,9 @@ internal class BlogPostService : IBlogPostService
 
         int total = await datasFromDb.CountAsync();
 
-        List<BlogPostBrief> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
+        List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
             .Take(request.PageSize).Select(x =>
-                new BlogPostBrief(
+                new BlogPostBriefForFront(
                     x.Title,
                     x.Slug,
                     x.Description,
@@ -99,7 +100,10 @@ internal class BlogPostService : IBlogPostService
             blogPost.Slug,
             blogPost.Description,
             blogPost.Content,
+            blogPost.CopyrightType,
             blogPost.Original,
+            blogPost.OriginalTitle,
+            blogPost.OriginalLink,
             (from blogPostCategory in blogPost.Categories
                 join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                 select new CategoryBrief(category.Slug, category.Name, category.Description)).ToList(),

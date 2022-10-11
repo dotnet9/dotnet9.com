@@ -13,7 +13,7 @@ public class IndexModel : PageModel
         _cacheHelper = cacheHelper;
     }
 
-    public List<BlogPostBrief>? BlogPosts { get; set; }
+    public List<BlogPostBriefForFront>? BlogPosts { get; set; }
 
     [BindProperty(SupportsGet = true)] public string? Keywords { get; set; } = string.Empty;
 

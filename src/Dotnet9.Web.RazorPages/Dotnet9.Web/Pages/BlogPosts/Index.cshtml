@@ -1,5 +1,6 @@
 ﻿@page "/{Year}/{Month}/{Slug}"
 @inject IOptionsSnapshot<SiteOptions> SiteOptions
+
 @model IndexModel
 @{
     ViewData["Title"] = Model.BlogPost?.Title;
@@ -49,7 +50,39 @@
             </span>
         </div>
         <div class="gap-solid"></div>
-        <div id="view-content" class="detail-content">@Html.Raw(@Model.ContentHtml)</div>
+        <div id="view-content" class="detail-content">@Html.Raw(Model.ContentHtml)</div>
+        <div class="share" id="down">
+            <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
+            <div class="share-text">
+                <p>扫码关注Dotnet9微信公众号，第一时间获取网站更新动态</p>
+                @if (Model.BlogPost != null)
+                {
+                    @switch (Model.BlogPost.CopyrightType)
+                    {
+                        case CopyRightType.Reprint:
+                            <p>本文来自转载，如若二次转载请联系原作者。</p>
+                            break;
+                        case CopyRightType.Contribution:
+                            <p>本文来自网友投稿，如若转载请联系原作者。</p>
+                            break;
+                        default:
+                            <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                            break;
+                    }
+                    <p>原文作者：<a style="color: #262626;" href="#">@(Model.BlogPost.Original ?? @SiteOptions.Value.Owner)</a></p>
+                    @if (Model.BlogPost.CopyrightType == CopyRightType.Default)
+                    {
+                        <p>原文标题：<a href="/@Model.BlogPost.CreationTime.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
+                        <p>原文链接：<a href="/@Model.BlogPost.CreationTime.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreationTime:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
+                    }
+                    else
+                    {
+                        <p>原文标题：<a href="@Model.BlogPost.OriginalLink">@(Model.BlogPost.OriginalTitle ?? Model.BlogPost.Title)</a></p>
+                        <p>原文链接：<a href="@Model.BlogPost.OriginalLink">@Model.BlogPost.OriginalLink</a></p>
+                    }
+                }
+            </div>
+        </div>
         @if (SiteOptions.Value.Valine)
         {
             <div class="gap-solid vcomments-gap"></div>
@@ -69,9 +102,10 @@
     <div class="zoom-container"></div>
 </div>
 
-@if (SiteOptions.Value.Valine)
-{
-    <script>
+@section Scripts{
+    @if (SiteOptions.Value.Valine)
+    {
+        <script>
   new Valine({
     el: "#vcomments",
     appId: "@SiteOptions.Value.ValineConfig!.AppId",
@@ -80,4 +114,5 @@
             placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
   });
 </script>
+    }
 }

@@ -15,7 +15,7 @@ public class IndexModel : PageModel
 
     public string? CategoryName { get; set; }
 
-    public List<BlogPostBrief>? BlogPosts { get; set; }
+    public List<BlogPostBriefForFront>? BlogPosts { get; set; }
 
     [BindProperty(SupportsGet = true)] public string Slug { get; set; } = null!;
 
