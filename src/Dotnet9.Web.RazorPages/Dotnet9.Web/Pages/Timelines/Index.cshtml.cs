@@ -12,8 +12,7 @@ public class IndexModel : PageModel
         _cacheHelper = cacheHelper;
     }
 
-    public List<TimelineDto>? LeftTimelines { get; set; }
-    public List<TimelineDto>? RightTimelines { get; set; }
+    public List<TimelineDto>? Timelines { get; set; }
 
     public async Task OnGet()
     {
@@ -25,23 +24,7 @@ public class IndexModel : PageModel
             return data.Timelines?.Select(x => new TimelineDto(x.Id, x.Time, x.Title, x.Content)).ToList();
         }
 
-        var timelines = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        Timelines = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetDataFromDb());
-        if (timelines is { Count: > 0 })
-        {
-            LeftTimelines = new List<TimelineDto>();
-            RightTimelines = new List<TimelineDto>();
-            for (var i = 0; i < timelines.Count; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    LeftTimelines.Add(timelines[i]);
-                }
-                else
-                {
-                    RightTimelines.Add(timelines[i]);
-                }
-            }
-        }
     }
 }

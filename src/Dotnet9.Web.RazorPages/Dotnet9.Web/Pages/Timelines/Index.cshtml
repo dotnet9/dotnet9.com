@@ -2,7 +2,7 @@
 @model IndexModel
 @inject IOptionsSnapshot<SiteOptions> SiteOptions
 @{
-    ViewData["Title"] = "隐私政策";
+    ViewData["Title"] = "时间线";
 }
 
 @section Headers{
@@ -15,45 +15,25 @@
 
 <div class="detail">
     <div class="detail-left">
-
-        <section id="timeline">
-
-            <div class="timeline">
-                <canvas id="cvs3"></canvas>
-                <article>
-                    <h2>学习</h2>
-                    @if (Model.LeftTimelines is {Count:>0})
-                    {
-                        @foreach (var timeline in Model.LeftTimelines)
-                        {
-                            <figure>
-                                <figcaption>@timeline.Title</figcaption>
-                                <h6>@timeline.Time.ToString("yyyy-MM-dd")</h6>
-                                <p>@timeline.Content</p>
-                            </figure>
-                        }
-                    }
-                </article>
-
-                <article>
-                    <h2>进步</h2>
-                    @if (Model.RightTimelines is { Count: > 0 })
-                    {
-                        @foreach (var timeline in Model.RightTimelines)
-                        {
-                            <figure>
-                                <figcaption>@timeline.Title</figcaption>
-                                <h6>@timeline.Time.ToString("yyyy-MM-dd")</h6>
-                                <p>@timeline.Content</p>
-                            </figure>
-                        }
-                    }
-                </article>
-                <br style="clear: both"/>
-            </div>
-
-        </section>
-
+        
+        @if (Model.Timelines is {Count:>0})
+        {
+            <ul class="timeline">
+                @for (var i = 0; i < Model.Timelines.Count; i++)
+                {
+                    <li>
+                        <div class="direction-@(i%2==0?"l":"r")">
+                            <div class="flag-wrapper">
+                                <span class="hexa"></span>
+                                <span class="flag">@Model.Timelines[i].Title</span>
+                                <span class="time-wrapper"><span class="time">@Model.Timelines[i].Time.ToString("yyyy-MM-dd")</span></span>
+                            </div>
+                            <div class="desc">@Model.Timelines[i].Content</div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
 
         @if (SiteOptions.Value.Valine)
         {
@@ -73,8 +53,6 @@
 <div class="zoom-prev">
     <div class="zoom-container"></div>
 </div>
-<script src="js/jquery-1.8.2.min.js"></script>
-<script src="js/timeline.js"></script>
 @if (SiteOptions.Value.Valine)
 {
     <script>
