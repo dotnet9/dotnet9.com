@@ -1,18 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿namespace Dotnet9.Web.Pages;
 
-namespace Dotnet9.Web.Pages;
 public class PrivacyModel : PageModel
 {
-    private readonly ILogger<PrivacyModel> _logger;
+    private readonly IDistributedCacheHelper _cacheHelper;
+    private readonly IPrivacyRepository _repository;
 
-    public PrivacyModel(ILogger<PrivacyModel> logger)
+    public PrivacyModel(IPrivacyRepository repository,
+        IDistributedCacheHelper cacheHelper)
     {
-        _logger = logger;
+        _repository = repository;
+        _cacheHelper = cacheHelper;
     }
 
-    public void OnGet()
+    public string? ContentHtml { get; set; }
+
+    public async Task OnGet()
     {
+        string cacheKey = "Privacy";
+
+        async Task<string?> GetAboutFromDb()
+        {
+            Privacy? about = await _repository.GetAsync();
+            return about?.Content.Convert2Html();
+        }
+
+        ContentHtml = await _cacheHelper.GetOrCreateAsync(cacheKey,
+            async e => await GetAboutFromDb());
     }
 }
-

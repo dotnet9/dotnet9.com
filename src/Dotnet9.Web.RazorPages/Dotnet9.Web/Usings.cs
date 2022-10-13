@@ -6,6 +6,7 @@ global using Dotnet9.Web.Service.BlogPosts;
 global using Dotnet9.Web.ViewModel.Abouts;
 global using Dotnet9.Web.ViewModel.BlogPosts;
 global using Dotnet9.WebAPI.Domain.Abouts;
+global using Dotnet9.WebAPI.Domain.Privacies;
 global using Dotnet9.WebAPI.Domain.UserAdmin;
 global using Dotnet9.WebAPI.Infrastructure;
 global using Markdig;

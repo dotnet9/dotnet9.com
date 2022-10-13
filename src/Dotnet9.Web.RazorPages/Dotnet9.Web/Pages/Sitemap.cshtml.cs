@@ -1,4 +1,4 @@
-namespace Dotnet9.Web.Pages.Abouts;
+namespace Dotnet9.Web.Pages;
 
 public class SitemapModel : PageModel
 {
@@ -18,7 +18,7 @@ public class SitemapModel : PageModel
     {
         const string contentType = "application/xml";
         const string cacheKey = "sitemap.xml";
-        ContentDisposition cd = new ContentDisposition
+        ContentDisposition cd = new()
         {
             FileName = cacheKey,
             Inline = true
@@ -27,7 +27,7 @@ public class SitemapModel : PageModel
 
         async Task<byte[]?> GetSitemap()
         {
-            List<SitemapNode> siteMapNodes = new List<SitemapNode>();
+            List<SitemapNode> siteMapNodes = new();
 
             siteMapNodes.AddRange(await _dbContext.Albums!.Select(x => new SitemapNode
             {
@@ -55,7 +55,7 @@ public class SitemapModel : PageModel
                     Frequency = SitemapFrequency.Daily
                 }).ToListAsync());
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             sb.AppendLine("<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"");
             sb.AppendLine("   xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
