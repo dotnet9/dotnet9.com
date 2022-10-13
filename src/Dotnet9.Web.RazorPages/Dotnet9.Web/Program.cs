@@ -33,7 +33,7 @@ idBuilder.AddEntityFrameworkStores<Dotnet9DbContext>().AddDefaultTokenProviders(
     .AddRoleValidator<RoleValidator<Role>>()
     .AddRoleManager<RoleManager<Role>>()
     .AddUserManager<IdUserManager>();
-
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
