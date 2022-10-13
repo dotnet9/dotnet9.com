@@ -1,0 +1,49 @@
+﻿@page 
+@model DonationModel
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@{
+    ViewData["Title"] = "网站赞助";
+}
+
+@section Headers{
+    <link rel="stylesheet" href="/css/detail.css"/>
+    @if (SiteOptions.Value.Valine)
+    {
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    }
+}
+
+<div class="detail">
+    <div class="detail-left">
+        <div id="view-content" class="detail-content">@Html.Raw(@Model.ContentHtml)</div>
+        @if (SiteOptions.Value.Valine)
+        {
+            <div class="gap-solid vcomments-gap"></div>
+            <div id="vcomments" class="vcomments"></div>
+            <div class="vcomments-copyright">评论由Valine提供支持</div>
+        }
+    </div>
+    <div class="detail-right">
+        <div class="toc-card">
+            <h1 class="toc-card-list">目录</h1>
+            <div class="toc-box" id="toc-box"></div>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-prev">
+    <div class="zoom-container"></div>
+</div>
+
+@if (SiteOptions.Value.Valine)
+{
+    <script>
+        new Valine({
+            el: "#vcomments",
+            appId: "@SiteOptions.Value.ValineConfig!.AppId",
+            appKey: "@SiteOptions.Value.ValineConfig.AppKey",
+            serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
+            placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
+        });
+    </script>
+}

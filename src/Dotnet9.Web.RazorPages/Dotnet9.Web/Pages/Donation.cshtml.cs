@@ -1,11 +1,11 @@
-﻿namespace Dotnet9.Web.Pages;
+namespace Dotnet9.Web.Pages;
 
-public class PrivacyModel : PageModel
+public class DonationModel : PageModel
 {
     private readonly IDistributedCacheHelper _cacheHelper;
-    private readonly IPrivacyRepository _repository;
+    private readonly IDonationRepository _repository;
 
-    public PrivacyModel(IPrivacyRepository repository,
+    public DonationModel(IDonationRepository repository,
         IDistributedCacheHelper cacheHelper)
     {
         _repository = repository;
