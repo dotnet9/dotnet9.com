@@ -1,0 +1,117 @@
+﻿@font-face {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/lato/v23/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/raleway/v28/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrQ.ttf) format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    color: #2c2c2c;
+    min-width: 600px;
+    height: 100%;
+    background: white;
+    font: 400 1em "Lato";
+    -webkit-font-smoothing: antialiased;
+}
+
+#timeline {
+    padding-top: 5%;
+}
+
+.timeline {
+    height: 100%;
+    position: relative;
+}
+
+    .timeline canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+
+    .timeline figcaption {
+        font: 900 100% "Lato";
+        text-transform: uppercase;
+        -webkit-text-stroke: 0.25px;
+    }
+
+    .timeline h2 {
+        font: 400 400% "Raleway";
+        padding-bottom: 100px;
+        color: #b2cde9;
+    }
+
+    .timeline h6 {
+        color: #0090f5;
+        font: 400 80% Tahoma;
+    }
+
+    .timeline p,
+    .timeline ol {
+        font: 400 95% "Raleway";
+        padding: 3px 0 20px 0;
+        color: #575757;
+        text-align: justify;
+        width: 70%;
+    }
+
+    .timeline ol {
+        list-style: disc;
+        margin-top: -20px;
+        padding-left: 40px;
+    }
+
+    .timeline figure {
+        float: right;
+        width: 100%;
+    }
+
+    .timeline article {
+        position: relative;
+        width: 38%;
+        overflow: hidden;
+        margin-bottom: 100px;
+    }
+
+        .timeline article:first-of-type {
+            float: left;
+            text-align: right;
+        }
+
+            .timeline article:first-of-type p,
+            .timeline article:first-of-type figure {
+                float: right;
+            }
+
+        .timeline article:last-of-type {
+            float: right;
+        }
+
+            .timeline article:last-of-type h2 {
+                color: #c6e0aa;
+            }
+
+            .timeline article:last-of-type h6,
+            .timeline article:last-of-type a {
+                color: #40aa00;
+            }
+
+                .timeline article:last-of-type a:hover {
+                    color: #95d40d;
+                }

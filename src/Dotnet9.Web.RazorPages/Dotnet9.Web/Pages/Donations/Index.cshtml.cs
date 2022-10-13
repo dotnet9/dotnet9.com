@@ -1,11 +1,11 @@
-namespace Dotnet9.Web.Pages;
+namespace Dotnet9.Web.Pages.Donations;
 
-public class DonationModel : PageModel
+public class IndexModel : PageModel
 {
     private readonly IDistributedCacheHelper _cacheHelper;
     private readonly IDonationRepository _repository;
 
-    public DonationModel(IDonationRepository repository,
+    public IndexModel(IDonationRepository repository,
         IDistributedCacheHelper cacheHelper)
     {
         _repository = repository;

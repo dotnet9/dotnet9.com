@@ -1,0 +1,89 @@
+﻿@page "/timeline"
+@model IndexModel
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@{
+    ViewData["Title"] = "隐私政策";
+}
+
+@section Headers{
+    <link rel="stylesheet" href="/css/timeline.css"/>
+    @if (SiteOptions.Value.Valine)
+    {
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    }
+}
+
+<div class="detail">
+    <div class="detail-left">
+
+        <section id="timeline">
+
+            <div class="timeline">
+                <canvas id="cvs3"></canvas>
+                <article>
+                    <h2>学习</h2>
+                    @if (Model.LeftTimelines is {Count:>0})
+                    {
+                        @foreach (var timeline in Model.LeftTimelines)
+                        {
+                            <figure>
+                                <figcaption>@timeline.Title</figcaption>
+                                <h6>@timeline.Time.ToString("yyyy-MM-dd")</h6>
+                                <p>@timeline.Content</p>
+                            </figure>
+                        }
+                    }
+                </article>
+
+                <article>
+                    <h2>进步</h2>
+                    @if (Model.RightTimelines is { Count: > 0 })
+                    {
+                        @foreach (var timeline in Model.RightTimelines)
+                        {
+                            <figure>
+                                <figcaption>@timeline.Title</figcaption>
+                                <h6>@timeline.Time.ToString("yyyy-MM-dd")</h6>
+                                <p>@timeline.Content</p>
+                            </figure>
+                        }
+                    }
+                </article>
+                <br style="clear: both"/>
+            </div>
+
+        </section>
+
+
+        @if (SiteOptions.Value.Valine)
+        {
+            <div class="gap-solid vcomments-gap"></div>
+            <div id="vcomments" class="vcomments"></div>
+            <div class="vcomments-copyright">评论由Valine提供支持</div>
+        }
+    </div>
+    <div class="detail-right">
+        <div class="toc-card">
+            <h1 class="toc-card-list">目录</h1>
+            <div class="toc-box" id="toc-box"></div>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-prev">
+    <div class="zoom-container"></div>
+</div>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/timeline.js"></script>
+@if (SiteOptions.Value.Valine)
+{
+    <script>
+        new Valine({
+            el: "#vcomments",
+            appId: "@SiteOptions.Value.ValineConfig!.AppId",
+            appKey: "@SiteOptions.Value.ValineConfig.AppKey",
+            serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
+            placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
+        });
+    </script>
+}
