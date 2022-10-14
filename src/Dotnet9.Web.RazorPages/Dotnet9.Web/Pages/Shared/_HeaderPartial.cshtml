@@ -5,25 +5,48 @@
         <div class="header-left">
             <h1>
                 <a href="/">
-                    <img class="logo-img" src="@SiteOptions.Value.Logo" alt="@SiteOptions.Value.AppName" />
+                    <img class="logo-img" src="@SiteOptions.Value.Logo" alt="@SiteOptions.Value.AppName"/>
                 </a>
             </h1>
             <!-- 导航 -->
-            <ul class="header-nav">
-                <li><a href="/">首页</a></li>
-                <li><a href="/cat/dotnet">Dotnet</a></li>
-                <li><a href="https://go.dotnet9.com">Go版本</a></li>
-                <li><a href="/archive">归档</a></li>
-                <li><a href="/donation">网站赞助</a></li>
-                <li><a href="/timeline">时间线</a></li>
-                <li><a href="/about">关于</a></li>
-                <li><a href="https://github.com/dotnet9/Dotnet9/issues" target="_blank">Bug反馈</a></li>
-                <li><a href="/rss" target="_blank">Rss</a></li>
+            <ul class="menu">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                <li>
+                    <a href="https://go.dotnet9.com">Go版本</a>
+                </li>
+                <li>
+                    <a href="/archive">归档</a>
+                </li>
+                <li>
+                    <a href="/about">关于</a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="/about">关于本站</a>
+                        </li>
+                        <li>
+                            <a href="/timeline">时间线</a>
+                        </li>
+                        <li>
+                            <a href="/donation">网站赞助</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/dotnet9">网站源码</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://github.com/dotnet9/Dotnet9/issues" target="_blank">Bug反馈</a>
+                </li>
+                <li>
+                    <a href="/rss" target="_blank">Rss</a>
+                </li>
             </ul>
         </div>
         <div class="header-right">
             <div class="header-search">
-                <input id="search-input" type="text" placeholder="搜索一下" />
+                <input id="search-input" type="text" placeholder="搜索一下"/>
                 <i class="iconfont icon-search"></i>
                 <div class="search-drop"></div>
             </div>
@@ -31,10 +54,13 @@
                 <button class="login-btn">登录</button>
             </a>
             <div class="login-end">
-                <p class="iconfont icon-yonghu"><span class="login-username"></span></p>
+                <p class="iconfont icon-yonghu">
+                    <span class="login-username"></span>
+                </p>
                 <ul class="login-drop">
                     <a href="/writing">
-                    <li>写作</li></a>
+                        <li>写作</li>
+                    </a>
                     <li class="login-out">退出登录</li>
                 </ul>
             </div>
