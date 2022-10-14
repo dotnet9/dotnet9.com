@@ -5,6 +5,7 @@ namespace Dotnet9.Commons;
 public class SiteOptions
 {
     public string? AppName { get; set; }
+    public string? Subheading { get; set; }
     public string? Description { get; set; }
     public string Domain { get; set; } = null!;
     public string? BeiAn { get; set; }
