@@ -1,4 +1,19 @@
 ﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@inject IAlbumService AlbumService
+@inject IDistributedCacheHelper CacheHelper
+
+@{
+    const string cacheKeyForAlbums = "PersonalPartial_Albums";
+
+    async Task<List<AlbumBrief>?> GetAlbumFromDb()
+    {
+        return await AlbumService.GetAlbumsAsync();
+    }
+
+    var albums = await CacheHelper.GetOrCreateAsync(cacheKeyForAlbums,
+        async e => await GetAlbumFromDb());
+}
+
 <header>
     <div class="header-wrap">
         <!-- logo -->
@@ -14,13 +29,24 @@
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="https://go.dotnet9.com">Go版本</a>
+                    <a href="#">专辑</a>
+                    <ul class="submenu">
+                        @if (albums != null)
+                        {
+                            @foreach (var album in albums)
+                            {
+                                <li>
+                                    <a href="/album/@album.Slug" title="@album.Description">@album.Name (@album.BlogCount)</a>
+                                </li>
+                            }
+                        }
+                    </ul>
                 </li>
                 <li>
                     <a href="/archive">归档</a>
                 </li>
                 <li>
-                    <a href="/about">关于</a>
+                    <a href="#">关于</a>
                     <ul class="submenu">
                         <li>
                             <a href="/about">关于本站</a>
@@ -32,7 +58,10 @@
                             <a href="/donation">网站赞助</a>
                         </li>
                         <li>
-                            <a href="https://github.com/dotnet9">网站源码</a>
+                            <a href="https://github.com/dotnet9" target="_blank">网站源码</a>
+                        </li>
+                        <li>
+                            <a href="https://go.dotnet9.com">Go版本</a>
                         </li>
                     </ul>
                 </li>

@@ -19,6 +19,10 @@ public class SiteOptions
     public string Owner { get; set; } = null!;
     public string? OwnerAvatar { get; set; }
     public string? OwnerDesc { get; set; }
+    public string? WechatPublic1Name { get; set; }
+    public string? WechatPublic1 { get; set; }
+    public string? WechatPublic2Name { get; set; }
+    public string? WechatPublic2 { get; set; }
     public int Start { get; set; }
     public string? Bilibili { get; set; }
     public string? Zhihu { get; set; }

@@ -210,10 +210,9 @@ header {
     display: block;
     font-family: 'Lucida Console';
     font-size: 16px;
-    line-height: 54px;
+    line-height: 44px;
     padding: 0 15px;
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 .menu li:hover > a { color: #C4302B; }
@@ -654,7 +653,7 @@ header {
     font-size: 12px;
     line-height: 18px;
     margin-top: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .personal-action {
