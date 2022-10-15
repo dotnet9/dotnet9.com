@@ -1,0 +1,79 @@
+﻿@page "/tag/{Name?}/"
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@using Dotnet9.Web.ViewModel.Commons
+@model IndexModel
+@{
+    ViewData["Title"] = "标签" + (Model.Name.IsNullOrWhiteSpace() ? "云" : "");
+
+    var buttonsClasses = new[]
+    {
+        "#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+        "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
+        "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
+        "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
+        "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"
+    };
+}
+
+@if (Model.Name.IsNullOrWhiteSpace())
+{
+    <h1 class="category-title">标签云</h1>
+    @if (Model.Tags is {Count:>0})
+    {
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name" style="color: white;background-color: @(buttonsClasses[Random.Shared.Next(buttonsClasses.Length)]); height: 30px; line-height: 30px; margin: 12px 5px; padding: 5px;">
+                @tag.Name (@tag.BlogCount)
+            </a>
+        }
+    }
+    else
+    {
+        <span>没有数据哦</span>
+    }
+}
+else
+{
+    <h1 class="category-title">标签：@Model.Name</h1>
+    @if (Model.BlogPosts is {Count:>0})
+    {
+        <ul class="post-box">
+            @foreach (var blogPost in Model.BlogPosts!)
+            {
+                <li class="post-label">
+                    <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
+                        <h2>@blogPost.Title</h2>
+                    </a>
+                    <p>@blogPost.Description</p>
+                    <div class="post-action">
+                        <span>
+                            <i class="iconfont icon-yonghu"></i>
+                            &nbsp; @(blogPost.Original.IsNullOrWhiteSpace() ? SiteOptions.Value.Owner : blogPost.Original)
+                        </span>
+                        <span>
+                            <i class="iconfont icon-wenjianjia"></i>
+                            &nbsp;
+                            @foreach (var cat in blogPost.Categories)
+                            {
+                                <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name</a>
+                            }
+                        </span>
+                        <span>
+                            <i class="iconfont icon-riqi"></i>
+                            &nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
+                        </span>
+                        <span>
+                            <i class="iconfont icon-yanjing"></i>
+                            &nbsp;@blogPost.ViewCount
+                        </span>
+                    </div>
+                </li>
+            }
+        </ul>
+        @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
+    }
+    else
+    {
+        <span>没有数据哦</span>
+    }
+}
