@@ -58,7 +58,7 @@ function loginLogic() {
     // md5加密
     var MD5Passwd = new Hashes.MD5().hex(passwd + SALT);
     $.ajax({
-      url: "http://127.0.0.1:5141/api/login/account",
+        url: "http://127.0.0.1:5005/api/login/account",   // 调试时写全URLhttp://127.0.0.1:5005/api/login/account，发布时改为/api/login/account
       data: JSON.stringify({ username: name, password: passwd, type: "account", autologin: false }),
       contentType: "application/json",
       type: "POST",
