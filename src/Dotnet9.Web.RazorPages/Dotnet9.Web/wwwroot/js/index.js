@@ -5,7 +5,7 @@ var SALT = "dotnet9"; // 加盐
 $(function () {
   // 登录
   loginLogic();
-  // 归档
+  // 翻页
   pagination();
   // toc
   tocInit();
