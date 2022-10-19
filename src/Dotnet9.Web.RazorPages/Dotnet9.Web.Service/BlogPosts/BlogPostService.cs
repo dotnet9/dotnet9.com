@@ -28,6 +28,7 @@ internal class BlogPostService : IBlogPostService
         int total = await query.CountAsync();
         IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb =
             query.OrderByDescending(x => x.CreationTime)
+                .ThenByDescending(x => x.ViewCount)
                 .Skip((request.Current - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Include(blogPost => blogPost.Albums)
@@ -95,7 +96,7 @@ internal class BlogPostService : IBlogPostService
         }
 
         IQueryable<BlogPost> datasFromDb =
-            query.OrderByDescending(x => x.CreationTime)
+            query.OrderBy(x => x.CreationTime)
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)
@@ -133,6 +134,7 @@ internal class BlogPostService : IBlogPostService
 
         IQueryable<BlogPost> datasFromDb =
             query.OrderByDescending(x => x.CreationTime)
+                .ThenByDescending(x => x.ViewCount)
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)
