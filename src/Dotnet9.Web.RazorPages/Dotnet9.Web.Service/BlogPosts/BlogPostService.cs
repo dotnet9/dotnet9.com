@@ -11,6 +11,24 @@ internal class BlogPostService : IBlogPostService
         _dbContext = dbContext;
     }
 
+
+    public async Task<List<BlogPostBriefForFront>?> GetTop10NewBlogPostBriefListAsync()
+    {
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
+        List<BlogPostBriefForFront> datasFromDb = await
+            _dbContext.BlogPosts!.OrderByDescending(x => x.CreationTime).Take(10).Select(x => new BlogPostBriefForFront(
+                x.Title,
+                x.Slug,
+                x.Description,
+                x.Original,
+                (from blogPostCategory in x.Categories
+                    join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                    select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
+                x.CreationTime,
+                x.ViewCount)).ToListAsync();
+        return datasFromDb;
+    }
+
     public async Task<GetBlogPostBriefListResponse> GetBlogPostBriefListAsync(GetBlogPostBriefListRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
@@ -27,8 +45,8 @@ internal class BlogPostService : IBlogPostService
 
         int total = await query.CountAsync();
         IIncludableQueryable<BlogPost, List<BlogPostTag>?> datasFromDb =
-            query.OrderByDescending(x => x.CreationTime)
-                .ThenByDescending(x => x.ViewCount)
+            query.OrderByDescending(x => x.ViewCount)
+                .ThenByDescending(x => x.CreationTime)
                 .Skip((request.Current - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Include(blogPost => blogPost.Albums)
@@ -59,7 +77,8 @@ internal class BlogPostService : IBlogPostService
         }
 
         IQueryable<BlogPost> datasFromDb =
-            query.OrderByDescending(x => x.CreationTime)
+            query.OrderByDescending(x => x.ViewCount)
+                .ThenByDescending(x => x.CreationTime)
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)
@@ -133,8 +152,8 @@ internal class BlogPostService : IBlogPostService
         }
 
         IQueryable<BlogPost> datasFromDb =
-            query.OrderByDescending(x => x.CreationTime)
-                .ThenByDescending(x => x.ViewCount)
+            query.OrderByDescending(x => x.ViewCount)
+                .ThenByDescending(x => x.CreationTime)
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)

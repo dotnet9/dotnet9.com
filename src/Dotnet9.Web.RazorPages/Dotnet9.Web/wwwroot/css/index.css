@@ -563,7 +563,25 @@ header {
 
 .post-box { list-style: none; }
 
-.post-label + .post-label { border-top: 1px solid #f1f1f1; }
+.new-post-container {
+    color: #86909c;
+    font-size: 20px;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+.new-post-label .post-label + .post-label {
+    border-top: 1px solid #f1f1f1;
+}
+
+.new-post-label {
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: 40px;
+    margin-bottom: 4px;
+    margin-top: 12px;
+    width: 100%;
+}
 
 .post-label h2 {
     font-size: 18px;

@@ -6,6 +6,22 @@
     ViewData["Title"] = "首页";
 }
 
+@if (Model.NewTop10BlogPosts is {Count:>0})
+{
+    <h1 class="category-title">最新文章</h1>
+
+    <ol class="new-post-container">
+        @foreach (var blogPost in Model.NewTop10BlogPosts)
+        {
+            <li class="new-post-label">
+                <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
+                    <h2>@blogPost.Title&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")</h2>
+                </a>
+            </li>
+        }
+    </ol>
+}
+
 <ul class="post-box">
     @if (Model.BlogPosts?.Any() == false)
     {
@@ -13,6 +29,10 @@
     }
     else
     {
+        @if (Model.NewTop10BlogPosts is {Count:>0})
+        {
+            <h1 class="category-title">以下文章以点击量排序</h1>
+        }
         @foreach (var blogPost in Model.BlogPosts!)
         {
             <li class="post-label">

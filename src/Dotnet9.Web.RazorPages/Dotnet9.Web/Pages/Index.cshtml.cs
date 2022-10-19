@@ -13,6 +13,7 @@ public class IndexModel : PageModel
         _cacheHelper = cacheHelper;
     }
 
+    public List<BlogPostBriefForFront>? NewTop10BlogPosts { get; set; }
     public List<BlogPostBriefForFront>? BlogPosts { get; set; }
 
     [BindProperty(SupportsGet = true)] public string? Keywords { get; set; } = string.Empty;
@@ -28,15 +29,31 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        string cacheKey = $"BlogPostBriefList_{Keywords}_{Current}_{PageSize}";
+        string newTop10BlogPostKey = "NewTop10BlogPost";
+        string cacheListBlogPostKey = $"BlogPostBriefList_{Keywords}_{Current}_{PageSize}";
+
+        async Task<List<BlogPostBriefForFront>?> GetNewTop10BlogPostsFromDb()
+        {
+            return await _blogPostService.GetTop10NewBlogPostBriefListAsync();
+        }
 
         async Task<GetBlogPostBriefListResponse?> GetBlogPostsFromDb()
         {
-            GetBlogPostBriefListRequest request = new GetBlogPostBriefListRequest(Keywords, Current, PageSize);
+            GetBlogPostBriefListRequest request = new(Keywords, Current, PageSize);
             return await _blogPostService.GetBlogPostBriefListAsync(request);
         }
 
-        GetBlogPostBriefListResponse? response = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        if (Current <= 1)
+        {
+            NewTop10BlogPosts =
+                await _cacheHelper.GetOrCreateAsync(newTop10BlogPostKey, async e => await GetNewTop10BlogPostsFromDb());
+        }
+        else
+        {
+            NewTop10BlogPosts = null;
+        }
+
+        GetBlogPostBriefListResponse? response = await _cacheHelper.GetOrCreateAsync(cacheListBlogPostKey,
             async e => await GetBlogPostsFromDb());
 
 
