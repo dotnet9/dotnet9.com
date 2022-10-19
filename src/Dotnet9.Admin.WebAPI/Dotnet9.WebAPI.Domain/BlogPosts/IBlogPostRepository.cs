@@ -11,4 +11,5 @@ public interface IBlogPostRepository
     Task<BlogPost?> FindByIdAsync(Guid id);
     Task<BlogPost?> FindByTitleAsync(string name);
     Task<BlogPost?> FindBySlugAsync(string slug);
+    Task<bool> IncreaseViewCountAsync(string slug);
 }

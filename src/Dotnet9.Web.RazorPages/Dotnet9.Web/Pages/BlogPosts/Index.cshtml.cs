@@ -1,13 +1,18 @@
+using Dotnet9.EventBus;
+using Dotnet9.Web.Events;
+
 namespace Dotnet9.Web.Pages.BlogPosts;
 
 public class IndexModel : PageModel
 {
     private readonly IDistributedCacheHelper _cacheHelper;
+    private readonly IEventBus _eventBus;
     private readonly IBlogPostService _service;
 
-    public IndexModel(IBlogPostService service, IDistributedCacheHelper cacheHelper)
+    public IndexModel(IBlogPostService service, IEventBus eventBus, IDistributedCacheHelper cacheHelper)
     {
         _service = service;
+        _eventBus = eventBus;
         _cacheHelper = cacheHelper;
     }
 
@@ -29,5 +34,6 @@ public class IndexModel : PageModel
         BlogPost = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetBlogPostFromDb());
         ContentHtml = BlogPost?.Content.Convert2Html();
+        _eventBus.Publish("Dotnet9.Web.BlogPosts.OnGet", new ReadBlogPostEvent(Slug));
     }
 }

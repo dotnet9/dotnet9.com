@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Web.Service.BlogPosts;
+﻿using Dotnet9.WebAPI.Domain.Tags;
+
+namespace Dotnet9.Web.Service.BlogPosts;
 
 internal class BlogPostService : IBlogPostService
 {
@@ -122,7 +124,7 @@ internal class BlogPostService : IBlogPostService
         GetBlogPostBriefListByTagNameRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
-        var tag = await _dbContext.Tags!.FirstOrDefaultAsync(x => x.Name == request.Name);
+        Tag? tag = await _dbContext.Tags!.FirstOrDefaultAsync(x => x.Name == request.Name);
         if (tag == null)
         {
             return new GetBlogPostBriefListByTagNameResponse(null, 0, false, request.PageSize,
@@ -179,18 +181,6 @@ internal class BlogPostService : IBlogPostService
                 select new CategoryBrief(category.Slug, category.Name, category.Description)).ToList(),
             blogPost.CreationTime,
             blogPost.ViewCount);
-    }
-
-    public async Task<bool> IncreaseViewCountAsync(string slug)
-    {
-        BlogPost? blogPost = await _dbContext.BlogPosts!.FirstOrDefaultAsync(x => x.Slug == slug);
-        if (blogPost == null)
-        {
-            return false;
-        }
-
-        blogPost.IncreaseViewCount();
-        return await _dbContext.SaveChangesAsync() > 0;
     }
 
     public async Task<List<BlogPostArchiveItem>?> GetArchivesAsync()

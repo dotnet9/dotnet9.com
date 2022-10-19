@@ -119,4 +119,16 @@ internal class BlogPostRepository : IBlogPostRepository
                 new BlogPostBrief(x.CreationTime.ToString("yyyy"), x.CreationTime.ToString("MM"), x.Slug, x.Title))
             .ToArrayAsync();
     }
+
+    public async Task<bool> IncreaseViewCountAsync(string slug)
+    {
+        BlogPost? blogPost = await _dbContext.BlogPosts!.FirstOrDefaultAsync(x => x.Slug == slug);
+        if (blogPost == null)
+        {
+            return false;
+        }
+
+        blogPost.IncreaseViewCount();
+        return await _dbContext.SaveChangesAsync() > 0;
+    }
 }
