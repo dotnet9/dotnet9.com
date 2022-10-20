@@ -1,34 +1,221 @@
 ﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
 @inject IAlbumService AlbumService
+@inject ICategoryService CategoryService
 @inject IDistributedCacheHelper CacheHelper
 
 @{
-    const string cacheKeyForAlbums = "PersonalPartial_Albums";
+    const string cacheKeyForAlbums = "_HeaderPartial";
+    List<AlbumBrief>? albums = null;
+    List<CategoryBriefForMenu>? categories = null;
 
-    async Task<List<AlbumBrief>?> GetAlbumFromDb()
+    async Task<bool> GetDataFromDb()
     {
-        return await AlbumService.GetAlbumsAsync();
+        albums = await AlbumService.GetAlbumsAsync();
+        categories = await CategoryService.GetCategoriesForMenuAsync();
+        return true;
     }
 
-    var albums = await CacheHelper.GetOrCreateAsync(cacheKeyForAlbums,
-        async e => await GetAlbumFromDb());
+    await CacheHelper.GetOrCreateAsync(cacheKeyForAlbums,
+        async e => await GetDataFromDb());
 }
 
-<div class="logo-section box">
-    <div class="search">
-        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
-            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
-                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
-                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-            <input name="show" value="title" type="hidden">
-            <input name="tempid" value="1" type="hidden">
-            <input name="tbname" value="news" type="hidden">
-            <input name="Submit" class="input_submit" value="搜索" type="submit">
-        </form>
+<header>
+
+    <div class="logo-section box">
+        <div class="search">
+            <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
+                       onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
+                       onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="logo">
+            <a href="#">
+                <img src="images/logo.png">
+                <h2 class="logo-title">@SiteOptions.Value.AppName</h2>
+                <p class="logo-text">@SiteOptions.Value.Subheading</p>
+            </a>
+        </div>
     </div>
-    <div class="logo"><a href="#"><img src="images/logo.png">
-            <h2 class="logo-title">@SiteOptions.Value.AppName</h2>
-        <p class="logo-text">@SiteOptions.Value.Subheading</p>
-    </a> </div>
-</div>
-<div class="clear"></div>
+    <div class="clear"></div>
+
+    <div class="topnav">
+        <h2>@SiteOptions.Value.AppName</h2>
+        <nav>
+
+            <ul id="starlist">
+                <li>
+                    <a href="/">网站首页</a>
+                </li>
+                @if (albums is { Count: > 0 })
+                {
+                    <li class="menu">
+                        <a href="/album">特色专辑</a>
+                        <ul class="sub">
+                            @foreach (var album in albums)
+                            {
+                                <li>
+                                    <a href="/album/@album.Slug">@album.Name</a>
+                                </li>
+                            }
+                        </ul>
+                        <span></span>
+                    </li>
+                }
+                @if (categories is { Count: > 0 })
+                {
+                    @foreach (var rootCategory in categories)
+                    {
+                        <li class="menu">
+                            <a href="/cat/@rootCategory.Slug">@rootCategory.Name</a>
+                            @if (rootCategory.Children is { Length: > 0 })
+                            {
+                                <ul class="sub">
+                                    @foreach (var c in rootCategory.Children)
+                                    {
+                                        <li>
+                                            <a href="/cat/@c.Slug">@c.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                                <span></span>
+                            }
+                        </li>
+                    }
+                }
+                <li class="menu">
+                    <a href="/about">关于我们</a>
+                    <ul class="sub">
+                        <li>
+                            <a href="/about">关于我们</a>
+                        </li>
+                        <li>
+                            <a href="/donation">赞助我们</a>
+                        </li>
+                        <li>
+                            <a href="/archive">文章归档</a>
+                        </li>
+                        <li>
+                            <a href="/timeline">时间轴</a>
+                        </li>
+                        <li>
+                            <a href="/sitemap.xml">站点地图</a>
+                        </li>
+                        <li>
+                            <a href="/tag">标签云</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/dotnet9/Dotnet9">网站源码</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/dotnet9/Dotnet9/issues">Bug反馈</a>
+                        </li>
+                        <li>
+                            <a href="https://go.dotnet9.com">Go版博客</a>
+                        </li>
+                        <li>
+                            <a href="/privacy">隐私政策</a>
+                        </li>
+                    </ul>
+                    <span></span>
+                </li>
+            </ul>
+        </nav>
+        <h2 id="mnavh">
+            <span class="navicon"></span>
+        </h2>
+    </div>
+
+    <div class="is-search">
+        <section><i></i>请输入关键字词</section>
+    </div>
+    <div class="search-page">
+        <div class="go-left"></div>
+        <div class="search">
+            <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+                <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
+                       onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
+                       onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input name="show" value="title" type="hidden">
+                <input name="tempid" value="1" type="hidden">
+                <input name="tbname" value="news" type="hidden">
+                <input name="Submit" class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+        <div class="clear"></div>
+        <div class="hot-search">
+            <p>热门搜索排行</p>
+            <ul class="search-paihang">
+                <li>
+                    <a href="/"><i>1</i>帝国</a>
+                </li>
+                <li>
+                    <a href="/"><i>2</i>模板</a>
+                </li>
+                <li>
+                    <a href="/"><i>3</i>博客</a>
+                </li>
+                <li>
+                    <a href="/"><i>4</i>后台</a>
+                </li>
+                <li>
+                    <a href="/"><i>5</i>html</a>
+                </li>
+                <li>
+                    <a href="/"><i>6</i>绅士</a>
+                </li>
+                <li>
+                    <a href="/"><i>7</i>cms</a>
+                </li>
+                <li>
+                    <a href="/"><i>8</i>支持</a>
+                </li>
+                <li>
+                    <a href="/"><i>9</i>早安</a>
+                </li>
+                <li>
+                    <a href="/"><i>10</i>个人</a>
+                </li>
+            </ul>
+        </div>
+        <div class="new-search">
+            <p>最新搜索排行</p>
+            <ul class="search-paihang">
+                <li>
+                    <a href=""><i>1</i>函数</a>
+                </li>
+                <li>
+                    <a href="/"><i>2</i>博客程序</a>
+                </li>
+                <li>
+                    <a href="/"><i>3</i>解析</a>
+                </li>
+                <li>
+                    <a href="/"><i>4</i>红色</a>
+                </li>
+                <li>
+                    <a href="/"><i>5</i>告别2018</a>
+                </li>
+                <li>
+                    <a href="/"><i>6</i>插件</a>
+                </li>
+                <li>
+                    <a href="/"><i>7</i>网页布局</a>
+                </li>
+                <li>
+                    <a href="/"><i>8</i>云服务器</a>
+                </li>
+                <li>
+                    <a href="/"><i>9</i>with love for you</a>
+                </li>
+                <li>
+                    <a href="/"><i>10</i>评论插件</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

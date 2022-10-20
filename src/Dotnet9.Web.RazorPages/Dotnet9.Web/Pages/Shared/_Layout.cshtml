@@ -13,12 +13,12 @@
     @await RenderSectionAsync("Headers", false)
 </head>
 <body>
-<header>
-    @await Html.PartialAsync("_HeaderPartial")
-    @await Html.PartialAsync("_MenuPartial")
-</header>
-@RenderBody()
-
+@await Html.PartialAsync("_HeaderPartial")
+<div class="clear blank"></div>
+<article>
+    @RenderBody()
+</article>
+@await Html.PartialAsync("_FooterPartial")
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/index.js"></script>
@@ -35,6 +35,6 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
         crossorigin="anonymous"></script>
 
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
