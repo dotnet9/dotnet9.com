@@ -3,4 +3,5 @@
 public interface ICategoryService
 {
     Task<List<CategoryBrief>> GetCategoriesAsync();
+    Task<List<CategoryBriefForMenu>?> GetCategoriesForMenuAsync();
 }

@@ -5,12 +5,25 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - @SiteOptions.Value.AppName</title>
-    <meta name="keywords" content="@ViewData["Keywords"]" />
-    <meta name="description" content="@ViewData["Description"]" />
+    <meta name="keywords" content="@ViewData["Keywords"]"/>
+    <meta name="description" content="@ViewData["Description"]"/>
     <link rel="stylesheet" href="css/base.css"/>
     <link rel="stylesheet" href="css/m.css"/>
     <link rel="icon" href="/images/favicon.png" asp-append-version="true"/>
-    <script>
+    @await RenderSectionAsync("Headers", false)
+</head>
+<body>
+<header>
+    @await Html.PartialAsync("_HeaderPartial")
+    @await Html.PartialAsync("_MenuPartial")
+</header>
+@RenderBody()
+
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/index.js"></script>
+
+<script>
         var _hmt = _hmt || [];
         (function () {
             var hm = document.createElement("script");
@@ -19,24 +32,8 @@
             s.parentNode.insertBefore(hm, s);
         })();
     </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
-            crossorigin="anonymous"></script>
-    @await RenderSectionAsync("Headers", false)
-</head>
-<body>
-
-@await Html.PartialAsync("_HeaderPartial")
-<main class="container">
-    <div class="container-left">@await Html.PartialAsync("_PersonalPartial")</div>
-    <div class="container-right">
-        @RenderBody()
-    </div>
-</main>
-@await Html.PartialAsync("_FooterPartial")
-
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/index.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+        crossorigin="anonymous"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>

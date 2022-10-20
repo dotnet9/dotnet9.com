@@ -14,93 +14,21 @@
         async e => await GetAlbumFromDb());
 }
 
-<header>
-    <div class="header-wrap">
-        <!-- logo -->
-        <div class="header-left">
-            <h1>
-                <a href="/">
-                    <img class="logo-img" src="@SiteOptions.Value.Logo" alt="@SiteOptions.Value.AppName"/>
-                </a>
-            </h1>
-            <!-- 导航 -->
-            <ul class="menu">
-                <li>
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="#">专辑</a>
-                    <ul class="submenu">
-                        @if (albums != null)
-                        {
-                            @foreach (var album in albums)
-                            {
-                                <li>
-                                    <a href="/album/@album.Slug" title="@album.Description">@album.Name (@album.BlogCount)</a>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">归档</a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="/archive">归档</a>
-                        </li>
-                        <li>
-                            <a href="/tag">标签云</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">关于</a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="/about">关于本站</a>
-                        </li>
-                        <li>
-                            <a href="/timeline">时间线</a>
-                        </li>
-                        <li>
-                            <a href="/donation">网站赞助</a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/dotnet9" target="_blank">网站源码</a>
-                        </li>
-                        <li>
-                            <a href="https://go.dotnet9.com">Go版本</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="https://github.com/dotnet9/Dotnet9/issues" target="_blank">Bug反馈</a>
-                </li>
-                <li>
-                    <a href="/rss" target="_blank">Rss</a>
-                </li>
-            </ul>
-        </div>
-        <div class="header-right">
-            <div class="header-search">
-                <input id="search-input" type="text" placeholder="搜索一下"/>
-                <i class="iconfont icon-search"></i>
-                <div class="search-drop"></div>
-            </div>
-            <a class="login-action" href="/login">
-                <button class="login-btn">登录</button>
-            </a>
-            <div class="login-end">
-                <p class="iconfont icon-yonghu">
-                    <span class="login-username"></span>
-                </p>
-                <ul class="login-drop">
-                    <a href="/writing">
-                        <li>写作</li>
-                    </a>
-                    <li class="login-out">退出登录</li>
-                </ul>
-            </div>
-        </div>
+<div class="logo-section box">
+    <div class="search">
+        <form action="/e/search/index.php" method="post" name="searchform" id="searchform">
+            <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);"
+                   onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}"
+                   onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+            <input name="show" value="title" type="hidden">
+            <input name="tempid" value="1" type="hidden">
+            <input name="tbname" value="news" type="hidden">
+            <input name="Submit" class="input_submit" value="搜索" type="submit">
+        </form>
     </div>
-</header>
+    <div class="logo"><a href="#"><img src="images/logo.png">
+            <h2 class="logo-title">@SiteOptions.Value.AppName</h2>
+        <p class="logo-text">@SiteOptions.Value.Subheading</p>
+    </a> </div>
+</div>
+<div class="clear"></div>

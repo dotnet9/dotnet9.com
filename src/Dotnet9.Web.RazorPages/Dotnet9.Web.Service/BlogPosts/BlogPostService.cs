@@ -23,7 +23,8 @@ internal class BlogPostService : IBlogPostService
                 x.Original,
                 (from blogPostCategory in x.Categories
                     join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
-                    select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
+                    select new CategoryBrief(category.Slug, category.Name,
+                        category.Description, 0)).ToList(),
                 x.CreationTime,
                 x.ViewCount)).ToListAsync();
         return datasFromDb;
@@ -59,7 +60,8 @@ internal class BlogPostService : IBlogPostService
             x.Original,
             (from blogPostCategory in x.Categories
                 join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name, category.Description, 0)).ToList(),
+                select new CategoryBrief(category.Slug, category.Name,
+                    category.Description, 0)).ToList(),
             x.CreationTime,
             x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListResponse(data, total, true, request.PageSize, request.Current);
@@ -95,7 +97,8 @@ internal class BlogPostService : IBlogPostService
                     x.Original,
                     (from blogPostCategory in x.Categories
                         join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0)).ToList(),
+                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
+                    .ToList(),
                     x.CreationTime,
                     x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
@@ -132,7 +135,8 @@ internal class BlogPostService : IBlogPostService
                     x.Original,
                     (from blogPostCategory in x.Categories
                         join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0)).ToList(),
+                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
+                    .ToList(),
                     x.CreationTime,
                     x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByAlbumSlugResponse(album.Name, data, total, true, request.PageSize,
@@ -170,7 +174,8 @@ internal class BlogPostService : IBlogPostService
                     x.Original,
                     (from blogPostCategory in x.Categories
                         join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0)).ToList(),
+                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
+                    .ToList(),
                     x.CreationTime,
                     x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByTagNameResponse(data, total, true, request.PageSize,
@@ -199,7 +204,8 @@ internal class BlogPostService : IBlogPostService
             blogPost.OriginalLink,
             (from blogPostCategory in blogPost.Categories
                 join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name, category.Description)).ToList(),
+                select new CategoryBrief(category.Slug, category.Name,
+                    category.Description)).ToList(),
             blogPost.CreationTime,
             blogPost.ViewCount);
     }

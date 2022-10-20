@@ -11,13 +11,42 @@ internal class CategoryService : ICategoryService
 
     public async Task<List<CategoryBrief>> GetCategoriesAsync()
     {
-        var categories = await _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name, c.Description,
+        List<CategoryBrief> categories = await _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name,
+                c.Description,
                 _dbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == c.Id)))
             .ToListAsync();
-        var distinctCategories = from cat in categories
+        IOrderedEnumerable<CategoryBrief> distinctCategories = from cat in categories
             where cat.BlogCount > 0
             orderby cat.BlogCount descending
             select cat;
         return distinctCategories.ToList();
+    }
+
+
+    public async Task<List<CategoryBriefForMenu>?> GetCategoriesForMenuAsync()
+    {
+        var allCategories = await _dbContext.Categories!.Select(c => new
+            {
+                c.Id,
+                c.ParentId,
+                c.Slug,
+                c.Name,
+                c.Description,
+                BlogCount = _dbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == c.Id)
+            })
+            .ToListAsync();
+        if (!allCategories.Any())
+        {
+            return null;
+        }
+
+        var rootCategories = allCategories.Where(c => c.ParentId == null).ToList();
+        List<CategoryBriefForMenu> categories = allCategories.Where(c => c.ParentId == null).Select(x =>
+                new CategoryBriefForMenu(x.Slug, x.Name, x.Description,
+                    allCategories.Where(c => c.ParentId == x.Id).Select(c =>
+                        new CategoryBriefForMenu(c.Slug, c.Name, c.Description, null, c.BlogCount)).ToArray(),
+                    x.BlogCount))
+            .ToList();
+        return categories;
     }
 }
