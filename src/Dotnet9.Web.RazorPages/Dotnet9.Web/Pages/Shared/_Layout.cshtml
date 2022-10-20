@@ -5,10 +5,10 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - @SiteOptions.Value.AppName</title>
-    <meta name="description" content="@SiteOptions.Value.Description"/>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_2974461_sdshp7jo1jj.css"/>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_3180954_chol8bk1q14.css"/>
-    <link rel="stylesheet" href="/css/index.css" asp-append-version="true"/>
+    <meta name="keywords" content="@ViewData["Keywords"]" />
+    <meta name="description" content="@ViewData["Description"]" />
+    <link rel="stylesheet" href="css/base.css"/>
+    <link rel="stylesheet" href="css/m.css"/>
     <link rel="icon" href="/images/favicon.png" asp-append-version="true"/>
     <script>
         var _hmt = _hmt || [];
@@ -34,8 +34,9 @@
 </main>
 @await Html.PartialAsync("_FooterPartial")
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="/js/index.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/index.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>
