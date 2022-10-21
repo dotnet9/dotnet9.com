@@ -3,13 +3,13 @@
 @inject IDistributedCacheHelper CacheHelper
 
 @{
-    const string cacheKeyForCategories = "_TuiJianNewsPartial";
+    const string cacheKeyForCategories = "_PicturePartial";
 
     async Task<BlogPostListViewModel> GetDataFromDb()
     {
         BlogPostListViewModel vm = new();
         vm.Categories = new();
-        string[] categorySlugs = { "dotnet-more-dotnet-other", "dotnet-web-blazor", "dotnet-web-api" };
+        string[] categorySlugs = { "dotnet-desktop-wpf", "dotnet-mobile-maui", "dotnet-ef-core" };
         foreach (var categorySlug in categorySlugs)
         {
             var posts = await BlogPostService.BlogPostBriefListByCategorySlugAsync(new BlogPostBriefListByCategorySlugRequest(categorySlug, 1, 7));
@@ -30,7 +30,7 @@
 
 @if (datas?.Categories is { Count: > 0 })
 {
-    <div class="tuijian-news box whitebg tab-num01">
+    <div class="pics box whitebg tab-num02">
         <div class="gd-box">
             <ul id="tab">
                 @{ var isSet = false; }
@@ -45,42 +45,35 @@
             @foreach (var cat in datas.Categories)
             {
                 <section class="tab-box">
-                    @if (cat.TouTiao != null)
-                    {
-                        <div class="tuijian-news-pic">
-                            <i>
-                                <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug">
-                                    <img src="@cat.TouTiao.Cover"><span>推荐</span>
-                                </a>
-                            </i>
-                            <h2>
-                                <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug">@cat.TouTiao.Title</a>
-                            </h2>
-                            <p>@cat.TouTiao.Description</p>
-                            <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug" class="btn-blue-border">阅读更多</a>
-                        </div>
-                    }
-                    @if (cat.BlogPosts is {Count:>0})
-                    {
-                        <div class="tuijian-news-list">
-                            <ul>
+                    <div class="pic-list-img">
+                        <ul>
+                            @if (cat.TouTiao != null)
+                            {
+                                <li>
+                                    <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug">
+                                        <i>
+                                            <img alt="@cat.TouTiao.Description" src="@cat.TouTiao.Cover"><em>推荐</em>
+                                        </i><span>@cat.TouTiao.Title</span>
+                                    </a>
+                                </li>
+                            }
+                            @if (cat.BlogPosts is {Count:>0})
+                            {
                                 @foreach (var blogPost in cat.BlogPosts)
                                 {
                                     <li>
                                         <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">
-                                            <span>
-                                                <b>@blogPost.CreationTime.Day</b>@blogPost.CreationTime.ToString("yyyy-MM")
-                                            </span>
-                                            <h3>@blogPost.Title</h3>
-                                            <p>@blogPost.Description</p>
+                                            <i>
+                                                <img alt="@blogPost.Description" src="@blogPost.Cover">
+                                            </i><span>@blogPost.Title</span>
                                         </a>
                                     </li>
                                 }
-                            </ul>
-                        </div>
-                    }
+                            }
+                        </ul>
+                    </div>
                     <span class="tab-a-more">
-                        <a href="/cat/@cat.CategorySlug" title="更多@(cat.CategoryName)">
+                        <a target="_blank" href="/cat/@cat.CategorySlug" title="更多@(cat.CategoryName)">
                             <i></i><i></i><i></i>
                         </a>
                     </span>

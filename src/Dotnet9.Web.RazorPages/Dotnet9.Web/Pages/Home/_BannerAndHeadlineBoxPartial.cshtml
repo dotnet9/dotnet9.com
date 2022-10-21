@@ -29,7 +29,7 @@
                 @foreach (var blogPost in bannerPosts)
                 {
                     <div class="swiper-slide">
-                        <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
+                        <a href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">
                             <img src="@blogPost.Cover"><span>@blogPost.Title</span>
                         </a>
                     </div>
@@ -48,7 +48,7 @@
         @if (bannerDatas?.TouTiao != null)
         {
             <h2 class="headline-news-title">
-                <span>头条</span><a target="_blank" href="@bannerDatas.TouTiao.CreationTime.ToString("/yyyy/dd")/@bannerDatas.TouTiao.Slug">@bannerDatas.TouTiao.Title</a>
+                <span>头条</span><a target="_blank" href="@bannerDatas.TouTiao.CreationTime.ToString("/yyyy/MM")/@bannerDatas.TouTiao.Slug">@bannerDatas.TouTiao.Title</a>
             </h2>
             <p class="headline-news-smalltext">@bannerDatas.TouTiao.Description</p>
         }
@@ -57,7 +57,7 @@
             <ul class="headline-news-list">
                 @foreach (var blogPost in bannerDatas.New2To7)
                 {
-                    <li><a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">@blogPost.Title</a></li>
+                    <li><a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">@blogPost.Title</a></li>
                 }
             </ul>
         }
