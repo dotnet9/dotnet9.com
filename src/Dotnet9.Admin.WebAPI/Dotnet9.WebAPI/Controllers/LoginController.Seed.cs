@@ -173,7 +173,8 @@ public partial class LoginController
             return null;
         }
 
-        var albumsForDb = albumSeeds.Select(x => _albumManager.CreateForSeed(x.Name, x.Slug, x.Cover)).ToList();
+        var albumsForDb = albumSeeds.Select(x => _albumManager.CreateForSeed(x.SequenceNumber, x.Name, x.Slug, x.Cover))
+            .ToList();
         await _dbContext.AddRangeAsync(albumsForDb);
         await _dbContext.SaveChangesAsync();
         return albumsForDb;
@@ -238,7 +239,8 @@ public partial class LoginController
 
             foreach (var seed in seeds)
             {
-                var category = _categoryManager.CreateForSeed(seed.Name, seed.Slug, seed.Cover, parentId);
+                var category =
+                    _categoryManager.CreateForSeed(seed.SequenceNumber, seed.Name, seed.Slug, seed.Cover, parentId);
                 allCategories!.Add(category);
                 ReadChildren(category.Id, seed.Children);
             }

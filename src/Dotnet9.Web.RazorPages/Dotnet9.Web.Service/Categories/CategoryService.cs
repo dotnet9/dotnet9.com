@@ -27,6 +27,7 @@ internal class CategoryService : ICategoryService
     {
         var allCategories = await _dbContext.Categories!.Select(c => new
             {
+                c.SequenceNumber,
                 c.Id,
                 c.ParentId,
                 c.Slug,
@@ -41,12 +42,27 @@ internal class CategoryService : ICategoryService
         }
 
         var rootCategories = allCategories.Where(c => c.ParentId == null).ToList();
-        List<CategoryBriefForMenu> categories = allCategories.Where(c => c.ParentId == null).Select(x =>
-                new CategoryBriefForMenu(x.Slug, x.Name, x.Description,
-                    allCategories.Where(c => c.ParentId == x.Id).Select(c =>
-                        new CategoryBriefForMenu(c.Slug, c.Name, c.Description, null, c.BlogCount)).ToArray(),
-                    x.BlogCount))
-            .ToList();
+        List<CategoryBriefForMenu> categories =
+            allCategories
+                .Where(c => c.ParentId == null)
+                .Select(x =>
+                    new CategoryBriefForMenu(
+                        x.SequenceNumber,
+                        x.Slug,
+                        x.Name,
+                        x.Description,
+                        allCategories
+                            .Where(c => c.ParentId == x.Id)
+                            .Select(c =>
+                                new CategoryBriefForMenu(
+                                    c.SequenceNumber,
+                                    c.Slug,
+                                    c.Name,
+                                    c.Description,
+                                    null,
+                                    c.BlogCount)).ToArray(),
+                        x.BlogCount)).OrderBy(c => c.SequenceNumber)
+                .ToList();
         return categories;
     }
 }

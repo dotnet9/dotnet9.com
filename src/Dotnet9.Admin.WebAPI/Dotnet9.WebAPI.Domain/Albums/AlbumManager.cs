@@ -48,9 +48,9 @@ public class AlbumManager
         return oldAlbum;
     }
 
-    public Album CreateForSeed(string name, string slug, string cover)
+    public Album CreateForSeed(int sequenceNumber, string name, string slug, string cover)
     {
-        return new Album(Guid.NewGuid(), 1, name, slug, cover, null, true);
+        return new Album(Guid.NewGuid(), sequenceNumber, name, slug, cover, null, true);
     }
 
     public async Task ChangeCategoryAsync(Album album, Guid[]? categoryIds)

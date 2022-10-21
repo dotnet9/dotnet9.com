@@ -55,7 +55,7 @@
                     <li class="menu">
                         <a href="/album">特色专辑</a>
                         <ul class="sub">
-                            @foreach (var album in headerDatas.Albums)
+                            @foreach (var album in headerDatas.Albums.OrderBy(x => x.SequenceNumber))
                             {
                                 <li>
                                     <a href="/album/@album.Slug">@album.Name</a>
@@ -67,14 +67,14 @@
                 }
                 @if (headerDatas?.Categories is { Count: > 0 })
                 {
-                    @foreach (var rootCategory in headerDatas.Categories)
+                    @foreach (var rootCategory in headerDatas.Categories.OrderBy(x => x.SequenceNumber))
                     {
                         <li class="menu">
                             <a href="/cat/@rootCategory.Slug">@rootCategory.Name</a>
                             @if (rootCategory.Children is { Length: > 0 })
                             {
                                 <ul class="sub">
-                                    @foreach (var c in rootCategory.Children)
+                                    @foreach (var c in rootCategory.Children.OrderBy(x => x.SequenceNumber))
                                     {
                                         <li>
                                             <a href="/cat/@c.Slug">@c.Name</a>

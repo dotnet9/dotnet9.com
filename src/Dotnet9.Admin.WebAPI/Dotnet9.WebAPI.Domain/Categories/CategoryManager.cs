@@ -57,9 +57,9 @@ public class CategoryManager
         return oldCategory;
     }
 
-    public Category CreateForSeed(string name, string slug, string cover, Guid? parentId)
+    public Category CreateForSeed(int sequenceNumber, string name, string slug, string cover, Guid? parentId)
     {
-        return new Category(Guid.NewGuid(), 1, name, slug, cover, null, true, parentId);
+        return new Category(Guid.NewGuid(), sequenceNumber, name, slug, cover, null, true, parentId);
     }
 
     public async Task ChangeNameAsync(bool isNew, Category category, string newName)
