@@ -21,6 +21,6 @@ public class ReadBlogPostEventHandler : JsonIntegrationEventHandler<ReadBlogPost
         }
 
         bool result = await _repository.IncreaseViewCountAsync(eventData!.Slug);
-        _logger.LogInformation($"增加文章阅读量：{result}");
+        _logger.LogInformation($"增加文章阅读量({eventData.Slug})：{result}");
     }
 }

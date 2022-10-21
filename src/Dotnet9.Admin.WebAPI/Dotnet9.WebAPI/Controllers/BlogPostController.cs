@@ -99,7 +99,8 @@ public class BlogPostController : ControllerBase
         BlogPost data = await _manager.CreateAsync(null, request.Title, request.Slug, request.Description,
             request.Cover,
             request.Content, request.CopyRightType, request.Original, request.OriginalAvatar, request.OriginalTitle,
-            request.OriginalLink, request.Visible, request.AlbumIds, request.CategoryIds, request.TagIds);
+            request.OriginalLink, request.Banner, request.Visible, request.AlbumIds, request.CategoryIds,
+            request.TagIds);
         EntityEntry<BlogPost> dataFromDb = await _dbContext.AddAsync(data);
         await _dbContext.SaveChangesAsync();
 
@@ -113,7 +114,8 @@ public class BlogPostController : ControllerBase
     {
         BlogPost data = await _manager.CreateAsync(id, request.Title, request.Slug, request.Description, request.Cover,
             request.Content, request.CopyRightType, request.Original, request.OriginalAvatar, request.OriginalTitle,
-            request.OriginalLink, request.Visible, request.AlbumIds, request.CategoryIds, request.TagIds);
+            request.OriginalLink, request.Banner, request.Visible, request.AlbumIds, request.CategoryIds,
+            request.TagIds);
         EntityEntry<BlogPost> dataFromDb = _dbContext.Update(data);
         await _dbContext.SaveChangesAsync();
 

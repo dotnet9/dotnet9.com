@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.Domain.Tags;
-
-namespace Dotnet9.Web.Service.BlogPosts;
+﻿namespace Dotnet9.Web.Service.BlogPosts;
 
 internal class BlogPostService : IBlogPostService
 {
@@ -11,14 +9,30 @@ internal class BlogPostService : IBlogPostService
         _dbContext = dbContext;
     }
 
+    private static BlogPostBriefForFront ConvertToBrief(Dotnet9DbContext context, BlogPost x)
+    {
+        return new BlogPostBriefForFront(
+            x.Title,
+            x.Slug,
+            x.Cover,
+            x.Description,
+            x.Original,
+            (from blogPostCategory in x.Categories
+                join category in context.Categories! on blogPostCategory.CategoryId equals category.Id
+                select new CategoryBrief(category.Slug, category.Name,
+                    category.Description, 0)).ToList(),
+            x.CreationTime,
+            x.ViewCount);
+    }
 
-    public async Task<List<BlogPostBriefForFront>?> GetTop10NewBlogPostBriefListAsync()
+    public async Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner()
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
         List<BlogPostBriefForFront> datasFromDb = await
-            _dbContext.BlogPosts!.OrderByDescending(x => x.CreationTime).Take(10).Select(x => new BlogPostBriefForFront(
+            _dbContext.BlogPosts!.Where(x => x.Banner).Select(x => new BlogPostBriefForFront(
                 x.Title,
                 x.Slug,
+                x.Cover,
                 x.Description,
                 x.Original,
                 (from blogPostCategory in x.Categories
@@ -30,7 +44,28 @@ internal class BlogPostService : IBlogPostService
         return datasFromDb;
     }
 
-    public async Task<GetBlogPostBriefListResponse> GetBlogPostBriefListAsync(GetBlogPostBriefListRequest request)
+    public async Task<List<BlogPostBriefForFront>?> TopNewBlogPostBriefListAsync(int count)
+    {
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
+        List<BlogPostBriefForFront> datasFromDb = await
+            _dbContext.BlogPosts!.OrderByDescending(x => x.CreationTime).Take(count)
+                .Select(x => new BlogPostBriefForFront(
+                    x.Title,
+                    x.Slug,
+                    x.Cover,
+                    x.Description,
+                    x.Original,
+                    (from blogPostCategory in x.Categories
+                        join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                        select new CategoryBrief(category.Slug, category.Name,
+                            category.Description, 0)).ToList(),
+                    x.CreationTime,
+                    x.ViewCount))
+                .ToListAsync();
+        return datasFromDb;
+    }
+
+    public async Task<GetBlogPostBriefListResponse> BlogPostBriefListAsync(GetBlogPostBriefListRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
@@ -53,21 +88,11 @@ internal class BlogPostService : IBlogPostService
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags);
-        List<BlogPostBriefForFront> data = await datasFromDb.Select(x => new BlogPostBriefForFront(
-            x.Title,
-            x.Slug,
-            x.Description,
-            x.Original,
-            (from blogPostCategory in x.Categories
-                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name,
-                    category.Description, 0)).ToList(),
-            x.CreationTime,
-            x.ViewCount)).ToListAsync();
+        List<BlogPostBriefForFront> data = await datasFromDb.Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
         return new GetBlogPostBriefListResponse(data, total, true, request.PageSize, request.Current);
     }
 
-    public async Task<GetBlogPostBriefListByCategorySlugResponse> GetBlogPostBriefListByCategorySlugAsync(
+    public async Task<GetBlogPostBriefListByCategorySlugResponse> BlogPostBriefListByCategorySlugAsync(
         GetBlogPostBriefListByCategorySlugRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
@@ -89,24 +114,13 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x =>
-                new BlogPostBriefForFront(
-                    x.Title,
-                    x.Slug,
-                    x.Description,
-                    x.Original,
-                    (from blogPostCategory in x.Categories
-                        join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
-                    .ToList(),
-                    x.CreationTime,
-                    x.ViewCount)).ToListAsync();
+            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
             request.Current);
     }
 
 
-    public async Task<GetBlogPostBriefListByAlbumSlugResponse> GetBlogPostBriefListByAlbumSlugAsync(
+    public async Task<GetBlogPostBriefListByAlbumSlugResponse> BlogPostBriefListByAlbumSlugAsync(
         GetBlogPostBriefListByAlbumSlugRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
@@ -127,24 +141,13 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x =>
-                new BlogPostBriefForFront(
-                    x.Title,
-                    x.Slug,
-                    x.Description,
-                    x.Original,
-                    (from blogPostCategory in x.Categories
-                        join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
-                    .ToList(),
-                    x.CreationTime,
-                    x.ViewCount)).ToListAsync();
+            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
         return new GetBlogPostBriefListByAlbumSlugResponse(album.Name, data, total, true, request.PageSize,
             request.Current);
     }
 
 
-    public async Task<GetBlogPostBriefListByTagNameResponse> GetBlogPostBriefListByTagNameAsync(
+    public async Task<GetBlogPostBriefListByTagNameResponse> BlogPostBriefListByTagNameAsync(
         GetBlogPostBriefListByTagNameRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
@@ -166,23 +169,12 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x =>
-                new BlogPostBriefForFront(
-                    x.Title,
-                    x.Slug,
-                    x.Description,
-                    x.Original,
-                    (from blogPostCategory in x.Categories
-                        join cat in _dbContext.Categories! on blogPostCategory.CategoryId equals cat.Id
-                        select new CategoryBrief(cat.Slug, cat.Name, cat.Description, 0))
-                    .ToList(),
-                    x.CreationTime,
-                    x.ViewCount)).ToListAsync();
+            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
         return new GetBlogPostBriefListByTagNameResponse(data, total, true, request.PageSize,
             request.Current);
     }
 
-    public async Task<BlogPostDetails?> GetBlogPostDetailsBySlugAsync(string slug)
+    public async Task<BlogPostDetails?> BlogPostDetailsBySlugAsync(string slug)
     {
         BlogPost? blogPost = await _dbContext.BlogPosts!.Include(x => x.Albums)
             .Include(x => x.Categories)
@@ -210,7 +202,7 @@ internal class BlogPostService : IBlogPostService
             blogPost.ViewCount);
     }
 
-    public async Task<List<BlogPostArchiveItem>?> GetArchivesAsync()
+    public async Task<List<BlogPostArchiveItem>?> ArchivesAsync()
     {
         return await _dbContext.BlogPosts!.Select(x => new BlogPostArchiveItem(x.Title, x.Slug, x.CreationTime))
             .ToListAsync();

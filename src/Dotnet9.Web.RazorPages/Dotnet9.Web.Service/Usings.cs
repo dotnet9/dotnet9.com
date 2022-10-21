@@ -12,6 +12,7 @@ global using Dotnet9.Web.ViewModel.Tags;
 global using Dotnet9.WebAPI.Domain.Albums;
 global using Dotnet9.WebAPI.Domain.BlogPosts;
 global using Dotnet9.WebAPI.Domain.Categories;
+global using Dotnet9.WebAPI.Domain.Tags;
 global using Dotnet9.WebAPI.Infrastructure;
 global using Dotnet9.WebAPI.ViewModel.Links;
 global using Microsoft.EntityFrameworkCore;

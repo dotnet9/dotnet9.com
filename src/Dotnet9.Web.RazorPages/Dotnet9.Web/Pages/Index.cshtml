@@ -1,70 +1,19 @@
 ﻿@page
 @inject IOptionsSnapshot<SiteOptions> SiteOptions
-@using Dotnet9.Web.ViewModel.Commons
-@model IndexModel
 @{
     ViewData["Title"] = "首页";
 }
 
-@if (Model.NewTop10BlogPosts is {Count:>0})
-{
-    <h1 class="category-title">最新文章</h1>
-
-    <ol class="new-post-container">
-        @foreach (var blogPost in Model.NewTop10BlogPosts)
-        {
-            <li class="new-post-label">
-                <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
-                    <h2>@blogPost.Title&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")</h2>
-                </a>
-            </li>
-        }
-    </ol>
+@section Headers{
+    <link rel="stylesheet" href="~/css/swiper.min.css" />
 }
 
-<ul class="post-box">
-    @if (Model.BlogPosts?.Any() == false)
-    {
-        <span>没有数据哦</span>
-    }
-    else
-    {
-        @if (Model.NewTop10BlogPosts is {Count:>0})
-        {
-            <h1 class="category-title">以下文章以点击量排序</h1>
-        }
-        @foreach (var blogPost in Model.BlogPosts!)
-        {
-            <li class="post-label">
-                <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
-                    <h2>@blogPost.Title</h2>
-                </a>
-                <p>@blogPost.Description</p>
-                <div class="post-action">
-                    <span>
-                        <i class="iconfont icon-yonghu"></i>
-                        &nbsp; @(blogPost.Original.IsNullOrWhiteSpace() ? SiteOptions.Value.Owner : blogPost.Original)
-                    </span>
-                    <span>
-                        <i class="iconfont icon-wenjianjia"></i>
-                        &nbsp;
-                        @foreach (var cat in blogPost.Categories)
-                        {
-                            <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name</a>
-                        }
-                    </span>
-                    <span>
-                        <i class="iconfont icon-riqi"></i>
-                        &nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
-                    </span>
-                    <span>
-                        <i class="iconfont icon-yanjing"></i>
-                        &nbsp;@blogPost.ViewCount
-                    </span>
-                </div>
-            </li>
-        }
-    }
-</ul>
+@await Html.PartialAsync("Home/_BannerPartial")
 
-@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
+<!-- headline-box end-->
+<div class="clear blank"></div>
+
+@section Scripts{
+    <script src="~/js/swiper.min.js"></script>
+    <script src="~/js/banner.js"></script>
+}

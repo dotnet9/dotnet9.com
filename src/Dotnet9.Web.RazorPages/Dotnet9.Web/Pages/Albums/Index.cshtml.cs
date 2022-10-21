@@ -35,7 +35,7 @@ public class IndexModel : PageModel
         async Task<GetBlogPostBriefListByAlbumSlugResponse?> GetBlogPostsFromDb()
         {
             GetBlogPostBriefListByAlbumSlugRequest request = new(Slug, Current, PageSize);
-            return await _blogPostService.GetBlogPostBriefListByAlbumSlugAsync(request);
+            return await _blogPostService.BlogPostBriefListByAlbumSlugAsync(request);
         }
 
         GetBlogPostBriefListByAlbumSlugResponse? response = await _cacheHelper.GetOrCreateAsync(cacheKey,

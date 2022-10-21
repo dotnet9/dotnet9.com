@@ -20,7 +20,7 @@ public class RssModel : PageModel
 
         async Task<string?> GetDataFromDb()
         {
-            var data = await _service.GetBlogPostBriefListAsync(new GetBlogPostBriefListRequest(null, 1, 10));
+            var data = await _service.BlogPostBriefListAsync(new GetBlogPostBriefListRequest(null, 1, 10));
 
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");

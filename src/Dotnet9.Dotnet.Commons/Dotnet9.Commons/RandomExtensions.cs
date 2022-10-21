@@ -23,4 +23,32 @@ public static class RandomExtensions
         var x = random.NextDouble();
         return x * maxValue + (1 - x) * minValue;
     }
+
+    public static IList<T> RandomItems<T>(this IList<T> source, int count)
+    {
+        if (source.Count <= count)
+        {
+            return source;
+        }
+
+        IList<T> dataOfGetList = new List<T>(source);
+        IList<T> dataOfTarget = new List<T>();
+
+
+        for (int i = 0; i < count; i++)
+        {
+            if (dataOfGetList.Count > 0)
+            {
+                int arrIndex = Random.Shared.Next(0, dataOfGetList.Count);
+                dataOfTarget.Add(dataOfGetList[arrIndex]);
+                dataOfGetList.RemoveAt(arrIndex);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return dataOfTarget;
+    }
 }

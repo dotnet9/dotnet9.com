@@ -52,7 +52,7 @@ public class IndexModel : PageModel
             {
                 var factName = Name.IsNullOrWhiteSpace() ? string.Empty : WebUtility.UrlDecode(Name);
                 GetBlogPostBriefListByTagNameRequest request = new(factName!, Current, PageSize);
-                return await _blogPostService.GetBlogPostBriefListByTagNameAsync(request);
+                return await _blogPostService.BlogPostBriefListByTagNameAsync(request);
             }
 
             var response = await _cacheHelper.GetOrCreateAsync(cacheKey,

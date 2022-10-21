@@ -3,6 +3,7 @@
 public partial class LoginController
 {
     private const string Title = "title: ";
+    private const string Banner = "banner: ";
     private const string Slug = "slug: ";
     private const string Description = "description: ";
     private const string Date = "date: ";
@@ -196,8 +197,9 @@ public partial class LoginController
             var tagIds = tags?.Where(x => blogPostSeed.Tags?.Contains(x.Name) ?? false).Select(x => x.Id).ToArray();
             var blogPost = _blogPostManager.CreateForSeed(blogPostSeed.Title, blogPostSeed.Slug,
                 blogPostSeed.Description, blogPostSeed.Cover, blogPostSeed.Content, blogPostSeed.Copyright,
-                blogPostSeed.Author, null, blogPostSeed.OriginalTitle, blogPostSeed.OriginalLink, true, albumIds,
-                categoryIds, tagIds,blogPostSeed.Date);
+                blogPostSeed.Author, null, blogPostSeed.OriginalTitle, blogPostSeed.OriginalLink, blogPostSeed.Banner,
+                true, albumIds,
+                categoryIds, tagIds, blogPostSeed.Date);
             allBlogPosts.Add(blogPost);
         }
 
@@ -403,6 +405,10 @@ public partial class LoginController
             else if (lines[i].StartsWith(Tags))
             {
                 blogPostOfMarkdown.Tags = lines[i][Tags.Length..].Split(',', StringSplitOptions.RemoveEmptyEntries);
+            }
+            else if (lines[i].StartsWith(Banner))
+            {
+                blogPostOfMarkdown.Banner = bool.Parse(lines[i][Banner.Length..]);
             }
         }
 

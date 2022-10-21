@@ -2,19 +2,20 @@
 
 public interface IBlogPostService
 {
-    Task<List<BlogPostBriefForFront>?> GetTop10NewBlogPostBriefListAsync();
-    Task<GetBlogPostBriefListResponse> GetBlogPostBriefListAsync(GetBlogPostBriefListRequest request);
+    Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner();
+    Task<List<BlogPostBriefForFront>?> TopNewBlogPostBriefListAsync(int count);
+    Task<GetBlogPostBriefListResponse> BlogPostBriefListAsync(GetBlogPostBriefListRequest request);
 
-    Task<GetBlogPostBriefListByCategorySlugResponse> GetBlogPostBriefListByCategorySlugAsync(
+    Task<GetBlogPostBriefListByCategorySlugResponse> BlogPostBriefListByCategorySlugAsync(
         GetBlogPostBriefListByCategorySlugRequest request);
 
-    Task<GetBlogPostBriefListByAlbumSlugResponse> GetBlogPostBriefListByAlbumSlugAsync(
+    Task<GetBlogPostBriefListByAlbumSlugResponse> BlogPostBriefListByAlbumSlugAsync(
         GetBlogPostBriefListByAlbumSlugRequest request);
 
-    Task<GetBlogPostBriefListByTagNameResponse> GetBlogPostBriefListByTagNameAsync(
+    Task<GetBlogPostBriefListByTagNameResponse> BlogPostBriefListByTagNameAsync(
         GetBlogPostBriefListByTagNameRequest request);
 
-    Task<BlogPostDetails?> GetBlogPostDetailsBySlugAsync(string slug);
+    Task<BlogPostDetails?> BlogPostDetailsBySlugAsync(string slug);
 
-    Task<List<BlogPostArchiveItem>?> GetArchivesAsync();
+    Task<List<BlogPostArchiveItem>?> ArchivesAsync();
 }

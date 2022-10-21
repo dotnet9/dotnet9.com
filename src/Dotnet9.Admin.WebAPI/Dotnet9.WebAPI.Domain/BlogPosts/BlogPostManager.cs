@@ -28,6 +28,7 @@ public class BlogPostManager
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool banner,
         bool visible,
         Guid[]? albumIds,
         Guid[]? categoryIds,
@@ -51,7 +52,7 @@ public class BlogPostManager
         if (isNew)
         {
             oldData = new BlogPost(id.Value, title, slug, description, cover, content, copyrightType, original,
-                originalAvatar, originalTitle, originalLink, visible);
+                originalAvatar, originalTitle, originalLink, banner, visible);
         }
         else
         {
@@ -85,6 +86,7 @@ public class BlogPostManager
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool banner,
         bool visible,
         Guid[]? albumIds,
         Guid[]? categoryIds,
@@ -93,7 +95,7 @@ public class BlogPostManager
     {
         BlogPost blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
             original,
-            originalAvatar, originalTitle, originalLink, visible);
+            originalAvatar, originalTitle, originalLink, banner, visible);
         if (albumIds != null)
         {
             foreach (Guid albumId in albumIds)
@@ -117,6 +119,7 @@ public class BlogPostManager
                 blogPost.AddTag(tagId);
             }
         }
+
         blogPost.SetCreationTime(creationTime);
 
         return blogPost;

@@ -17,4 +17,5 @@ public class BlogPostSeedDto
     public string[]? Categories { get; set; }
     public string[]? Tags { get; set; }
     public string Content { get; set; } = null!;
+    public bool Banner { get; set; }
 }

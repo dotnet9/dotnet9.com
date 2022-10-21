@@ -28,7 +28,7 @@ public class IndexModel : PageModel
 
         async Task<BlogPostDetails?> GetBlogPostFromDb()
         {
-            return await _service.GetBlogPostDetailsBySlugAsync(Slug);
+            return await _service.BlogPostDetailsBySlugAsync(Slug);
         }
 
         BlogPost = await _cacheHelper.GetOrCreateAsync(cacheKey,

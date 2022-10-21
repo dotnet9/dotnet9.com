@@ -20,7 +20,7 @@ public class IndexModel : PageModel
 
         async Task<List<BlogPostArchiveItem>?> GetBlogPostsFromDb()
         {
-            return await _service.GetArchivesAsync();
+            return await _service.ArchivesAsync();
         }
 
         BlogPosts = await _cacheHelper.GetOrCreateAsync(cacheKey,

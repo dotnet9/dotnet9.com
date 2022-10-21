@@ -18,6 +18,7 @@ public record BlogPost : AggregateRootEntity
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool banner,
         bool visible)
     {
         Id = id;
@@ -31,6 +32,7 @@ public record BlogPost : AggregateRootEntity
         ChangeOriginalAvatar(originalAvatar);
         ChangeOriginalTitle(originalTitle);
         ChangeOriginalLink(originalLink);
+        ChangeBanner(banner);
         ChangeVisible(visible);
 
         Albums = new List<BlogPostAlbum>();
@@ -49,6 +51,7 @@ public record BlogPost : AggregateRootEntity
     public string? OriginalAvatar { get; set; }
     public string? OriginalTitle { get; set; }
     public string? OriginalLink { get; set; }
+    public bool Banner { get; private set; }
     public bool Visible { get; private set; }
     public int ViewCount { get; private set; }
 
@@ -122,6 +125,12 @@ public record BlogPost : AggregateRootEntity
     {
         OriginalLink = Check.Length(originalLink, nameof(originalLink),
             BlogPostConsts.MaxOriginalLinkLength);
+        return this;
+    }
+
+    internal BlogPost ChangeBanner(bool banner)
+    {
+        Banner = banner;
         return this;
     }
 

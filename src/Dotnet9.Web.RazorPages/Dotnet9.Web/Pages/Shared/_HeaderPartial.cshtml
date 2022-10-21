@@ -5,17 +5,16 @@
 
 @{
     const string cacheKeyForAlbums = "_HeaderPartial";
-    List<AlbumBrief>? albums = null;
-    List<CategoryBriefForMenu>? categories = null;
 
-    async Task<bool> GetDataFromDb()
+    async Task<HeaderViewModel> GetDataFromDb()
     {
-        albums = await AlbumService.GetAlbumsAsync();
-        categories = await CategoryService.GetCategoriesForMenuAsync();
-        return true;
+        HeaderViewModel vm = new();
+        vm.Albums = await AlbumService.GetAlbumsAsync();
+        vm.Categories = await CategoryService.GetCategoriesForMenuAsync();
+        return vm;
     }
 
-    await CacheHelper.GetOrCreateAsync(cacheKeyForAlbums,
+    var headerDatas = await CacheHelper.GetOrCreateAsync(cacheKeyForAlbums,
         async e => await GetDataFromDb());
 }
 
@@ -51,12 +50,12 @@
                 <li>
                     <a href="/">网站首页</a>
                 </li>
-                @if (albums is { Count: > 0 })
+                @if (headerDatas?.Albums is { Count: > 0 })
                 {
                     <li class="menu">
                         <a href="/album">特色专辑</a>
                         <ul class="sub">
-                            @foreach (var album in albums)
+                            @foreach (var album in headerDatas.Albums)
                             {
                                 <li>
                                     <a href="/album/@album.Slug">@album.Name</a>
@@ -66,9 +65,9 @@
                         <span></span>
                     </li>
                 }
-                @if (categories is { Count: > 0 })
+                @if (headerDatas?.Categories is { Count: > 0 })
                 {
-                    @foreach (var rootCategory in categories)
+                    @foreach (var rootCategory in headerDatas.Categories)
                     {
                         <li class="menu">
                             <a href="/cat/@rootCategory.Slug">@rootCategory.Name</a>

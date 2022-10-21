@@ -7,9 +7,9 @@
     <title>@ViewData["Title"] - @SiteOptions.Value.AppName</title>
     <meta name="keywords" content="@ViewData["Keywords"]"/>
     <meta name="description" content="@ViewData["Description"]"/>
-    <link rel="stylesheet" href="css/base.css"/>
-    <link rel="stylesheet" href="css/m.css"/>
-    <link rel="icon" href="/images/favicon.png" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/base.css"/>
+    <link rel="stylesheet" href="~/css/m.css"/>
+    <link rel="icon" href="~/images/favicon.png" asp-append-version="true"/>
     @await RenderSectionAsync("Headers", false)
 </head>
 <body>
@@ -21,9 +21,9 @@
 @await Html.PartialAsync("_FooterPartial")
 @await Html.PartialAsync("_ToolbarPartial")
 
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/index.js"></script>
+<script src="~/js/jquery-1.8.3.min.js"></script>
+<script src="~/js/main.js"></script>
+@await RenderSectionAsync("Scripts", false)
 
 <script>
         var _hmt = _hmt || [];
@@ -37,6 +37,5 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
         crossorigin="anonymous"></script>
 
-@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
