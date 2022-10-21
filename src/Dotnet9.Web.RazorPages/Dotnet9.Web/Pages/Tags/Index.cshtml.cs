@@ -40,7 +40,7 @@ public class IndexModel : PageModel
         {
             async Task<List<TagBrief>?> GetTagFromDb()
             {
-                return await _service.GetTagsAsync();
+                return await _service.GetTagsAsync(int.MaxValue);
             }
 
             Tags = await _cacheHelper.GetOrCreateAsync(cacheKey,

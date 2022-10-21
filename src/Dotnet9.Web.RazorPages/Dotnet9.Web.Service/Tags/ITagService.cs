@@ -2,5 +2,5 @@
 
 public interface ITagService
 {
-    Task<List<TagBrief>> GetTagsAsync();
+    Task<List<TagBrief>> GetTagsAsync(int count);
 }

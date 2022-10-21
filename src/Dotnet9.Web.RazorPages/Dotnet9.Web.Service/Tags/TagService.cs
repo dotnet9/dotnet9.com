@@ -9,7 +9,7 @@ internal class TagService : ITagService
         _dbContext = dbContext;
     }
 
-    public async Task<List<TagBrief>> GetTagsAsync()
+    public async Task<List<TagBrief>> GetTagsAsync(int count)
     {
         List<TagBrief> tags = await _dbContext.Tags!.Select(c => new TagBrief(c.Name,
                 _dbContext.Set<BlogPostTag>().Count(d => d.TagId == c.Id)))
@@ -18,6 +18,6 @@ internal class TagService : ITagService
             where tag.BlogCount > 0
             orderby tag.BlogCount descending
             select tag;
-        return distinctTags.ToList();
+        return distinctTags.Take(count).ToList();
     }
 }
