@@ -10,7 +10,7 @@
     {
         HeaderViewModel vm = new();
         vm.Albums = await AlbumService.GetAlbumsAsync();
-        vm.Categories = await CategoryService.GetCategoriesForMenuAsync();
+        vm.Categories = await CategoryService.CategoriesForMenuAsync();
         return vm;
     }
 

@@ -7,7 +7,7 @@ public interface IBlogPostService
     Task<GetBlogPostBriefListResponse> BlogPostBriefListAsync(GetBlogPostBriefListRequest request);
 
     Task<GetBlogPostBriefListByCategorySlugResponse> BlogPostBriefListByCategorySlugAsync(
-        GetBlogPostBriefListByCategorySlugRequest request);
+        BlogPostBriefListByCategorySlugRequest request);
 
     Task<GetBlogPostBriefListByAlbumSlugResponse> BlogPostBriefListByAlbumSlugAsync(
         GetBlogPostBriefListByAlbumSlugRequest request);

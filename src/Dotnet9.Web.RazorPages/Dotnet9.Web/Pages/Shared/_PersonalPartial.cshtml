@@ -7,7 +7,7 @@
 
     async Task<List<CategoryBrief>?> GetCategoryFromDb()
     {
-        return await CategoryService.GetCategoriesAsync();
+        return await CategoryService.CategoriesAsync();
     }
 
     var categories = await CacheHelper.GetOrCreateAsync(cacheKeyForCategories,

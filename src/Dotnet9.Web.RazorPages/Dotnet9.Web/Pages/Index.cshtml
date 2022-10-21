@@ -8,10 +8,9 @@
     <link rel="stylesheet" href="~/css/swiper.min.css" />
 }
 
-@await Html.PartialAsync("Home/_BannerPartial")
-
-<!-- headline-box end-->
+@await Html.PartialAsync("Home/_BannerAndHeadlineBoxPartial")
 <div class="clear blank"></div>
+@await Html.PartialAsync("Home/_TuiJianNewsPartial")
 
 @section Scripts{
     <script src="~/js/swiper.min.js"></script>

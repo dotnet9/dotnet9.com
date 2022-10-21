@@ -2,6 +2,6 @@
 
 public interface ICategoryService
 {
-    Task<List<CategoryBrief>> GetCategoriesAsync();
-    Task<List<CategoryBriefForMenu>?> GetCategoriesForMenuAsync();
+    Task<List<CategoryBrief>> CategoriesAsync();
+    Task<List<CategoryBriefForMenu>?> CategoriesForMenuAsync();
 }

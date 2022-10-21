@@ -9,7 +9,7 @@ internal class CategoryService : ICategoryService
         _dbContext = dbContext;
     }
 
-    public async Task<List<CategoryBrief>> GetCategoriesAsync()
+    public async Task<List<CategoryBrief>> CategoriesAsync()
     {
         List<CategoryBrief> categories = await _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name,
                 c.Description,
@@ -23,7 +23,7 @@ internal class CategoryService : ICategoryService
     }
 
 
-    public async Task<List<CategoryBriefForMenu>?> GetCategoriesForMenuAsync()
+    public async Task<List<CategoryBriefForMenu>?> CategoriesForMenuAsync()
     {
         var allCategories = await _dbContext.Categories!.Select(c => new
             {

@@ -93,7 +93,7 @@ internal class BlogPostService : IBlogPostService
     }
 
     public async Task<GetBlogPostBriefListByCategorySlugResponse> BlogPostBriefListByCategorySlugAsync(
-        GetBlogPostBriefListByCategorySlugRequest request)
+        BlogPostBriefListByCategorySlugRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
         Category? category = await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == request.Slug);
@@ -114,7 +114,18 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
+            .Take(request.PageSize).Select(x => new BlogPostBriefForFront(
+                x.Title,
+                x.Slug,
+                x.Cover,
+                x.Description,
+                x.Original,
+                (from blogPostCategory in x.Categories
+                    join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                    select new CategoryBrief(category.Slug, category.Name,
+                        category.Description, 0)).ToList(),
+                x.CreationTime,
+                x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
             request.Current);
     }

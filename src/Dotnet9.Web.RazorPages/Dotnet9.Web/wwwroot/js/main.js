@@ -54,10 +54,16 @@ jQuery(document).ready(function($){
 	
     $("#closed").click(function(){
 	$(".toolbar-open").removeClass("openviewd");
-	$(".toolbar").removeClass("closed");
+        $(".toolbar").removeClass("closed");
+        $("#toolbar-menu li").removeClass("current");
 	});	
 	
-
+    //tab切换	
+    $("#tab li").click(function () { //给li标签添加事件
+        var index = $(this).index();  //获取当前li标签的个数
+        $(this).parents().next().find(".tab-box").hide().eq(index).show();
+        $(this).addClass("tab-current").siblings().removeClass("tab-current"); //li标签显示，同辈元素隐藏
+    });
 	
 	    //scroll to top
         var offset = 300,

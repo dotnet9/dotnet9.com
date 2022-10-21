@@ -1,9 +1,9 @@
 ﻿namespace Dotnet9.Web.ViewModel.BlogPosts;
 
 public class
-    GetBlogPostBriefListByCategorySlugRequestValidator : AbstractValidator<GetBlogPostBriefListByCategorySlugRequest>
+    BlogPostBriefListByCategorySlugRequestValidator : AbstractValidator<BlogPostBriefListByCategorySlugRequest>
 {
-    public GetBlogPostBriefListByCategorySlugRequestValidator()
+    public BlogPostBriefListByCategorySlugRequestValidator()
     {
         RuleFor(e => e.Slug).NotEmpty().WithMessage("分类别名不能为空");
         RuleFor(e => e.Current).GreaterThan(0).WithMessage("页索引从1开始"); //页号从1开始
