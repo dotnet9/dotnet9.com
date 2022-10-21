@@ -89,6 +89,11 @@ public static class WebApplicationBuilderExtensions
         string? redisConnStr = configuration.GetValue<string>("Redis:ConnectionString");
         IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConnStr);
         services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = redisConnStr;
+            options.InstanceName = "Dotnet9";
+        });
         services.Configure<ForwardedHeadersOptions>(options => { options.ForwardedHeaders = ForwardedHeaders.All; });
     }
 }
