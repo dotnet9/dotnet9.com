@@ -53,8 +53,12 @@
                                     <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug">
                                         <i>
                                             <img alt="@cat.TouTiao.Description" src="@cat.TouTiao.Cover"><em>推荐</em>
-                                        </i><span>@cat.TouTiao.Title</span>
+                                        </i>
+                                        <span style="text-align: left;">@cat.TouTiao.Title</span>
                                     </a>
+                                    <small style="text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">
+                                        <a style="display: inline;" href="#">@(cat.TouTiao.Original ?? SiteOptions.Value.Owner)</a> - @cat.TouTiao.CreationTime.ToString("yyyy-MM-dd")
+                                    </small>
                                 </li>
                             }
                             @if (cat.BlogPosts is {Count:>0})
@@ -65,8 +69,12 @@
                                         <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">
                                             <i>
                                                 <img alt="@blogPost.Description" src="@blogPost.Cover">
-                                            </i><span>@blogPost.Title</span>
+                                            </i>
+                                            <span style="text-align: left;">@blogPost.Title</span>
                                         </a>
+                                        <small style="text-align: left; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block;">
+                                            <a style="display: inline;" href="#">@(blogPost.Original ?? SiteOptions.Value.Owner)</a>&nbsp;-&nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
+                                        </small>
                                     </li>
                                 }
                             }

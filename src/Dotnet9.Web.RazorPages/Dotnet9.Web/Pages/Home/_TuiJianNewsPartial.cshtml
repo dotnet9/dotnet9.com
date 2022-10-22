@@ -57,6 +57,9 @@
                                 <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug">@cat.TouTiao.Title</a>
                             </h2>
                             <p>@cat.TouTiao.Description</p>
+                            <p>
+                                <a href="#">@(cat.TouTiao.Original ?? SiteOptions.Value.Owner)</a> - @cat.TouTiao.CreationTime.ToString("yyyy-MM-dd")
+                            </p>
                             <a target="_blank" href="@cat.TouTiao.CreationTime.ToString("/yyyy/MM")/@cat.TouTiao.Slug" class="btn-blue-border">阅读更多</a>
                         </div>
                     }

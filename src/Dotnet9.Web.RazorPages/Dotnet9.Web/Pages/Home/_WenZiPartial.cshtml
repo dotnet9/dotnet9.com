@@ -57,7 +57,8 @@
                                 @foreach (var blogPost in leftBlogPosts)
                                 {
                                     <li>
-                                        <span>@blogPost.CreationTime.ToString("yyyy-MM-dd")</span><a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug" title="@blogPost.Title">@blogPost.Title</a>
+                                        <span>@blogPost.CreationTime.ToString("yyyy-MM-dd")</span>
+                                        <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug" title="@blogPost.Title">@blogPost.Title</a>
                                     </li>
                                 }
                             }
@@ -68,14 +69,15 @@
                                 @foreach (var blogPost in rightBlogPosts)
                                 {
                                     <li>
-                                        <span>@blogPost.CreationTime.ToString("yyyy-MM-dd")</span><a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug" title="@blogPost.Title">@blogPost.Title</a>
+                                        <span>@blogPost.CreationTime.ToString("yyyy-MM-dd")</span>
+                                        <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug" title="@blogPost.Title">@blogPost.Title</a>
                                     </li>
                                 }
                             }
                         </ul>
                     </div>
                     <span class="tab-a-more">
-                        <a href="/" title="更多">
+                        <a href="/cat/@cat.CategorySlug" title="更多@(cat.CategoryName)">
                             <i></i><i></i><i></i>
                         </a>
                     </span>

@@ -57,6 +57,10 @@
                                             <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">@blogPost.Title</a>
                                         </h2>
                                         <p>@blogPost.Description</p>
+
+                                        <small style="text-align: left;">
+                                            <a style="display: inline;" href="#">@(blogPost.Original ?? SiteOptions.Value.Owner)</a>&nbsp;&nbsp;-&nbsp;&nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
+                                        </small>
                                         <span>
                                             @foreach (var blogCat in blogPost.Categories)
                                             {

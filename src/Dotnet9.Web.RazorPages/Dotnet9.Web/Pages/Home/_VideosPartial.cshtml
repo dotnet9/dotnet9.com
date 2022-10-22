@@ -55,7 +55,7 @@
                                         </i>
                                         <h2>@blogPost.Title</h2>
                                         <p>
-                                            <b class="datetime">@blogPost.CreationTime.ToString("yyyy-MM-dd")</b><span class="viewd">@blogPost.ViewCount</span>
+                                            <b class="datetime">@blogPost.CreationTime.ToString("yyyy-MM-dd")</b>&nbsp;&nbsp;-&nbsp;&nbsp;<span>@(blogPost.Original.IsNullOrWhiteSpace() ? SiteOptions.Value.Owner : blogPost.Original)</span><span class="viewd">@blogPost.ViewCount</span>
                                         </p>
                                     </a>
                                 </li>
