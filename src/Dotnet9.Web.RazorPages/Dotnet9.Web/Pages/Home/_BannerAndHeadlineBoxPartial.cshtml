@@ -8,7 +8,7 @@
     async Task<BannerViewModel> GetDataFromDb()
     {
         BannerViewModel vm = new();
-        vm.Banners = await BlogPostService.BlogPostBriefListByBanner();
+        vm.Banners = await BlogPostService.BlogPostBriefListByBanner(int.MaxValue);
         var top7NewBlogPost = await BlogPostService.TopNewBlogPostBriefListAsync(7);
         vm.TouTiao = top7NewBlogPost?.FirstOrDefault();
         vm.New2To7 = top7NewBlogPost?.Skip(1).Take(6).ToList();
@@ -57,7 +57,9 @@
             <ul class="headline-news-list">
                 @foreach (var blogPost in bannerDatas.New2To7)
                 {
-                    <li><a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">@blogPost.Title</a></li>
+                    <li>
+                        <a target="_blank" href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">@blogPost.Title</a>
+                    </li>
                 }
             </ul>
         }

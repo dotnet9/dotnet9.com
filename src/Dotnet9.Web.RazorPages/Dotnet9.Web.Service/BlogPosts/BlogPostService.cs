@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Web.Service.BlogPosts;
+﻿using Dotnet9.WebAPI.Domain.BlogPosts;
+
+namespace Dotnet9.Web.Service.BlogPosts;
 
 internal class BlogPostService : IBlogPostService
 {
@@ -9,27 +11,11 @@ internal class BlogPostService : IBlogPostService
         _dbContext = dbContext;
     }
 
-    private static BlogPostBriefForFront ConvertToBrief(Dotnet9DbContext context, BlogPost x)
-    {
-        return new BlogPostBriefForFront(
-            x.Title,
-            x.Slug,
-            x.Cover,
-            x.Description,
-            x.Original,
-            (from blogPostCategory in x.Categories
-                join category in context.Categories! on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name,
-                    category.Description, 0)).ToList(),
-            x.CreationTime,
-            x.ViewCount);
-    }
-
-    public async Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner()
+    public async Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner(int count)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
         List<BlogPostBriefForFront> datasFromDb = await
-            _dbContext.BlogPosts!.Where(x => x.Banner).Select(x => new BlogPostBriefForFront(
+            _dbContext.BlogPosts!.Where(x => x.Banner).Take(count).Select(x => new BlogPostBriefForFront(
                 x.Title,
                 x.Slug,
                 x.Cover,
@@ -38,7 +24,7 @@ internal class BlogPostService : IBlogPostService
                 (from blogPostCategory in x.Categories
                     join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                     select new CategoryBrief(category.Slug, category.Name,
-                        category.Description, 0)).ToList(),
+                        category.Description, 0, null)).ToList(),
                 x.CreationTime,
                 x.ViewCount)).ToListAsync();
         return datasFromDb;
@@ -58,7 +44,29 @@ internal class BlogPostService : IBlogPostService
                     (from blogPostCategory in x.Categories
                         join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                         select new CategoryBrief(category.Slug, category.Name,
-                            category.Description, 0)).ToList(),
+                            category.Description, 0, null)).ToList(),
+                    x.CreationTime,
+                    x.ViewCount))
+                .ToListAsync();
+        return datasFromDb;
+    }
+
+
+    public async Task<List<BlogPostBriefForFront>?> TopLikeBlogPostBriefListAsync(int count)
+    {
+        IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();
+        List<BlogPostBriefForFront> datasFromDb = await
+            _dbContext.BlogPosts!.OrderByDescending(x => x.ViewCount).Take(count)
+                .Select(x => new BlogPostBriefForFront(
+                    x.Title,
+                    x.Slug,
+                    x.Cover,
+                    x.Description,
+                    x.Original,
+                    (from blogPostCategory in x.Categories
+                        join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                        select new CategoryBrief(category.Slug, category.Name,
+                            category.Description, 0, null)).ToList(),
                     x.CreationTime,
                     x.ViewCount))
                 .ToListAsync();
@@ -88,7 +96,18 @@ internal class BlogPostService : IBlogPostService
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags);
-        List<BlogPostBriefForFront> data = await datasFromDb.Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
+        List<BlogPostBriefForFront> data = await datasFromDb.Select(x => new BlogPostBriefForFront(
+            x.Title,
+            x.Slug,
+            x.Cover,
+            x.Description,
+            x.Original,
+            (from blogPostCategory in x.Categories
+                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                select new CategoryBrief(category.Slug, category.Name,
+                    category.Description, 0, null)).ToList(),
+            x.CreationTime,
+            x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListResponse(data, total, true, request.PageSize, request.Current);
     }
 
@@ -123,7 +142,7 @@ internal class BlogPostService : IBlogPostService
                 (from blogPostCategory in x.Categories
                     join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
                     select new CategoryBrief(category.Slug, category.Name,
-                        category.Description, 0)).ToList(),
+                        category.Description, 0, null)).ToList(),
                 x.CreationTime,
                 x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByCategorySlugResponse(category.Name, data, total, true, request.PageSize,
@@ -152,7 +171,18 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
+            .Take(request.PageSize).Select(x => new BlogPostBriefForFront(
+                x.Title,
+                x.Slug,
+                x.Cover,
+                x.Description,
+                x.Original,
+                (from blogPostCategory in x.Categories
+                    join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                    select new CategoryBrief(category.Slug, category.Name,
+                        category.Description, 0, null)).ToList(),
+                x.CreationTime,
+                x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByAlbumSlugResponse(album.Name, data, total, true, request.PageSize,
             request.Current);
     }
@@ -180,7 +210,18 @@ internal class BlogPostService : IBlogPostService
         int total = await datasFromDb.CountAsync();
 
         List<BlogPostBriefForFront> data = await datasFromDb.Skip((request.Current - 1) * request.PageSize)
-            .Take(request.PageSize).Select(x => ConvertToBrief(_dbContext, x)).ToListAsync();
+            .Take(request.PageSize).Select(x => new BlogPostBriefForFront(
+                x.Title,
+                x.Slug,
+                x.Cover,
+                x.Description,
+                x.Original,
+                (from blogPostCategory in x.Categories
+                    join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+                    select new CategoryBrief(category.Slug, category.Name,
+                        category.Description, 0, null)).ToList(),
+                x.CreationTime,
+                x.ViewCount)).ToListAsync();
         return new GetBlogPostBriefListByTagNameResponse(data, total, true, request.PageSize,
             request.Current);
     }
@@ -196,6 +237,33 @@ internal class BlogPostService : IBlogPostService
             return null;
         }
 
+        var albums = (from blogPostAlbum in blogPost.Albums
+            join album in _dbContext.Albums! on blogPostAlbum.BlogPostId equals album.Id
+            select new AlbumBrief(album.SequenceNumber, album.Slug, album.Name,
+                album.Description)).ToList();
+        var categories = (from blogPostCategory in blogPost.Categories
+            join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
+            select new CategoryBrief(category.Slug, category.Name,
+                category.Description, 0, category.Id)).ToList();
+        var tags = (from blogPostTag in blogPost.Tags
+            join tag in _dbContext.Tags! on blogPostTag.TagId equals tag.Id
+            select tag.Name).ToList();
+        var preview = await _dbContext.BlogPosts!.AsNoTracking().OrderBy(x => x.CreationTime)
+            .Where(x => x.CreationTime < blogPost.CreationTime)
+            .Select(x => new BlogPostNear(x.Title, x.Slug, x.Cover, x.Description, x.CreationTime))
+            .FirstOrDefaultAsync();
+        var next = await _dbContext.BlogPosts!.AsNoTracking().OrderBy(x => x.CreationTime)
+            .Where(x => x.CreationTime > blogPost.CreationTime)
+            .Select(x => new BlogPostNear(x.Title, x.Slug, x.Cover, x.Description, x.CreationTime))
+            .FirstOrDefaultAsync();
+        var near = await (from post in _dbContext.BlogPosts!
+            join blogPostCategory in _dbContext.Set<BlogPostCategory>() on post.Id equals blogPostCategory
+                .BlogPostId
+            where blogPostCategory.BlogPostId != blogPost.Id &&
+                  categories.Select(x => x.Id).Contains(blogPostCategory.CategoryId)
+            select new BlogPostNear(post.Title, post.Slug, post.Cover, post.Description,
+                post.CreationTime)).ToListAsync();
+
         return new BlogPostDetails(
             blogPost.Title,
             blogPost.Slug,
@@ -205,12 +273,14 @@ internal class BlogPostService : IBlogPostService
             blogPost.Original,
             blogPost.OriginalTitle,
             blogPost.OriginalLink,
-            (from blogPostCategory in blogPost.Categories
-                join category in _dbContext.Categories! on blogPostCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Slug, category.Name,
-                    category.Description)).ToList(),
+            albums,
+            categories,
+            tags,
             blogPost.CreationTime,
-            blogPost.ViewCount);
+            blogPost.ViewCount,
+            preview,
+            next,
+            near);
     }
 
     public async Task<List<BlogPostArchiveItem>?> ArchivesAsync()

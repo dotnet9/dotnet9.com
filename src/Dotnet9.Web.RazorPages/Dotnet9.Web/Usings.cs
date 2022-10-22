@@ -1,6 +1,8 @@
 ﻿global using Dotnet9.ASPNETCore;
 global using Dotnet9.CommonInitializer;
 global using Dotnet9.Commons;
+global using Dotnet9.EventBus;
+global using Dotnet9.Web.Events;
 global using Dotnet9.Web.Helpers;
 global using Dotnet9.Web.Service.BlogPosts;
 global using Dotnet9.Web.Service.Tags;
@@ -9,6 +11,7 @@ global using Dotnet9.Web.ViewModel.Albums;
 global using Dotnet9.Web.ViewModel.BlogPosts;
 global using Dotnet9.Web.ViewModel.Categories;
 global using Dotnet9.Web.ViewModel.Tags;
+global using Dotnet9.Web.ViewModels.BlogPosts;
 global using Dotnet9.WebAPI.Domain.Abouts;
 global using Dotnet9.WebAPI.Domain.Donations;
 global using Dotnet9.WebAPI.Domain.Privacies;

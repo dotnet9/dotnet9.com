@@ -13,7 +13,7 @@ internal class CategoryService : ICategoryService
     {
         List<CategoryBrief> categories = await _dbContext.Categories!.Select(c => new CategoryBrief(c.Slug, c.Name,
                 c.Description,
-                _dbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == c.Id)))
+                _dbContext.Set<BlogPostCategory>().Count(d => d.CategoryId == c.Id), null))
             .ToListAsync();
         IOrderedEnumerable<CategoryBrief> distinctCategories = from cat in categories
             where cat.BlogCount > 0

@@ -3,61 +3,79 @@
 
 @model IndexModel
 @{
-    ViewData["Title"] = Model.BlogPost?.Title;
+    ViewData["Title"] = Model.Current?.Title;
 }
 
 @section Headers{
-    <link rel="stylesheet" href="~/css/detail.css"/>
-    @if (SiteOptions.Value.Valine)
-    {
-        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    }
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+    <link rel="stylesheet" href="~/css/prism.css"/>
 }
 
-<div class="detail">
-    <div class="detail-left">
-        <h1 class="detail-title">@Model.BlogPost?.Title</h1>
-        <div class="detail-action">
-            <span>
-                <i class="iconfont icon-yonghu"></i>
-                &nbsp; @(Model.BlogPost?.Original ?? SiteOptions.Value.Owner)
-            </span>
-            @if (Model.BlogPost?.Categories != null && Model.BlogPost?.Categories.Any() == true)
-            {
-                <span>
-                    <i class="iconfont icon-wenjianjia"></i>
-                    @foreach (var cat in Model.BlogPost!.Categories)
-                    {
-                        <a href="/cat/@cat.Slug">@cat.Name</a>
-                    }
-                </span>
-            }
-            <span>
-                <i class="iconfont icon-riqi"></i>
-                &nbsp;@Model.BlogPost?.CreationTime.ToString("yyyy-MM-dd")
-            </span>
-            <span>
-                <i class="iconfont icon-yanjing"></i>
-                &nbsp;@Model.BlogPost?.ViewCount
-            </span>
-            <span class="detail-edit">
-                <i class="iconfont icon-wenbenshuru"></i>
-                <a href="/writing?slug=@Model.BlogPost?.Slug">编辑</a>
-            </span>
-            <span class="detail-edit detail-delete" slug="@Model.BlogPost?.Slug">
-                <i class="iconfont icon-shanchu"></i>
-                删除
-            </span>
+<div class="left-box">
+    <div class="whitebg">
+        <div class="news-title">
+            <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+            <h2>文章</h2>
         </div>
-        <div class="gap-solid"></div>
-        <div id="view-content" class="detail-content">@Html.Raw(Model.ContentHtml)</div>
-        <div class="share" id="down">
-            <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
-            <div class="share-text">
-                <p>扫码关注Dotnet9微信公众号，第一时间获取网站更新动态</p>
-                @if (Model.BlogPost != null)
+        <div class="newstext-box">
+            <div id="nice">
+                <h1 class="news-title-h1">@Model.Current?.Title</h1>
+            </div>
+            @if (Model.Current?.Tags is { Count: > 0 })
+            {
+                <div class="keywords">
+                    @foreach (var blogTag in Model.Current.Tags)
+                    {
+                        <a target="_blank" href="/tag/@blogTag">@blogTag</a>
+                    }
+                </div>
+            }
+            <div class="picview-other">
+                <span class="po-from">@(Model.Current?.Original ?? @SiteOptions.Value.Owner)</span>
+                <span class="po-date">@Model.Current?.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
+                @if (Model.Current?.Albums is { Count: > 0 })
                 {
-                    @switch (Model.BlogPost.CopyrightType)
+                    <label>- 专辑：</label>
+                    @foreach (var blogAlbum in Model.Current.Albums)
+                    {
+                        <span class="po-classname">
+                            <a target="_blank" href="/album/@blogAlbum.Slug">@blogAlbum.Name</a>
+                        </span>
+                    }
+                }
+                @if (Model.Current?.Categories is {Count:>0})
+                {
+                    <label>- 分类：</label>
+                    @foreach (var blogCat in Model.Current.Categories)
+                    {
+                        <span class="po-classname">
+                            <a target="_blank" href="/cat/@blogCat.Slug">@blogCat.Name</a>
+                        </span>
+                    }
+                }
+                <span class="po-view">@Model.Current?.ViewCount</span>
+            </div>
+            <div class="smalltext">
+                <i></i>@Model.Current?.Description
+            </div>
+            <div class="newstext">
+                @if (!Model.ContentHtml.IsNullOrWhiteSpace())
+                {
+                    <div id="nice">@Html.Raw(Model.ContentHtml)</div>
+                }
+            </div>
+            <div class="diggit">
+                <a href="JavaScript:makeRequest('https://www.yangqq.com/e/public/digg/?classid=3&amp;id=900&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(
+                <b id="diggnum">
+                    <script type="text/javascript" src="https://www.yangqq.com/e/public/ViewClick/?classid=3&amp;id=900&amp;down=5"></script>
+                </b>)
+            </div>
+            <div class="clear"></div>
+            <div class="share" id="down">
+                <img src="@SiteOptions.Value.WechatPublic1" alt="">
+                <div class="share-text">
+                    <p>扫码关注@(SiteOptions.Value.WechatPublic1Name)微信公众号，第一时间获取网站更新动态</p>
+                    @switch (Model.Current?.CopyrightType)
                     {
                         case CopyRightType.Reprint:
                             <p>本文来自转载，如若二次转载请联系原作者。</p>
@@ -66,53 +84,101 @@
                             <p>本文来自网友投稿，如若转载请联系原作者。</p>
                             break;
                         default:
-                            <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                            <p>本文由本站(<a href="@SiteOptions.Value.Domain">@SiteOptions.Value.Domain</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
                             break;
                     }
-                    <p>原文作者：<a style="color: #262626;" href="#">@(Model.BlogPost.Original ?? @SiteOptions.Value.Owner)</a></p>
-                    @if (Model.BlogPost.CopyrightType == CopyRightType.Default)
+                    <p>原文作者：<a style="color: #262626;" href="#">@(Model.Current?.Original ?? @SiteOptions.Value.Owner)</a></p>
+                    @if (Model.Current?.CopyrightType == CopyRightType.Default)
                     {
-                        <p>原文标题：<a href="/@Model.BlogPost.CreationTime.ToString("yyyy/MM")/@Model.BlogPost.Slug">@Model.BlogPost.Title</a></p>
-                        <p>原文链接：<a href="/@Model.BlogPost.CreationTime.ToString("yyyy/MM")/@Model.BlogPost.Slug">https://dotnet9.com/@($"{Model.BlogPost.CreationTime:yyyy/MM}/{Model.BlogPost.Slug}")</a></p>
+                        <p>原文标题：<a href="/@Model.Current.CreationTime.ToString("yyyy/MM")/@Model.Current.Slug">@Model.Current.Title</a></p>
+                        <p>原文链接：<a href="/@Model.Current.CreationTime.ToString("yyyy/MM")/@Model.Current.Slug">@SiteOptions.Value.Domain/@($"{Model.Current.CreationTime:yyyy/MM}/{Model.Current.Slug}")</a></p>
                     }
                     else
                     {
-                        <p>原文标题：<a href="@Model.BlogPost.OriginalLink">@(Model.BlogPost.OriginalTitle ?? Model.BlogPost.Title)</a></p>
-                        <p>原文链接：<a href="@Model.BlogPost.OriginalLink">@Model.BlogPost.OriginalLink</a></p>
+                        <p>原文标题：<a href="@Model.Current?.OriginalLink">@(Model.Current?.OriginalTitle ?? Model.Current?.Title)</a></p>
+                        <p>原文链接：<a href="@Model.Current?.OriginalLink">@Model.Current?.OriginalLink</a></p>
                     }
-                }
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="info-pre-next">
+                <ul>
+                    @if (Model.Current?.Preview != null)
+                    {
+                        <li>
+                            <a href="/@Model.Current.Preview.CreationTime.ToString("yyyy/MM")/@Model.Current.Preview.Slug">
+                                <i>
+                                    <em>上一篇</em><img alt="@Model.Current.Preview.Title" src="@Model.Current.Preview.Cover">
+                                </i>
+                                <h2>@Model.Current.Preview.Title</h2>
+                                <p>@Model.Current.Preview.Description</p>
+                            </a>
+                        </li>
+                    }
+                    @if (Model.Current?.Next != null)
+                    {
+                        <li>
+                            <a href="/@Model.Current.Next.CreationTime.ToString("yyyy/MM")/@Model.Current.Next.Slug">
+                                <i>
+                                    <em>下一篇</em><img alt="@Model.Current.Next.Title" src="@Model.Current.Next.Cover">
+                                </i>
+                                <h2>@Model.Current.Next.Title</h2>
+                                <p>@Model.Current.Next.Description</p>
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
-        @if (SiteOptions.Value.Valine)
-        {
-            <div class="gap-solid vcomments-gap"></div>
-            <div id="vcomments" class="vcomments"></div>
-            <div class="vcomments-copyright">评论由Valine提供支持</div>
-        }
     </div>
-    <div class="detail-right">
-        <div class="toc-card">
-            <h1 class="toc-card-list">目录</h1>
-            <div class="toc-box" id="toc-box"></div>
+    <div class="clear blank"></div>
+    @if (Model.Current?.Nears is {Count:>0})
+    {
+        <div class="otherlink whitebg">
+            <div class="news-title">
+                <h2>相关文章</h2>
+            </div>
+            <ul>
+                @foreach (var post in Model.Current.Nears.RandomItems(10))
+                {
+                    <li>
+                        <a target="_blank" href="/@post.CreationTime.ToString("yyyy/MM")/@post.Slug">@post.Title</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    <div class="pinglun-box whitebg">
+        <div class="news-title">
+            <h2>文章评论</h2>
+        </div>
+        <div class="pinglun">
+            <div id="plpost">
+                <p class="saying">
+                    <span>
+                        <a href="/">共有5条评论</a>
+                    </span>来说两句吧...
+                </p>
+                <input name="username" type="text" class="pl-name" id="username" value="" size="16" placeholder="用户名">
+                <input name="key" type="text" class="pl-yzm" size="16" placeholder="验证码">
+                <textarea name="saytext" rows="6" id="saytext"></textarea>
+                <input name="imageField" type="submit" value="提交">
+            </div>
         </div>
     </div>
 </div>
+<aside class="side-section right-box">
 
-<div class="zoom-prev">
-    <div class="zoom-container"></div>
-</div>
 
-@section Scripts{
-    @if (SiteOptions.Value.Valine)
-    {
-        <script>
-  new Valine({
-    el: "#vcomments",
-    appId: "@SiteOptions.Value.ValineConfig!.AppId",
-    appKey: "@SiteOptions.Value.ValineConfig.AppKey",
-    serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
-            placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
-  });
-</script>
-    }
+    @await Html.PartialAsync("Sides/_TuiJianAndTopPartial")
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Sides/_TagCloudsPartial")
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Sides/_RandomListPartial")
+
+</aside>
+
+@section Scripts
+{
+    <script src="~/js/prism.js"></script>
 }

@@ -2,8 +2,9 @@
 
 public interface IBlogPostService
 {
-    Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner();
+    Task<List<BlogPostBriefForFront>?> BlogPostBriefListByBanner(int count);
     Task<List<BlogPostBriefForFront>?> TopNewBlogPostBriefListAsync(int count);
+    Task<List<BlogPostBriefForFront>?> TopLikeBlogPostBriefListAsync(int count);
     Task<GetBlogPostBriefListResponse> BlogPostBriefListAsync(GetBlogPostBriefListRequest request);
 
     Task<GetBlogPostBriefListByCategorySlugResponse> BlogPostBriefListByCategorySlugAsync(
