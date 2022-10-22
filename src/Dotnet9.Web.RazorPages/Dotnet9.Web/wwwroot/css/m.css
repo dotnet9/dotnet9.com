@@ -23,7 +23,7 @@ body { overflow-x: hidden }
 .page-box { width: 70% }
 .qq_join li { width: 40%; }
 .qq_join li section { margin: 0; }
-.pic-list-img li:first-child i { height: 265px; line-height: 265px; }
+.pics .pic-list-img li:first-child i { height: 265px; line-height: 265px; }
 .pic-list-img li i { height: 110px; line-height: 110px; }
 .mp-pics ul li a { height: 90px; line-height: 90px; }
 .product-suiji li { width: 33.333% }
@@ -40,7 +40,7 @@ nav #starlist { width: 100% }
 .headline-box { width: 42% }
 .ad-big, .left-box { width: 68%; }
 .ad-small, .right-box { width: 31% }
-.pic-list-img li:first-child i { height: 225px; line-height: 225px; }
+.pics .pic-list-img li:first-child i { height: 225px; line-height: 225px; }
 .pic-list-img li i { height: 90px; line-height: 90px; }
 .pics-list-price li i { height: 110px; line-height: 110px }
 .pics-list-price li a { margin: 0 2px }
@@ -56,7 +56,8 @@ nav #starlist { width: 100% }
 body { overflow-x: hidden }
 .box, article { width: 100%; }
 .toolbar-open, .toolbar { top: 40% }
-.logo-section { margin-top: 40px }
+.logo-section { display: none }
+article { margin-top: 30px }
 .topnav { position: fixed; top: 0; z-index: 9; background: rgba(0,0,0,.6); border-top: #1487f4 40px solid; }
 nav #starlist { width: 100%; }
 #mnavh { display: block; top: -40px; position: absolute; right: 0; }
@@ -71,8 +72,8 @@ nav #starlist { width: 100%; }
 #starlist ul.sub li a { display: block; padding-left: 10px; text-indent: 3em; }
 #starlist ul.sub li:hover a, #starlist li:hover a { background: none }
 #starlist ul.sub li #selected { color: #000 !important }
-.menu:after { top: 12px; right: 7px; width: 26px; height: 22px; background: url(../images/jt.png) no-repeat center; }
-.menu:hover:after { transform: rotate(180deg); top: 16px; }
+.menu:after { top: 0; right: 7px; width: 26px; height: 22px; content: "\e612"; font-family: "iconfont" !important; font-size: 18px; }
+.menu:hover:after { transform: none; color: #1487f4; }
 .menu span { display: block; ; position: absolute; width: 50px; height: 50px; background: #fff; top: 0; right: 0; border-left: #eee 1px solid; }
 #starlist li:last-child { padding-bottom: 100%; }
 #starlist ul.sub li:last-child { padding-bottom: 0 }
@@ -81,16 +82,16 @@ nav #starlist { width: 100%; }
 .headline-box { width: 48% }
 .tuijian-news-list ul li { margin-bottom: 10px }
 .tuijian-news-pic i { height: 140px }
-.ad-big, .left-box { width: 68%; }
-.ad-small, .right-box { width: 31% }
-.pic-list-img li:first-child i { height: 205px; line-height: 205px; }
+.ad-big, .left-box { width: 100%; }
+.ad-small, .right-box { display: none; }
+.pics .pic-list-img li:first-child i { height: 205px; line-height: 205px; }
 .pic-list-img li i { height: 80px; line-height: 80px; }
 .videos-list li i { height: 110px; }
 .down-list li h2 { margin-right: 0 }
 .down-list li h2 span { display: none }
 .tags ul a { width: 14% }
 .tags ul a:nth-child(n+22) { display: none }
-.blogs-list li i { width: 140px; height: 90px; }
+.blogs-list li i { width: 140px; height: auto; }
 .middle-inner { display: block }
 .lanmu-keywords { margin-top: 20px; clear: both; }
 #sidetab { margin: 20px 10px 0 }
@@ -108,7 +109,7 @@ nav #starlist { width: 100%; }
 .product-suiji li i { height: 90px; line-height: 90px; }
 .product-suiji li:last-child { display: none }
 .topnav h2 { display: block }
-.is-search{ display:block}
+.is-search { display: block }
 }
 @media screen and (max-width: 768px) {
 .left-box { width: 100% }
@@ -117,10 +118,11 @@ aside { width: 0 !important; height: 0 !important; }
 .mp-pics ul li a { height: 110px; line-height: 110px; }
 .page-title { width: 30%; float: left; }
 .page-box { width: 60%; }
+.endmenu { display: block }
+.lanmu h1 { margin: 5px 0; }
+.blogs-list li i img { height: 60px; min-height: auto; }
 }
-@media screen and (max-width: 700px) {
-.logo-section { display: none }
-article { margin-top: 30px }
+ @media screen and (max-width: 700px) {
 .banner { width: 100%; height: 100%; }
 .headline-box { width: 100%; }
 .tuijian-news-list ul li { width: 100%; }
@@ -144,7 +146,7 @@ article { margin-top: 30px }
 #tab-content { margin: 0; padding: 0 10px }
 .tuijian-news-pic { width: 100%; margin-top: 10px; }
 .btn-blue-border { display: none }
-.tuijian-news-pic i { height: auto; }
+.tuijian-news-pic i { height: auto; margin-bottom: 10px; }
 .tuijian-news-pic i img { margin: auto; max-width: 100%; }
 .tuijian-news-pic i span { display: none }
 .tuijian-news-pic h2 { margin: 5px 0 }
@@ -153,15 +155,15 @@ article { margin-top: 30px }
 .tuijian-news-list ul li a { margin: 0 }
 .ad-big { width: 100%; }
 .ad-small { display: none }
-.blogs-list li span { width: 100% }
-.pic-list-img li:first-child { width: 100%; }
-.pic-list-img li:first-child i { height: auto; line-height: 100%; }
+.blogs-list li span { display: none; }
+.pics .pic-list-img li:first-child { width: 50%; }
+.pics .pic-list-img li:first-child i { height: 100px; line-height: 100%; }
 .pic-list-img li { width: 50%; margin-bottom: 10px; }
 .pic-list-img li a { margin: 0 5px }
 .pic-list-img li span { text-align: left; font-size: 12px; margin-top: 0; line-height: 20px; }
-.pic-list-img li i { height: 110px; line-height: 100%; }
+.pic-list-img li i { height: 100px; line-height: 100%; margin-bottom: 5px; }
 .pic-list-img li i img { }
-.pic-list-img li:nth-child(n+6) { display: none }
+.pic-list-img li:nth-child(n+7) { display: none }
 .pic-list-img { padding-bottom: 10px; overflow: hidden; }
 .news-zuixin-pic { width: 60px; height: 60px; }
 .news-zuixin-pic img { height: 60px; }
@@ -185,7 +187,8 @@ article { margin-top: 30px }
 .wxbox { width: 100%; text-align: center; margin-bottom: 20px }
 .wxbox li { float: none; display: inline-block }
 .endnav b { display: none }
-.endnav { text-align: center; padding: 0 20px; }
+.endnav { text-align: center; padding: 0 20px; clear: both; }
+.endnav p { margin-bottom: 20px }
 .topnav h2 { display: block }
 .blogs-box { overflow: hidden }
 .hnav, .weizhi { display: none }
@@ -223,9 +226,12 @@ article { margin-top: 30px }
 .qq_join li section { margin: 0; padding: 0; box-shadow: none; font-size: 12px; }
 .qq_join li p { margin: 0; padding-left: 5px; }
 .qq_join li img { width: 140px; height: 140px }
-.blogs-list ul li {padding-bottom: 0;}
-.blogs-list li i { width: 120px; height: 80px; }
-.blogs-list li h2 { font-size: 16px; white-space: inherit; overflow: hidden; margin-top: 0; }
+.blogs-list ul li { border-bottom: #eee 1px solid; padding: 10px 0; }
+.blogs-list li i { width: 60px; height: 60px; float: right; margin-right: 0; margin-left: 10px; }
+.blogs-list li i img { width: auto; }
+.blogs-list li h2 { white-space: inherit; overflow: hidden; margin-top: 0; font-size: 16px; font-weight: normal; height: 60px; display: table-cell; vertical-align: middle; }
+.blogs-list li h2 a { color: #000 }
+.blogs-list li p { display: none }
 footer { padding: 30px 0 70px }
 .headline-news { overflow: hidden; padding: 17px 20px 20px; }
 .endmenu { display: block }
@@ -234,14 +240,13 @@ a.btn-add { margin: auto }
 .videos-list .viewd, .wenzi-list li span { display: none }
 .tags ul, .links ul { margin: 0 10px 10px; }
 span.po-classname, .po-view { display: none }
-.news-title-h1 { font-size: 18px; }
+.news-title-h1 { font-size: 18px; margin-top: 20px; }
 .info-pre-next em { line-height: 70px; font-size: 12px; }
 .info-pre-next ul li i { width: 70px; height: 70px; }
 .info-pre-next img { height: 70px; width: auto }
 .newstext-box { padding: 0 20px 0; }
 .info-pre-next { margin: 10px 0; }
-.lanmu i { height: 70px; margin-right: 10px; width: auto; }
-.lanmu i img { }
+.lanmu img { width: 100%; margin-bottom: 10px }
 .lanmu { padding: 10px; }
 .lanmu h1 { font-size: 18px; margin-bottom: 5px; }
 .lanmu-keywords { margin-top: 10px; }
@@ -253,4 +258,6 @@ span.po-classname, .po-view { display: none }
 .pics-list-price span.pics-btn, .pics-list-price li p { display: none; }
 .pics-list-price li h2 { line-height: 20px; font-size: 14px; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; white-space: inherit; height: 40px; }
 .pics-list-price li i { height: 100px; line-height: 100px; }
+.keywords a { font-size: 12px }
+.keywords a:last-child { margin-bottom: 20px }
 }

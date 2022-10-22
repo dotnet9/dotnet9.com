@@ -16,11 +16,11 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        string cacheKey = "Privacy";
+        string cacheKey = "Donation";
 
         async Task<string?> GetDataFromDb()
         {
-            var data = await _repository.GetAsync();
+            Donation? data = await _repository.GetAsync();
             return data?.Content.Convert2Html();
         }
 
