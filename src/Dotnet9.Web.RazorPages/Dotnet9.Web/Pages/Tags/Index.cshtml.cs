@@ -25,7 +25,7 @@ public class IndexModel : PageModel
 
     [BindProperty(SupportsGet = true)] public int Current { get; set; } = 1;
 
-    [BindProperty(SupportsGet = true)] public int PageSize { get; set; } = 10;
+    [BindProperty(SupportsGet = true)] public int PageSize { get; set; } = 12;
 
     public int Total { get; set; }
     public int[]? Pages { get; set; }

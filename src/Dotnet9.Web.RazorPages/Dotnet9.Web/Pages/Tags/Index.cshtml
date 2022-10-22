@@ -3,8 +3,7 @@
 @using Dotnet9.Web.ViewModel.Commons
 @model IndexModel
 @{
-    ViewData["Title"] = "标签" + (Model.Name.IsNullOrWhiteSpace() ? "云" : "");
-
+    ViewData["Title"] = "标签云";
     var buttonsClasses = new[]
     {
         "#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
@@ -15,65 +14,49 @@
     };
 }
 
-@if (Model.Name.IsNullOrWhiteSpace())
-{
-    <h1 class="category-title">标签云</h1>
-    @if (Model.Tags is {Count:>0})
+@section Headers {
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
+}
+
+<article>
+    @if (Model.Tags != null)
     {
         @foreach (var tag in Model.Tags)
         {
-            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name" style="color: white;background-color: @(buttonsClasses[Random.Shared.Next(buttonsClasses.Length)]); height: 30px; line-height: 30px; margin: 12px 5px; padding: 5px;">
+            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name" style="background-color: @(buttonsClasses[Random.Shared.Next(buttonsClasses.Length)]); height: 30px; margin: 12px 5px;">
                 @tag.Name (@tag.BlogCount)
             </a>
         }
     }
     else
     {
-        <span>没有数据哦</span>
+        <div class="pics-list-box whitebg">
+
+            <div class="news-title">
+                <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+                <h2>@Model.TagName</h2>
+            </div>
+            <ul>
+                @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+                {
+                    @foreach (var item in Model.BlogPosts)
+                    {
+                        <li>
+                            <a href="/@item.CreationTime.ToString("yyyy/MM")/@item.Slug">
+                                <i>
+                                    <img src="@item.Cover" alt="@item.Title">
+                                </i>
+                                <h2>@item.Title</h2>
+                                <p>@item.Description</p>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            
+            @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
+        </div>
     }
-}
-else
-{
-    <h1 class="category-title">标签：@Model.Name</h1>
-    @if (Model.BlogPosts is {Count:>0})
-    {
-        <ul class="post-box">
-            @foreach (var blogPost in Model.BlogPosts!)
-            {
-                <li class="post-label">
-                    <a href="@blogPost.CreationTime.ToString("/yyyy/dd")/@blogPost.Slug">
-                        <h2>@blogPost.Title</h2>
-                    </a>
-                    <p>@blogPost.Description</p>
-                    <div class="post-action">
-                        <span>
-                            <i class="iconfont icon-yonghu"></i>
-                            &nbsp; @(blogPost.Original.IsNullOrWhiteSpace() ? SiteOptions.Value.Owner : blogPost.Original)
-                        </span>
-                        <span>
-                            <i class="iconfont icon-wenjianjia"></i>
-                            &nbsp;
-                            @foreach (var cat in blogPost.Categories)
-                            {
-                                <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name</a>
-                            }
-                        </span>
-                        <span>
-                            <i class="iconfont icon-riqi"></i>
-                            &nbsp;@blogPost.CreationTime.ToString("yyyy-MM-dd")
-                        </span>
-                        <span>
-                            <i class="iconfont icon-yanjing"></i>
-                            &nbsp;@blogPost.ViewCount
-                        </span>
-                    </div>
-                </li>
-            }
-        </ul>
-        @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
-    }
-    else
-    {
-        <span>没有数据哦</span>
-    }
-}
+</article>

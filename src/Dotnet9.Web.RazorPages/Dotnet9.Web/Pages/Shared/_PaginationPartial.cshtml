@@ -8,52 +8,38 @@
     var showLast = showFirst;
 }
 
-<div>
-    @if (Model.Total > Model.PageSize)
+<div class="pagelist">
+    <a title="Total record">
+        共&nbsp;<b>@Model.Total</b>条
+    </a>
+    @if (showFirst)
     {
-        <ul class="pagination">
-            @if (showFirst)
-            {
-                <li class="pagination-btn">
-                    <a href="?current=1&pageSize=@Model.PageSize">⇤</a>
-                </li>
-            }
-            @if (showPrev)
-            {
-                <li class="pagination-btn">
-                    <a href="?current=@prevPageIndex&pageSize=@Model.PageSize">←</a>
-                </li>
-            }
-            @if (Model.Pages?.Any() == true)
-            {
-                @foreach (var pageIndex in Model.Pages)
-                {
-                    <li class="pagination-btn" active="@(pageIndex == Model.Current)"
-                        value="@pageIndex">
-                        <a href="?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
-                    </li>
-                }
-            }
-            
-            @if (showNext)
-            {
-                <li class="pagination-btn">
-                    <a href="?current=@nextPageIndex&pageSize=@Model.PageSize">→</a>
-                </li>
-            }
-
-            @if (showLast)
-            {
-                <li class="pagination-btn">
-                    <a href="?current=@Model.PageCount&pageSize=@Model.PageSize">⇥</a>
-                </li>
-            }
-        </ul>
+        <a href="?current=1?pageSize=@Model.PageSize">首页</a>
     }
-    else
+    @if (showPrev)
     {
-        <ul class="pagination">
-            <li class="pagination-total">共 @Model.Total 条</li>
-        </ul>
+        <a href="?current=prevPageIndex?pageSize=@Model.PageSize">上一页</a>
+    }
+    @if (Model.Pages?.Any() == true)
+    {
+        @foreach (var pageIndex in Model.Pages)
+        {
+            @if (pageIndex == Model.Current)
+            {
+                <b>@pageIndex</b>
+            }
+            else
+            {
+                <a href="?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
+            }
+        }
+    }
+    @if (showNext)
+    {
+        <a href="?current=@nextPageIndex&pageSize=@Model.PageSize">下一页</a>
+    }
+    @if (showLast)
+    {
+        <a href="?current=@Model.PageCount&pageSize=@Model.PageSize">尾页</a>
     }
 </div>
