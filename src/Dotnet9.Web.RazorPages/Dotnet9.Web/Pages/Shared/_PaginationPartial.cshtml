@@ -6,6 +6,7 @@
     var showNext = Model.Current != Model.PageCount;
     var nextPageIndex = Model.Current + 1;
     var showLast = showFirst;
+    var defaultQueryString = !Model.DefaultParams.IsNullOrWhiteSpace() ? $"?{Model.DefaultParams}&" : "?";
 }
 
 <div class="pagelist">
@@ -14,11 +15,11 @@
     </a>
     @if (showFirst)
     {
-        <a href="?current=1?pageSize=@Model.PageSize">首页</a>
+        <a href="@(defaultQueryString)current=1?pageSize=@Model.PageSize">首页</a>
     }
     @if (showPrev)
     {
-        <a href="?current=prevPageIndex?pageSize=@Model.PageSize">上一页</a>
+        <a href="@(defaultQueryString)current=prevPageIndex?pageSize=@Model.PageSize">上一页</a>
     }
     @if (Model.Pages?.Any() == true)
     {
@@ -30,16 +31,16 @@
             }
             else
             {
-                <a href="?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
+                <a href="@(defaultQueryString)current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
             }
         }
     }
     @if (showNext)
     {
-        <a href="?current=@nextPageIndex&pageSize=@Model.PageSize">下一页</a>
+        <a href="@(defaultQueryString)current=@nextPageIndex&pageSize=@Model.PageSize">下一页</a>
     }
     @if (showLast)
     {
-        <a href="?current=@Model.PageCount&pageSize=@Model.PageSize">尾页</a>
+        <a href="@(defaultQueryString)current=@Model.PageCount&pageSize=@Model.PageSize">尾页</a>
     }
 </div>
