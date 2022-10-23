@@ -58,12 +58,10 @@
             <div class="smalltext">
                 <i></i>@Model.Current?.Description
             </div>
-            <div class="newstext">
-                @if (!Model.ContentHtml.IsNullOrWhiteSpace())
-                {
-                    <div id="nice">@Html.Raw(Model.ContentHtml)</div>
-                }
-            </div>
+            @if (!Model.ContentHtml.IsNullOrWhiteSpace())
+            {
+                <div id="nice">@Html.Raw(Model.ContentHtml)</div>
+            }
             <div class="diggit">
                 <a href="JavaScript:makeRequest('https://www.yangqq.com/e/public/digg/?classid=3&amp;id=900&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(
                 <b id="diggnum">
