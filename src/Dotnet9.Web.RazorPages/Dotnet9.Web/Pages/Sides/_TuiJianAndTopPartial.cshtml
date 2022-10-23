@@ -9,7 +9,7 @@
     {
         TuiJianAndTopViewModel vm = new();
         vm.Top10TuiJian = await BlogPostService.BlogPostBriefListByBanner(20);
-        vm.Top10Like = await BlogPostService.TopLikeBlogPostBriefListAsync(10);
+        vm.Top10Like = await BlogPostService.TopLikeBlogPostBriefListAsync(9);
         return vm;
     }
 
@@ -18,7 +18,7 @@
     var top1TuiJian = datas?.Top10TuiJian?.FirstOrDefault();
     var topTuiJianList = datas?.Top10TuiJian?.Skip(1).Take(9).ToList();
     var top1Like = datas?.Top10Like?.FirstOrDefault();
-    var topLikeList = datas?.Top10Like?.Skip(1).Take(9).ToList();
+    var topLikeList = datas?.Top10Like?.Skip(1).Take(8).ToList();
 }
 
 <div class="side-tab">
