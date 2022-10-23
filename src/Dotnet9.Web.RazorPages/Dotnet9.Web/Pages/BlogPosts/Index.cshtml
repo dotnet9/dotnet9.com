@@ -7,6 +7,7 @@
 }
 
 @section Headers{
+    <link href="~/css/picswiper.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/blogpost.css"/>
     <link rel="stylesheet" href="~/css/prism.css"/>
 }
@@ -167,7 +168,6 @@
 </div>
 <aside class="side-section right-box">
 
-
     @await Html.PartialAsync("Sides/_TuiJianAndTopPartial")
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TagCloudsPartial")
@@ -178,5 +178,7 @@
 
 @section Scripts
 {
+    <script src="~/js/picswiper.min.js"></script>
+    <script src="~/js/side-tab.js"></script>
     <script src="~/js/prism.js"></script>
 }

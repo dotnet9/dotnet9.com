@@ -71,12 +71,8 @@
                         @foreach (var post in topLikeList)
                         {
                             <li>
-                                <a href="@post.CreationTime.ToString("/yyyy/MM")/@post.Slug" title="@post.Title" target="_blank">
-                                    <i>
-                                        <img src="@post.Cover" alt="@post.Title">
-                                    </i>
-                                    <p>@post.Title</p>
-                                </a>
+                                <i></i>
+                                <a href="@post.CreationTime.ToString("/yyyy/MM")/@post.Slug" title="@post.Title" target="_blank">@post.Title</a>
                             </li>
                         }
                     </ul>
