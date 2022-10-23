@@ -64,10 +64,7 @@
                 <div id="nice">@Html.Raw(Model.ContentHtml)</div>
             }
             <div class="diggit">
-                <a href="JavaScript:makeRequest('https://www.yangqq.com/e/public/digg/?classid=3&amp;id=900&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(
-                <b id="diggnum">
-                    <script type="text/javascript" src="https://www.yangqq.com/e/public/ViewClick/?classid=3&amp;id=900&amp;down=5"></script>
-                </b>)
+                <a >很赞哦！</a>(<b id="diggnum">@Model.Current?.LikeCount</b>)
             </div>
             <div class="clear"></div>
             <div class="share" id="down">

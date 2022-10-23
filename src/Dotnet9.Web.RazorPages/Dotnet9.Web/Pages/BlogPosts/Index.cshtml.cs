@@ -22,6 +22,7 @@ public class IndexModel : PageModel
     public BlogPostDetails? Current { get; set; }
     public string? ContentHtml { get; set; }
 
+    
     public async Task OnGet()
     {
         string cacheKey = $"BlogPost_{Slug}";
@@ -39,5 +40,10 @@ public class IndexModel : PageModel
         Current = vm?.Current;
         ContentHtml = Current?.Content.Convert2Html();
         _eventBus.Publish("Dotnet9.Web.BlogPosts.OnGet", new ReadBlogPostEvent(Slug));
+    }
+
+    public async Task<IActionResult> OnPostLike()
+    {
+        return RedirectToPage();
     }
 }

@@ -54,6 +54,7 @@ public record BlogPost : AggregateRootEntity
     public bool Banner { get; private set; }
     public bool Visible { get; private set; }
     public int ViewCount { get; private set; }
+    public int LikeCount { get; private set; }
 
     public List<BlogPostAlbum>? Albums { get; }
     public List<BlogPostCategory>? Categories { get; }
@@ -143,6 +144,12 @@ public record BlogPost : AggregateRootEntity
     public BlogPost IncreaseViewCount()
     {
         ViewCount++;
+        return this;
+    }
+
+    public BlogPost IncreaseLikeCount()
+    {
+        LikeCount++;
         return this;
     }
 

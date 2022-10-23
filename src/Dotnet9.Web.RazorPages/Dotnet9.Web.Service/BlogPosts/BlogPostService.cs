@@ -278,6 +278,7 @@ internal class BlogPostService : IBlogPostService
             tags,
             blogPost.CreationTime,
             blogPost.ViewCount,
+            blogPost.LikeCount,
             preview,
             next,
             near);

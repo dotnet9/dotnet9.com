@@ -18,6 +18,7 @@ internal class BlogPostConfig : IEntityTypeConfiguration<BlogPost>
         builder.Property(x => x.Banner);
         builder.Property(x => x.Visible);
         builder.Property(x => x.ViewCount);
+        builder.Property(x => x.LikeCount);
         // TODO GIN索引异常，暂时注释
         builder.HasIndex(x => x.Title); //.HasMethod("GIN");
         builder.HasIndex(x => x.Slug); //.HasMethod("GIN");
