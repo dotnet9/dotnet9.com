@@ -127,6 +127,7 @@
             </div>
         </div>
     </div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
     <div class="clear blank"></div>
     @if (Model.Current?.Nears is {Count:>0})
     {
@@ -164,12 +165,18 @@
     </div>
 </div>
 <aside class="side-section right-box">
-
+    
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
+    <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TuiJianAndTopPartial")
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TagCloudsPartial")
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_RandomListPartial")
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
 
 </aside>
 
