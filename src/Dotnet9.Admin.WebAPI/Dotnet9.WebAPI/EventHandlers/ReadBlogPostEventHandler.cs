@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.Events;
+﻿namespace Dotnet9.WebAPI.EventHandlers;
 
 [EventName("Dotnet9.Web.BlogPosts.OnGet")]
 public class ReadBlogPostEventHandler : JsonIntegrationEventHandler<ReadBlogPostEvent>

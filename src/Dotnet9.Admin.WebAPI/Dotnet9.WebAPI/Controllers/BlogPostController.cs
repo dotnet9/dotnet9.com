@@ -1,21 +1,25 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Dotnet9.ASPNETCore.Filters;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class BlogPostController : ControllerBase
 {
     private readonly IDistributedCacheHelper _cacheHelper;
+    private readonly IMediator _mediator;
     private readonly Dotnet9DbContext _dbContext;
     private readonly BlogPostManager _manager;
     private readonly IBlogPostRepository _repository;
 
     public BlogPostController(Dotnet9DbContext dbContext, IBlogPostRepository repository,
-        BlogPostManager manager, IDistributedCacheHelper cacheHelper)
+        BlogPostManager manager, IDistributedCacheHelper cacheHelper, IMediator mediator)
     {
         _dbContext = dbContext;
         _repository = repository;
         _manager = manager;
         _cacheHelper = cacheHelper;
+        _mediator = mediator;
     }
 
     [HttpGet]
@@ -138,6 +142,8 @@ public class BlogPostController : ControllerBase
     [Route("/api/[controller]/like/{slug}")]
     public async Task<int> Like(string slug)
     {
-        return await _repository.IncreaseLikeCountAsync(slug);
+        var likeCount = await _repository.IncreaseLikeCountAsync(slug);
+        _mediator?.Publish(new LikeBlogPostEvent(slug, likeCount));
+        return likeCount;
     }
 }

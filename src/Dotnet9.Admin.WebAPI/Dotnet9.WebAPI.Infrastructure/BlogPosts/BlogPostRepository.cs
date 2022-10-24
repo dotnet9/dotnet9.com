@@ -142,13 +142,6 @@ internal class BlogPostRepository : IBlogPostRepository
         }
 
         blogPost.IncreaseLikeCount();
-        if (await _dbContext.SaveChangesAsync() > 0)
-        {
-            return blogPost.LikeCount;
-        }
-        else
-        {
-            return 0;
-        }
+        return await _dbContext.SaveChangesAsync() > 0 ? blogPost.LikeCount : 0;
     }
 }

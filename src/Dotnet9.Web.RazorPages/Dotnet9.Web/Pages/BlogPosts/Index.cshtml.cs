@@ -41,9 +41,4 @@ public class IndexModel : PageModel
         ContentHtml = Current?.Content.Convert2Html();
         _eventBus.Publish("Dotnet9.Web.BlogPosts.OnGet", new ReadBlogPostEvent(Slug));
     }
-
-    public async Task<IActionResult> OnPostLike()
-    {
-        return RedirectToPage();
-    }
 }
