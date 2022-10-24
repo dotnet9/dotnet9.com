@@ -131,4 +131,24 @@ internal class BlogPostRepository : IBlogPostRepository
         blogPost.IncreaseViewCount();
         return await _dbContext.SaveChangesAsync() > 0;
     }
+
+
+    public async Task<int> IncreaseLikeCountAsync(string slug)
+    {
+        BlogPost? blogPost = await _dbContext.BlogPosts!.FirstOrDefaultAsync(x => x.Slug == slug);
+        if (blogPost == null)
+        {
+            return 0;
+        }
+
+        blogPost.IncreaseLikeCount();
+        if (await _dbContext.SaveChangesAsync() > 0)
+        {
+            return blogPost.LikeCount;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

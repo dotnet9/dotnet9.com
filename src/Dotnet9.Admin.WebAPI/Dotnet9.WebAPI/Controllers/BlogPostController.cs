@@ -133,4 +133,11 @@ public class BlogPostController : ControllerBase
         await _dbContext.SaveChangesAsync();
         return data.Adapt<BlogPostDetailDto>();
     }
+
+    [HttpPost]
+    [Route("/api/[controller]/like/{slug}")]
+    public async Task<int> Like(string slug)
+    {
+        return await _repository.IncreaseLikeCountAsync(slug);
+    }
 }

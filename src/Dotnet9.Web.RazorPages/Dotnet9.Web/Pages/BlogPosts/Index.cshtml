@@ -63,8 +63,9 @@
             {
                 <div id="nice">@Html.Raw(Model.ContentHtml)</div>
             }
-            <div class="diggit">
-                <a >很赞哦！</a>(<b id="diggnum">@Model.Current?.LikeCount</b>)
+            <div class="diggit" style="cursor: pointer">
+                <a>很赞哦！</a>(<b id="diggnum">@Model.Current?.LikeCount</b>)
+                <input class="blogslug" value="@Model.Current?.Slug" type="hidden"/>
             </div>
             <div class="clear"></div>
             <div class="share" id="down">
@@ -184,5 +185,6 @@
 {
     <script src="~/js/picswiper.min.js"></script>
     <script src="~/js/side-tab.js"></script>
+    <script src="~/js/like.js"></script>
     <script src="~/js/prism.js"></script>
 }
