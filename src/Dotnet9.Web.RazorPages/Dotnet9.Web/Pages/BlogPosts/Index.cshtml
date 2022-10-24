@@ -10,6 +10,10 @@
     <link href="~/css/picswiper.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/blogpost.css"/>
     <link rel="stylesheet" href="~/css/prism.css"/>
+    @if (SiteOptions.Value.Valine)
+    {
+        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    }
 }
 
 <div class="left-box">
@@ -147,22 +151,12 @@
         </div>
     }
     <div class="pinglun-box whitebg">
-        <div class="news-title">
-            <h2>文章评论</h2>
-        </div>
-        <div class="pinglun">
-            <div id="plpost">
-                <p class="saying">
-                    <span>
-                        <a href="/">共有5条评论</a>
-                    </span>来说两句吧...
-                </p>
-                <input name="username" type="text" class="pl-name" id="username" value="" size="16" placeholder="用户名">
-                <input name="key" type="text" class="pl-yzm" size="16" placeholder="验证码">
-                <textarea name="saytext" rows="6" id="saytext"></textarea>
-                <input name="imageField" type="submit" value="提交">
-            </div>
-        </div>
+        @if (SiteOptions.Value.Valine)
+        {
+            <div class="gap-solid vcomments-gap"></div>
+            <div id="vcomments" class="vcomments"></div>
+            <div class="vcomments-copyright">评论由Valine提供支持</div>
+        }
     </div>
 </div>
 <aside class="side-section right-box">
@@ -187,4 +181,16 @@
     <script src="~/js/side-tab.js"></script>
     <script src="~/js/like.js"></script>
     <script src="~/js/prism.js"></script>
+    @if (SiteOptions.Value.Valine)
+    {
+        <script>
+            new Valine({
+                el: "#vcomments",
+                appId: "@SiteOptions.Value.ValineConfig!.AppId",
+                appKey: "@SiteOptions.Value.ValineConfig.AppKey",
+                serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
+                placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
+            });
+        </script>
+    }
 }
