@@ -17,6 +17,7 @@ global using Dotnet9.WebAPI.ViewModel.ActionLogs;
 global using Dotnet9.WebAPI.ViewModel.Albums;
 global using Dotnet9.WebAPI.ViewModel.BlogPosts;
 global using Dotnet9.WebAPI.ViewModel.Categories;
+global using Dotnet9.WebAPI.ViewModel.Comments;
 global using Dotnet9.WebAPI.ViewModel.Donations;
 global using Dotnet9.WebAPI.ViewModel.Links;
 global using Dotnet9.WebAPI.ViewModel.Privacies;

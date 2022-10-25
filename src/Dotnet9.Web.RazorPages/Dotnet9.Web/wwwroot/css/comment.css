@@ -1,0 +1,83 @@
+﻿textarea {
+    border-radius: 0 !important;
+}
+
+.panel-body {
+    padding: 0 !important;
+}
+
+.comment-action {
+    padding: 0 !important;
+    background: #f6f8f9 !important;
+    clear: both;
+    min-height: 35px;
+}
+
+.submit-comment {
+    background: #606d75;
+    width: 130px;
+    float: right;
+    min-height: 35px;
+    text-align: center;
+}
+
+.submit-comment a {
+    color: #fff !important;
+    display: block;
+    line-height: 35px;
+    text-decoration: none;
+}
+
+ul.comments {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+    display: block;
+}
+
+.comments .comment .avatar {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+}
+
+.comments .comment {
+    display: block;
+    position: relative;
+    padding-left: 92px;
+}
+
+.comments .comment .comment-body header {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.comments .comment .comment-body header .pubdate {
+    color: #777;
+    font-size: .9em;
+}
+
+.comments .comment .comment-body header .userlink {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+
+.comments .comment .comment-body {
+    padding: 0px 3px;
+    padding-bottom: 12px;
+    padding-top: 8px;
+}
+
+
+footer .reply-link {
+    float: right;
+    color: #777;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.comments .comment .replies {
+    margin-top: 2px;
+    margin-bottom: 3px;
+}

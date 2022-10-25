@@ -10,10 +10,8 @@
     <link href="~/css/picswiper.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="~/css/blogpost.css"/>
     <link rel="stylesheet" href="~/css/prism.css"/>
-    @if (SiteOptions.Value.Valine)
-    {
-        <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    }
+    <link rel="stylesheet" href="~/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/css/comment.css"/>
 }
 
 <div class="left-box">
@@ -150,17 +148,13 @@
             </ul>
         </div>
     }
+    <div class="clear blank"></div>
     <div class="pinglun-box whitebg">
-        @if (SiteOptions.Value.Valine)
-        {
-            <div class="gap-solid vcomments-gap"></div>
-            <div id="vcomments" class="vcomments"></div>
-            <div class="vcomments-copyright">评论由Valine提供支持</div>
-        }
+        @await Html.PartialAsync("Comments/_CommentsPartial")
     </div>
 </div>
 <aside class="side-section right-box">
-    
+
     @await Html.PartialAsync("Ads/_DiaplayPartial")
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TuiJianAndTopPartial")
@@ -181,16 +175,5 @@
     <script src="~/js/side-tab.js"></script>
     <script src="~/js/like.js"></script>
     <script src="~/js/prism.js"></script>
-    @if (SiteOptions.Value.Valine)
-    {
-        <script>
-            new Valine({
-                el: "#vcomments",
-                appId: "@SiteOptions.Value.ValineConfig!.AppId",
-                appKey: "@SiteOptions.Value.ValineConfig.AppKey",
-                serverURLs: "@SiteOptions.Value.ValineConfig.ServerURL",
-                placeholder: "@SiteOptions.Value.ValineConfig.Placeholder"
-            });
-        </script>
-    }
+    <script src="~/js/bootstrap.min.js"></script>
 }
