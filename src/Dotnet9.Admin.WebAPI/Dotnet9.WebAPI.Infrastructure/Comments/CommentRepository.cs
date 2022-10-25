@@ -25,7 +25,7 @@ internal class CommentRepository : ICommentRepository
     {
         IQueryable<Comment> query = _dbContext.Comments!.AsQueryable();
 
-        var categoriesFromDb = query.OrderByDescending(x => x.CreationTime)
+        var categoriesFromDb = query.Where(x => x.ParentId == request.ParentId).OrderBy(x => x.CreationTime)
             .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
         return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
     }

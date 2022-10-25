@@ -1,3 +1,5 @@
+using System.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +9,13 @@ builder.ConfigureExtraServices(new InitializerOptions
     EventBusQueueName = "Dotnet9.Web",
     LogFilePath = $"{AppDomain.CurrentDomain.BaseDirectory}Dotnet9.Web.log"
 });
+
+var siteOption = builder.Configuration.GetSection("Site").Get<SiteOptions>();
+if (siteOption?.ApiService != null)
+{
+    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(siteOption.ApiService) });
+}
+
 builder.Services.AddRazorPages();
 builder.Services.AddDataProtection();
 //登录、注册的项目除了要启用WebApplicationBuilderExtensions中的初始化之外，还要如下的初始化

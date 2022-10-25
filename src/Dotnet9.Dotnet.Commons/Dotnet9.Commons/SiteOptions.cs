@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace Dotnet9.Commons;
+﻿namespace Dotnet9.Commons;
 
 public class SiteOptions
 {
@@ -12,7 +10,7 @@ public class SiteOptions
     public string? BeiAnUrl { get; set; }
     public string? Logo { get; set; }
     public string? Github { get; set; }
-
+    public string? ApiService { get; set; }
     public string AssetsLocalPath { get; set; } = null!;
 
     public string AssetsRemotePath { get; set; } = null!;

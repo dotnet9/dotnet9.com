@@ -1,11 +1,11 @@
 ﻿@model Dotnet9.Web.ViewModel.Commons.PaginationModel
 @{
-    var showFirst = Model.PageCount > 1;
+    var showFirst = Model.Current > 1;
     var showPrev = Model.Current > 1;
     var prevPageIndex = Model.Current - 1;
     var showNext = Model.Current != Model.PageCount;
     var nextPageIndex = Model.Current + 1;
-    var showLast = showFirst;
+    var showLast = Model.Current < Model.PageCount;
     var defaultQueryString = !Model.DefaultParams.IsNullOrWhiteSpace() ? $"?{Model.DefaultParams}&" : "?";
 }
 
@@ -19,7 +19,7 @@
     }
     @if (showPrev)
     {
-        <a href="@(defaultQueryString)current=prevPageIndex?pageSize=@Model.PageSize">上一页</a>
+        <a href="@(defaultQueryString)current=@prevPageIndex?pageSize=@Model.PageSize">上一页</a>
     }
     @if (Model.Pages?.Any() == true)
     {

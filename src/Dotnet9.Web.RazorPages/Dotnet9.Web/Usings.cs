@@ -18,6 +18,7 @@ global using Dotnet9.WebAPI.Domain.Privacies;
 global using Dotnet9.WebAPI.Domain.Timelines;
 global using Dotnet9.WebAPI.Domain.UserAdmin;
 global using Dotnet9.WebAPI.Infrastructure;
+global using Dotnet9.WebAPI.ViewModel.Comments;
 global using Dotnet9.WebAPI.ViewModel.Timelines;
 global using Markdig;
 global using Markdig.Parsers;

@@ -18,17 +18,17 @@ public class CommentManager
     {
         var id = Guid.NewGuid();
 
-        if (parentId is null)
+        if (parentId is not null)
         {
-            return new Comment(id, parentId, url, userName, email, content);
+            var existComment = await _commentRepository.FindByIdAsync(parentId.Value);
+            if (existComment == null)
+            {
+                throw new Exception($"不存在的父级留言: {parentId}");
+            }
         }
 
-        var existComment = await _commentRepository.FindByIdAsync(parentId.Value);
-        if (existComment == null)
-        {
-            throw new Exception($"不存在的父级留言: {parentId}");
-        }
-
-        return new Comment(id, parentId, url, userName, email, content);
+        var comment = new Comment(id, parentId, url, userName, email, content);
+        comment.SetCreationTime(DateTime.Now);
+        return comment;
     }
 }

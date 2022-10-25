@@ -1,4 +1,11 @@
-﻿<div class="row">
+﻿@model Dotnet9.Web.ViewModels.Comments.CommentViewModel
+@inject HttpClient HttpClient
+
+@{
+    var comments = await HttpClient.GetFromJsonAsync<CommentDto[]>($"/api/comment?url={Model.Url}&current=1&pagesize=1000");
+}
+
+<div class="row">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -35,3 +42,16 @@
         </div>
     </div>
 </div>
+
+@if (comments is {Length:>0})
+{
+    
+<div id="comment-section" class="row">
+    <div class="col-sm-7">
+        <ul class="comments">
+            @await Html.PartialAsync("_CommentListPartial", new CommentListViewModel(Model.Url, null, comments))
+        </ul>
+    </div>
+
+</div>
+}

@@ -1,6 +1,7 @@
 ﻿@page "/{Year}/{Month}/{Slug}"
 @inject IOptionsSnapshot<SiteOptions> SiteOptions
 
+@using Dotnet9.Web.ViewModels.Comments
 @model IndexModel
 @{
     ViewData["Title"] = Model.Current?.Title;
@@ -150,7 +151,7 @@
     }
     <div class="clear blank"></div>
     <div class="pinglun-box whitebg">
-        @await Html.PartialAsync("Comments/_CommentsPartial")
+        @await Html.PartialAsync("Comments/_CommentsPartial", new CommentViewModel($"/{Model.Year}/{Model.Month}/{Model.Slug}"))
     </div>
 </div>
 <aside class="side-section right-box">

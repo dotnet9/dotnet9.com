@@ -34,6 +34,7 @@ public record Comment : AggregateRootEntity
 
     public string Content { get; private set; } = null!;
     public bool Visible { get; private set; }
+    public new DateTime CreationTime { get; private set; }
 
 
     public Comment ChangeUrl(string url)
@@ -73,6 +74,12 @@ public record Comment : AggregateRootEntity
     public Comment ChangeVisible(bool visible)
     {
         Visible = visible;
+        return this;
+    }
+
+    internal Comment SetCreationTime(DateTime creationTime)
+    {
+        CreationTime = creationTime;
         return this;
     }
 }
