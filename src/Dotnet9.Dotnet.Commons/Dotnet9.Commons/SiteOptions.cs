@@ -25,14 +25,4 @@ public class SiteOptions
     public int Start { get; set; }
     public string? Bilibili { get; set; }
     public string? Zhihu { get; set; }
-    public bool Valine { get; set; }
-    public ValineConfig? ValineConfig { get; set; }
-}
-
-public class ValineConfig
-{
-    public string? AppId { get; set; }
-    public string? AppKey { get; set; }
-    public string? ServerURL { get; set; }
-    public string? Placeholder { get; set; }
 }

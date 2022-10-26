@@ -44,7 +44,7 @@ public class CommentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<CommentDto>> Add(AddCommentRequest request)
+    public async Task<ActionResult<CommentDto>> Add([FromBody]AddCommentRequest request)
     {
         var comment = await _manager.CreateAsync(request.ParentId, request.Url, request.UserName, request.Email,
             request.Content);

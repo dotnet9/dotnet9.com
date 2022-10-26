@@ -5,70 +5,44 @@
     var comments = Model.Comments?.Where(x => x.ParentId == Model.ParentId).ToList();
 }
 
-<div class="row">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h3 class="page-title">留言</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="thumbnail">
-                    <img class="img-responsive user-photo"
-                         src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <textarea class="form-control"
-                                  cols="15"
-                                  id="commentInput"></textarea>
-                    </div>
-                    <div class="panel-heading comment-action">
-                        <div class="submit-comment">
-                            <a href="https://www.blogger.com/null" id="addNewCommentBtn">
-                                留言
+<div id="comment-section" class="row">
+    <div class="col-sm-7">
+        <ul class="comments">
+            @if (comments is { Count: > 0 })
+            {
+                @foreach (var comment in comments)
+                {
+                    <li class="comment" data-id="@comment.Id">
+                        <div class="avatar">
+                            <a href="javascript:void(0);">
+                                <img src="~/images/avatar.jpg" width="55" height="55">
                             </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div data-id="@comment.Id" class="comment-body">
+                            <header>
+                                <a href="javascript:void(0);" class="userlink">@comment.UserName</a> - <span class="pubdate">评论于 @comment.CreationTime</span>
+                            </header>
+                            <p>
+                                @comment.Content
+                            </p>
+                            <footer>
+                                <a class="reply-link" href="@comment.Id">回复</a>
+                            </footer>
+                        </div>
 
-@if (comments is { Count: > 0 })
-{
-    foreach (var comment in comments)
-    {
-        <li class="comment" data-id="@comment.Id">
-            <div class="avatar">
-                <a href="javascript:void(0);">
-                    <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
-                </a>
-            </div>
-            <div data-id="@comment.Id" class="comment-body">
-                <header><a href="javascript:void(0);" class="userlink">@comment.UserName</a> - <span class="pubdate">posted @comment.CreationTime</span></header>
-                <p>
-                    @comment.Content
-                </p>
-                <footer>
-                    <a class="reply-link" href="@comment.Id">回复</a>
-                </footer>
-            </div>
+                        @{
+                            var children = Model.Comments!.Where(x => x.ParentId == comment.Id).ToList();
+                            if (children is { Count: > 0 })
+                            {
+                                <ul data-parentid="@comment.Id" class="replies">
+                                    @await Html.PartialAsync("_CommentListPartial", Model with { ParentId = comment.Id })
+                                </ul>
+                            }
+                        }
 
-            @{
-                var children = Model.Comments!.Where(x => x.ParentId == comment.Id).ToList();
-                if (children is { Count: > 0 })
-                {
-                    <ul data-parentid="@comment.Id" class="replies">
-                        @await Html.PartialAsync("_CommentListPartial", Model with { ParentId = comment.Id })
-                    </ul>
+                    </li>
                 }
             }
-
-        </li>
-    }
-}
+        </ul>
+    </div>
+</div>

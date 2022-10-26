@@ -5,26 +5,32 @@
 }
 
 @section Headers{
-    <link rel="stylesheet" href="~/css/swiper.min.css" />
+    <link rel="stylesheet" href="~/css/swiper.min.css"/>
 }
 
 @await Html.PartialAsync("Home/_BannerAndHeadlineBoxPartial")
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_TuiJianNewsPartial")
-<div class="clear blank"></div>
-@await Html.PartialAsync("Ads/_DiaplayPartial")
+<environment names="Production">
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
+</environment>
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_PicturePartial")
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_NewsPartial")
-<div class="clear blank"></div>
-@await Html.PartialAsync("Ads/_DiaplayPartial")
+<environment names="Production">
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
+</environment>
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_VideosPartial")
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_WenZiPartial")
-<div class="clear blank"></div>
-@await Html.PartialAsync("Ads/_DiaplayPartial")
+<environment names="Production">
+    <div class="clear blank"></div>
+    @await Html.PartialAsync("Ads/_DiaplayPartial")
+</environment>
 <div class="clear blank"></div>
 @await Html.PartialAsync("Home/_ToolsPartial")
 <div class="clear blank"></div>

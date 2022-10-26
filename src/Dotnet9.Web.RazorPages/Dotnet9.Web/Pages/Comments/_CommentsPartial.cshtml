@@ -11,13 +11,14 @@
         <div class="row">
             <div class="col-sm-12">
                 <h3 class="page-title">留言</h3>
+                <p class="comment-msg"></p>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-1">
                 <div class="thumbnail">
                     <img class="img-responsive user-photo"
-                         src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                         src="~/images/avatar.jpg"/>
                 </div>
             </div>
             <div class="col-sm-6">
@@ -26,28 +27,23 @@
                         <textarea class="form-control" cols="15" id="commentInput"></textarea>
                     </div>
                     <div class="panel-heading comment-action">
-                        <div class="submit-comment">
-                            <a href="#" id="addNewCommentBtn">
-                                回复
-                            </a
-                            >
+                        <div class="submit-comment" id="addNewCommentBtn">
+                            回复
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @if (comments is {Count:>0})
-        {
-            @await Html.PartialAsync("_CommentListPartial", new CommentListViewModel(Model.Url, null, comments))
-        }
+
+        @await Html.PartialAsync("Comments/_CommentListPartial", new CommentListViewModel(Model.Url, null, comments))
     </div>
 </div>
 
 <script id="comment-template" type="text/x-handlebars-template">
-    <li class="comment" data-id="{{Id}}">
+    <li class="comment" data-id="{{id}}">
         <div class="avatar">
             <a href="javascript:void(0);">
-                <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
+                <img src="~/images/avatar.jpg" width="55" height="55">
             </a>
         </div>
         <div class="comment-body">
@@ -71,7 +67,7 @@
     <div style="padding-top:10px" class="row reply-form">
         <div class="col-sm-2">
             <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                <img class="img-responsive user-photo" src="~/images/avatar.jpg">
                 </div>
             </div>
             <div class="col-sm-10">

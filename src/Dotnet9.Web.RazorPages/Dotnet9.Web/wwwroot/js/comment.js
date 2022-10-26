@@ -1,7 +1,7 @@
 ﻿function addNewComment(data) {
     return $.ajax({
         type: "POST",
-        url: '/api/comment',
+        url: 'http://localhost:5005/api/comment',
         data: data,
         dataType: 'json',
         contentType: 'application/json;charset=utf-8'
@@ -18,18 +18,25 @@ $(function () {
 
     $("#addNewCommentBtn").click(function (e) {
         e.preventDefault();
+        var comment = $("#commentInput").val();
+        if (comment === null || comment === "") {
+            $(".comment-msg").text('请填写评论！');
+            return;
+        } else {
+            $(".comment-msg").text('');
+        }
         var data = JSON.stringify({
             url: window.location.pathname,
             parentId: null,
-            content: $("#commentInput").val(),
+            content: comment,
             userName: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5),
             email: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5)
         });
 
 
         $.when(addNewComment(data)).then(function (response) {
-            if (response.error == false) {
-                var $commentHtml = template(response.result.data);
+            if (response.success === true) {
+                var $commentHtml = template(response.data);
                 $(".comments").append($commentHtml);
                 $("#commentInput").val('');
             } else {

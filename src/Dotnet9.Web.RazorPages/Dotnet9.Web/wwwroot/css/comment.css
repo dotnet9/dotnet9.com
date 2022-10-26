@@ -15,10 +15,13 @@
 
 .submit-comment {
     background: #606d75;
+    color: #fff !important;
+    line-height: 35px;
     width: 130px;
     float: right;
     min-height: 35px;
     text-align: center;
+    cursor: pointer;
 }
 
 .submit-comment a {
@@ -80,4 +83,10 @@ footer .reply-link {
 .comments .comment .replies {
     margin-top: 2px;
     margin-bottom: 3px;
+}
+
+.comment-msg {
+    line-height: 60px;
+    text-align: left;
+    color: red;
 }
