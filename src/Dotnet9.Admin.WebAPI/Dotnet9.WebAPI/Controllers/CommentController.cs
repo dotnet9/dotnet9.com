@@ -27,7 +27,8 @@ public class CommentController : ControllerBase
         {
             var dataFromDb = await _repository.GetListAsync(request);
             return dataFromDb.Comments
-                ?.Select(x => new CommentDto(x.Id, x.ParentId, x.Url, x.UserName, x.Email, x.Content, x.CreationTime))
+                ?.Select(x => new CommentDto(x.Id, x.ParentId, x.Url, x.UserName, x.Email, x.Content,
+                    x.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ToArray();
         }
 
@@ -51,6 +52,6 @@ public class CommentController : ControllerBase
         var data = await _dbContext.AddAsync(comment);
         await _dbContext.SaveChangesAsync();
         return new CommentDto(data.Entity.Id, data.Entity.ParentId, data.Entity.Url, data.Entity.UserName,
-            data.Entity.Email, data.Entity.Content, data.Entity.CreationTime);
+            data.Entity.Email, data.Entity.Content, data.Entity.CreationTime.ToString("yyyy-MM-dd HH:mm:ss"));
     }
 }

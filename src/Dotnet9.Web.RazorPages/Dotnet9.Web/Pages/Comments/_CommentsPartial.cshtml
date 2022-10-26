@@ -1,8 +1,9 @@
 ﻿@model Dotnet9.Web.ViewModels.Comments.CommentViewModel
 @inject HttpClient HttpClient
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
 
 @{
-    var comments = await HttpClient.GetFromJsonAsync<CommentDto[]>($"/api/comment?url={Model.Url}&current=1&pagesize=1000");
+    var comments = await HttpClient.GetFromJsonAsync<List<CommentDto>>($"/api/comment?url={Model.Url}&current=1&pagesize=1000");
 }
 
 <div class="row">
@@ -15,24 +16,19 @@
         <div class="row">
             <div class="col-sm-1">
                 <div class="thumbnail">
-                    <img
-                        class="img-responsive user-photo"
-                        src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                    <img class="img-responsive user-photo"
+                         src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <textarea
-              class="form-control"
-              cols="15"
-              id="commentInput"
-            ></textarea>
+                        <textarea class="form-control" cols="15" id="commentInput"></textarea>
                     </div>
                     <div class="panel-heading comment-action">
                         <div class="submit-comment">
-                            <a href="https://www.blogger.com/null" id="addNewCommentBtn">
-                                留言
+                            <a href="#" id="addNewCommentBtn">
+                                回复
                             </a
                             >
                         </div>
@@ -40,18 +36,56 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-@if (comments is {Length:>0})
-{
-    
-<div id="comment-section" class="row">
-    <div class="col-sm-7">
-        <ul class="comments">
+        @if (comments is {Count:>0})
+        {
             @await Html.PartialAsync("_CommentListPartial", new CommentListViewModel(Model.Url, null, comments))
-        </ul>
+        }
     </div>
-
 </div>
-}
+
+<script id="comment-template" type="text/x-handlebars-template">
+    <li class="comment" data-id="{{Id}}">
+        <div class="avatar">
+            <a href="javascript:void(0);">
+                <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
+            </a>
+        </div>
+        <div class="comment-body">
+            <header>
+                <a href="javascript:void(0);" class="userlink">{{userName}}</a> - <span class="pubdate">
+                    posted {{creationTime}}
+                </span>
+            </header>
+            <p>
+                {{content}}
+            </p>
+            <footer>
+                <a class="reply-link" href="{{id}}">回复</a>
+            </footer>
+        </div>
+
+    </li>
+</script>
+
+<script id="reply-template" type="text/template">
+    <div style="padding-top:10px" class="row reply-form">
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <textarea cols="15" id="replyInput" class="form-control" placeholder="回复对话.."></textarea>
+                    </div>
+                    <div class="panel-heading comment-action">
+                        <div class="submit-comment">
+                            <a class="addReplyBtn" href="#">提交</a>
+                            <input type="hidden" name="hidParentId" class="hidParentId"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>

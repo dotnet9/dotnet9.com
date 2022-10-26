@@ -50,7 +50,7 @@
                 </a>
             </div>
             <div data-id="@comment.Id" class="comment-body">
-                <header><a href="javascript:void(0);" class="userlink">@comment.UserName</a> - <span class="pubdate">posted @comment.CreationTime.ToString("dd-MM-yyyy")</span></header>
+                <header><a href="javascript:void(0);" class="userlink">@comment.UserName</a> - <span class="pubdate">posted @comment.CreationTime</span></header>
                 <p>
                     @comment.Content
                 </p>
@@ -64,7 +64,7 @@
                 if (children is { Count: > 0 })
                 {
                     <ul data-parentid="@comment.Id" class="replies">
-                        @await Html.PartialAsync("_CommentListPartial", new CommentListViewModel(Model.Url, comment.Id, Model.Comments))
+                        @await Html.PartialAsync("_CommentListPartial", Model with { ParentId = comment.Id })
                     </ul>
                 }
             }

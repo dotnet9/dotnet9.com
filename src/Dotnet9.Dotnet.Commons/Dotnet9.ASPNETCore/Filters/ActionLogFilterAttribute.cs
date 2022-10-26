@@ -40,10 +40,15 @@ public class ActionLogFilterAttribute : ActionFilterAttribute
         var ip = context.HttpContext.GetClientIP();
         context.HttpContext.Request.Headers.TryGetValue("referer", out var referer);
 
-        var parser = Parser.GetDefault().Parse(ua);
+        var os = string.Empty;
+        var browser = string.Empty;
+        if (ua.Count > 0)
+        {
+            var parser = Parser.GetDefault().Parse(ua);
+            os = parser.OS.ToString();
+            browser = parser.UA.ToString();
+        }
 
-        var os = parser.OS.ToString();
-        var browser = parser.UA.ToString();
         var original = context.HttpContext.Request.Headers["Origin"].FirstOrDefault();
         var url = context.HttpContext.Request.Host + context.HttpContext.Request.Path +
                   context.HttpContext.Request.QueryString;

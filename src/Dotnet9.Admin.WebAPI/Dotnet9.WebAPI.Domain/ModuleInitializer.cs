@@ -15,5 +15,6 @@ internal class ModuleInitializer : IModuleInitializer
         services.AddScoped<PrivacyManager>();
         services.AddScoped<LinkManager>();
         services.AddScoped<TimelineManager>();
+        services.AddScoped<CommentManager>();
     }
 }
