@@ -1,11 +1,11 @@
-/**
- * base.css
- * https://www.yangqq.com/
- * Copyright 2019, design by yangqq
- */
 @charset "UTF-8";
 * { margin: 0; padding: 0 }
-body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #000; background: #f1f1f1; font-size: 15px; }
+body {
+    font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    color: #000;
+    background: #f8f8f9 url(http://image.uisdc.com/wp-content/uploads/2016/10/seigaiha.png) repeat center;
+    font-size: 15px;
+}
 img { border: 0; display: block }
 ul, li { list-style: none; }
 a { text-decoration: none; color: #000; }
