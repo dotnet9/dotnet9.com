@@ -1,6 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Services;
 
-public partial class LoginController
+public partial class SeedService
 {
     private const string Title = "title: ";
     private const string Banner = "banner: ";
@@ -18,16 +18,26 @@ public partial class LoginController
     private const string Categories = "categories: ";
     private const string Tags = "tags: ";
 
-    [HttpPost]
-    [Authorize(Roles = UserRoleConst.Admin)]
-    public async Task<bool> Seed()
+    private async Task CreateSeedDataAsync()
     {
+        if (_dbContext.BlogPosts!.Any())
+        {
+            Console.WriteLine("存在文章数据，默认不再初始化");
+            return;
+        }
+
+        if (!Directory.Exists(_siteOptions.AssetsLocalPath))
+        {
+            Console.WriteLine($"请配置种子数据目录：{nameof(_siteOptions.AssetsLocalPath)}");
+            return;
+        }
+
         var sw = new Stopwatch();
         sw.Start();
         var blogPostInfo = await CheckBlogPosts();
         if (!blogPostInfo.Status)
         {
-            return false;
+            return;
         }
 
         await SeedAbouts();
@@ -43,7 +53,6 @@ public partial class LoginController
         await SeedTimelines();
         sw.Stop();
         Console.WriteLine($"Seed time: {sw.ElapsedMilliseconds} ms");
-        return true;
     }
 
     private async
@@ -117,16 +126,16 @@ public partial class LoginController
         }
 
         var albums = JsonSerializer.Deserialize<AlbumSeedDto[]>(
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "albums",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "albums",
                 "album.json")))!;
         var categories = JsonSerializer.Deserialize<CategorySeedDto[]>(
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "cats",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "cats",
                 "category.json")))!;
         ReadCategoryName(categories);
         var blogPostFiles = new List<string>();
-        for (var i = _siteOptions.Value.Start; i <= DateTime.Now.Year; i++)
+        for (var i = _siteOptions.Start; i <= DateTime.Now.Year; i++)
         {
-            blogPostFiles.AddRange(Directory.GetFiles(Path.Combine(_siteOptions.Value.AssetsLocalPath, i.ToString()),
+            blogPostFiles.AddRange(Directory.GetFiles(Path.Combine(_siteOptions.AssetsLocalPath, i.ToString()),
                 "*.md",
                 SearchOption.AllDirectories));
         }
@@ -149,7 +158,7 @@ public partial class LoginController
     private async Task SeedAbouts()
     {
         var content =
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "site",
                 "about.md"));
 
         var about = await _aboutRepository.GetAsync();
@@ -269,7 +278,7 @@ public partial class LoginController
     private async Task SeedDonations()
     {
         var content =
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "pays",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "pays",
                 "Donation.md"));
 
         var donation = await _donationRepository.GetAsync();
@@ -289,7 +298,7 @@ public partial class LoginController
     private async Task SeedLinks()
     {
         var links = JsonSerializer.Deserialize<List<LinkSeedDto>>(
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "site",
                 "link.json")));
         var linksForDb = links!.Select(x =>
             _linkManager.CreateForSeed(x.SequenceNumber, x.Name, x.Url, x.Description, x.Kind!));
@@ -300,7 +309,7 @@ public partial class LoginController
     private async Task SeedPrivacies()
     {
         var content =
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "site",
                 "Privacy.md"));
         var privacy = await _privacyRepository.GetAsync();
         if (privacy == null)
@@ -319,7 +328,7 @@ public partial class LoginController
     private async Task SeedTimelines()
     {
         var timelines = JsonSerializer.Deserialize<List<TimelineSeedDto>>(
-            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.Value.AssetsLocalPath, "site",
+            await System.IO.File.ReadAllTextAsync(Path.Combine(_siteOptions.AssetsLocalPath, "site",
                 "timelines.json")));
         var timelinesForDb = timelines!.Select(x =>
             _timelineManager.CreateForSeed(x.Time, x.Title, x.Content));

@@ -1,7 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using Dotnet9.WebAPI.Services;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.ConfigureDbConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
     EventBusQueueName = "Dotnet9.WebAPI",
@@ -18,7 +19,7 @@ builder.Services.AddDataProtection();
 //不要用AddIdentity，而是用AddIdentityCore
 //因为用AddIdentity会导致JWT机制不起作用，AddJwtBearer中回调不会被执行，因此总是Authentication校验失败
 //https://github.com/aspnet/Identity/issues/1376
-var idBuilder = builder.Services.AddIdentityCore<User>(options =>
+IdentityBuilder idBuilder = builder.Services.AddIdentityCore<User>(options =>
     {
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;
@@ -50,7 +51,16 @@ else
     builder.Services.AddScoped<ISmsSender, SendCloudSmsSender>();
 }
 
-var app = builder.Build();
+builder.Services.AddScoped<ISeedService, SeedService>();
+
+WebApplication app = builder.Build();
+
+// 运行时初始化数据库表结构、添加种子数据等
+using (IServiceScope serviceScope = app.Services.CreateScope())
+{
+    ISeedService seedService = serviceScope.ServiceProvider.GetRequiredService<ISeedService>();
+    await seedService.MigrateAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

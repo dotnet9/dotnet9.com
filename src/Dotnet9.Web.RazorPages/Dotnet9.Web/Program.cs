@@ -3,7 +3,6 @@ using System.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.ConfigureDbConfiguration();
 builder.ConfigureExtraServices(new InitializerOptions
 {
     EventBusQueueName = "Dotnet9.Web",

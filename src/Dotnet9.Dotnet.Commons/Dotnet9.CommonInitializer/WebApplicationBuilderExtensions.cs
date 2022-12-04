@@ -2,13 +2,6 @@
 
 public static class WebApplicationBuilderExtensions
 {
-    public static void ConfigureDbConfiguration(this WebApplicationBuilder builder)
-    {
-        var connStr = builder.Configuration.GetValue<string>("DefaultDB:ConnectionString");
-        builder.Configuration.AddDbConfiguration(() => new NpgsqlConnection(connStr), reloadOnChange: true,
-            reloadInterval: TimeSpan.FromSeconds(5));
-    }
-
     public static void ConfigureExtraServices(this WebApplicationBuilder builder, InitializerOptions initOptions)
     {
         IServiceCollection services = builder.Services;

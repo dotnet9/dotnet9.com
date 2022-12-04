@@ -4,11 +4,10 @@
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
-		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0-dev-00285" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Dotnet9.AnyDBConfigProvider\Dotnet9.AnyDBConfigProvider.csproj" />
 		<ProjectReference Include="..\Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj" />
 		<ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
 		<ProjectReference Include="..\Dotnet9.EventBus\Dotnet9.EventBus.csproj" />

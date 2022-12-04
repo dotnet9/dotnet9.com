@@ -4,82 +4,24 @@ namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public partial class LoginController : ControllerBase
+public class LoginController : ControllerBase
 {
-    private readonly AboutManager _aboutManager;
-    private readonly IAboutRepository _aboutRepository;
-    private readonly AlbumManager _albumManager;
-    private readonly BlogPostManager _blogPostManager;
-    private readonly CategoryManager _categoryManager;
-    private readonly Dotnet9DbContext _dbContext;
-    private readonly DonationManager _donationManager;
-    private readonly IDonationRepository _donationRepository;
-    private readonly LinkManager _linkManager;
     private readonly IdManager _manager;
-    private readonly PrivacyManager _privacyManager;
-    private readonly IPrivacyRepository _privacyRepository;
     private readonly IIdRepository _repository;
-    private readonly IOptionsSnapshot<SiteOptions> _siteOptions;
-    private readonly TagManager _tagManager;
-    private readonly TimelineManager _timelineManager;
 
-    public LoginController(IOptionsSnapshot<SiteOptions> siteOptions, Dotnet9DbContext dbContext, IdManager manager,
-        IIdRepository repository, AboutManager aboutManager, IAboutRepository aboutRepository,
-        AlbumManager albumManager, CategoryManager categoryManager,
-        TagManager tagManager,
-        DonationManager donationManager, IDonationRepository donationRepository, LinkManager linkManager,
-        PrivacyManager privacyManager, IPrivacyRepository privacyRepository,
-        TimelineManager timelineManager, BlogPostManager blogPostManager)
+    public LoginController(IdManager manager, IIdRepository repository)
     {
-        _siteOptions = siteOptions;
-        _dbContext = dbContext;
-        _manager = manager;
-        _repository = repository;
-        _aboutManager = aboutManager;
-        _aboutRepository = aboutRepository;
-        _albumManager = albumManager;
-        _categoryManager = categoryManager;
-        _tagManager = tagManager;
-        _donationManager = donationManager;
-        _donationRepository = donationRepository;
-        _linkManager = linkManager;
-        _privacyManager = privacyManager;
-        _privacyRepository = privacyRepository;
-        _timelineManager = timelineManager;
-        _blogPostManager = blogPostManager;
-        _siteOptions = siteOptions;
         _manager = manager;
         _repository = repository;
     }
 
-    [HttpPost]
-    [AllowAnonymous]
-    public async Task<ActionResult> CreateWorld()
-    {
-        if (await _repository.FindByNameAsync(UserRoleConst.Admin) != null)
-        {
-            return StatusCode((int)HttpStatusCode.Conflict, "已经初始化过了");
-        }
-
-        var user = new User(UserRoleConst.Admin);
-        var r = await _repository.CreateAsync(user, "Dotnet9");
-        Debug.Assert(r.Succeeded);
-        var token = await _repository.GenerateChangedPhoneNumberTokenAsync(user, "18688888888");
-        var cr = await _repository.ChangePhoneNumberAsync(user.Id, "18688888888", token);
-        Debug.Assert(cr.Succeeded);
-        r = await _repository.AddToRolesAsync(user, UserRoleConst.User);
-        Debug.Assert(r.Succeeded);
-        r = await _repository.AddToRolesAsync(user, UserRoleConst.Admin);
-        Debug.Assert(r.Succeeded);
-        return Ok();
-    }
 
     [HttpGet]
     [Authorize]
     public async Task<ActionResult<UserResponse>> CurrentUser()
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
+        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        User? user = await _repository.FindByIdAsync(Guid.Parse(userId!));
         if (user == null)
         {
             return NotFound();
@@ -96,14 +38,14 @@ public partial class LoginController : ControllerBase
     [Authorize]
     public async Task<ResponseResult<bool>> ChangePassword(ChangeMyPasswordRequest req)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _repository.FindByIdAsync(Guid.Parse(userId!));
+        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        User? user = await _repository.FindByIdAsync(Guid.Parse(userId!));
         if (user == null)
         {
             return ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, "不存在的用户");
         }
 
-        var checkResult = await _repository.CheckForSignInAsync(user, req.OldPassword, false);
+        SignInResult checkResult = await _repository.CheckForSignInAsync(user, req.OldPassword, false);
         if (!checkResult.Succeeded)
         {
             return checkResult.IsLockedOut
@@ -111,10 +53,10 @@ public partial class LoginController : ControllerBase
                 : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败：{checkResult}");
         }
 
-        var changeResult = await _repository.ChangePasswordAsync(user.Id, req.NewPassword);
+        IdentityResult changeResult = await _repository.ChangePasswordAsync(user.Id, req.NewPassword);
         return changeResult.Succeeded
             ? true
-            : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, $"修改失败，请检查原密码是否输入正确");
+            : ResponseResult<bool>.GetError(HttpStatusCode.BadRequest, "修改失败，请检查原密码是否输入正确");
     }
 
     [AllowAnonymous]
@@ -132,9 +74,9 @@ public partial class LoginController : ControllerBase
             loginResult = await _manager.LoginByPhoneAndPwdAsync(req.UserName, req.Password);
         }
 
-        var status = loginResult.Result.Succeeded ? "ok" : "error";
-        var currentAuthority = "guest";
-        var token = loginResult.Token;
+        string status = loginResult.Result.Succeeded ? "ok" : "error";
+        string currentAuthority = "guest";
+        string? token = loginResult.Token;
         if (loginResult.Result.Succeeded)
         {
             if (LoginRequestType.Account != req.Type)
@@ -142,8 +84,8 @@ public partial class LoginController : ControllerBase
                 return new LoginResponse(true, "ok", req.Type!, currentAuthority, token);
             }
 
-            var user = await _repository.FindByNameAsync(req.UserName);
-            var roles = await _repository.GetRolesAsync(user!);
+            User? user = await _repository.FindByNameAsync(req.UserName);
+            IList<string> roles = await _repository.GetRolesAsync(user!);
             currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
 
             return new LoginResponse(true, "ok", req.Type!, currentAuthority, token, User: new UserResponse
@@ -155,11 +97,9 @@ public partial class LoginController : ControllerBase
                     "https://img1.dotnet9.com/site/logo.png"
             });
         }
-        else
-        {
-            return new LoginResponse(false, "error", req.Type!, currentAuthority, token,
-                loginResult.Result == SignInResult.LockedOut ? "已被锁定！" : "登录失败，请重试！");
-        }
+
+        return new LoginResponse(false, "error", req.Type!, currentAuthority, token,
+            loginResult.Result == SignInResult.LockedOut ? "已被锁定！" : "登录失败，请重试！");
     }
 
     [HttpPost]
