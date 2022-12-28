@@ -356,3 +356,4 @@ src/Dotnet9.Web.RazorPages/Dotnet9.Web/.config/dotnet-tools.json
 src/Dotnet9.Web.RazorPages/Dotnet9.Web/wwwroot/css/bootstrap.css.map
 src/Dotnet9.Web.RazorPages/Dotnet9.Web/wwwroot/css/bootstrap.min.css
 src/Dotnet9.Web.RazorPages/Dotnet9.Web/wwwroot/css/bootstrap.min.css.map
+src/Dotnet9.Admin.Web/dotnet9-adminvue/dist/

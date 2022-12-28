@@ -3,14 +3,14 @@
 public class ResponseResult<T>
 {
     public bool Success { get; set; }
-    [JsonIgnore] public HttpStatusCode Code { get; set; }
+    [JsonIgnore] public HttpStatusCode HttpStatusCode { get; set; }
 
-    public string? ErrorCode
+    public string Code
     {
-        get { return ((int)Code).ToString(); }
+        get { return ((int)HttpStatusCode).ToString(); }
     }
 
-    public string? ErrorMessage { get; set; }
+    public string? Message { get; set; }
     public T? Data { get; set; }
 
     public static ResponseResult<T> GetSuccess(T data)
@@ -27,8 +27,8 @@ public class ResponseResult<T>
         return new ResponseResult<T>
         {
             Success = false,
-            Code = HttpStatusCode.BadRequest,
-            ErrorMessage = message
+            HttpStatusCode = HttpStatusCode.BadRequest,
+            Message = message
         };
     }
 
@@ -37,8 +37,8 @@ public class ResponseResult<T>
         return new ResponseResult<T>
         {
             Success = false,
-            Code = code,
-            ErrorMessage = message
+            HttpStatusCode = code,
+            Message = message
         };
     }
 
@@ -47,8 +47,8 @@ public class ResponseResult<T>
         return new ResponseResult<T>
         {
             Success = success,
-            Code = code,
-            ErrorMessage = message,
+            HttpStatusCode = code,
+            Message = message,
             Data = data
         };
     }

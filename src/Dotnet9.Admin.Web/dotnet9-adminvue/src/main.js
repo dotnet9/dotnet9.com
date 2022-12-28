@@ -67,7 +67,10 @@ router.afterEach(() => {
 })
 
 axios.interceptors.request.use((config) => {
-  config.headers['Authorization'] = 'Bearer ' + sessionStorage.getItem('token')
+  var token = sessionStorage.getItem('token')
+  if(token !== null) {
+    config.headers['Authorization'] = 'Bearer ' + token
+  }
   return config
 })
 

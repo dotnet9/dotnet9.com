@@ -1,4 +1,5 @@
-﻿using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+﻿using Dotnet9.ASPNETCore.ResponseResults;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Dotnet9.WebAPI.Controllers;
 
@@ -62,7 +63,7 @@ public class LoginController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [NoWrapper]
-    public async Task<LoginResponse> Account(LoginRequest req)
+    public async Task<ResponseResult<UserResponse>> Account(LoginRequest req)
     {
         (SignInResult Result, string? Token) loginResult;
         if (LoginRequestType.Account == req.Type)
@@ -81,14 +82,14 @@ public class LoginController : ControllerBase
         {
             if (LoginRequestType.Account != req.Type)
             {
-                return new LoginResponse(true, "ok", req.Type!, currentAuthority, token);
+                return ResponseResult<UserResponse>.GetSuccess(new UserResponse() { Token = token });
             }
 
             User? user = await _repository.FindByNameAsync(req.UserName);
             IList<string> roles = await _repository.GetRolesAsync(user!);
             currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
 
-            return new LoginResponse(true, "ok", req.Type!, currentAuthority, token, User: new UserResponse
+            return ResponseResult<UserResponse>.GetSuccess(new UserResponse
             {
                 UserId = user!.Id,
                 Name = user.UserName,
@@ -98,8 +99,9 @@ public class LoginController : ControllerBase
             });
         }
 
-        return new LoginResponse(false, "error", req.Type!, currentAuthority, token,
-            loginResult.Result == SignInResult.LockedOut ? "已被锁定！" : "登录失败，请重试！");
+        return ResponseResult<UserResponse>.GetError(loginResult.Result == SignInResult.LockedOut
+            ? "已被锁定！"
+            : "登录失败，请重试！");
     }
 
     [HttpPost]
