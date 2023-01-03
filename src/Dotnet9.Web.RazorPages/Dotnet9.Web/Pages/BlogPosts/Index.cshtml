@@ -132,7 +132,7 @@
         </div>
     </div>
     <environment names="Production">
-        @await Html.PartialAsync("Ads/_DiaplayPartial")
+        @*@await Html.PartialAsync("Ads/_DiaplayPartial")*@
     </environment>
     <div class="clear blank"></div>
     @if (Model.Current?.Nears is {Count:>0})
@@ -159,13 +159,13 @@
 <aside class="side-section right-box">
 
     <environment names="Production">
-        @await Html.PartialAsync("Ads/_DiaplayPartial")
+        @*@await Html.PartialAsync("Ads/_DiaplayPartial")*@
     </environment>
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TuiJianAndTopPartial")
     <div class="clear blank"></div>
     <environment names="Production">
-        @await Html.PartialAsync("Ads/_DiaplayPartial")
+        @*@await Html.PartialAsync("Ads/_DiaplayPartial")*@
     </environment>
     <div class="clear blank"></div>
     @await Html.PartialAsync("Sides/_TagCloudsPartial")
@@ -173,7 +173,7 @@
     @await Html.PartialAsync("Sides/_RandomListPartial")
     <div class="clear blank"></div>
     <environment names="Production">
-        @await Html.PartialAsync("Ads/_DiaplayPartial")
+        @*@await Html.PartialAsync("Ads/_DiaplayPartial")*@
     </environment>
 
 </aside>
