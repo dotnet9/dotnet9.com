@@ -83,7 +83,7 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
-  background: url(https://static.linhaojun.top/photos/765664a8a75211296a9cd89671d6d660.png) center center / cover
+  background: url(https://img1.dotnet9.com/imgs/background-back.png) center center / cover
     no-repeat;
 }
 .login-card {

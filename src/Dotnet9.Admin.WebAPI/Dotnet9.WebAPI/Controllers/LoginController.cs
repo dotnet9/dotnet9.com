@@ -1,5 +1,4 @@
-﻿using Dotnet9.ASPNETCore.ResponseResults;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+﻿using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Dotnet9.WebAPI.Controllers;
 
@@ -75,33 +74,48 @@ public class LoginController : ControllerBase
             loginResult = await _manager.LoginByPhoneAndPwdAsync(req.UserName, req.Password);
         }
 
-        string status = loginResult.Result.Succeeded ? "ok" : "error";
-        string currentAuthority = "guest";
-        string? token = loginResult.Token;
-        if (loginResult.Result.Succeeded)
+        if (!loginResult.Result.Succeeded)
         {
-            if (LoginRequestType.Account != req.Type)
-            {
-                return ResponseResult<UserResponse>.GetSuccess(new UserResponse() { Token = token });
-            }
-
-            User? user = await _repository.FindByNameAsync(req.UserName);
-            IList<string> roles = await _repository.GetRolesAsync(user!);
-            currentAuthority = roles.Contains(UserRoleConst.Admin) ? "admin" : "user";
-
-            return ResponseResult<UserResponse>.GetSuccess(new UserResponse
-            {
-                UserId = user!.Id,
-                Name = user.UserName,
-                Phone = user.PhoneNumber,
-                Avatar =
-                    "https://img1.dotnet9.com/site/logo.png"
-            });
+            return ResponseResult<UserResponse>.GetError(loginResult.Result == SignInResult.LockedOut
+                ? "已被锁定！"
+                : "登录失败，请重试！");
         }
 
-        return ResponseResult<UserResponse>.GetError(loginResult.Result == SignInResult.LockedOut
-            ? "已被锁定！"
-            : "登录失败，请重试！");
+        string? token = loginResult.Token;
+
+        if (LoginRequestType.Account != req.Type)
+        {
+            return ResponseResult<UserResponse>.GetSuccess(new UserResponse { Token = token });
+        }
+
+        User? user = await _repository.FindByNameAsync(req.UserName);
+        IList<string> roles = await _repository.GetRolesAsync(user!);
+
+        return ResponseResult<UserResponse>.GetSuccess(new UserResponse
+        {
+            UserId = user!.Id,
+            Name = user.UserName,
+            Phone = user.PhoneNumber,
+            Avatar =
+                "https://img1.dotnet9.com/site/logo.png",
+            Token = token
+        });
+    }
+
+    [HttpGet]
+    [NoWrapper]
+    public async Task<ResponseResult<List<UserMenuItem>>> Menus()
+    {
+        // TODO the data should be from database, not hard code
+        string menuFilePath = "UserMenus.json";
+        if (!System.IO.File.Exists(menuFilePath))
+        {
+            return ResponseResult<List<UserMenuItem>>.GetError("临时菜单文件不存在");
+        }
+
+        List<UserMenuItem>? menuItems =
+            (await System.IO.File.ReadAllTextAsync(menuFilePath)).ParseJson<List<UserMenuItem>>(true)!;
+        return ResponseResult<List<UserMenuItem>>.GetSuccess(menuItems);
     }
 
     [HttpPost]
