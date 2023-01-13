@@ -277,41 +277,41 @@ export default {
   },
   methods: {
     getData() {
-      this.axios.get('/api/admin').then(({ data }) => {
+      this.axios.get('/api/login/dashboardcount').then(({ data }) => {
         this.viewsCount = data.data.viewsCount
         this.messageCount = data.data.messageCount
         this.userCount = data.data.userCount
-        this.articleCount = data.data.articleCount
-        this.articleStatisticsDTOs = data.data.articleStatisticsDTOs
-        if (data.data.uniqueViewDTOs != null) {
-          data.data.uniqueViewDTOs.forEach((item) => {
+        this.articleCount = data.data.blogPostCount
+        this.articleStatisticsDTOs = data.data.blogPostStatistics
+        if (data.data.uniqueViewCounts != null) {
+          data.data.uniqueViewCounts.forEach((item) => {
             this.viewCount.xAxis.data.push(item.day)
-            this.viewCount.series[0].data.push(item.viewsCount)
+            this.viewCount.series[0].data.push(item.blogPostCount)
           })
         }
 
-        if (data.data.categoryDTOs != null) {
-          data.data.categoryDTOs.forEach((item) => {
+        if (data.data.categoryCounts != null) {
+          data.data.categoryCounts.forEach((item) => {
             this.category.series[0].data.push({
-              value: item.articleCount,
-              name: item.categoryName
+              value: item.blogPostCount,
+              name: item.name
             })
-            this.category.legend.data.push(item.categoryName)
+            this.category.legend.data.push(item.name)
           })
         }
 
-        if (data.data.articleRankDTOs != null) {
-          data.data.articleRankDTOs.forEach((item) => {
-            this.ariticleRank.series[0].data.push(item.viewsCount)
-            this.ariticleRank.xAxis.data.push(item.articleTitle)
+        if (data.data.blogPostRanks != null) {
+          data.data.blogPostRanks.forEach((item) => {
+            this.ariticleRank.series[0].data.push(item.count)
+            this.ariticleRank.xAxis.data.push(item.name)
           })
         }
 
-        if (data.data.tagDTOs != null) {
-          data.data.tagDTOs.forEach((item) => {
+        if (data.data.tagCounts != null) {
+          data.data.tagCounts.forEach((item) => {
             this.tagDTOs.push({
               id: item.id,
-              name: item.tagName
+              name: item.name
             })
           })
         }
@@ -321,7 +321,7 @@ export default {
     },
     listUserArea() {
       this.axios
-        .get('/api/admin/users/area', {
+        .get('/api/user/area', {
           params: {
             type: this.type
           }

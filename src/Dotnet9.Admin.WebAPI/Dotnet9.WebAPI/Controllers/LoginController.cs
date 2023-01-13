@@ -118,6 +118,33 @@ public class LoginController : ControllerBase
         return ResponseResult<List<UserMenuItem>>.GetSuccess(menuItems);
     }
 
+    [HttpGet]
+    [Authorize]
+    public async Task<ResponseResult<DashboardCount>> DashboardCount()
+    {
+        // TODO 需要实时统计
+        List<BlogPostViewCount> weekViewCount = Enumerable.Range(1, 7)
+            .Select(index => new BlogPostViewCount($"2023-01-0{index}", Random.Shared.Next(10, 200))).ToList();
+        List<BlogPostStatistics> blogPostStatistics = Enumerable.Range(1, 17)
+            .Select(index => new BlogPostStatistics($"2023-01-0{index}", Random.Shared.Next(0, 10))).ToList();
+        List<AlbumCount> albumCount = new[] { "开源C#", "开源WPF", "开源Winform", "开源MAUI" }
+            .Select(album => new AlbumCount(Guid.Empty, album, Random.Shared.Next(10, 1000))).ToList();
+        List<CategoryCount> categoryCount = new[] { "C#", "WPF", "Winform", "MAUI" }
+            .Select(category => new CategoryCount(Guid.Empty, category, Random.Shared.Next(10, 1000))).ToList();
+        List<TagCount> tagCount = new[] { "C#", "开源", "工具", "共享" }
+            .Select(tag => new TagCount(Guid.Empty, tag, Random.Shared.Next(10, 1000))).ToList();
+        List<BlogPostRank> blogPostRank = new[] { "C#漂亮的控制台", "开源项目集合", "便利工具", "共享社区" }
+            .Select(name => new BlogPostRank(name, Random.Shared.Next(10, 1000))).ToList();
+        return await Task.FromResult(
+            ResponseResult<DashboardCount>.GetSuccess(new DashboardCount(123, 32, 12, 235,
+                albumCount,
+                categoryCount,
+                tagCount,
+                blogPostStatistics,
+                weekViewCount,
+                blogPostRank)));
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<bool>?> OutLogin()

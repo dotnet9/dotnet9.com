@@ -20,7 +20,7 @@ public class UserAdminController : ControllerBase
     [NoWrapper]
     public async Task<GetUserListResponse> GetAllUsers([FromQuery] GetUserListRequest request)
     {
-        List<UserDto> userWithRoles = new List<UserDto>();
+        List<UserDto> userWithRoles = new();
         IQueryable<User> users = _userManager.Users.AsQueryable().AsNoTracking();
         if (request.UserName != null)
         {
@@ -68,7 +68,7 @@ public class UserAdminController : ControllerBase
             return BadRequest(result.Errors.SumErrors());
         }
 
-        UserCreatedEvent userCreatedEvent = new UserCreatedEvent(user!.Id, req.UserName, password!, req.PhoneNumber);
+        UserCreatedEvent userCreatedEvent = new(user!.Id, req.UserName, password!, req.PhoneNumber);
         _eventBus.Publish("Dotnet9.WebAPI.User.Created", userCreatedEvent);
         return new AddUserResponse(req.UserName, password!);
     }
@@ -76,7 +76,7 @@ public class UserAdminController : ControllerBase
     [HttpDelete]
     public async Task<ResponseResult<bool>> DeleteUser([FromBody] DeleteUserRequest request)
     {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
         if (request.Ids.Contains(Guid.Parse(userId)))
         {
             return ResponseResult<bool>.GetError("不能删除自己");
@@ -125,8 +125,18 @@ public class UserAdminController : ControllerBase
             return BadRequest(result.Errors.SumErrors());
         }
 
-        ResetPasswordEvent eventData = new ResetPasswordEvent(user!.Id, user.UserName!, password!, user.PhoneNumber!);
+        ResetPasswordEvent eventData = new(user!.Id, user.UserName!, password!, user.PhoneNumber!);
         _eventBus.Publish("Dotnet9.WebAPI.User.PasswordReset", eventData);
         return new ResetPasswordResponse(user.UserName!, password!);
+    }
+
+    [HttpGet]
+    [Route("/api/user/area")]
+    public async Task<ResponseResult<List<UserArea>>> Area(int type)
+    {
+        // TODO 需要实时统计
+        List<UserArea> areaCount = new[] { "北京", "上海", "广州", "深圳", "四川", "香港" }
+            .Select(name => new UserArea(name, Random.Shared.Next(10, 200))).ToList();
+        return await Task.FromResult(ResponseResult<List<UserArea>>.GetSuccess(areaCount));
     }
 }
