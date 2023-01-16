@@ -2,13 +2,13 @@
 
 [Route("api/[controller]")]
 [ApiController]
-public class TagController : ControllerBase
+public class TagsController : ControllerBase
 {
     private readonly Dotnet9DbContext _dbContext;
     private readonly TagManager _manager;
     private readonly ITagRepository _repository;
 
-    public TagController(Dotnet9DbContext dbContext, ITagRepository repository, TagManager manager)
+    public TagsController(Dotnet9DbContext dbContext, ITagRepository repository, TagManager manager)
     {
         _dbContext = dbContext;
         _repository = repository;
@@ -18,8 +18,8 @@ public class TagController : ControllerBase
     [HttpGet]
     public async Task<GetTagListResponse> List([FromQuery] GetTagListRequest request)
     {
-        (Tag[]? Tags, long Count) result = await _repository.GetListAsync(request);
-        return new GetTagListResponse(result.Tags?.Adapt<TagDto[]>(), result.Count);
+        (TagDto[]? Tags, long Count) result = await _repository.GetListAsync(request);
+        return new GetTagListResponse(result.Tags, result.Count);
     }
 
     [HttpGet]

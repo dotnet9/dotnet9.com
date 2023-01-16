@@ -11,7 +11,7 @@ internal class TagRepository : ITagRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        var logs = await _dbContext.Tags!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        List<Tag> logs = await _dbContext.Tags!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
         _dbContext.RemoveRange(logs);
         return await _dbContext.SaveChangesAsync();
     }
@@ -27,15 +27,19 @@ internal class TagRepository : ITagRepository
     }
 
 
-    public async Task<(Tag[]? Tags, long Count)> GetListAsync(GetTagListRequest request)
+    public async Task<(TagDto[]? Tags, long Count)> GetListAsync(GetTagListRequest request)
     {
-        var query = _dbContext.Tags!.AsQueryable();
+        IQueryable<Tag> query = _dbContext.Tags!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
         {
             query = query.Where(log => EF.Functions.Like(log.Name!, $"%{request.Keywords}%"));
         }
 
-        var dataFromDb = query.Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
-        return (await dataFromDb.ToArrayAsync(), await query.LongCountAsync());
+        TagDto[] dataFromDb = await query.OrderByDescending(tag => tag.CreationTime)
+            .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Select(tag =>
+                new TagDto(tag.Id, tag.Name, _dbContext.Set<BlogPostTag>()
+                    .Count(blogPostTag => blogPostTag.TagId == tag.Id), tag.CreationTime))
+            .ToArrayAsync();
+        return (dataFromDb, await query.LongCountAsync());
     }
 }

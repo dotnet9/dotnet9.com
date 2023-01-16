@@ -26,18 +26,18 @@
     </div>
     <el-table border :data="tags" v-loading="loading" @selection-change="selectionChange">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="tagName" label="标签名" align="center">
+      <el-table-column prop="name" label="标签名" align="center">
         <template slot-scope="scope">
           <el-tag>
-            {{ scope.row.tagName }}
+            {{ scope.row.name }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="articleCount" label="文章量" align="center" />
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="blogPostCount" label="文章量" align="center" />
+      <el-table-column prop="creationTime" label="创建时间" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 5px" />
-          {{ scope.row.createTime | date }}
+          {{ scope.row.creationTime | date }}
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="160">
@@ -55,7 +55,7 @@
       @size-change="sizeChange"
       @current-change="currentChange"
       :current-page="current"
-      :page-size="size"
+      :page-size="pageSize"
       :total="count"
       :page-sizes="[10, 20]"
       layout="total, sizes, prev, pager, next, jumper" />
@@ -71,7 +71,7 @@
       <div class="dialog-title-container" slot="title" ref="tagTitle" />
       <el-form label-width="80px" size="medium" :model="tagForm">
         <el-form-item label="标签名">
-          <el-input style="width: 220px" v-model="tagForm.tagName" />
+          <el-input style="width: 220px" v-model="tagForm.name" />
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -98,10 +98,10 @@ export default {
       tagIds: [],
       tagForm: {
         id: null,
-        tagName: ''
+        name: ''
       },
       current: 1,
-      size: 10,
+      pageSize: 10,
       count: 0
     }
   },
@@ -116,8 +116,8 @@ export default {
       this.current = 1
       this.listTags()
     },
-    sizeChange(size) {
-      this.size = size
+    sizeChange(pageSize) {
+      this.pageSize = pageSize
       this.listTags()
     },
     currentChange(current) {
@@ -128,12 +128,12 @@ export default {
     deleteTag(id) {
       var param = {}
       if (id == null) {
-        param = { data: this.tagIds }
+        param = { ids: this.tagIds }
       } else {
-        param = { data: [id] }
+        param = { ids: [id] }
       }
-      this.axios.delete('/api/admin/tags', param).then(({ data }) => {
-        if (data.flag) {
+      this.axios.delete('/api/tags', { data: param }).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -150,16 +150,16 @@ export default {
     },
     listTags() {
       this.axios
-        .get('/api/admin/tags', {
+        .get('/api/tags', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.pageSize,
             keywords: this.keywords
           }
         })
         .then(({ data }) => {
-          this.tags = data.data.records
-          this.count = data.data.count
+          this.tags = data.data.tags
+          this.count = data.data.total
           this.loading = false
         })
     },
@@ -169,18 +169,18 @@ export default {
         this.$refs.tagTitle.innerHTML = '修改标签'
       } else {
         this.tagForm.id = null
-        this.tagForm.tagName = ''
+        this.tagForm.name = ''
         this.$refs.tagTitle.innerHTML = '添加标签'
       }
       this.addOrEdit = true
     },
     addOrEditTag() {
-      if (this.tagForm.tagName.trim() == '') {
+      if (this.tagForm.name.trim() == '') {
         this.$message.error('标签名不能为空')
         return false
       }
-      this.axios.post('/api/admin/tags', this.tagForm).then(({ data }) => {
-        if (data.flag) {
+      this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
