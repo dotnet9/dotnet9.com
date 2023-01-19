@@ -31,12 +31,16 @@
     </div>
     <el-table border :data="categories" @selection-change="selectionChange" v-loading="loading">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="categoryName" label="分类名" align="center" />
-      <el-table-column prop="articleCount" label="文章量" align="center" />
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="cover" label="封面" align="center" />
+      <el-table-column prop="name" label="分类名" align="center" />
+      <el-table-column prop="slug" label="别名" align="center" />
+      <el-table-column prop="visible" label="是否可见" align="center" />
+      <el-table-column prop="blogPostCount" label="文章量" align="center" />
+      <el-table-column prop="sequenceNumber" label="排序" align="center" />
+      <el-table-column prop="creationTime" label="创建时间" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 5px" />
-          {{ scope.row.createTime | date }}
+          {{ scope.row.creationTime | date }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160" align="center">
@@ -54,7 +58,7 @@
       @size-change="sizeChange"
       @current-change="currentChange"
       :current-page="current"
-      :page-size="size"
+      :page-size="pageSize"
       :total="count"
       :page-sizes="[10, 20]"
       layout="total, sizes, prev, pager, next, jumper" />
@@ -100,7 +104,7 @@ export default {
         categoryName: ''
       },
       current: 1,
-      size: 10,
+      pageSize: 10,
       count: 0
     }
   },
@@ -115,8 +119,8 @@ export default {
       this.current = 1
       this.listCategories()
     },
-    sizeChange(size) {
-      this.size = size
+    sizeChange(pageSize) {
+      this.pageSize = pageSize
       this.listCategories()
     },
     currentChange(current) {
@@ -127,12 +131,12 @@ export default {
     deleteCategory(id) {
       let param = {}
       if (id == null) {
-        param = { data: this.categoryIds }
+        param = { ids: this.categoryIds }
       } else {
-        param = { data: [id] }
+        param = { ids: [id] }
       }
-      this.axios.delete('/api/admin/categories', param).then(({ data }) => {
-        if (data.flag) {
+      this.axios.delete('/api/categories', { data: param }).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -149,10 +153,10 @@ export default {
     },
     listCategories() {
       this.axios
-        .get('/api/admin/categories', {
+        .get('/api/categories', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.pageSize,
             keywords: this.keywords
           }
         })

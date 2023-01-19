@@ -1,14 +1,14 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/tags")]
 [ApiController]
-public class TagsController : ControllerBase
+public class TagController : ControllerBase
 {
     private readonly Dotnet9DbContext _dbContext;
     private readonly TagManager _manager;
     private readonly ITagRepository _repository;
 
-    public TagsController(Dotnet9DbContext dbContext, ITagRepository repository, TagManager manager)
+    public TagController(Dotnet9DbContext dbContext, ITagRepository repository, TagManager manager)
     {
         _dbContext = dbContext;
         _repository = repository;
@@ -23,7 +23,7 @@ public class TagsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/api/[controller]/tree")]
+    [Route("/api/tags/tree")]
     public async Task<TagListItemDto[]> GetTree()
     {
         return await _dbContext.Tags!.Select(x => new TagListItemDto(x.Name, x.Id.ToString(), x.Id.ToString()))

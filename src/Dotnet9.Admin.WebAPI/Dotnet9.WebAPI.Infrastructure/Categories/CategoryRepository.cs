@@ -31,7 +31,7 @@ internal class CategoryRepository : ICategoryRepository
         return await _dbContext.Categories!.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<(Category[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request)
+    public async Task<(CategoryDto[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request)
     {
         IQueryable<Category> query = _dbContext.Categories!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
@@ -42,8 +42,21 @@ internal class CategoryRepository : ICategoryRepository
                 || (log.Description != null && EF.Functions.Like(log.Description!, $"%{request.Keywords}%")));
         }
 
-        IQueryable<Category> categoriesFromDb = query.OrderByDescending(x => x.CreationTime)
-            .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize);
-        return (await categoriesFromDb.ToArrayAsync(), await query.LongCountAsync());
+        CategoryDto[] categoriesFromDb = await query.OrderByDescending(x => x.CreationTime)
+            .Skip((request.Current - 1) * request.PageSize).Take(request.PageSize).Select(category => new CategoryDto
+            {
+                Id = category.Id,
+                SequenceNumber = category.SequenceNumber,
+                Name = category.Name,
+                Slug = category.Slug,
+                Cover = category.Cover,
+                Description = category.Description,
+                Visible = category.Visible,
+                ParentId = category.ParentId,
+                CreationTime = category.CreationTime,
+                BlogPostCount = _dbContext.Set<BlogPostCategory>()
+                    .Count(blogPostCategory => blogPostCategory.CategoryId == category.Id)
+            }).ToArrayAsync();
+        return (categoriesFromDb, await query.LongCountAsync());
     }
 }

@@ -147,7 +147,7 @@ public class LoginController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<bool>?> OutLogin()
+    public async Task<ActionResult<bool>?> Logout()
     {
         return await Task.FromResult(true);
     }

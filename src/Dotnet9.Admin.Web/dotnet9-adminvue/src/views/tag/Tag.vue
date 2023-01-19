@@ -158,7 +158,8 @@ export default {
           }
         })
         .then(({ data }) => {
-          this.tags = data.data.tags
+          this.tags = data.data.records
+
           this.count = data.data.total
           this.loading = false
         })

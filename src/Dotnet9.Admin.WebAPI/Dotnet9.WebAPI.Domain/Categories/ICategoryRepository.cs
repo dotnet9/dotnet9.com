@@ -2,7 +2,7 @@
 
 public interface ICategoryRepository
 {
-    Task<(Category[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request);
+    Task<(CategoryDto[]? Categories, long Count)> GetListAsync(GetCategoryListRequest request);
     Task<int> DeleteAsync(Guid[] ids);
     Task<Category?> FindByIdAsync(Guid id);
     Task<Category?> FindByNameAsync(string name);

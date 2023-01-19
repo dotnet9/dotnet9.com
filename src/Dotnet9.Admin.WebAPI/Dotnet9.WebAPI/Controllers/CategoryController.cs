@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/categories")]
 [ApiController]
 public class CategoryController : ControllerBase
 {
@@ -25,18 +25,17 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    [NoWrapper]
     public async Task<GetCategoryListResponse> List([FromQuery] GetCategoryListRequest request)
     {
-        (Category[]? Categories, long Count) result = await _repository.GetListAsync(request);
+        (CategoryDto[]? Categories, long Count) result = await _repository.GetListAsync(request);
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
         List<CategoryDto> categoryDtos = new();
         if (result.Categories == null)
         {
-            return new GetCategoryListResponse(categoryDtos, result.Count, true, request.PageSize, request.Current);
+            return new GetCategoryListResponse(categoryDtos, result.Count);
         }
 
-        foreach (Category category in result.Categories)
+        foreach (CategoryDto category in result.Categories)
         {
             string parentName = string.Empty;
             if (categoryIdAndNames != null && category.ParentId != null &&
@@ -52,11 +51,11 @@ public class CategoryController : ControllerBase
             categoryDtos.Add(categoryDto);
         }
 
-        return new GetCategoryListResponse(categoryDtos, result.Count, true, request.PageSize, request.Current);
+        return new GetCategoryListResponse(categoryDtos, result.Count);
     }
 
     [HttpGet]
-    [Route("/api/[controller]/tree")]
+    [Route("/api/categories/tree")]
     public async Task<List<CategoryTreeItemDto>> GetCategoryTree()
     {
         List<CategoryTreeItemDto> treeItems = new();
