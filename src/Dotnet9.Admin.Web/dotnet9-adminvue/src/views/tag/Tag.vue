@@ -180,20 +180,37 @@ export default {
         this.$message.error('标签名不能为空')
         return false
       }
-      this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
-        if (data.success) {
-          this.$notify.success({
-            title: '成功',
-            message: data.message
-          })
-          this.listTags()
-        } else {
-          this.$notify.error({
-            title: '失败',
-            message: data.message
-          })
-        }
-      })
+      if (this.tagForm.id === null) {
+        this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listTags()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
+      } else {
+        this.axios.put('/api/tags/' + this.tagForm.id, this.tagForm).then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listTags()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
+      }
       this.addOrEdit = false
     }
   }
