@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.ViewModel", "Do
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{1AEE75DE-EC93-44AE-9E1F-C90AB847897D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.AdminBlazor", "Dotnet9.Admin.Web\Dotnet9.AdminBlazor\Dotnet9.AdminBlazor.csproj", "{EBDA014E-4C17-4377-99A9-1C5D908A0373}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,10 +101,6 @@ Global
 		{01D64427-183D-47CC-8772-E1D33CF44D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01D64427-183D-47CC-8772-E1D33CF44D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01D64427-183D-47CC-8772-E1D33CF44D27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EBDA014E-4C17-4377-99A9-1C5D908A0373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EBDA014E-4C17-4377-99A9-1C5D908A0373}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EBDA014E-4C17-4377-99A9-1C5D908A0373}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EBDA014E-4C17-4377-99A9-1C5D908A0373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,7 +120,6 @@ Global
 		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
 		{56AD1208-7A5B-4D34-A70A-CD93828F74A8} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
 		{01D64427-183D-47CC-8772-E1D33CF44D27} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
-		{EBDA014E-4C17-4377-99A9-1C5D908A0373} = {1AEE75DE-EC93-44AE-9E1F-C90AB847897D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23F5EB67-5874-4763-88EF-473C3EB6DD51}

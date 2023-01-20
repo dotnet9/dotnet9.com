@@ -2,10 +2,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-		<PackageReference Include="Mapster" Version="7.4.0-pre03" />
+		<PackageReference Include="Mapster" Version="7.4.0-pre05" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
 	</ItemGroup>
