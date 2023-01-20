@@ -91,4 +91,17 @@ public class CategoryManager
 
         category.ChangeSlug(newSlug);
     }
+
+
+    public async Task<Category> ChangeVisible(Guid id, bool visible)
+    {
+        Category? oldData = await _categoryRepository.FindByIdAsync(id);
+        if (oldData == null)
+        {
+            throw new Exception($"不存在的分类: {id}");
+        }
+
+        oldData.ChangeVisible(visible);
+        return oldData;
+    }
 }

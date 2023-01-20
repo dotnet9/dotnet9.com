@@ -31,10 +31,23 @@
     </div>
     <el-table border :data="categories" @selection-change="selectionChange" v-loading="loading">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="cover" label="封面" align="center" />
+      <el-table-column prop="cover" label="封面" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.cover" alt="封面" width="120px" />
+        </template>
+      </el-table-column>
       <el-table-column prop="name" label="分类名" align="center" />
       <el-table-column prop="slug" label="别名" align="center" />
-      <el-table-column prop="visible" label="是否可见" align="center" />
+      <el-table-column prop="visible" label="是否可见" align="center">
+        <template slot-scope="scoped">
+          <el-switch
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            v-model="scoped.row.visible"
+            @change="changeVisible($event, scoped.row, scoped.$index, scoped.row.visible)">
+          </el-switch>
+        </template>
+      </el-table-column>
       <el-table-column prop="blogPostCount" label="文章量" align="center" />
       <el-table-column prop="sequenceNumber" label="排序" align="center" />
       <el-table-column prop="creationTime" label="创建时间" align="center">
@@ -72,14 +85,32 @@
     </el-dialog>
     <el-dialog :visible.sync="addOrEdit" width="30%">
       <div class="dialog-title-container" slot="title" ref="categoryTitle" />
-      <el-form label-width="80px" size="medium" :model="categoryForm">
-        <el-form-item label="分类名">
-          <el-input v-model="categoryForm.categoryName" style="width: 220px" />
+      <el-form label-width="80px" size="medium" :model="categoryForm" ref="categoryForm" :rules="rules">
+        <el-form-item label="封面" prop="cover">
+          <el-col :span="5">
+            <el-image :src="categoryForm.cover" :fit="contain" />
+          </el-col>
+          <el-col :span="1" />
+          <el-col :span="18">
+            <el-input v-model="categoryForm.cover" />
+          </el-col>
+        </el-form-item>
+        <el-form-item label="分类名" prop="name">
+          <el-input v-model="categoryForm.name" />
+        </el-form-item>
+        <el-form-item label="别名" prop="slug">
+          <el-input v-model="categoryForm.slug" />
+        </el-form-item>
+        <el-form-item label="是否可见" prop="visible">
+          <el-switch v-model="categoryForm.visible" />
+        </el-form-item>
+        <el-form-item label="排序" prop="sequenceNumber">
+          <el-input v-model.number="categoryForm.sequenceNumber" auto-complete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer">
         <el-button @click="addOrEdit = false">取 消</el-button>
-        <el-button type="primary" @click="addOrEditCategory"> 确 定 </el-button>
+        <el-button type="primary" @click="addOrEditCategory('categoryForm')"> 确 定 </el-button>
       </div>
     </el-dialog>
   </el-card>
@@ -101,7 +132,29 @@ export default {
       categories: [],
       categoryForm: {
         id: null,
-        categoryName: ''
+        cover: '',
+        name: '',
+        slug: '',
+        visible: false,
+        sequenceNumber: 1
+      },
+      rules: {
+        cover: [
+          { required: true, message: '请输入封面', trigger: 'blur' },
+          { min: 2, max: 128, message: '长度在 2 到 128个字符', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' },
+          { min: 2, max: 32, message: '长度在 2 到 32个字符', trigger: 'blur' }
+        ],
+        slug: [
+          { required: true, message: '请输入别名', trigger: 'blur' },
+          { min: 2, max: 256, message: '长度在 2 到 256个字符', trigger: 'blur' }
+        ],
+        sequenceNumber: [
+          { required: true, message: '请输入排序号' },
+          { type: 'number', message: '序号必须为数字值' }
+        ]
       },
       current: 1,
       pageSize: 10,
@@ -127,6 +180,24 @@ export default {
       this.current = current
       this.$store.commit('updateCategoryPageState', current)
       this.listCategories()
+    },
+    changeVisible(e, row, index, visible) {
+      this.axios
+        .put('/api/categories/' + row.id + '/changeVisible', { id: row.id, visible: visible })
+        .then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listCategories()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
     },
     deleteCategory(id) {
       let param = {}
@@ -172,30 +243,50 @@ export default {
         this.$refs.categoryTitle.innerHTML = '修改分类'
       } else {
         this.categoryForm.id = null
-        this.categoryForm.categoryName = ''
+        this.categoryForm.name = ''
         this.$refs.categoryTitle.innerHTML = '添加分类'
       }
       this.addOrEdit = true
     },
-    addOrEditCategory() {
-      if (this.categoryForm.categoryName.trim() == '') {
-        this.$message.error('分类名不能为空')
-        return false
-      }
-      this.axios.post('/api/admin/categories', this.categoryForm).then(({ data }) => {
-        if (data.flag) {
-          this.$notify.success({
-            title: '成功',
-            message: data.message
-          })
-          this.listCategories()
+    addOrEditCategory(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.categoryForm.id === null) {
+            this.axios.post('/api/categories', this.categoryForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listCategories()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
+              this.addOrEdit = false
+            })
+          } else {
+            this.axios.put('/api/categories/' + this.categoryForm.id, this.categoryForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listCategories()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
+              this.addOrEdit = false
+            })
+          }
         } else {
-          this.$notify.error({
-            title: '失败',
-            message: data.message
-          })
+          return false
         }
-        this.addOrEdit = false
       })
     }
   }

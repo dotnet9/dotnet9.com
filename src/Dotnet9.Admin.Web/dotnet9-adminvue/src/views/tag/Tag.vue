@@ -69,15 +69,15 @@
     </el-dialog>
     <el-dialog :visible.sync="addOrEdit" width="30%">
       <div class="dialog-title-container" slot="title" ref="tagTitle" />
-      <el-form label-width="80px" size="medium" :model="tagForm">
-        <el-form-item label="标签名">
-          <el-input style="width: 220px" v-model="tagForm.name" />
+      <el-form :model="tagForm" label-width="80px" size="medium" ref="tagForm" :rules="rules">
+        <el-form-item label="标签名" prop="name">
+          <el-input v-model="tagForm.name" />
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="addOrEdit = false">取 消</el-button>
+          <el-button type="primary" @click="addOrEditTag('tagForm')"> 确 定 </el-button>
         </el-form-item>
       </el-form>
-      <div slot="footer">
-        <el-button @click="addOrEdit = false">取 消</el-button>
-        <el-button type="primary" @click="addOrEditTag"> 确 定 </el-button>
-      </div>
     </el-dialog>
   </el-card>
 </template>
@@ -99,6 +99,12 @@ export default {
       tagForm: {
         id: null,
         name: ''
+      },
+      rules: {
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' },
+          { min: 2, max: 32, message: '长度在 2 到 32个字符', trigger: 'blur' }
+        ]
       },
       current: 1,
       pageSize: 10,
@@ -160,7 +166,7 @@ export default {
         .then(({ data }) => {
           this.tags = data.data.records
 
-          this.count = data.data.total
+          this.count = data.data.count
           this.loading = false
         })
     },
@@ -175,43 +181,45 @@ export default {
       }
       this.addOrEdit = true
     },
-    addOrEditTag() {
-      if (this.tagForm.name.trim() == '') {
-        this.$message.error('标签名不能为空')
-        return false
-      }
-      if (this.tagForm.id === null) {
-        this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
-          if (data.success) {
-            this.$notify.success({
-              title: '成功',
-              message: data.message
+    addOrEditTag(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.tagForm.id === null) {
+            this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listTags()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
             })
-            this.listTags()
           } else {
-            this.$notify.error({
-              title: '失败',
-              message: data.message
+            this.axios.put('/api/tags/' + this.tagForm.id, this.tagForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listTags()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
             })
           }
-        })
-      } else {
-        this.axios.put('/api/tags/' + this.tagForm.id, this.tagForm).then(({ data }) => {
-          if (data.success) {
-            this.$notify.success({
-              title: '成功',
-              message: data.message
-            })
-            this.listTags()
-          } else {
-            this.$notify.error({
-              title: '失败',
-              message: data.message
-            })
-          }
-        })
-      }
-      this.addOrEdit = false
+          this.addOrEdit = false
+        } else {
+          return false
+        }
+      })
     }
   }
 }

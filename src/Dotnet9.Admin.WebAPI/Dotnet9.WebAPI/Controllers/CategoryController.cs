@@ -120,4 +120,16 @@ public class CategoryController : ControllerBase
         await _dbContext.SaveChangesAsync();
         return categoryFromDb.Entity.Adapt<CategoryDto>();
     }
+
+    [HttpPut]
+    [Route("/api/categories/{id}/changeVisible")]
+    [Authorize(Roles = UserRoleConst.Admin)]
+    public async Task<ResponseResult<CategoryDto?>> UpdateVisible(Guid id,
+        [FromBody] UpdateCategoryVisibleRequest request)
+    {
+        Category data = await _manager.ChangeVisible(id, request.Visible);
+
+        await _dbContext.SaveChangesAsync();
+        return data.Adapt<CategoryDto>();
+    }
 }
