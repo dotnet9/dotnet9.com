@@ -47,7 +47,9 @@ public class CategoryController : ControllerBase
             CategoryDto categoryDto = category.Adapt<CategoryDto>();
             categoryDto.ParentId = category.ParentId;
             categoryDto.ParentName = parentName;
-            categoryDto.Cover = $"{_siteOptions.Value.AssetsRemotePath}/{categoryDto.Cover}";
+            categoryDto.Cover = categoryDto.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
+                ? categoryDto.Cover
+                : $"{_siteOptions.Value.AssetsRemotePath}/{categoryDto.Cover}";
             categoryDtos.Add(categoryDto);
         }
 

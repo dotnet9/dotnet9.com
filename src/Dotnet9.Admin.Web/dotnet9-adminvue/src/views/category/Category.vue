@@ -38,6 +38,7 @@
       </el-table-column>
       <el-table-column prop="name" label="分类名" align="center" />
       <el-table-column prop="slug" label="别名" align="center" />
+      <el-table-column prop="parentName" label="父级" align="center" />
       <el-table-column prop="visible" label="是否可见" align="center">
         <template slot-scope="scoped">
           <el-switch
@@ -101,6 +102,24 @@
         <el-form-item label="别名" prop="slug">
           <el-input v-model="categoryForm.slug" />
         </el-form-item>
+        <el-form-item label="父级" prop="parentId">
+          <template>
+            <span>{{ this.categoryForm.parentName }}</span>
+            <el-input v-model="filterCategoryText" placeholder="搜索分类名" />
+            <div class="category-tree">
+              <el-tree
+                node-key="key"
+                current-node-key="categoryForm.parentId"
+                ref="categoryTreeRef"
+                class="filter-tree"
+                :data="allCategories"
+                :props="defaultCategoryProps"
+                default-expand-all
+                :filter-node-method="filterCategoryNode"
+                @node-click="handleParentCategoryChecked" />
+            </div>
+          </template>
+        </el-form-item>
         <el-form-item label="是否可见" prop="visible">
           <el-switch v-model="categoryForm.visible" />
         </el-form-item>
@@ -121,6 +140,12 @@ export default {
   created() {
     this.current = this.$store.state.pageState.category
     this.listCategories()
+    this.listCategoryTree()
+  },
+  watch: {
+    filterCategoryText(val) {
+      this.$refs.categoryTreeRef.filter(val)
+    }
   },
   data: function () {
     return {
@@ -135,6 +160,8 @@ export default {
         cover: '',
         name: '',
         slug: '',
+        parentId: '',
+        parentName: '',
         visible: false,
         sequenceNumber: 1
       },
@@ -155,6 +182,12 @@ export default {
           { required: true, message: '请输入排序号' },
           { type: 'number', message: '序号必须为数字值' }
         ]
+      },
+      filterCategoryText: '',
+      allCategories: [],
+      defaultCategoryProps: {
+        children: 'children',
+        label: 'title'
       },
       current: 1,
       pageSize: 10,
@@ -237,6 +270,11 @@ export default {
           this.loading = false
         })
     },
+    listCategoryTree() {
+      this.axios.get('/api/categories/tree').then(({ data }) => {
+        this.allCategories = data.data
+      })
+    },
     openModel(category) {
       if (category != null) {
         this.categoryForm = JSON.parse(JSON.stringify(category))
@@ -244,9 +282,23 @@ export default {
       } else {
         this.categoryForm.id = null
         this.categoryForm.name = ''
+        this.categoryForm.cover = ''
+        this.categoryForm.slug = ''
+        this.categoryForm.parentId = ''
+        this.categoryForm.parentName = ''
+        this.categoryForm.visible = false
+        this.categoryForm.sequenceNumber = 0
         this.$refs.categoryTitle.innerHTML = '添加分类'
       }
       this.addOrEdit = true
+    },
+    filterCategoryNode(value, data) {
+      if (!value) return true
+      return data.title.indexOf(value) !== -1
+    },
+    handleParentCategoryChecked(data, checked, node) {
+      this.categoryForm.parentId = data.key
+      this.categoryForm.parentName = data.title
     },
     addOrEditCategory(formName) {
       this.$refs[formName].validate((valid) => {
@@ -292,3 +344,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.category-tree {
+  height: 250px;
+  display: block;
+  overflow-y: scroll;
+}
+</style>
