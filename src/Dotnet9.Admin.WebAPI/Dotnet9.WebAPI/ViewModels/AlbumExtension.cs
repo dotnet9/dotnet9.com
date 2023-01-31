@@ -2,24 +2,26 @@
 
 public static class AlbumExtension
 {
-    public static AlbumDto? ConvertToAlbumDto(this Album? album, string assetsRemotePath,
+    public static AlbumDto? ConvertToAlbumDto(this AlbumDto? album, string assetsRemotePath,
         Dictionary<Guid, string>? categoryIdAndNames)
     {
         if (album == null)
         {
-            return null;
+            return album;
         }
 
-        List<AlbumCategory> queryList = album.Categories!.Where(category =>
-            categoryIdAndNames != null && categoryIdAndNames.ContainsKey(category.CategoryId)).ToList();
-        string categoryNames = queryList.Select(category => categoryIdAndNames![category.CategoryId]).JoinAsString(",");
-        Guid[] categoryIds = queryList.Select(category => category.CategoryId).ToArray();
-        return new AlbumDto(album.Id, categoryNames, categoryIds, album.SequenceNumber, album.Name, album.Slug,
-            $"{assetsRemotePath}/{album.Cover}",
-            album.Description, album.Visible);
+        album.Cover = album.Cover.StartsWith(assetsRemotePath) ? album.Cover : $"{assetsRemotePath}/{album.Cover}";
+        if (categoryIdAndNames != null && categoryIdAndNames.Any() && album.CategoryIds != null &&
+            album.CategoryIds.Any())
+        {
+            album.CategoryNames =
+                album.CategoryIds.Select(categoryId => categoryIdAndNames[categoryId]).JoinAsString(",");
+        }
+
+        return album;
     }
 
-    public static AlbumDto[]? ConvertToAlbumDtoArray(this Album[]? albums, string assetsRemotePath,
+    public static AlbumDto[]? ConvertToAlbumDtoArray(this AlbumDto[]? albums, string assetsRemotePath,
         Dictionary<Guid, string>? categoryIdAndNames)
     {
         if (albums == null || !albums.Any())

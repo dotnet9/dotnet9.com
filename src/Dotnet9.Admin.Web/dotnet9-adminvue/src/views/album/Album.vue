@@ -2,158 +2,266 @@
   <el-card class="main-card">
     <div class="title">{{ this.$route.name }}</div>
     <div class="operation-container">
-      <el-button type="primary" size="small" icon="el-icon-plus" @click="openModel(null)"> 新建相册 </el-button>
+      <el-button type="primary" size="small" icon="el-icon-plus" @click="openModel(null)"> 新增 </el-button>
+      <el-button
+        type="danger"
+        size="small"
+        icon="el-icon-delete"
+        :disabled="this.albumIds.length == 0"
+        @click="isDelete = true">
+        批量删除
+      </el-button>
       <div style="margin-left: auto">
-        <el-button type="text" size="small" icon="el-icon-delete" style="margin-right: 1rem" @click="checkDelete">
-          回收站
-        </el-button>
         <el-input
           v-model="keywords"
           prefix-icon="el-icon-search"
           size="small"
-          placeholder="请输入相册名"
+          placeholder="请输入专辑名"
           style="width: 200px"
           @keyup.enter.native="searchAlbums" />
-        <el-button type="primary" size="small" icon="el-icon-search" style="margin-left: 1rem" @click="searchAlbums">
+        <el-button
+          type="primary"
+          size="small"
+          icon="el-icon-search"
+          style="margin-left: 1rem"
+          @click="searchAlbums">
           搜索
         </el-button>
       </div>
     </div>
-    <el-row class="album-container" :gutter="12" v-loading="loading">
-      <el-empty v-if="albums == null" description="暂无相册" />
-      <el-col v-for="item of albums" :key="item.id" :md="6">
-        <div class="album-item" @click="checkPhoto(item)">
-          <div class="album-opreation">
-            <el-dropdown @command="handleCommand">
-              <i class="el-icon-more" style="color: #fff" />
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item :command="'update' + JSON.stringify(item)">
-                  <i class="el-icon-edit" />编辑
-                </el-dropdown-item>
-                <el-dropdown-item :command="'delete' + item.id"> <i class="el-icon-delete" />删除 </el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-          <div class="album-photo-count">
-            <div>{{ item.photoCount }}</div>
-            <i v-if="item.status == 2" class="iconfont el-icon-mymima" />
-          </div>
-          <el-image fit="cover" class="album-cover" :src="item.albumCover" />
-          <div class="album-name">{{ item.albumName }}</div>
-        </div>
-      </el-col>
-    </el-row>
+    <el-table border :data="albums" @selection-change="selectionChange" v-loading="loading">
+      <el-table-column type="selection" width="55" />
+      <el-table-column prop="cover" label="封面" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.cover" alt="封面" width="120px" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="专辑名" align="center" />
+      <el-table-column prop="slug" label="别名" align="center" />
+      <el-table-column prop="categoryNames" label="所属分类" align="center" />
+      <el-table-column prop="visible" label="是否可见" align="center">
+        <template slot-scope="scoped">
+          <el-switch
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            v-model="scoped.row.visible"
+            @change="changeVisible($event, scoped.row, scoped.$index, scoped.row.visible)">
+          </el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column prop="blogPostCount" label="文章量" align="center" />
+      <el-table-column prop="sequenceNumber" label="排序" align="center" />
+      <el-table-column prop="creationTime" label="创建时间" align="center">
+        <template slot-scope="scope">
+          <i class="el-icon-time" style="margin-right: 5px" />
+          {{ scope.row.creationTime | date }}
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="160" align="center">
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" @click="openModel(scope.row)"> 编辑 </el-button>
+          <el-popconfirm title="确定删除吗？" style="margin-left: 1rem" @confirm="deleteAlbum(scope.row.id)">
+            <el-button size="mini" type="danger" slot="reference"> 删除 </el-button>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
     <el-pagination
-      :hide-on-single-page="true"
       class="pagination-container"
+      background
       @size-change="sizeChange"
       @current-change="currentChange"
       :current-page="current"
-      :page-size="size"
+      :page-size="pageSize"
       :total="count"
-      layout="prev, pager, next" />
-    <el-dialog :visible.sync="addOrEdit" width="35%" top="10vh">
+      :page-sizes="[10, 20]"
+      layout="total, sizes, prev, pager, next, jumper" />
+    <el-dialog :visible.sync="isDelete" width="30%">
+      <div class="dialog-title-container" slot="title"><i class="el-icon-warning" style="color: #ff9900" />提示</div>
+      <div style="font-size: 1rem">是否删除选中项？</div>
+      <div slot="footer">
+        <el-button @click="isDelete = false">取 消</el-button>
+        <el-button type="primary" @click="deleteAlbum(null)"> 确 定 </el-button>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="addOrEdit" width="30%">
       <div class="dialog-title-container" slot="title" ref="albumTitle" />
-      <el-form label-width="80px" size="medium" :model="albumForum">
-        <el-form-item label="相册名称">
-          <el-input style="width: 220px" v-model="albumForum.albumName" />
+      <el-form label-width="80px" size="medium" :model="albumForm" ref="albumForm" :rules="rules">
+        <el-form-item label="封面" prop="cover">
+          <el-col :span="5">
+            <el-image :src="albumForm.cover" :fit="contain" />
+          </el-col>
+          <el-col :span="1" />
+          <el-col :span="18">
+            <el-input v-model="albumForm.cover" />
+          </el-col>
         </el-form-item>
-        <el-form-item label="相册描述">
-          <el-input style="width: 220px" v-model="albumForum.albumDesc" />
+        <el-form-item label="专辑名" prop="name">
+          <el-input v-model="albumForm.name" />
         </el-form-item>
-        <el-form-item label="相册封面">
-          <el-upload
-            class="upload-cover"
-            drag
-            :headers="headers"
-            :before-upload="beforeUpload"
-            action="/api/admin/photos/albums/upload"
-            multiple
-            :on-success="uploadCover">
-            <i class="el-icon-upload" v-if="albumForum.albumCover == ''" />
-            <div class="el-upload__text" v-if="albumForum.albumCover == ''">将文件拖到此处，或<em>点击上传</em></div>
-            <img v-else :src="albumForum.albumCover" width="360px" height="180px" />
-          </el-upload>
+        <el-form-item label="别名" prop="slug">
+          <el-input v-model="albumForm.slug" />
         </el-form-item>
-        <el-form-item label="发布形式">
-          <el-radio-group v-model="albumForum.status">
-            <el-radio :label="1">公开</el-radio>
-            <el-radio :label="2">私密</el-radio>
-          </el-radio-group>
+        <el-form-item label="分类" prop="parentId">
+          <template>
+            <span>{{ this.albumForm.categoryNames }}</span>
+            <el-input v-model="filterCategoryText" placeholder="搜索分类名" />
+            <div class="category-tree">
+              <el-tree
+                node-key="key"
+                :default-checked-keys="albumForm.categoryIds"
+                ref="categoryTreeRef"
+                class="filter-tree"
+                :data="allCategories"
+                :props="defaultCategoryProps"
+                show-checkbox
+                default-expand-all
+                :filter-node-method="filterCategoryNode"
+                @check="handleParentCategoryChecked"/>
+            </div>
+          </template>
+        </el-form-item>
+        <el-form-item label="是否可见" prop="visible">
+          <el-switch v-model="albumForm.visible" />
+        </el-form-item>
+        <el-form-item label="排序" prop="sequenceNumber">
+          <el-input v-model.number="albumForm.sequenceNumber" auto-complete="off" />
         </el-form-item>
       </el-form>
       <div slot="footer">
         <el-button @click="addOrEdit = false">取 消</el-button>
-        <el-button type="primary" @click="addOrEditAlbum"> 确 定 </el-button>
-      </div>
-    </el-dialog>
-    <el-dialog :visible.sync="isdelete" width="30%">
-      <div class="dialog-title-container" slot="title"><i class="el-icon-warning" style="color: #ff9900" />提示</div>
-      <div style="font-size: 1rem">是否删除该相册？</div>
-      <div slot="footer">
-        <el-button @click="isdelete = false">取 消</el-button>
-        <el-button type="primary" @click="deleteAlbum"> 确 定 </el-button>
+        <el-button type="primary" @click="addOrEditAlbum('albumForm')"> 确 定 </el-button>
       </div>
     </el-dialog>
   </el-card>
 </template>
 
 <script>
-import * as imageConversion from 'image-conversion'
 export default {
   created() {
+    this.current = this.$store.state.pageState.album
     this.listAlbums()
+    this.listAlbumTree()
+  },
+  watch: {
+    filterCategoryText(val) {
+      this.$refs.categoryTreeRef.filter(val)
+    }
   },
   data: function () {
     return {
-      keywords: '',
+      isDelete: false,
       loading: true,
-      isdelete: false,
       addOrEdit: false,
-      albumForum: {
-        id: null,
-        albumName: '',
-        albumDesc: '',
-        albumCover: '',
-        status: 1
-      },
+      keywords: null,
+      albumIds: [],
       albums: [],
+      albumForm: {
+        id: null,
+        cover: '',
+        name: '',
+        slug: '',
+        categoryIds: [],
+        categoryNames: '',
+        visible: false,
+        sequenceNumber: 1
+      },
+      rules: {
+        cover: [
+          { required: true, message: '请输入封面', trigger: 'blur' },
+          { min: 2, max: 128, message: '长度在 2 到 128个字符', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '请输入名称', trigger: 'blur' },
+          { min: 2, max: 32, message: '长度在 2 到 32个字符', trigger: 'blur' }
+        ],
+        slug: [
+          { required: true, message: '请输入别名', trigger: 'blur' },
+          { min: 2, max: 256, message: '长度在 2 到 256个字符', trigger: 'blur' }
+        ],
+        sequenceNumber: [
+          { required: true, message: '请输入排序号' },
+          { type: 'number', message: '序号必须为数字值' }
+        ]
+      },
+      filterCategoryText: '',
+      allCategories: [],
+      defaultCategoryProps: {
+        children: 'children',
+        label: 'title'
+      },
       current: 1,
-      size: 8,
-      count: 0,
-      headers: { Authorization: 'Bearer ' + sessionStorage.getItem('token') }
+      pageSize: 10,
+      count: 0
     }
   },
   methods: {
-    openModel(item) {
-      if (item) {
-        console.log(item)
-        this.albumForum = JSON.parse(item)
-        this.$refs.albumTitle.innerHTML = '修改相册'
+    selectionChange(albums) {
+      this.albumIds = []
+      albums.forEach((item) => {
+        this.albumIds.push(item.id)
+      })
+    },
+    searchAlbums() {
+      this.current = 1
+      this.listAlbums()
+    },
+    sizeChange(pageSize) {
+      this.pageSize = pageSize
+      this.listAlbums()
+    },
+    currentChange(current) {
+      this.current = current
+      this.$store.commit('updateAlbumPageState', current)
+      this.listAlbums()
+    },
+    changeVisible(e, row, index, visible) {
+      this.axios
+        .put('/api/albums/' + row.id + '/changeVisible', { id: row.id, visible: visible })
+        .then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listAlbums()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
+    },
+    deleteAlbum(id) {
+      let param = {}
+      if (id == null) {
+        param = { ids: this.albumIds }
       } else {
-        this.albumForum = {
-          id: null,
-          albumName: '',
-          albumLabel: '',
-          albumCover: '',
-          status: 1
-        }
-        this.$refs.albumTitle.innerHTML = '新建相册'
+        param = { ids: [id] }
       }
-      this.addOrEdit = true
-    },
-    checkPhoto(item) {
-      this.$router.push({ path: '/albums/' + item.id })
-    },
-    checkDelete() {
-      this.$router.push({ path: '/photos/delete' })
+      this.axios.delete('/api/albums', { data: param }).then(({ data }) => {
+        if (data.success) {
+          this.$notify.success({
+            title: '成功',
+            message: data.message
+          })
+          this.listAlbums()
+        } else {
+          this.$notify.error({
+            title: '失败',
+            message: data.message
+          })
+        }
+        this.isDelete = false
+      })
     },
     listAlbums() {
       this.axios
-        .get('/api/admin/photos/albums', {
+        .get('/api/albums', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.pageSize,
             keywords: this.keywords
           }
         })
@@ -163,134 +271,89 @@ export default {
           this.loading = false
         })
     },
-    addOrEditAlbum() {
-      if (this.albumForum.albumName.trim() == '') {
-        this.$message.error('相册名称不能为空')
-        return false
-      }
-      if (this.albumForum.albumDesc.trim() == '') {
-        this.$message.error('相册描述不能为空')
-        return false
-      }
-      if (this.albumForum.albumCover == null) {
-        this.$message.error('相册封面不能为空')
-        return false
-      }
-      this.axios.post('/api/admin/photos/albums', this.albumForum).then(({ data }) => {
-        if (data.flag) {
-          this.$notify.success({
-            title: '成功',
-            message: data.message
-          })
-          this.listAlbums()
-        } else {
-          this.$notify.error({
-            title: '失败',
-            message: data.message
-          })
-        }
-      })
-      this.addOrEdit = false
-    },
-    uploadCover(response) {
-      this.albumForum.albumCover = response.data
-    },
-    beforeUpload(file) {
-      return new Promise((resolve) => {
-        if (file.size / 1024 < this.config.UPLOAD_SIZE) {
-          resolve(file)
-        }
-        imageConversion.compressAccurately(file, this.config.UPLOAD_SIZE).then((res) => {
-          resolve(res)
-        })
+    listAlbumTree() {
+      this.axios.get('/api/categories/tree').then(({ data }) => {
+        this.allCategories = data.data
       })
     },
-    handleCommand(command) {
-      const type = command.substring(0, 6)
-      const data = command.substring(6)
-      if (type == 'delete') {
-        this.albumForum.id = data
-        this.isdelete = true
+    openModel(album) {
+      if (album != null) {
+      // TODO 切换专辑后，选择的分类无法重置
+        this.albumForm.categoryIds = []
+        this.albumForm = JSON.parse(JSON.stringify(album))
+        this.$refs.albumTitle.innerHTML = '修改专辑'
       } else {
-        console.log(data)
-        this.openModel(data)
+        this.albumForm.id = null
+        this.albumForm.name = ''
+        this.albumForm.cover = ''
+        this.albumForm.slug = ''
+        this.albumForm.categoryIds = []
+        this.albumForm.categoryNames = ''
+        this.albumForm.visible = false
+        this.albumForm.sequenceNumber = 0
+        this.$refs.albumTitle.innerHTML = '添加专辑'
       }
+      this.addOrEdit = true
     },
-    deleteAlbum() {
-      this.axios.delete('/api/admin/photos/albums/' + this.albumForum.id).then(({ data }) => {
-        if (data.flag) {
-          this.$notify.success({
-            title: '成功',
-            message: data.message
-          })
-          this.listAlbums()
+    filterCategoryNode(value, data) {
+      if (!value) return true
+      return data.title.indexOf(value) !== -1
+    },
+    handleParentCategoryChecked(data, checked) {
+      this.albumForm.categoryIds = this.$refs.categoryTreeRef.getCheckedKeys()
+      this.albumForm.categoryNames = this.$refs.categoryTreeRef.getCheckedNodes().map(function(obj, index){
+        return obj.title
+      }).join(",")
+    },
+    addOrEditAlbum(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.albumForm.id === null) {
+            this.axios.post('/api/albums', this.albumForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listAlbums()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
+              this.addOrEdit = false
+            })
+          } else {
+            this.axios.put('/api/albums/' + this.albumForm.id, this.albumForm).then(({ data }) => {
+              if (data.success) {
+                this.$notify.success({
+                  title: '成功',
+                  message: data.message
+                })
+                this.listAlbums()
+              } else {
+                this.$notify.error({
+                  title: '失败',
+                  message: data.message
+                })
+              }
+              this.addOrEdit = false
+            })
+          }
         } else {
-          this.$notify.error({
-            title: '失败',
-            message: data.message
-          })
+          return false
         }
-        this.isdelete = false
       })
-    },
-    searchAlbums() {
-      this.current = 1
-      this.listAlbums()
-    },
-    sizeChange(size) {
-      this.size = size
-      this.listAlbums()
-    },
-    currentChange(current) {
-      this.current = current
-      this.listAlbums()
     }
   }
 }
 </script>
 
 <style scoped>
-.album-cover {
-  position: relative;
-  border-radius: 4px;
-  width: 100%;
-  height: 170px;
-}
-.album-cover::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-.album-photo-count {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.5rem;
-  z-index: 1000;
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding: 0 0.5rem;
-  bottom: 2.6rem;
-  color: #fff;
-}
-.album-name {
-  text-align: center;
-  margin-top: 0.5rem;
-}
-.album-item {
-  position: relative;
-  cursor: pointer;
-  margin-bottom: 1rem;
-}
-.album-opreation {
-  position: absolute;
-  z-index: 1000;
-  top: 0.5rem;
-  right: 0.8rem;
+.category-tree {
+  height: 250px;
+  display: block;
+  overflow-y: scroll;
 }
 </style>

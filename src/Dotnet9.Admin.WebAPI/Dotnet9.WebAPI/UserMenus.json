@@ -48,6 +48,14 @@
         "children": null
       },
       {
+        "name": "专辑管理",
+        "path": "/albums",
+        "component": "/album/Album.vue",
+        "icon": "el-icon-myfenlei",
+        "hidden": false,
+        "children": null
+      },
+      {
         "name": "分类管理",
         "path": "/categories",
         "component": "/category/Category.vue",
@@ -216,23 +224,23 @@
   },
   {
     "name": "相册管理",
-    "path": "/album-submenu",
+    "path": "/photo-submenu",
     "component": "Layout",
     "icon": "el-icon-myimage-fill",
     "hidden": false,
     "children": [
       {
         "name": "相册列表",
-        "path": "/albums",
-        "component": "/album/Album.vue",
+        "path": "/photos",
+        "component": "/photo/Photo.vue",
         "icon": "el-icon-myzhaopian",
         "hidden": false,
         "children": null
       },
       {
         "name": "照片管理",
-        "path": "/albums/:albumId",
-        "component": "/album/Photo.vue",
+        "path": "/photos/:photoId",
+        "component": "/photo/Photo.vue",
         "icon": "el-icon-myzhaopian",
         "hidden": true,
         "children": null
@@ -240,7 +248,7 @@
       {
         "name": "照片回收站",
         "path": "/photos/delete",
-        "component": "/album/Delete.vue",
+        "component": "/photo/Delete.vue",
         "icon": "el-icon-myhuishouzhan",
         "hidden": true,
         "children": null

@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/albums")]
 [ApiController]
 public class AlbumController : ControllerBase
 {
@@ -22,20 +22,19 @@ public class AlbumController : ControllerBase
     }
 
     [HttpGet]
-    [NoWrapper]
     public async Task<GetAlbumListResponse> List([FromQuery] GetAlbumListRequest request)
     {
-        (Album[]? Albums, long Count) result = await _repository.GetListAsync(request);
+        (AlbumDto[]? Albums, long Count) result = await _repository.GetListAsync(request);
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
+
         return new GetAlbumListResponse(
-            result.Albums.ConvertToAlbumDtoArray(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames),
-            result.Count, true, request.PageSize,
-            request.Current);
+            result.Albums?.ConvertToAlbumDtoArray(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames),
+            result.Count);
     }
 
 
     [HttpGet]
-    [Route("/api/[controller]/tree")]
+    [Route("/api/albums/tree")]
     public async Task<AlbumListItemDto[]> GetTree()
     {
         return await _dbContext.Albums!.Select(x => new AlbumListItemDto(x.Name, x.Id.ToString(), x.Id.ToString()))
@@ -43,7 +42,7 @@ public class AlbumController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/api/[controller]/Categories")]
+    [Route("/api/albums/Categories")]
     public async Task<CategoryDto[]> GetCategoriesOfAlbum()
     {
         Category[] categories = await _repository.GetCategoriesOfAlbumAsync();
@@ -56,7 +55,7 @@ public class AlbumController : ControllerBase
     public async Task<GetAlbumsByCategoryResponse> GetAlbumsByCategory(Guid categoryId,
         [FromQuery] GetAlbumsByCategoryRequest request)
     {
-        (Album[]? Albums, long Count) result =
+        var result =
             await _repository.GetAlbumsByCategoryAsync(categoryId, request.PageIndex, request.PageSize);
 
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
@@ -82,7 +81,8 @@ public class AlbumController : ControllerBase
         await _dbContext.SaveChangesAsync();
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
 
-        return albumFromDb.Entity.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
+        return albumFromDb.Entity.Adapt<AlbumDto>()
+            .ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
     }
 
     [HttpPut]
@@ -96,11 +96,12 @@ public class AlbumController : ControllerBase
         await _dbContext.SaveChangesAsync();
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
 
-        return albumFromDb.Entity.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
+        return albumFromDb.Entity.Adapt<AlbumDto>()
+            .ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
     }
 
     [HttpPut]
-    [Route("/api/[controller]/{id}/changeVisible")]
+    [Route("/api/albums/{id}/changeVisible")]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ResponseResult<AlbumDto?>> UpdateAlbumVisible(Guid id,
         [FromBody] UpdateAlbumVisibleRequest request)
@@ -110,6 +111,6 @@ public class AlbumController : ControllerBase
         await _dbContext.SaveChangesAsync();
 
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
-        return album.ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
+        return album.Adapt<AlbumDto>().ConvertToAlbumDto(_siteOptions.Value.AssetsRemotePath, categoryIdAndNames);
     }
 }

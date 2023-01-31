@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using Dotnet9.WebAPI.ViewModel.Categories;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/categories")]
 [ApiController]
@@ -29,13 +31,8 @@ public class CategoryController : ControllerBase
     {
         (CategoryDto[]? Categories, long Count) result = await _repository.GetListAsync(request);
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
-        List<CategoryDto> categoryDtos = new();
-        if (result.Categories == null)
-        {
-            return new GetCategoryListResponse(categoryDtos, result.Count);
-        }
 
-        foreach (CategoryDto category in result.Categories)
+        return new GetCategoryListResponse(result.Categories?.Select(category =>
         {
             string parentName = string.Empty;
             if (categoryIdAndNames != null && category.ParentId != null &&
@@ -44,16 +41,12 @@ public class CategoryController : ControllerBase
                 parentName = categoryIdAndNames[category.ParentId.Value];
             }
 
-            CategoryDto categoryDto = category.Adapt<CategoryDto>();
-            categoryDto.ParentId = category.ParentId;
-            categoryDto.ParentName = parentName;
-            categoryDto.Cover = categoryDto.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
-                ? categoryDto.Cover
-                : $"{_siteOptions.Value.AssetsRemotePath}/{categoryDto.Cover}";
-            categoryDtos.Add(categoryDto);
-        }
-
-        return new GetCategoryListResponse(categoryDtos, result.Count);
+            category.ParentName = parentName;
+            category.Cover= category.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
+            ? category.Cover
+                : $"{_siteOptions.Value.AssetsRemotePath}/{category.Cover}";
+            return category;
+        }), result.Count);
     }
 
     [HttpGet]

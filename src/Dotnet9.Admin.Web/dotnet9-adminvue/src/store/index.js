@@ -12,6 +12,7 @@ export default new Vuex.Store({
     userMenus: [],
     pageState: {
       articleList: 1,
+      album: 1,
       category: 1,
       tag: 1,
       comment: 1,
@@ -61,6 +62,9 @@ export default new Vuex.Store({
     },
     updateArticleListPageState(state, current) {
       state.pageState.articleList = current
+    },
+    updateAlbumPageState(state, current) {
+      state.pageState.album = current
     },
     updateCategoryPageState(state, current) {
       state.pageState.category = current
