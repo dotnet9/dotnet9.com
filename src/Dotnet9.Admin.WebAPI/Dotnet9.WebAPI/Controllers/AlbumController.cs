@@ -55,7 +55,7 @@ public class AlbumController : ControllerBase
     public async Task<GetAlbumsByCategoryResponse> GetAlbumsByCategory(Guid categoryId,
         [FromQuery] GetAlbumsByCategoryRequest request)
     {
-        var result =
+        (AlbumDto[]? Albums, long Count) result =
             await _repository.GetAlbumsByCategoryAsync(categoryId, request.PageIndex, request.PageSize);
 
         Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);

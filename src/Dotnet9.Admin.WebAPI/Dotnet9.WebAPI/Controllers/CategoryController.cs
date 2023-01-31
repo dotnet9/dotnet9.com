@@ -1,6 +1,4 @@
-﻿using Dotnet9.WebAPI.ViewModel.Categories;
-
-namespace Dotnet9.WebAPI.Controllers;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/categories")]
 [ApiController]
@@ -42,8 +40,8 @@ public class CategoryController : ControllerBase
             }
 
             category.ParentName = parentName;
-            category.Cover= category.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
-            ? category.Cover
+            category.Cover = category.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
+                ? category.Cover
                 : $"{_siteOptions.Value.AssetsRemotePath}/{category.Cover}";
             return category;
         }), result.Count);
