@@ -271,8 +271,6 @@ export default {
     },
     openModel(album) {
       if (album != null) {
-        // TODO 切换专辑后，选择的分类无法重置
-        // debugger
         this.albumForm.categoryIds.length = 0
         this.albumForm = JSON.parse(JSON.stringify(album))
         this.$nextTick(() => {
