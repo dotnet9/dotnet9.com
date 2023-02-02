@@ -19,12 +19,7 @@
           placeholder="请输入专辑名"
           style="width: 200px"
           @keyup.enter.native="searchAlbums" />
-        <el-button
-          type="primary"
-          size="small"
-          icon="el-icon-search"
-          style="margin-left: 1rem"
-          @click="searchAlbums">
+        <el-button type="primary" size="small" icon="el-icon-search" style="margin-left: 1rem" @click="searchAlbums">
           搜索
         </el-button>
       </div>
@@ -89,7 +84,7 @@
       <el-form label-width="80px" size="medium" :model="albumForm" ref="albumForm" :rules="rules">
         <el-form-item label="封面" prop="cover">
           <el-col :span="5">
-            <el-image :src="albumForm.cover" :fit="contain" />
+            <el-image :src="albumForm.cover" />
           </el-col>
           <el-col :span="1" />
           <el-col :span="18">
@@ -117,7 +112,7 @@
                 show-checkbox
                 default-expand-all
                 :filter-node-method="filterCategoryNode"
-                @check="handleParentCategoryChecked"/>
+                @check="handleParentCategoryChecked" />
             </div>
           </template>
         </el-form-item>
@@ -216,22 +211,20 @@ export default {
       this.listAlbums()
     },
     changeVisible(e, row, index, visible) {
-      this.axios
-        .put('/api/albums/' + row.id + '/changeVisible', { id: row.id, visible: visible })
-        .then(({ data }) => {
-          if (data.success) {
-            this.$notify.success({
-              title: '成功',
-              message: data.message
-            })
-            this.listAlbums()
-          } else {
-            this.$notify.error({
-              title: '失败',
-              message: data.message
-            })
-          }
-        })
+      this.axios.put('/api/albums/' + row.id + '/changeVisible', { id: row.id, visible: visible }).then(({ data }) => {
+        if (data.success) {
+          this.$notify.success({
+            title: '成功',
+            message: data.message
+          })
+          this.listAlbums()
+        } else {
+          this.$notify.error({
+            title: '失败',
+            message: data.message
+          })
+        }
+      })
     },
     deleteAlbum(id) {
       let param = {}
@@ -278,16 +271,21 @@ export default {
     },
     openModel(album) {
       if (album != null) {
-      // TODO 切换专辑后，选择的分类无法重置
-        this.albumForm.categoryIds = []
+        // TODO 切换专辑后，选择的分类无法重置
+        // debugger
+        this.albumForm.categoryIds.length = 0
         this.albumForm = JSON.parse(JSON.stringify(album))
+        this.$nextTick(() => {
+          this.$refs.categoryTreeRef.setCheckedKeys(this.albumForm.categoryIds)
+        })
+
         this.$refs.albumTitle.innerHTML = '修改专辑'
       } else {
         this.albumForm.id = null
         this.albumForm.name = ''
         this.albumForm.cover = ''
         this.albumForm.slug = ''
-        this.albumForm.categoryIds = []
+        this.albumForm.categoryIds.length = 0
         this.albumForm.categoryNames = ''
         this.albumForm.visible = false
         this.albumForm.sequenceNumber = 0
@@ -301,9 +299,12 @@ export default {
     },
     handleParentCategoryChecked(data, checked) {
       this.albumForm.categoryIds = this.$refs.categoryTreeRef.getCheckedKeys()
-      this.albumForm.categoryNames = this.$refs.categoryTreeRef.getCheckedNodes().map(function(obj, index){
-        return obj.title
-      }).join(",")
+      this.albumForm.categoryNames = this.$refs.categoryTreeRef
+        .getCheckedNodes()
+        .map(function (obj, index) {
+          return obj.title
+        })
+        .join(',')
     },
     addOrEditAlbum(formName) {
       this.$refs[formName].validate((valid) => {
