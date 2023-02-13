@@ -77,9 +77,10 @@ public static class BlogPostExtension
         }
 
         return new BlogPostDto(blogPost.Id, blogPost.Title, blogPost.Slug, blogPost.Description, blogPost.Cover,
-            blogPost.CopyrightType.GetDescription(), blogPost.Original, blogPost.OriginalAvatar,
-            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, albumNames, albumIds,
-            categoryNames, categoryIds, tagNames, tagIds);
+            blogPost.CopyrightType.GetDescription(), blogPost.Banner, blogPost.Original, blogPost.OriginalAvatar,
+            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, blogPost.ViewCount, blogPost.LikeCount,
+            albumNames, albumIds,
+            categoryNames, categoryIds, tagNames, tagIds, blogPost.CreationTime);
     }
 
     public static BlogPostDto[]? ConvertToBlogPostDtoArray(this BlogPost[]? blogPosts, Dotnet9DbContext dbContext)

@@ -1,15 +1,13 @@
-﻿using Dotnet9.ASPNETCore.Filters;
+﻿namespace Dotnet9.WebAPI.Controllers;
 
-namespace Dotnet9.WebAPI.Controllers;
-
-[Route("api/[controller]")]
+[Route("api/blogposts")]
 [ApiController]
 public class BlogPostController : ControllerBase
 {
     private readonly IDistributedCacheHelper _cacheHelper;
-    private readonly IMediator _mediator;
     private readonly Dotnet9DbContext _dbContext;
     private readonly BlogPostManager _manager;
+    private readonly IMediator _mediator;
     private readonly IBlogPostRepository _repository;
 
     public BlogPostController(Dotnet9DbContext dbContext, IBlogPostRepository repository,
@@ -23,12 +21,10 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpGet]
-    [NoWrapper]
     public async Task<GetBlogPostListResponse> List([FromQuery] GetBlogPostListRequest request)
     {
         (BlogPost[]? BlogPosts, long Count) result = await _repository.GetListAsync(request);
-        return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count, true,
-            request.PageSize, request.Current);
+        return new GetBlogPostListResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 
     [HttpGet]
@@ -127,7 +123,7 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpPut]
-    [Route("/api/[controller]/{id}/changeVisible")]
+    [Route("/api/blogposts/{id}/changeVisible")]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ResponseResult<BlogPostDetailDto?>> UpdateVisible(Guid id,
         [FromBody] UpdateAlbumVisibleRequest request)
@@ -139,10 +135,10 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/api/[controller]/like/{slug}")]
+    [Route("/api/blogposts/like/{slug}")]
     public async Task<int> Like(string slug)
     {
-        var likeCount = await _repository.IncreaseLikeCountAsync(slug);
+        int likeCount = await _repository.IncreaseLikeCountAsync(slug);
         _mediator?.Publish(new LikeBlogPostEvent(slug, likeCount));
         return likeCount;
     }

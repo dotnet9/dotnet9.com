@@ -91,13 +91,13 @@
     </div>
     <el-table border :data="articles" @selection-change="selectionChange" v-loading="loading">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="articleCover" label="文章封面" width="180" align="center">
+      <el-table-column prop="cover" label="文章封面" width="180" align="center">
         <template slot-scope="scope">
           <el-image
             class="article-cover"
             :src="
-              scope.row.articleCover
-                ? scope.row.articleCover
+              scope.row.cover
+                ? scope.row.cover
                 : 'https://static.talkxj.com/articles/c5cc2b2561bd0e3060a500198a4ad37d.png'
             " />
           <i v-if="scope.row.status == 1" class="iconfont el-icon-mygongkai article-status-icon" />
@@ -105,40 +105,28 @@
           <i v-if="scope.row.status == 3" class="iconfont el-icon-mycaogaoxiang article-status-icon" />
         </template>
       </el-table-column>
-      <el-table-column prop="articleTitle" label="标题" align="center" />
-      <el-table-column prop="categoryName" label="分类" width="110" align="center" />
-      <el-table-column prop="tagDTOs" label="标签" width="170" align="center">
+      <el-table-column prop="title" label="标题" align="center" />
+      <el-table-column prop="categoryNames" label="分类" width="110" align="center" />
+      <el-table-column prop="tagNames" label="标签" width="170" align="center" />
+      <el-table-column prop="viewCount" label="浏览量" width="70" align="center">
         <template slot-scope="scope">
-          <el-tag v-for="item of scope.row.tagDTOs" :key="item.tagId" style="margin-right: 0.2rem; margin-top: 0.2rem">
-            {{ item.tagName }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="viewsCount" label="浏览量" width="70" align="center">
-        <template slot-scope="scope">
-          <span v-if="scope.row.viewsCount">
-            {{ scope.row.viewsCount }}
+          <span v-if="scope.row.viewCount">
+            {{ scope.row.viewCount }}
           </span>
           <span v-else>0</span>
         </template>
       </el-table-column>
-      <el-table-column prop="type" label="类型" width="80" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="articleType(scope.row.type).tagType">
-            {{ articleType(scope.row.type).name }}
-          </el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="createTime" label="发表时间" width="130" align="center">
+      <el-table-column prop="copyRightType" label="类型" width="80" align="center" />
+      <el-table-column prop="creationTime" label="发表时间" width="130" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 5px" />
           {{ scope.row.createTime | date }}
         </template>
       </el-table-column>
-      <el-table-column prop="isTop" label="置顶" width="80" align="center">
+      <el-table-column prop="banner" label="置顶" width="80" align="center">
         <template slot-scope="scope">
           <el-switch
-            v-model="scope.row.isTop"
+            v-model="scope.row.banner"
             active-color="#13ce66"
             inactive-color="#F4F4F5"
             :disabled="scope.row.isDelete == 1"
@@ -439,10 +427,10 @@ export default {
     },
     listArticles() {
       this.axios
-        .get('/api/admin/articles', {
+        .get('/api/blogposts', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.size,
             keywords: this.keywords,
             categoryId: this.categoryId,
             status: this.status,
