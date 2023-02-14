@@ -11,7 +11,7 @@
     </div>
     <div class="operation-container">
       <el-button
-        v-if="isDelete == 0"
+        v-if="isDeleted == false"
         type="danger"
         size="small"
         icon="el-icon-delete"
@@ -129,7 +129,7 @@
             v-model="scope.row.banner"
             active-color="#13ce66"
             inactive-color="#F4F4F5"
-            :disabled="scope.row.isDelete == 1"
+            :disabled="scope.row.isDeleted == true"
             :active-value="1"
             :inactive-value="0"
             @change="changeTopAndFeatured(scope.row)" />
@@ -141,7 +141,7 @@
             v-model="scope.row.isFeatured"
             active-color="#13ce66"
             inactive-color="#F4F4F5"
-            :disabled="scope.row.isDelete == 1"
+            :disabled="scope.row.isDeleted == true"
             :active-value="1"
             :inactive-value="0"
             @change="changeTopAndFeatured(scope.row)" />
@@ -149,25 +149,25 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="editArticle(scope.row.id)" v-if="scope.row.isDelete == 0">
+          <el-button type="primary" size="mini" @click="editArticle(scope.row.id)" v-if="scope.row.isDeleted == false">
             编辑
           </el-button>
           <el-popconfirm
             title="确定删除吗？"
             style="margin-left: 10px"
             @confirm="updateArticleDelete(scope.row.id)"
-            v-if="scope.row.isDelete == 0">
+            v-if="scope.row.isDeleted == false">
             <el-button size="mini" type="danger" slot="reference"> 删除 </el-button>
           </el-popconfirm>
           <el-popconfirm
             title="确定恢复吗？"
-            v-if="scope.row.isDelete == 1"
+            v-if="scope.row.isDeleted == true"
             @confirm="updateArticleDelete(scope.row.id)">
             <el-button size="mini" type="success" slot="reference"> 恢复 </el-button>
           </el-popconfirm>
           <el-popconfirm
             style="margin-left: 10px"
-            v-if="scope.row.isDelete == 1"
+            v-if="scope.row.isDeleted == true"
             title="确定彻底删除吗？"
             @confirm="deleteArticles(scope.row.id)">
             <el-button size="mini" type="danger" slot="reference"> 删除 </el-button>
@@ -249,7 +249,7 @@ export default {
       type: null,
       categoryId: null,
       tagId: null,
-      isDelete: 0,
+      isDeleted: 0,
       isExport: false,
       status: null,
       current: 1,
@@ -278,9 +278,9 @@ export default {
       } else {
         param.ids = this.articleIds
       }
-      param.isDelete = this.isDelete == 0 ? 1 : 0
-      this.axios.put('/api/admin/articles', param).then(({ data }) => {
-        if (data.flag) {
+      param.isDeleted = !this.isDeleted
+      this.axios.put('/api/blogposts', param).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -380,23 +380,23 @@ export default {
     changeStatus(status) {
       switch (status) {
         case 'all':
-          this.isDelete = 0
+          this.isDeleted = false
           this.status = null
           break
         case 'public':
-          this.isDelete = 0
+          this.isDeleted = false
           this.status = 1
           break
         case 'private':
-          this.isDelete = 0
+          this.isDeleted = false
           this.status = 2
           break
         case 'draft':
-          this.isDelete = 0
+          this.isDeleted = false
           this.status = 3
           break
         case 'delete':
-          this.isDelete = 1
+          this.isDeleted = true
           this.status = null
           break
       }
@@ -436,7 +436,7 @@ export default {
             status: this.status,
             tagId: this.tagId,
             type: this.type,
-            isDelete: this.isDelete
+            isDeleted: this.isDeleted
           }
         })
         .then(({ data }) => {
@@ -473,7 +473,7 @@ export default {
       this.current = 1
       this.listArticles()
     },
-    isDelete() {
+    isDeleted() {
       this.current = 1
       this.listArticles()
     }

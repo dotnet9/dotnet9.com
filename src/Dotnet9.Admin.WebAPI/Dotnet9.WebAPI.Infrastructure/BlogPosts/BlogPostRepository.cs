@@ -11,6 +11,13 @@ internal class BlogPostRepository : IBlogPostRepository
         _dbContext = dbContext;
     }
 
+    public async Task<int> UpdateDeleteStatusAsync(Guid[] ids)
+    {
+        await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id))
+            .ExecuteUpdateAsync(blogPost => blogPost.SetProperty(b => b.IsDeleted, b => !b.IsDeleted));
+        return await _dbContext.SaveChangesAsync();
+    }
+
     public async Task<int> DeleteAsync(Guid[] ids)
     {
         List<BlogPost> logs = await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id)).ToListAsync();

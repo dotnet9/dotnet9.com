@@ -5,4 +5,4 @@ public record BlogPostDto(Guid Id, string Title, string Slug, string Description
     string? OriginalLink,
     bool Visible, int ViewCount, int LikeCount, string? AlbumNames, Guid[]? AlbumIds, string? CategoryNames,
     Guid[]? CategoryIds, string? TagNames,
-    Guid[]? TagIds, DateTime CreationTime);
+    Guid[]? TagIds, DateTime CreationTime, bool IsDeleted);

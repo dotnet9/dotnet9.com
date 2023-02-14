@@ -85,6 +85,13 @@ public class BlogPostController : ControllerBase
         return blogPost?.ConvertToBlogPostDetailDto(_dbContext);
     }
 
+    [HttpPut]
+    [Authorize(Roles = UserRoleConst.Admin)]
+    public async Task<int> UpdateDeleteStatus([FromBody] DeleteBlogPostRequest request)
+    {
+        return await _repository.UpdateDeleteStatusAsync(request.Ids);
+    }
+
     [HttpDelete]
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<int> Delete([FromBody] DeleteBlogPostRequest request)

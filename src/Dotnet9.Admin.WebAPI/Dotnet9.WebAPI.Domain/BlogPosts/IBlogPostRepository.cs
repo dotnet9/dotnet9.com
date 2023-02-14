@@ -7,6 +7,7 @@ public interface IBlogPostRepository
     Task<(BlogPost[]? BlogPosts, long Count)> GetListByAlbumIdAsync(Guid albumId, int pageIndex, int pageSize);
     Task<(BlogPost[]? BlogPosts, long Count)> GetListByTagIdAsync(Guid tagId, int pageIndex, int pageSize);
     Task<BlogPostBrief[]?> GetListBriefAsync(string? keywords);
+    Task<int> UpdateDeleteStatusAsync(Guid[] ids);
     Task<int> DeleteAsync(Guid[] ids);
     Task<BlogPost?> FindByIdAsync(Guid id);
     Task<BlogPost?> FindByTitleAsync(string name);
