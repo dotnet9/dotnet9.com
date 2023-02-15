@@ -2,7 +2,7 @@
   <el-card class="main-card">
     <div class="title">{{ this.$route.name }}</div>
     <div class="article-title-container">
-      <el-input v-model="article.articleTitle" size="medium" placeholder="输入文章标题" />
+      <el-input v-model="article.title" size="medium" placeholder="输入文章标题" />
       <el-button
         type="danger"
         size="medium"
@@ -13,20 +13,20 @@
       </el-button>
       <el-button type="danger" size="medium" @click="openModel" style="margin-left: 10px"> 发布文章 </el-button>
     </div>
-    <mavon-editor ref="md" v-model="article.articleContent" @imgAdd="uploadImg" style="height: calc(100vh - 260px)" />
+    <mavon-editor ref="md" v-model="article.content" @imgAdd="uploadImg" style="height: calc(100vh - 260px)" />
     <el-dialog :visible.sync="addOrEdit" width="40%" top="3vh">
       <div class="dialog-title-container" slot="title">发布文章</div>
       <el-form label-width="80px" size="medium" :model="article">
         <el-form-item label="文章分类">
           <el-tag
             type="success"
-            v-show="article.categoryName"
+            v-show="article.categoryNames"
             style="margin: 0 1rem 0 0"
             :closable="true"
             @close="removeCategory">
-            {{ article.categoryName }}
+            {{ article.categoryNames }}
           </el-tag>
-          <el-popover placement="bottom-start" width="460" trigger="click" v-if="!article.categoryName">
+          <el-popover placement="bottom-start" width="460" trigger="click" v-if="!article.categoryNames">
             <div class="popover-title">分类</div>
             <el-autocomplete
               style="width: 100%"
@@ -37,12 +37,12 @@
               @keyup.enter.native="saveCategory"
               @select="handleSelectCategories">
               <template slot-scope="{ item }">
-                <div>{{ item.categoryName }}</div>
+                <div>{{ item.categoryNames }}</div>
               </template>
             </el-autocomplete>
             <div class="popover-container">
               <div v-for="item of categorys" :key="item.id" class="category-item" @click="addCategory(item)">
-                {{ item.categoryName }}
+                {{ item.categoryNames }}
               </div>
             </div>
             <el-button type="success" plain slot="reference" size="small"> 添加分类 </el-button>
@@ -57,7 +57,7 @@
             @close="removeTag(item)">
             {{ item }}
           </el-tag>
-          <el-popover placement="bottom-start" width="460" trigger="click" v-if="article.tagNames.length < 3">
+          <el-popover placement="bottom-start" width="460" trigger="click" v-if="article.tagNames?.length < 3">
             <div class="popover-title">标签</div>
             <el-autocomplete
               style="width: 100%"
@@ -97,9 +97,9 @@
             :headers="headers"
             :before-upload="beforeUpload"
             :on-success="uploadCover">
-            <i class="el-icon-upload" v-if="article.articleCover == ''" />
-            <div class="el-upload__text" v-if="article.articleCover == ''">将文件拖到此处，或<em>点击上传</em></div>
-            <img v-else :src="article.articleCover" width="360px" height="180px" />
+            <i class="el-icon-upload" v-if="article.cover == ''" />
+            <div class="el-upload__text" v-if="article.cover == ''">将文件拖到此处，或<em>点击上传</em></div>
+            <img v-else :src="article.cover" width="360px" height="180px" />
           </el-upload>
         </el-form-item>
         <el-form-item label="置顶">
@@ -144,7 +144,7 @@ export default {
     const arr = path.split('/')
     const articleId = arr[2]
     if (articleId) {
-      this.axios.get('/api/admin/articles/' + articleId).then(({ data }) => {
+      this.axios.get('/api/blogposts/' + articleId).then(({ data }) => {
         this.article = data.data
       })
     } else {
@@ -181,10 +181,10 @@ export default {
       ],
       article: {
         id: null,
-        articleTitle: this.$moment(new Date()).format('YYYY-MM-DD'),
-        articleContent: '',
-        articleCover: '',
-        categoryName: null,
+        title: this.$moment(new Date()).format('YYYY-MM-DD'),
+        content: '',
+        cover: '',
+        categoryNames: [],
         tagNames: [],
         isTop: 0,
         type: 1,
@@ -205,11 +205,11 @@ export default {
       })
     },
     openModel() {
-      if (this.article.articleTitle.trim() == '') {
+      if (this.article.title.trim() == '') {
         this.$message.error('文章标题不能为空')
         return false
       }
-      if (this.article.articleContent.trim() == '') {
+      if (this.article.content.trim() == '') {
         this.$message.error('文章内容不能为空')
         return false
       }
@@ -218,7 +218,7 @@ export default {
       this.addOrEdit = true
     },
     uploadCover(response) {
-      this.article.articleCover = response.data
+      this.article.cover = response.data
     },
     beforeUpload(file) {
       return new Promise((resolve) => {
@@ -247,11 +247,11 @@ export default {
       }
     },
     saveArticleDraft() {
-      if (this.article.articleTitle.trim() == '') {
+      if (this.article.title.trim() == '') {
         this.$message.error('文章标题不能为空')
         return false
       }
-      if (this.article.articleContent.trim() == '') {
+      if (this.article.content.trim() == '') {
         this.$message.error('文章内容不能为空')
         return false
       }
@@ -279,23 +279,23 @@ export default {
       this.autoSave = false
     },
     saveOrUpdateArticle() {
-      if (this.article.articleTitle.trim() == '') {
+      if (this.article.title.trim() == '') {
         this.$message.error('文章标题不能为空')
         return false
       }
-      if (this.article.articleContent.trim() == '') {
+      if (this.article.content.trim() == '') {
         this.$message.error('文章内容不能为空')
         return false
       }
-      if (this.article.categoryName == null) {
+      if (this.article.categoryNames?.length == 0) {
         this.$message.error('文章分类不能为空')
         return false
       }
-      if (this.article.tagNames.length == 0) {
+      if (this.article.tagNames?.length == 0) {
         this.$message.error('文章标签不能为空')
         return false
       }
-      if (this.article.articleCover.trim() == '') {
+      if (this.article.cover.trim() == '') {
         this.$message.error('文章封面不能为空')
         return false
       }
@@ -325,8 +325,8 @@ export default {
     autoSaveArticle() {
       if (
         this.autoSave &&
-        this.article.articleTitle.trim() != '' &&
-        this.article.articleContent.trim() != '' &&
+        this.article.title.trim() != '' &&
+        this.article.content.trim() != '' &&
         this.article.id != null
       ) {
         this.axios.post('/api/admin/articles', this.article).then(({ data }) => {
@@ -372,10 +372,10 @@ export default {
       }
     },
     addCategory(item) {
-      this.article.categoryName = item.categoryName
+      this.article.categoryNames = item.categoryName
     },
     removeCategory() {
-      this.article.categoryName = null
+      this.article.categoryNames = []
     },
     searchTags(keywords, cb) {
       this.axios
