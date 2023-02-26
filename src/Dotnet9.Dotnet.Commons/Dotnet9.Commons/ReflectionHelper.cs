@@ -5,6 +5,21 @@ namespace Dotnet9.Commons;
 
 public static class ReflectionHelper
 {
+    /// <summary>
+    /// 据产品名称获取程序集
+    /// </summary>
+    /// <param name="productName"></param>
+    /// <returns></returns>
+    public static IEnumerable<Assembly> GetAssembliesByProductName(string productName) {
+        var asms = AppDomain.CurrentDomain.GetAssemblies();
+        foreach (var asm in asms) {
+            var asmCompanyAttr = asm.GetCustomAttribute<AssemblyProductAttribute>();
+            if (asmCompanyAttr != null && asmCompanyAttr.Product == productName) {
+                yield return asm;
+            }
+        }
+    }
+
     //是否是微软等的官方Assembly
     private static bool IsSystemAssembly(Assembly asm)
     {

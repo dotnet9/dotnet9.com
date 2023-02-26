@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.ASPNETCore.Filters;
+﻿using MediatR;
+
+namespace Dotnet9.ASPNETCore.Filters;
 
 public class ActionLogFilterAttribute : ActionFilterAttribute
 {
