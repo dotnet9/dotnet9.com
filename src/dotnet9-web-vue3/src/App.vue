@@ -94,11 +94,11 @@ export default defineComponent({
     const fetchWebsiteConfig = () => {
       api.getWebsiteConfig().then(({ data }) => {
         appStore.viewCount = data.data.viewCount
-        appStore.articleCount = data.data.articleCount
-        appStore.talkCount = data.data.talkCount
+        appStore.articleCount = data.data.blogPostCount
+        appStore.talkCount = data.data.commentCount
         appStore.categoryCount = data.data.categoryCount
         appStore.tagCount = data.data.tagCount
-        appStore.websiteConfig = data.data.websiteConfigDTO
+        appStore.websiteConfig = data.data.details
       })
     }
     const copyEventHandler = (event: any) => {

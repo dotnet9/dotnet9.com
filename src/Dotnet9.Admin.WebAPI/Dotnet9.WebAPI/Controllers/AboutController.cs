@@ -1,22 +1,40 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/abouts")]
 [ApiController]
 public class AboutController : ControllerBase
 {
+    private const string GetAboutCacheKey = "AboutController.GetAbout";
     private readonly IMemoryCacheHelper _cacheHelper;
     private readonly Dotnet9DbContext _dbContext;
+    private readonly Dotnet9DbContext _dotnet9DbContext;
     private readonly AboutManager _manager;
     private readonly IAboutRepository _repository;
-    private const string GetAboutCacheKey = "AboutController.GetAbout";
+    private readonly IOptionsSnapshot<SiteOptions> _siteOptions;
 
     public AboutController(Dotnet9DbContext dbContext, IAboutRepository repository, AboutManager manager,
-        IMemoryCacheHelper cacheHelper)
+        IMemoryCacheHelper cacheHelper, Dotnet9DbContext dotnet9DbContext, IOptionsSnapshot<SiteOptions> siteOptions)
     {
         _dbContext = dbContext;
         _repository = repository;
         _manager = manager;
         _cacheHelper = cacheHelper;
+        _dotnet9DbContext = dotnet9DbContext;
+        _siteOptions = siteOptions;
+    }
+
+    [HttpGet]
+    [Route("/api")]
+    public async Task<AboutSiteViewModel> Details()
+    {
+        int blogPostCount = await _dotnet9DbContext.BlogPosts!.CountAsync();
+        int commentCount = 0; // TODO
+        int albumCount = await _dotnet9DbContext.Albums!.CountAsync();
+        int categoryCount = await _dotnet9DbContext.Categories!.CountAsync();
+        int tagCount = await _dotnet9DbContext.Tags!.CountAsync();
+        int viewCount = 0;
+        return new AboutSiteViewModel(blogPostCount, commentCount, albumCount, categoryCount, tagCount, viewCount,
+            _siteOptions.Value);
     }
 
     [HttpGet]
@@ -25,11 +43,11 @@ public class AboutController : ControllerBase
     {
         async Task<AboutDto?> GetAboutFromDb()
         {
-            var aboutFromDb = await _repository.GetAsync();
+            About? aboutFromDb = await _repository.GetAsync();
             return aboutFromDb == null ? null : new AboutDto(aboutFromDb.Content!);
         }
 
-        var about = await _cacheHelper.GetOrCreateAsync(GetAboutCacheKey,
+        AboutDto? about = await _cacheHelper.GetOrCreateAsync(GetAboutCacheKey,
             async e => await GetAboutFromDb());
         if (about == null)
         {
@@ -43,7 +61,7 @@ public class AboutController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<ActionResult<ResponseResult<bool>>> AddOrUpdate(AddOrUpdateAboutRequest request)
     {
-        var about = await _repository.GetAsync();
+        About? about = await _repository.GetAsync();
         if (about == null)
         {
             about = _manager.Create(request.Content);
