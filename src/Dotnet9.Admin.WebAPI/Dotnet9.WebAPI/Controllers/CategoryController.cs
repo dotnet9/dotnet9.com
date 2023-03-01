@@ -25,26 +25,22 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<GetCategoryListResponse> List([FromQuery] GetCategoryListRequest request)
+    [Route("/api/categories/details")]
+    public async Task<GetCategoryListResponse> ListDetails([FromQuery] GetCategoryListRequest request)
     {
-        (CategoryDto[]? Categories, long Count) result = await _repository.GetListAsync(request);
-        Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
+        return await GetCategoriesAsync(request);
+    }
 
-        return new GetCategoryListResponse(result.Categories?.Select(category =>
-        {
-            string parentName = string.Empty;
-            if (categoryIdAndNames != null && category.ParentId != null &&
-                categoryIdAndNames.ContainsKey(category.ParentId.Value))
-            {
-                parentName = categoryIdAndNames[category.ParentId.Value];
-            }
+    [HttpGet]
+    [Route("/api/categories/brief")]
+    public async Task<GetCategoryListBriefResponse> ListBrief()
+    {
+        GetCategoryListResponse categories = await GetCategoriesAsync(null);
 
-            category.ParentName = parentName;
-            category.Cover = category.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
-                ? category.Cover
-                : $"{_siteOptions.Value.AssetsRemotePath}/{category.Cover}";
-            return category;
-        }), result.Count);
+        return new GetCategoryListBriefResponse(
+            categories.Records!.Select(category =>
+                new CategoryBriefDto(category.SequenceNumber, category.Name, category.BlogPostCount, category.Slug)),
+            categories.Count);
     }
 
     [HttpGet]
@@ -124,5 +120,28 @@ public class CategoryController : ControllerBase
 
         await _dbContext.SaveChangesAsync();
         return data.Adapt<CategoryDto>();
+    }
+
+    private async Task<GetCategoryListResponse> GetCategoriesAsync(GetCategoryListRequest? request)
+    {
+        (CategoryDto[]? Categories, long Count) result =
+            await _repository.GetListAsync(request ??= new GetCategoryListRequest(null, 1, 100));
+        Dictionary<Guid, string>? categoryIdAndNames = await _dbContext.GetCategoryIdAndNames(_cacheHelper);
+
+        return new GetCategoryListResponse(result.Categories?.Select(category =>
+        {
+            string parentName = string.Empty;
+            if (categoryIdAndNames != null && category.ParentId != null &&
+                categoryIdAndNames.ContainsKey(category.ParentId.Value))
+            {
+                parentName = categoryIdAndNames[category.ParentId.Value];
+            }
+
+            category.ParentName = parentName;
+            category.Cover = category.Cover.StartsWith(_siteOptions.Value.AssetsRemotePath)
+                ? category.Cover
+                : $"{_siteOptions.Value.AssetsRemotePath}/{category.Cover}";
+            return category;
+        }), result.Count);
     }
 }

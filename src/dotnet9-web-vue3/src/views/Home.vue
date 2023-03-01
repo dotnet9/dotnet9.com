@@ -202,7 +202,7 @@ export default defineComponent({
     const fetchCategories = () => {
       categoryStore.categories = []
       api.getAllCategories().then(({ data }) => {
-        categoryStore.categories.push(...data.data)
+        categoryStore.categories.push(...data.data.records)
       })
     }
     const expandHandler = () => {
