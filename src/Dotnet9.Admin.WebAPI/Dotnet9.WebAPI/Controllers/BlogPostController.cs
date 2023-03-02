@@ -20,6 +20,12 @@ public class BlogPostController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet("topAndFeatured")]
+    public async Task<BlogPostDto[]?> TopAndFeatured()
+    {
+        return null;
+    }
+
     [HttpGet]
     public async Task<GetBlogPostListResponse> List([FromQuery] GetBlogPostListRequest request)
     {

@@ -32,10 +32,10 @@ axios.interceptors.response.use(
 )
 export default {
   getTopAndFeaturedArticles: () => {
-    return axios.get('/api/articles/topAndFeatured')
+    return axios.get('/api/blogposts/topAndFeatured')
   },
   getArticles: (params: any) => {
-    return axios.get('/api/articles/all', { params: params })
+    return axios.get('/api/search', { params: params })
   },
   getArticlesByCategoryId: (params: any) => {
     return axios.get('/api/articles/categoryId', { params: params })
@@ -50,7 +50,7 @@ export default {
     return axios.get('/api/tags/all')
   },
   getTopTenTags: () => {
-    return axios.get('/api/tags/topTen')
+    return axios.get('/api/tags/topten')
   },
   getArticlesByTagId: (params: any) => {
     return axios.get('/api/articles/tagId', { params: params })
@@ -68,7 +68,7 @@ export default {
     return axios.get('/api/comments', { params: params })
   },
   getTopSixComments: () => {
-    return axios.get('/api/comments/topSix')
+    return axios.get('/api/comments/topsix')
   },
   getAbout: () => {
     return axios.get('/api/about')
@@ -104,7 +104,7 @@ export default {
     })
   },
   getAlbums: () => {
-    return axios.get('/api/photos/albums')
+    return axios.get('/api/albums')
   },
   getPhotosBuAlbumId: (albumId: any, params: any) => {
     return axios.get('/api/albums/' + albumId + '/photos', {

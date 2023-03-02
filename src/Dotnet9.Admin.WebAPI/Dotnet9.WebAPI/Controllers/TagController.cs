@@ -15,6 +15,15 @@ public class TagController : ControllerBase
         _manager = manager;
     }
 
+
+    [HttpGet("topten")]
+    public async Task<ActionResult<TagDto[]?>> TopTen() 
+    {
+
+        (TagDto[]? Tags, long Count) result = await _repository.GetListAsync(new GetTagListRequest(null,1,10));
+        return result.Tags;
+    }
+
     [HttpGet]
     public async Task<GetTagListResponse> List([FromQuery] GetTagListRequest request)
     {

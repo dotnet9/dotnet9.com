@@ -23,6 +23,12 @@ public class AboutController : ControllerBase
         _siteOptions = siteOptions;
     }
 
+    [HttpPost("/api/report")]
+    public async Task<string?> Report()
+    {
+        return null;
+    }
+
     [HttpGet]
     [Route("/api")]
     public async Task<AboutSiteViewModel> Details()

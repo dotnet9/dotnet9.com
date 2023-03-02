@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/comments/[action]")]
 [ApiController]
 public class CommentController : ControllerBase
 {
@@ -17,6 +17,13 @@ public class CommentController : ControllerBase
         _repository = repository;
         _manager = manager;
         _cacheHelper = cacheHelper;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<CommentDto[]?>> TopSix() {
+        
+
+        return new CommentDto[]{};
     }
 
     [HttpGet]
