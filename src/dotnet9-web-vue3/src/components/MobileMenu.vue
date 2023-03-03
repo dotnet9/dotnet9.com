@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-col justify-center items-center">
     <img
-      v-if="websiteConfig.authorAvatar !== ''"
+      v-if="websiteConfig.ownerAvatar !== ''"
       class="circle-avatar h-28 w-28 shadow-xl m-0"
-      :src="websiteConfig.authorAvatar"
+      :src="websiteConfig.ownerAvatar"
       alt="avatar" />
     <ob-skeleton v-else width="7rem" height="7rem" circle />
 
     <h2 class="text-center pt-4 text-4xl font-semibold text-ob-bright">
-      <template v-if="websiteConfig.author">
-        {{ websiteConfig.author }}
+      <template v-if="websiteConfig.owner">
+        {{ websiteConfig.owner }}
       </template>
       <ob-skeleton v-else height="2.25rem" width="7rem" />
     </h2>
@@ -17,9 +17,9 @@
     <span class="h-1 w-14 rounded-full mt-2" :style="gradientBackground" />
 
     <p
-      v-if="websiteConfig.authorIntro"
+      v-if="websiteConfig.ownerDesc"
       class="pt-6 px-2 w-full text-sm text-center text-ob-dim"
-      v-html="websiteConfig.authorIntro" />
+      v-html="websiteConfig.ownerDesc" />
     <p v-else class="pt-6 px-10 w-full text-sm text-center flex flex-col gap-2">
       <ob-skeleton :count="2" height="20px" width="10rem" />
     </p>

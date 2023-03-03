@@ -19,7 +19,7 @@ export default defineComponent({
     const appStore = useAppStore()
     return {
       notice: computed(() => {
-        return appStore.websiteConfig.notice
+        return appStore.websiteConfig.ownerDesc
       })
     }
   }

@@ -1,12 +1,12 @@
 <template>
   <div class="flex items-start self-stretch relative" @click="handleClick">
     <div class="flex flex-col relative py-4 z-10 text-white font-medium ob-drop-shadow cursor-pointer" @click="">
-      <span class="flex text-3xl" v-if="websiteConfig.name">
-        {{ websiteConfig.name }}
+      <span class="flex text-3xl" v-if="websiteConfig.appName">
+        {{ websiteConfig.appName }}
       </span>
       <span v-else class="flex text-3xl animation-text">LOADING</span>
       <span class="font-extrabold text-xs uppercase">
-        {{ websiteConfig.englishName || 'BLOG' }}
+        {{ websiteConfig.appName || 'BLOG' }}
       </span>
     </div>
     <img class="logo-image" :src="websiteConfig.logo" alt="site-logo" />

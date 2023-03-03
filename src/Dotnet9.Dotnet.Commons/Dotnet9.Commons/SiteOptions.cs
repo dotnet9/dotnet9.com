@@ -10,6 +10,7 @@ public class SiteOptions
     public string? BeiAnUrl { get; set; }
     public string? Logo { get; set; }
     public string? Github { get; set; }
+    public string? Gitee { get; set; }
     public string? ApiService { get; set; }
     public string AssetsLocalPath { get; set; } = null!;
 
@@ -22,7 +23,13 @@ public class SiteOptions
     public string? WechatPublic1 { get; set; }
     public string? WechatPublic2Name { get; set; }
     public string? WechatPublic2 { get; set; }
+    public string? QQ { get; set; }
+    public string? CSDN { get; set; }
+    public string? JueJin { get; set; }
+    public string? ZhiHu { get; set; }
     public int Start { get; set; }
+    public string? WebsiteCreateTime { get; set; }
     public string? Bilibili { get; set; }
-    public string? Zhihu { get; set; }
+    public int IsCommentReview { get; set; }
+    public int MultiLanguage { get; set; }
 }

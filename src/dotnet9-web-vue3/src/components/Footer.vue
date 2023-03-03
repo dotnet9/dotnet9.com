@@ -8,11 +8,11 @@
           <ul class="flex flex-col gap-2 mx-auto">
             <li>
               Copyright © 2019 - {{ currentYear }}
-              <b class="font-extrabold">{{ websiteConfig.author }}</b>
+              <b class="font-extrabold">{{ websiteConfig.owner }}</b>
             </li>
-            <li v-if="websiteConfig.beian_number != ''" class="flex flex-row mx-auto">
+            <li v-if="websiteConfig.beiAn != ''" class="flex flex-row mx-auto">
               <a href="https://beian.miit.gov.cn/" target="_blank">
-                <b class="font-extrabold border-b-2 border-ob hover:text-ob"> {{ websiteConfig.beianNumber }} </b>
+                <b class="font-extrabold border-b-2 border-ob hover:text-ob"> {{ websiteConfig.beiAn }} </b>
               </a>
             </li>
           </ul>
