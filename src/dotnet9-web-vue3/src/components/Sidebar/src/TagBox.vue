@@ -3,7 +3,7 @@
     <SubTitle :title="'titles.tag_list'" icon="tag" />
     <TagList>
       <template v-if="tags != '' && tags.length > 0">
-        <TagItem v-for="tag in tags" :key="tag.id" :id="tag.id" :name="tag.tagName" :count="tag.count" size="xs" />
+        <TagItem v-for="tag in tags" :key="tag.id" :id="tag.id" :name="tag.name" :count="tag.blogPostCount" size="xs" />
         <div class="flex flex-row items-center hover:opacity-50 mr-2 mb-2 cursor-pointer transition-all">
           <span class="text-center px-3 py-1 rounded-md text-sm">
             <b class="border-b-2 border-ob hover:text-ob">

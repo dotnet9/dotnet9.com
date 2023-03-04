@@ -20,12 +20,12 @@
           <div class="flex-1 text-xs comment">
             <div class="text-xs">
               <span class="text-ob pr-2">
-                {{ comment.nickname }}
+                {{ comment.userName }}
               </span>
-              <p class="text-gray-500">{{ comment.createTime }}</p>
+              <p class="text-gray-500">{{ comment.creationTime }}</p>
             </div>
             <div class="text-xs text-ob-bright commentContent">
-              {{ comment.commentContent }}
+              {{ comment.content }}
             </div>
           </div>
         </li>
@@ -55,8 +55,8 @@ export default defineComponent({
         if (data.data.length === 0) {
           commentStore.recentComment = []
         }
-        data.data.forEach((itme: any) => {
-          itme.createTime = formatTime(itme.createTime)
+        data.data.forEach((item: any) => {
+          item.creationTime = formatTime(item.creationTime)
         })
         commentStore.recentComment = data.data
       })

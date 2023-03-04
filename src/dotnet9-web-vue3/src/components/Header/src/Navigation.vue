@@ -51,8 +51,8 @@
           <span class="relative z-50" v-else-if="$i18n.locale === 'en'"> PhotoAlbums </span>
           <DropdownMenu>
             <template v-for="item in albums" :key="item.id">
-              <DropdownItem @click="pushPage(`/photos/${item.id}`)" :name="item.albumName">
-                <span class="relative z-50">{{ item.albumName }}</span>
+              <DropdownItem @click="pushPage(`/photos/${item.id}`)" :name="item.name">
+                <span class="relative z-50">{{ item.name }}</span>
               </DropdownItem>
             </template>
           </DropdownMenu>
@@ -93,7 +93,7 @@ export default defineComponent({
     })
     onMounted(() => {
       api.getAlbums().then(({ data }) => {
-        reactiveData.albums = data.data
+        reactiveData.albums = data.data.records
       })
     })
     const openPhotoAlbum = (id: any): void => {

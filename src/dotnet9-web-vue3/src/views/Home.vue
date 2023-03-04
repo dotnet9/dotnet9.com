@@ -133,20 +133,20 @@ export default defineComponent({
     })
     const fetchTopAndFeatured = () => {
       api.getTopAndFeaturedArticles().then(({ data }) => {
-        data.data.topArticle.articleContent = md
-          .render(data.data.topArticle.articleContent)
+        data.data.top.content = md
+          .render(data.data.top.content)
           .replace(/<\/?[^>]*>/g, '')
           .replace(/[|]*\n/, '')
           .replace(/&npsp;/gi, '')
-        data.data.featuredArticles.forEach((item: any) => {
-          item.articleContent = md
-            .render(item.articleContent)
+        data.data.featured.forEach((item: any) => {
+          item.content = md
+            .render(item.content)
             .replace(/<\/?[^>]*>/g, '')
             .replace(/[|]*\n/, '')
             .replace(/&npsp;/gi, '')
         })
-        articleStore.topArticle = data.data.topArticle
-        articleStore.featuredArticles = data.data.featuredArticles
+        articleStore.topArticle = data.data.top
+        articleStore.featuredArticles = data.data.featured
       })
     }
     const fetchArticles = () => {

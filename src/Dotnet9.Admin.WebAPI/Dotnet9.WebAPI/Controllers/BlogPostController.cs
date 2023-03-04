@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.WebAPI.Controllers;
+﻿using MediatR;
+
+namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/blogposts")]
 [ApiController]
@@ -21,9 +23,13 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpGet("topAndFeatured")]
-    public async Task<BlogPostDto[]?> TopAndFeatured()
+    public async Task<GetTopAndFeaturedBlogPostResponse> TopAndFeatured()
     {
-        return null;
+        (BlogPost[]? BlogPosts, long Count) result = await _repository.GetListAsync(new GetBlogPostListRequest());
+        var top = result.BlogPosts![0].ConvertToBlogPostDetailDto(this._dbContext);
+        var featured = result.BlogPosts!.Skip(1).Take(2)
+            .Select(blogPost => blogPost.ConvertToBlogPostDetailDto(this._dbContext)).ToArray();
+        return new GetTopAndFeaturedBlogPostResponse(top!, featured!);
     }
 
     [HttpGet]

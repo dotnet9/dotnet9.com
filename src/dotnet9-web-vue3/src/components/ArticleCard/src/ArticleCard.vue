@@ -14,54 +14,54 @@
     </span>
     <div class="article">
       <div class="article-thumbnail">
-        <img v-if="article.articleCover" v-lazy="article.articleCover" alt="" />
+        <img v-if="article.cover" v-lazy="article.cover" alt="" />
         <img v-else src="@/assets/default-cover.jpg" />
         <span class="thumbnail-screen" :style="gradientBackground" />
       </div>
       <div class="article-content">
         <span>
-          <b v-if="article.categoryName">
-            {{ article.categoryName }}
+          <b v-if="article.categoryNames">
+            {{ article.categoryNames }}
           </b>
           <ob-skeleton v-else tag="b" height="20px" width="35px" />
-          <ul v-if="article.tags && article.tags.length > 0">
-            <li v-for="tag in article.tags" :key="tag.id">
-              <em># {{ tag.tagName }}</em>
+          <ul v-if="article.tagNames && article.tagNames.length > 0">
+            <li v-for="tag in article.tagNames" :key="tag">
+              <em># {{ tag }}</em>
             </li>
           </ul>
-          <ul v-else-if="article.tags && article.tags.length <= 0">
+          <ul v-else-if="article.tagNames && article.tagNames.length <= 0">
             <li>
               <em># {{ t('settings.default-tag') }}</em>
             </li>
           </ul>
           <ul v-else>
-            <ob-skeleton v-if="!article.tags" :count="2" tag="li" height="16px" width="35px" />
+            <ob-skeleton v-if="!article.tagNames" :count="2" tag="li" height="16px" width="35px" />
           </ul>
         </span>
-        <h1 class="article-title" v-if="article.articleTitle" @click="toArticle" data-dia="article-link">
+        <h1 class="article-title" v-if="article.title" @click="toArticle" data-dia="article-link">
           <a>
-            <span> {{ article.articleTitle }}</span>
+            <span> {{ article.title }}</span>
             <svg-icon v-if="article.status == 2" icon-class="lock" class="lock-svg" />
           </a>
         </h1>
         <ob-skeleton v-else tag="h1" height="3rem" />
-        <p v-if="article.articleContent">{{ article.articleContent }}</p>
+        <p v-if="article.content">{{ article.content }}</p>
         <ob-skeleton v-else tag="p" :count="5" height="16px" />
-        <div class="article-footer" v-if="article.author && article.createTime">
+        <div class="article-footer" v-if="article.original && article.creationTime">
           <div class="flex flex-row items-center">
             <img
               class="hover:opacity-50 cursor-pointer"
-              :src="article.author.avatar || ''"
+              :src="article.originalAvatar || ''"
               alt="author avatar"
               @click="handleAuthorClick(article.author.website)" />
             <span class="text-ob-dim">
               <strong
                 class="text-ob-normal pr-1.5 hover:text-ob hover:opacity-50 cursor-pointer"
-                @click="handleAuthorClick(article.author.website)">
-                {{ article.author.nickname }}
+                @click="handleAuthorClick(article.originalLink)">
+                {{ article.original }}
               </strong>
-              {{ t('settings.shared-on') }} {{ t(`settings.months[${new Date(article.createTime).getMonth()}]`) }}
-              {{ new Date(article.createTime).getDate() }}, {{ new Date(article.createTime).getFullYear() }}
+              {{ t('settings.shared-on') }} {{ t(`settings.months[${new Date(article.creationTime).getMonth()}]`) }}
+              {{ new Date(article.creationTime).getDate() }}, {{ new Date(article.creationTime).getFullYear() }}
             </span>
           </div>
         </div>

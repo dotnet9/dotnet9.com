@@ -38,7 +38,7 @@ public class AboutController : ControllerBase
         int albumCount = await _dotnet9DbContext.Albums!.CountAsync();
         int categoryCount = await _dotnet9DbContext.Categories!.CountAsync();
         int tagCount = await _dotnet9DbContext.Tags!.CountAsync();
-        int viewCount = 0;
+        int viewCount = 1250;
         return new AboutSiteViewModel(blogPostCount, commentCount, albumCount, categoryCount, tagCount, viewCount,
             _siteOptions.Value);
     }
