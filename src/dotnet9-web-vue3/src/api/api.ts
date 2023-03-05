@@ -38,10 +38,10 @@ export default {
     return axios.get('/api/search', { params: params })
   },
   getArticlesByCategoryId: (params: any) => {
-    return axios.get('/api/articles/categoryId', { params: params })
+    return axios.get('/api/category/'+params.categoryId+'/blogpost', { params: params })
   },
   getArticeById: (articleId: any) => {
-    return axios.get('/api/articles/' + articleId)
+    return axios.get('/api/blogposts/' + articleId)
   },
   getAllCategories: () => {
     return axios.get('/api/categories/brief')

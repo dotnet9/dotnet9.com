@@ -74,7 +74,7 @@ public class BlogPostController : ControllerBase
         [FromQuery] GetBlogPostsByCategoryRequest request)
     {
         (BlogPost[]? BlogPosts, long Count) result =
-            await _repository.GetListByCategoryIdAsync(categoryId, request.PageIndex, request.PageSize);
+            await _repository.GetListByCategoryIdAsync(categoryId, request.Current, request.PageSize);
         return new GetBlogPostsByCategoryResponse(result.BlogPosts.ConvertToBlogPostDtoArray(_dbContext), result.Count);
     }
 

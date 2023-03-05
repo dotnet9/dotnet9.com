@@ -39,7 +39,7 @@ public class CategoryController : ControllerBase
 
         return new GetCategoryListBriefResponse(
             categories.Records!.Select(category =>
-                new CategoryBriefDto(category.SequenceNumber, category.Name, category.BlogPostCount, category.Slug)),
+                new CategoryBriefDto(category.Id, category.SequenceNumber, category.Name, category.BlogPostCount, category.Slug)),
             categories.Count);
     }
 

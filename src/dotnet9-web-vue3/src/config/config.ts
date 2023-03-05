@@ -4,7 +4,7 @@ export default {
   },
   qqLogin: {
     QQ_APP_ID: '101999415',
-    QQ_REDIRECT_URI: 'https://www.linhaojun.top/oauth/login/qq'
+    QQ_REDIRECT_URI: 'https://dotnet9.com/oauth/login/qq'
   },
   routes: [
     {

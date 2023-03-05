@@ -76,7 +76,8 @@ public static class BlogPostExtension
             tagIds = queryList.Select(x => x.Id).ToArray();
         }
 
-        return new BlogPostDto(blogPost.Id, blogPost.Title, blogPost.Slug, blogPost.Description, blogPost.Cover,
+        return new BlogPostDto(blogPost.Id, blogPost.Title, blogPost.Content, blogPost.Slug, blogPost.Description,
+            blogPost.Cover,
             blogPost.CopyrightType.GetDescription(), blogPost.Banner, blogPost.Original, blogPost.OriginalAvatar,
             blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, blogPost.ViewCount, blogPost.LikeCount,
             albumNames, albumIds,

@@ -21,10 +21,10 @@
               :class="{ active: activeTab === category.id }"
               @click="handleTabChange(category.id)">
               <span :style="activeTabStyle(category.id)">
-                {{ category.categoryName }}
+                {{ category.name }}
               </span>
               <b>
-                {{ category.articleCount }}
+                {{ category.blogPostCount }}
               </b>
             </li>
           </template>
@@ -189,13 +189,13 @@ export default defineComponent({
         .then(({ data }) => {
           data.data.records.forEach((item: any) => {
             item.articleContent = md
-              .render(item.articleContent)
+              .render(item.content)
               .replace(/<\/?[^>]*>/g, '')
               .replace(/[|]*\n/, '')
               .replace(/&npsp;/gi, '')
           })
           articleStore.articles = data.data.records
-          pagination.total = data.data.count
+          pagination.total = data.data.totalCount
           reactiveData.haveArticles = true
         })
     }

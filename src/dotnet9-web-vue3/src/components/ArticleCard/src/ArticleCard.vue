@@ -45,7 +45,7 @@
           </a>
         </h1>
         <ob-skeleton v-else tag="h1" height="3rem" />
-        <p v-if="article.content">{{ article.content }}</p>
+        <p v-if="article.description">{{ article.description }}</p>
         <ob-skeleton v-else tag="p" :count="5" height="16px" />
         <div class="article-footer" v-if="article.original && article.creationTime">
           <div class="flex flex-row items-center">
@@ -53,7 +53,7 @@
               class="hover:opacity-50 cursor-pointer"
               :src="article.originalAvatar || ''"
               alt="author avatar"
-              @click="handleAuthorClick(article.author.website)" />
+              @click="handleAuthorClick(article.originalLink)" />
             <span class="text-ob-dim">
               <strong
                 class="text-ob-normal pr-1.5 hover:text-ob hover:opacity-50 cursor-pointer"

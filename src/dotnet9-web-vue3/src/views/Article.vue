@@ -287,14 +287,14 @@ export default defineComponent({
           router.push({ path: '/出错啦' })
           return
         }
-        commonStore.setHeaderImage(data.data.articleCover)
+        commonStore.setHeaderImage(data.data.cover)
         new Promise((resolve) => {
-          data.data.articleContent = markdownToHtml(data.data.articleContent)
+          data.data.content = markdownToHtml(data.data.content)
           resolve(data.data)
         }).then((article: any) => {
           reactiveData.article = article
-          reactiveData.wordNum = Math.round(deleteHTMLTag(article.articleContent).length / 100) / 10 + 'k'
-          reactiveData.readTime = Math.round(deleteHTMLTag(article.articleContent).length / 400) + 'mins'
+          reactiveData.wordNum = Math.round(deleteHTMLTag(article.content).length / 100) / 10 + 'k'
+          reactiveData.readTime = Math.round(deleteHTMLTag(article.content).length / 400) + 'mins'
           loading.value = false
           nextTick(() => {
             Prism.highlightAll()
@@ -302,8 +302,8 @@ export default defineComponent({
           })
         })
         new Promise((resolve) => {
-          data.data.preArticleCard.articleContent = md
-            .render(data.data.preArticleCard.articleContent)
+          data.data.preArticleCard.content = md
+            .render(data.data.preArticleCard.content)
             .replace(/<\/?[^>]*>/g, '')
             .replace(/[|]*\n/, '')
             .replace(/&npsp;/gi, '')
