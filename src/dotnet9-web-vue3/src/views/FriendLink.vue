@@ -101,9 +101,9 @@ export default defineComponent({
     const fetchComments = () => {
       const params = {
         type: 4,
-        topicId: null,
+        url: null,
         current: pageInfo.current,
-        size: pageInfo.size
+        pageSize: pageInfo.size
       }
       api.getComments(params).then(({ data }) => {
         if (reactiveData.isReload) {

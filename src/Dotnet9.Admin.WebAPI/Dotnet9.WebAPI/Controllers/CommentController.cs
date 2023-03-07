@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.WebAPI.Controllers;
 
-[Route("api/comments/[action]")]
+[Route("api/comments")]
 [ApiController]
 public class CommentController : ControllerBase
 {
@@ -19,7 +19,7 @@ public class CommentController : ControllerBase
         _cacheHelper = cacheHelper;
     }
 
-    [HttpGet]
+    [HttpGet("topSix")]
     public async Task<ActionResult<CommentDto[]?>> TopSix()
     {
         // TODO暂时返回一些测试数据 
@@ -28,33 +28,28 @@ public class CommentController : ControllerBase
             "testemail@dotnet9.com", "testcontent", DateTime.Now.ToString())).ToArray();
     }
 
-    [HttpGet]
-    [NoWrapper]
-    public async Task<ActionResult<CommentDto[]?>> Get([FromQuery] GetCommentListRequest request)
+    [HttpGet("list")]
+    public async Task<GetCommentListResponse> List([FromQuery] GetCommentListRequest request)
     {
         var avatar = "https://img1.dotnet9.com/site/cat.png";
 
-        async Task<CommentDto[]?> GetDataFromDb()
+        async Task<(CommentDto[]? Comments, long Count)> GetDataFromDb()
         {
             var dataFromDb = await _repository.GetListAsync(request);
-            return dataFromDb.Comments
+            var dataDto = dataFromDb.Comments
                 ?.Select(x => new CommentDto(x.Id, x.ParentId, x.Url, x.UserName, avatar, x.Email, x.Content,
                     x.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ToArray();
+            return (dataDto, dataFromDb.Count);
         }
 
         var cacheKey = $"{GetCommentCacheKey}_{request.Url}_{request.Current}_{request.PageSize}";
         var data = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetDataFromDb());
-        if (data == null)
-        {
-            return NotFound();
-        }
-
-        return data;
+        return new GetCommentListResponse(data.Comments, data.Count);
     }
 
-    [HttpPost]
+    [HttpPost("add")]
     public async Task<ActionResult<CommentDto>> Add([FromBody] AddCommentRequest request)
     {
         var comment = await _manager.CreateAsync(request.ParentId, request.Url, request.UserName, request.Email,

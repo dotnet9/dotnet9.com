@@ -123,9 +123,9 @@ export default defineComponent({
     const fetchComments = () => {
       const params = {
         type: 5,
-        topicId: route.params.talkId,
+        url: route.params.talkId,
         current: pageInfo.current,
-        size: pageInfo.size
+        pageSize: pageInfo.size
       }
       api.getComments(params).then(({ data }) => {
         if (reactiveData.isReload) {

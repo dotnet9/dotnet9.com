@@ -65,7 +65,7 @@ export default {
     return axios.post('/api/comments/save', params)
   },
   getComments: (params: any) => {
-    return axios.get('/api/comments', { params: params })
+    return axios.get('/api/comments/list', { params: params })
   },
   getTopSixComments: () => {
     return axios.get('/api/comments/topsix')
