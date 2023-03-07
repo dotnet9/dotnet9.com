@@ -158,13 +158,13 @@ export default defineComponent({
         api
           .getArticles({
             current: pagination.current,
-            size: pagination.size
+            pageSize: pagination.size
           })
           .then(({ data }) => {
-            if (data.flag) {
+            if (data.success) {
               data.data.records.forEach((item: any) => {
-                item.articleContent = md
-                  .render(item.articleContent)
+                item.content = md
+                  .render(item.content)
                   .replace(/<\/?[^>]*>/g, '')
                   .replace(/[|]*\n/, '')
                   .replace(/&npsp;/gi, '')

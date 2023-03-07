@@ -41,19 +41,20 @@ public class BlogPostController : ControllerBase
 
     [HttpGet]
     [Route("/api/search/")]
-    public async Task<ResponseResult<BlogPostBrief[]?>> ListBrief([FromQuery] string? keywords)
+    public async Task<GetBlogPostListResponse> Search([FromQuery] GetBlogPostListRequest request)
     {
-        string cacheKey = $"BlogPostController_ListBrief_{keywords}";
+        string cacheKey = $"BlogPostController_Search_{request.Keywords}_{request.Current}_{request.PageSize}";
 
-        async Task<BlogPostBrief[]?> GetFromDb()
+        async Task<(BlogPost[]? BlogPosts, long Count)?> GetFromDb()
         {
-            return await _repository.GetListBriefAsync(keywords);
+            return await _repository.GetListAsync(request);
         }
 
-        BlogPostBrief[]? blogPosts = await _cacheHelper.GetOrCreateAsync(cacheKey,
+        var blogPosts = await _cacheHelper.GetOrCreateAsync(cacheKey,
             async e => await GetFromDb());
 
-        return ResponseResult<BlogPostBrief[]?>.GetSuccess(blogPosts);
+        return new GetBlogPostListResponse(blogPosts!.Value.BlogPosts.ConvertToBlogPostDtoArray(_dbContext),
+            blogPosts.Value.Count);
     }
 
 
