@@ -196,6 +196,7 @@ export default defineComponent({
     })
     commentStore.type = 1
     onMounted(() => {
+      debugger
       reactiveData.articleId = route.params.articleId
       toPageTop()
       fetchArticle()
@@ -301,26 +302,30 @@ export default defineComponent({
             initTocbot()
           })
         })
-        new Promise((resolve) => {
-          data.data.preArticleCard.content = md
-            .render(data.data.preArticleCard.content)
-            .replace(/<\/?[^>]*>/g, '')
-            .replace(/[|]*\n/, '')
-            .replace(/&npsp;/gi, '')
-          resolve(data.data.preArticleCard)
-        }).then((preArticleCard: any) => {
-          reactiveData.preArticleCard = preArticleCard
-        })
-        new Promise((resolve) => {
-          data.data.nextArticleCard.articleContent = md
-            .render(data.data.nextArticleCard.articleContent)
-            .replace(/<\/?[^>]*>/g, '')
-            .replace(/[|]*\n/, '')
-            .replace(/&npsp;/gi, '')
-          resolve(data.data.nextArticleCard)
-        }).then((nextArticleCard) => {
-          reactiveData.nextArticleCard = nextArticleCard
-        })
+        if (data.data.preBlogPost !== null) {
+          new Promise((resolve) => {
+            data.data.preBlogPost.content = md
+              .render(data.data.preBlogPost.content)
+              .replace(/<\/?[^>]*>/g, '')
+              .replace(/[|]*\n/, '')
+              .replace(/&npsp;/gi, '')
+            resolve(data.data.preBlogPost)
+          }).then((preArticleCard: any) => {
+            reactiveData.preArticleCard = preArticleCard
+          })
+        }
+        if (data.data.nextBlogPost !== null) {
+          new Promise((resolve) => {
+            data.data.nextArticleCard.articleContent = md
+              .render(data.data.nextArticleCard.articleContent)
+              .replace(/<\/?[^>]*>/g, '')
+              .replace(/[|]*\n/, '')
+              .replace(/&npsp;/gi, '')
+            resolve(data.data.nextArticleCard)
+          }).then((nextArticleCard) => {
+            reactiveData.nextArticleCard = nextArticleCard
+          })
+        }
       })
     }
     const fetchComments = () => {
