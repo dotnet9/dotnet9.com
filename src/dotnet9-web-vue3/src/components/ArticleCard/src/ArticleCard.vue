@@ -117,7 +117,7 @@ export default defineComponent({
           emitter.emit('changeArticlePasswordDialogVisible', props.data.id)
         }
       } else {
-        router.push({ path: '/articles/' + props.data.id })
+        router.push({ path: '/' + props.data.year + '/' + props.data.month + '/' + props.data.slug })
       }
     }
     return {

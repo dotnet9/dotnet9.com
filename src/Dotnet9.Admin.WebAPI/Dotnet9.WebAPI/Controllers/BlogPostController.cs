@@ -91,10 +91,17 @@ public class BlogPostController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id}")]
-    public async Task<BlogPostDetailDto?> Get(Guid id)
+    [Route("/api/blogPosts/getById/{id}")]
+    public async Task<BlogPostDetailDto?> GetById(Guid id)
     {
         BlogPost? blogPost = await _repository.FindByIdAsync(id);
+        return blogPost?.ConvertToBlogPostDetailDto(_dbContext);
+    }
+
+    [HttpGet]
+    [Route("/api/blogPosts/{slug}")]
+    public async Task<BlogPostDetailDto?> GetBySlug(string slug) {
+        BlogPost? blogPost = await _repository.FindBySlugAsync(slug);
         return blogPost?.ConvertToBlogPostDetailDto(_dbContext);
     }
 

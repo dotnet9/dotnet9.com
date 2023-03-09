@@ -299,7 +299,7 @@ export default defineComponent({
     }
     const handleLinkClick = (result: any) => {
       saveRecentSearch(result)
-      router.push({ path: '/articles/' + result.id })
+      router.push({ path: '/' + result.year + '/' + result.month + '/' + result.slug })
       searchStore.setOpenModal(false)
     }
     const saveRecentSearch = async (result: any) => {

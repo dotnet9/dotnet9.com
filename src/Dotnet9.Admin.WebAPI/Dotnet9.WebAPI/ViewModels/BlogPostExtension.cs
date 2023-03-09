@@ -35,7 +35,9 @@ public static class BlogPostExtension
         return new BlogPostDetailDto(blogPost.Id, blogPost.Title, blogPost.Slug, blogPost.Description, blogPost.Cover,
             blogPost.Content,
             blogPost.CopyrightType.GetDescription(), blogPost.Original, blogPost.OriginalAvatar,
-            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, albumNames, categoryNames, tagNames);
+            blogPost.OriginalTitle, blogPost.OriginalLink, blogPost.Visible, albumNames, categoryNames, tagNames,
+            CreationTime: blogPost.CreationTime.ToString("yyyy-MM-dd HH:mm:ss"), Year: blogPost.CreationTime.Year,
+            Month: blogPost.CreationTime.Month);
     }
 
     public static BlogPostDto? ConvertToBlogPostDto(this BlogPost? blogPost, Dotnet9DbContext dbContext)

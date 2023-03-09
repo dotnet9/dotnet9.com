@@ -27,7 +27,7 @@
             </div>
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <router-link :to="'/articles/' + article.id">
+              <router-link :to="'/' + article.year + '/' + article.month + '/' + article.slug">
                 <h3 class="timeline-title">{{ article.articleTitle }}</h3>
               </router-link>
               <p>

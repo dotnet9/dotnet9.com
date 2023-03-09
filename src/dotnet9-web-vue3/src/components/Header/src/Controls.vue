@@ -159,12 +159,14 @@ export default defineComponent({
       forgetPasswordDialogVisible: false,
       articlePasswordDialogVisible: false,
       articlePassword: '',
-      articleId: ''
+      year: 0,
+      month: 0,
+      slug: ''
     })
-    emitter.on('changeArticlePasswordDialogVisible', (articleId: any) => {
+    emitter.on('changeArticlePasswordDialogVisible', (slug: any) => {
       reactiveDate.articlePasswordDialogVisible = true
       reactiveDate.articlePassword = ''
-      reactiveDate.articleId = articleId
+      reactiveDate.slug = slug
       nextTick(() => {
         document.getElementById('article-password-input')?.focus()
       })
@@ -346,14 +348,14 @@ export default defineComponent({
       }
       api
         .accessArticle({
-          articleId: reactiveDate.articleId,
+          slug: reactiveDate.slug,
           articlePassword: reactiveDate.articlePassword
         })
         .then(({ data }) => {
           if (data.flag) {
             reactiveDate.articlePasswordDialogVisible = false
-            userStore.accessArticles.push(reactiveDate.articleId)
-            router.push({ path: '/articles/' + reactiveDate.articleId })
+            userStore.accessArticles.push(reactiveDate.slug)
+            router.push({ path: '/' + reactiveDate.year + '/'  })
           } else {
             proxy.$notify({
               title: 'Error',

@@ -179,7 +179,9 @@ export default defineComponent({
     const articleRef = ref()
     let md = require('markdown-it')()
     const reactiveData = reactive({
-      articleId: '' as any,
+      year: 0,
+      month: 0,
+      slug: '' as any,
       article: '' as any,
       wordNum: '' as any,
       readTime: '' as any,
@@ -196,8 +198,7 @@ export default defineComponent({
     })
     commentStore.type = 1
     onMounted(() => {
-      debugger
-      reactiveData.articleId = route.params.articleId
+      reactiveData.slug = route.params.slug
       toPageTop()
       fetchArticle()
       fetchComments()
@@ -215,7 +216,7 @@ export default defineComponent({
       reactiveData.images = []
       reactiveData.preArticleCard = ''
       reactiveData.nextArticleCard = ''
-      reactiveData.articleId = to.params.articleId
+      reactiveData.slug = to.params.slug
       pageInfo.current = 1
       reactiveData.isReload = true
       toPageTop()
@@ -274,7 +275,7 @@ export default defineComponent({
     }
     const fetchArticle = () => {
       loading.value = true
-      api.getArticeById(reactiveData.articleId).then(({ data }) => {
+      api.getArticeBySlug(reactiveData.slug).then(({ data }) => {
         if (data.code === 52003) {
           proxy.$notify({
             title: 'Error',
@@ -331,7 +332,7 @@ export default defineComponent({
     const fetchComments = () => {
       const params = {
         type: 1,
-        url: reactiveData.articleId,
+        url: reactiveData.slug,
         current: pageInfo.current,
         pageSize: pageInfo.size
       }

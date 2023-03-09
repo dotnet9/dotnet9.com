@@ -43,6 +43,9 @@ export default {
   getArticeById: (articleId: any) => {
     return axios.get('/api/blogposts/' + articleId)
   },
+  getArticeBySlug: (slug: any) => {
+    return axios.get('/api/blogposts/' + slug)
+  },
   getAllCategories: () => {
     return axios.get('/api/categories/brief')
   },
