@@ -1,6 +1,6 @@
 {
   "name": "dotnet9-blog",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,7 +16,6 @@
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-katex-external": "^1.0.0",
     "mitt": "^3.0.0",
-    "node-sass": "^5.0.0",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.14",
@@ -25,12 +24,10 @@
     "prismjs": "^1.28.0",
     "tocbot": "^4.18.2",
     "v3-img-preview": "^1.1.16",
-    "vue": "^3.2.47",
     "vue-avatar-cropper": "^6.0.9",
     "vue-axios": "^3.4.1",
     "vue-i18n": "^9.1.10",
-    "vue-router": "^4.1.6",
-    "vue-template-compiler": "^2.7.14",
+    "vue-router": "^4.0.3",
     "vue3-click-away": "^1.2.4",
     "vue3-infinite-scroll-better": "^2.2.0",
     "vue3-lazy": "^1.0.0-alpha.1"
