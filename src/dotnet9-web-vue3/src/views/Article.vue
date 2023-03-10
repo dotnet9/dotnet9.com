@@ -4,14 +4,14 @@
       <div class="post-header">
         <span class="post-labels">
           <ob-skeleton v-if="loading" tag="b" height="20px" width="35px" />
-          <b v-else-if="!loading && article.categoryName">
-            <span>{{ article.categoryName }}</span>
+          <b v-else-if="!loading && article.categoryNames">
+            <span>{{ article.categoryNames }}</span>
           </b>
           <b v-else>{{ t('settings.default-category') }}</b>
           <ul>
             <ob-skeleton v-if="loading" :count="2" tag="li" height="16px" width="35px" class="mr-2" />
-            <template v-else-if="!loading && article.tags && article.tags.length > 0">
-              <li v-for="tag in article.tags" :key="tag.id">
+            <template v-else-if="!loading && article.tagNames && article.tagNames.length > 0">
+              <li v-for="tag in article.tagNames" :key="tag.id">
                 <em class="opacity-50">#</em>
                 {{ tag.tagName }}
               </li>
@@ -24,8 +24,8 @@
             </template>
           </ul>
         </span>
-        <h1 v-if="article.articleTitle" class="post-title text-white">
-          {{ article.articleTitle }}
+        <h1 v-if="article.title" class="post-title text-white">
+          {{ article.title }}
         </h1>
         <ob-skeleton
           v-else
@@ -33,21 +33,21 @@
           width="100%"
           height="clamp(1.2rem, calc(1rem + 3.5vw), 4rem)" />
         <div class="flex flex-row items-center justify-start mt-8 mb-4">
-          <div class="post-footer" v-if="article.author">
+          <div class="post-footer" v-if="article.original">
             <img
               class="hover:opacity-50 cursor-pointer"
-              v-lazy="article.author.avatar || ''"
+              v-lazy="article.originalAvatar || ''"
               alt="author avatar"
-              @click="handleAuthorClick(article.author.website)" />
+              @click="handleAuthorClick(article.originalLink)" />
             <span class="text-white opacity-80">
               <strong
                 class="text-white pr-1.5 hover:opacity-50 cursor-pointer"
-                @click="handleAuthorClick(article.author.website)">
-                {{ article.author.nickname }}
+                @click="handleAuthorClick(article.originalLink)">
+                {{ article.original }}
               </strong>
               <span class="opacity-70">
-                {{ t('settings.shared-on') }} {{ t(`settings.months[${new Date(article.createTime).getMonth()}]`) }}
-                {{ new Date(article.createTime).getDate() }}, {{ new Date(article.createTime).getFullYear() }}
+                {{ t('settings.shared-on') }} {{ t(`settings.months[${new Date(article.creationTime).getMonth()}]`) }}
+                {{ new Date(article.creationTime).getDate() }}, {{ new Date(article.creationTime).getFullYear() }}
               </span>
             </span>
           </div>
@@ -92,8 +92,8 @@
     </div>
     <div class="main-grid">
       <div>
-        <template v-if="article.articleContent">
-          <div class="post-html" ref="articleRef" v-html="article.articleContent" />
+        <template v-if="article.content">
+          <div class="post-html" ref="articleRef" v-html="article.content" />
         </template>
         <div v-else class="bg-ob-deep-800 px-14 py-16 rounded-2xl shadow-xl block min-h-screen">
           <ob-skeleton tag="div" :count="1" height="36px" width="150px" class="mb-6" />

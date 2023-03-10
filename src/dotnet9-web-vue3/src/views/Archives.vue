@@ -85,8 +85,8 @@ export default defineComponent({
         .then(({ data }) => {
           data.data.records.forEach((item: any) => {
             item.articles.forEach((article: any) => {
-              article.articleContent = md
-                .render(article.articleContent)
+              article.content = md
+                .render(article.content)
                 .replace(/<\/?[^>]*>/g, '')
                 .replace(/[|]*\n/, '')
                 .replace(/&npsp;/gi, '')
