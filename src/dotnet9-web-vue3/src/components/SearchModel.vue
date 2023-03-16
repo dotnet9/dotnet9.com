@@ -161,8 +161,8 @@
               <span class="search-label">{{ t('settings.searched-by') }}</span>
               <img
                 class="mr-1.5"
-                src="https://img-blog.csdnimg.cn/20210313122054101.png"
-                alt="ObsidianNext Logo"
+                src="https://img1.dotnet9.com/site/es.png"
+                alt="search blog post"
                 height="20"
                 width="20" />
               <span class="text-ob">ElasticSearch</span>

@@ -2,9 +2,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.3" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
-		<PackageReference Include="Serilog.AspNetCore" Version="6.1.1-dev-00293" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0-preview.2.23153.2" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.1-dev-00295" />
 	</ItemGroup>
 
 	<ItemGroup>

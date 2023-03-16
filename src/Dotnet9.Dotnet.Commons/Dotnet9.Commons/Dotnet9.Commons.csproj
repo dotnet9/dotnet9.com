@@ -3,8 +3,8 @@
 	<ItemGroup>
 		<PackageReference Include="AsmResolver.DotNet" Version="5.1.0" />
 		<PackageReference Include="FluentValidation" Version="11.5.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-preview.2.23128.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-preview.2.23128.3" />
 	</ItemGroup>
 
 </Project>

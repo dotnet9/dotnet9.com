@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.0-preview.2.23153.2" />
   </ItemGroup>
 
   <ItemGroup>
