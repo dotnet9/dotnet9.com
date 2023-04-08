@@ -1,6 +1,4 @@
-﻿
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDaprClient();
 builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
@@ -14,7 +12,7 @@ builder.Services
             .UseFilter();
     })
     .AddMultilevelCache(distributedCacheOptions => { distributedCacheOptions.UseStackExchangeRedisCache(); })
-    .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()) // 添加指定程序集下的`FluentValidation`验证器
+    .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
     .AddAuthorization()
     .AddAuthentication(options =>
     {
@@ -28,7 +26,6 @@ builder.Services
         options.Audience = "";
     });
 var app = builder.Services
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>
     {
@@ -73,7 +70,6 @@ var app = builder.Services
     })
     .AddServices(builder);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -85,7 +81,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Used for Dapr Pub/Sub.
 app.UseCloudEvents();
 app.UseEndpoints(endpoints =>
 {

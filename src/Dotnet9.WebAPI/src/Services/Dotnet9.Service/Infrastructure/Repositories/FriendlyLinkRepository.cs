@@ -2,9 +2,6 @@
 
 public class FriendlyLinkRepository : Repository<Dotnet9DbContext, FriendlyLink, Guid>, IFriendlyLinkRepository
 {
-    /// <summary>
-    /// 使用多级缓存
-    /// </summary>
     private readonly IMultilevelCacheClient _multilevelCacheClient;
 
     public FriendlyLinkRepository(Dotnet9DbContext context, IUnitOfWork unitOfWork,
