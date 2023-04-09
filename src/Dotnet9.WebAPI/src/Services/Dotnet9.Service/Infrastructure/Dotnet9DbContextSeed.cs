@@ -1,0 +1,8 @@
+﻿namespace Dotnet9.Service.Infrastructure;
+
+public static class Dotnet9DbContextSeed
+{
+    public static async Task SeedAsync(Dotnet9DbContext dotnet9DbContext, IServiceProvider serviceProvider)
+    {
+    }
+}

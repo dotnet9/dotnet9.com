@@ -2,6 +2,7 @@
 
 builder.Services.AddDaprClient();
 builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services
     .AddMapster()
     .AddSequentialGuidGenerator()
@@ -25,6 +26,14 @@ builder.Services
         options.RequireHttpsMetadata = false;
         options.Audience = "";
     });
+builder.Services.RegisterRepositories();
+builder.Services.RegisterDomainManagers();
+
+var configuration = builder.Configuration;
+builder.Services.AddOptions().Configure<SiteOptions>(e => configuration.GetSection("Site").Bind(e));
+
+builder.Services.AddScoped<ISeedService, SeedService>();
+
 var app = builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>
@@ -69,6 +78,12 @@ var app = builder.Services
             .UseRepository<Dotnet9DbContext>();
     })
     .AddServices(builder);
+
+using (IServiceScope serviceScope = app.Services.CreateScope())
+{
+    ISeedService seedService = serviceScope.ServiceProvider.GetRequiredService<ISeedService>();
+    await seedService.MigrateAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
