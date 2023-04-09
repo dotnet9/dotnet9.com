@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Infrastructure.EntityConfigurations;
 
-public class FriendlyEntityTypeConfiguration : IEntityTypeConfiguration<FriendlyLink>
+public class FriendlyLinkEntityTypeConfiguration : IEntityTypeConfiguration<FriendlyLink>
 {
     public void Configure(EntityTypeBuilder<FriendlyLink> builder)
     {

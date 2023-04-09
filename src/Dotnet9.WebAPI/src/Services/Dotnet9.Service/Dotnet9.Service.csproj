@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	
 	<ItemGroup>
+	  <None Remove="Domain\Aggregates\Albums\Album.cs~RF11f4300.TMP" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<PackageReference Include="Masa.BuildingBlocks.Caching" Version="1.0.0-preview.26" />
 		<PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-preview.26" />
 		<PackageReference Include="Masa.BuildingBlocks.Dispatcher.Events" Version="1.0.0-preview.26" />

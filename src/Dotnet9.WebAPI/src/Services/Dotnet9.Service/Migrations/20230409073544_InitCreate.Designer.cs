@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dotnet9.Service.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    [Migration("20230406152054_InitCreate")]
+    [Migration("20230409073544_InitCreate")]
     partial class InitCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -3,6 +3,7 @@ using System;
 using Dotnet9.Service.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dotnet9.Service.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    partial class Dotnet9DbContextModelSnapshot : ModelSnapshot
+    [Migration("20230409074830_AddAlbum")]
+    partial class AddAlbum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,78 +52,6 @@ namespace Dotnet9.Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Abouts");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.ActionLogs.ActionLog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AccessName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Action")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Arguments")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Controller")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Creator")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Duration")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("Ip")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Method")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Modifier")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Original")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Os")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Referer")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Ua")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ActionLogs");
                 });
 
             modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Albums.Album", b =>
@@ -188,136 +118,6 @@ namespace Dotnet9.Service.Migrations
                     b.HasIndex("AlbumId");
 
                     b.ToTable("AlbumCategory");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.Blog", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("Banner")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("CopyrightType")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Cover")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Creator")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("LikeCount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("ModificationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Modifier")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Original")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OriginalAvatar")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OriginalLink")
-                        .HasColumnType("text");
-
-                    b.Property<string>("OriginalTitle")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("ViewCount")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Visible")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogAlbum", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AlbumId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogAlbum");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogCategory");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogTag", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TagId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogTag");
                 });
 
             modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Categories.Category", b =>
@@ -644,45 +444,9 @@ namespace Dotnet9.Service.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogAlbum", b =>
-                {
-                    b.HasOne("Dotnet9.Service.Domain.Aggregates.Blogs.Blog", null)
-                        .WithMany("Albums")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogCategory", b =>
-                {
-                    b.HasOne("Dotnet9.Service.Domain.Aggregates.Blogs.Blog", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.BlogTag", b =>
-                {
-                    b.HasOne("Dotnet9.Service.Domain.Aggregates.Blogs.Blog", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Albums.Album", b =>
                 {
                     b.Navigation("Categories");
-                });
-
-            modelBuilder.Entity("Dotnet9.Service.Domain.Aggregates.Blogs.Blog", b =>
-                {
-                    b.Navigation("Albums");
-
-                    b.Navigation("Categories");
-
-                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }
