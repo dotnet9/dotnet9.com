@@ -6,7 +6,10 @@ if (builder.Environment.IsDevelopment())
     // builder.Services.AddDaprStarter();   
 }
 
-builder.Services.AddMasaConfiguration();
+builder.Services.AddMasaConfiguration(new List<Assembly>()
+{
+    typeof(SiteOptions).Assembly
+});
 builder.Services.AddDaprClient();
 builder.Services.AddActors(options =>
 {
@@ -16,6 +19,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services
     .AddMapster()
     .AddSequentialGuidGenerator()
+    .Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int))
     .AddMasaDbContext<Dotnet9DbContext>(dbContextBuilder =>
     {
         dbContextBuilder

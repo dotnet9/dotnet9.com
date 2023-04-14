@@ -12,11 +12,11 @@ public class TagHandler
     [EventHandler]
     public async Task GetListAsync(TagQuery query, CancellationToken cancellationToken)
     {
-        var categories = _repository.GetHotTagBriefListAsync();
+        var categories = await _repository.GetHotTagBriefListAsync();
 
         query.Result = new PaginatedListBase<TagBrief>()
         {
-            Result = categories.Result
+            Result = categories
         };
     }
 }
