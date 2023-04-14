@@ -15,4 +15,10 @@ public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagReposi
     {
         return await Context.Tags!.FirstOrDefaultAsync(x => x.Name == name);
     }
+
+    public async Task<List<TagBrief>> GetHotTagBriefListAsync()
+    {
+        var randomDatas = await Context.Tags.OrderBy(x => Guid.NewGuid()).Take(10).ToListAsync();
+        return randomDatas.Map<List<TagBrief>>();
+    }
 }
