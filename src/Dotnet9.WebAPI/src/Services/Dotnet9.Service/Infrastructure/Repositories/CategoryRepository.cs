@@ -29,29 +29,29 @@ public class CategoryRepository : Repository<Dotnet9DbContext, Category, Guid>, 
     {
         TimeSpan? timeSpan = null;
         var key = $"{nameof(CategoryRepository)}_{nameof(GetAllBriefAsync)}";
-        var cats = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        var cats = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
-            var categories = Context.Set<Category>()
-                .AsSplitQuery()
+            var categories = await Context.Set<Category>()
                 .Select(cat => new CategoryBrief(cat.Name, cat.Slug, cat.Cover,
                     cat.Description,
-                    Context.Set<BlogCategory>().Count(d => d.CategoryId == cat.Id))).ToListAsync()
-                .GetAwaiter().GetResult();
+                    Context.Set<BlogCategory>().Count(d => d.CategoryId == cat.Id))).ToListAsync();
             var distinctCategories = from cat in categories
                 where cat.BlogCount > 0
                 orderby cat.BlogCount descending
                 select cat;
-            var datas = distinctCategories.ToList();
-            if (datas != null)
+            var distinctCategoryList = distinctCategories?.ToList() ?? new List<CategoryBrief>();
+            // return distinctCategoryList;
+            if (distinctCategoryList.Any())
             {
-                return new CacheEntry<List<CategoryBrief>>(datas, TimeSpan.FromDays(3))
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<List<CategoryBrief>>(distinctCategoryList, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
             }
 
             timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<CategoryBrief>>(datas);
+            return new CacheEntry<List<CategoryBrief>>(distinctCategoryList);
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 

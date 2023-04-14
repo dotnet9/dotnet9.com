@@ -1,47 +1,23 @@
-﻿<div class="tj_news">
+﻿@inject ICaller Caller
+
+@{
+    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blog/recommend");
+}
+<div class="tj_news">
     <div class="side_title">
         <h3>站长推荐</h3>
     </div>
-    <ul>
-        <li>
-            <a href="/">
-                <p>HarmonyOS/OpenHarmony应用开发--ArkTS组件区域变化事件</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>CAD管道图形绘制过程</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>OpenHarmony轻量系统开发【4】编写第一个程序、启动流程分析</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>在 WebAssembly 中使用 C/C++ 和 libbpf 编写 eBPF 程序</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>面试高频问题之C++11新特性</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>OpenHarmony轻量系统开发【4】编写第一个程序、启动流程分析</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>在 WebAssembly 中使用 C/C++ 和 libbpf 编写 eBPF 程序</p>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <p>面试高频问题之C++11新特性</p>
-            </a>
-        </li>
-    </ul>
+    @if (recommendBlogs?.Any() == true)
+    {
+        <ul>
+            @foreach (var blog in recommendBlogs)
+            {
+                <li>
+                    <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug">
+                        <p>@blog.Title</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
 </div>
