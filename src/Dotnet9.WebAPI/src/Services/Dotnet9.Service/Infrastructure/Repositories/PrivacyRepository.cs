@@ -6,8 +6,8 @@ public class PrivacyRepository : Repository<Dotnet9DbContext, Privacy, Guid>, IP
     {
     }
 
-    public async Task<Privacy?> GetAsync()
+    public Task<Privacy?> GetAsync()
     {
-        return await Context.Privacies!.FirstOrDefaultAsync();
+        return Context.Privacies!.FirstOrDefaultAsync();
     }
 }

@@ -6,8 +6,8 @@ public class DonationRepository : Repository<Dotnet9DbContext, Donation, Guid>, 
     {
     }
 
-    public async Task<Donation?> GetAsync()
+    public Task<Donation?> GetAsync()
     {
-        return await Context.Donations!.FirstOrDefaultAsync();
+        return Context.Donations!.FirstOrDefaultAsync();
     }
 }

@@ -12,11 +12,11 @@ public class AlbumHandler
     [EventHandler]
     public async Task GetListAsync(AlbumsQuery query, CancellationToken cancellationToken)
     {
-        var categories = _repository.GetAllBriefAsync();
+        var categories = await _repository.GetAllBriefAsync();
 
         query.Result = new PaginatedListBase<AlbumBrief>()
         {
-            Result = categories.Result
+            Result = categories
         };
     }
 }

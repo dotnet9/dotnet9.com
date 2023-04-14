@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Services;
 
-public interface ISeedService
+public interface ISeedService: IScopedDependency
 {
     Task MigrateAsync();
 }

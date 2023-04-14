@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.FriendlyLinks;
 
-public class FriendlyLinkManager
+public class FriendlyLinkManager : IScopedDependency
 {
     private readonly IFriendlyLinkRepository _repository;
 

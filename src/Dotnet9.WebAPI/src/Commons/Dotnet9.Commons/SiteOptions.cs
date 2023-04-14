@@ -1,7 +1,9 @@
 ﻿namespace Dotnet9.Commons;
 
-public class SiteOptions
+public class SiteOptions: LocalMasaConfigurationOptions
 {
+    public override string? Section => "Site";
+    
     public string? AppName { get; set; }
     public string? Keywords { get; set; }
     public string? Subheading { get; set; }

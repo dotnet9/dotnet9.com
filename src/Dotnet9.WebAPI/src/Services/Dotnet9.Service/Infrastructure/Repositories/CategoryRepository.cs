@@ -55,6 +55,6 @@ public class CategoryRepository : Repository<Dotnet9DbContext, Category, Guid>, 
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return cats;
+        return cats ?? new List<CategoryBrief>();
     }
 }

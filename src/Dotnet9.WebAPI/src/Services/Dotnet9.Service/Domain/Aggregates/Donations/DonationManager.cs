@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Donations;
 
-public class DonationManager
+public class DonationManager : IScopedDependency
 {
     private readonly IDonationRepository _repository;
 

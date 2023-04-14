@@ -6,13 +6,13 @@ public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagReposi
     {
     }
 
-    public async Task<Tag?> FindByIdAsync(Guid id)
+    public Task<Tag?> FindByIdAsync(Guid id)
     {
-        return await Context.Tags!.FirstOrDefaultAsync(x => x.Id == id);
+        return Context.Tags!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Tag?> FindByNameAsync(string name)
+    public Task<Tag?> FindByNameAsync(string name)
     {
-        return await Context.Tags!.FirstOrDefaultAsync(x => x.Name == name);
+        return Context.Tags!.FirstOrDefaultAsync(x => x.Name == name);
     }
 }

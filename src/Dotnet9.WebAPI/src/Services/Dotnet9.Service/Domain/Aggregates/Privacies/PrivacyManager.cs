@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Privacies;
 
-public class PrivacyManager
+public class PrivacyManager : IScopedDependency
 {
     private readonly IPrivacyRepository _repository;
 

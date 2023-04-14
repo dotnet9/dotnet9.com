@@ -1,7 +1,17 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+    // local need dapr sidecar
+    // builder.Services.AddDaprStarter();   
+}
+
+builder.Services.AddMasaConfiguration();
 builder.Services.AddDaprClient();
-builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
+builder.Services.AddActors(options =>
+{
+    options.Actors.RegisterActor<FriendlyLinkActor>();
+});
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services
     .AddMapster()
@@ -12,7 +22,10 @@ builder.Services
             .UseNpgsql()
             .UseFilter();
     })
-    .AddMultilevelCache(distributedCacheOptions => { distributedCacheOptions.UseStackExchangeRedisCache(); })
+    .AddMultilevelCache(distributedCacheOptions =>
+    {
+        distributedCacheOptions.UseStackExchangeRedisCache();
+    })
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
     .AddAuthorization()
     .AddAuthentication(options =>
@@ -26,13 +39,6 @@ builder.Services
         options.RequireHttpsMetadata = false;
         options.Audience = "";
     });
-builder.Services.RegisterRepositories();
-builder.Services.RegisterDomainManagers();
-
-var configuration = builder.Configuration;
-builder.Services.AddOptions().Configure<SiteOptions>(e => configuration.GetSection("Site").Bind(e));
-
-builder.Services.AddScoped<ISeedService, SeedService>();
 
 var app = builder.Services
     .AddEndpointsApiExplorer()
@@ -59,7 +65,9 @@ var app = builder.Services
                         Id = "Bearer"
                     }
                 },
-                new string[] { }
+                new string[]
+                {
+                }
             }
         });
     })
@@ -74,9 +82,10 @@ var app = builder.Services
                 eventBusBuilder.UseMiddleware(typeof(ValidatorMiddleware<>));
                 eventBusBuilder.UseMiddleware(typeof(LoggingMiddleware<>));
             })
-            .UseUoW<Dotnet9DbContext>(dbOptions => dbOptions.UseNpgsql("DataSource=:memory:"))
+            .UseUoW<Dotnet9DbContext>()
             .UseRepository<Dotnet9DbContext>();
     })
+    .AddAutoInject()
     .AddServices(builder);
 
 using (IServiceScope serviceScope = app.Services.CreateScope())

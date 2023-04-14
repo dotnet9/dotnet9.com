@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Comments;
 
-public class CommentManager
+public class CommentManager : IScopedDependency
 {
     private readonly ICommentRepository _commentRepository;
 

@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Tags;
 
-public class TagManager
+public class TagManager : IScopedDependency
 {
     private readonly ITagRepository _tagRepository;
 

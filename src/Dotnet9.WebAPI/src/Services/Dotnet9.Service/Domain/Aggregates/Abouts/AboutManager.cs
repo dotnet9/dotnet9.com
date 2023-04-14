@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Abouts;
 
-public class AboutManager
+public class AboutManager : IScopedDependency
 {
     private readonly IAboutRepository _repository;
 

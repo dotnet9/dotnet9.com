@@ -6,30 +6,30 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     {
     }
 
-    public async Task<Blog?> FindByIdAsync(Guid id)
+    public Task<Blog?> FindByIdAsync(Guid id)
     {
-        return await Context.Blogs.Include(blogPost => blogPost.Albums)
+        return Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<Blog?> FindByTitleAsync(string title)
+    public Task<Blog?> FindByTitleAsync(string title)
     {
-        return await Context.Blogs.Include(blogPost => blogPost.Albums)
+        return Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Title == title);
     }
 
-    public async Task<Blog?> FindBySlugAsync(string slug)
+    public Task<Blog?> FindBySlugAsync(string slug)
     {
-        return await Context.Blogs.Include(blogPost => blogPost.Albums)
+        return Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<List<BlogBrief>> GetBlogBriefListAsync()
+    public Task<List<BlogBrief>> GetBlogBriefListAsync()
     {
-        return await Context.Blogs.Where(blog => blog.Banner).Take(10)
+        return Context.Blogs.Where(blog => blog.Banner).Take(10)
             .Select(blog => new BlogBrief(blog.Title, blog.Slug, blog.Description, blog.Cover, blog.CreationTime))
             .ToListAsync();
     }

@@ -14,12 +14,11 @@ public class FriendlyLinkRepository : Repository<Dotnet9DbContext, FriendlyLink,
         CancellationToken cancellationToken = default)
     {
         TimeSpan? timeSpan = null;
-        var catalogInfo = await _multilevelCacheClient.GetOrSetAsync(id.ToString(), () =>
+        var catalogInfo = await _multilevelCacheClient.GetOrSetAsync(id.ToString(), async () =>
         {
-            var info = Context.Set<FriendlyLink>()
+            var info = await Context.Set<FriendlyLink>()
                 .AsSplitQuery()
-                .FirstOrDefaultAsync(friendlyLink => friendlyLink.Id == id, cancellationToken).ConfigureAwait(false)
-                .GetAwaiter().GetResult();
+                .FirstOrDefaultAsync(friendlyLink => friendlyLink.Id == id, cancellationToken);
 
             if (info != null)
             {
@@ -37,18 +36,18 @@ public class FriendlyLinkRepository : Repository<Dotnet9DbContext, FriendlyLink,
         return catalogInfo;
     }
 
-    public async Task<FriendlyLink?> FindByIdAsync(Guid id)
+    public Task<FriendlyLink?> FindByIdAsync(Guid id)
     {
-        return await Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Id == id);
+        return Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task<FriendlyLink?> FindByNameAsync(string name)
+    public Task<FriendlyLink?> FindByNameAsync(string name)
     {
-        return await Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Name == name);
+        return Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
-    public async Task<FriendlyLink?> FindByUrlAsync(string url)
+    public Task<FriendlyLink?> FindByUrlAsync(string url)
     {
-        return await Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Url == url);
+        return Context.FriendlyLinks!.FirstOrDefaultAsync(x => x.Url == url);
     }
 }

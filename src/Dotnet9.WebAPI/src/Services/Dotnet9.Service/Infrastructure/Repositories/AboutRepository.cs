@@ -6,11 +6,9 @@ public class AboutRepository : Repository<Dotnet9DbContext, About, Guid>, IAbout
     {
     }
 
-    public async Task<About?> GetAsync()
+    public Task<About?> GetAsync()
     {
         return Context.Set<About>()
-            .AsSplitQuery()
-            .FirstOrDefaultAsync().ConfigureAwait(false)
-            .GetAwaiter().GetResult();
+            .FirstOrDefaultAsync();
     }
 }

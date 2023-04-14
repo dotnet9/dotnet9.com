@@ -12,11 +12,11 @@ public class CategoryHandler
     [EventHandler]
     public async Task GetListAsync(CategoriesQuery query, CancellationToken cancellationToken)
     {
-        var categories = _repository.GetAllBriefAsync();
+        var categories = await _repository.GetAllBriefAsync();
 
         query.Result = new PaginatedListBase<CategoryBrief>()
         {
-            Result = categories.Result
+            Result = categories
         };
     }
 }

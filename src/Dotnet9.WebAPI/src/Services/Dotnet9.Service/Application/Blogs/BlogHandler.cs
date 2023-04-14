@@ -12,11 +12,11 @@ public class BlogHandler
     [EventHandler]
     public async Task GetListAsync(BlogsQuery query, CancellationToken cancellationToken)
     {
-        var categories = _repository.GetBlogBriefListAsync();
+        var categories = await _repository.GetBlogBriefListAsync();
 
         query.Result = new PaginatedListBase<BlogBrief>()
         {
-            Result = categories.Result
+            Result = categories
         };
     }
 }

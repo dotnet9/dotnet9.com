@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Blogs;
 
-public class BlogManager
+public class BlogManager : IScopedDependency
 {
     private readonly IAlbumRepository _albumRepository;
     private readonly IBlogRepository _blogRepository;

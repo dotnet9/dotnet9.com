@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Albums;
 
-public class AlbumManager
+public class AlbumManager : IScopedDependency
 {
     private readonly IAlbumRepository _albumRepository;
     private readonly ICategoryRepository _categoryRepository;

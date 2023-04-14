@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Categories;
 
-public class CategoryManager
+public class CategoryManager : IScopedDependency
 {
     private readonly ICategoryRepository _categoryRepository;
 

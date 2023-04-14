@@ -2,7 +2,8 @@
 
 public static class Dotnet9DbContextSeed
 {
-    public static async Task SeedAsync(Dotnet9DbContext dotnet9DbContext, IServiceProvider serviceProvider)
+    public static Task SeedAsync(Dotnet9DbContext dotnet9DbContext, IServiceProvider serviceProvider)
     {
+        return Task.CompletedTask;
     }
 }

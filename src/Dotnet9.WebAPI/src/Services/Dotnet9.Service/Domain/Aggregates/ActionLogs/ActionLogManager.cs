@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.ActionLogs;
 
-public class ActionLogManager
+public class ActionLogManager : IScopedDependency
 {
     public ActionLog Create(string uid, string? ua, string os, string browser, string ip, string? referer = null,
         string? accessName = null,

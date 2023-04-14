@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Timelines;
 
-public class TimelineManager
+public class TimelineManager : IScopedDependency
 {
     private readonly ITimelineRepository _repository;
 
