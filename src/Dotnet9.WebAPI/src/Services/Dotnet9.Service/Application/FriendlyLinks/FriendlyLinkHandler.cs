@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Service.Application.FriendlyLinks;
+﻿using Dotnet9.Contracts.Dto.FriendlyLinks;
+
+namespace Dotnet9.Service.Application.FriendlyLinks;
 
 public class FriendlyLinkHandler
 {

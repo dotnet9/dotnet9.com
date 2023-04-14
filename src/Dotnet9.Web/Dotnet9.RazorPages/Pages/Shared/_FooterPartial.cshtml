@@ -1,0 +1,48 @@
+﻿@inject ISystemService SystemService
+@{
+    var siteInfo = await SystemService.GetSiteInfoAsync();
+}
+
+<footer>
+    <div class="box">
+        <div class="copyright">
+            <p>Copyright © @siteInfo?.AppName</p>
+            <p>备案号 <a href="@siteInfo?.BeiAnUrl" target="_blank">@siteInfo?.BeiAn</a> ｜<a href="/" target="_blank">网站地图</a></p>
+        </div>
+    </div>
+</footer>
+<div class="side_nav">
+    <ul>
+        <li>
+            <a href="about.html" title="关于博主">
+                <i class="icon_ab">
+                    <img src="images/ft_about.png" alt="">
+                </i>
+            </a>
+        </li>
+        <li>
+            <a href="gbook.html" title="在线留言">
+                <i class="icon_qq">
+                    <img src="images/ft_qq.png" alt="">
+                </i>
+            </a>
+        </li>
+        <li>
+            <a title="个人微信">
+                <i class="icon_wx">
+                    <img src="images/ft_ewm.png" alt="">
+                </i>
+                <span>
+                    <img src="images/wx.png" alt="微信">
+                </span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="icon-top" title="返回顶部">
+                <i class="icon_fh">
+                    <img src="images/ft_top.png" alt="">
+                </i>
+            </a>
+        </li>
+    </ul>
+</div>

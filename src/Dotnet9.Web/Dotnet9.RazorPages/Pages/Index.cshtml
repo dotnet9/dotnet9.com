@@ -1,10 +1,202 @@
 ﻿@page
-@model IndexModel
+@using Dotnet9.Contracts.Dto.Blogs
+
+@inject ICaller Caller
 @{
-    ViewData["Title"] = "Home page";
+    var siteInfo = await Caller.GetAsync<SiteInfo>("/api/system");
+    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blog/recommend");
+    ViewData[ViewDataKeys.Title] = "首页";
+    ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
+    ViewData[ViewDataKeys.Description] = siteInfo?.Description;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="banner">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            @if (recommendBlogs?.Any() == true)
+            {
+                foreach (var recommendBlog in recommendBlogs)
+                {
+                    <div class="swiper-slide">
+                        <a href="/@recommendBlog.CreationTime.Year/@recommendBlog.CreationTime.Month/@recommendBlog.Slug" target="_blank">
+                            <img src="@recommendBlog.Cover" alt="@recommendBlog.Title">
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <script>
+        //banner
+        var swiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            paginationClickable: true,
+            spaceBetween: 100,
+            centeredSlides: true,
+            autoplay: 8000,
+            autoplayDisableOnInteraction: false,
+        });
+    </script>
+</div>
+<!-- banner end-->
+<div class="blog_list">
+    <ul>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>在 WebAssembly 中使用 C/C++ 和 libbpf 编写 eBPF 程序</h2>
+                <div class="ps">
+                    <span class="ps_tj">推荐</span><span class="ps_yc">原创</span>
+                </div>
+                <p>eBPF（extended Berkeley Packet Filter）是一种高性能的内核虚拟机，可以运行在内核空间中，用来收集系统和网络信息。随着计算机技术的不断发展，eBPF 的功能日益强大，进而被用来构建各种效率高效的在线诊断和跟踪系统，以及安全的网络和服务网格。</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">云计算</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">23</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>OpenHarmony轻量系统开发【4】编写第一个程序、启动流程分析</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news.png" alt="">
+                </i>
+                <p>在hello_world.c中新建业务入口函数HelloWorld，并实现业务逻辑。并在代码最下方，使用 HarmonyOS启动恢复模块接口SYS_RUN()启动业务。（SYS_RUN定义在ohos_init.h文件中）</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">大数据</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">66</span>
+            </div>
+        </li>
+
+        <li>
+            <a href="/" class="blog_more">
+                <h2>CAD管道图形绘制过程</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news03.png" alt="">
+                </i>
+                <p>这个CAD管道图形用到的命令有：CAD直线，矩形，圆角，旋转和偏移等等多个命令。1.输入矩形快捷键REC，指定矩形的长为50，宽为8。2.用直线命令以矩形的上下中点为起点分别向上向下画长度30的直线。3.选中矩形和青色直线以A点为旋转基点复制旋转得到新的两个对象</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">编程语言</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">695</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>面试高频问题之C++11新特性</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news04.png" alt="">
+                </i>
+                <p>背景C++11是C++语言的一个重大更新，引入了许多新特性，包括自动类型推导、lambda表达式、右值引用、智能指针等等。这些新特性使得C++更加现代化、高效、易用。也是面试容很容易被问到一个问题，下面我将简要介绍一些C++11的新特性</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">物联网</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">18</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>在 WebAssembly 中使用 C/C++ 和 libbpf 编写 eBPF 程序</h2>
+                <div class="ps">
+                    <span class="ps_tj">推荐</span><span class="ps_yc">原创</span>
+                </div>
+                <p>eBPF（extended Berkeley Packet Filter）是一种高性能的内核虚拟机，可以运行在内核空间中，用来收集系统和网络信息。随着计算机技术的不断发展，eBPF 的功能日益强大，进而被用来构建各种效率高效的在线诊断和跟踪系统，以及安全的网络和服务网格。</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">云计算</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">23</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>OpenHarmony轻量系统开发【4】编写第一个程序、启动流程分析</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news.png" alt="">
+                </i>
+                <p>在hello_world.c中新建业务入口函数HelloWorld，并实现业务逻辑。并在代码最下方，使用 HarmonyOS启动恢复模块接口SYS_RUN()启动业务。（SYS_RUN定义在ohos_init.h文件中）</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">大数据</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">66</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>HarmonyOS/OpenHarmony应用开发--ArkTS组件区域变化事件</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news02.png" alt="">
+                </i>
+                <p>一、事件组件区域变化事件指组件显示的尺寸、位置等发生变化时触发的事件。（api8开始支持）名称支持冒泡功能描述onAreaChange(event: (oldValue: Area, newValue: Area) => void)否组件区域变化时触发该回调。二、示例代码：</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">移动开发</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">823</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>CAD管道图形绘制过程</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news03.png" alt="">
+                </i>
+                <p>这个CAD管道图形用到的命令有：CAD直线，矩形，圆角，旋转和偏移等等多个命令。1.输入矩形快捷键REC，指定矩形的长为50，宽为8。2.用直线命令以矩形的上下中点为起点分别向上向下画长度30的直线。3.选中矩形和青色直线以A点为旋转基点复制旋转得到新的两个对象</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">编程语言</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">695</span>
+            </div>
+        </li>
+        <li>
+            <a href="/" class="blog_more">
+                <h2>面试高频问题之C++11新特性</h2>
+                <div class="ps">
+                    <span class="ps_yc">原创</span>
+                </div>
+                <i>
+                    <img src="images/news04.png" alt="">
+                </i>
+                <p>背景C++11是C++语言的一个重大更新，引入了许多新特性，包括自动类型推导、lambda表达式、右值引用、智能指针等等。这些新特性使得C++更加现代化、高效、易用。也是面试容很容易被问到一个问题，下面我将简要介绍一些C++11的新特性</p>
+            </a>
+            <div class="info">
+                <span class="info_class">
+                    <a href="/">物联网</a>
+                </span><span class="info_time">2023-03-09 20:26</span><span class="info_view">18</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="read_more">
+    <a href="/">查看更多</a>
 </div>

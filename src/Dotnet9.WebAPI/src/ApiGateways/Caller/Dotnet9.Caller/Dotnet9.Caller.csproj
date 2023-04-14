@@ -1,8 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-preview.26" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Contracts\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
-  </ItemGroup>
-</Project>

@@ -1,51 +1,52 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@inject ISystemService SystemService
+@{
+    var siteInfo = await SystemService.GetSiteInfoAsync();
+}
+<!doctype html>
+<html lang="zh">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Dotnet9.RazorPages</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Dotnet9.RazorPages.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <title>@ViewData[ViewDataKeys.Title]-@siteInfo.AppName</title>
+    <meta name="keywords" content="@ViewData[ViewDataKeys.Keywords]" />
+    <meta name="description" content="@ViewData[ViewDataKeys.Description]" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/swiper.min.css" rel="stylesheet">
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/comm.js"></script>
+    <!-- Swiper JS -->
+    <script src="/js/swiper.min.js"></script>
+
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    @await RenderSectionAsync("Headers", false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Dotnet9.RazorPages</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+@await Html.PartialAsync("_HeaderPartial")
+
+<article>
+    @await Html.PartialAsync("_LeftNavigation")
+    <div class="box_l">
+        @RenderBody()
     </div>
+    <div class="box_r">
+        @await Html.PartialAsync("_PopularWeekBlogSidebar")
+        @await Html.PartialAsync("_WeekTagSidebar")
+        @await Html.PartialAsync("_WebmasterRecommendedSidebar")
+    </div>
+</article>
+@await Html.PartialAsync("_FooterPartial")
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - Dotnet9.RazorPages - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

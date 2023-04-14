@@ -3,6 +3,7 @@
 public class SiteOptions
 {
     public string? AppName { get; set; }
+    public string? Keywords { get; set; }
     public string? Subheading { get; set; }
     public string? Description { get; set; }
     public string Domain { get; set; } = null!;

@@ -1,15 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddCaller(callerBuilder =>
+{
+    callerBuilder.UseHttpClient(clientConfigure => clientConfigure.BaseAddress = "http://localhost:5000");
+});
+builder.Services.AddSingleton<ISystemService, SystemService>();
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
+
 app.UseStaticFiles();
 
 app.UseRouting();

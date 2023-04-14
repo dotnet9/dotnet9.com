@@ -5,24 +5,32 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     public BlogRepository(Dotnet9DbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
     {
     }
+
     public async Task<Blog?> FindByIdAsync(Guid id)
     {
-        return await Context.Blogs!.Include(blogPost => blogPost.Albums)
+        return await Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Blog?> FindByTitleAsync(string title)
     {
-        return await Context.Blogs!.Include(blogPost => blogPost.Albums)
+        return await Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Title == title);
     }
 
     public async Task<Blog?> FindBySlugAsync(string slug)
     {
-        return await Context.Blogs!.Include(blogPost => blogPost.Albums)
+        return await Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Slug == slug);
+    }
+
+    public async Task<List<BlogBrief>> GetBlogBriefListAsync()
+    {
+        return await Context.Blogs.Where(blog => blog.Banner).Take(10)
+            .Select(blog => new BlogBrief(blog.Title, blog.Slug, blog.Description, blog.Cover, blog.CreationTime))
+            .ToListAsync();
     }
 }
