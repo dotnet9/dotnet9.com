@@ -11,10 +11,7 @@ builder.Services.AddMasaConfiguration(new List<Assembly>()
     typeof(SiteOptions).Assembly
 });
 builder.Services.AddDaprClient();
-builder.Services.AddActors(options =>
-{
-    options.Actors.RegisterActor<FriendlyLinkActor>();
-});
+builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services
     .AddMapster()
@@ -28,7 +25,8 @@ builder.Services
     })
     .AddMultilevelCache(distributedCacheOptions =>
     {
-        distributedCacheOptions.UseStackExchangeRedisCache();
+        var jsonSerializerOptions = new JsonSerializerOptions();
+        distributedCacheOptions.UseStackExchangeRedisCache(jsonSerializerOptions: jsonSerializerOptions);
     })
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
     .AddAuthorization()
