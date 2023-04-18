@@ -19,4 +19,15 @@ public class BlogHandler
             Result = categories
         };
     }
+
+    [EventHandler]
+    public async Task GetListByAlbumAsync(SearchBlogsByAlbumQuery query, CancellationToken cancellationToken)
+    {
+        var blog = await _repository.GetBlogBriefListByAlbumSlugAsync(query);
+        query.AlbumName = blog.AlbumName;
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records
+        };
+    }
 }

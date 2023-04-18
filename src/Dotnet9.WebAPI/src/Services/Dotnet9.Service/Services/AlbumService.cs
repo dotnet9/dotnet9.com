@@ -2,7 +2,7 @@
 
 public class AlbumService : ServiceBase
 {
-    public AlbumService() : base("/api/album")
+    public AlbumService() : base("/api/albums")
     {
     }
 

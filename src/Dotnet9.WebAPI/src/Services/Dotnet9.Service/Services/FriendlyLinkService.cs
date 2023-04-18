@@ -2,7 +2,7 @@
 
 public class FriendlyLinkService : ServiceBase
 {
-    public FriendlyLinkService() : base("/api/link")
+    public FriendlyLinkService() : base("/api/links")
     {
     }
 

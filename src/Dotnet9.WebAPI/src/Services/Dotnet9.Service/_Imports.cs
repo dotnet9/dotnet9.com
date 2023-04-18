@@ -61,3 +61,4 @@ global using Dotnet9.Contracts.Dto.Blogs;
 global using Dotnet9.Service.Application.Blogs.Queries;
 global using Dotnet9.Contracts.Tags;
 global using Dotnet9.Service.Application.Tags.Queries;
+global using Microsoft.AspNetCore.Mvc;

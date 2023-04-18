@@ -2,7 +2,7 @@
 
 public class TagService : ServiceBase
 {
-    public TagService() : base("/api/tag")
+    public TagService() : base("/api/tags")
     {
     }
 

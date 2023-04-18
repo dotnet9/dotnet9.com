@@ -93,14 +93,14 @@ public class BlogManager : IScopedDependency
         Guid[]? tagIds,
         DateTime creationTime)
     {
-        Blog Blog = new Blog(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
+        Blog blog = new Blog(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
             original,
             originalAvatar, originalTitle, originalLink, banner, visible);
         if (albumIds != null)
         {
             foreach (Guid albumId in albumIds)
             {
-                Blog.AddAlbum(albumId);
+                blog.AddAlbum(albumId);
             }
         }
 
@@ -108,7 +108,7 @@ public class BlogManager : IScopedDependency
         {
             foreach (Guid categoryId in categoryIds)
             {
-                Blog.AddCategory(categoryId);
+                blog.AddCategory(categoryId);
             }
         }
 
@@ -116,13 +116,13 @@ public class BlogManager : IScopedDependency
         {
             foreach (Guid tagId in tagIds)
             {
-                Blog.AddTag(tagId);
+                blog.AddTag(tagId);
             }
         }
 
-        Blog.SetCreationTime(creationTime);
+        blog.SetCreationTime(creationTime);
 
-        return Blog;
+        return blog;
     }
 
     public async Task ChangeTitleAsync(bool isNew, Blog Blog, string newTitle)

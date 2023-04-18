@@ -1,6 +1,4 @@
-﻿
-
-namespace Dotnet9.RazorPages.Services;
+﻿namespace Dotnet9.RazorPages.Services;
 
 public class SystemService : ISystemService
 {
@@ -14,6 +12,6 @@ public class SystemService : ISystemService
 
     public async Task<SiteInfo?> GetSiteInfoAsync()
     {
-        return _siteInfo ??= await _caller.GetAsync<SiteInfo>("/api/system");
+        return _siteInfo ??= await _caller.GetAsync<SiteInfo>("/api/systems");
     }
 }

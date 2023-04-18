@@ -2,8 +2,8 @@
 
 @inject ICaller Caller
 @{
-    var siteInfo = await Caller.GetAsync<SiteInfo>("/api/system");
-    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blog/recommend");
+    var siteInfo = await Caller.GetAsync<SiteInfo>("/api/systems");
+    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blogs/recommend");
     ViewData[ViewDataKeys.Title] = "首页";
     ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
     ViewData[ViewDataKeys.Description] = siteInfo?.Description;

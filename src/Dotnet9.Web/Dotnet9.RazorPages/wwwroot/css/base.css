@@ -163,3 +163,25 @@ span.con_link { background: url(../images/icon_view.png) no-repeat left center; 
 .info-pre-next p { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .content a {color: #0782c1;}
 .con_tags { margin: 20px auto;}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin-bottom: 10px;
+    margin-top: 60px;
+    width: 100%;
+}
+
+    .pagination li {
+        cursor: pointer;
+        margin-left: 18px;
+    }
+
+.pagination-prev {
+    transform: translateY(1px) rotate(180deg);
+}
+
+.pagination-btn[active] a {
+    color: #448ef6;
+}

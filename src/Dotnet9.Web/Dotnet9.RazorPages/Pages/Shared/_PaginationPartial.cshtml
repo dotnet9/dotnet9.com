@@ -1,0 +1,59 @@
+﻿@model Dotnet9.RazorPages.Common.PaginationModel
+@{
+    var showFirst = Model.PageCount > 1;
+    var showPrev = Model.Current > 1;
+    var prevPageIndex = Model.Current - 1;
+    var showNext = Model.Current != Model.PageCount;
+    var nextPageIndex = Model.Current + 1;
+    var showLast = showFirst;
+}
+
+<div>
+    @if (Model.Total > Model.PageSize)
+    {
+        <ul class="pagination">
+            @if (showFirst)
+            {
+                <li class="pagination-btn">
+                    <a href="@(Model.UrlPrefix)?current=1&pageSize=@Model.PageSize">⇤</a>
+                </li>
+            }
+            @if (showPrev)
+            {
+                <li class="pagination-btn">
+                    <a href="@(Model.UrlPrefix)?current=@prevPageIndex&pageSize=@Model.PageSize">←</a>
+                </li>
+            }
+            @if (Model.Pages?.Any() == true)
+            {
+                @foreach (var pageIndex in Model.Pages)
+                {
+                    <li class="pagination-btn" active="@(pageIndex == Model.Current)"
+                        value="@pageIndex">
+                        <a href="@(Model.UrlPrefix)?current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
+                    </li>
+                }
+            }
+
+            @if (showNext)
+            {
+                <li class="pagination-btn">
+                    <a href="@(Model.UrlPrefix)?current=@nextPageIndex&pageSize=@Model.PageSize">→</a>
+                </li>
+            }
+
+            @if (showLast)
+            {
+                <li class="pagination-btn">
+                    <a href="@(Model.UrlPrefix)?current=@Model.PageCount&pageSize=@Model.PageSize">⇥</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul class="pagination">
+            <li class="pagination-total">共 @Model.Total 条</li>
+        </ul>
+    }
+</div>

@@ -1,7 +1,7 @@
 ﻿@inject ICaller Caller
 @{
-    var albumBriefs = await Caller.GetAsync<List<AlbumBrief>>("/api/album/brief");
-    var categoryBriefs = await Caller.GetAsync<List<CategoryBrief>>("/api/cat/brief");
+    var albumBriefs = await Caller.GetAsync<List<AlbumBrief>>("/api/albums/brief");
+    var categoryBriefs = await Caller.GetAsync<List<CategoryBrief>>("/api/categories/brief");
 }
 <nav>
     <div class="topnav">
@@ -15,19 +15,25 @@
             <li>
                 <a href="hot.html">热门文章</a>
             </li>
-            <li class="group">文章专辑</li>
-            @foreach (var album in albumBriefs)
+            @if (albumBriefs?.Count > 0)
             {
-                <li>
-                    <a title="@album.Description" href="/album/@album.Slug">@album.Name (@album.BlogCount)</a>
-                </li>
+                <li class="group">文章专辑</li>
+                @foreach (var album in albumBriefs)
+                {
+                    <li>
+                        <a title="@album.Description" href="/albums/@album.Slug">@album.Name (@album.BlogCount)</a>
+                    </li>
+                }
             }
-            <li class="group">文章分类</li>
-            @foreach (var cat in categoryBriefs)
+            @if (categoryBriefs?.Count > 0)
             {
-                <li>
-                    <a title="@cat.Description" href="/cat/@cat.Slug">@cat.Name (@cat.BlogCount)</a>
-                </li>
+                <li class="group">文章分类</li>
+                @foreach (var cat in categoryBriefs)
+                {
+                    <li>
+                        <a title="@cat.Description" href="/categories/@cat.Slug">@cat.Name (@cat.BlogCount)</a>
+                    </li>
+                }
             }
         </ul>
     </div>

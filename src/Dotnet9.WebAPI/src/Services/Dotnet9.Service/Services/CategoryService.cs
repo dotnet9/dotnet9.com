@@ -2,7 +2,7 @@
 
 public class CategoryService : ServiceBase
 {
-    public CategoryService() : base("/api/cat")
+    public CategoryService() : base("/api/categories")
     {
     }
 

@@ -39,8 +39,7 @@ public class Blog : FullAggregateRoot<Guid, int>
         Categories = new List<BlogCategory>();
         Tags = new List<BlogTag>();
     }
-
-    public new DateTime CreationTime { get; private set; }
+    
     public string Title { get; private set; } = null!;
     public string Slug { get; private set; } = null!;
     public string Description { get; private set; } = null!;

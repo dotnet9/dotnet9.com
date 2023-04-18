@@ -1,7 +1,7 @@
 ﻿@inject ICaller Caller
 
 @{
-    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blog/recommend");
+    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blogs/recommend");
 }
 <div class="hot_news">
     <div class="side_title">

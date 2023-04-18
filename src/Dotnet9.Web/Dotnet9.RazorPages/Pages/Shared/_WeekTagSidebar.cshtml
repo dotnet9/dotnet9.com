@@ -1,7 +1,7 @@
 ﻿@using Dotnet9.Contracts.Tags
 @inject ICaller Caller
 @{
-    var tags = await Caller.GetAsync<List<TagBrief>>("/api/tag/hot");
+    var tags = await Caller.GetAsync<List<TagBrief>>("/api/tags/hot");
 }
 <div class="tags">
     <div class="side_title">

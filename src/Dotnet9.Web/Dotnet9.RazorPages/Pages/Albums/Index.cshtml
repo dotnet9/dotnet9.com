@@ -1,0 +1,40 @@
+﻿@page "/albums/{Slug}"
+
+@model Dotnet9.RazorPages.Pages.Albums.IndexModel
+@{
+    ViewData[ViewDataKeys.Title] = $"专辑-{Model.RequestResponse?.AlbumName}";
+    ViewData[ViewDataKeys.Keywords] = Model.Slug;
+    ViewData[ViewDataKeys.Description] = Model.RequestResponse?.AlbumName;
+}
+
+@if (Model.Blogs.Count <= 0)
+{
+    <div class="read_more">
+        这里空空如也
+    </div>
+}
+else
+{
+    <div class="blog_list">
+        <ul>
+            @foreach (var blog in Model.Blogs)
+            {
+                <li>
+                    <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug" class="blog_more">
+                        <h2>@blog.Title</h2>
+                        <div class="ps">
+                            <span class="ps_tj">推荐</span><span class="ps_yc">原创</span>
+                        </div>
+                        <p>@blog.Description</p>
+                    </a>
+                    <div class="info">
+                        <span class="info_class">
+                            <a href="/">云计算</a>
+                        </span><span class="info_time">@blog.CreationTime.ToString("yyyy-MM-dd HH:mm")</span><span class="info_view">23</span>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    @await Html.PartialAsync("_PaginationPartial", new PaginationModel($"/albums/{Model.Slug}", Model.Current, Model.Pages, Model.RequestResponse.Total, Model.PageSize, Model.RequestResponse.TotalPage))
+}

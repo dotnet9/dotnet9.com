@@ -4,7 +4,7 @@ public class SystemService : ServiceBase
 {
     private IOptions<SiteOptions> Options { get; }
 
-    public SystemService(IOptions<SiteOptions> options) : base("/api/system")
+    public SystemService(IOptions<SiteOptions> options) : base("/api/systems")
     {
         Options = options;
     }
