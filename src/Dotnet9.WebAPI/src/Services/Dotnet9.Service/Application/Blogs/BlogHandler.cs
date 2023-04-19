@@ -21,6 +21,16 @@ public class BlogHandler
     }
 
     [EventHandler]
+    public async Task GetListByKeywordsAsync(SearchBlogsByKeywordsQuery query, CancellationToken cancellationToken)
+    {
+        var blog = await _repository.GetBlogBriefListByKeywordsAsync(query);
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records
+        };
+    }
+
+    [EventHandler]
     public async Task GetListByAlbumAsync(SearchBlogsByAlbumQuery query, CancellationToken cancellationToken)
     {
         var blog = await _repository.GetBlogBriefListByAlbumSlugAsync(query);
@@ -28,6 +38,19 @@ public class BlogHandler
         query.Result = new PaginatedListBase<BlogBrief>()
         {
             Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records
+        };
+    }
+
+    [EventHandler]
+    public async Task GetListByCategoryAsync(SearchBlogsByCategoryQuery query, CancellationToken cancellationToken)
+    {
+        var blog = await _repository.GetBlogBriefListByCategorySlugAsync(query);
+        query.CategoryName = blog.CategoryName;
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Total = blog.Total,
+            TotalPages = blog.TotalPage,
+            Result = blog.Records
         };
     }
 }

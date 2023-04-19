@@ -1,0 +1,10 @@
+﻿@page "/categories/{Slug}"
+
+@model Dotnet9.RazorPages.Pages.Categories.IndexModel
+@{
+    ViewData[ViewDataKeys.Title] = $"分类-{Model.RequestResponse?.CategoryName}";
+    ViewData[ViewDataKeys.Keywords] = Model.Slug;
+    ViewData[ViewDataKeys.Description] = Model.RequestResponse?.CategoryName;
+}
+
+@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, $"/categories/{Model.Slug}", Model.Current, Model.Pages, Model.RequestResponse!.Total, Model.PageSize, Model.RequestResponse.TotalPage))

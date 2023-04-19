@@ -41,7 +41,7 @@ public class AlbumRepository : Repository<Dotnet9DbContext, Album, Guid>, IAlbum
                 orderby album.BlogCount descending
                 select album;
             var distinctAlbumList = distinctAlbums?.ToList() ?? new List<AlbumBrief>();
-            //return distinctAlbumList;
+
             if (distinctAlbumList.Any())
             {
                 timeSpan = TimeSpan.FromSeconds(30);
