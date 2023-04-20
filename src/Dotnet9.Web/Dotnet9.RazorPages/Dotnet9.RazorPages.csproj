@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-preview.29" />
-    <PackageReference Include="Masa.Utils.Extensions.DependencyInjection" Version="1.0.0-preview.29" />
+    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-preview.30" />
+    <PackageReference Include="Masa.Utils.Extensions.DependencyInjection" Version="1.0.0-preview.30" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Dotnet9.WebAPI\src\Contracts\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
