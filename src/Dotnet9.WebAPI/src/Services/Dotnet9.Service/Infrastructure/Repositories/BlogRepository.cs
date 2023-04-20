@@ -90,7 +90,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     public async Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery request)
     {
         TimeSpan? timeSpan = null;
-        var key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByAlbumSlugAsync)}";
+        var key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByAlbumSlugAsync)}_{request.AlbumSlug}_{request.Page}_{request.PageSize}";
         var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
             var page = request.Page;
@@ -136,7 +137,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         SearchBlogsByCategoryQuery request)
     {
         TimeSpan? timeSpan = null;
-        var key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByCategorySlugAsync)}";
+        var key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByCategorySlugAsync)}_{request.CategorySlug}_{request.Page}_{request.PageSize}";
         var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
             var page = request.Page;

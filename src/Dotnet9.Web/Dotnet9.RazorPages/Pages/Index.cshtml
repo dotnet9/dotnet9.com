@@ -1,45 +1,10 @@
 ﻿@page
+
 @model Dotnet9.RazorPages.Pages.IndexModel
 @{
-    ViewData[ViewDataKeys.Title] = "首页";
+    ViewData[ViewDataKeys.Title] = Model.Keywords.IsNullOrWhiteSpace() ? "首页" : $"搜索-{Model.Keywords}";
     ViewData[ViewDataKeys.Keywords] = Model.SiteInfo?.Keywords;
     ViewData[ViewDataKeys.Description] = Model.SiteInfo?.Description;
 }
-
-<div class="banner">
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            @if (Model.Blogs?.Any() == true)
-            {
-                foreach (var recommendBlog in Model.Blogs)
-                {
-                    <div class="swiper-slide">
-                        <a href="/@recommendBlog.CreationTime.Year/@recommendBlog.CreationTime.Month/@recommendBlog.Slug" target="_blank">
-                            <img src="@recommendBlog.Cover" alt="@recommendBlog.Title">
-                        </a>
-                    </div>
-                }
-            }
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-    <script>
-        //banner
-        var swiper = new Swiper('.swiper-container', {
-            pagination: '.swiper-pagination',
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
-            paginationClickable: true,
-            spaceBetween: 100,
-            centeredSlides: true,
-            autoplay: 8000,
-            autoplayDisableOnInteraction: false,
-        });
-    </script>
-</div>
-<!-- banner end-->
 
 @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, Model.UrlSuffix, Model.Current, Model.Pages, Model.RequestResponse!.Total, Model.PageSize, Model.RequestResponse.TotalPage))

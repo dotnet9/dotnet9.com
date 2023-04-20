@@ -14,7 +14,7 @@ public class IndexModel : PageModel
     public int[]? Pages { get; set; }
 
     public SiteInfo? SiteInfo { get; private set; }
-    public string UrlSuffix { get; set; }
+    public string? UrlSuffix { get; set; }
     public List<BlogBrief>? Blogs { get; private set; }
 
 

@@ -8,7 +8,7 @@
     var showLast = showFirst;
 }
 
-@if (Model.Blogs.Count <= 0)
+@if (Model.Blogs == null || Model.Blogs.Count <= 0)
 {
     <div class="read_more">
         这里空空如也
