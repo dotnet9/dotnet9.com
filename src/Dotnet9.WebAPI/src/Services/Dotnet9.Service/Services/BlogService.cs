@@ -14,6 +14,18 @@ public class BlogService : ServiceBase
         return queryEvent.Result.Result;
     }
 
+    [RoutePattern(pattern: "/api/blogs/{slug}")]
+    public async Task<BlogDetails> GetBlogDetailsBySlugAsync(IEventBus eventBus,
+        CancellationToken cancellationToken, [FromRoute] string slug)
+    {
+        var queryEvent = new SearchBlogDetailsBySlugQuery()
+        {
+            Slug = slug
+        };
+        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result;
+    }
+
     [RoutePattern(pattern: "/api/blogs/")]
     public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(IEventBus eventBus,
         CancellationToken cancellationToken, [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,

@@ -53,4 +53,14 @@ public class BlogHandler
             Result = blog.Records
         };
     }
+
+    [EventHandler]
+    public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
+    {
+        var blog = await _repository.FindBySlugAsync(query.Slug);
+        if (blog != null)
+        {
+            query.Result = blog;
+        }
+    }
 }

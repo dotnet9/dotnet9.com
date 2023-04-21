@@ -125,38 +125,38 @@ public class BlogManager : IScopedDependency
         return blog;
     }
 
-    public async Task ChangeTitleAsync(bool isNew, Blog Blog, string newTitle)
+    public async Task ChangeTitleAsync(bool isNew, Blog blog, string newTitle)
     {
-        Check.NotNull(Blog, nameof(Blog));
+        Check.NotNull(blog, nameof(blog));
         Check.NotNullOrWhiteSpace(newTitle, nameof(newTitle), BlogConsts.MaxTitleLength,
             BlogConsts.MinTitleLength);
 
         Blog? existData = await _blogRepository.FindByTitleAsync(newTitle);
-        if (existData != null && existData.Id != Blog.Id)
+        if (existData != null && existData.Id != blog.Id)
         {
             throw new Exception("存在相同标题的文章");
         }
 
-        Blog.ChangeTitle(newTitle);
+        blog.ChangeTitle(newTitle);
     }
 
-    public async Task ChangeSlugAsync(bool isNew, Blog Blog, string newSlug)
+    public async Task ChangeSlugAsync(bool isNew, Blog blog, string newSlug)
     {
-        Check.NotNull(Blog, nameof(Blog));
+        Check.NotNull(blog, nameof(blog));
         Check.NotNullOrWhiteSpace(newSlug, nameof(newSlug), BlogConsts.MaxSlugLength, BlogConsts.MinSlugLength);
 
-        Blog? existData = await _blogRepository.FindBySlugAsync(newSlug);
-        if (existData != null && existData.Id != Blog.Id)
+        var existData = await _blogRepository.FindBySlugAsync(newSlug);
+        if (existData != null && existData.Id != blog.Id)
         {
             throw new Exception("存在相同别名的文章");
         }
 
-        Blog.ChangeSlug(newSlug);
+        blog.ChangeSlug(newSlug);
     }
 
-    public async Task ChangeAlbumAsync(Blog Blog, Guid[]? albumIds)
+    public async Task ChangeAlbumAsync(Blog blog, Guid[]? albumIds)
     {
-        Check.NotNull(Blog, nameof(Blog));
+        Check.NotNull(blog, nameof(blog));
         if (albumIds == null || !albumIds.Any())
         {
             return;
@@ -171,16 +171,16 @@ public class BlogManager : IScopedDependency
             }
         }
 
-        Blog.RemoveAllAlbumsExceptGivenIds(albumIds.ToList());
+        blog.RemoveAllAlbumsExceptGivenIds(albumIds.ToList());
         foreach (Guid id in albumIds)
         {
-            Blog.AddAlbum(id);
+            blog.AddAlbum(id);
         }
     }
 
-    public async Task ChangeCategoryAsync(Blog Blog, Guid[]? categoryIds)
+    public async Task ChangeCategoryAsync(Blog blog, Guid[]? categoryIds)
     {
-        Check.NotNull(Blog, nameof(Blog));
+        Check.NotNull(blog, nameof(blog));
         if (categoryIds == null || !categoryIds.Any())
         {
             return;
@@ -195,16 +195,16 @@ public class BlogManager : IScopedDependency
             }
         }
 
-        Blog.RemoveAllCategoriesExceptGivenIds(categoryIds.ToList());
+        blog.RemoveAllCategoriesExceptGivenIds(categoryIds.ToList());
         foreach (Guid id in categoryIds)
         {
-            Blog.AddCategory(id);
+            blog.AddCategory(id);
         }
     }
 
-    public async Task ChangeTagAsync(Blog Blog, Guid[]? tagIds)
+    public async Task ChangeTagAsync(Blog blog, Guid[]? tagIds)
     {
-        Check.NotNull(Blog, nameof(Blog));
+        Check.NotNull(blog, nameof(blog));
         if (tagIds == null || !tagIds.Any())
         {
             return;
@@ -219,10 +219,10 @@ public class BlogManager : IScopedDependency
             }
         }
 
-        Blog.RemoveAllTagsExceptGivenIds(tagIds.ToList());
+        blog.RemoveAllTagsExceptGivenIds(tagIds.ToList());
         foreach (Guid id in tagIds)
         {
-            Blog.AddTag(id);
+            blog.AddTag(id);
         }
     }
 

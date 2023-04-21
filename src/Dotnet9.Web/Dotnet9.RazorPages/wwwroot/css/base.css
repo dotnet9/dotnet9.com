@@ -185,3 +185,16 @@ span.con_link { background: url(../images/icon_view.png) no-repeat left center; 
 .pagination-btn[active] a {
     color: #448ef6;
 }
+
+.gap-solid {
+    border-top: 1px solid #f1f1f1;
+    display: inline-block;
+    height: 0;
+    width: 100%;
+}
+
+#view-content {
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 0 30px;
+}

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Net;
 using static Google.Rpc.Context.AttributeContext.Types;
 
 namespace Dotnet9.Service.Infrastructure.Repositories;
@@ -27,11 +28,24 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .FirstOrDefaultAsync(x => x.Title == title);
     }
 
-    public Task<Blog?> FindBySlugAsync(string slug)
+    public async Task<BlogDetails?> FindBySlugAsync(string slug)
     {
-        return Context.Blogs.Include(blogPost => blogPost.Albums)
+        var blog = await Context.Blogs.Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
             .FirstOrDefaultAsync(x => x.Slug == slug);
+        if (blog == null)
+        {
+            return null;
+        }
+
+        return new BlogDetails(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover, blog.Content,
+            blog.CopyrightType.ToString(), blog.Original, blog.OriginalTitle, blog.OriginalLink,
+            (from blogPostCategory in blog.Categories
+                join category in Context.Categories! on blogPostCategory.CategoryId equals category.Id
+                select new CategoryBrief(category.Name, category.Slug, category.Cover, category.Description, 0))
+            .ToList(),
+            blog.ViewCount,
+            blog.CreationTime);
     }
 
     public Task<List<BlogBrief>> GetBlogBriefListAsync()

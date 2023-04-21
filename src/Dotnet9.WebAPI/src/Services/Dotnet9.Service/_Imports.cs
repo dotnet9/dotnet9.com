@@ -62,3 +62,4 @@ global using Dotnet9.Service.Application.Blogs.Queries;
 global using Dotnet9.Contracts.Tags;
 global using Dotnet9.Service.Application.Tags.Queries;
 global using Microsoft.AspNetCore.Mvc;
+global using Masa.BuildingBlocks.ReadWriteSplitting.Cqrs.Queries;
