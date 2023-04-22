@@ -9,4 +9,5 @@ public interface IBlogRepository : IRepository<Blog, Guid>
     Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(SearchBlogsByKeywordsQuery query);
     Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery query);
     Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(SearchBlogsByCategoryQuery query);
+    Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery query);
 }

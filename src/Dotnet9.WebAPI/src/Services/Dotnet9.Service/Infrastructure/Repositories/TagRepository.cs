@@ -18,7 +18,8 @@ public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagReposi
 
     public async Task<List<TagBrief>> GetHotTagBriefListAsync()
     {
-        var randomData = await Context.Tags.Take(10).ToListAsync();
-        return randomData.Map<List<TagBrief>>();
+        var randomData = await Context.Tags.Take(10).Select(tag =>
+            new TagBrief(tag.Name, Context.Set<BlogTag>().Count((blogTag => blogTag.TagId == tag.Id)))).ToListAsync();
+        return randomData;
     }
 }

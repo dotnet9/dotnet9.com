@@ -55,6 +55,18 @@ public class BlogHandler
     }
 
     [EventHandler]
+    public async Task GetListByTagAsync(SearchBlogsByTagQuery query, CancellationToken cancellationToken)
+    {
+        var blog = await _repository.GetBlogBriefListByTagNameAsync(query);
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Total = blog.Total,
+            TotalPages = blog.TotalPage,
+            Result = blog.Records
+        };
+    }
+
+    [EventHandler]
     public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
     {
         var blog = await _repository.FindBySlugAsync(query.Slug);

@@ -1,7 +1,8 @@
 ﻿@using Dotnet9.Contracts.Tags
+@using System.Net
 @inject ICaller Caller
 @{
-    var tags = await Caller.GetAsync<List<TagBrief>>("/api/tags/hot");
+    var tags = await Caller.GetAsync<List<TagBrief>>("/api/tags/week");
 }
 <div class="tags">
     <div class="side_title">
@@ -14,7 +15,7 @@
             @foreach (var tag in tags)
             {
                 <li>
-                    <a href="/tag/@HtmlEncoder.Encode(tag.Name)">@tag.Name</a>
+                    <a href="/tags/@WebUtility.UrlEncode(tag.Name)">@tag.Name (@tag.BlogCount)</a>
                 </li>
             }
         </ul>

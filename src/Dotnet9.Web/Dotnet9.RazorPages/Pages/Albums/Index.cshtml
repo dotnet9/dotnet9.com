@@ -7,4 +7,8 @@
     ViewData[ViewDataKeys.Description] = Model.RequestResponse?.AlbumName;
 }
 
+<h1 class="detail-title">专辑-@Model.RequestResponse?.AlbumName</h1>
+
+<div id="view-content" class="gap-solid"></div>
+
 @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, $"/albums/{Model.Slug}", Model.Current, Model.Pages, Model.RequestResponse.Total, Model.PageSize, Model.RequestResponse.TotalPage))

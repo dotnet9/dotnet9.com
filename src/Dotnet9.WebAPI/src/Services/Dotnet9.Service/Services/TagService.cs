@@ -6,6 +6,7 @@ public class TagService : ServiceBase
     {
     }
 
+    [RoutePattern(pattern: "/api/tags/week")]
     public async Task<List<TagBrief>> GetHotAsync(IEventBus eventBus,
         CancellationToken cancellationToken)
     {

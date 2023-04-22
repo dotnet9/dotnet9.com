@@ -6,6 +6,7 @@ public class BlogService : ServiceBase
     {
     }
 
+    [RoutePattern(pattern: "/api/blogs/recommend")]
     public async Task<List<BlogBrief>> GetRecommendAsync(IEventBus eventBus,
         CancellationToken cancellationToken)
     {
@@ -71,6 +72,22 @@ public class BlogService : ServiceBase
         };
         await eventBus.PublishAsync(queryEvent, cancellationToken);
         return new GetBlogListByCategorySlugResponse(true, queryEvent.CategoryName, queryEvent.Result.Result,
+            queryEvent.Result.Total, queryEvent.Result.TotalPages);
+    }
+
+    [RoutePattern(pattern: "/api/tags/{name}/blogs")]
+    public async Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(IEventBus eventBus,
+        CancellationToken cancellationToken, [FromRoute] string name, [FromQuery] int pageSize = 10,
+        [FromQuery] int page = 1)
+    {
+        var queryEvent = new SearchBlogsByTagQuery()
+        {
+            TagName = WebUtility.UrlDecode(name),
+            PageSize = pageSize,
+            Page = page
+        };
+        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        return new GetBlogListByTagNameResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
 }

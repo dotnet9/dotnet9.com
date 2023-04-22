@@ -1,0 +1,16 @@
+﻿@page "/tags/{Name}"
+
+@using System.Net
+@model Dotnet9.RazorPages.Pages.Tags.IndexModel
+@{
+    var decodeName = WebUtility.UrlDecode(Model.Name);
+    ViewData[ViewDataKeys.Title] = $"标签-{decodeName}";
+    ViewData[ViewDataKeys.Keywords] = decodeName;
+    ViewData[ViewDataKeys.Description] = decodeName;
+}
+
+<h1 class="detail-title">标签-@decodeName</h1>
+
+<div id="view-content" class="gap-solid"></div>
+
+@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, $"/tags/{Model.Name}", Model.Current, Model.Pages, Model.RequestResponse.Total, Model.PageSize, Model.RequestResponse.TotalPage))

@@ -24,13 +24,44 @@ else
                     <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug" class="blog_more">
                         <h2>@blog.Title</h2>
                         <div class="ps">
-                            <span class="ps_tj">推荐</span><span class="ps_yc">原创</span>
+                            @if (blog.Banner)
+                            {
+                                <span class="ps_tj">推荐</span>
+                            }
+                            @if (blog.CopyrightType == "Default")
+                            {
+                                <span class="ps_yc">原创</span>
+                            }
                         </div>
                         <p>@blog.Description</p>
                     </a>
                     <div class="info">
                         <span class="info_class">
-                            <a href="/">云计算</a>
+                            @if (blog.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
+                            {
+                                @if (blog.Albums?.Any() == true)
+                                {
+                                    @foreach (var album in blog.Albums)
+                                    {
+                                        <a href="/albums/@album.Slug">@album.Name</a>
+                                    }
+                                }
+                                @if (blog.Categories?.Any() == true)
+                                {
+                                    @foreach (var category in blog.Categories)
+                                    {
+                                        <a href="/categories/@category.Slug">@category.Name</a>
+                                    }
+                                }
+                                @if (blog.Tags?.Any() == true)
+                                {
+                                    @foreach (var tag in blog.Tags)
+                                    {
+                                        <a href="/tags/@tag.Name">@tag.Name</a>
+                                    }
+                                }
+                            }
+
                         </span><span class="info_time">@blog.CreationTime.ToString("yyyy-MM-dd HH:mm")</span><span class="info_view">23</span>
                     </div>
                 </li>
