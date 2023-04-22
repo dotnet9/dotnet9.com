@@ -1,0 +1,27 @@
+﻿@page "/about"
+@inject ISystemService SystemService
+@model Dotnet9.RazorPages.Pages.Abouts.IndexModel
+@{
+    var siteInfo = await SystemService.GetSiteInfoAsync();
+    ViewData[ViewDataKeys.Title] = $"关于";
+    ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
+    ViewData[ViewDataKeys.Description] = siteInfo?.Description;
+}
+
+@section Headers
+{
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/monokai-sublime.min.css"/>
+    <link rel="stylesheet" href="~/css/detail.css"/>
+}
+
+<div id="view-content" class="gap-solid"></div>
+
+<div class="details-content">
+    @Html.Raw(Model.AboutContentHtml)
+</div>
+
+@section Scripts
+{
+    <script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+}

@@ -8,7 +8,7 @@
 
 <div align="center">
 
-一个使用`Dotnet 8.0` + `React`开发的`博客`系统，开发中...
+一个使用`Dotnet 8.0`开发的`博客`系统，开发中...
 
  ![dotnet-version](https://img.shields.io/badge/.NET%208.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
 
@@ -18,12 +18,15 @@
 
  ## 0. 最新开发情况
 
-- [ ] 前台前端
-  1. [ ] 正在储备知识
-- [ ] 后台前端
-  1. [ ] 正在储备知识
-- [ ] 后端
-  1. [ ] 正在储备知识
+- [x] 前台
+  1. [x] 使用 ASP.NET Core 8 Razor Pages搭建前台
+  2. [x] 已有功能：文章列表、分类文章列表、文章详情等
+  3. [ ] 还有很多功能待开发，比如隐私、登录、前台文章创建和文章修改等
+- [x] 后台前端
+  1. [ ] 待开发
+- [x] 后端
+  1. [x] 使用ASP.NET Core 8 Web API搭建，框架选择Masa Framework(DDD+CQRS)
+  2. [ ] 根据前台和后台前端的功能迭代，进行维护中
 
 ## ✨ 1. 特性
 

@@ -17,16 +17,6 @@
     <script src="/js/comm.js"></script>
     <!-- Swiper JS -->
     <script src="/js/swiper.min.js"></script>
-
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
     @await RenderSectionAsync("Headers", false)
 </head>
 <body>
@@ -48,5 +38,18 @@
 
 
 @await RenderSectionAsync("Scripts", required: false)
+    <environment names="Production">
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+        crossorigin="anonymous"></script>
+    </environment>
 </body>
 </html>
