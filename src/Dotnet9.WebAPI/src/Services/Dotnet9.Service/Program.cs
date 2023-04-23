@@ -23,11 +23,7 @@ builder.Services
             .UseNpgsql()
             .UseFilter();
     })
-    .AddMultilevelCache(distributedCacheOptions =>
-    {
-        var jsonSerializerOptions = new JsonSerializerOptions();
-        distributedCacheOptions.UseStackExchangeRedisCache(jsonSerializerOptions: jsonSerializerOptions);
-    })
+    .AddMultilevelCache(distributedCacheOptions => { distributedCacheOptions.UseStackExchangeRedisCache(); })
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
     .AddAuthorization()
     .AddAuthentication(options =>
