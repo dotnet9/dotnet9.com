@@ -9,3 +9,4 @@ global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using System.Text.Encodings.Web;
 global using System.Text.Unicode;
 global using Dotnet9.Contracts.Dto.Abouts;
+global using Dotnet9.Contracts.Dto.Donations;

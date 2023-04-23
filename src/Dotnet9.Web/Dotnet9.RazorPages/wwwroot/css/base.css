@@ -34,6 +34,7 @@ ul#starlist .group {
 nav ul li a#selected { background: #f3f3f3; color: #000; font-weight: 700; }
 nav ul li a:hover { background: #f3f3f3; }
 nav em { width: 100%; display: block; height: 20px }
+
 #mnavh { margin: 5px 0 0 0; width: 24px; height: 40px; float: right; text-align: center; padding: 0 10px; display: none }
 .navicon { display: block; position: relative; width: 30px; height: 2px; background-color: #999; margin-top: 20px; }
 .navicon:before, .navicon:after { content: ''; display: block; width: 30px; height: 2px; position: absolute; background: #999; -webkit-transition-property: margin, -webkit-transform; transition-property: margin, -webkit-transform; transition-property: margin, transform; transition-property: margin, transform, -webkit-transform; -webkit-transition-duration: 300ms; transition-duration: 300ms; }

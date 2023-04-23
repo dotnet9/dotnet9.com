@@ -1,9 +1,9 @@
-﻿@page "/about"
+﻿@page "/donation"
 @inject ISystemService SystemService
-@model Dotnet9.RazorPages.Pages.Abouts.IndexModel
+@model Dotnet9.RazorPages.Pages.Donations.IndexModel
 @{
     var siteInfo = await SystemService.GetSiteInfoAsync();
-    ViewData[ViewDataKeys.Title] = $"关于";
+    ViewData[ViewDataKeys.Title] = $"打赏";
     ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
     ViewData[ViewDataKeys.Description] = siteInfo?.Description;
 }
@@ -13,7 +13,7 @@
 <div id="view-content" class="gap-solid"></div>
 
 <div class="details-content">
-    @Html.Raw(Model.AboutContentHtml)
+    @Html.Raw(Model.ContentHtml)
 </div>
 
 @await Html.PartialAsync("_MarkdownFooter")

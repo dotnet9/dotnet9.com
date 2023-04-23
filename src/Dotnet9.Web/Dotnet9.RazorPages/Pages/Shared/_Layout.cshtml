@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8">
     <title>@ViewData[ViewDataKeys.Title]-@siteInfo.AppName</title>
-    <meta name="keywords" content="@ViewData[ViewDataKeys.Keywords]" />
-    <meta name="description" content="@ViewData[ViewDataKeys.Description]" />
+    <meta name="keywords" content="@ViewData[ViewDataKeys.Keywords]"/>
+    <meta name="description" content="@ViewData[ViewDataKeys.Description]"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/m.css" rel="stylesheet">
@@ -31,15 +31,15 @@
     <div class="box_r">
         @await Html.PartialAsync("_PopularWeekBlogSidebar")
         @await Html.PartialAsync("_WeekTagSidebar")
-            @*@await Html.PartialAsync("_WebmasterRecommendedSidebar")*@
+        @*@await Html.PartialAsync("_WebmasterRecommendedSidebar")*@
     </div>
 </article>
 @await Html.PartialAsync("_FooterPartial")
 
 
 @await RenderSectionAsync("Scripts", required: false)
-    <environment names="Production">
-        <script>
+<environment names="Production">
+    <script>
             var _hmt = _hmt || [];
             (function () {
                 var hm = document.createElement("script");
@@ -48,8 +48,8 @@
                 s.parentNode.insertBefore(hm, s);
             })();
         </script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
-        crossorigin="anonymous"></script>
-    </environment>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+            crossorigin="anonymous"></script>
+</environment>
 </body>
 </html>
