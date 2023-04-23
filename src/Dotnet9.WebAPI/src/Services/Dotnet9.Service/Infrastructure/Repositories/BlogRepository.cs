@@ -1,6 +1,4 @@
-﻿using Dotnet9.Service.Domain.Aggregates.Albums;
-
-namespace Dotnet9.Service.Infrastructure.Repositories;
+﻿namespace Dotnet9.Service.Infrastructure.Repositories;
 
 public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRepository
 {
@@ -32,42 +30,87 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
     public async Task<BlogDetails?> FindBySlugAsync(string slug)
     {
-        var blog = await Context.Blogs
-            .Include(blogPost => blogPost.Albums)
-            .Include(blogPost => blogPost.Categories)
-            .Include(blogPost => blogPost.Tags)
-            .FirstOrDefaultAsync(x => x.Slug == slug);
-        if (blog == null)
+        async Task<BlogDetails?> ReadDataFromDb()
         {
-            return null;
+            var blog = await Context.Blogs
+                .Include(blogPost => blogPost.Albums)
+                .Include(blogPost => blogPost.Categories)
+                .Include(blogPost => blogPost.Tags)
+                .FirstOrDefaultAsync(x => x.Slug == slug);
+            return blog == null ? null : ToBlogDetails(blog);
         }
 
-        return ToBlogDetails(blog);
-    }
-
-    public async Task<List<BlogBrief>> GetBlogBriefListAsync()
-    {
-        var query = Context.Query<Blog>();
-        var dataFromDb = query
-            .Include(x => x.Categories)
-            .Include(x => x.Albums)
-            .Include(x => x.Tags)
-            .Where(blog => blog.Banner);
-
-        var dataList = dataFromDb.Take(10)
-            .ToList()
-            .Select(ToBlogBrief).ToList();
-        return dataList;
-    }
-
-    public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(SearchBlogsByKeywordsQuery request)
-    {
         TimeSpan? timeSpan = null;
-        var keywords = WebUtility.UrlDecode(request.Keywords)?.ToLower();
-        var key =
-            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByKeywordsAsync)}_{keywords}_{request.Page}_{request.PageSize}";
-        var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var key = $"{nameof(BlogRepository)}_{nameof(FindBySlugAsync)}_{slug}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<BlogDetails>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return new CacheEntry<BlogDetails>(null);
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return data;
+    }
+
+    public async Task<List<BlogBrief>?> GetBlogBriefListAsync()
+    {
+        async Task<List<BlogBrief>> ReadDataFromDb()
+        {
+            var query = Context.Query<Blog>();
+            var dataFromDb = query
+                .Include(x => x.Categories)
+                .Include(x => x.Albums)
+                .Include(x => x.Tags)
+                .Where(blog => blog.Banner);
+
+            var dataList = dataFromDb.Take(10)
+                .ToList()
+                .Select(ToBlogBrief).ToList();
+            return dataList;
+        }
+
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb.Any())
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return new CacheEntry<List<BlogBrief>>(null);
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return data;
+    }
+
+    public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
+        SearchBlogsByKeywordsQuery request)
+    {
+        async Task<GetBlogListByKeywordsResponse?> ReadDataFromDb()
+        {
+            var keywords = request.Keywords;
             var page = request.Page;
             var pageSize = request.PageSize;
 
@@ -77,24 +120,36 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(blog=> isKeywordsEmpty|| (EF.Functions.Like(blog.Title.ToLower(), $"%{keywords}%")
-                                                 || EF.Functions.Like(blog.Description.ToLower(), $"%{keywords}%")));
-           
+                .Where(blog => isKeywordsEmpty || (EF.Functions.Like(blog.Title.ToLower(), $"%{keywords}%")
+                                                   || EF.Functions.Like(blog.Description.ToLower(), $"%{keywords}%")));
 
             var total = await dataListFromDb.CountAsync();
             var dataList = dataListFromDb.Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList().Select(ToBlogBrief)
                 .ToList();
 
-
             if (dataList.Any())
             {
-                var data = new GetBlogListByKeywordsResponse(true, dataList, total,
+                return new GetBlogListByKeywordsResponse(true, dataList, total,
                     (total + pageSize - 1) / pageSize,
                     request.PageSize, request.Page);
+            }
 
+            return null;
+        }
+
+        TimeSpan? timeSpan = null;
+        string key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByKeywordsAsync)}_{request.Keywords}_{request.Page}_{request.PageSize}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
+            {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByKeywordsResponse>(data, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByKeywordsResponse>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -105,22 +160,19 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return blogList ?? new GetBlogListByKeywordsResponse(false);
+        return data ?? new GetBlogListByKeywordsResponse(false);
     }
 
     public async Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery request)
     {
-        TimeSpan? timeSpan = null;
-        var key =
-            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByAlbumSlugAsync)}_{request.AlbumSlug}_{request.Page}_{request.PageSize}";
-        var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        async Task<GetBlogListByAlbumSlugResponse?> ReadDataFromDb()
         {
             var page = request.Page;
             var pageSize = request.PageSize;
             var album = await Context.Albums.FirstOrDefaultAsync(x => x.Slug == request.AlbumSlug);
             if (album == null)
             {
-                return new CacheEntry<GetBlogListByAlbumSlugResponse>(null);
+                return null;
             }
 
             var query = Context.Blogs.AsQueryable();
@@ -134,15 +186,28 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Take(pageSize).ToList().Select(ToBlogBrief)
                 .ToList();
 
-
-            if (dataList.Any())
+            if (dataList.Any() == true)
             {
-                var data = new GetBlogListByAlbumSlugResponse(true, album.Name, dataList, total,
+                return new GetBlogListByAlbumSlugResponse(true, album.Name, dataList, total,
                     (total + pageSize - 1) / pageSize,
                     request.PageSize, request.Page);
+            }
 
+            return null;
+        }
+
+        TimeSpan? timeSpan = null;
+        var key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByAlbumSlugAsync)}_{request.AlbumSlug}_{request.Page}_{request.PageSize}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
+            {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByAlbumSlugResponse>(data, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByAlbumSlugResponse>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -153,23 +218,20 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return blogList ?? new GetBlogListByAlbumSlugResponse(false);
+        return data ?? new GetBlogListByAlbumSlugResponse(false);
     }
 
     public async Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(
         SearchBlogsByCategoryQuery request)
     {
-        TimeSpan? timeSpan = null;
-        var key =
-            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByCategorySlugAsync)}_{request.CategorySlug}_{request.Page}_{request.PageSize}";
-        var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        async Task<GetBlogListByCategorySlugResponse?> ReadDataFromDb()
         {
             var page = request.Page;
             var pageSize = request.PageSize;
             var category = await Context.Categories.FirstOrDefaultAsync(x => x.Slug == request.CategorySlug);
             if (category == null)
             {
-                return new CacheEntry<GetBlogListByCategorySlugResponse>(null);
+                return null;
             }
 
             var query = Context.Blogs.AsQueryable();
@@ -186,12 +248,26 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
             if (dataList.Any())
             {
-                var data = new GetBlogListByCategorySlugResponse(true, category.Name, dataList, total,
+                return new GetBlogListByCategorySlugResponse(true, category.Name, dataList, total,
                     (total + pageSize - 1) / pageSize,
                     request.PageSize, request.Page);
+            }
 
+            return null;
+        }
+
+        TimeSpan? timeSpan = null;
+        var key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByCategorySlugAsync)}_{request.CategorySlug}_{request.Page}_{request.PageSize}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
+            {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByCategorySlugResponse>(data, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByCategorySlugResponse>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -202,23 +278,20 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return blogList ?? new GetBlogListByCategorySlugResponse(false);
+        return data ?? new GetBlogListByCategorySlugResponse(false);
     }
 
 
     public async Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery request)
     {
-        TimeSpan? timeSpan = null;
-        var key =
-            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByTagNameAsync)}_{request.TagName}_{request.Page}_{request.PageSize}";
-        var blogList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        async Task<GetBlogListByTagNameResponse?> ReadDataFromDb()
         {
             var page = request.Page;
             var pageSize = request.PageSize;
             var tag = await Context.Tags.FirstOrDefaultAsync(x => x.Name == request.TagName);
             if (tag == null)
             {
-                return new CacheEntry<GetBlogListByTagNameResponse>(null);
+                return null;
             }
 
             var query = Context.Blogs.AsQueryable();
@@ -235,12 +308,26 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
             if (dataList.Any())
             {
-                var data = new GetBlogListByTagNameResponse(true, dataList, total,
+                return new GetBlogListByTagNameResponse(true, dataList, total,
                     (total + pageSize - 1) / pageSize,
                     request.PageSize, request.Page);
+            }
 
+            return null;
+        }
+
+        TimeSpan? timeSpan = null;
+        var key =
+            $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListByTagNameAsync)}_{request.TagName}_{request.Page}_{request.PageSize}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
+            {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByTagNameResponse>(data, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByTagNameResponse>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -251,7 +338,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return blogList ?? new GetBlogListByTagNameResponse(false);
+        return data ?? new GetBlogListByTagNameResponse(false);
     }
 
     private List<CategoryBrief>? GetCategoryBriefs(Blog blog)

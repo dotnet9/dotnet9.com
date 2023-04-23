@@ -1,5 +1,7 @@
-﻿@model Dotnet9.RazorPages.Common.PaginationModel
+﻿@inject ISystemService SystemService
+@model Dotnet9.RazorPages.Common.PaginationModel
 @{
+    var siteInfo = await SystemService.GetSiteInfoAsync();
     var showFirst = Model.PageCount > 1;
     var showPrev = Model.Current > 1;
     var prevPageIndex = Model.Current - 1;
@@ -36,6 +38,9 @@ else
                         <p>@blog.Description</p>
                     </a>
                     <div class="info">
+                        <span class="info_user">
+                            @(blog?.Original ?? siteInfo?.Owner)
+                        </span>
                         <span class="info_class">
                             @if (blog.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
                             {

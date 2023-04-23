@@ -27,9 +27,7 @@ public class AlbumRepository : Repository<Dotnet9DbContext, Album, Guid>, IAlbum
 
     public async Task<List<AlbumBrief>> GetAllBriefAsync()
     {
-        TimeSpan? timeSpan = null;
-        var key = $"{nameof(AlbumRepository)}_{nameof(GetAllBriefAsync)}";
-        var albumList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        async Task<List<AlbumBrief>> ReadDataFromDb()
         {
             var albums = await Context.Set<Album>()
                 .AsSplitQuery()
@@ -41,6 +39,14 @@ public class AlbumRepository : Repository<Dotnet9DbContext, Album, Guid>, IAlbum
                 orderby album.BlogCount descending
                 select album;
             var distinctAlbumList = distinctAlbums?.ToList() ?? new List<AlbumBrief>();
+            return distinctAlbumList;
+        }
+
+        TimeSpan? timeSpan = null;
+        var key = $"{nameof(AlbumRepository)}_{nameof(GetAllBriefAsync)}";
+        var albumList = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var distinctAlbumList =await ReadDataFromDb();
 
             if (distinctAlbumList.Any())
             {

@@ -25,11 +25,9 @@ public class CategoryRepository : Repository<Dotnet9DbContext, Category, Guid>, 
         return Context.Categories.FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
-    public async Task<List<CategoryBrief>> GetAllBriefAsync()
+    public async Task<List<CategoryBrief>?> GetAllBriefAsync()
     {
-        TimeSpan? timeSpan = null;
-        var key = $"{nameof(CategoryRepository)}_{nameof(GetAllBriefAsync)}";
-        var cats = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        async Task<List<CategoryBrief>> ReadDataFromDb()
         {
             var categories = await Context.Set<Category>()
                 .Select(cat => new CategoryBrief(cat.Name, cat.Slug, cat.Cover,
@@ -39,22 +37,30 @@ public class CategoryRepository : Repository<Dotnet9DbContext, Category, Guid>, 
                 where cat.BlogCount > 0
                 orderby cat.BlogCount descending
                 select cat;
-            var distinctCategoryList = distinctCategories?.ToList() ?? new List<CategoryBrief>();
-            //return distinctCategoryList;
-            if (distinctCategoryList.Any())
+            return distinctCategories.ToList();
+        }
+
+        TimeSpan? timeSpan = null;
+        var key = $"{nameof(CategoryRepository)}_{nameof(GetAllBriefAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<CategoryBrief>>(distinctCategoryList, TimeSpan.FromDays(3))
+                return new CacheEntry<List<CategoryBrief>>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
             }
 
             timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<CategoryBrief>>(distinctCategoryList);
+            return new CacheEntry<List<CategoryBrief>>(null);
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return cats ?? new List<CategoryBrief>();
+        return data;
     }
 }

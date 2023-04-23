@@ -4,5 +4,5 @@ public interface ITagRepository : IRepository<Tag, Guid>
 {
     Task<Tag?> FindByIdAsync(Guid id);
     Task<Tag?> FindByNameAsync(string name);
-    Task<List<TagBrief>> GetHotTagBriefListAsync();
+    Task<List<TagBrief>?> GetHotTagBriefListAsync();
 }

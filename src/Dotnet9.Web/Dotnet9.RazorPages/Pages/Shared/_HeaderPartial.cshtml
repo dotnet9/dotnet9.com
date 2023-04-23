@@ -5,6 +5,15 @@
 <header>
     <div class="topbar">
         <a href="/" class="logo">@siteInfo?.AppName</a>
+        <span class="header-menu">
+            <a href="/donation" title="这是爱的力量">
+                <div class="badge">打赏<span class="count">爱心</span></div>
+            </a>
+        </span>
+        <span class="header-menu">
+            <a href="/about" title="关于">关于</a>
+        </span>
+
         <div class="search">
             <form action="/" method="get" name="searchform" id="searchform">
                 <input name="keywords" id="keywords" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">

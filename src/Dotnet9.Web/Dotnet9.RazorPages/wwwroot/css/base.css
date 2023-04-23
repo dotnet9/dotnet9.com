@@ -19,7 +19,62 @@ header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; po
 .topbar { width: 1280px; margin: auto; padding: 20px 0; overflow: hidden; }
 .logo { float: left; font-size: 24px; line-height: 44px; }
 .logo img { height: 53px; }
-.search { position: relative; overflow: hidden; width: 24%; height: 44px; background: #f0f0f0; border-radius: 20px; margin: 0 20px 0 30px; float: right; }
+
+.header-menu {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.header-menu a {
+    display: block;
+    padding: 5px 0px 10px 5px;
+    text-decoration: none;
+    color: #333;
+}
+
+.header-menu a:hover {
+    color: #888;
+}
+
+.badge {
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+    color: #333;
+}
+
+.count {
+    position: absolute;
+    top: -12px;
+    right: -10px;
+    padding: 3px 6px;
+    background-color: #ff8c00;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 60%;
+    box-shadow: 0 0 0 2px #f2f2f2;
+}
+
+.important-word {
+    padding: 3px 6px;
+    background-color: #ff8c00;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 30%;
+    box-shadow: 0 0 0 2px #f2f2f2;
+}
+
+.search {
+    position: relative;
+    overflow: hidden;
+    width: 24%;
+    height: 44px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    margin: 0 20px 0 30px;
+    float: right;
+}
 .search input.input_submit { border: 0; color: #fff; outline: none; position: absolute; top: -4px; right: -4px; width: 20%; display: block; font-size: 15px; height: 33px; line-height: 36px; text-indent: 1em; cursor: pointer; background: url(../images/search.png) no-repeat center #fff; background-size: 18px; margin: 10px; border-radius: 20px; }
 .search input.input_text { border: 0; line-height: 36px; height: 44px; font-size: 14px; width: 90%; outline: none; text-indent: 1em; background: no-repeat; }
 /*nav*/
@@ -35,7 +90,15 @@ nav ul li a#selected { background: #f3f3f3; color: #000; font-weight: 700; }
 nav ul li a:hover { background: #f3f3f3; }
 nav em { width: 100%; display: block; height: 20px }
 
-#mnavh { margin: 5px 0 0 0; width: 24px; height: 40px; float: right; text-align: center; padding: 0 10px; display: none }
+#mnavh {
+    margin: 5px 0 0 0;
+    width: 24px;
+    height: 40px;
+    float: right;
+    text-align: center;
+    padding: 0 10px;
+    display: none
+}
 .navicon { display: block; position: relative; width: 30px; height: 2px; background-color: #999; margin-top: 20px; }
 .navicon:before, .navicon:after { content: ''; display: block; width: 30px; height: 2px; position: absolute; background: #999; -webkit-transition-property: margin, -webkit-transform; transition-property: margin, -webkit-transform; transition-property: margin, transform; transition-property: margin, transform, -webkit-transform; -webkit-transition-duration: 300ms; transition-duration: 300ms; }
 .navicon:before { margin-top: -9px; }
@@ -69,6 +132,10 @@ nav em { width: 100%; display: block; height: 20px }
 .blog_list li p { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; line-height: 24px; margin: 12px 0 24px 0; font-size: 14px }
 .blog_list .info a { color: #6875b3; }
 .blog_list .info span { font-size: 14px; color: #2A2B31; margin-right: 15px; padding-left: 18px; }
+.blog_list .info span.info_user {
+    background: url(../images/ft_about.png) no-repeat left center;
+    background-size: 16px;
+}
 .blog_list .info span.info_class { background: url(../images/icon_class.png) no-repeat left center; background-size: 16px; }
 .blog_list .info span.info_time, .blog_list .info span.info_view { color: #d4d3d3; }
 .blog_list .info span.info_time { background: url(../images/icon_time.png) no-repeat left center; background-size: 16px; }
