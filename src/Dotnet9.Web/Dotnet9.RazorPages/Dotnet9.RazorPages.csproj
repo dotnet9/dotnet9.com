@@ -5,6 +5,7 @@
     <PackageReference Include="Masa.Utils.Extensions.DependencyInjection" Version="1.0.0-preview.31" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Dotnet9.WebAPI\src\Commons\Dotnet9.Commons\Dotnet9.Commons.csproj" />
     <ProjectReference Include="..\..\Dotnet9.WebAPI\src\Contracts\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
   </ItemGroup>
 </Project>
