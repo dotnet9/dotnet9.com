@@ -7,14 +7,26 @@
     <div class="box">
         <div class="copyright">
             <p>
-                Copyright © @siteInfo?.AppName &nbsp;
-                <a class="important-word" href="/donation" title="这是爱的力量">打赏</a>
-                <a href="/about">关于</a>
+                &nbsp; 2019~@DateTimeOffset.Now.Year &nbsp;&nbsp; © <a href="@siteInfo?.Domain">@siteInfo?.AppName</a> &nbsp;& @siteInfo?.Owner 版权所有
+                &nbsp;|&nbsp; <a class="important-word" href="/donation" title="这是爱的力量">打赏</a>
+                &nbsp;|&nbsp; <a href="/about">关于</a>
             </p>
-            <p>备案号 <a href="@siteInfo?.BeiAnUrl" target="_blank">@siteInfo?.BeiAn</a> ｜<a href="/" target="_blank">网站地图</a></p>
+
+            <p>
+                备案号 <a href="@siteInfo?.BeiAnUrl" target="_blank" rel="nofollow noopener">@siteInfo?.BeiAn</a>
+                ｜<a href="/sitemap.xml" target="_blank">网站地图</a>
+            </p>
+
+            <p>
+                &nbsp; 由 .NET 8.0 强力驱动
+                &nbsp; | <a href="@siteInfo?.Github" target="_blank">Github</a>
+                &nbsp; | 前台&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/razor-pages/?view=aspnetcore-8.0&tabs=visual-studio" target="_blank">Razor Pages</a>
+                &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0" target="_blank">.NET Web API</a>
+            </p>
         </div>
     </div>
 </footer>
+
 <div class="side_nav">
     <ul>
         <li>
