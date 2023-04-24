@@ -207,7 +207,7 @@ public partial class SeedService
             var tagIds = tags?.Where(x => blogSeed.Tags?.Contains(x.Name) ?? false).Select(x => x.Id).ToArray();
             var blog = _blogManager.CreateForSeed(blogSeed.Title, blogSeed.Slug,
                 blogSeed.Description, blogSeed.Cover, blogSeed.Content, blogSeed.Copyright,
-                blogSeed.Author, null, blogSeed.OriginalTitle, blogSeed.OriginalLink, blogSeed.Banner,
+                blogSeed.Author, null, blogSeed.OriginalTitle, blogSeed.OriginalLink, blogSeed.Draft, blogSeed.Banner,
                 true, albumIds,
                 categoryIds, tagIds, blogSeed.Date);
             allBlogs.Add(blog);

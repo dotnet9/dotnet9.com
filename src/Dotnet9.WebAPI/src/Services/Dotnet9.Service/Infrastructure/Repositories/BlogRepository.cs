@@ -73,7 +73,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(blog => blog.Banner);
+                .Where(blog => blog.Banner && !blog.Draft);
 
             var dataList = dataFromDb.Take(10)
                 .ToList()
@@ -120,8 +120,9 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(blog => isKeywordsEmpty || (EF.Functions.Like(blog.Title.ToLower(), $"%{keywords}%")
-                                                   || EF.Functions.Like(blog.Description.ToLower(), $"%{keywords}%")));
+                .Where(blog => !blog.Draft && (isKeywordsEmpty ||
+                                               (EF.Functions.Like(blog.Title.ToLower(), $"%{keywords}%")
+                                                || EF.Functions.Like(blog.Description.ToLower(), $"%{keywords}%"))));
 
             var total = await dataListFromDb.CountAsync();
             var dataList = dataListFromDb.Skip((page - 1) * pageSize)
@@ -180,7 +181,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(x => x.Albums != null && x.Albums.Any(y => y.AlbumId == album.Id));
+                .Where(x => !x.Draft && x.Albums != null && x.Albums.Any(y => y.AlbumId == album.Id));
             var total = await dataListFromDb.CountAsync();
             var dataList = dataListFromDb.Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList().Select(ToBlogBrief)
@@ -239,7 +240,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(x => x.Categories != null && x.Categories.Any(y => y.CategoryId == category.Id));
+                .Where(x => !x.Draft && x.Categories != null && x.Categories.Any(y => y.CategoryId == category.Id));
             var total = await dataListFromDb.CountAsync();
             var dataList = dataListFromDb.Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList().Select(ToBlogBrief)
@@ -299,7 +300,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(x => x.Tags != null && x.Tags.Any(y => y.TagId == tag.Id));
+                .Where(x => !x.Draft && x.Tags != null && x.Tags.Any(y => y.TagId == tag.Id));
             var total = await dataListFromDb.CountAsync();
             var dataList = dataListFromDb.Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList().Select(ToBlogBrief)
@@ -349,7 +350,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }
 
         return (from blogCategory in blog.Categories
-                join category in Context.Categories! on blogCategory.CategoryId equals category.Id
+                join category in Context.Categories on blogCategory.CategoryId equals category.Id
                 select new CategoryBrief(category.Name, category.Slug, category.Cover, category.Description, 0))
             .ToList();
     }

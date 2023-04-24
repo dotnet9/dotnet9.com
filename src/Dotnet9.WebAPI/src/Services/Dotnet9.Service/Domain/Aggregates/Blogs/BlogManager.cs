@@ -28,6 +28,7 @@ public class BlogManager : IScopedDependency
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool draft,
         bool banner,
         bool visible,
         Guid[]? albumIds,
@@ -52,7 +53,7 @@ public class BlogManager : IScopedDependency
         if (isNew)
         {
             oldData = new Blog(id.Value, title, slug, description, cover, content, copyrightType, original,
-                originalAvatar, originalTitle, originalLink, banner, visible);
+                originalAvatar, originalTitle, originalLink, draft, banner, visible);
         }
         else
         {
@@ -86,6 +87,7 @@ public class BlogManager : IScopedDependency
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool draft,
         bool banner,
         bool visible,
         Guid[]? albumIds,
@@ -95,7 +97,7 @@ public class BlogManager : IScopedDependency
     {
         Blog blog = new Blog(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
             original,
-            originalAvatar, originalTitle, originalLink, banner, visible);
+            originalAvatar, originalTitle, originalLink, draft, banner, visible);
         if (albumIds != null)
         {
             foreach (Guid albumId in albumIds)

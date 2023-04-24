@@ -18,6 +18,7 @@ public class Blog : FullAggregateRoot<Guid, int>
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
+        bool draft,
         bool banner,
         bool visible)
     {
@@ -32,6 +33,7 @@ public class Blog : FullAggregateRoot<Guid, int>
         ChangeOriginalAvatar(originalAvatar);
         ChangeOriginalTitle(originalTitle);
         ChangeOriginalLink(originalLink);
+        ChangeDraft(draft);
         ChangeBanner(banner);
         ChangeVisible(visible);
 
@@ -39,17 +41,18 @@ public class Blog : FullAggregateRoot<Guid, int>
         Categories = new List<BlogCategory>();
         Tags = new List<BlogTag>();
     }
-    
+
     public string Title { get; private set; } = null!;
     public string Slug { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public string Cover { get; private set; } = null!;
     public string Content { get; private set; } = null!;
     public CopyRightType CopyrightType { get; private set; }
-    public string? Original { get; set; }
-    public string? OriginalAvatar { get; set; }
-    public string? OriginalTitle { get; set; }
-    public string? OriginalLink { get; set; }
+    public string? Original { get; private set; }
+    public string? OriginalAvatar { get; private set; }
+    public string? OriginalTitle { get; private set; }
+    public string? OriginalLink { get; private set; }
+    public bool Draft { get; private set; }
     public bool Banner { get; private set; }
     public bool Visible { get; private set; }
     public int ViewCount { get; private set; }
@@ -125,6 +128,12 @@ public class Blog : FullAggregateRoot<Guid, int>
     {
         OriginalLink = Check.Length(originalLink, nameof(originalLink),
             BlogConsts.MaxOriginalLinkLength);
+        return this;
+    }
+
+    internal Blog ChangeDraft(bool draft)
+    {
+        Draft = draft;
         return this;
     }
 
