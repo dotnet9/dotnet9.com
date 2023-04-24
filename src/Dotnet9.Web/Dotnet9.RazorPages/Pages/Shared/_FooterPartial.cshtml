@@ -1,11 +1,25 @@
 ﻿@inject ISystemService SystemService
+@inject ICaller Caller
 @{
     var siteInfo = await SystemService.GetSiteInfoAsync();
+    var friendlyLinks = await Caller.GetAsync<PaginatedListBase<FriendlyLinkDto>>($"/api/links?page=1&pageSize=100");
 }
 
 <footer>
     <div class="box">
         <div class="copyright">
+            <p>
+                友情链接：
+                @if (friendlyLinks?.Result.Any() == true)
+                {
+                    @foreach (var link in friendlyLinks.Result)
+                    {
+                        <a href="@link.Url" title="@link.Description">@link.Name</a>
+                        <span>&nbsp;|&nbsp;</span>
+                    }
+                }
+            </p>
+
             <p>
                 &nbsp; 2019~@DateTimeOffset.Now.Year &nbsp;&nbsp; © <a href="@siteInfo?.Domain">@siteInfo?.AppName</a> &nbsp;& @siteInfo?.Owner 保留所有权利
                 &nbsp;|&nbsp; Powered & Developed by @siteInfo?.Owner

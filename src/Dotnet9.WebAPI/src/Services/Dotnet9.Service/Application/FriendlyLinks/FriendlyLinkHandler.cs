@@ -1,14 +1,15 @@
-﻿using Dotnet9.Contracts.Dto.FriendlyLinks;
-
-namespace Dotnet9.Service.Application.FriendlyLinks;
+﻿namespace Dotnet9.Service.Application.FriendlyLinks;
 
 public class FriendlyLinkHandler
 {
-    private readonly IFriendlyLinkRepository _friendlyLinkRepository;
+    private readonly IFriendlyLinkRepository _repository;
+    private readonly IMultilevelCacheClient _multilevelCacheClient;
 
-    public FriendlyLinkHandler(IFriendlyLinkRepository friendlyLinkRepository)
+    public FriendlyLinkHandler(IFriendlyLinkRepository repository,
+        IMultilevelCacheClient multilevelCacheClient)
     {
-        _friendlyLinkRepository = friendlyLinkRepository;
+        _repository = repository;
+        _multilevelCacheClient = multilevelCacheClient;
     }
 
     [EventHandler]
@@ -17,24 +18,18 @@ public class FriendlyLinkHandler
     {
         var catalogItem = new FriendlyLink(guidGenerator.NewId(), command.Index, command.Name, command.Url,
             command.Description);
-        await _friendlyLinkRepository.AddAsync(catalogItem, cancellationToken);
+        await _repository.AddAsync(catalogItem, cancellationToken);
     }
 
     [EventHandler]
     public async Task GetListAsync(FriendlyLinksQuery query, CancellationToken cancellationToken)
     {
-        Expression<Func<FriendlyLink, bool>> condition = friendlyLink => true;
-        condition = condition.And(!query.Name.IsNullOrWhiteSpace(),
-            friendlyLink => friendlyLink.Name.Contains(query.Name!));
-
-        var catalogItems = await _friendlyLinkRepository.GetPaginatedListAsync(condition,
-            new PaginatedOptions(query.Page, query.PageSize), cancellationToken);
-
+        var getLinkResult = await _repository.GetFriendlyLinkListAsync(query);
         query.Result = new PaginatedListBase<FriendlyLinkDto>()
         {
-            Total = catalogItems.Total,
-            TotalPages = catalogItems.TotalPages,
-            Result = catalogItems.Result.Map<List<FriendlyLinkDto>>()
+            Total = getLinkResult.Total,
+            TotalPages = getLinkResult.TotalPage,
+            Result = getLinkResult.Records
         };
     }
 }

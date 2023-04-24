@@ -1,6 +1,4 @@
-﻿using Dotnet9.Contracts.Dto.FriendlyLinks;
-
-namespace Dotnet9.Service.Application.FriendlyLinks.Queries;
+﻿namespace Dotnet9.Service.Application.FriendlyLinks.Queries;
 
 public record FriendlyLinksQuery : ItemsQueryBase<PaginatedListBase<FriendlyLinkDto>>
 {
