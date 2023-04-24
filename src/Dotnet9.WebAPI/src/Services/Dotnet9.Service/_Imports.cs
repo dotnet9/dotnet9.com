@@ -67,3 +67,5 @@ global using Dotnet9.Service.Application.Abouts.Queries;
 global using Dotnet9.Contracts.Dto.Abouts;
 global using Dotnet9.Contracts.Dto.Donations;
 global using Dotnet9.Service.Application.Donations.Queries;
+global using Dotnet9.Contracts.Dto.Privacies;
+global using Dotnet9.Service.Application.Privacies.Queries;

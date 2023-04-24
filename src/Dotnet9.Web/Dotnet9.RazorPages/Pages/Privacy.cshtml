@@ -1,8 +1,19 @@
 ﻿@page
-@model PrivacyModel
+@inject ISystemService SystemService
+@model Dotnet9.RazorPages.Pages.PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    var siteInfo = await SystemService.GetSiteInfoAsync();
+    ViewData[ViewDataKeys.Title] = $"隐私政策";
+    ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
+    ViewData[ViewDataKeys.Description] = siteInfo?.Description;
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@await Html.PartialAsync("_MarkdownHeader")
+
+<div id="view-content" class="gap-solid"></div>
+
+<div class="details-content">
+    @Html.Raw(Model.ContentHtml)
+</div>
+
+@await Html.PartialAsync("_MarkdownFooter")

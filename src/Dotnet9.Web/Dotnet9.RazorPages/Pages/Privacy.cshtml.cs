@@ -1,18 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿namespace Dotnet9.RazorPages.Pages;
 
-namespace Dotnet9.RazorPages.Pages;
 public class PrivacyModel : PageModel
 {
-    private readonly ILogger<PrivacyModel> _logger;
+    public string? ContentHtml { get; set; }
 
-    public PrivacyModel(ILogger<PrivacyModel> logger)
+    public async Task OnGet([FromServices] ICaller caller)
     {
-        _logger = logger;
-    }
-
-    public void OnGet()
-    {
+        var dataFromServer = await caller.GetAsync<PrivacyDto?>($"/api/privacies");
+        ContentHtml = dataFromServer?.Content.Convert2Html();
     }
 }
-

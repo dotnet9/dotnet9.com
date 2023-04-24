@@ -13,3 +13,4 @@ global using Dotnet9.Contracts.Dto.Donations;
 global using System.Net.Mime;
 global using System.Text;
 global using Dotnet9.Commons;
+global using Dotnet9.Contracts.Dto.Privacies;
