@@ -48,9 +48,9 @@ public class AlbumManager : IScopedDependency
         return oldAlbum;
     }
 
-    public Album CreateForSeed(int sequenceNumber, string name, string slug, string cover)
+    public Album CreateForSeed(int sequenceNumber, string name, string slug, string cover, string description)
     {
-        return new Album(Guid.NewGuid(), sequenceNumber, name, slug, cover, null, true);
+        return new Album(Guid.NewGuid(), sequenceNumber, name, slug, cover, description, true);
     }
 
     public async Task ChangeCategoryAsync(Album album, Guid[]? categoryIds)

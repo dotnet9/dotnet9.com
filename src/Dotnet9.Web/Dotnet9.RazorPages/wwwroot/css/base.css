@@ -266,3 +266,101 @@ span.con_link { background: url(../images/icon_view.png) no-repeat left center; 
     margin-top: 20px;
     padding: 0 30px;
 }
+
+ul.cloud {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    line-height: 2.5rem;
+}
+
+    ul.cloud a {
+        color: #a33;
+        display: block;
+        font-size: 1.5rem;
+        padding: 0.125rem 0.25rem;
+        text-decoration: none;
+        position: relative;
+    }
+
+ul.cloud a[data-weight="1"] {
+    --size: 1;
+}
+
+ul.cloud a[data-weight="2"] {
+    --size: 2;
+}
+
+ul.cloud a[data-weight="3"] {
+    --size: 3;
+}
+
+ul.cloud a[data-weight="4"] {
+    --size: 4;
+}
+
+ul.cloud a[data-weight="5"] {
+    --size: 5;
+}
+
+ul.cloud a[data-weight="6"] {
+    --size: 6;
+}
+
+ul.cloud a[data-weight="7"] {
+    --size: 7;
+}
+
+ul.cloud a[data-weight="8"] {
+    --size: 8;
+}
+
+ul.cloud a[data-weight="9"] {
+    --size: 9;
+}
+
+ul.cloud a {
+    --size: 4;
+    font-size: calc(var(--size) * 0.25rem + 0.5rem);
+    /* ... */
+}
+
+    ul.cloud li:nth-child(2n+1) a {
+        --color: #181;
+    }
+
+    ul.cloud li:nth-child(3n+1) a {
+        --color: #33a;
+    }
+
+    ul.cloud li:nth-child(4n+1) a {
+        --color: #c38;
+    }
+    ul.cloud a:focus {
+        outline: 1px dashed;
+    }
+    ul.cloud a::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 100%;
+        background: var(--color);
+        transform: translate(-50%, 0);
+        opacity: 0.15;
+        transition: width 0.25s;
+    }
+
+    ul.cloud a:focus::before,
+    ul.cloud a:hover::before {
+        width: 100%;
+    }
+@media (prefers-reduced-motion) {
+    ul.cloud * {
+        transition: none !important;
+    }
+}

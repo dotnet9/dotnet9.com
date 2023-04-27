@@ -182,7 +182,8 @@ public partial class SeedService
             return null;
         }
 
-        var albumsForDb = albumSeeds.Select(x => _albumManager.CreateForSeed(x.SequenceNumber, x.Name, x.Slug, x.Cover))
+        var albumsForDb = albumSeeds.Select(x =>
+                _albumManager.CreateForSeed(x.SequenceNumber, x.Name, x.Slug, x.Cover, x.Description))
             .ToList();
         await _dbContext.AddRangeAsync(albumsForDb);
         await _dbContext.SaveChangesAsync();
@@ -526,7 +527,7 @@ public class BlogSeedDto
     public bool Banner { get; set; }
 }
 
-public record AlbumSeedDto(int SequenceNumber, string Name, string Slug, string Cover);
+public record AlbumSeedDto(int SequenceNumber, string Name, string Slug, string Cover, string Description);
 
 public record CategorySeedDto(int SequenceNumber, string Name, string Slug, string Cover, CategorySeedDto[]? Children);
 

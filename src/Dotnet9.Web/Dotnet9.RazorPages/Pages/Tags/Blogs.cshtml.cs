@@ -1,6 +1,6 @@
 namespace Dotnet9.RazorPages.Pages.Tags
 {
-    public class IndexModel : PageModel
+    public class BlogModel : PageModel
     {
         [BindProperty(SupportsGet = true)] public string? Name { get; set; }
         [BindProperty(SupportsGet = true)] public int Current { get; set; } = 1;

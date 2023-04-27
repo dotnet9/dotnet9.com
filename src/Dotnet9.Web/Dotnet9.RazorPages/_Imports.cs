@@ -14,3 +14,5 @@ global using System.Net.Mime;
 global using System.Text;
 global using Dotnet9.Commons;
 global using Dotnet9.Contracts.Dto.Privacies;
+global using Dotnet9.Contracts.Dto.Albums;
+global using Dotnet9.RazorPages.Common;

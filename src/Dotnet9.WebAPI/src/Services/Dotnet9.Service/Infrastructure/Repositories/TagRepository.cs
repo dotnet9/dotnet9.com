@@ -20,19 +20,19 @@ public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagReposi
         return Context.Tags!.FirstOrDefaultAsync(x => x.Name == name);
     }
 
-    public async Task<List<TagBrief>?> GetHotTagBriefListAsync()
+    public async Task<List<TagBrief>?> GetTagBriefListAsync()
     {
         async Task<List<TagBrief>?> ReadDataFromDb()
         {
-            var randomData = await Context.Tags.Take(10).Select(tag =>
+            var datasFromDb = await Context.Tags.Select(tag =>
                     new TagBrief(tag.Name, Context.Set<BlogTag>().Count((blogTag => blogTag.TagId == tag.Id))))
                 .ToListAsync();
 
-            return randomData;
+            return datasFromDb;
         }
 
         TimeSpan? timeSpan = null;
-        const string key = $"{nameof(TagRepository)}_{nameof(GetHotTagBriefListAsync)}";
+        const string key = $"{nameof(TagRepository)}_{nameof(GetTagBriefListAsync)}";
 
         var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
