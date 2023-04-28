@@ -236,7 +236,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             }
 
             var query = Context.Blogs.AsQueryable();
-            var dataListFromDb = query.OrderBy(x => x.CreationTime)
+            var dataListFromDb = query.OrderByDescending(x => x.CreationTime)
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
@@ -296,7 +296,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             }
 
             var query = Context.Blogs.AsQueryable();
-            var dataListFromDb = query.OrderBy(x => x.CreationTime)
+            var dataListFromDb = query.OrderByDescending(x => x.CreationTime)
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
