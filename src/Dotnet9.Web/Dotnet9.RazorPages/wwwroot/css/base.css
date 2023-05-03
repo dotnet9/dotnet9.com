@@ -339,6 +339,9 @@ ul.cloud a {
     ul.cloud li:nth-child(4n+1) a {
         --color: #c38;
     }
+    ul.cloud a {
+        color: var(--color)
+    }
     ul.cloud a:focus {
         outline: 1px dashed;
     }
