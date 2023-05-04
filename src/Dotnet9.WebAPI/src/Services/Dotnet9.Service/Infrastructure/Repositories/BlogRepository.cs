@@ -105,6 +105,38 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return data;
     }
 
+    public async Task<List<BlogArchive>?> GetBlogArchiveListAsync()
+    {
+        async Task<List<BlogArchive>> ReadDataFromDb()
+        {
+            return await Context.Query<Blog>().Select(blog => new BlogArchive(blog.Title, blog.Slug, blog.CreationTime))
+                .ToListAsync();
+        }
+
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogArchiveListAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        {
+            var dataFromDb = await ReadDataFromDb();
+
+            if (dataFromDb.Any())
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<List<BlogArchive>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return new CacheEntry<List<BlogArchive>>(null);
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return data;
+    }
+
     public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
         SearchBlogsByKeywordsQuery request)
     {

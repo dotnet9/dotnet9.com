@@ -15,6 +15,15 @@ public class BlogService : ServiceBase
         return queryEvent.Result.Result;
     }
 
+    [RoutePattern(pattern: "/api/blogs/archives")]
+    public async Task<List<BlogArchive>> GetArchivesAsync(IEventBus eventBus,
+        CancellationToken cancellationToken)
+    {
+        var queryEvent = new BlogArchivesQuery();
+        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result.Result;
+    }
+
     [RoutePattern(pattern: "/api/blogs/{slug}")]
     public async Task<BlogDetails> GetBlogDetailsBySlugAsync(IEventBus eventBus,
         CancellationToken cancellationToken, [FromRoute] string slug)
