@@ -17,8 +17,29 @@ article { width: 1280px; margin: 120px auto 0; overflow: hidden }
 /*header*/
 header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; position: fixed; width: 100%; top: 0; background: #fff; z-index: 9999; }
 .topbar { width: 1280px; margin: auto; padding: 20px 0; overflow: hidden; }
-.logo { float: left; font-size: 24px; line-height: 44px; }
-.logo img { height: 53px; }
+.logo {
+    float: left;
+    line-height: 44px;
+    font-size: 50px; /*设置字体大小*/
+    font-weight: 800; /*设置字体粗细*/
+    color: orange;
+    text-shadow: 1px 0px #009916, 1px 2px #006615, 3px 1px #009916, 2px 3px #006615, 4px 2px #009916, 4px 4px #006615, 5px 3px #009916, 5px 5px #006615, 7px 4px #009916, 6px 6px #006615, 8px 5px #009916, 7px 7px #006615, 9px 6px #009916, 9px 8px #006615, 11px 7px #009916; /*设置文字阴影*/
+    -webkit-animation: shine 2.4s infinite; /*设置动画*/
+}
+
+@-webkit-keyframes shine { /*创建动画*/
+    0%,100% {
+        color: #fff;
+        text-shadow: 0 0 10px #0000FF,0 0 10px #0000FF;
+    }
+
+    50% {
+        text-shadow: 0 0 10px #0000FF,0 0 40px #0000FF;
+    }
+}
+.logo img {
+    height: 53px;
+}
 
 .header-menu {
     display: inline-block;
@@ -231,6 +252,36 @@ span.con_link { background: url(../images/icon_view.png) no-repeat left center; 
 .info-pre-next p { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
 .content a {color: #0782c1;}
 .con_tags { margin: 20px auto;}
+
+.share {
+    padding: 10px 0;
+    overflow: hidden;
+    display: table;
+    width: 100%;
+    margin: 20px auto;
+    line-height: 24px;
+    background: #f1f1f1;
+}
+
+    .share > div {
+        padding-right: 20px;
+        margin-top: 16px;
+        overflow: hidden;
+    }
+
+    .share img {
+        width: 100px;
+        float: left;
+        margin: 0 20px;
+    }
+
+    .share a {
+        color: #1487f4
+    }
+
+        .share a:hover {
+            text-decoration: underline
+        }
 
 .pagination {
     display: flex;
