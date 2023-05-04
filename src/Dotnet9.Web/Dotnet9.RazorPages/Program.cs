@@ -14,6 +14,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
 }
 
+app.UseStatusCodePagesWithReExecute("/Errors/{0}");
 app.UseStaticFiles();
 
 app.UseRouting();
