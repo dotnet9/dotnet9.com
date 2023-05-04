@@ -2,4 +2,5 @@
 
 public interface ITimelineRepository : IRepository<Timeline, Guid>
 {
+    Task<List<TimelineDto>?> GetListAsync();
 }
