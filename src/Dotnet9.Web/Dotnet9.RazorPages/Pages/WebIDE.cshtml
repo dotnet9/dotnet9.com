@@ -1,0 +1,9 @@
+﻿@page "/ide"
+
+@inject ISystemService SystemService
+@{
+    Layout = null;
+    ViewData[ViewDataKeys.Title] = "在线IDE";
+}
+
+<iframe style="width: 100%;height: 100%" src="https://webassembly.tokengo.top:8843/"></iframe>
