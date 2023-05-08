@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.31.0" />
-    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.1" />
-    <PackageReference Include="Masa.Utils.Extensions.DependencyInjection" Version="1.0.0-rc.1" />
+    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.1.1" />
+    <PackageReference Include="Masa.Utils.Extensions.DependencyInjection" Version="1.0.0-rc.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Dotnet9.WebAPI\src\Commons\Dotnet9.Commons\Dotnet9.Commons.csproj" />

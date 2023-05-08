@@ -142,7 +142,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     {
         async Task<GetBlogListByKeywordsResponse?> ReadDataFromDb()
         {
-            var keywords = request.Keywords;
+            var keywords = request.Keywords?.ToLower();
             var page = request.Page;
             var pageSize = request.PageSize;
 
