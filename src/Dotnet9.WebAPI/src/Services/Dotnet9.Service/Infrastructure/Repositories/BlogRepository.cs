@@ -37,7 +37,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)
                 .FirstOrDefaultAsync(x => x.Slug == slug);
-            return blog == null ? null : ToBlogDetails(blog);
+            return blog == null ? null : await ToBlogDetails(blog);
         }
 
         TimeSpan? timeSpan = null;
@@ -383,7 +383,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
         return (from blogCategory in blog.Categories
                 join category in Context.Categories on blogCategory.CategoryId equals category.Id
-                select new CategoryBrief(category.Name, category.Slug, category.Cover, category.Description, 0))
+                select new CategoryBrief(category.Name, category.Slug, category.Cover, category.Description, 0,
+                    category.Id))
             .ToList();
     }
 
@@ -422,14 +423,38 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             blog.CreationTime);
     }
 
-    private BlogDetails ToBlogDetails(Blog blog)
+    private async Task<BlogDetails> ToBlogDetails(Blog blog)
     {
+        var categories = (from blogPostCategory in blog.Categories
+            join category in Context.Categories! on blogPostCategory.CategoryId equals category.Id
+            select new CategoryBrief(category.Name, category.Slug, category.Cover,
+                category.Description, 0, category.Id)).ToList();
+        var preview = await Context.Blogs.AsNoTracking().OrderBy(x => x.CreationTime)
+            .Where(x => x.CreationTime < blog.CreationTime)
+            .Select(x => new BlogPostNear(x.Title, x.Slug, x.Cover, x.Description, x.CreationTime))
+            .FirstOrDefaultAsync();
+        var next = await Context.Blogs!.AsNoTracking().OrderBy(x => x.CreationTime)
+            .Where(x => x.CreationTime > blog.CreationTime)
+            .Select(x => new BlogPostNear(x.Title, x.Slug, x.Cover, x.Description, x.CreationTime))
+            .FirstOrDefaultAsync();
+        var near = await (from post in Context.Blogs!
+            join blogPostCategory in Context.Set<BlogCategory>() on post.Id equals blogPostCategory
+                .BlogId
+            where blogPostCategory.BlogId != blog.Id &&
+                  categories.Select(x => x.Id).Contains(blogPostCategory.CategoryId)
+            select new BlogPostNear(post.Title, post.Slug, post.Cover, post.Description,
+                post.CreationTime)).Take(5).ToListAsync();
+
         return new BlogDetails(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover, blog.Content,
             blog.CopyrightType.ToString(), blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
             blog.ViewCount,
+            blog.LikeCount,
+            preview,
+            next,
+            near,
             blog.CreationTime);
     }
 }

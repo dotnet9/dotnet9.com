@@ -1,8 +1,4 @@
-@charset "utf-8"; /**
- * base.css
- * https://www.ip3q.com/
- * Copyright 2023, design by yangqq
- */
+@charset "utf-8";
 * { margin: 0; padding: 0 }
 body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #000; background: #fff; line-height: 1.5; overflow-x: hidden; }
 img { border: 0; display: block }

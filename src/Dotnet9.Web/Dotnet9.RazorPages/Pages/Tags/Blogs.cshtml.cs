@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Dotnet9.RazorPages.Pages.Tags
 {
     public class BlogModel : PageModel
@@ -14,7 +16,7 @@ namespace Dotnet9.RazorPages.Pages.Tags
         public async Task OnGet([FromServices] ICaller caller)
         {
             RequestResponse = await caller.GetAsync<GetBlogListByTagNameResponse>(
-                $"/api/tags/{Name}/blogs?page={Current}&pageSize={PageSize}");
+                $"/api/tags/{WebUtility.UrlEncode(Name)}/blogs?page={Current}&pageSize={PageSize}");
 
             Blogs = RequestResponse?.Records;
             Pages = Enumerable.Range(1, RequestResponse!.TotalPage).ToArray();

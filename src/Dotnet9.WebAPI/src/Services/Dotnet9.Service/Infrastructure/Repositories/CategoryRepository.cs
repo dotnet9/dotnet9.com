@@ -32,7 +32,7 @@ public class CategoryRepository : Repository<Dotnet9DbContext, Category, Guid>, 
             var categories = await Context.Set<Category>()
                 .Select(cat => new CategoryBrief(cat.Name, cat.Slug, cat.Cover,
                     cat.Description,
-                    Context.Set<BlogCategory>().Count(d => d.CategoryId == cat.Id))).ToListAsync();
+                    Context.Set<BlogCategory>().Count(d => d.CategoryId == cat.Id), cat.Id)).ToListAsync();
             var distinctCategories = from cat in categories
                 where cat.BlogCount > 0
                 orderby cat.BlogCount descending

@@ -12,28 +12,28 @@
 
 <h1 class="detail-title">@Model.Blog?.Title</h1>
 
-<div class="detail-action">
+<div class="con_info">
     @if (Model.Blog?.Banner == true)
     {
-        <span class="ps_tj">推荐</span>
+        <span class="con_tag">推荐</span>
     }
     @if (Model.Blog?.CopyrightType == "Default")
     {
-        <span class="ps_yc">原创</span>
+        <span class="con_tag">原创</span>
     }
 
     <span>
-        <i class="iconfont icon-yonghu"></i>
+        <i class="con_writer"></i>
         &nbsp; @(Model.Blog?.Original ?? siteInfo?.Owner)
     </span>
 
-
     @if (Model.Blog?.Albums != null && Model.Blog?.Albums.Any() == true)
     {
-        <span>
-            <i class="iconfont icon-wenjianjia"></i>
+        <span class="con_class">
+            专辑：
             @foreach (var album in Model.Blog!.Albums)
             {
+                <span>|</span>
                 <a href="/albums/@album.Slug">@album.Name</a>
             }
         </span>
@@ -41,35 +41,24 @@
 
     @if (Model.Blog?.Categories != null && Model.Blog?.Categories.Any() == true)
     {
-        <span>
-            <i class="iconfont icon-wenjianjia"></i>
+        <span class="con_class">
+            分类：
             @foreach (var cat in Model.Blog!.Categories)
             {
+                <span>|</span>
+
                 <a href="/categories/@cat.Slug">@cat.Name</a>
             }
         </span>
     }
 
-
-    @if (Model.Blog?.Tags != null && Model.Blog?.Tags.Any() == true)
+    @if (Model.Blog?.OriginalLink?.IsNullOrWhiteSpace() == false)
     {
-        <span>
-            <i class="iconfont icon-wenjianjia"></i>
-            @foreach (var tag in Model.Blog!.Tags)
-            {
-                <a href="/tags/@tag.Name">@tag.Name</a>
-            }
-        </span>
+        <span class="con_befrom">来源：<a href="@Model.Blog?.OriginalLink">@Model.Blog?.Original</a></span>
     }
 
-    <span>
-        <i class="iconfont icon-riqi"></i>
-        &nbsp;@Model.Blog?.CreationTime.ToString("yyyy-MM-dd")
-    </span>
-    <span>
-        <i class="iconfont icon-yanjing"></i>
-        &nbsp;@Model.Blog?.ViewCount
-    </span>
+    <time>@Model.Blog?.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")</time>
+    <span class="con_link">@Model.Blog?.ViewCount</span>
 </div>
 
 <div id="view-content" class="gap-solid"></div>
@@ -77,6 +66,18 @@
 <div class="details-content">
     @Html.Raw(Model.BlogContentHtml)
 </div>
+
+
+@if (Model.Blog?.Tags != null && Model.Blog?.Tags.Any() == true)
+{
+    <div class="con_tags">
+
+        @foreach (var tag in Model.Blog!.Tags)
+        {
+            <a href="/tags/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name">@tag.Name</a>
+        }
+    </div>
+}
 
 <div class="share" id="down">
     <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
@@ -110,5 +111,35 @@
         }
     </div>
 </div>
+
+@if (Model.Blog?.Preview != null && Model.Blog?.Next != null)
+{
+    <div class="info-pre-next">
+        @if (Model.Blog?.Preview != null)
+        {
+            <p>上一篇：<a href="/@Model.Blog.Preview.CreationTime.ToString("yyyy/MM")/@Model.Blog.Preview.Slug">@Model.Blog.Preview.Title</a> </p>
+        }
+        @if (Model.Blog?.Next != null)
+        {
+            <p>下一篇：<a href="/@Model.Blog.Next.CreationTime.ToString("yyyy/MM")/@Model.Blog.Next.Slug">@Model.Blog.Next.Title</a> </p>
+        }
+    </div>
+}
+@if (Model.Blog?.Nears?.Any() == true)
+{
+    <div class="hot_news other_news">
+        <div class="side_title">
+            <h3>相关文章</h3>
+        </div>
+        <ul>
+            @foreach (var blog in Model.Blog.Nears)
+            {
+                <li>
+                    <a href="/@blog.CreationTime.ToString("yyyy/MM")/@blog.Slug"> @blog.Title </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
 
 @await Html.PartialAsync("_MarkdownFooter")

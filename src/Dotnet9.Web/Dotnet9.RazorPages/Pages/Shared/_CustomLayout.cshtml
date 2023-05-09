@@ -1,0 +1,20 @@
+﻿@inject ISystemService SystemService
+@{
+    var siteInfo = await SystemService.GetSiteInfoAsync();
+}
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData[ViewDataKeys.Title]-@siteInfo?.AppName</title>
+    <meta name="keywords" content="@ViewData[ViewDataKeys.Keywords]"/>
+    <meta name="description" content="@ViewData[ViewDataKeys.Description]"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @await RenderSectionAsync("Headers", false)
+</head>
+<body>
+
+@RenderBody()
+
+</body>
+</html>
