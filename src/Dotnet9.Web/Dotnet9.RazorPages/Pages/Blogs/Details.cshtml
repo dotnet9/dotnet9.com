@@ -17,9 +17,13 @@
     {
         <span class="con_tag">推荐</span>
     }
-    @if (Model.Blog?.CopyrightType == "Default")
+    @if (Model.Blog?.CopyrightType == CopyRightType.Default)
     {
         <span class="con_tag">原创</span>
+    }
+    else
+    {
+        <span>Model.Blog?.CopyrightType.GetDescription()</span>
     }
 
     <span>
@@ -87,10 +91,10 @@
         {
             @switch (Model.Blog.CopyrightType)
             {
-                case "Reprint":
+                case CopyRightType.Reprint:
                     <p>本文来自转载，如若二次转载请联系原作者。</p>
                     break;
-                case "Contribution":
+                case CopyRightType.Contribution:
                     <p>本文来自网友投稿，如若转载请联系原作者。</p>
                     break;
                 default:
@@ -98,7 +102,7 @@
                     break;
             }
             <p>原文作者：<a style="color: #262626;" href="#">@(Model.Blog.Original ?? @siteInfo?.Owner)</a></p>
-            @if (Model.Blog.CopyrightType == "Default")
+            @if (Model.Blog.CopyrightType == CopyRightType.Default)
             {
                 <p>原文标题：<a href="/@Model.Blog.CreationTime.ToString("yyyy/MM")/@Model.Blog.Slug">@Model.Blog.Title</a></p>
                 <p>原文链接：<a href="/@Model.Blog.CreationTime.ToString("yyyy/MM")/@Model.Blog.Slug">https://dotnet9.com/@($"{Model.Blog.CreationTime:yyyy/MM}/{Model.Blog.Slug}")</a></p>

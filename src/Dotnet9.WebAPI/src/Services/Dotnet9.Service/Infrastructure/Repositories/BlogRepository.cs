@@ -446,7 +446,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 post.CreationTime)).Take(5).ToListAsync();
 
         return new BlogDetails(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover, blog.Content,
-            blog.CopyrightType.ToString(), blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
+            blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),

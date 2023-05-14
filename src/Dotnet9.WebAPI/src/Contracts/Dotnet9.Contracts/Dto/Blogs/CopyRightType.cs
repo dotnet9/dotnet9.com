@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Service.Domain.Aggregates.Blogs;
+﻿namespace Dotnet9.Contracts.Dto.Blogs;
 
 public enum CopyRightType
 {
