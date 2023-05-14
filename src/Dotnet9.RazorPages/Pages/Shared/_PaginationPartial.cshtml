@@ -8,6 +8,7 @@
     var showNext = Model.Current != Model.PageCount;
     var nextPageIndex = Model.Current + 1;
     var showLast = showFirst;
+    var pages = PagerHelper.CalcPages(Model.PageCount, 10, Model.Current);
 }
 
 @if (Model.Blogs == null || Model.Blogs.Count <= 0)
@@ -34,7 +35,7 @@ else
                             {
                                 <span class="ps_yc">原创</span>
                             }
-                            else if(blog.CopyrightType==(int)CopyRightType.Reprint)
+                            else if (blog.CopyrightType == (int)CopyRightType.Reprint)
                             {
                                 <span class="ps_tougao">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
                             }
@@ -88,18 +89,18 @@ else
                 @if (showFirst)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)?current=1&pageSize=@Model.PageSize">⇤</a>
+                        <a href="@(Model.UrlPrefix)?current=1&pageSize=@Model.PageSize">◀</a>
                     </li>
                 }
                 @if (showPrev)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)?current=@prevPageIndex&pageSize=@Model.PageSize">←</a>
+                        <a href="@(Model.UrlPrefix)?current=@prevPageIndex&pageSize=@Model.PageSize">◁</a>
                     </li>
                 }
-                @if (Model.Pages?.Any() == true)
+                @if (pages.Any() == true)
                 {
-                    @foreach (var pageIndex in Model.Pages)
+                    @foreach (var pageIndex in pages)
                     {
                         <li class="pagination-btn" active="@(pageIndex == Model.Current)"
                             value="@pageIndex">
@@ -111,14 +112,14 @@ else
                 @if (showNext)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)?current=@nextPageIndex&pageSize=@Model.PageSize">→</a>
+                        <a href="@(Model.UrlPrefix)?current=@nextPageIndex&pageSize=@Model.PageSize">▷</a>
                     </li>
                 }
 
                 @if (showLast)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)?current=@Model.PageCount&pageSize=@Model.PageSize">⇥</a>
+                        <a href="@(Model.UrlPrefix)?current=@Model.PageCount&pageSize=@Model.PageSize">▶</a>
                     </li>
                 }
             </ul>
