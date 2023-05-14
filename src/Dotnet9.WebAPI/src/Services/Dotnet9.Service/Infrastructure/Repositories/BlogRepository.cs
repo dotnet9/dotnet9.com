@@ -28,7 +28,13 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .FirstOrDefaultAsync(x => x.Title == title);
     }
 
-    public async Task<BlogDetails?> FindBySlugAsync(string slug)
+
+    public Task<Blog?> FindBySlugAsync(string slug)
+    {
+        return Context.Blogs.AsTracking().FirstOrDefaultAsync(blog => blog.Slug == slug);
+    }
+
+    public async Task<BlogDetails?> FindDetailsBySlugAsync(string slug)
     {
         async Task<BlogDetails?> ReadDataFromDb()
         {
@@ -41,7 +47,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }
 
         TimeSpan? timeSpan = null;
-        var key = $"{nameof(BlogRepository)}_{nameof(FindBySlugAsync)}_{slug}";
+        var key = $"{nameof(BlogRepository)}_{nameof(FindDetailsBySlugAsync)}_{slug}";
 
         var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {

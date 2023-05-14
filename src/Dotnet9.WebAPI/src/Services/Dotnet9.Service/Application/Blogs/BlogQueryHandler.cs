@@ -1,10 +1,10 @@
 ﻿namespace Dotnet9.Service.Application.Blogs;
 
-public class BlogHandler
+public class BlogQueryHandler
 {
     private readonly IBlogRepository _repository;
 
-    public BlogHandler(IBlogRepository repository)
+    public BlogQueryHandler(IBlogRepository repository)
     {
         _repository = repository;
     }
@@ -81,7 +81,7 @@ public class BlogHandler
     [EventHandler]
     public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
     {
-        var blog = await _repository.FindBySlugAsync(query.Slug);
+        var blog = await _repository.FindDetailsBySlugAsync(query.Slug);
         if (blog != null)
         {
             query.Result = blog;

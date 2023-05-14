@@ -71,3 +71,4 @@ global using System.Reflection;
 global using System.Runtime.Serialization;
 global using System.Text.Json;
 global using Dotnet9.Service.Application.Timelines.Queries;
+global using Dotnet9.Service.Application.Blogs.Commands;

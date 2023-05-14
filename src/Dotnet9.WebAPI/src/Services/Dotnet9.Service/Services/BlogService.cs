@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Service.Services;
+﻿using Dotnet9.Service.Application.Blogs.Commands;
+
+namespace Dotnet9.Service.Services;
 
 public class BlogService : ServiceBase
 {
@@ -28,11 +30,15 @@ public class BlogService : ServiceBase
     public async Task<BlogDetails> GetBlogDetailsBySlugAsync(IEventBus eventBus,
         CancellationToken cancellationToken, [FromRoute] string slug)
     {
-        var queryEvent = new SearchBlogDetailsBySlugQuery()
+        var queryEvent = new SearchBlogDetailsBySlugQuery
         {
             Slug = slug
         };
         await eventBus.PublishAsync(queryEvent, cancellationToken);
+
+        var increaseViewCountCommand = new IncreaseBlogViewCountCommand { Slug = slug };
+        await eventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
+
         return queryEvent.Result;
     }
 
