@@ -30,9 +30,17 @@ else
                             {
                                 <span class="ps_tj">推荐</span>
                             }
-                            @if (blog.CopyrightType == "Default")
+                            @if (blog.CopyrightType == (int)CopyRightType.Default)
                             {
                                 <span class="ps_yc">原创</span>
+                            }
+                            else if(blog.CopyrightType==(int)CopyRightType.Reprint)
+                            {
+                                <span class="ps_tougao">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
+                            }
+                            else
+                            {
+                                <span class="ps_zhuanzai">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
                             }
                         </div>
                         <p>@blog.Description</p>

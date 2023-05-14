@@ -21,9 +21,13 @@
     {
         <span class="con_tag">原创</span>
     }
+    else if (Model.Blog?.CopyrightType == CopyRightType.Reprint)
+    {
+        <span class="con_tougao">@Model.Blog?.CopyrightType.GetDescription()</span>
+    }
     else
     {
-        <span>Model.Blog?.CopyrightType.GetDescription()</span>
+        <span class="con_zhuanzai">@Model.Blog?.CopyrightType.GetDescription()</span>
     }
 
     <span>

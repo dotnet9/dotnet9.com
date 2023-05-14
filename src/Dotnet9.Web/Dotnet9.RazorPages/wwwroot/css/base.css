@@ -146,6 +146,14 @@ nav em { width: 100%; display: block; height: 20px }
 .blog_list .ps span { padding: 4px 10px; border-radius: 2px; font-size: 14px; margin-left: 8px; display: inline-block; line-height: 16px; position: relative; bottom: 4px; vertical-align: middle; }
 .blog_list .ps .ps_tj { background-color: #eaf3ff; color: #328dff; }
 .blog_list .ps .ps_yc { background-color: #f2f8eb; color: #81bd3e; }
+    .blog_list .ps .ps_tougao {
+        background-color: #f2f8eb;
+        color: #FF8C00;
+    }
+    .blog_list .ps .ps_zhuanzai {
+        background-color: #f2f8eb;
+        color: #BDB76B;
+    }
 .blog_list li p { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; line-height: 24px; margin: 12px 0 24px 0; font-size: 14px }
 .blog_list .info a { color: #6875b3; }
 .blog_list .info span { font-size: 14px; color: #2A2B31; margin-right: 15px; padding-left: 18px; }
@@ -234,6 +242,22 @@ footer a { color: #777; }
 .con_tit { margin: 40px 0; }
 .con_tit h1 { font-size: 28px; color: #000; line-height: 40px; word-break: break-word; word-wrap: break-word; font-weight: 500; margin-bottom: 20px; }
 span.con_tag { color: #81bd3e; letter-spacing: .44px; background-color: #f2f8eb; padding: 4px 8px; border-radius: 2px; display: inline-block; }
+span.con_tougao {
+    color: #FF8C00;
+    letter-spacing: .44px;
+    background-color: #f2f8eb;
+    padding: 4px 8px;
+    border-radius: 2px;
+    display: inline-block;
+}
+span.con_zhuanzai {
+    color: #BDB76B;
+    letter-spacing: .44px;
+    background-color: #f2f8eb;
+    padding: 4px 8px;
+    border-radius: 2px;
+    display: inline-block;
+}
 span.con_writer { font-size: 14px; color: #999; letter-spacing: .11px; line-height: 24px; }
 .con_info span { margin-right: 10px; }
 .con_info { font-size: 14px; color: #999; }

@@ -415,7 +415,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     private BlogBrief ToBlogBrief(Blog blog)
     {
         return new BlogBrief(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover,
-            blog.CopyrightType.ToString(), blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
+            (int)blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
