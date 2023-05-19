@@ -2,16 +2,17 @@
 
 public class TimelineService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public TimelineService() : base("/api/timelines")
     {
     }
 
     [RoutePattern(pattern: "/api/timelines")]
-    public async Task<List<TimelineDto>> GetAllAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<List<TimelineDto>> GetAllAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new TimelineQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
 }

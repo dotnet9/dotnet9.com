@@ -3,13 +3,10 @@
 public class FriendlyLinkHandler
 {
     private readonly IFriendlyLinkRepository _repository;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
 
-    public FriendlyLinkHandler(IFriendlyLinkRepository repository,
-        IMultilevelCacheClient multilevelCacheClient)
+    public FriendlyLinkHandler(IFriendlyLinkRepository repository)
     {
         _repository = repository;
-        _multilevelCacheClient = multilevelCacheClient;
     }
 
     [EventHandler]

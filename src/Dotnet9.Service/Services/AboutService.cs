@@ -2,16 +2,17 @@
 
 public class AboutService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public AboutService() : base("/api/abouts")
     {
     }
 
     [RoutePattern(pattern: "/api/abouts/")]
-    public async Task<AboutDto?> GetAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<AboutDto?> GetAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new AboutQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result;
     }
 }

@@ -21,7 +21,7 @@ public class BlogCommandHandler
     {
         if (await _blogRepository.FindBySlugAsync(command.Slug) == null)
         {
-            throw new Exception("不存在的博文");
+            throw new Exception($"不存在的博文: {command.Slug}");
         }
     }
 

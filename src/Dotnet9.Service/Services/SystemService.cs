@@ -1,6 +1,4 @@
-﻿using Dotnet9.Service.Infrastructure.Repositories;
-
-namespace Dotnet9.Service.Services;
+﻿namespace Dotnet9.Service.Services;
 
 public class SystemService : ServiceBase
 {

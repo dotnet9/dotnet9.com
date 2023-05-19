@@ -2,15 +2,16 @@
 
 public class AlbumService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public AlbumService() : base("/api/albums")
     {
     }
 
-    public async Task<List<AlbumBrief>> GetBriefAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<List<AlbumBrief>> GetBriefAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new AlbumsQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
 }

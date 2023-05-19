@@ -2,16 +2,17 @@
 
 public class DonationService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public DonationService() : base("/api/donations")
     {
     }
 
     [RoutePattern(pattern: "/api/donations/")]
-    public async Task<DonationDto?> GetAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<DonationDto?> GetAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new DonationQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result;
     }
 }

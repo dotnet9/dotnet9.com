@@ -2,16 +2,17 @@
 
 public class TagService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public TagService() : base("/api/tags")
     {
     }
 
     [RoutePattern(pattern: "/api/tags")]
-    public async Task<List<TagBrief>> GetAllAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<List<TagBrief>> GetAllAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new TagQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
 }

@@ -1,49 +1,47 @@
-﻿using Dotnet9.Service.Application.Blogs.Commands;
-
-namespace Dotnet9.Service.Services;
+﻿namespace Dotnet9.Service.Services;
 
 public class BlogService : ServiceBase
 {
+    private IEventBus EventBus => GetRequiredService<IEventBus>();
+
     public BlogService() : base("/api/blogs")
     {
     }
 
     [RoutePattern(pattern: "/api/blogs/recommend")]
-    public async Task<List<BlogBrief>> GetRecommendAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<List<BlogBrief>> GetRecommendAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new BlogsQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
 
     [RoutePattern(pattern: "/api/blogs/archives")]
-    public async Task<List<BlogArchive>> GetArchivesAsync(IEventBus eventBus,
-        CancellationToken cancellationToken)
+    public async Task<List<BlogArchive>> GetArchivesAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new BlogArchivesQuery();
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
 
     [RoutePattern(pattern: "/api/blogs/{slug}")]
-    public async Task<BlogDetails> GetBlogDetailsBySlugAsync(IEventBus eventBus,
-        CancellationToken cancellationToken, [FromRoute] string slug)
+    public async Task<BlogDetails> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
+        [FromRoute] string slug)
     {
         var queryEvent = new SearchBlogDetailsBySlugQuery
         {
             Slug = slug
         };
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
 
-        var increaseViewCountCommand = new IncreaseBlogViewCountCommand { Slug = slug };
-        await eventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
+        var increaseViewCountCommand = new IncreaseBlogViewCountCommand(slug);
+        await EventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
 
         return queryEvent.Result;
     }
 
     [RoutePattern(pattern: "/api/blogs/")]
-    public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(IEventBus eventBus,
+    public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
         CancellationToken cancellationToken, [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
@@ -53,13 +51,13 @@ public class BlogService : ServiceBase
             PageSize = pageSize,
             Page = page
         };
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return new GetBlogListByKeywordsResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
 
     [RoutePattern(pattern: "/api/albums/{slug}/blogs")]
-    public async Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(IEventBus eventBus,
+    public async Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(
         CancellationToken cancellationToken, [FromRoute] string slug, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
@@ -69,13 +67,13 @@ public class BlogService : ServiceBase
             PageSize = pageSize,
             Page = page
         };
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return new GetBlogListByAlbumSlugResponse(true, queryEvent.AlbumName, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
 
     [RoutePattern(pattern: "/api/categories/{slug}/blogs")]
-    public async Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(IEventBus eventBus,
+    public async Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(
         CancellationToken cancellationToken, [FromRoute] string slug, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
@@ -85,14 +83,14 @@ public class BlogService : ServiceBase
             PageSize = pageSize,
             Page = page
         };
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return new GetBlogListByCategorySlugResponse(true, queryEvent.CategoryName, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
 
     [RoutePattern(pattern: "/api/tags/{name}/blogs")]
-    public async Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(IEventBus eventBus,
-        CancellationToken cancellationToken, [FromRoute] string name, [FromQuery] int pageSize = 10,
+    public async Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(CancellationToken cancellationToken,
+        [FromRoute] string name, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
         var queryEvent = new SearchBlogsByTagQuery()
@@ -101,7 +99,7 @@ public class BlogService : ServiceBase
             PageSize = pageSize,
             Page = page
         };
-        await eventBus.PublishAsync(queryEvent, cancellationToken);
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
         return new GetBlogListByTagNameResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
