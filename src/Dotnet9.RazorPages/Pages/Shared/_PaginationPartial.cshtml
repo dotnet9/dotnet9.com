@@ -1,7 +1,9 @@
-﻿@inject ISystemService SystemService
-@model Dotnet9.RazorPages.Common.PaginationModel
+﻿@model Dotnet9.RazorPages.Common.PaginationModel
+
+@inject ISystemClientService SystemClientService
+
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
+    var siteInfo = await SystemClientService.GetSiteInfoAsync();
     var showFirst = Model.PageCount > 1;
     var showPrev = Model.Current > 1;
     var prevPageIndex = Model.Current - 1;
@@ -51,7 +53,7 @@ else
                             @(blog?.Original ?? siteInfo?.Owner)
                         </span>
                         <span class="info_class">
-                            @if (blog.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
+                            @if (blog!.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
                             {
                                 @if (blog.Albums?.Any() == true)
                                 {

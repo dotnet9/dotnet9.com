@@ -1,9 +1,9 @@
-﻿@using Dotnet9.Contracts.Tags
-@using System.Net
-@inject ICaller Caller
+﻿@inject TagService TagService
+
 @{
-    var tags = await Caller.GetAsync<List<TagBrief>>("/api/tags/week");
+    var tags = await TagService.GetWeekTagsAsync();
 }
+
 <div class="tags">
     <div class="side_title">
         <a href="/">更多</a>

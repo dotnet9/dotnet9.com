@@ -3,10 +3,13 @@ namespace Dotnet9.RazorPages.Pages.Abouts;
 public class IndexModel : PageModel
 {
     public string? AboutContentHtml { get; set; }
+    public SiteInfoDto? SiteInfo { get; set; }
 
-    public async Task OnGet([FromServices] ICaller caller)
+    public async Task OnGet([FromServices] ISystemClientService systemClientService,
+        [FromServices] AboutService aboutService)
     {
-        var about = await caller.GetAsync<AboutDto?>($"/api/abouts");
+        SiteInfo = await systemClientService.GetSiteInfoAsync();
+        var about = await aboutService.GetAsync();
         AboutContentHtml = about?.Content.Convert2Html();
     }
 }

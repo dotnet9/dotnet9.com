@@ -1,11 +1,10 @@
 ﻿@page "/donation"
-@inject ISystemService SystemService
+
 @model Dotnet9.RazorPages.Pages.Donations.IndexModel
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
     ViewData[ViewDataKeys.Title] = $"打赏";
-    ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
-    ViewData[ViewDataKeys.Description] = siteInfo?.Description;
+    ViewData[ViewDataKeys.Keywords] = Model.SiteInfo?.Keywords;
+    ViewData[ViewDataKeys.Description] = Model.SiteInfo?.Description;
 }
 
 @await Html.PartialAsync("_MarkdownHeader")

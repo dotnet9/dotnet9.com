@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Contracts.Dto;
 
-public class SiteInfo
+public class SiteInfoDto
 {
     public string? AppName { get; set; }
     public string? Keywords { get; set; }

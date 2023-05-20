@@ -1,12 +1,14 @@
-﻿@inject ISystemService SystemService
+﻿@inject ISystemClientService SystemClientService
+
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
+    var siteInfo = await SystemClientService.GetSiteInfoAsync();
 }
+
 <!doctype html>
 <html lang="zh">
 <head>
     <meta charset="utf-8">
-    <title>@ViewData[ViewDataKeys.Title]-@siteInfo.AppName</title>
+    <title>@ViewData[ViewDataKeys.Title]-@siteInfo!.AppName</title>
     <meta name="keywords" content="@ViewData[ViewDataKeys.Keywords]"/>
     <meta name="description" content="@ViewData[ViewDataKeys.Description]"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

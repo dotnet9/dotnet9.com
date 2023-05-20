@@ -16,7 +16,7 @@ public class TagHandler
 
         query.Result = new PaginatedListBase<TagBrief>()
         {
-            Result = tags
+            Result = tags!
         };
     }
 }

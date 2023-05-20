@@ -1,11 +1,9 @@
 ﻿@page
-@inject ISystemService SystemService
 @model Dotnet9.RazorPages.Pages.PrivacyModel
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
     ViewData[ViewDataKeys.Title] = $"隐私政策";
-    ViewData[ViewDataKeys.Keywords] = siteInfo?.Keywords;
-    ViewData[ViewDataKeys.Description] = siteInfo?.Description;
+    ViewData[ViewDataKeys.Keywords] = Model.SiteInfo?.Keywords;
+    ViewData[ViewDataKeys.Description] = Model.SiteInfo?.Description;
 }
 
 @await Html.PartialAsync("_MarkdownHeader")

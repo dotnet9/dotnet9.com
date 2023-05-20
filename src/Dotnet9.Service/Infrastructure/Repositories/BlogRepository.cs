@@ -72,7 +72,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
     public async Task<List<BlogBrief>?> GetBlogBriefListAsync()
     {
-        async Task<List<BlogBrief>> ReadDataFromDb()
+        List<BlogBrief> ReadDataFromDb()
         {
             var query = Context.Query<Blog>();
             var dataFromDb = query
@@ -84,31 +84,32 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             var dataList = dataFromDb.Take(10)
                 .ToList()
                 .Select(ToBlogBrief).ToList();
+
             return dataList;
         }
 
         TimeSpan? timeSpan = null;
         const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListAsync)}";
 
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
         {
-            var dataFromDb = await ReadDataFromDb();
+            var dataFromDb = ReadDataFromDb();
 
             if (dataFromDb.Any())
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
+                });
             }
 
             timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<BlogBrief>>(null);
+            return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return data;
+        return await Task.FromResult(data);
     }
 
     public async Task<List<BlogArchive>?> GetBlogArchiveListAsync()

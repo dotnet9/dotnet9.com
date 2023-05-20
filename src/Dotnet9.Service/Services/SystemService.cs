@@ -14,9 +14,9 @@ public class SystemService : ServiceBase
         Options = options;
     }
 
-    public async Task<SiteInfo> GetAsync()
+    public async Task<SiteInfoDto> GetSiteAsync()
     {
-        return await Task.FromResult(Options.Value.Map<SiteInfo>());
+        return await Task.FromResult(Options.Value.Map<SiteInfoDto>());
     }
 
     public async Task<SitemapInfo?> GetSitemapAsync()

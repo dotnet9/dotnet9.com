@@ -26,7 +26,7 @@ public class FriendlyLinkHandler
         {
             Total = getLinkResult.Total,
             TotalPages = getLinkResult.TotalPage,
-            Result = getLinkResult.Records
+            Result = getLinkResult.Records!
         };
     }
 }

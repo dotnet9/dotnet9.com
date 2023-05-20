@@ -24,11 +24,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/admin': {
-        target: 'https://api/dotnet9.com', //'http://localhost:5005',
+        target: 'http://localhost:5005/api',
         changeOrigin: true
       },
       '/file': {
-        target: 'https://file.dotnet9.com',
+        target: 'http://localhost:5005/api',
         changeOrigin: true
       }
     }

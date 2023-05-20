@@ -90,6 +90,6 @@ public class FriendlyLinkRepository : Repository<Dotnet9DbContext, FriendlyLink,
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return data;
+        return data!;
     }
 }

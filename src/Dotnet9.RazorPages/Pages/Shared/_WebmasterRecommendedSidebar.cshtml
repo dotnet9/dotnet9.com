@@ -1,16 +1,17 @@
-﻿@inject ICaller Caller
+﻿@inject BlogService BlogService
 
 @{
-    var recommendBlogs = await Caller.GetAsync<List<BlogBrief>>("/api/blogs/recommend");
+    var blogs = await BlogService.GetRecommendAsync();
 }
+
 <div class="tj_news">
     <div class="side_title">
         <h3>站长推荐</h3>
     </div>
-    @if (recommendBlogs?.Any() == true)
+    @if (blogs?.Any() == true)
     {
         <ul>
-            @foreach (var blog in recommendBlogs)
+            @foreach (var blog in blogs)
             {
                 <li>
                     <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug">

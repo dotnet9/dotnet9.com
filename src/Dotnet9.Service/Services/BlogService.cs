@@ -40,7 +40,7 @@ public class BlogService : ServiceBase
         return queryEvent.Result;
     }
 
-    [RoutePattern(pattern: "/api/blogs/")]
+    [RoutePattern(pattern: "/api/blogs/search")]
     public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
         CancellationToken cancellationToken, [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)

@@ -1,6 +1,6 @@
 ﻿@page "/archives"
 
-@inject ICaller Caller
+@model Pages.Blogs.ArchivesModel
 @{
     var title = "归档";
     var description = @"博客文章归档的作用主要有以下几点：
@@ -10,14 +10,12 @@
 \r\n4. 方便管理：归档可以让博主更好地管理自己的文章，方便查找和修改。
 \r\n5. 展示博客历程：归档可以展示博客的历程和发展，让读者更好地了解博主的成长和思考。";
 
-    var archives = await Caller.GetAsync<List<BlogArchive>>(
-        $"/api/blogs/archives");
     ViewData[ViewDataKeys.Title] = title;
     ViewData[ViewDataKeys.Keywords] = title;
     ViewData[ViewDataKeys.Description] = description;
 }
 
-@if (archives?.Any() == true)
+@if (Model.BlogArchives?.Any() == true)
 {
 @section Headers{
     <link rel="stylesheet" href="/css/blogpost.css"/>
@@ -29,7 +27,7 @@
         <p>@description</p>
 
         <ul>
-            @foreach (var groupYear in archives.GroupBy(x => x.CreationTime.ToString("yyyy年")).OrderByDescending(x => x.Key))
+            @foreach (var groupYear in Model.BlogArchives.GroupBy(x => x.CreationTime.ToString("yyyy年")).OrderByDescending(x => x.Key))
             {
                 <li>
                     <h2>@groupYear.Key</h2>

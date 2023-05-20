@@ -16,7 +16,7 @@ public class CategoryHandler
 
         query.Result = new PaginatedListBase<CategoryBrief>()
         {
-            Result = categories
+            Result = categories!
         };
     }
 }

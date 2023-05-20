@@ -1,8 +1,9 @@
-﻿@inject ISystemService SystemService
-@inject ICaller Caller
+﻿@inject ISystemClientService SystemClientService
+@inject LinkService LinkService
+
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
-    var friendlyLinks = await Caller.GetAsync<PaginatedListBase<FriendlyLinkDto>>($"/api/links?page=1&pageSize=100");
+    var siteInfo = await SystemClientService.GetSiteInfoAsync();
+    var links = await LinkService.GetAllAsync();
 }
 
 <footer>
@@ -10,9 +11,9 @@
         <div class="copyright">
             <p>
                 友情链接：
-                @if (friendlyLinks?.Result.Any() == true)
+                @if (links?.Any() == true)
                 {
-                    @foreach (var link in friendlyLinks.Result)
+                    @foreach (var link in links)
                     {
                         <a href="@link.Url" title="@link.Description" target="_blank">@link.Name</a>
                         <span>&nbsp;|&nbsp;</span>

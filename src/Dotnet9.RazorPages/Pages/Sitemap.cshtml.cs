@@ -2,10 +2,11 @@ namespace Dotnet9.RazorPages.Pages;
 
 public class SitemapModel : PageModel
 {
-    public async Task<IActionResult> OnGet([FromServices] ICaller caller, [FromServices] ISystemService systemService)
+    public async Task<IActionResult> OnGet([FromServices] ISystemClientService systemClientService,
+        [FromServices] SystemService systemService1)
     {
-        var siteInfo = await systemService.GetSiteInfoAsync();
-        var dataFromServer = await caller.GetAsync<SitemapInfo?>($"/api/systems/sitemap");
+        var siteInfo = await systemClientService.GetSiteInfoAsync();
+        var dataFromServer = await systemService1.GetSiteMapAsync();
 
         byte[] GetSitemap()
         {

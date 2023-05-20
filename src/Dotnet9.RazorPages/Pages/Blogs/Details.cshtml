@@ -1,8 +1,7 @@
 ﻿@page "/{Year}/{Month}/{Slug}"
-@inject ISystemService SystemService
+
 @model Dotnet9.RazorPages.Pages.Blogs.DetailsModel
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
     ViewData[ViewDataKeys.Title] = $"文章-{Model.Blog?.Title}";
     ViewData[ViewDataKeys.Keywords] = Model.Slug;
     ViewData[ViewDataKeys.Description] = Model.Blog?.Description;
@@ -32,7 +31,7 @@
 
     <span>
         <i class="con_writer"></i>
-        &nbsp; @(Model.Blog?.Original ?? siteInfo?.Owner)
+        &nbsp; @(Model.Blog?.Original ?? Model.SiteInfo?.Owner)
     </span>
 
     @if (Model.Blog?.Albums != null && Model.Blog?.Albums.Any() == true)
@@ -105,7 +104,7 @@
                     <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
                     break;
             }
-            <p>原文作者：<a style="color: #262626;" href="#">@(Model.Blog.Original ?? @siteInfo?.Owner)</a></p>
+            <p>原文作者：<a style="color: #262626;" href="#">@(Model.Blog.Original ?? @Model.SiteInfo?.Owner)</a></p>
             @if (Model.Blog.CopyrightType == CopyRightType.Default)
             {
                 <p>原文标题：<a href="/@Model.Blog.CreationTime.ToString("yyyy/MM")/@Model.Blog.Slug">@Model.Blog.Title</a></p>

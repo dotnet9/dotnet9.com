@@ -16,7 +16,7 @@ public class TimelineHandler
 
         query.Result = new PaginatedListBase<TimelineDto>()
         {
-            Result = datas
+            Result = datas!
         };
     }
 }

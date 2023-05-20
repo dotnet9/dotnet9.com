@@ -8,11 +8,12 @@ public class FriendlyLinkService : ServiceBase
     {
     }
 
-    public async Task<PaginatedListBase<FriendlyLinkDto>> GetAsync(CancellationToken cancellationToken, string? name,
+    [RoutePattern("/api/links/list")]
+    public async Task<List<FriendlyLinkDto>> GetAsync(CancellationToken cancellationToken, string? name,
         int page = 1, int pageSize = 20)
     {
         var friendlyLinkQueryEvent = new FriendlyLinksQuery { Name = name, Page = page, PageSize = pageSize };
         await EventBus.PublishAsync(friendlyLinkQueryEvent, cancellationToken);
-        return friendlyLinkQueryEvent.Result;
+        return friendlyLinkQueryEvent.Result.Result;
     }
 }

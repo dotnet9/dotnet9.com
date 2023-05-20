@@ -1,7 +1,9 @@
-﻿@inject ISystemService SystemService
+﻿@inject ISystemClientService SystemClientService
+
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
+    var siteInfo = await SystemClientService.GetSiteInfoAsync();
 }
+
 <header>
     <div class="topbar">
         <a href="/" class="logo">@siteInfo?.AppName</a>

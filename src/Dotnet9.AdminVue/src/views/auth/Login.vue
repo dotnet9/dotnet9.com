@@ -12,7 +12,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button native-type="submit" @click="submit()" type="primary" class="login-btn">
-                        登录
+                        登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
                     </el-button>
                 </el-form-item>
             </el-form>

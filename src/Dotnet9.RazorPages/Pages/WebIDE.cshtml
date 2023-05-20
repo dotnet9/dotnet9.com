@@ -1,8 +1,8 @@
 ﻿@page "/ide"
 
-@inject ISystemService SystemService
+@inject ISystemClientService SystemClientService
 @{
-    var siteInfo = await SystemService.GetSiteInfoAsync();
+    var siteInfo = await SystemClientService.GetSiteInfoAsync();
     Layout = "Shared/_CustomLayout";
     ViewData[ViewDataKeys.Title] = "在线IDE";
 }

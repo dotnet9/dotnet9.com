@@ -2,11 +2,10 @@ namespace Dotnet9.RazorPages.Pages;
 
 public class RssModel : PageModel
 {
-    public async Task<IActionResult> OnGet([FromServices] ICaller caller,
-        [FromServices] ISystemService systemService)
+    public async Task<IActionResult> OnGet([FromServices]ISystemClientService systemClientService, [FromServices] BlogService blogService)
     {
-        var siteInfo = await systemService.GetSiteInfoAsync();
-        var getBlogResult = await caller.GetAsync<GetBlogListByKeywordsResponse>("/api/blogs");
+        var siteInfo = await systemClientService.GetSiteInfoAsync();
+        var getBlogResult = await blogService.GetBlogBriefListByKeywordsAsync(null);
 
         string GetRss()
         {
@@ -16,7 +15,7 @@ public class RssModel : PageModel
                 "<rss xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" version=\"2.0\">");
             sb.Append("<channel>");
             sb.Append(
-                $"<atom:link rel=\"self\" type=\"application/rss+xml\" href=\"{siteInfo.Domain}/rss\"/>");
+                $"<atom:link rel=\"self\" type=\"application/rss+xml\" href=\"{siteInfo!.Domain}/rss\"/>");
             sb.Append($"<title>{siteInfo.AppName}_{siteInfo.Subheading}</title>");
             sb.Append($"<link>{siteInfo.Domain}/rss</link>");
             sb.Append($"<description>{siteInfo.Description}</description>");

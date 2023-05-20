@@ -16,7 +16,7 @@ public class BlogQueryHandler
 
         query.Result = new PaginatedListBase<BlogBrief>()
         {
-            Result = dataList
+            Result = dataList!
         };
     }
 
@@ -28,7 +28,7 @@ public class BlogQueryHandler
 
         query.Result = new PaginatedListBase<BlogArchive>()
         {
-            Result = dataList
+            Result = dataList!
         };
     }
 
@@ -38,7 +38,7 @@ public class BlogQueryHandler
         var blog = await _repository.GetBlogBriefListByKeywordsAsync(query);
         query.Result = new PaginatedListBase<BlogBrief>()
         {
-            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records
+            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records!
         };
     }
 
@@ -49,7 +49,7 @@ public class BlogQueryHandler
         query.AlbumName = blog.AlbumName;
         query.Result = new PaginatedListBase<BlogBrief>()
         {
-            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records
+            Total = blog.Total, TotalPages = blog.TotalPage, Result = blog.Records!
         };
     }
 
@@ -62,7 +62,7 @@ public class BlogQueryHandler
         {
             Total = blog.Total,
             TotalPages = blog.TotalPage,
-            Result = blog.Records
+            Result = blog.Records!
         };
     }
 
@@ -74,7 +74,7 @@ public class BlogQueryHandler
         {
             Total = blog.Total,
             TotalPages = blog.TotalPage,
-            Result = blog.Records
+            Result = blog.Records!
         };
     }
 

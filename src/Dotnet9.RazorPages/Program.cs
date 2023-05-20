@@ -1,11 +1,21 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddCaller(callerBuilder =>
-{
-    callerBuilder.UseHttpClient(clientConfigure => clientConfigure.BaseAddress = "http://localhost:5005");
-});
-builder.Services.AddSingleton<ISystemService, SystemService>();
+
+var config = builder.Configuration;
+var configOption = new ServiceCallerOptions();
+var callerSection = config.GetSection("ServiceCaller");
+builder.Services.Configure<ServiceCallerOptions>(callerSection);
+callerSection.Bind(configOption);
+
+builder.Services.AddDotnet9ApiGateways();
+
+//builder.Services.AddCaller(callerBuilder =>
+//{
+//    callerBuilder.UseHttpClient(clientConfigure => clientConfigure.BaseAddress = configOption.BaseAddress);
+//});
+
+builder.Services.AddSingleton<ISystemClientService, SystemClientService>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 var app = builder.Build();
 
