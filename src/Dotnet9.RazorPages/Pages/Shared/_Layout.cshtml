@@ -1,7 +1,10 @@
 ﻿@inject ISystemClientService SystemClientService
+@inject BlogService BlogService
 
 @{
     var siteInfo = await SystemClientService.GetSiteInfoAsync();
+    var recommendBlogs = await BlogService.GetRecommendAsync();
+    var historyHotBlog = await BlogService.GetHistoryHotAsync();
 }
 
 <!doctype html>
@@ -31,7 +34,14 @@
         @RenderBody()
     </div>
     <div class="box_r">
-        @await Html.PartialAsync("_PopularWeekBlogSidebar")
+        @if (recommendBlogs?.Any() == true)
+        {
+            @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("站长推荐", recommendBlogs))
+        }
+        @if (historyHotBlog?.Any() == true)
+        {
+            @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("最热排行", historyHotBlog))
+        }
     </div>
 </article>
 @await Html.PartialAsync("_FooterPartial")

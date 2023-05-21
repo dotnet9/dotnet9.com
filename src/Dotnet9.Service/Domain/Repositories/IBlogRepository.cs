@@ -6,7 +6,9 @@ public interface IBlogRepository : IRepository<Blog, Guid>
     Task<Blog?> FindByTitleAsync(string name);
     Task<Blog?> FindBySlugAsync(string slug);
     Task<BlogDetails?> FindDetailsBySlugAsync(string slug);
-    Task<List<BlogBrief>?> GetBlogBriefListAsync();
+    Task<List<BlogBrief>?> GetBlogBriefListOfRecommendAsync();
+    Task<List<BlogBrief>?> GetBlogBriefListOfWeekHotAsync();
+    Task<List<BlogBrief>?> GetBlogBriefListOfHistoryHotAsync();
     Task<List<BlogArchive>?> GetBlogArchiveListAsync();
     Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(SearchBlogsByKeywordsQuery query);
     Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery query);

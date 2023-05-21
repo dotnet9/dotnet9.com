@@ -35,6 +35,11 @@ public class BlogService : HttpClientCallerBase
         return await Caller.GetAsync<List<BlogBrief>>("recommend");
     }
 
+    public async Task<List<BlogBrief>?> GetHistoryHotAsync()
+    {
+        return await Caller.GetAsync<List<BlogBrief>>("historyhot");
+    }
+
     public async Task<BlogDetails?> GetBlogDetailsBySlugAsync(string slug)
     {
         return await Caller.GetAsync<BlogDetails>(slug);

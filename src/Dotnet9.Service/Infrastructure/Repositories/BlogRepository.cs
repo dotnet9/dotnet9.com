@@ -70,7 +70,25 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return data;
     }
 
-    public async Task<List<BlogBrief>?> GetBlogBriefListAsync()
+    public async Task<List<BlogBrief>?> GetBlogBriefListOfRecommendAsync()
+    {
+        var query = Context.Query<Blog>();
+        var dataFromDb = query
+            .Include(x => x.Categories)
+            .Include(x => x.Albums)
+            .Include(x => x.Tags)
+            .Where(blog => blog.Banner && !blog.Draft)
+            .OrderByDescending(blog => blog.ViewCount);
+
+        var dataList = dataFromDb.Take(30).AsEnumerable().OrderBy(_ => Guid.NewGuid())
+            .ToList().Take(6)
+            .Select(ToBlogBrief).ToList();
+
+        return await Task.FromResult(dataList);
+    }
+
+
+    public async Task<List<BlogBrief>?> GetBlogBriefListOfWeekHotAsync()
     {
         List<BlogBrief> ReadDataFromDb()
         {
@@ -79,9 +97,10 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Include(x => x.Categories)
                 .Include(x => x.Albums)
                 .Include(x => x.Tags)
-                .Where(blog => blog.Banner && !blog.Draft);
+                .Where(blog => blog.Banner && !blog.Draft)
+                .OrderByDescending(blog => blog.ViewCount);
 
-            var dataList = dataFromDb.Take(10)
+            var dataList = dataFromDb.Take(6)
                 .ToList()
                 .Select(ToBlogBrief).ToList();
 
@@ -89,7 +108,51 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }
 
         TimeSpan? timeSpan = null;
-        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListAsync)}";
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListOfWeekHotAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = ReadDataFromDb();
+
+            if (dataFromDb.Any())
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return await Task.FromResult(data);
+    }
+
+
+    public async Task<List<BlogBrief>?> GetBlogBriefListOfHistoryHotAsync()
+    {
+        List<BlogBrief> ReadDataFromDb()
+        {
+            var query = Context.Query<Blog>();
+            var dataFromDb = query
+                .Include(x => x.Categories)
+                .Include(x => x.Albums)
+                .Include(x => x.Tags)
+                .Where(blog => !blog.Draft)
+                .OrderByDescending(blog => blog.ViewCount);
+
+            var dataList = dataFromDb.Take(6)
+                .ToList()
+                .Select(ToBlogBrief).ToList();
+
+            return dataList;
+        }
+
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListOfHistoryHotAsync)}";
 
         var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
         {

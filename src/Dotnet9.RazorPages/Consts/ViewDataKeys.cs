@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.RazorPages.Common;
+﻿namespace Dotnet9.RazorPages.Consts;
 
 public class ViewDataKeys
 {

@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Service.Infrastructure;
+﻿using Npgsql;
+
+namespace Dotnet9.Service.Infrastructure;
 
 public class Dotnet9DbContext : MasaDbContext<Dotnet9DbContext>
 {

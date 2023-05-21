@@ -11,7 +11,15 @@ public class BlogService : ServiceBase
     [RoutePattern(pattern: "/api/blogs/recommend")]
     public async Task<List<BlogBrief>> GetRecommendAsync(CancellationToken cancellationToken)
     {
-        var queryEvent = new BlogsQuery();
+        var queryEvent = new GetBlogsOfRecommendQuery();
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result.Result;
+    }
+
+    [RoutePattern(pattern: "/api/blogs/historyhot")]
+    public async Task<List<BlogBrief>> GetHistoryHotAsync(CancellationToken cancellationToken)
+    {
+        var queryEvent = new GetBlogsOfHistoryHotQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }

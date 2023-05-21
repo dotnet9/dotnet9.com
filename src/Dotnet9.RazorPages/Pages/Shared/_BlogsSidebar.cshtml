@@ -1,0 +1,18 @@
+﻿@model BlogsSidebarModel
+
+<div class="hot_news">
+    <div class="side_title">
+        <h3>@Model.GroupName</h3>
+    </div>
+
+    <ul>
+        @foreach (var blog in @Model.Blogs)
+        {
+            <li>
+                <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug">
+                    <p>@blog.Title</p>
+                </a><span>@blog.ViewCount</span>
+            </li>
+        }
+    </ul>
+</div>

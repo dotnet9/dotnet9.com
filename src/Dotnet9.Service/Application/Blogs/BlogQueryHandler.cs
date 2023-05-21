@@ -10,9 +10,20 @@ public class BlogQueryHandler
     }
 
     [EventHandler]
-    public async Task GetListAsync(BlogsQuery query, CancellationToken cancellationToken)
+    public async Task GetListOfRecommendAsync(GetBlogsOfRecommendQuery query, CancellationToken cancellationToken)
     {
-        var dataList = await _repository.GetBlogBriefListAsync();
+        var dataList = await _repository.GetBlogBriefListOfRecommendAsync();
+
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Result = dataList!
+        };
+    }
+
+    [EventHandler]
+    public async Task GetListOfHistoryHotAsync(GetBlogsOfHistoryHotQuery query, CancellationToken cancellationToken)
+    {
+        var dataList = await _repository.GetBlogBriefListOfHistoryHotAsync();
 
         query.Result = new PaginatedListBase<BlogBrief>()
         {
