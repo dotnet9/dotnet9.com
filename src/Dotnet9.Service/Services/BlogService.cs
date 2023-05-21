@@ -8,10 +8,26 @@ public class BlogService : ServiceBase
     {
     }
 
+    [RoutePattern(pattern: "/api/blogs/topkeywords")]
+    public async Task<List<BlogSearchCountDto>> GetTopSearchKeywordsAsync(CancellationToken cancellationToken)
+    {
+        var queryEvent = new TopSearchKeywordsQuery();
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result;
+    }
+
     [RoutePattern(pattern: "/api/blogs/recommend")]
     public async Task<List<BlogBrief>> GetRecommendAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new GetBlogsOfRecommendQuery();
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result.Result;
+    }
+
+    [RoutePattern(pattern: "/api/blogs/weekhot")]
+    public async Task<List<BlogBrief>> GetWeekHotAsync(CancellationToken cancellationToken)
+    {
+        var queryEvent = new GetBlogsOfWeekHotQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
         return queryEvent.Result.Result;
     }
@@ -34,7 +50,7 @@ public class BlogService : ServiceBase
 
     [RoutePattern(pattern: "/api/blogs/{slug}")]
     public async Task<BlogDetails> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
-        [FromRoute] string slug)
+        [FromRoute] string slug, IHttpContextAccessor httpContextAccessor)
     {
         var queryEvent = new SearchBlogDetailsBySlugQuery
         {
@@ -45,12 +61,25 @@ public class BlogService : ServiceBase
         var increaseViewCountCommand = new IncreaseBlogViewCountCommand(slug);
         await EventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
 
+
+        var context = httpContextAccessor.HttpContext!;
+        var ip = context.Connection.RemoteIpAddress?.MapToIPv4().ToString();
+        if (context.Request.Headers!.ContainsKey("X-Forwarded-For"))
+        {
+            ip = context.Request.Headers["X-Forwarded-For"].ToString();
+        }
+
+        var recordViewCountCommand = new CreateBlogViewCountCommand(slug,
+            ip!, DateTime.Now);
+        await EventBus.PublishAsync(recordViewCountCommand, cancellationToken);
+
         return queryEvent.Result;
     }
 
     [RoutePattern(pattern: "/api/blogs/search")]
     public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
-        CancellationToken cancellationToken, [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken, IHttpContextAccessor httpContextAccessor,
+        [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
         var queryEvent = new SearchBlogsByKeywordsQuery()
@@ -60,6 +89,21 @@ public class BlogService : ServiceBase
             Page = page
         };
         await EventBus.PublishAsync(queryEvent, cancellationToken);
+
+        if (!keywords.IsNullOrWhiteSpace())
+        {
+            var context = httpContextAccessor.HttpContext!;
+            var ip = context.Connection.RemoteIpAddress?.MapToIPv4().ToString();
+            if (context.Request.Headers!.ContainsKey("X-Forwarded-For"))
+            {
+                ip = context.Request.Headers["X-Forwarded-For"].ToString();
+            }
+
+            var recordSearchCountCommand = new CreateBlogSearchCountCommand(keywords,
+                ip!, DateTime.Now);
+            await EventBus.PublishAsync(recordSearchCountCommand, cancellationToken);
+        }
+
         return new GetBlogListByKeywordsResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }

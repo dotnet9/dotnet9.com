@@ -1,6 +1,4 @@
-﻿using Dotnet9.Service.Infrastructure.Repositories;
-
-namespace Dotnet9.Service.Application.Blogs;
+﻿namespace Dotnet9.Service.Application.Blogs;
 
 public class BlogCommandHandler
 {
@@ -39,7 +37,20 @@ public class BlogCommandHandler
         var blog = await _blogRepository.FindBySlugAsync(command.Slug);
         blog!.IncreaseViewCount();
         await _blogRepository.UpdateAsync(blog, cancellationToken);
-        
-        await _multilevelCacheClient.RemoveAsync<BlogDetails>($"{nameof(BlogRepository)}_{nameof(BlogRepository.FindDetailsBySlugAsync)}_{command.Slug}");
+
+        await _multilevelCacheClient.RemoveAsync<BlogDetails>(
+            $"{nameof(BlogRepository)}_{nameof(BlogRepository.FindDetailsBySlugAsync)}_{command.Slug}");
+    }
+
+    [EventHandler(1)]
+    public async Task CreateBlogViewCount(CreateBlogViewCountCommand command, CancellationToken cancellationToken)
+    {
+        await _blogRepository.CreateBlogViewCount(command.Slug, command.Ip, command.CreationTime);
+    }
+
+    [EventHandler(1)]
+    public async Task CreateBlogSearchCount(CreateBlogSearchCountCommand command, CancellationToken cancellationToken)
+    {
+        await _blogRepository.CreateBlogSearchCount(command.Keywords, command.Ip, command.CreationTime);
     }
 }

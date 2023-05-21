@@ -10,6 +10,7 @@ builder.Services.AddMasaConfiguration(new List<Assembly>()
 {
     typeof(SiteOptions).Assembly
 });
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDaprClient();
 builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

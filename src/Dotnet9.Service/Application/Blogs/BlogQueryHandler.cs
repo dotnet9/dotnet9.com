@@ -31,6 +31,17 @@ public class BlogQueryHandler
         };
     }
 
+    [EventHandler]
+    public async Task GetListOfWeekHotAsync(GetBlogsOfWeekHotQuery query, CancellationToken cancellationToken)
+    {
+        var dataList = await _repository.GetBlogBriefListOfWeekHotAsync();
+
+        query.Result = new PaginatedListBase<BlogBrief>()
+        {
+            Result = dataList!
+        };
+    }
+
 
     [EventHandler]
     public async Task GetListArchiveAsync(BlogArchivesQuery query, CancellationToken cancellationToken)
@@ -97,5 +108,12 @@ public class BlogQueryHandler
         {
             query.Result = blog;
         }
+    }
+
+    [EventHandler]
+    public async Task GetTopSearchKeywordsAsync(TopSearchKeywordsQuery query, CancellationToken cancellationToken)
+    {
+        var keywords = await _repository.GetTopSearchKeywordsAsync();
+        query.Result = keywords!;
     }
 }

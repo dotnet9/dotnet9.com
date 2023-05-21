@@ -18,9 +18,13 @@ public class IndexModel : PageModel
     {
         SiteInfo = await systemClientService.GetSiteInfoAsync();
         UrlSuffix = "";
+        if ("请输入关键字词" == Keywords)
+        {
+            Keywords = string.Empty;
+        }
         if (!Keywords.IsNullOrWhiteSpace())
         {
-            UrlSuffix += $"&keywords={WebUtility.UrlEncode(Keywords)}";
+            UrlSuffix += $"?keywords={WebUtility.UrlEncode(Keywords)}";
         }
 
         RequestResponse = await blogService.GetBlogBriefListByKeywordsAsync(Keywords, PageSize, Current);

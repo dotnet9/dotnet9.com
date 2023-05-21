@@ -10,6 +10,18 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         _multilevelCacheClient = multilevelCacheClient;
     }
 
+    public async Task CreateBlogViewCount(string slug, string ip, DateTime creationTime)
+    {
+        await Context.BlogsViewCounts.AddAsync(new BlogViewCount(slug, ip, creationTime));
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task CreateBlogSearchCount(string keywords, string ip, DateTime creationTime)
+    {
+        await Context.BlogsSearchCounts.AddAsync(new BlogSearchCount(keywords, ip, creationTime));
+        await Context.SaveChangesAsync();
+    }
+
     public Task<Blog?> FindByIdAsync(Guid id)
     {
         return Context.Blogs
@@ -38,7 +50,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     {
         async Task<BlogDetails?> ReadDataFromDb()
         {
-            var blog = await Context.Blogs
+            var blog = await Context.Blogs.AsNoTracking()
                 .Include(blogPost => blogPost.Albums)
                 .Include(blogPost => blogPost.Categories)
                 .Include(blogPost => blogPost.Tags)
@@ -72,25 +84,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
     public async Task<List<BlogBrief>?> GetBlogBriefListOfRecommendAsync()
     {
-        var query = Context.Query<Blog>();
-        var dataFromDb = query
-            .Include(x => x.Categories)
-            .Include(x => x.Albums)
-            .Include(x => x.Tags)
-            .Where(blog => blog.Banner && !blog.Draft)
-            .OrderByDescending(blog => blog.ViewCount);
-
-        var dataList = dataFromDb.Take(30).AsEnumerable().OrderBy(_ => Guid.NewGuid())
-            .ToList().Take(6)
-            .Select(ToBlogBrief).ToList();
-
-        return await Task.FromResult(dataList);
-    }
-
-
-    public async Task<List<BlogBrief>?> GetBlogBriefListOfWeekHotAsync()
-    {
-        List<BlogBrief> ReadDataFromDb()
+        async Task<List<BlogBrief>?> ReadDataFromDbAsync()
         {
             var query = Context.Query<Blog>();
             var dataFromDb = query
@@ -100,21 +94,20 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 .Where(blog => blog.Banner && !blog.Draft)
                 .OrderByDescending(blog => blog.ViewCount);
 
-            var dataList = dataFromDb.Take(6)
-                .ToList()
+            var dataList = dataFromDb.Take(30).AsEnumerable().OrderBy(_ => Guid.NewGuid())
+                .ToList().Take(6)
                 .Select(ToBlogBrief).ToList();
-
-            return dataList;
+            return await Task.FromResult(dataList);
         }
 
         TimeSpan? timeSpan = null;
-        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListOfWeekHotAsync)}";
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListOfRecommendAsync)}";
 
         var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
         {
-            var dataFromDb = ReadDataFromDb();
+            var dataFromDb = ReadDataFromDbAsync().Result;
 
-            if (dataFromDb.Any())
+            if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
                 return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
@@ -125,10 +118,59 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
 
             timeSpan = TimeSpan.FromSeconds(5);
             return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        return await Task.FromResult(data);
+        return data;
+    }
+
+
+    public async Task<List<BlogBrief>?> GetBlogBriefListOfWeekHotAsync()
+    {
+        async Task<List<BlogBrief>?> ReadDataFromDbAsync()
+        {
+            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
+            var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
+
+            var weekReadCount = await Context.Set<BlogViewCount>()
+                .Where(count => count.CreationTime >= startOfWeek && count.CreationTime <= endOfWeek)
+                .GroupBy(count => count.Slug)
+                .Select(group => new { Slug = group.Key, Count = group.Count() })
+                .OrderByDescending(group => group.Count)
+                .Take(6).ToListAsync();
+
+            var dataList = weekReadCount.Join(Context.Blogs,
+                    count => count.Slug,
+                    blog => blog.Slug,
+                    (count, blog) =>
+                        new BlogBrief(blog.Id, blog.Title, blog.Slug, default, default, default, default, default,
+                            default,
+                            default, default, default, default, count.Count, blog.CreationTime))
+                .ToList();
+
+            return dataList;
+        }
+
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetBlogBriefListOfWeekHotAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = ReadDataFromDbAsync().Result;
+
+            if (dataFromDb?.Any() == true)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
+        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return data;
     }
 
 
@@ -136,19 +178,15 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     {
         List<BlogBrief> ReadDataFromDb()
         {
-            var query = Context.Query<Blog>();
-            var dataFromDb = query
-                .Include(x => x.Categories)
-                .Include(x => x.Albums)
-                .Include(x => x.Tags)
+            var dataFromDb = Context.Set<Blog>()
                 .Where(blog => !blog.Draft)
-                .OrderByDescending(blog => blog.ViewCount);
+                .OrderByDescending(blog => blog.ViewCount)
+                .Take(6).Select(blog => new BlogBrief(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover,
+                    (int)blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner, default,
+                    default, default, blog.ViewCount, blog.CreationTime)).ToList();
+            ;
 
-            var dataList = dataFromDb.Take(6)
-                .ToList()
-                .Select(ToBlogBrief).ToList();
-
-            return dataList;
+            return dataFromDb;
         }
 
         TimeSpan? timeSpan = null;
@@ -444,6 +482,44 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return data ?? new GetBlogListByTagNameResponse(false);
     }
 
+    public async Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync()
+    {
+        async Task<List<BlogSearchCountDto>> ReadDataFromDbAsync()
+        {
+            var countFromDb = Context.Set<BlogSearchCount>().AsNoTracking()
+                .GroupBy(count => count.Keywords)
+                .Select(group => new BlogSearchCountDto(group.Key, group.Count()))
+                .AsEnumerable()
+                .OrderByDescending(count => count.Count)
+                .Take(10)
+                .ToList();
+
+            return await Task.FromResult(countFromDb);
+        }
+
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogRepository)}_{nameof(GetTopSearchKeywordsAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = ReadDataFromDbAsync().Result;
+
+            if (dataFromDb?.Any() == true)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(null));
+        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        return data;
+    }
+
     private List<CategoryBrief>? GetCategoryBriefs(Blog blog)
     {
         if (blog.Categories?.Any() != true)
@@ -507,13 +583,13 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Where(x => x.CreationTime > blog.CreationTime)
             .Select(x => new BlogPostNear(x.Title, x.Slug, x.Cover, x.Description, x.CreationTime))
             .FirstOrDefaultAsync();
-        var near = await (from post in Context.Blogs!
-            join blogPostCategory in Context.Set<BlogCategory>() on post.Id equals blogPostCategory
-                .BlogId
-            where blogPostCategory.BlogId != blog.Id &&
-                  categories.Select(x => x.Id).Contains(blogPostCategory.CategoryId)
-            select new BlogPostNear(post.Title, post.Slug, post.Cover, post.Description,
-                post.CreationTime)).Take(5).ToListAsync();
+        //var near = await (from post in Context.Blogs.AsNoTracking()
+        //                  join blogPostCategory in Context.Set<BlogCategory>().AsNoTracking() on post.Id equals blogPostCategory
+        //                      .BlogId
+        //                  where blogPostCategory.BlogId != blog.Id &&
+        //                        categories.Select(x => x.Id).Contains(blogPostCategory.CategoryId)
+        //                  select new BlogPostNear(post.Title, post.Slug, post.Cover, post.Description,
+        //                      post.CreationTime)).Take(5).ToListAsync();
 
         return new BlogDetails(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover, blog.Content,
             blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
@@ -524,7 +600,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             blog.LikeCount,
             preview,
             next,
-            near,
+            default,
             blog.CreationTime);
     }
 }

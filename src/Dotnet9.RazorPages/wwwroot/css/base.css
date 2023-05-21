@@ -173,7 +173,7 @@ nav em { width: 100%; display: block; height: 20px }
 .side_title h3 { font-size: 16px; color: #222; border-bottom: #e8e8e8 1px solid; padding-bottom: 20px; margin-bottom: 20px; }
 .side_title a { float: right; font-size: 14px; color: #328dff; text-align: right; }
 .hot_news li { margin-bottom: 15px; }
-.hot_news li p { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 24px; margin: 0 0 5px 0; font-size: 14px; }
+.hot_news li p { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 24px; margin: 0 0 5px 0; font-size: 12px; }
 .hot_news li span { font-size: 12px; color: #777; line-height: 16px; background: url(../images/icon_view.png) no-repeat left center; background-size: 17px; padding-left: 22px; }
 .hot_news li:hover p { text-decoration: underline }
 .tags ul { overflow: hidden }

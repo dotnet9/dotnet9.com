@@ -2,6 +2,8 @@
 
 public interface IBlogRepository : IRepository<Blog, Guid>
 {
+    Task CreateBlogViewCount(string slug, string ip, DateTime creationTime);
+    Task CreateBlogSearchCount(string keywords, string ip, DateTime creationTime);
     Task<Blog?> FindByIdAsync(Guid id);
     Task<Blog?> FindByTitleAsync(string name);
     Task<Blog?> FindBySlugAsync(string slug);
@@ -14,4 +16,5 @@ public interface IBlogRepository : IRepository<Blog, Guid>
     Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery query);
     Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(SearchBlogsByCategoryQuery query);
     Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery query);
+    Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync();
 }

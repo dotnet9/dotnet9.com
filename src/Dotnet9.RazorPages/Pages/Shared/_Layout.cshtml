@@ -4,6 +4,7 @@
 @{
     var siteInfo = await SystemClientService.GetSiteInfoAsync();
     var recommendBlogs = await BlogService.GetRecommendAsync();
+    var weekHotBlog = await BlogService.GetWeekHotAsync();
     var historyHotBlog = await BlogService.GetHistoryHotAsync();
 }
 
@@ -34,13 +35,18 @@
         @RenderBody()
     </div>
     <div class="box_r">
+        @await Html.PartialAsync("_TopKeywordsSidebar")
         @if (recommendBlogs?.Any() == true)
         {
             @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("站长推荐", recommendBlogs))
         }
+        @if (weekHotBlog?.Any() == true)
+        {
+            @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("本周排行", weekHotBlog))
+        }
         @if (historyHotBlog?.Any() == true)
         {
-            @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("最热排行", historyHotBlog))
+            @await Html.PartialAsync("_BlogsSidebar", new BlogsSidebarModel("历史排行", historyHotBlog))
         }
     </div>
 </article>

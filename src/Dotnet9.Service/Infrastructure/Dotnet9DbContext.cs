@@ -1,6 +1,4 @@
-﻿using Npgsql;
-
-namespace Dotnet9.Service.Infrastructure;
+﻿namespace Dotnet9.Service.Infrastructure;
 
 public class Dotnet9DbContext : MasaDbContext<Dotnet9DbContext>
 {
@@ -10,6 +8,8 @@ public class Dotnet9DbContext : MasaDbContext<Dotnet9DbContext>
     public DbSet<Album> Albums { get; set; } = default!;
     public DbSet<Tag> Tags { get; set; } = default!;
     public DbSet<Blog> Blogs { get; set; } = default!;
+    public DbSet<BlogViewCount> BlogsViewCounts { get; set; } = default!;
+    public DbSet<BlogSearchCount> BlogsSearchCounts { get; set; } = default!;
     public DbSet<Donation> Donations { get; set; } = default!;
     public DbSet<Privacy> Privacies { get; set; } = default!;
     public DbSet<FriendlyLink> FriendlyLinks { get; set; } = default!;

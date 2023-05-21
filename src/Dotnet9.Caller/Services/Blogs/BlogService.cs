@@ -40,6 +40,16 @@ public class BlogService : HttpClientCallerBase
         return await Caller.GetAsync<List<BlogBrief>>("historyhot");
     }
 
+    public async Task<List<BlogBrief>?> GetWeekHotAsync()
+    {
+        return await Caller.GetAsync<List<BlogBrief>>("weekhot");
+    }
+
+    public async Task<List<BlogSearchCountDto>?> GetTopKeywordsAsync()
+    {
+        return await Caller.GetAsync<List<BlogSearchCountDto>>("topkeywords");
+    }
+
     public async Task<BlogDetails?> GetBlogDetailsBySlugAsync(string slug)
     {
         return await Caller.GetAsync<BlogDetails>(slug);
