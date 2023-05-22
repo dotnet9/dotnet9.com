@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor();
 
 var config = builder.Configuration;
 var configOption = new ServiceCallerOptions();

@@ -10,6 +10,11 @@ public class BlogService : HttpClientCallerBase
         BaseAddress = option.Value.BaseAddress;
     }
 
+    protected override void UseHttpClientPost(MasaHttpClientBuilder masaHttpClientBuilder)
+    {
+        masaHttpClientBuilder.AddMiddleware<RealIpMiddleware>();
+    }
+
     public async Task<GetBlogListByKeywordsResponse?> GetBlogBriefListByKeywordsAsync(
         string? keywords, int pageSize = 10,
         int current = 1)

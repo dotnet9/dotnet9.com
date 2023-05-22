@@ -40,6 +40,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <ProjectReference Include="..\Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj" />
 	  <ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
 	  <ProjectReference Include="..\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
 	</ItemGroup>

@@ -12,3 +12,8 @@ global using Masa.Contrib.Service.Caller.HttpClient;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Options;
 global using System.Net;
+global using Dotnet9.Caller.Middlewares;
+global using Masa.BuildingBlocks.Service.Caller;
+global using Dotnet9.ASPNETCore;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;

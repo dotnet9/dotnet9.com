@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Service.Services;
+﻿using Dotnet9.ASPNETCore;
+
+namespace Dotnet9.Service.Services;
 
 public class BlogService : ServiceBase
 {
@@ -50,7 +52,7 @@ public class BlogService : ServiceBase
 
     [RoutePattern(pattern: "/api/blogs/{slug}")]
     public async Task<BlogDetails> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
-        [FromRoute] string slug, IHttpContextAccessor httpContextAccessor)
+        [FromRoute] string slug, [FromServices]IHttpContextAccessor httpContextAccessor)
     {
         var queryEvent = new SearchBlogDetailsBySlugQuery
         {
@@ -61,16 +63,8 @@ public class BlogService : ServiceBase
         var increaseViewCountCommand = new IncreaseBlogViewCountCommand(slug);
         await EventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
 
-
-        var context = httpContextAccessor.HttpContext!;
-        var ip = context.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-        if (context.Request.Headers!.ContainsKey("X-Forwarded-For"))
-        {
-            ip = context.Request.Headers["X-Forwarded-For"].ToString();
-        }
-
-        var recordViewCountCommand = new CreateBlogViewCountCommand(slug,
-            ip!, DateTime.Now);
+        var recordViewCountCommand =
+            new CreateBlogViewCountCommand(slug, httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
         await EventBus.PublishAsync(recordViewCountCommand, cancellationToken);
 
         return queryEvent.Result;
@@ -78,7 +72,7 @@ public class BlogService : ServiceBase
 
     [RoutePattern(pattern: "/api/blogs/search")]
     public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
-        CancellationToken cancellationToken, IHttpContextAccessor httpContextAccessor,
+        CancellationToken cancellationToken, [FromServices] IHttpContextAccessor httpContextAccessor,
         [FromQuery] string? keywords = null, [FromQuery] int pageSize = 10,
         [FromQuery] int page = 1)
     {
@@ -92,15 +86,8 @@ public class BlogService : ServiceBase
 
         if (!keywords.IsNullOrWhiteSpace())
         {
-            var context = httpContextAccessor.HttpContext!;
-            var ip = context.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-            if (context.Request.Headers!.ContainsKey("X-Forwarded-For"))
-            {
-                ip = context.Request.Headers["X-Forwarded-For"].ToString();
-            }
-
             var recordSearchCountCommand = new CreateBlogSearchCountCommand(keywords,
-                ip!, DateTime.Now);
+                httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
             await EventBus.PublishAsync(recordSearchCountCommand, cancellationToken);
         }
 

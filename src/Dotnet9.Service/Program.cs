@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Microsoft.AspNetCore.HttpOverrides;
+
+var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -11,6 +13,12 @@ builder.Services.AddMasaConfiguration(new List<Assembly>()
     typeof(SiteOptions).Assembly
 });
 builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 builder.Services.AddDaprClient();
 builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
