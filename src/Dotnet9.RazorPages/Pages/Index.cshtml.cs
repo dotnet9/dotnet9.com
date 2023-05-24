@@ -17,15 +17,12 @@ public class IndexModel : PageModel
         [FromServices] BlogService blogService)
     {
         SiteInfo = await systemClientService.GetSiteInfoAsync();
-        UrlSuffix = "";
         if ("请输入关键字词" == Keywords)
         {
             Keywords = string.Empty;
         }
-        if (!Keywords.IsNullOrWhiteSpace())
-        {
-            UrlSuffix += $"?keywords={WebUtility.UrlEncode(Keywords)}";
-        }
+        var encodeKeywords = Keywords.IsNullOrWhiteSpace() ? "" : WebUtility.UrlEncode(Keywords);
+        UrlSuffix += $"?keywords={encodeKeywords}";
 
         RequestResponse = await blogService.GetBlogBriefListByKeywordsAsync(Keywords, PageSize, Current);
 
