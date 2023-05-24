@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Masa.BuildingBlocks.Dispatcher.IntegrationEvents" Version="1.0.0-rc.2" />
-    <PackageReference Include="Masa.BuildingBlocks.ReadWriteSplitting.Cqrs" Version="1.0.0-rc.2" />
+    <PackageReference Include="Masa.BuildingBlocks.Dispatcher.IntegrationEvents" Version="1.0.0-rc.2.1" />
+    <PackageReference Include="Masa.BuildingBlocks.ReadWriteSplitting.Cqrs" Version="1.0.0-rc.2.1" />
   </ItemGroup>
 </Project>
