@@ -22,7 +22,7 @@ public class IndexModel : PageModel
             Keywords = string.Empty;
         }
         var encodeKeywords = Keywords.IsNullOrWhiteSpace() ? "" : WebUtility.UrlEncode(Keywords);
-        UrlSuffix += $"?keywords={encodeKeywords}";
+        UrlSuffix += $"?keywords={encodeKeywords}&";
 
         RequestResponse = await blogService.GetBlogBriefListByKeywordsAsync(Keywords, PageSize, Current);
 

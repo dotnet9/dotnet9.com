@@ -12,4 +12,4 @@
 
 <div id="view-content" class="gap-solid"></div>
 
-@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, $"/albums/{Model.Slug}", Model.Current, Model.Pages, Model.RequestAlbumBlogResponse!.Total, Model.PageSize, Model.RequestAlbumBlogResponse.TotalPage))
+@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, $"/albums/{Model.Slug}?", Model.Current, Model.Pages, Model.RequestAlbumBlogResponse!.Total, Model.PageSize, Model.RequestAlbumBlogResponse.TotalPage))
