@@ -38,8 +38,7 @@ public class BlogCommandHandler
         blog!.IncreaseViewCount();
         await _blogRepository.UpdateAsync(blog, cancellationToken);
 
-        await _multilevelCacheClient.RemoveAsync<BlogDetails>(
-            $"{nameof(BlogRepository)}_{nameof(BlogRepository.FindDetailsBySlugAsync)}_{command.Slug}");
+        await _multilevelCacheClient.RemoveAsync<BlogDetails>(command.Slug);
     }
 
     [EventHandler(1)]

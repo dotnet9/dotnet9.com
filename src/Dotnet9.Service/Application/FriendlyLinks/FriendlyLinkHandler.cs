@@ -1,12 +1,18 @@
-﻿namespace Dotnet9.Service.Application.FriendlyLinks;
+﻿using Google.Api;
+using static Google.Rpc.Context.AttributeContext.Types;
+
+namespace Dotnet9.Service.Application.FriendlyLinks;
 
 public class FriendlyLinkHandler
 {
     private readonly IFriendlyLinkRepository _repository;
+    private readonly IMultilevelCacheClient _multilevelCacheClient;
 
-    public FriendlyLinkHandler(IFriendlyLinkRepository repository)
+    public FriendlyLinkHandler(IFriendlyLinkRepository repository,
+        IMultilevelCacheClient multilevelCacheClient)
     {
         _repository = repository;
+        _multilevelCacheClient = multilevelCacheClient;
     }
 
     [EventHandler]
@@ -21,12 +27,35 @@ public class FriendlyLinkHandler
     [EventHandler]
     public async Task GetListAsync(FriendlyLinksQuery query, CancellationToken cancellationToken)
     {
-        var getLinkResult = await _repository.GetFriendlyLinkListAsync(query);
-        query.Result = new PaginatedListBase<FriendlyLinkDto>()
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(FriendlyLinkHandler)}_{nameof(GetListAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
-            Total = getLinkResult.Total,
-            TotalPages = getLinkResult.TotalPage,
-            Result = getLinkResult.Records!
-        };
+            var dataFromDb = await _repository.GetFriendlyLinkListAsync(query);
+
+            if (dataFromDb != null)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<GetFriendlyLinkListResponse>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return new CacheEntry<GetFriendlyLinkListResponse>(null);
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        if (data != null)
+        {
+            query.Result = new PaginatedListBase<FriendlyLinkDto>()
+            {
+                Total = data.Total,
+                TotalPages = data.TotalPage,
+                Result = data.Records!
+            };
+        }
     }
 }

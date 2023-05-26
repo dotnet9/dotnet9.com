@@ -12,9 +12,9 @@ public interface IBlogRepository : IRepository<Blog, Guid>
     Task<List<BlogBrief>?> GetBlogBriefListOfWeekHotAsync();
     Task<List<BlogBrief>?> GetBlogBriefListOfHistoryHotAsync();
     Task<List<BlogArchive>?> GetBlogArchiveListAsync();
-    Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(SearchBlogsByKeywordsQuery query);
-    Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery query);
-    Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(SearchBlogsByCategoryQuery query);
-    Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery query);
+    Task<GetBlogListByKeywordsResponse?> GetBlogBriefListByKeywordsAsync(SearchBlogsByKeywordsQuery query);
+    Task<GetBlogListByAlbumSlugResponse?> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery query);
+    Task<GetBlogListByCategorySlugResponse?> GetBlogBriefListByCategorySlugAsync(SearchBlogsByCategoryQuery query);
+    Task<GetBlogListByTagNameResponse?> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery query);
     Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync();
 }

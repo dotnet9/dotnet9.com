@@ -2,12 +2,9 @@
 
 public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagRepository
 {
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
-
-    public TagRepository(Dotnet9DbContext context, IUnitOfWork unitOfWork, IMultilevelCacheClient multilevelCacheClient)
+    public TagRepository(Dotnet9DbContext context, IUnitOfWork unitOfWork)
         : base(context, unitOfWork)
     {
-        _multilevelCacheClient = multilevelCacheClient;
     }
 
     public Task<Tag?> FindByIdAsync(Guid id)
@@ -22,36 +19,10 @@ public class TagRepository : Repository<Dotnet9DbContext, Tag, Guid>, ITagReposi
 
     public async Task<List<TagBrief>?> GetTagBriefListAsync()
     {
-        async Task<List<TagBrief>?> ReadDataFromDb()
-        {
-            var datasFromDb = await Context.Tags.Select(tag =>
-                    new TagBrief(tag.Name, Context.Set<BlogTag>().Count((blogTag => blogTag.TagId == tag.Id))))
-                .ToListAsync();
+        var dataFromDb = await Context.Tags.Select(tag =>
+                new TagBrief(tag.Name, Context.Set<BlogTag>().Count((blogTag => blogTag.TagId == tag.Id))))
+            .ToListAsync();
 
-            return datasFromDb;
-        }
-
-        TimeSpan? timeSpan = null;
-        const string key = $"{nameof(TagRepository)}_{nameof(GetTagBriefListAsync)}";
-
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
-        {
-            var dataFromDb = await ReadDataFromDb();
-
-            if (dataFromDb?.Any() == true)
-            {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<TagBrief>>(dataFromDb, TimeSpan.FromDays(3))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-            }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<TagBrief>>(null);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
-
-        return data;
+        return dataFromDb;
     }
 }
