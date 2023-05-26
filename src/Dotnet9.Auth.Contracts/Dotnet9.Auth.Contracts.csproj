@@ -1,5 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <PackageReference Include="Masa.BuildingBlocks.Exceptions" Version="1.0.0-rc.2.1" />
-  </ItemGroup>
-</Project>
