@@ -13,6 +13,35 @@ public class BlogQueryHandler
     }
 
     [EventHandler]
+    public async Task GetTopSearchKeywordsAsync(TopSearchKeywordsQuery query, CancellationToken cancellationToken)
+    {
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetTopSearchKeywordsAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = _repository.GetTopSearchKeywordsAsync().Result;
+
+            if (dataFromDb?.Any() == true)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(null));
+        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        if (data != null)
+        {
+            query.Result = data;
+        }
+    }
+
+    [EventHandler]
     public async Task GetListOfRecommendAsync(GetBlogsOfRecommendQuery query, CancellationToken cancellationToken)
     {
         TimeSpan? timeSpan = null;
@@ -35,40 +64,13 @@ public class BlogQueryHandler
             return Task.FromResult(new CacheEntry<List<BlogBrief>?>(null));
         }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.Result = new PaginatedListBase<BlogBrief>()
+        if (data != null)
         {
-            Result = data
-        };
-    }
-
-    [EventHandler]
-    public async Task GetListOfHistoryHotAsync(GetBlogsOfHistoryHotQuery query, CancellationToken cancellationToken)
-    {
-        TimeSpan? timeSpan = null;
-        const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListOfHistoryHotAsync)}";
-
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
-        {
-            var dataFromDb = _repository.GetBlogBriefListOfHistoryHotAsync().Result;
-
-            if (dataFromDb.Any())
+            query.Result = new PaginatedListBase<BlogBrief>()
             {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                });
-            }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
-
-        query.Result = new PaginatedListBase<BlogBrief>()
-        {
-            Result = data!
-        };
+                Result = data
+            };
+        }
     }
 
     [EventHandler]
@@ -95,10 +97,46 @@ public class BlogQueryHandler
         }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
 
 
-        query.Result = new PaginatedListBase<BlogBrief>()
+        if (data != null)
         {
-            Result = data!
-        };
+            query.Result = new PaginatedListBase<BlogBrief>()
+            {
+                Result = data
+            };
+        }
+    }
+
+    [EventHandler]
+    public async Task GetListOfHistoryHotAsync(GetBlogsOfHistoryHotQuery query, CancellationToken cancellationToken)
+    {
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListOfHistoryHotAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = _repository.GetBlogBriefListOfHistoryHotAsync().Result;
+
+            if (dataFromDb?.Any() == true)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<List<BlogBrief>>(null));
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        if (data != null)
+        {
+            query.Result = new PaginatedListBase<BlogBrief>()
+            {
+                Result = data
+            };
+        }
     }
 
 
@@ -112,7 +150,7 @@ public class BlogQueryHandler
         {
             var dataFromDb = _repository.GetBlogArchiveListAsync().Result;
 
-            if (dataFromDb.Any())
+            if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
                 return new CacheEntry<List<BlogArchive>>(dataFromDb, TimeSpan.FromDays(3))
@@ -126,10 +164,48 @@ public class BlogQueryHandler
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.Result = new PaginatedListBase<BlogArchive>()
+        if (data != null)
         {
-            Result = data
-        };
+            query.Result = new PaginatedListBase<BlogArchive>()
+            {
+                Result = data
+            };
+        }
+    }
+
+    /// <summary>
+    /// 查找博客文章的详细信息
+    /// </summary>
+    /// <param name="query"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [EventHandler]
+    public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
+    {
+        TimeSpan? timeSpan = null;
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(query.Slug, async () =>
+        {
+            var dataFromDb = await _repository.FindDetailsBySlugAsync(query.Slug);
+
+            if (dataFromDb != null)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return new CacheEntry<BlogDetails>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                };
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return new CacheEntry<BlogDetails>(null);
+        }, options =>
+            options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        if (data != null)
+        {
+            query.Result = data;
+        }
     }
 
     [EventHandler]
@@ -157,10 +233,17 @@ public class BlogQueryHandler
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.Result = new PaginatedListBase<BlogBrief>()
+        if (data != null)
         {
-            Total = data.Total, TotalPages = data.TotalPage, Result = data.Records!
-        };
+            query.Result = new PaginatedListBase<BlogBrief>()
+            {
+                Total = data.Total, TotalPages = data.TotalPage, Result = data.Records!
+            };
+        }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
+        }
     }
 
     [EventHandler]
@@ -188,11 +271,18 @@ public class BlogQueryHandler
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.AlbumName = data.AlbumName;
-        query.Result = new PaginatedListBase<BlogBrief>()
+        if (data != null)
         {
-            Total = data.Total, TotalPages = data.TotalPage, Result = data.Records!
-        };
+            query.AlbumName = data.AlbumName;
+            query.Result = new PaginatedListBase<BlogBrief>()
+            {
+                Total = data.Total, TotalPages = data.TotalPage, Result = data.Records!
+            };
+        }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
+        }
     }
 
     [EventHandler]
@@ -220,13 +310,20 @@ public class BlogQueryHandler
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.CategoryName = data.CategoryName;
-        query.Result = new PaginatedListBase<BlogBrief>()
+        if (data != null)
         {
-            Total = data.Total,
-            TotalPages = data.TotalPage,
-            Result = data.Records!
-        };
+            query.CategoryName = data.CategoryName;
+            query.Result = new PaginatedListBase<BlogBrief>()
+            {
+                Total = data.Total,
+                TotalPages = data.TotalPage,
+                Result = data.Records!
+            };
+        }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
+        }
     }
 
     [EventHandler]
@@ -263,66 +360,9 @@ public class BlogQueryHandler
                 Result = data.Records!
             };
         }
-    }
-
-    /// <summary>
-    /// 查找博客文章的详细信息
-    /// </summary>
-    /// <param name="query"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    [EventHandler]
-    public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
-    {
-        TimeSpan? timeSpan = null;
-
-        var data = await _multilevelCacheClient.GetOrSetAsync(query.Slug, async () =>
+        else
         {
-            var dataFromDb = await _repository.FindDetailsBySlugAsync(query.Slug);
-
-            if (dataFromDb != null)
-            {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<BlogDetails>(dataFromDb, TimeSpan.FromDays(3))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
-            }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<BlogDetails>(null);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
-
-        query.Result = data;
-    }
-
-    [EventHandler]
-    public async Task GetTopSearchKeywordsAsync(TopSearchKeywordsQuery query, CancellationToken cancellationToken)
-    {
-        TimeSpan? timeSpan = null;
-        const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetTopSearchKeywordsAsync)}";
-
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
-        {
-            var dataFromDb = _repository.GetTopSearchKeywordsAsync().Result;
-
-            if (dataFromDb?.Any() == true)
-            {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(dataFromDb, TimeSpan.FromDays(3))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                });
-            }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(null));
-        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
-
-        if (data != null)
-        {
-            query.Result = data;
+            query.Result = new PaginatedListBase<BlogBrief>();
         }
     }
 }

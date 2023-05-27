@@ -16,12 +16,12 @@ public class AlbumHandler
     public async Task GetListAsync(AlbumsQuery query, CancellationToken cancellationToken)
     {
         TimeSpan? timeSpan = null;
-        var key = $"{nameof(AlbumHandler)}_{nameof(GetListAsync)}";
+        const string key = $"{nameof(AlbumHandler)}_{nameof(GetListAsync)}";
         var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
         {
             var distinctAlbumList = await _repository.GetAllBriefAsync();
 
-            if (distinctAlbumList.Any())
+            if (distinctAlbumList?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
                 return new CacheEntry<List<AlbumBrief>>(distinctAlbumList, TimeSpan.FromDays(3))
@@ -35,9 +35,12 @@ public class AlbumHandler
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
 
-        query.Result = new PaginatedListBase<AlbumBrief>()
+        if (data != null)
         {
-            Result = data
-        };
+            query.Result = new PaginatedListBase<AlbumBrief>()
+            {
+                Result = data
+            };
+        }
     }
 }

@@ -22,7 +22,7 @@ public class CategoryHandler
         {
             var dataFromDb = await _repository.GetAllBriefAsync();
 
-            if (dataFromDb != null)
+            if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
                 return new CacheEntry<List<CategoryBrief>>(dataFromDb, TimeSpan.FromDays(3))

@@ -35,7 +35,7 @@ public class AboutHandler
             return new CacheEntry<AboutDto?>(null);
         }, options =>
             options.AbsoluteExpirationRelativeToNow = timeSpan);
-
+        
         query.Result = data;
     }
 }

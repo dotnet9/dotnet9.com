@@ -11,7 +11,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/topkeywords")]
-    public async Task<List<BlogSearchCountDto>> GetTopSearchKeywordsAsync(CancellationToken cancellationToken)
+    public async Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new TopSearchKeywordsQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
@@ -19,7 +19,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/recommend")]
-    public async Task<List<BlogBrief>> GetRecommendAsync(CancellationToken cancellationToken)
+    public async Task<List<BlogBrief>?> GetRecommendAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new GetBlogsOfRecommendQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
@@ -27,7 +27,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/weekhot")]
-    public async Task<List<BlogBrief>> GetWeekHotAsync(CancellationToken cancellationToken)
+    public async Task<List<BlogBrief>?> GetWeekHotAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new GetBlogsOfWeekHotQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
@@ -35,7 +35,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/historyhot")]
-    public async Task<List<BlogBrief>> GetHistoryHotAsync(CancellationToken cancellationToken)
+    public async Task<List<BlogBrief>?> GetHistoryHotAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new GetBlogsOfHistoryHotQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
@@ -43,7 +43,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/archives")]
-    public async Task<List<BlogArchive>> GetArchivesAsync(CancellationToken cancellationToken)
+    public async Task<List<BlogArchive>?> GetArchivesAsync(CancellationToken cancellationToken)
     {
         var queryEvent = new BlogArchivesQuery();
         await EventBus.PublishAsync(queryEvent, cancellationToken);
@@ -51,7 +51,7 @@ public class BlogService : ServiceBase
     }
 
     [RoutePattern(pattern: "/api/blogs/{slug}")]
-    public async Task<BlogDetails> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
+    public async Task<BlogDetails?> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
         [FromRoute] string slug, [FromServices]IHttpContextAccessor httpContextAccessor)
     {
         var queryEvent = new SearchBlogDetailsBySlugQuery
@@ -90,7 +90,7 @@ public class BlogService : ServiceBase
                 httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
             await EventBus.PublishAsync(recordSearchCountCommand, cancellationToken);
         }
-
+        
         return new GetBlogListByKeywordsResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }
