@@ -113,8 +113,6 @@ app.UseCloudEvents();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapSubscribeHandler();
-    // Used for Dapr Actor
-    endpoints.MapActorsHandlers();
 });
 app.UseHttpsRedirection();
 

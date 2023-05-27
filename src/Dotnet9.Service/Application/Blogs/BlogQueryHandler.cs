@@ -71,6 +71,10 @@ public class BlogQueryHandler
                 Result = data
             };
         }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
+        }
     }
 
     [EventHandler]
@@ -103,6 +107,10 @@ public class BlogQueryHandler
             {
                 Result = data
             };
+        }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
         }
     }
 
@@ -137,6 +145,10 @@ public class BlogQueryHandler
                 Result = data
             };
         }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogBrief>();
+        }
     }
 
 
@@ -170,6 +182,10 @@ public class BlogQueryHandler
             {
                 Result = data
             };
+        }
+        else
+        {
+            query.Result = new PaginatedListBase<BlogArchive>();
         }
     }
 

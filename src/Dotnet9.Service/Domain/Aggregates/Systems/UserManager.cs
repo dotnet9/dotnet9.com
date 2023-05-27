@@ -65,6 +65,7 @@ public class UserManager : IScopedDependency
         if (isNew)
         {
             old = new User(id.Value, account, nickName, phoneNumber, email);
+            old.ResetPassword();
         }
         else
         {
@@ -79,6 +80,8 @@ public class UserManager : IScopedDependency
 
     public User CreateForSeed(string account, string nickName, string phoneNumber, string email)
     {
-        return new User(Guid.NewGuid(), account, nickName, phoneNumber, email);
+        var user = new User(Guid.NewGuid(), account, nickName, phoneNumber, email);
+        user.ResetPassword();
+        return user;
     }
 }
