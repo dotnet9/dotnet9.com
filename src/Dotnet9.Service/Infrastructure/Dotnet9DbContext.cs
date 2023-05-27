@@ -15,6 +15,7 @@ public class Dotnet9DbContext : MasaDbContext<Dotnet9DbContext>
     public DbSet<FriendlyLink> FriendlyLinks { get; set; } = default!;
     public DbSet<Timeline> Timelines { get; set; } = default!;
     public DbSet<Comment> Comments { get; set; } = default!;
+    public DbSet<User> Users { get; set; } = default!;
 
     public Dotnet9DbContext(MasaDbContextOptions<Dotnet9DbContext> options) : base(options)
     {

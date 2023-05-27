@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.HttpOverrides;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -20,7 +18,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownProxies.Clear();
 });
 builder.Services.AddDaprClient();
-builder.Services.AddActors(options => { options.Actors.RegisterActor<FriendlyLinkActor>(); });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services
     .AddMapster()

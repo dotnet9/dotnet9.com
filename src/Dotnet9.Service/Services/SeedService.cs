@@ -16,12 +16,14 @@ public partial class SeedService : ISeedService
     private readonly SiteOptions _siteOptions;
     private readonly TagManager _tagManager;
     private readonly TimelineManager _timelineManager;
+    private readonly UserManager _userManager;
 
     public SeedService(Dotnet9DbContext dbContext, IOptions<SiteOptions> siteOptions,
         IAboutRepository aboutRepository, BlogManager blogManager, CategoryManager categoryManager,
         AlbumManager albumManager, TagManager tagManager, AboutManager aboutManager,
         IPrivacyRepository privacyRepository, PrivacyManager privacyManager, FriendlyLinkManager linkManager,
-        IDonationRepository donationRepository, DonationManager donationManager, TimelineManager timelineManager)
+        IDonationRepository donationRepository, DonationManager donationManager, TimelineManager timelineManager,
+        UserManager userManager)
     {
         _dbContext = dbContext;
         _siteOptions = siteOptions.Value;
@@ -37,6 +39,7 @@ public partial class SeedService : ISeedService
         _donationRepository = donationRepository;
         _donationManager = donationManager;
         _timelineManager = timelineManager;
+        _userManager = userManager;
     }
 
     public async Task MigrateAsync()

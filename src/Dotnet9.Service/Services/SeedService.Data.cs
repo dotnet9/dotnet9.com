@@ -51,6 +51,7 @@ public partial class SeedService
         await SeedFriendlyLinks();
         await SeedPrivacies();
         await SeedTimelines();
+        await SeedUsers();
         sw.Stop();
         Console.WriteLine($"Seed time: {sw.ElapsedMilliseconds} ms");
     }
@@ -334,6 +335,13 @@ public partial class SeedService
         var timelinesForDb = timelines!.Select(x =>
             _timelineManager.CreateForSeed(x.Time, x.Title, x.Content));
         await _dbContext.AddRangeAsync(timelinesForDb);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    private async Task SeedUsers()
+    {
+        var adminUser = _userManager.CreateForSeed("admin", "管理员", "16888888888", "admin@dotnet9.com");
+        await _dbContext.AddAsync(adminUser);
         await _dbContext.SaveChangesAsync();
     }
 
