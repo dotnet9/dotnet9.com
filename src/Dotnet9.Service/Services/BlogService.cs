@@ -1,6 +1,4 @@
-﻿using Dotnet9.ASPNETCore;
-
-namespace Dotnet9.Service.Services;
+﻿namespace Dotnet9.Service.Services;
 
 public class BlogService : ServiceBase
 {
@@ -52,7 +50,7 @@ public class BlogService : ServiceBase
 
     [RoutePattern(pattern: "/api/blogs/{slug}")]
     public async Task<BlogDetails?> GetBlogDetailsBySlugAsync(CancellationToken cancellationToken,
-        [FromRoute] string slug, [FromServices]IHttpContextAccessor httpContextAccessor)
+        [FromRoute] string slug, [FromServices] IHttpContextAccessor httpContextAccessor)
     {
         var queryEvent = new SearchBlogDetailsBySlugQuery
         {
@@ -90,7 +88,7 @@ public class BlogService : ServiceBase
                 httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
             await EventBus.PublishAsync(recordSearchCountCommand, cancellationToken);
         }
-        
+
         return new GetBlogListByKeywordsResponse(true, queryEvent.Result.Result,
             queryEvent.Result.Total, queryEvent.Result.TotalPages);
     }

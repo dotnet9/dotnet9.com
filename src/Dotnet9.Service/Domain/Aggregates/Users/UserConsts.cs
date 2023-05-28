@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Service.Domain.Aggregates.Systems;
+﻿namespace Dotnet9.Service.Domain.Aggregates.Users;
 
 public static class UserConsts
 {
@@ -13,5 +13,5 @@ public static class UserConsts
     public const int MaxPasswordLength = 32;
     public const int MinPasswordLength = 5;
     public const int MaxLoginFailTime = 5;
-    public const int MaxLockedMinutes = 5;
+    public const int MaxLockedMinutes = 15;
 }

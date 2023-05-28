@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Service.Domain.Aggregates.Systems;
+﻿namespace Dotnet9.Service.Domain.Aggregates.Users;
 
 public class UserManager : IScopedDependency
 {

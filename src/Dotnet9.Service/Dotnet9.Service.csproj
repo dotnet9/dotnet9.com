@@ -4,6 +4,7 @@
 		<PackageReference Include="Masa.BuildingBlocks.Caching" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.BuildingBlocks.Dispatcher.Events" Version="1.0.0-rc.2.1" />
+		<PackageReference Include="Masa.BuildingBlocks.Exceptions" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Caching.Distributed.StackExchangeRedis" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Caching.MultilevelCache" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Data.Contracts" Version="1.0.0-rc.2.1" />

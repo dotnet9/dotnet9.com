@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Service.Domain.Aggregates.Systems;
+﻿namespace Dotnet9.Service.Domain.Aggregates.Users;
 
 public class User : FullAggregateRoot<Guid, int>
 {
@@ -90,6 +90,7 @@ public class User : FullAggregateRoot<Guid, int>
 
     public User LockedUser()
     {
+        LoginFailCount = 0;
         LockedTime = DateTime.Now.AddMinutes(UserConsts.MaxLockedMinutes);
         return this;
     }

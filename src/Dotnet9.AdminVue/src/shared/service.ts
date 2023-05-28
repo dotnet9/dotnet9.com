@@ -771,10 +771,10 @@ export interface FriendLinkModelPageDto {
 
 export interface LoginModel {
   /** 账号 */
-  userName: string;
+  account: string;
 
   /** 密码 */
-  pwd: string;
+  password: string;
 
   /** 验证码 */
   validCode?: string;

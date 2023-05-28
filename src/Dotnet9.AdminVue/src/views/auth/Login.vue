@@ -4,11 +4,11 @@
     <div class="login-page">
         <div class="login-box" v-loading="loading">
             <el-form :model="loginModel" label-width="" :rules="loginRule" ref="form" @submit.native.prevent>
-                <el-form-item label="" prop="userName">
-                    <el-input placeholder="输入用户名" v-model="loginModel.userName"></el-input>
+                <el-form-item label="" prop="account">
+                    <el-input placeholder="输入账号" v-model="loginModel.account"></el-input>
                 </el-form-item>
-                <el-form-item label="" prop="passWord">
-                    <el-input placeholder="输入密码" type="password" v-model="loginModel.pwd"></el-input>
+                <el-form-item label="" prop="password">
+                    <el-input placeholder="输入密码" type="password" v-model="loginModel.password"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button native-type="submit" @click="submit()" type="primary" class="login-btn">
@@ -34,8 +34,8 @@ const vsetting = useVSetting();
 
 
 const loginModel = reactive<LoginModel>({
-    userName: '',
-    pwd: '',
+    account: '',
+    password: '',
     validCode: ''
 })
 
@@ -44,12 +44,12 @@ const loading = ref(false)
 const form = ref<FormInstance>();
 
 const loginRule: FormRules = {
-    userName: [
+    account: [
         {
-            required: true, message: "用户名不能为空"
+            required: true, message: "账号不能为空"
         }
     ],
-    pwd: [
+    password: [
         {
             required: true, message: "密码不能为空"
         }
