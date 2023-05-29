@@ -1,15 +1,14 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAuthentication();
 
-if (builder.Environment.IsDevelopment())
-{
-    // local need dapr sidecar
-    // builder.Services.AddDaprStarter();   
-}
+#region jwt
 
-builder.Services.AddMasaConfiguration(new List<Assembly>()
-{
-    typeof(SiteOptions).Assembly
-});
+var jwtSection = builder.Configuration.GetSection("Jwt");
+builder.Services.Configure<JwtOptions>(jwtSection);
+var jwtOptions = jwtSection.Get<JwtOptions>();
+
+#endregion
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -17,9 +16,22 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
-builder.Services.AddDaprClient();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-builder.Services
+var corsPolicyName = "CorsPolicy";
+var app = builder.Services
+    .AddAuthorization()
+    .AddMasaIdentity()
+    .AddTransient<AuditMiddleware>()
+    .AddTransient<AnomalyMiddleware>()
+    .AddJwtBearerAuthentication(jwtOptions!)
+    .AddCors(options =>
+    {
+        options.AddPolicy(corsPolicyName, corsBuilder =>
+        {
+            corsBuilder.SetIsOriginAllowed(_ => true).AllowAnyMethod().AllowAnyHeader()
+                .AllowCredentials();
+        });
+    })
     .AddMapster()
     .AddSequentialGuidGenerator()
     .Configure<AuditEntityOptions>(options => options.UserIdType = typeof(int))
@@ -31,50 +43,19 @@ builder.Services
     })
     .AddMultilevelCache(distributedCacheOptions => { distributedCacheOptions.UseStackExchangeRedisCache(); })
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
-    .AddAuthorization()
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.Authority = "";
-        options.RequireHttpsMetadata = false;
-        options.Audience = "";
-    });
-
-var app = builder.Services
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>
     {
-        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+        options.SwaggerDoc("v1",
+            new OpenApiInfo { Title = "Dotnet9", Version = "v1", Contact = new OpenApiContact { Name = "Dotnet9", } });
+        foreach (var item in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.xml"))
         {
-            Name = "Authorization",
-            Type = SecuritySchemeType.ApiKey,
-            Scheme = "Bearer",
-            BearerFormat = "JWT",
-            In = ParameterLocation.Header,
-            Description =
-                "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer xxxxxxxxxxxxxxx\"",
-        });
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
-        {
-            {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                    }
-                },
-                new string[]
-                {
-                }
-            }
-        });
+            options.IncludeXmlComments(item, true);
+        }
+
+        options.DocInclusionPredicate((_, _) => true);
     })
+    .AddEventBus()
     .AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters()
     .AddDomainEventBus(dispatcherOptions =>
     {
@@ -92,6 +73,14 @@ var app = builder.Services
     .AddAutoInject()
     .AddServices(builder);
 
+app.UseMiddleware<AuditMiddleware>();
+app.UseMiddleware<AnomalyMiddleware>();
+
+app.UseMasaExceptionHandler();
+app.UseCors(corsPolicyName);
+
+app.UseStaticFiles();
+
 using (IServiceScope serviceScope = app.Services.CreateScope())
 {
     ISeedService seedService = serviceScope.ServiceProvider.GetRequiredService<ISeedService>();
@@ -105,15 +94,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCloudEvents();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapSubscribeHandler();
-});
-app.UseHttpsRedirection();
 
-app.Run();
+await app.RunAsync();

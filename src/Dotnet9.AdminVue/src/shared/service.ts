@@ -223,7 +223,7 @@ export class AuthService {
     options: IRequestOptions = {}
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      let url = basePath + '/admin/Auth/Login';
+      let url = basePath + '/api/auth/LoginByAccount';
 
       const configs: IRequestConfig = getConfigs('post', 'application/json', url, options);
 
@@ -239,7 +239,7 @@ export class AuthService {
    */
   static loginOut(options: IRequestOptions = {}): Promise<any> {
     return new Promise((resolve, reject) => {
-      let url = basePath + '/admin/Auth/LoginOut';
+      let url = basePath + '/api/auth/Logout';
 
       const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
 

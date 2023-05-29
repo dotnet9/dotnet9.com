@@ -5,6 +5,7 @@
 		<PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.BuildingBlocks.Dispatcher.Events" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.BuildingBlocks.Exceptions" Version="1.0.0-rc.2.1" />
+		<PackageReference Include="Masa.Contrib.Authentication.Identity" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Caching.Distributed.StackExchangeRedis" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Caching.MultilevelCache" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Data.Contracts" Version="1.0.0-rc.2.1" />
@@ -21,6 +22,7 @@
 		<PackageReference Include="Masa.BuildingBlocks.Ddd.Domain" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Ddd.Domain" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Ddd.Domain.Repository.EFCore" Version="1.0.0-rc.2.1" />
+		<PackageReference Include="Masa.Contrib.Exceptions" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.ReadWriteSplitting.Cqrs" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Service.MinimalAPIs" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Utils.Security.Cryptography" Version="1.0.0-rc.2.1" />

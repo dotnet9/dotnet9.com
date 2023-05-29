@@ -1,14 +1,16 @@
-﻿namespace Dotnet9.Service.Application.Users;
+﻿namespace Dotnet9.Service.Application.Auth;
 
 public class CommandHandler
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly JwtOptions _jwtOptions;
 
-    public CommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork)
+    public CommandHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, IOptions<JwtOptions> jwtOptions)
     {
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
+        _jwtOptions = jwtOptions.Value;
     }
 
     [EventHandler]
@@ -46,6 +48,9 @@ public class CommandHandler
         await _userRepository.UpdateAsync(user);
         await _unitOfWork.SaveChangesAsync();
 
-        command.Result = user?.Map<UserDto>();
+        var claimsIdentity = JwtHelper.GetClaimsIdentity(user);
+        var token = JwtHelper.GeneratorAccessToken(claimsIdentity, _jwtOptions);
+
+        command.Result = new UserDto(user.Id, user.Account, user.NickName, user.PhoneNumber, user.Email, token);
     }
 }

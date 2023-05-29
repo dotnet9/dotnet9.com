@@ -11,11 +11,6 @@ callerSection.Bind(configOption);
 
 builder.Services.AddDotnet9ApiGateways();
 
-//builder.Services.AddCaller(callerBuilder =>
-//{
-//    callerBuilder.UseHttpClient(clientConfigure => clientConfigure.BaseAddress = configOption.BaseAddress);
-//});
-
 builder.Services.AddSingleton<ISystemClientService, SystemClientService>();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 var app = builder.Build();

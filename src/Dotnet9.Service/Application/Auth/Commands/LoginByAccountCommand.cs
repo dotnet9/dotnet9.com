@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Service.Application.Users.Commands;
+﻿namespace Dotnet9.Service.Application.Auth.Commands;
 
 public record LoginByAccountCommand(LoginByAccountDto Model) : Command
 {
