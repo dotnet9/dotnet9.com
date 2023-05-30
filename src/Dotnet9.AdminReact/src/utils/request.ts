@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { Notification } from "@douyinfe/semi-ui";
 
-const baseURL = process.env.NODE_ENV === "development" ? "http://localhost:5119" : "https://blog-api.tokengo.top";
+const baseURL = process.env.NODE_ENV === "development" ? "http://localhost:5005" : "https://api.dotnet9.com";
 
 
 class Http {

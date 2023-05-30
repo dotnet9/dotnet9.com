@@ -14,7 +14,7 @@ interface IProps {
 interface IState {
   data: {
     total: number,
-    result: GetArticleListDto[]
+    records: GetArticleListDto[]
   },
   input: {
     keyword: string;
@@ -39,7 +39,7 @@ export default class Home extends Component<IProps, IState> {
     },
     data: {
       total: 0,
-      result: []
+      records: []
     }
   }
 
@@ -84,8 +84,8 @@ export default class Home extends Component<IProps, IState> {
     ArticleService
       .getList(input.keyword, input.categoryId, input.tabIds, input.page, input.pageSize)
       .then(res => {
-        res.result.forEach((x: GetArticleListDto) => {
-          x.background = `url(/${Math.floor(Math.random() * 6) + 1}.jpg)`
+        res.records.forEach((x: GetArticleListDto) => {
+          x.background = x.cover
         });
         this.setState({
           data: res
@@ -102,7 +102,7 @@ export default class Home extends Component<IProps, IState> {
     return (<>
       <div style={{ maxHeight: 'calc(100vh - 240px)', overflow: 'auto' }}>
         <div className='article'>
-          {data.result.map((x, i) => {
+          {data.records.map((x, i) => {
             return (
               <>
                 <div onClick={() => {
@@ -115,7 +115,7 @@ export default class Home extends Component<IProps, IState> {
                     this.setState({
                       data: {
                         total: data.total,
-                        result: data.result
+                        records: data.records
                       }
                     })
                   }} onMouseOut={() => {
@@ -123,7 +123,7 @@ export default class Home extends Component<IProps, IState> {
                     this.setState({
                       data: {
                         total: data.total,
-                        result: data.result
+                        records: data.records
                       }
                     })
                   }}>

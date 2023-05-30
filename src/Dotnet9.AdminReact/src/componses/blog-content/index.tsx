@@ -115,10 +115,10 @@ export default class BlogContent extends Component {
                                         alignItems: 'center',
                                         justifyContent: 'space-between'
                                     }}>
-                                    <Avatar style={{ backgroundColor: '#87d068', margin: 4 }} src='https://avatars.githubusercontent.com/u/61819790?v=4'></Avatar>
+                                    <Avatar style={{ margin: 4 }} src='/favicon.ico'></Avatar>
                                     <div>
-                                        <div style={{ fontSize: '16px', color: '#0159f7', fontStyle: 'oblique', fontFamily: 'fantasy' }}>Token</div>
-                                        <div style={{ fontSize: '10px', fontStyle: 'oblique' }}>一个热爱.NET的开发者！</div>
+                                        <div style={{ fontSize: '16px', color: '#0159f7', fontStyle: 'oblique', fontFamily: 'fantasy' }}>Dotnet9</div>
+                                        <div style={{ fontSize: '10px', fontStyle: 'oblique' }}>一个专注互联网分享精神的博客网站</div>
                                     </div>
                                 </Card>
                             </div>
@@ -209,7 +209,7 @@ export default class BlogContent extends Component {
                     <Col span={16} className='blog-render'>
                         <div style={{ marginLeft: '5px', marginRight: '5px' }}>
                             <Card style={{ height: '95px', width: '100%' }}>
-                                <h2>南岛鹋</h2>
+                                <h2>沙漠尽头的狼</h2>
                                 <span>{this.wisdom()}</span>
                             </Card>
                         </div>

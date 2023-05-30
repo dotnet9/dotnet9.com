@@ -43,7 +43,7 @@ export default class BlogHeader extends Component {
       <div>
         <Nav mode="horizontal" defaultSelectedKeys={['Home']}>
           <Nav.Header>
-            Token Blog
+            Dotnet9
           </Nav.Header>
           <Nav.Item>
             <Link className='target' to={'/'}>

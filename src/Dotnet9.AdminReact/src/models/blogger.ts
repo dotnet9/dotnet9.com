@@ -1,6 +1,19 @@
 export interface GetArticleListDto {
     id: string;
     title: string;
+    slug: string;
+    description: string;
+    cover: string;
+    copyrightType: number;
+    original: string;
+    originalTitle: string;
+    originalLink: string;
+    banner: boolean;
+    categories: string[];
+    albums: string[];
+    tags: string[];
+    viewCount: number;
+    creationTime: string;
     content: string;
     publishTime: string;
     userId: string;
@@ -8,7 +21,6 @@ export interface GetArticleListDto {
     readCount: number;
     like: number;
     categoryId: string;
-    creationTime: string;
     categoryName: string;
     show: boolean;
     background: string;
