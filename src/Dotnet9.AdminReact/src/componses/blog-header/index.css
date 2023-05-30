@@ -1,0 +1,9 @@
+.search{
+    transition: 0.3s;
+    width: 150px;
+}
+
+.search-select{
+    transition: 0.3s;
+    width: 200px !important;
+}

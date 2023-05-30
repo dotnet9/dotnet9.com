@@ -1,0 +1,156 @@
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  margin: 0px !important;
+}
+
+#root {
+  height: 100%;
+}
+
+.copy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 25px;
+  width: 25px;
+}
+
+.hljs {
+  background: #1E1E1E !important;
+  border: #1E1E1E !important;
+}
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+  color: #3f8ee9 !important;
+}
+
+.header-item {
+  transition: 0.3s;
+  height: 100%;
+  width: 70px;
+  cursor: pointer;
+  display: table-cell;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  color: #000;
+}
+
+.header-item:hover {
+  transition: 0.3s;
+  color: #066ef7;
+}
+
+.blog-markdown {
+  color: var(--semi-color-text-0);
+}
+
+.blog-markdown table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.blog-markdown thead {
+  background-color: #f5f5f5;
+}
+
+.blog-markdown th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.blog-markdown th {
+  font-weight: bold;
+}
+
+.blog-markdown tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.blog-markdown a {
+  color: #066ef7;
+}
+
+.blog-markdown a:hover {
+  color: #066ef7;
+  text-decoration: underline;
+}
+
+p code {
+  background: #adabab !important;
+  border: #1E1E1E !important;
+  color: #076ef5 !important;
+  padding: 2px !important;
+  margin: 2px !important;
+  border-radius: 4px;
+}
+
+.blog-markdown img {
+  width: 98%;
+  margin: 5px;
+}
+
+.blog-markdown pre code {
+  overflow: auto;
+  display: block;
+  width: 98%;
+  padding: 2px;
+  color: #fd0505;
+}
+
+@media screen and (max-width: 800px) {
+
+  .blog-content {
+    width: 100% !important;
+  }
+
+  .blog-render {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .blog-ranking {
+    transition: 0.3s;
+    display: none;
+    width: 0px;
+  }
+
+  .blog-content {
+    width: 1200px;
+  }
+
+  .blog-content {
+    width: 100% !important;
+  }
+
+  .blog-render {
+    width: 100% !important;
+  }
+
+  .blog-info {
+    transition: 0.3s;
+    width: 0px;
+    display: none;
+
+  }
+}

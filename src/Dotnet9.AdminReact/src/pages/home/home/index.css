@@ -1,0 +1,61 @@
+.blog-article {
+    height: 200px;
+    border-radius: 10px;
+    width: 800px;
+    position: relative;
+    margin-top: -219px;
+    padding-bottom: 0!important;
+    background-color: rgba(0,0,0,.3);
+    color: #fff!important;
+    transition: all .3s;
+}
+
+.blog-img {
+    height: 200px;
+    border-radius: 10px;
+    width: 800px;
+    background-image: url(https://www.ndmiao.cn/usr/themes/handsome/assets/img/sj/2.jpg);
+}
+
+.blog-article:hover {
+    transition: 0.3s;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.blog-article:hover .blog-article-title {
+    transition: 0.3s;
+    padding-top: 30px;
+}
+
+.blog-article-content {
+    -webkit-animation: slide-out-bottom 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    animation: slide-out-bottom 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    padding-top: 30px;
+    color: #fff;
+}
+
+.blog-article-content-select {
+    visibility: visible;
+    
+}
+
+
+.blog-article-title {
+    transition: 0.3s;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    margin: 20px;
+    text-align: center;
+    width: 95%;
+    padding-top: 60px;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.article {
+    margin: 20px;
+}
+
