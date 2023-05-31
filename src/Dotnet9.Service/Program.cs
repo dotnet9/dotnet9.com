@@ -9,6 +9,9 @@ var jwtOptions = jwtSection.Get<JwtOptions>();
 
 #endregion
 
+var siteSection = builder.Configuration.GetSection("Site");
+builder.Services.Configure<SiteOptions>(siteSection);
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
