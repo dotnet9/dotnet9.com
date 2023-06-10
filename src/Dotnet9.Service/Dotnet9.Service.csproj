@@ -40,7 +40,7 @@
 		</PackageReference>
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.3.23174.2-03" />
+		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.4.23259.3-02" />
 	</ItemGroup>
 	
 	<ItemGroup>

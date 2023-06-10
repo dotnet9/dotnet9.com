@@ -95,7 +95,13 @@ header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; po
 .search input.input_submit { border: 0; color: #fff; outline: none; position: absolute; top: -4px; right: -4px; width: 20%; display: block; font-size: 15px; height: 33px; line-height: 36px; text-indent: 1em; cursor: pointer; background: url(../images/search.png) no-repeat center #fff; background-size: 18px; margin: 10px; border-radius: 20px; }
 .search input.input_text { border: 0; line-height: 36px; height: 44px; font-size: 14px; width: 90%; outline: none; text-indent: 1em; background: no-repeat; }
 /*nav*/
-nav, .topnav { width: 210px; float: left }
+nav, .topnav {
+    width: 210px;
+    float: left;
+    border: #e8e8e8 1px solid;
+    border-radius: 10px;
+    background: #fff;
+}
 nav ul li { height: 40px; color: #777; line-height: 40px; text-indent: 20px; font-size: 14px; }
 nav ul li a { display: block; }
 ul#starlist .group {
@@ -137,7 +143,79 @@ nav em { width: 100%; display: block; height: 20px }
 .banner ul li:hover img { transform: scale(1.02) }
 /*blog_list*/
 .blog_list ul { overflow: hidden }
-.blog_list ul li { overflow: hidden; border-bottom: #e8e8e8 1px solid; padding-bottom: 18px; margin-bottom: 32px; }
+    .blog_list ul li {
+        overflow: hidden;
+        border: #e8e8e8 1px solid;
+        border-radius: 10px;
+        background: #fff;
+        padding: 18px;
+        margin-bottom: 32px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+        .blog_list ul li:before,
+        .blog_list ul li:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #fff, #fff, #eee, #fff, #fff);
+            background-size: 400%;
+            border-radius: 10px;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .blog_list ul li:hover {
+            border-color: transparent;
+            box-shadow: none;
+            transform: translateY(-5px);
+        }
+
+            .blog_list ul li:hover:before,
+            .blog_list ul li:hover:after {
+                opacity: 1;
+            }
+
+            .blog_list ul li:hover:before {
+                animation: animate1 2s linear infinite;
+            }
+
+            .blog_list ul li:hover:after {
+                animation: animate2 2s linear infinite;
+            }
+
+@keyframes animate1 {
+    0% {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 0%;
+    }
+}
+
+@keyframes animate2 {
+    0% {
+        background-position: 100%;
+    }
+
+    50% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 100%;
+    }
+}
 .blog_list ul li a.blog_more { overflow: hidden; display: block; }
 .blog_list ul li i { float: right; width: 178px; height: 100px; display: block; overflow: hidden; margin: 12px 0 0 22px; }
 .blog_list ul li i img { width: 100%; min-height: 100% }
@@ -172,7 +250,13 @@ nav em { width: 100%; display: block; height: 20px }
 .box_r > div { margin-bottom: 30px; }
 .side_title h3 { font-size: 16px; color: #222; border-bottom: #e8e8e8 1px solid; padding-bottom: 20px; margin-bottom: 20px; }
 .side_title a { float: right; font-size: 14px; color: #328dff; text-align: right; }
-.hot_news li { margin-bottom: 15px; }
+.hot_news, .tags {
+    border: #e8e8e8 1px solid;
+    border-radius: 10px;
+    background: #fff;
+    padding: 15px;
+}
+.hot_news li { margin-bottom: 5px; }
 .hot_news li p { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; line-height: 24px; margin: 0 0 5px 0; font-size: 12px; }
 .hot_news li span { font-size: 12px; color: #777; line-height: 16px; background: url(../images/icon_view.png) no-repeat left center; background-size: 17px; padding-left: 22px; }
 .hot_news li:hover p { text-decoration: underline }

@@ -17,6 +17,6 @@ public class IndexModel : PageModel
         RequestResponse = await categoryService.GetBlogBriefListByCategorySlugAsync(Slug, PageSize, Current);
 
         Blogs = RequestResponse?.Records;
-        Pages = Enumerable.Range(1, RequestResponse!.TotalPage).ToArray();
+        Pages = Enumerable.Range(1, RequestResponse!.TotalPage).ToArray(); 
     }
 }
