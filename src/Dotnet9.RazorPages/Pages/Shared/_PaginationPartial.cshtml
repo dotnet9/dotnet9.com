@@ -46,7 +46,8 @@ else
                                 <span class="ps_zhuanzai">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
                             }
                         </div>
-                        <p>@blog.Description</p>
+                        <i><img src="@blog.Cover" alt="@blog.Title" title="@blog.Title"/></i>
+                        <p title="@blog.Description">@blog.Description</p>
                     </a>
                     <div class="info">
                         <span class="info_user">
