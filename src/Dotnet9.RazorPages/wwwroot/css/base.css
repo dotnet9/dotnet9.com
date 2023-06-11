@@ -1,6 +1,25 @@
 @charset "utf-8";
 * { margin: 0; padding: 0 }
 body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #000; background: #fff; line-height: 1.5; overflow-x: hidden; }
+.background {
+    background-color: #E6F2FF;
+    z-index: -1;
+    animation: background 10s ease-in-out infinite;
+}
+
+@keyframes background {
+    0% {
+        opacity: 0.95;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.95;
+    }
+}
 img { border: 0; display: block }
 ul, li { list-style: none; }
 a { text-decoration: none; color: #333; }
@@ -98,7 +117,6 @@ header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; po
 nav, .topnav {
     width: 210px;
     float: left;
-    border: #e8e8e8 1px solid;
     border-radius: 10px;
     background: #fff;
 }
@@ -130,7 +148,7 @@ nav em { width: 100%; display: block; height: 20px }
 .open .navicon:before { margin-top: 0; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
 .open .navicon:after { margin-top: 0; -webkit-transform: rotate(-45deg); transform: rotate(-45deg); }
 .open .navicon:before, .open .navicon:after { content: ''; display: block; width: 30px; height: 2px; position: absolute; background: #999; }
-.box_l { width: 738px; overflow: hidden; margin: 0 30px 20px; float: left; }
+.box_l { width: 748px; overflow: hidden; margin: 0 0px 10px 10px; float: left; }
 /*banner*/
 .banner { width: 100%; margin-bottom: 40px; overflow: hidden }
 .banner ul li { border-radius: 6px; position: relative; }
@@ -247,11 +265,10 @@ nav em { width: 100%; display: block; height: 20px }
 .info_class a:hover { text-decoration: underline; }
 /*box_r*/
 .box_r { float: right; width: 270px; }
-.box_r > div { margin-bottom: 30px; }
+.box_r > div { margin-bottom: 15px; }
 .side_title h3 { font-size: 16px; color: #222; border-bottom: #e8e8e8 1px solid; padding-bottom: 20px; margin-bottom: 20px; }
 .side_title a { float: right; font-size: 14px; color: #328dff; text-align: right; }
-.hot_news, .tags {
-    border: #e8e8e8 1px solid;
+.box_l, .tj_news, .hot_news, .tags {
     border-radius: 10px;
     background: #fff;
     padding: 15px;
