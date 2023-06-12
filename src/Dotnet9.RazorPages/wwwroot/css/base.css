@@ -31,7 +31,7 @@ article { width: 1280px; margin: 120px auto 0; overflow: hidden }
 .is-fixed { top: 120px; z-index: 99; }
 /*header*/
 header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; position: fixed; width: 100%; top: 0; background: #fff; z-index: 9999; }
-.topbar { width: 1280px; margin: auto; display: flex; padding: 20px 0; overflow: hidden; overflow-x: scroll;}
+.topbar { width: 1280px; margin: auto; display: flex; padding: 20px 0; overflow: hidden; overflow-x: auto;}
 .logo {
     float: left;
     line-height: 44px;
