@@ -1,15 +1,17 @@
 @charset "utf-8";
+
  @media (max-width: 1219px) {
 article, .box, .topbar { width: 96% }
 nav, .topnav { width: 140px }
-.box_l { width: 57% }
-.box_r { width: 21% }
+.box_l { width: 59% }
+.box_r { width: 24.5% }
 }
+
  @media (max-width: 991px) {
 .box_l { width: 56% }
 }
+
  @media (max-width: 925px) {
-.box_l { width: 54% }
 #mnavh { display: block; position: absolute; left: 6px; top: 12px; }
 #mnavh.open:after { position: fixed; width: 50%; height: 100%; content: ""; right: 0; top: 60px; z-index: 9 }
 nav { width: 100%; position: fixed; z-index: 8; left: 0; }
@@ -29,19 +31,21 @@ a.logo { margin-left: 50px; margin-top: 7px; }
 .topbar { padding: 8px 0 0; }
 .side_nav { display: none }
 ul#starlist li:nth-child(3) { margin: 0; padding: 0 }
-article { margin: 70px auto 0; }
+article { width: 100%; margin: 70px auto 20px 0; }
 .search { width: 45%; margin: 7px 0 0 0; }
 .box_l { width: 64%; margin: 20px 0 0 0; }
-.box_r { width: 32%; margin-top: 20px; }
+.box_r { width: 31%; margin: 20px 0 0 5px; }
 header { height: 70px; }
 .is-fixed { top: 70px }
 nav ul li { text-indent: inherit }
 .open .navicon:before, .open .navicon:after { width: 26px }
 }
+
  @media (max-width: 800px) {
-.box_l { width: 100% }
+.box_l { width: 96% }
 .box_r { width: 100% }
 }
+
  @media (max-width: 640px) {
 a.logo { font-size: 16px; margin: 0 0 0 40px;line-height: 46px; }
 .navicon { width: 24px; height: 2px; }
