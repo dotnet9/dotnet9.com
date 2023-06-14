@@ -4,6 +4,10 @@
 @{
     var siteInfo = await SystemClientService.GetSiteInfoAsync();
     var links = await LinkService.GetAllAsync();
+    var dotnetVersion = RuntimeInformation.FrameworkDescription;
+    string? assemblyPath = Assembly.GetEntryAssembly()!.Location;
+    var lastModified = File.GetLastWriteTime(assemblyPath);
+    var publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
 }
 
 <footer>
@@ -37,13 +41,14 @@
             </p>
 
             <p>
-                &nbsp; 本站由 .NET 8.0 强力驱动！
+                &nbsp; 本站由 @(dotnetVersion) 强力驱动！
                 &nbsp; | 本站源代码：<a href="@siteInfo?.Github" target="_blank">Github</a>
                 &nbsp; | <a href="@siteInfo?.Github/issues" target="_blank">Bug反馈</a>
                 &nbsp; | 前台&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/razor-pages/?view=aspnetcore-8.0&tabs=visual-studio" target="_blank">Razor Pages</a>
                 &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0" target="_blank">.NET Web API</a>
                 &nbsp; | <a href="/privacy" target="_blank">隐私政策</a>
             </p>
+            <p>网站源码编译时间：@(publishTime)</p>
         </div>
     </div>
 </footer>
