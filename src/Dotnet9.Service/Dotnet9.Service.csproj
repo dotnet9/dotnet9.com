@@ -17,8 +17,8 @@
 		<PackageReference Include="Masa.Contrib.Dispatcher.IntegrationEvents.EventLogs.EFCore" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="FluentValidation" Version="11.5.2" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="Dapr.Actors.AspNetCore" Version="1.11.0-rc01" />
-		<PackageReference Include="Dapr.AspNetCore" Version="1.11.0-rc01" />
+		<PackageReference Include="Dapr.Actors.AspNetCore" Version="1.11.0" />
+		<PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />
 		<PackageReference Include="Masa.BuildingBlocks.Ddd.Domain" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Ddd.Domain" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Ddd.Domain.Repository.EFCore" Version="1.0.0-rc.2.1" />
@@ -26,7 +26,7 @@
 		<PackageReference Include="Masa.Contrib.ReadWriteSplitting.Cqrs" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Service.MinimalAPIs" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Utils.Security.Cryptography" Version="1.0.0-rc.2.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-preview.4.23260.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0-preview.5.23302.2" />
 		<PackageReference Include="Masa.Contrib.Data.UoW.EFCore" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Masa.Contrib.Dispatcher.IntegrationEvents.Dapr" Version="1.0.0-rc.2.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0-preview.4.23259.3">
@@ -40,7 +40,7 @@
 		</PackageReference>
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.4.23259.3-02" />
+		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.4.23259.3-03" />
 	</ItemGroup>
 	
 	<ItemGroup>
