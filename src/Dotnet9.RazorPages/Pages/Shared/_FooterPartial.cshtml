@@ -5,7 +5,7 @@
     var siteInfo = await SystemClientService.GetSiteInfoAsync();
     var links = await LinkService.GetAllAsync();
     var dotnetVersion = RuntimeInformation.FrameworkDescription;
-    string? assemblyPath = Assembly.GetEntryAssembly()!.Location;
+    var assemblyPath = Assembly.GetEntryAssembly()!.Location;
     var lastModified = File.GetLastWriteTime(assemblyPath);
     var publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
 }

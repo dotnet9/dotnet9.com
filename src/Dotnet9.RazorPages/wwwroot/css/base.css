@@ -77,15 +77,14 @@ header { height: 85px; margin-bottom: 20px; border-bottom: 1px solid #e8e8e8; po
 .badge {
     position: relative;
     display: inline-block;
-    padding: 5px 10px;
     color: #333;
 }
 
 .count {
     position: absolute;
-    top: -12px;
-    right: -10px;
-    padding: 3px 6px;
+    top: -10px;
+    right: -15px;
+    padding: 0px 5px;
     background-color: #ff8c00;
     color: #fff;
     font-size: 12px;
