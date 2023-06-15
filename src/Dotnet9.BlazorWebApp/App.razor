@@ -1,33 +1,66 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@inject ISystemClientService SystemClientService
+@inject BlogService BlogService
+
+<!DOCTYPE html>
+<html lang="zh">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Dotnet9.BlazorWebApp</title>
-    <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link href="Dotnet9.BlazorWebApp.styles.css" rel="stylesheet" />
-    <HeadOutlet />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>@_siteInfo!.AppName</title>
+    <meta name="keywords" content="@_siteInfo.Keywords"/>
+    <meta name="description" content="@_siteInfo.Description]"/>
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/m.css" rel="stylesheet">
+    <link href="/css/swiper.min.css" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="favicon.ico"/>
+    <link href="Dotnet9.BlazorWebApp.styles.css" rel="stylesheet"/>
+    <HeadOutlet/>
 </head>
 
-<body>
+<body class="background">
 
-    <Router AppAssembly="@typeof(App).Assembly">
-        <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-        </Found>
-        <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
-            </LayoutView>
-        </NotFound>
-    </Router>
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
 
-    <script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
+<script src="_framework/blazor.web.js" suppress-error="BL9992"></script>
 </body>
 </html>
+
+@code
+{
+    SiteInfoDto? _siteInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+    }
+}
+
+@* <script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/comm.js"></script>
+<script src="/js/swiper.min.js"></script>
+
+<environment names="Production">
+    <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b1c5c62f256893710ae912468261bf6b";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+            crossorigin="anonymous"></script>
+</environment> *@

@@ -1,0 +1,22 @@
+﻿<div class="tj_news">
+    <div class="side_title">
+        <h3>@Model.GroupName</h3>
+    </div>
+
+    <ul>
+        @foreach (var blog in @Model.Blogs)
+        {
+            <li>
+                <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug" title="@blog.Title">
+                    <p>(<span>@blog.ViewCount</span>)@blog.Title</p>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+@code
+{
+    [Parameter]
+    public BlogsSidebarModel Model { get; set; }
+}

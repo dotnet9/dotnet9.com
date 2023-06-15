@@ -1,17 +1,42 @@
 ﻿@inherits LayoutComponentBase
+@inject BlogService BlogService
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<HeaderPartial/>
+
+<article>
+    <LeftNavigation/>
+    <div class="box_l">
+        @Body
     </div>
+    <div class="box_r">
+        <TopKeywordsSidebar/>
+        @if (recommendBlogs?.Blogs?.Any() == true)
+        {
+            <BlogsSidebar Model="recommendBlogs" />
+        }
+        @if (weekHotBlog?.Blogs?.Any() == true)
+        {
+            <BlogsSidebar Model="weekHotBlog" />
+        }
+        @if (historyHotBlog?.Blogs?.Any() == true)
+        {
+            <BlogsSidebar Model="historyHotBlog" />
+        }
+    </div>
+</article>
+<FooterPartial/>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+@code
+{
+    BlogsSidebarModel? recommendBlogs;
+    BlogsSidebarModel? weekHotBlog;
+    BlogsSidebarModel? historyHotBlog;
+
+    protected override async Task OnInitializedAsync()
+    {
+        recommendBlogs = new BlogsSidebarModel("站长推荐", await BlogService.GetRecommendAsync());
+        weekHotBlog = new BlogsSidebarModel("本周排行", await BlogService.GetWeekHotAsync());
+        historyHotBlog = new BlogsSidebarModel("历史排行", await BlogService.GetHistoryHotAsync());
+    }
+}
