@@ -113,7 +113,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .ToListAsync();
     }
 
-    public async Task<GetBlogListByKeywordsResponse> GetBlogBriefListByKeywordsAsync(
+    public async Task<GetBlogListByKeywordsResponse?> GetBlogBriefListByKeywordsAsync(
         SearchBlogsByKeywordsQuery request)
     {
         var keywords = request.Keywords?.ToLower();
@@ -145,7 +145,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return null;
     }
 
-    public async Task<GetBlogListByAlbumSlugResponse> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery request)
+    public async Task<GetBlogListByAlbumSlugResponse?> GetBlogBriefListByAlbumSlugAsync(SearchBlogsByAlbumQuery request)
     {
         var page = request.Page;
         var pageSize = request.PageSize;
@@ -176,7 +176,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return default;
     }
 
-    public async Task<GetBlogListByCategorySlugResponse> GetBlogBriefListByCategorySlugAsync(
+    public async Task<GetBlogListByCategorySlugResponse?> GetBlogBriefListByCategorySlugAsync(
         SearchBlogsByCategoryQuery request)
     {
         var page = request.Page;
@@ -210,7 +210,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     }
 
 
-    public async Task<GetBlogListByTagNameResponse> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery request)
+    public async Task<GetBlogListByTagNameResponse?> GetBlogBriefListByTagNameAsync(SearchBlogsByTagQuery request)
     {
         var page = request.Page;
         var pageSize = request.PageSize;
@@ -277,7 +277,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }
 
         return (from blogAlbum in blog.Albums
-            join album in Context.Albums! on blogAlbum.AlbumId equals album.Id
+            join album in Context.Albums on blogAlbum.AlbumId equals album.Id
             select new AlbumBrief(album.Name, album.Slug, album.Cover, album.Description, 0)).ToList();
     }
 
@@ -289,7 +289,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         }
 
         return (from blogTag in blog.Tags
-            join tag in Context.Tags! on blogTag.TagId equals tag.Id
+            join tag in Context.Tags on blogTag.TagId equals tag.Id
             select new TagBrief(tag.Name, 0)).ToList();
     }
 
