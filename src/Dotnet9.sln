@@ -36,7 +36,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Caller", "Dotnet9.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.ASPNETCore", "Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj", "{158B9DD6-E77E-4CA5-B472-754650341FE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.BlazorWebApp", "Dotnet9.BlazorWebApp\Dotnet9.BlazorWebApp.csproj", "{9C17798B-EB17-4F27-8A6F-8568C3E56E5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.BlazorWebApp", "Dotnet9.BlazorWebApp\Dotnet9.BlazorWebApp.csproj", "{9C17798B-EB17-4F27-8A6F-8568C3E56E5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

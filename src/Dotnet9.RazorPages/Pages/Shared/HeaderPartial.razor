@@ -1,12 +1,8 @@
 ﻿@inject ISystemClientService SystemClientService
 
-@{
-    var siteInfo = await SystemClientService.GetSiteInfoAsync();
-}
-
 <header>
     <div class="topbar">
-        <a href="/" class="logo">@siteInfo?.AppName</a>
+        <a href="/" class="logo">@_siteInfo?.AppName</a>
         <span class="header-menu">
             <a href="/albums" title="专辑">专辑</a>
         </span>
@@ -42,3 +38,13 @@
         <span class="navicon"></span>
     </h2>
 </header>
+
+@code{
+    SiteInfoDto? _siteInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+    }
+
+}

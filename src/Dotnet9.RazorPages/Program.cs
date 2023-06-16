@@ -1,6 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+builder.Services.AddRazorComponents();
+builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
 
 var config = builder.Configuration;
@@ -28,5 +30,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.Run();

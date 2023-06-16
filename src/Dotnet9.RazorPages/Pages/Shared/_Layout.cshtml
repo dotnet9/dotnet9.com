@@ -1,4 +1,5 @@
-﻿@inject ISystemClientService SystemClientService
+﻿@using RenderMode = Microsoft.AspNetCore.Mvc.Rendering.RenderMode
+@inject ISystemClientService SystemClientService
 @inject BlogService BlogService
 
 @{
@@ -23,11 +24,17 @@
     <script src="/js/comm.js"></script>
     <!-- Swiper JS -->
     <script src="/js/swiper.min.js"></script>
+    <link href="BlazorApp1.styles.css" rel="stylesheet"/>
+    <script src="_framework/blazor.server.js"></script>
+    <base href="~/" />
+    <component type="typeof(Microsoft.AspNetCore.Components.Web.HeadOutlet)" 
+               render-mode="ServerPrerendered" />
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
     @await RenderSectionAsync("Headers", false)
 </head>
 <body class="background">
 
-@await Html.PartialAsync("_HeaderPartial")
+<component type="typeof(HeaderPartial)" render-mode="ServerPrerendered"/>
 
 <article>
     @await Html.PartialAsync("_LeftNavigation")
@@ -50,7 +57,8 @@
         }
     </div>
 </article>
-@await Html.PartialAsync("_FooterPartial")
+
+<component type="typeof(FooterPartial)" render-mode="ServerPrerendered"/>
 
 
 @await RenderSectionAsync("Scripts", required: false)
