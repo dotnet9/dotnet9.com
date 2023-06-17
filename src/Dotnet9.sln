@@ -36,8 +36,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Caller", "Dotnet9.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.ASPNETCore", "Dotnet9.ASPNETCore\Dotnet9.ASPNETCore.csproj", "{158B9DD6-E77E-4CA5-B472-754650341FE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.BlazorWebApp", "Dotnet9.BlazorWebApp\Dotnet9.BlazorWebApp.csproj", "{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,10 +70,6 @@ Global
 		{158B9DD6-E77E-4CA5-B472-754650341FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{158B9DD6-E77E-4CA5-B472-754650341FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{158B9DD6-E77E-4CA5-B472-754650341FE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +83,6 @@ Global
 		{DD28AAE1-4957-46C7-AD2C-0F9BED5DF9BF} = {BFB92BD5-482F-49F4-B76C-EF8F697D3F99}
 		{98ABEA91-4CCE-4B4E-9C4C-F58538CBC1F4} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 		{158B9DD6-E77E-4CA5-B472-754650341FE1} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
-		{7B8F1B80-731C-4C76-9BD8-31FA254B1C5E} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B83BA2BA-19E5-41FB-A92A-16A03DA229E4}

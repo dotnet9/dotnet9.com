@@ -4,6 +4,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddRazorComponents();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMasaBlazor();
 
 var config = builder.Configuration;
 var configOption = new ServiceCallerOptions();
@@ -31,6 +32,5 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
 
 app.Run();

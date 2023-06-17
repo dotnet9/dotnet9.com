@@ -28,3 +28,6 @@ global using System.Net.Mime;
 global using System.Text;
 global using System.Text.Encodings.Web;
 global using System.Text.Unicode;
+global using BlazorComponent;
+global using Masa.Blazor;
+global using Masa.Blazor.Presets;
