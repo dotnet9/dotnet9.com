@@ -31,3 +31,4 @@ global using System.Text.Unicode;
 global using BlazorComponent;
 global using Masa.Blazor;
 global using Masa.Blazor.Presets;
+global using Dotnet9.RazorPages.Models;
