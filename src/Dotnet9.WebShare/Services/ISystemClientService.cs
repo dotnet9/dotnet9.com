@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.RazorPages.Services;
+﻿namespace Dotnet9.WebShare.Services;
 
 public interface ISystemClientService
 {

@@ -1,0 +1,19 @@
+﻿@page "/ai"
+@layout ThirdLayout
+
+@inject ISystemClientService SystemClientService
+
+<PageTitle>Token AI</PageTitle>
+
+
+<iframe src="https://open666.cn?home=@_siteInfo?.Domain"></iframe>
+
+@code{
+    SiteInfoDto? _siteInfo;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+    }
+
+}

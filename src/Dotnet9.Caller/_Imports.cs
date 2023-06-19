@@ -17,3 +17,4 @@ global using Masa.BuildingBlocks.Service.Caller;
 global using Dotnet9.ASPNETCore;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
+global using System.Net.Http.Json;
