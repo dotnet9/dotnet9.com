@@ -1,0 +1,126 @@
+﻿@page "/tools/timestamp"
+
+<PageTitle>时间戳</PageTitle>
+
+<h2 style="margin-bottom: 10px; margin-top: 10px; text-align: center;">时间戳</h2>
+
+<MRow>
+    现在 @DateToTimestamp(DateTime.Now, TimestampKind.Seconds)
+</MRow>
+<MRow>
+    <MTextField Label="时间戳" Type="number" TValue="long" @bind-Value="_timestamp1" />
+    <MSelect @bind-Value="_kindValue1"
+             Label="时间戳类型"
+             Items="@_items"
+             ItemText="u => u.Label"
+             ItemValue="u => u.Value"
+             Class="mx-3"
+             MenuProps="props => props.OffsetY = true">
+    </MSelect>
+    <MButton OnClick="@Convert1">转换</MButton>
+    <MTextField Label="北京时间"
+                TValue="string" @bind-Value="_datetime1"
+                Class="ml-3" />
+</MRow>
+<MRow>
+    <MTextField Label="北京时间" TValue="string" @bind-Value="_datetime2" />
+    <MButton Class="mx-3" OnClick="@Convert2">转换</MButton>
+    <MTextField Label="时间戳" TValue="long" @bind-Value="_timestamp2" />
+    <MSelect @bind-Value="_kindValue2"
+             Label="时间戳类型"
+             Items="_items"
+             ItemText="u => u.Label"
+             ItemValue="u => u.Value"
+             MenuProps="props => props.OffsetY = true"
+             Class="ml-3">
+    </MSelect>
+</MRow>
+
+@code
+{
+    DateTime _currentDatetime;
+    long _timestamp1;
+    long _timestamp2;
+    string? _datetime1;
+    string? _datetime2;
+    TimestampKind _kindValue1;
+    TimestampKind _kindValue2;
+
+    readonly List<TimestampItem> _items = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        _items.Add(new TimestampItem("时间戳秒", TimestampKind.Seconds));
+        _items.Add(new TimestampItem("时间戳毫秒", TimestampKind.Milliseconds));
+        _currentDatetime = DateTime.Now;
+        _timestamp1 = _timestamp2 = DateToTimestamp(_currentDatetime, TimestampKind.Seconds);
+        _datetime1 = _datetime2 = _currentDatetime.ToString("yyyy-MM-dd HH:mm:ss");
+        return base.OnInitializedAsync();
+    }
+
+    private void Convert1()
+    {
+        _datetime1 = TimestampToDate(_timestamp1, _kindValue1).ToString(_kindValue1 == TimestampKind.Seconds ? "yyyy-MM-dd HH:mm:ss" : "yyyy-MM-dd HH:mm:ss.fff");
+    }
+
+    private void Convert2()
+    {
+        try
+        {
+            _timestamp2 = DateToTimestamp(DateTime.Parse(_datetime2), _kindValue2);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    private static long DateToTimestamp(DateTime date, TimestampKind kind)
+    {
+        try
+        {
+            var point = new DateTime(1970, 1, 1);
+            var time = date.Subtract(point);
+
+            return (long)(kind == TimestampKind.Seconds ? time.TotalSeconds : time.TotalMilliseconds);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+
+    private static DateTime TimestampToDate(long timestamp, TimestampKind kind)
+    {
+        try
+        {
+            var point = new DateTime(1970, 1, 1);
+            var time = kind == TimestampKind.Seconds ? point.AddSeconds(timestamp) : point.AddMilliseconds(timestamp);
+
+            return time;
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    enum TimestampKind
+    {
+        Seconds,
+        Milliseconds
+    }
+
+    class TimestampItem
+    {
+        public string Label { get; }
+        public TimestampKind Value { get; }
+
+        public TimestampItem(string label, TimestampKind value)
+        {
+            Label = label;
+            Value = value;
+        }
+    }
+}

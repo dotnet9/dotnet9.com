@@ -3,6 +3,8 @@
 		<PackageReference Include="Masa.Blazor" Version="1.0.0-rc.4" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Dotnet9.Caller\Dotnet9.Caller.csproj" />
+	  <ProjectReference Include="..\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
 	  <ProjectReference Include="..\Dotnet9.WebShare\Dotnet9.WebShare.csproj" />
 	</ItemGroup>
 </Project>

@@ -3,10 +3,31 @@
 
 @inject ISystemClientService SystemClientService
 
+@section Headers
+{
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        iframe{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            }
+
+    </style>
+}
+
 <PageTitle>Token AI</PageTitle>
 
 
-<iframe src="https://open666.cn?home=@_siteInfo?.Domain"></iframe>
+<iframe style="position: absolute;width: 100%;height: 100%;" src="https://open666.cn?home=@_siteInfo?.Domain"></iframe>
 
 @code{
     SiteInfoDto? _siteInfo;
