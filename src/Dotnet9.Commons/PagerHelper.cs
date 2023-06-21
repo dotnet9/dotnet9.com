@@ -2,7 +2,7 @@
 
 public class PagerHelper
 {
-    public static List<int> CalcPages(int totalPage, int showCount, int current)
+    public static List<int>? CalcPages(int totalPage, int showCount, int current)
     {
         var pages = new List<int>();
         if (totalPage <= showCount)

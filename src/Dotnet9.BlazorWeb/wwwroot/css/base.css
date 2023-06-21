@@ -148,7 +148,7 @@ nav em { width: 100%; display: block; height: 20px }
 .open .navicon:before { margin-top: 0; -webkit-transform: rotate(45deg); transform: rotate(45deg); }
 .open .navicon:after { margin-top: 0; -webkit-transform: rotate(-45deg); transform: rotate(-45deg); }
 .open .navicon:before, .open .navicon:after { content: ''; display: block; width: 30px; height: 2px; position: absolute; background: #999; }
-.box_l { width: 748px; overflow: hidden; margin: 0 0px 10px 10px; float: left; }
+.box_l { width: 728px; overflow: hidden; margin: 0 0px 10px 10px; float: left; }
 /*banner*/
 .banner { width: 100%; margin-bottom: 40px; overflow: hidden }
 .banner ul li { border-radius: 6px; position: relative; }

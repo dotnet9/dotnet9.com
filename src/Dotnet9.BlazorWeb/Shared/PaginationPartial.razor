@@ -1,19 +1,6 @@
-﻿@model PaginationModel
+﻿@inject ISystemClientService SystemClientService
 
-@inject ISystemClientService SystemClientService
-
-@{
-    var siteInfo = await SystemClientService.GetSiteInfoAsync();
-    var showFirst = Model.PageCount > 1;
-    var showPrev = Model.Current > 1;
-    var prevPageIndex = Model.Current - 1;
-    var showNext = Model.Current != Model.PageCount;
-    var nextPageIndex = Model.Current + 1;
-    var showLast = showFirst;
-    var pages = PagerHelper.CalcPages(Model.PageCount, 10, Model.Current);
-}
-
-@if (Model.Blogs is not {Count: > 0 })
+@if (Model?.Blogs is not { Count: > 0 })
 {
     <div class="read_more">
         这里空空如也
@@ -46,12 +33,14 @@ else
                                 <span class="ps_zhuanzai">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
                             }
                         </div>
-                        <i><img src="@blog.Cover" alt="@blog.Title" title="@blog.Title"/></i>
+                        <i>
+                            <img src="@blog.Cover" alt="@blog.Title" title="@blog.Title"/>
+                        </i>
                         <p title="@blog.Description">@blog.Description</p>
                     </a>
                     <div class="info">
                         <span class="info_user">
-                            @(blog?.Original ?? siteInfo?.Owner)
+                            @(blog?.Original ?? _siteInfo?.Owner)
                         </span>
                         <span class="info_class">
                             @if (blog!.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
@@ -89,19 +78,19 @@ else
         @if (Model.Total > Model.PageSize)
         {
             <ul class="pagination">
-                @if (showFirst)
+                @if (_showFirst)
                 {
                     <li class="pagination-btn">
                         <a href="@(Model.UrlPrefix)current=1&pageSize=@Model.PageSize">◀</a>
                     </li>
                 }
-                @if (showPrev)
+                @if (_showPrev)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)current=@prevPageIndex&pageSize=@Model.PageSize">◁</a>
+                        <a href="@(Model.UrlPrefix)current=@_prevPageIndex&pageSize=@Model.PageSize">◁</a>
                     </li>
                 }
-                @if (pages.Any() == true)
+                @if (pages?.Any() == true)
                 {
                     @foreach (var pageIndex in pages)
                     {
@@ -112,14 +101,14 @@ else
                     }
                 }
 
-                @if (showNext)
+                @if (_showNext)
                 {
                     <li class="pagination-btn">
-                        <a href="@(Model.UrlPrefix)current=@nextPageIndex&pageSize=@Model.PageSize">▷</a>
+                        <a href="@(Model.UrlPrefix)current=@_nextPageIndex&pageSize=@Model.PageSize">▷</a>
                     </li>
                 }
 
-                @if (showLast)
+                @if (_showLast)
                 {
                     <li class="pagination-btn">
                         <a href="@(Model.UrlPrefix)current=@Model.PageCount&pageSize=@Model.PageSize">▶</a>
@@ -134,4 +123,32 @@ else
             </ul>
         }
     </div>
+}
+
+@code {
+
+    [Parameter]
+    public PaginationModel? Model { get; set; }
+
+    SiteInfoDto? _siteInfo;
+    bool _showFirst;
+    bool _showPrev;
+    int _prevPageIndex;
+    bool _showNext;
+    int _nextPageIndex;
+    bool _showLast;
+    List<int>? pages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+        _showFirst = Model!.PageCount > 1;
+        _showPrev = Model.Current > 1;
+        _prevPageIndex = Model.Current - 1;
+        _showNext = Model.Current != Model.PageCount;
+        _nextPageIndex = Model.Current + 1;
+        _showLast = _showFirst;
+        pages = PagerHelper.CalcPages(Model.PageCount, 10, Model.Current);
+    }
+
 }

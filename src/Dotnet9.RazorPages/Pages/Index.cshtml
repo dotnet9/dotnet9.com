@@ -1,10 +1,12 @@
 ﻿@page
 
+@using Dotnet9.RazorPages.Pages.Shared
 @model Dotnet9.RazorPages.Pages.IndexModel
 @{
     ViewData[ViewDataKeys.Title] = Model.Keywords.IsNullOrWhiteSpace() ? "首页" : $"搜索-{Model.Keywords}";
     ViewData[ViewDataKeys.Keywords] = Model.SiteInfo?.Keywords;
     ViewData[ViewDataKeys.Description] = Model.SiteInfo?.Description;
+    var paginationModel = new PaginationModel(Model.Blogs, Model.UrlSuffix, Model.Current, Model.Pages, Model.RequestResponse!.Total, Model.PageSize, Model.RequestResponse.TotalPage);
 }
 
-@await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Blogs, Model.UrlSuffix, Model.Current, Model.Pages, Model.RequestResponse!.Total, Model.PageSize, Model.RequestResponse.TotalPage))
+<component type="typeof(PaginationPartial)" render-mode="WebAssemblyPrerendered" param-Model="@paginationModel"/>

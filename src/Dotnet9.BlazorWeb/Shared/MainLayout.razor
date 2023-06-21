@@ -1,67 +1,48 @@
 ﻿@inherits LayoutComponentBase
+@inject BlogService BlogService
 
-@inject MasaBlazor MasaBlazor
+<HeaderPartial/>
 
-<MApp Id="inspire">
-    <MAppBar App
-              Color="white"
-             Flat>
-        <MAvatar Color="@(MasaBlazor.Breakpoint.SmAndDown ? "grey darken-1" : "transparent")"
-                 Size="32"></MAvatar>
+<article>
+    <LeftNavigation/>
+    <div class="box_l">
+        @Body
+    </div>
+    <div class="box_r">
+        <TopKeywordsSidebar/>
+        @if (_recommendBlogs?.Any() == true)
+        {
+            <BlogSideBar Model="_recommendModel"/>
+        }
+        @if (_weekHotBlog?.Any() == true)
+        {
+            <BlogSideBar Model="_weekHotModel"/>
+        }
+        @if (_historyHotBlog?.Any() == true)
+        {
+            <BlogSideBar Model="_historyHotModel"/>
+        }
+    </div>
+</article>
 
-        <MTabs Centered
-                Class="ml-n9"
-                Color="grey darken-1">
-             @foreach (var link in _links)
-            {
-                <MTab>
-                    @link
-                </MTab>
-            }
-        </MTabs>
+<FooterPartial/>
 
-        <MAvatar Class="hidden-sm-and-down"
-                 Color="grey darken-1 shrink"
-                 Size="32"></MAvatar>
-    </MAppBar>
+@code
+{
+    List<BlogBrief>? _recommendBlogs;
+    List<BlogBrief>? _weekHotBlog;
+    List<BlogBrief>? _historyHotBlog;
+    BlogsSidebarModel? _recommendModel;
+    BlogsSidebarModel? _weekHotModel;
+    BlogsSidebarModel? _historyHotModel;
 
-    <MMain Class="grey lighten-3">
-        <MContainer>
-            <MRow>
-                <MCol Cols="12"
-                      Sm="2">
-                    <MSheet Rounded="@("lg")"
-                            MinHeight="268">
-                        <!-- Your content -->
-                    </MSheet>
-                </MCol>
-
-                <MCol Cols="12"
-                      Sm="8">
-                    <MSheet MinHeight="@("70vh")"
-                            Rounded="@("lg")">
-                        @Body
-                    </MSheet>
-                </MCol>
-
-                <MCol Cols="12"
-                      Sm="2">
-                    <MSheet Rounded="@("lg")"
-                            MinHeight="268">
-                        <!-- Your content -->
-                    </MSheet>
-                </MCol>
-            </MRow>
-        </MContainer>
-    </MMain>
-</MApp>
-
-@code {
-    List<string> _links = new()
+    protected override async Task OnInitializedAsync()
     {
-        "Dashboard",
-        "Messages",
-        "Profile",
-        "Updates"
-    };
+        _recommendBlogs = await BlogService.GetRecommendAsync();
+        _recommendModel = new BlogsSidebarModel(" 站长推荐", _recommendBlogs);
+        _weekHotBlog = await BlogService.GetWeekHotAsync();
+        _weekHotModel = new BlogsSidebarModel("本周排行", _weekHotBlog);
+        _historyHotBlog = await BlogService.GetHistoryHotAsync();
+        _historyHotModel = new BlogsSidebarModel("历史排行", _historyHotBlog);
+    }
 }

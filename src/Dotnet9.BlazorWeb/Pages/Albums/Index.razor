@@ -1,0 +1,44 @@
+﻿@page "/albums"
+@inject AlbumService AlbumService
+
+<PageTitle>专辑</PageTitle>
+
+<h1 class="detail-title">专辑</h1>
+
+<p>专辑是将一系列相关主题的文章进行分类整理，形成一个专辑。</p>
+
+<div id="view-content" class="gap-solid"></div>
+
+@if (_albumList?.Any() != true)
+{
+    <div class="read_more">
+        这里空空如也
+    </div>
+}
+else
+{
+    <div class="blog_list">
+        <ul>
+            @foreach (var album in _albumList)
+            {
+                <li>
+                    <a href="albums/@album.Slug" class="blog_more">
+                        <h2>@album.Name (共 @album.BlogCount 篇)</h2>
+                        <p>@album.Description</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code
+{
+    List<AlbumBrief>? _albumList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _albumList =
+            await AlbumService.GetBriefAsync();
+    }
+}

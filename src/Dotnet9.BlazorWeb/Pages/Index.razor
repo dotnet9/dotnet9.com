@@ -1,7 +1,50 @@
 ﻿@page "/"
+@inject BlogService BlogService
 
 <PageTitle>首页</PageTitle>
 
-<h1>Hello, world!</h1>
+@if (_paginationModel != null)
+{
+    <PaginationPartial Model="_paginationModel"/>
+}
 
-Welcome to your new app.
+@code
+{
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Keywords { get; set; }
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Current { get; set; } = 1;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int PageSize { get; set; } = 10;
+
+    PaginationModel? _paginationModel;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if ("请输入关键字词" == Keywords)
+        {
+            Keywords = string.Empty;
+        }
+        var encodeKeywords = Keywords.IsNullOrWhiteSpace() ? "" : WebUtility.UrlEncode(Keywords);
+        var urlSuffix = $"?keywords={encodeKeywords}&";
+        if (PageSize <= 0)
+        {
+            PageSize = 10;
+        }
+        if (Current <= 0)
+        {
+            Current = 1;
+        }
+
+        var requestResponse = await BlogService.GetBlogBriefListByKeywordsAsync(Keywords, PageSize, Current);
+
+        var blogs = requestResponse?.Records;
+        var pages = Enumerable.Range(1, requestResponse!.TotalPage).ToArray();
+        _paginationModel = new PaginationModel(blogs, urlSuffix, Current, pages, requestResponse!.Total, PageSize, requestResponse.TotalPage);
+    }
+}

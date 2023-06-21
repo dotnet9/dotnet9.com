@@ -4,7 +4,11 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Dotnet9.Caller\Dotnet9.Caller.csproj" />
+	  <ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
 	  <ProjectReference Include="..\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
 	  <ProjectReference Include="..\Dotnet9.WebShare\Dotnet9.WebShare.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Pages\Blogs\" />
 	</ItemGroup>
 </Project>

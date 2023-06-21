@@ -1,0 +1,47 @@
+﻿@page "/albums/{Slug}"
+@inject AlbumService AlbumService
+
+
+<h1 class="detail-title">专辑-@_albumName</h1>
+
+<div id="view-content" class="gap-solid"></div>
+
+@if (_paginationModel != null)
+{
+    <PaginationPartial Model="_paginationModel"></PaginationPartial>
+}
+
+@code
+{
+    [Parameter]
+    public string Slug { get; set; } = null!;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Current { get; set; } = 1;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int PageSize { get; set; } = 10;
+
+    string? _albumName;
+    PaginationModel? _paginationModel;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (PageSize <= 0)
+        {
+            PageSize = 10;
+        }
+        if (Current <= 0)
+        {
+            Current = 1;
+        }
+        var requestAlbumBlogResponse =
+            await AlbumService.GetBlogBriefListByAlbumSlugAsync(Slug, PageSize, Current);
+        _albumName = requestAlbumBlogResponse?.AlbumName;
+        var blogs = requestAlbumBlogResponse?.Records;
+        var pages = Enumerable.Range(1, requestAlbumBlogResponse!.TotalPage).ToArray();
+        _paginationModel = new PaginationModel(blogs, $"/albums/{Slug}?", Current, pages, requestAlbumBlogResponse!.Total, PageSize, requestAlbumBlogResponse.TotalPage);
+    }
+}

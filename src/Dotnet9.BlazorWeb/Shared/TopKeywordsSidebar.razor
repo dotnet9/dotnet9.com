@@ -1,0 +1,29 @@
+﻿@inject BlogService BlogService
+
+@if (_keywords?.Any() == true)
+{
+    <div class="tags">
+        <div class="side_title">
+            <h3>Top关键字</h3>
+        </div>
+
+        <ul>
+            @foreach (var searchCount in _keywords)
+            {
+                <li>
+                    <a href="?keywords=@searchCount.Keywords">@searchCount.Keywords (@searchCount.Count)</a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code
+{
+    List<BlogSearchCountDto>? _keywords;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _keywords = await BlogService.GetTopKeywordsAsync();
+    }
+}
