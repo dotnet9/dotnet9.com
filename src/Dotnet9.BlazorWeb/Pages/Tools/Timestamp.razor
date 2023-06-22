@@ -1,8 +1,8 @@
 ﻿@page "/tools/timestamp"
 
-<PageTitle>时间戳</PageTitle>
+<PageTitle>@_title</PageTitle>
 
-<h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">时间戳</h2>
+<h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@_title</h2>
 
 <MRow>
     现在
@@ -66,6 +66,7 @@
 
 @code
 {
+    string? _title;
     DateTime _currentDatetime;
     long _timestamp1;
     long _timestamp2;
@@ -78,6 +79,7 @@
 
     protected override Task OnInitializedAsync()
     {
+        _title = "时间戳";
         _items.Add(new TimestampItem("秒", TimestampKind.Seconds));
         _items.Add(new TimestampItem("毫秒", TimestampKind.Milliseconds));
         _currentDatetime = DateTime.Now;

@@ -1,0 +1,47 @@
+﻿@page "/tools/string-encoder"
+
+<PageTitle>@Title</PageTitle>
+
+<h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Title</h2>
+
+<MRow>
+    <MTextarea BackgroundColor="grey lighten-2"
+               Color="cyan" Solo TValue="string" @bind-Value="_inputString"
+               Label="输入字符串"/>
+</MRow>
+
+<MRow>
+    <MTextarea BackgroundColor="amber lighten-4" Solo
+               Color="orange orange-darken-4" TValue="string" @bind-Value="_encodedOrDecodeString"
+               Label="编/解码结果">
+    </MTextarea>
+</MRow>
+
+<MRow>
+    <MButton OnClick="@Encode">编码</MButton>
+    <MButton OnClick="@Decode">解码</MButton>
+    <MButton OnClick="@Clear">清空</MButton>
+</MRow>
+
+@code {
+        private const string Title = "在线字符串编码工具";
+    private string? _inputString;
+    private string? _encodedOrDecodeString;
+
+    private void Encode()
+    {
+        _encodedOrDecodeString = System.Web.HttpUtility.UrlEncode(_inputString);
+    }
+
+    private void Decode()
+    {
+        _encodedOrDecodeString = System.Web.HttpUtility.UrlDecode(_inputString);
+    }
+
+    private void Clear()
+    {
+        _inputString = string.Empty;
+        _encodedOrDecodeString = string.Empty;
+    }
+
+}

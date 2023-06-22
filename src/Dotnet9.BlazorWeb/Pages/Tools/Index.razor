@@ -41,7 +41,8 @@ else
         var siteInfo = await SystemClientService.GetSiteInfoAsync();
         _items = new List<ToolItem>()
         {
-            new("时间戳", $"{siteInfo?.AssetsRemotePath}/tools/timestamp.png", "时间戳转换，页面使用Blazor组件", "/tools/timestamp", 0)
+            new("在线字符串编码工具", $"{siteInfo?.AssetsRemotePath}/tools/stringencode.png", "使用System.Web.HttpUtility.UrlDecode方法对编码结果进行URL解码，System.Web.HttpUtility.UrlEncode方法对输入字符串进行URL编码", "/tools/string-encoder", 0),
+            new("时间戳", $"{siteInfo?.AssetsRemotePath}/tools/timestamp.png", "时间与时间戳相互转换", "/tools/timestamp", 0)
         };
     }
 }
