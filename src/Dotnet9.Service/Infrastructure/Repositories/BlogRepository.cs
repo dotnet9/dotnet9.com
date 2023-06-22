@@ -255,6 +255,18 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         return await Task.FromResult(countFromDb);
     }
 
+    public async Task<BlogCountBrief?> GetCountBriefAsync()
+    {
+        var countFromDb = Context.Set<Blog>().AsNoTracking()
+            .GroupBy(count => count.CopyrightType)
+            .Select(group => new { CopyRightType = group.Key, Count = group.Count() })
+            .AsEnumerable()
+            .ToList();
+
+        return await Task.FromResult(new BlogCountBrief(countFromDb.Sum(x => x.Count),
+            countFromDb.FirstOrDefault(x => x.CopyRightType == CopyRightType.Default)?.Count));
+    }
+
     private List<CategoryBrief>? GetCategoryBriefs(Blog blog)
     {
         if (blog.Categories?.Any() != true)

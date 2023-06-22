@@ -1,9 +1,5 @@
-﻿@using Microsoft.AspNetCore.SignalR.Client
-@inject ISystemClientService SystemClientService
+﻿@inject ISystemClientService SystemClientService
 @inject LinkService LinkService
-@using Microsoft.AspNetCore.SignalR.Client
-@inject NavigationManager Navigation
-@implements IAsyncDisposable
 
 <footer>
     <div class="box">
@@ -43,7 +39,7 @@
                 &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0" target="_blank">.NET Web API</a>
                 &nbsp; | <a href="/privacy" target="_blank">隐私政策</a>
             </p>
-            <p>实时在线人数：@_userCount, 网站源码：版本【@_appVersion】，编译时间【@_publishTime】</p>
+            <p>网站源码：版本【@_appVersion】，编译时间【@_publishTime】</p>
         </div>
     </div>
 </footer>
@@ -104,8 +100,6 @@
     string? _appVersion;
     string? _publishTime;
 
-    private int _userCount;
-    private HubConnection? _hubConnection;
 
     protected override async Task OnInitializedAsync()
     {
@@ -119,25 +113,6 @@
             var assemblyPath = assembly.Location;
             var lastModified = File.GetLastWriteTime(assemblyPath);
             _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
-        }
-
-        _hubConnection = new HubConnectionBuilder().WithUrl(new Uri($"{_siteInfo?.Domain}/onlineUsersHub"))
-            .Build();
-
-        _hubConnection.On<int>("UserCountUpdated", count =>
-        {
-            _userCount = count;
-            InvokeAsync(StateHasChanged);
-        });
-
-        await _hubConnection.StartAsync();
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_hubConnection is not null)
-        {
-            await _hubConnection.DisposeAsync();
         }
     }
 

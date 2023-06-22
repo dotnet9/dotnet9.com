@@ -2,7 +2,6 @@
 	<ItemGroup>
 		<PackageReference Include="Markdig" Version="0.31.0" />
 		<PackageReference Include="Masa.Blazor" Version="1.0.0-rc.4" />
-		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0-preview.5.23302.2" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Dotnet9.Caller\Dotnet9.Caller.csproj" />

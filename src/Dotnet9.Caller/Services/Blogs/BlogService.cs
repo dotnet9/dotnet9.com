@@ -59,4 +59,9 @@ public class BlogService : HttpClientCallerBase
     {
         return await Caller.GetAsync<BlogDetails>(slug);
     }
+
+    public async Task<BlogCountBrief?> GetBlogCountBriefAsync()
+    {
+        return await Caller.GetAsync<BlogCountBrief>("countBrief");
+    }
 }

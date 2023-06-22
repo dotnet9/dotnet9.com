@@ -13,6 +13,35 @@ public class BlogQueryHandler
     }
 
     [EventHandler]
+    public async Task GetCountBriefAsync(CountBriefQuery query, CancellationToken cancellationToken)
+    {
+        TimeSpan? timeSpan = null;
+        const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetCountBriefAsync)}";
+
+        var data = await _multilevelCacheClient.GetOrSetAsync(key, () =>
+        {
+            var dataFromDb = _repository.GetCountBriefAsync().Result;
+
+            if (dataFromDb != null)
+            {
+                timeSpan = TimeSpan.FromSeconds(30);
+                return Task.FromResult(new CacheEntry<BlogCountBrief>(dataFromDb, TimeSpan.FromDays(3))
+                {
+                    SlidingExpiration = TimeSpan.FromMinutes(5)
+                });
+            }
+
+            timeSpan = TimeSpan.FromSeconds(5);
+            return Task.FromResult(new CacheEntry<BlogCountBrief>(null));
+        }, options => options.AbsoluteExpirationRelativeToNow = timeSpan);
+
+        if (data != null)
+        {
+            query.Result = data;
+        }
+    }
+
+    [EventHandler]
     public async Task GetTopSearchKeywordsAsync(TopSearchKeywordsQuery query, CancellationToken cancellationToken)
     {
         TimeSpan? timeSpan = null;

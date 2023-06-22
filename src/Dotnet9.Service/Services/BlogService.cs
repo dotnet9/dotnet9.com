@@ -8,6 +8,14 @@ public class BlogService : ServiceBase
     {
     }
 
+    [RoutePattern(pattern: "/api/blogs/countBrief")]
+    public async Task<BlogCountBrief?> GetCountBriefAsync(CancellationToken cancellationToken)
+    {
+        var queryEvent = new CountBriefQuery();
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
+        return queryEvent.Result;
+    }
+
     [RoutePattern(pattern: "/api/blogs/topkeywords")]
     public async Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync(CancellationToken cancellationToken)
     {

@@ -1,0 +1,96 @@
+﻿@implements IAsyncDisposable
+@inject ISystemClientService SystemClientService
+@inject IHttpContextAccessor HttpContextAccessor
+@inject BlogService BlogService
+
+<div class="tags">
+    <div class="side_title">
+        <h3>Dotnet9网站</h3>
+    </div>
+
+    <table>
+        <tr>
+            <td>实时在线：@_onlineUserCount</td>
+        </tr>
+        <tr>
+            <td>原创文章：@(_blogCountBrief?.DefaultCopyRightCount) / @(_blogCountBrief?.TotalCount) (@_defaultCopyRightBlogPostCountPercent)</td>
+        </tr>
+        <tr>
+            <td>网站源码：<a href="@_siteInfo?.Github" target="_blank">Github</a>，<a href="@_siteInfo?.Github/issues" target="_blank">Bug反馈</a></td>
+        </tr>
+        <tr>
+            <td>编译时间：</td>
+        </tr>
+        <tr>
+            <td>@_publishTime</td>
+
+        </tr>
+    </table>
+</div>
+
+@code {
+
+    SiteInfoDto? _siteInfo;
+
+    string? _currentUserIp;
+    int _onlineUserCount;
+    static readonly HashSet<string> OnlineUserIpList = new();
+    static Action? _onlineUserListChanged;
+
+    BlogCountBrief? _blogCountBrief;
+    string? _defaultCopyRightBlogPostCountPercent;
+    string? _dotnetVersion;
+    string? _appVersion;
+    string? _publishTime;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+
+        _currentUserIp = HttpContextAccessor?.HttpContext?.GetClientIp();
+        if (!string.IsNullOrWhiteSpace(_currentUserIp))
+        {
+            OnlineUserIpList.TryAdd(_currentUserIp);
+            _onlineUserListChanged -= OnlineUserListChangedHandle;
+            _onlineUserListChanged += OnlineUserListChangedHandle;
+            _onlineUserListChanged.Invoke();
+        }
+
+        _blogCountBrief = await BlogService.GetBlogCountBriefAsync();
+        if (_blogCountBrief is {DefaultCopyRightCount: not null,TotalCount: not null })
+        {
+            _defaultCopyRightBlogPostCountPercent = (1.0 * _blogCountBrief.DefaultCopyRightCount.Value / _blogCountBrief.TotalCount.Value * 100).ToString("0.0") + "%";
+        }
+
+        _dotnetVersion = RuntimeInformation.FrameworkDescription;
+
+        var assembly = Assembly.GetEntryAssembly();
+        if (assembly != null)
+        {
+            _appVersion = assembly.GetName().Version?.ToString();
+            var assemblyPath = assembly.Location;
+            var lastModified = File.GetLastWriteTime(assemblyPath);
+            _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
+        }
+    }
+
+    void OnlineUserListChangedHandle()
+    {
+        _onlineUserCount = OnlineUserIpList.Count;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        if (string.IsNullOrWhiteSpace(_currentUserIp))
+        {
+            return ValueTask.CompletedTask;
+        }
+
+        OnlineUserIpList.Remove(_currentUserIp);
+        _onlineUserListChanged -= OnlineUserListChangedHandle;
+        _onlineUserListChanged?.Invoke();
+        return ValueTask.CompletedTask;
+    }
+
+}

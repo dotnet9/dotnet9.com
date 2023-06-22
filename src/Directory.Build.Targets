@@ -8,7 +8,7 @@
 		<Description>Dotnet9, A blog site sharing .NET technologies.</Description>
 
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<Version>0.0.10.126</Version>
+		<Version>0.1.11.126</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<InformationalVersion>$(Version)</InformationalVersion>
