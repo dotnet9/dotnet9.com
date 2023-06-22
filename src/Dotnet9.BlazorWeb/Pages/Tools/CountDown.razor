@@ -2,24 +2,29 @@
 
 <PageTitle>@Title</PageTitle>
 
-<h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Title</h2>
+<MApp>
+    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Title</h2>
 
-<MRow>
-    <MTextField Label="持续时间（秒）" Type="number" TValue="int" @bind-Value="@_duration"/>
-</MRow>
+    <p>
+        <MTextField Label="持续时间（秒）" Type="number" TValue="int" @bind-Value="@_duration"/>
+    </p>
 
-<MRow>
-    <MButton Color="success" class="ma-2" OnClick="@StartCountdown" Disabled="@_isCountingDown">开始</MButton>
-    <MButton Color="pink" class="ma-2 white--text" OnClick="@PauseCountdown" Disabled="!_isCountingDown">暂停</MButton>
-    <MButton Color="deep-orange" class="ma-2 white--text" OnClick="@ResetCountdown" Disabled="!_isCountingDown">重置</MButton>
-    剩余时间（秒）：@_remainingTime
-</MRow>
-
+    <p>
+        <MButton Color="success" class="ma-2" OnClick="@StartCountdown" Disabled="@_isCountingDown">开始</MButton>
+        <MButton Color="pink" class="ma-2 white--text" OnClick="@PauseCountdown" Disabled="!_isCountingDown">暂停</MButton>
+        <MButton Color="deep-orange" class="ma-2 white--text" OnClick="@ResetCountdown" Disabled="!_isCountingDown">重置</MButton>
+        剩余时间（秒）：@_remainingTime
+    </p>
+    <div class="text-center">
+        <MProgressCircular Value="@_remainingTimePercent" Size="100" Width="15" Rotate="360" Color="teal">@_remainingTime</MProgressCircular>
+    </div>
+</MApp>
 
 @code {
-        private const string Title = "倒计时";
+    private const string Title = "工具箱-倒计时";
     private int _duration = 20;
     private int _remainingTime;
+    private int _remainingTimePercent;
     private bool _isCountingDown;
     private bool _isPause;
     private CancellationTokenSource? _countdownTokenSource;
@@ -38,7 +43,7 @@
         if (!_isPause || _remainingTime <= 0)
         {
             _remainingTime = _duration;
-            await InvokeAsync(StateHasChanged);
+            ChangeRemainingTimePercent();
         }
         _countdownTokenSource = new CancellationTokenSource();
 
@@ -66,7 +71,7 @@
 
         _remainingTime = _duration;
         _isCountingDown = false;
-        await InvokeAsync(StateHasChanged);
+        ChangeRemainingTimePercent();
     }
 
     private async Task Countdown(CancellationToken cancellationToken)
@@ -75,7 +80,7 @@
         {
             await Task.Delay(1000, cancellationToken);
             _remainingTime--;
-            await InvokeAsync(StateHasChanged);
+            ChangeRemainingTimePercent();
 
             if (cancellationToken.IsCancellationRequested)
             {
@@ -84,6 +89,12 @@
         }
 
         _isCountingDown = false;
+    }
+
+    private async void ChangeRemainingTimePercent()
+    {
+        _remainingTimePercent = (int)(_remainingTime * 100.0 / _duration);
+        await InvokeAsync(StateHasChanged);
     }
 
 }
