@@ -1,6 +1,5 @@
 ﻿@implements IAsyncDisposable
 @inject ISystemClientService SystemClientService
-@inject IHttpContextAccessor HttpContextAccessor
 @inject BlogService BlogService
 
 <div class="tags">
@@ -32,9 +31,7 @@
 
     SiteInfoDto? _siteInfo;
 
-    string? _currentUserIp;
-    int _onlineUserCount;
-    static readonly HashSet<string> OnlineUserIpList = new();
+    static int _onlineUserCount;
     static Action? _onlineUserListChanged;
 
     BlogCountBrief? _blogCountBrief;
@@ -47,14 +44,10 @@
     {
         _siteInfo = await SystemClientService.GetSiteInfoAsync();
 
-        _currentUserIp = HttpContextAccessor?.HttpContext?.GetClientIp();
-        if (!string.IsNullOrWhiteSpace(_currentUserIp))
-        {
-            OnlineUserIpList.TryAdd(_currentUserIp);
-            _onlineUserListChanged -= OnlineUserListChangedHandle;
-            _onlineUserListChanged += OnlineUserListChangedHandle;
-            _onlineUserListChanged.Invoke();
-        }
+        _onlineUserCount++;
+        _onlineUserListChanged -= OnlineUserListChangedHandle;
+        _onlineUserListChanged += OnlineUserListChangedHandle;
+        _onlineUserListChanged.Invoke();
 
         _blogCountBrief = await BlogService.GetBlogCountBriefAsync();
         if (_blogCountBrief is {DefaultCopyRightCount: not null,TotalCount: not null })
@@ -76,20 +69,18 @@
 
     void OnlineUserListChangedHandle()
     {
-        _onlineUserCount = OnlineUserIpList.Count;
         InvokeAsync(StateHasChanged);
     }
 
     public ValueTask DisposeAsync()
     {
-        if (string.IsNullOrWhiteSpace(_currentUserIp))
+        _onlineUserCount--;
+        if (_onlineUserCount < 0)
         {
-            return ValueTask.CompletedTask;
+            _onlineUserCount = 0;
         }
-
-        OnlineUserIpList.Remove(_currentUserIp);
-        _onlineUserListChanged -= OnlineUserListChangedHandle;
         _onlineUserListChanged?.Invoke();
+        _onlineUserListChanged -= OnlineUserListChangedHandle;
         return ValueTask.CompletedTask;
     }
 
