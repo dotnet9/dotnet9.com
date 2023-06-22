@@ -100,22 +100,6 @@
 <script src="_framework/blazor.server.js" autostart="false"></script>
     <script src="~/js/boot.js"></script>
 <script src="_content/BlazorComponent/js/blazor-component.js"></script>
-<script>
-        Blazor.start({
-            configureSignalR: function (builder) {
-                let c = builder.build();
-                c.serverTimeoutInMilliseconds = 60000; 
-                c.keepAliveIntervalInMilliseconds = 15000;
-                builder.build = () => {
-                    return c;
-                };
-            },
-            reconnectionHandler: {
-                onConnectionDown: (options, error) => console.error(error),
-                onConnectionUp: () => console.log("Up, up, and away!")
-            }
-        });
-    </script>
 
 <environment names="Production">
     <script>
