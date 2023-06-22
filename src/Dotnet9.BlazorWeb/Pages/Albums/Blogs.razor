@@ -1,8 +1,8 @@
 ﻿@page "/albums/{Slug}"
 @inject AlbumService AlbumService
 
-
-<h1 class="detail-title">专辑-@_albumName</h1>
+<PageTitle>@_title</PageTitle>
+<h1 class="detail-title">@_title</h1>
 
 <div id="view-content" class="gap-solid"></div>
 
@@ -24,7 +24,7 @@
     [SupplyParameterFromQuery]
     public int PageSize { get; set; } = 10;
 
-    string? _albumName;
+    string? _title;
     PaginationModel? _paginationModel;
 
     protected override async Task OnParametersSetAsync()
@@ -39,7 +39,7 @@
         }
         var requestAlbumBlogResponse =
             await AlbumService.GetBlogBriefListByAlbumSlugAsync(Slug, PageSize, Current);
-        _albumName = requestAlbumBlogResponse?.AlbumName;
+        _title = $"专辑-{requestAlbumBlogResponse?.AlbumName}";
         var blogs = requestAlbumBlogResponse?.Records;
         var pages = Enumerable.Range(1, requestAlbumBlogResponse!.TotalPage).ToArray();
         _paginationModel = new PaginationModel(blogs, $"/albums/{Slug}?", Current, pages, requestAlbumBlogResponse!.Total, PageSize, requestAlbumBlogResponse.TotalPage);

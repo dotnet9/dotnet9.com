@@ -1,0 +1,41 @@
+﻿@page "/categories/{Slug}"
+@inject CategoryService CategoryService
+
+<PageTitle>@_title</PageTitle>
+
+<h1 class="detail-title">@_title</h1>
+
+<div id="view-content" class="gap-solid"></div>
+
+@if (_paginationModel != null)
+{
+    <PaginationPartial Model="_paginationModel"/>
+}
+
+@code
+{
+    [Parameter]
+    public string Slug { get; set; } = null!;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Current { get; set; } = 1;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int PageSize { get; set; } = 10;
+
+    PaginationModel? _paginationModel;
+    string? _title;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var requestResponse = await CategoryService.GetBlogBriefListByCategorySlugAsync(Slug, PageSize, Current);
+        _title = $"分类-{requestResponse?.CategoryName}";
+
+        var blogs = requestResponse?.Records;
+        var pages = Enumerable.Range(1, requestResponse!.TotalPage).ToArray();
+        _paginationModel = new PaginationModel(blogs, $"/categories/{Slug}?", Current, pages, requestResponse!.Total, PageSize, requestResponse.TotalPage);
+    }
+}

@@ -1,0 +1,24 @@
+﻿@page "/privacy"
+@inject PrivacyService PrivacyService
+
+<PageTitle>@_title</PageTitle>
+
+<div id="view-content" class="gap-solid"></div>
+
+<div class="details-content">
+    <MarkdownComponent MarkdownContent="@_markdownContent"></MarkdownComponent>
+</div>
+
+
+@code
+{
+    string? _title;
+    string? _markdownContent;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _title = "隐私政策";
+        var dataFromServer = await PrivacyService.GetAsync();
+        _markdownContent = dataFromServer?.Content;
+    }
+}

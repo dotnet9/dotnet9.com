@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0-preview.23280.1" />
-    <PackageReference Include="xunit" Version="2.5.0-pre.26" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0-pre.20">
+    <PackageReference Include="xunit" Version="2.5.0-pre.37" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0-pre.22">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

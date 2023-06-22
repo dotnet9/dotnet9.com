@@ -1,0 +1,24 @@
+﻿@page "/donation"
+@using Dotnet9.Caller.Services.Donations
+
+@inject DonationService DonationService
+
+<PageTitle>打赏</PageTitle>
+
+<div id="view-content" class="gap-solid"></div>
+
+<div class="details-content">
+    <MarkdownComponent MarkdownContent="@_markdownContent"></MarkdownComponent>
+</div>
+
+
+@code
+{
+    string? _markdownContent;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var dataFromServer = await DonationService.GetAllAsync();
+        _markdownContent = dataFromServer?.Content;
+    }
+}

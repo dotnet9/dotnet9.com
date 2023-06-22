@@ -1,0 +1,41 @@
+﻿@page "/tags/{Name}"
+@inject TagService TagService
+
+<PageTitle>@_title</PageTitle>
+<h1 class="detail-title">@_title</h1>
+
+<div id="view-content" class="gap-solid"></div>
+
+@if (_paginationModel != null)
+{
+    <PaginationPartial Model="_paginationModel"/>
+}
+
+@code
+{
+    string? _title;
+
+    [Parameter]
+    public string Name { get; set; } = null!;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int Current { get; set; } = 1;
+
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int PageSize { get; set; } = 10;
+
+    PaginationModel? _paginationModel;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var decodeName = WebUtility.UrlDecode(Name);
+        _title = $"标签-{decodeName}";
+        var requestResponse = await TagService.GetBlogBriefListByTagNameAsync(Name, PageSize, Current);
+
+        var blogs = requestResponse?.Records;
+        var pages = Enumerable.Range(1, requestResponse!.TotalPage).ToArray();
+        _paginationModel = new PaginationModel(blogs, $"/tags/{WebUtility.UrlEncode(Name)}?", Current, pages, requestResponse!.Total, PageSize, requestResponse.TotalPage);
+    }
+}

@@ -14,8 +14,8 @@
 
 <head>
     <meta charset="utf-8"/>
-    <meta name="keywords" content="@siteInfo?.Keywords" />
-    <meta name="description" content="@siteInfo?.Description" />
+    <meta name="keywords" content="@siteInfo?.Keywords"/>
+    <meta name="description" content="@siteInfo?.Description"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="/css/base.css" rel="stylesheet">
     <link href="/css/m.css" rel="stylesheet">
@@ -31,8 +31,18 @@
     <link href="https://cdn.masastack.com/npm/@("@mdi")/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.masastack.com/npm/materialicons/materialicons.css" rel="stylesheet">
     <link href="https://cdn.masastack.com/npm/fontawesome/v5.0.13/css/all.css" rel="stylesheet">
+
+    <!--重置浏览器样式-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <!--代码块主题-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism-coy.min.css">
+    <!--工具栏插件-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.css">
+    <!--行号插件-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <link rel="stylesheet" href="~/css/detail.css"/>
+
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
-    @await RenderSectionAsync("Headers", false)
 </head>
 
 <body class="background">
@@ -50,11 +60,24 @@
     <a class="dismiss">🗙</a>
 </div>
 
+<!--prism核心js (用于渲染代码块)-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
+<!--显示代码块行号-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<!--工具栏(一些插件的前置依赖)-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<!--代码块显示语言名称-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/show-language/prism-show-language.min.js"></script>
+<!--复制代码-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<!--自动去cdn加载对应语言的代码高亮js-->
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
 <script src="_framework/blazor.server.js"></script>
 <script src="_content/BlazorComponent/js/blazor-component.js"></script>
 
-    <environment names="Production">
-        <script>
+<environment names="Production">
+    <script>
             var _hmt = _hmt || [];
             (function () {
                 var hm = document.createElement("script");
@@ -63,9 +86,9 @@
                 s.parentNode.insertBefore(hm, s);
             })();
         </script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
-                crossorigin="anonymous"></script>
-    </environment>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8748951917303002"
+            crossorigin="anonymous"></script>
+</environment>
 </body>
 
 </html>

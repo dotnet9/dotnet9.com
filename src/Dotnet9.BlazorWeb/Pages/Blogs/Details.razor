@@ -1,0 +1,172 @@
+﻿@page "/{Year}/{Month}/{Slug}"
+
+@inject ISystemClientService SystemClientService
+@inject BlogService BlogService
+
+<PageTitle>_title</PageTitle>
+<h1 class="detail-title">@_title</h1>
+
+<div class="con_info">
+    @if (_blog?.Banner == true)
+    {
+        <span class="con_tag">推荐</span>
+    }
+
+    @switch (_blog?.CopyrightType)
+    {
+        case CopyRightType.Default:
+            <span class="con_tag">原创</span>
+            break;
+        case CopyRightType.Reprint:
+            <span class="con_tougao">@_blog?.CopyrightType.GetDescription()</span>
+            break;
+        default:
+            <span class="con_zhuanzai">@_blog?.CopyrightType.GetDescription()</span>
+            break;
+    }
+
+    <span>
+        <i class="con_writer"></i>
+        &nbsp; @(_blog?.Original ?? _siteInfo?.Owner)
+    </span>
+
+    @if (_blog?.Albums != null && _blog?.Albums.Any() == true)
+    {
+        <span class="con_class">
+            专辑：
+            @foreach (var album in _blog!.Albums)
+            {
+                <span>|</span>
+                <a href="/albums/@album.Slug">@album.Name</a>
+            }
+        </span>
+    }
+
+    @if (_blog?.Categories != null && _blog?.Categories.Any() == true)
+    {
+        <span class="con_class">
+            分类：
+            @foreach (var cat in _blog!.Categories)
+            {
+                <span>|</span>
+
+                <a href="/categories/@cat.Slug">@cat.Name</a>
+            }
+        </span>
+    }
+
+    @if (_blog?.OriginalLink?.IsNullOrWhiteSpace() == false)
+    {
+        <span class="con_befrom">来源：<a href="@_blog?.OriginalLink">@_blog?.Original</a></span>
+    }
+
+    <time>@_blog?.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")</time>
+    <span class="con_link">@_blog?.ViewCount</span>
+</div>
+
+<div id="view-content" class="gap-solid"></div>
+
+<div class="details-content">
+    <MarkdownComponent MarkdownContent="@_markdownContent"></MarkdownComponent>
+</div>
+
+
+@if (_blog?.Tags != null && _blog?.Tags.Any() == true)
+{
+    <div class="con_tags">
+
+        @foreach (var tag in _blog!.Tags)
+        {
+            <a href="/tags/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name">@tag.Name</a>
+        }
+    </div>
+}
+
+<div class="share" id="down">
+    <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
+    <div class="share-text">
+        <p>扫码关注Dotnet9微信公众号，第一时间获取网站更新动态</p>
+        @if (_blog != null)
+        {
+            @switch (_blog.CopyrightType)
+            {
+                case CopyRightType.Reprint:
+                    <p>本文来自转载，如若二次转载请联系原作者。</p>
+                    break;
+                case CopyRightType.Contribution:
+                    <p>本文来自网友投稿，如若转载请联系原作者。</p>
+                    break;
+                default:
+                    <p>本文由本站(<a href="https://dotnet9.com">https://dotnet9.com</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                    break;
+            }
+            <p>原文作者：<a style="color: #262626;" href="#">@(_blog.Original ?? _siteInfo?.Owner)</a></p>
+            @if (_blog.CopyrightType == CopyRightType.Default)
+            {
+                <p>原文标题：<a href="/@_blog.CreationTime.ToString("yyyy/MM")/@_blog.Slug">@_blog.Title</a></p>
+                <p>原文链接：<a href="/@_blog.CreationTime.ToString("yyyy/MM")/@_blog.Slug">https://dotnet9.com/@($"{_blog.CreationTime:yyyy/MM}/{_blog.Slug}")</a></p>
+            }
+            else
+            {
+                <p>原文标题：<a href="@_blog.OriginalLink">@(_blog.OriginalTitle ?? _blog.Title)</a></p>
+                <p>原文链接：<a href="@_blog.OriginalLink">@_blog.OriginalLink</a></p>
+            }
+        }
+    </div>
+</div>
+
+@if (_blog is { Preview: not null,Next: not null })
+{
+    <div class="info-pre-next">
+        @if (_blog?.Preview != null)
+        {
+            <p>上一篇：<a href="/@_blog.Preview.CreationTime.ToString("yyyy/MM")/@_blog.Preview.Slug">@_blog.Preview.Title</a> </p>
+        }
+        @if (_blog?.Next != null)
+        {
+            <p>下一篇：<a href="/@_blog.Next.CreationTime.ToString("yyyy/MM")/@_blog.Next.Slug">@_blog.Next.Title</a> </p>
+        }
+    </div>
+}
+@if (_blog?.Nears?.Any() == true)
+{
+    <div class="hot_news other_news">
+        <div class="side_title">
+            <h3>相关文章</h3>
+        </div>
+        <ul>
+            @foreach (var blog in _blog.Nears)
+            {
+                <li>
+                    <a href="/@blog.CreationTime.ToString("yyyy/MM")/@blog.Slug"> @blog.Title </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+
+@code
+{
+    [Parameter]
+    public string Slug { get; set; } = null!;
+
+    [Parameter]
+    public string Year { get; set; } = null!;
+
+    [Parameter]
+    public string Month { get; set; } = null!;
+
+    string? _title;
+    SiteInfoDto? _siteInfo;
+    BlogDetails? _blog;
+    string? _markdownContent;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _siteInfo = await SystemClientService.GetSiteInfoAsync();
+        _blog = await BlogService.GetBlogDetailsBySlugAsync(Slug);
+        _title = _blog?.Title;
+        _markdownContent = _blog?.Content;
+    }
+}

@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<ItemGroup>
+		<PackageReference Include="Markdig" Version="0.31.0" />
 		<PackageReference Include="Masa.Blazor" Version="1.0.0-rc.4" />
 	</ItemGroup>
 	<ItemGroup>
@@ -7,8 +8,5 @@
 	  <ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
 	  <ProjectReference Include="..\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />
 	  <ProjectReference Include="..\Dotnet9.WebShare\Dotnet9.WebShare.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Pages\Blogs\" />
 	</ItemGroup>
 </Project>

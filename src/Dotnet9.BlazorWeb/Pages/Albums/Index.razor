@@ -1,9 +1,9 @@
 ﻿@page "/albums"
 @inject AlbumService AlbumService
 
-<PageTitle>专辑</PageTitle>
+<PageTitle>@_title</PageTitle>
 
-<h1 class="detail-title">专辑</h1>
+<h1 class="detail-title">@_title</h1>
 
 <p>专辑是将一系列相关主题的文章进行分类整理，形成一个专辑。</p>
 
@@ -34,10 +34,12 @@ else
 
 @code
 {
+    string? _title;
     List<AlbumBrief>? _albumList;
 
     protected override async Task OnInitializedAsync()
     {
+        _title = "专辑";
         _albumList =
             await AlbumService.GetBriefAsync();
     }
