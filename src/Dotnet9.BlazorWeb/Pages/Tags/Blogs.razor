@@ -32,6 +32,10 @@
     {
         var decodeName = WebUtility.UrlDecode(Name);
         _title = $"标签-{decodeName}";
+        var validPage = PageHelper.CheckPage(PageSize, Current);
+        PageSize = validPage.PageSize;
+        Current = validPage.Current;
+
         var requestResponse = await TagService.GetBlogBriefListByTagNameAsync(Name, PageSize, Current);
 
         var blogs = requestResponse?.Records;

@@ -29,14 +29,10 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (PageSize <= 0)
-        {
-            PageSize = 10;
-        }
-        if (Current <= 0)
-        {
-            Current = 1;
-        }
+        var validPage = PageHelper.CheckPage(PageSize, Current);
+        PageSize = validPage.PageSize;
+        Current = validPage.Current;
+
         var requestAlbumBlogResponse =
             await AlbumService.GetBlogBriefListByAlbumSlugAsync(Slug, PageSize, Current);
         _title = $"专辑-{requestAlbumBlogResponse?.AlbumName}";

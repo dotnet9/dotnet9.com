@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.RazorPages.Helpers;
+﻿namespace Dotnet9.WebShare.Helpers;
 
 public static class MarkdownHelper
 {

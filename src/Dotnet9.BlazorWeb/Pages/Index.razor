@@ -30,16 +30,12 @@
         {
             Keywords = string.Empty;
         }
+        var validPage = PageHelper.CheckPage(PageSize, Current);
+        PageSize = validPage.PageSize;
+        Current = validPage.Current;
+
         var encodeKeywords = Keywords.IsNullOrWhiteSpace() ? "" : WebUtility.UrlEncode(Keywords);
         var urlSuffix = $"?keywords={encodeKeywords}&";
-        if (PageSize <= 0)
-        {
-            PageSize = 10;
-        }
-        if (Current <= 0)
-        {
-            Current = 1;
-        }
 
         var requestResponse = await BlogService.GetBlogBriefListByKeywordsAsync(Keywords, PageSize, Current);
 

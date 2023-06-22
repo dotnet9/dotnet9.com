@@ -31,6 +31,10 @@
 
     protected override async Task OnParametersSetAsync()
     {
+        var validPage = PageHelper.CheckPage(PageSize, Current);
+        PageSize = validPage.PageSize;
+        Current = validPage.Current;
+
         var requestResponse = await CategoryService.GetBlogBriefListByCategorySlugAsync(Slug, PageSize, Current);
         _title = $"分类-{requestResponse?.CategoryName}";
 

@@ -32,14 +32,7 @@
     <link href="https://cdn.masastack.com/npm/materialicons/materialicons.css" rel="stylesheet">
     <link href="https://cdn.masastack.com/npm/fontawesome/v5.0.13/css/all.css" rel="stylesheet">
 
-    <!--重置浏览器样式-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
-    <!--代码块主题-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism-coy.min.css">
-    <!--工具栏插件-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.css">
-    <!--行号插件-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/11.7.0/styles/monokai-sublime.min.css"/>
     <link rel="stylesheet" href="~/css/detail.css"/>
 
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered"/>
@@ -60,18 +53,40 @@
     <a class="dismiss">🗙</a>
 </div>
 
-<!--prism核心js (用于渲染代码块)-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
-<!--显示代码块行号-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<!--工具栏(一些插件的前置依赖)-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<!--代码块显示语言名称-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/show-language/prism-show-language.min.js"></script>
-<!--复制代码-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<!--自动去cdn加载对应语言的代码高亮js-->
-<script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdn.staticfile.org/highlight.js/11.7.0/highlight.min.js"></script>
+<script>
+        hljs.initHighlightingOnLoad();
+
+        // 获取所有的img标签
+        const imgs = document.getElementsByTagName('img');
+
+        // 遍历所有的img标签
+        for (let i = 0; i < imgs.length; i++) {
+            // 给每个img标签添加点击事件
+            imgs[i].addEventListener('click', function () {
+                // 创建一个新的img标签
+                const newImg = document.createElement('img');
+                // 设置新img标签的src为当前点击的img标签的src
+                newImg.src = this.src;
+                // 设置新img标签的样式
+                newImg.style.position = 'fixed';
+                newImg.style.top = '0';
+                newImg.style.left = '0';
+                newImg.style.width = '100%';
+                newImg.style.height = '100%';
+                newImg.style.objectFit = 'contain';
+                newImg.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                newImg.style.zIndex = '9999';
+                newImg.style.cursor = 'zoom-out';
+                // 将新img标签添加到body中
+                document.body.appendChild(newImg);
+                // 给新img标签添加点击事件，点击后移除新img标签
+                newImg.addEventListener('click', function () {
+                    document.body.removeChild(newImg);
+                });
+            });
+        }
+    </script>
 
 <script src="_framework/blazor.server.js"></script>
 <script src="_content/BlazorComponent/js/blazor-component.js"></script>

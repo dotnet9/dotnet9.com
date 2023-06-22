@@ -9,3 +9,4 @@ global using Microsoft.Extensions.Options;
 global using System.Net.Http.Json;
 global using System.Text.Encodings.Web;
 global using System.Text.Unicode;
+global using Markdig;

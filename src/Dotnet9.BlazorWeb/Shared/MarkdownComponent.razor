@@ -1,4 +1,4 @@
-﻿@using Markdig
+﻿@using Dotnet9.WebShare.Helpers
 
 <div class="line-numbers">
     @{
@@ -22,16 +22,13 @@
 
     private MarkupString _postHtmlContent;
 
-    [Inject]
-    private IJSRuntime? JsRuntime { get; set; }
-
     protected override async Task OnParametersSetAsync()
     {
         if (string.IsNullOrWhiteSpace(MarkdownContent))
         {
             return;
         }
-        var htmlData = Markdown.ToHtml(MarkdownContent);
+        var htmlData = MarkdownContent.Convert2Html();
         if (htmlData.Contains("<script") || htmlData.Contains("<link"))
         {
             HasXss = true;
@@ -39,10 +36,4 @@
         _postHtmlContent = (MarkupString)htmlData;
         await base.OnParametersSetAsync();
     }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JsRuntime!.InvokeVoidAsync("Prism.highlightAll");
-    }
-
 }
