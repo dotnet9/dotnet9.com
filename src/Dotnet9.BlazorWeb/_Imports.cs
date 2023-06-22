@@ -7,3 +7,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.RazorPages;
 global using System.Net.Mime;
 global using Dotnet9.Caller.Services.Systems;
+global using Microsoft.AspNetCore.SignalR;

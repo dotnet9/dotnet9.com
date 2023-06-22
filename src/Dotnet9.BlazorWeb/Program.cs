@@ -1,3 +1,5 @@
+using Dotnet9.BlazorWeb.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.AddFrontWebShare();
 
@@ -18,6 +20,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapBlazorHub();
+app.MapHub<OnlineUsersHub>("/onlineUsersHub");
 app.MapFallbackToPage("/_Host");
 
 app.Run();
