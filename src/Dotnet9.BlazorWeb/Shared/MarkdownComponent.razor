@@ -39,7 +39,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (!firstRender)
         {
             await JsRuntime.InvokeVoidAsync("highlightJsInterop.initHighlightJs");
         }

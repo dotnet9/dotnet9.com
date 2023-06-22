@@ -40,7 +40,7 @@
                 &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0" target="_blank">.NET Web API</a>
                 &nbsp; | <a href="/privacy" target="_blank">隐私政策</a>
             </p>
-            <p>网站源码编译时间：@(_publishTime)</p>
+            <p>网站源码：版本【@_appVersion】，编译时间【@_publishTime】</p>
         </div>
     </div>
 </footer>
@@ -98,6 +98,7 @@
     SiteInfoDto? _siteInfo;
     List<FriendlyLinkDto>? _links;
     string? _dotnetVersion;
+    string? _appVersion;
     string? _publishTime;
 
     protected override async Task OnInitializedAsync()
@@ -105,9 +106,14 @@
         _siteInfo = await SystemClientService.GetSiteInfoAsync();
         _links = await LinkService.GetAllAsync();
         _dotnetVersion = RuntimeInformation.FrameworkDescription;
-        var assemblyPath = Assembly.GetEntryAssembly()!.Location;
-        var lastModified = File.GetLastWriteTime(assemblyPath);
-        _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
+        var assembly = Assembly.GetEntryAssembly();
+        if (assembly != null)
+        {
+            _appVersion = assembly.GetName().Version?.ToString();
+            var assemblyPath = assembly.Location;
+            var lastModified = File.GetLastWriteTime(assemblyPath);
+            _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
+        }
     }
 
 }
