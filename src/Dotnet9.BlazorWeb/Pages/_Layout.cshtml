@@ -97,6 +97,17 @@
 
 <script src="_framework/blazor.server.js"></script>
 <script src="_content/BlazorComponent/js/blazor-component.js"></script>
+<script>
+        Blazor.start({
+            configureSignalR: function (builder) {
+                let c = builder.build();
+                c.serverTimeoutInMilliseconds = 60000;
+                builder.build = () => {
+                    return c;
+                };
+            }
+        });
+    </script>
 
 <environment names="Production">
     <script>

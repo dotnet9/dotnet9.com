@@ -48,9 +48,11 @@
     }
 
 
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JsRuntime.InvokeVoidAsync("window.windowInit");
+        if (firstRender)
+        {
+            await JsRuntime.InvokeVoidAsync("window.windowInit");
+        }
     }
 }
