@@ -1,4 +1,4 @@
-﻿@using Dotnet9.WebShare.Helpers
+﻿@inject IJSRuntime JsRuntime
 
 <div class="line-numbers">
     @{
@@ -36,4 +36,10 @@
         _postHtmlContent = (MarkupString)htmlData;
         await base.OnParametersSetAsync();
     }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeVoidAsync("highlightJsInterop.initHighlightJs");
+    }
+
 }

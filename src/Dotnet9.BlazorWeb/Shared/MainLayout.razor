@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject BlogService BlogService
+@inject IJSRuntime JsRuntime
 
 <HeaderPartial/>
 
@@ -44,5 +45,12 @@
         _weekHotModel = new BlogsSidebarModel("本周排行", _weekHotBlog);
         _historyHotBlog = await BlogService.GetHistoryHotAsync();
         _historyHotModel = new BlogsSidebarModel("历史排行", _historyHotBlog);
+    }
+
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeVoidAsync("window.windowInit");
     }
 }

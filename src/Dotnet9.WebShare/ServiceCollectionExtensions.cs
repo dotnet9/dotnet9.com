@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
         builder.Services.AddSingleton<ISystemClientService, SystemClientService>();
 
         builder.Services.AddRazorPages();
-        builder.Services.AddServerSideBlazor();
+        builder.Services.AddServerSideBlazor(options => { options.DisconnectedCircuitMaxRetained = 1000; });
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddMasaBlazor();
 
@@ -21,5 +21,6 @@ public static class ServiceCollectionExtensions
         builder.Services.AddDotnet9ApiGateways();
 
         builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
+        builder.Services.AddSignalR(options => { options.KeepAliveInterval = TimeSpan.FromSeconds(30); });
     }
 }

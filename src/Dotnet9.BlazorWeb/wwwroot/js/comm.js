@@ -8,10 +8,10 @@ jQuery(document).ready(function($){
     obj.id='selected';		
 
 	  //nav
-	$("#mnavh").click(function(){
-    $("#starlist").toggle();
-	$("#mnavh").toggleClass("open");
-	$("body").toggleClass("ovhi");
+    $("#mnavh").on('click', function (event) {
+        $("#starlist").toggle();
+	    $("#mnavh").toggleClass("open");
+	    $("body").toggleClass("ovhi");
 	});
 	
 	
@@ -60,4 +60,12 @@ jQuery(document).ready(function($){
           , D = document.documentElement;
         return Math.min(D.clientHeight, B.clientHeight);
     }
-	}
+}
+
+window.windowInit = function () {
+    $("#mnavh").on('click', function (event) {
+        $("#starlist").toggle();
+        $("#mnavh").toggleClass("open");
+        $("body").toggleClass("ovhi");
+    });
+}

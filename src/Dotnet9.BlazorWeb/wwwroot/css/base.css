@@ -1,11 +1,10 @@
 @charset "utf-8";
 * { margin: 0; padding: 0 }
-body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #000; background: #fff; line-height: 1.5; overflow-x: hidden; }
-.background {
-    background-color: #E6F2FF;
-    z-index: -1;
-    animation: background 10s ease-in-out infinite;
-}
+html, body {
+    font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    color: #000;
+    background: url("/images/bg.png") repeat; 
+    line-height: 1.5; overflow-x: hidden; }
 
 @keyframes background {
     0% {
