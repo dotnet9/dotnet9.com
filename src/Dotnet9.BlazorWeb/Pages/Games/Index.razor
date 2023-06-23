@@ -42,6 +42,7 @@ else
         _items = new List<ToolItem>()
         {
             new("猜数字游戏", $"{siteInfo?.AssetsRemotePath}/games/guessing-numbers.png", "游戏开始时，会生成一个1到100之间的随机数字作为目标数字。玩家需要通过输入数字来猜测目标数字，系统会根据玩家的猜测给出相应的提示。如果玩家猜对了，游戏结束，显示恭喜信息，并提供开始新游戏的按钮。", "/games/guessing-numbers", 0),
+            new("井字棋游戏", $"{siteInfo?.AssetsRemotePath}/games/tictactoe.png", "一个简单的井字棋游戏，玩家可以点击棋盘上的方格来下棋。游戏会检查是否有玩家获胜或者平局，并在游戏结束时显示相应的消息。玩家可以点击“开始新游戏”按钮来重新开始游戏。", "/games/tictactoe", 0),
             
         };
     }
