@@ -41,6 +41,7 @@ else
         var siteInfo = await SystemClientService.GetSiteInfoAsync();
         _items = new List<ToolItem>()
         {
+            new("正则表达式在线验证工具", $"{siteInfo?.AssetsRemotePath}/tools/regextester.png", "这个示例演示了如何使用Blazor Server开发一个简单的正则表达式在线验证工具。用户可以输入正则表达式和测试字符串并单击“测试”按钮以测试正则表达式是否匹配测试字符串。此外，这个示例还提供了10几个常用的正则表达式测试，用户可以单击链接加载测试数据并自动填充正则表达式和测试字符串。", "/tools/regextester", 0),
             new("JSON格式化", $"{siteInfo?.AssetsRemotePath}/tools/jsonformatter.png", "使用JsonDocument.Parse方法将输入的JSON字符串解析为JsonDocument对象。然后，我们使用JsonSerializer.Serialize方法将JsonDocument对象转换为格式化的JSON字符串。我们还使用JsonSerializerOptions来设置缩进选项，以便生成易于阅读的格式化JSON字符串。", "/tools/jsonformatter", 0),
             new("在线字符串编码工具", $"{siteInfo?.AssetsRemotePath}/tools/stringencode.png", "使用System.Web.HttpUtility.UrlDecode方法对编码结果进行URL解码，System.Web.HttpUtility.UrlEncode方法对输入字符串进行URL编码", "/tools/string-encoder", 0),
             new("倒计时", $"{siteInfo?.AssetsRemotePath}/tools/countdown.png", "这个示例展示了如何在Blazor中使用异步方法和延迟来实现简单的倒计时功能。你可以根据需要进行扩展，例如添加暂停、重置等功能。", "/tools/countdown", 0),
