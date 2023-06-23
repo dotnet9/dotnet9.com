@@ -112,7 +112,7 @@
             _appVersion = assembly.GetName().Version?.ToString();
             var assemblyPath = assembly.Location;
             var lastModified = File.GetLastWriteTime(assemblyPath);
-            _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss fff");
+            _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss");
         }
     }
 
