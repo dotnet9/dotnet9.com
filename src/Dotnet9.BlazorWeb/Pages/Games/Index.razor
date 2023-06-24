@@ -3,34 +3,38 @@
 
 <PageTitle>游戏</PageTitle>
 
-@if (_items is not {Count: > 0 })
-{
-    <div class="read_more">
-        这里空空如也
-    </div>
-}
-else
-{
-    <div class="blog_list">
-        <ul>
-            @foreach (var toolItem in _items)
-            {
-                <li>
-                    <a href="@toolItem.Url" class="blog_more">
-                        <h2>@toolItem.Name</h2>
-                        <i>
-                            <img src="@toolItem.Cover" alt="@toolItem.Name" title="@toolItem.Name"/>
-                        </i>
-                        <p title="@toolItem.Description">@toolItem.Description</p>
-                    </a>
-                    <div class="info">
-                        <span class="info_view">@toolItem.ViewCount</span>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-}
+<MApp>
+    <OpenOtherWebsite UrlSuffix="/games" />
+
+    @if (_items is not {Count: > 0 })
+    {
+        <div class="read_more">
+            这里空空如也
+        </div>
+    }
+    else
+    {
+        <div class="blog_list">
+            <ul>
+                @foreach (var toolItem in _items)
+                {
+                    <li>
+                        <a href="@toolItem.Url" class="blog_more">
+                            <h2>@toolItem.Name</h2>
+                            <i>
+                                <img src="@toolItem.Cover" alt="@toolItem.Name" title="@toolItem.Name"/>
+                            </i>
+                            <p title="@toolItem.Description">@toolItem.Description</p>
+                        </a>
+                        <div class="info">
+                            <span class="info_view">@toolItem.ViewCount</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</MApp>
 
 @code
 {
@@ -44,7 +48,6 @@ else
             new("扫雷游戏", $"{siteInfo?.AssetsRemotePath}/games/minesweeper.png", "在这个示例中，玩家需要点击方格来揭开它们。如果玩家踩到地雷，游戏结束。如果玩家揭开的方格周围有地雷，方格上会显示相应的数字，表示周围的地雷数量。如果玩家成功揭开所有没有地雷的方格，游戏胜利。", "/games/minesweeper", 0),
             new("猜数字游戏", $"{siteInfo?.AssetsRemotePath}/games/guessing-numbers.png", "游戏开始时，会生成一个1到100之间的随机数字作为目标数字。玩家需要通过输入数字来猜测目标数字，系统会根据玩家的猜测给出相应的提示。如果玩家猜对了，游戏结束，显示恭喜信息，并提供开始新游戏的按钮。", "/games/guessing-numbers", 0),
             new("井字棋游戏", $"{siteInfo?.AssetsRemotePath}/games/tictactoe.png", "一个简单的井字棋游戏，玩家可以点击棋盘上的方格来下棋。游戏会检查是否有玩家获胜或者平局，并在游戏结束时显示相应的消息。玩家可以点击“开始新游戏”按钮来重新开始游戏。", "/games/tictactoe", 0),
-            
         };
     }
 }

@@ -1,0 +1,23 @@
+﻿@inject NavigationManager NavigationManager
+
+<MSystemBar Dark Color="orange lighten-2">
+    <MButton Depressed Color="primary" OnClick="OpenUrl">
+        @Content
+    </MButton>
+</MSystemBar>
+
+@code {
+
+    [Parameter]
+    public string? Content { get; set; } = "点击Blazor Wasm版本，体验更多、更好";
+
+    [Parameter]
+    public string? UrlSuffix { get; set; }
+
+    private void OpenUrl()
+    {
+        var url = $"https://dotnetools.com{UrlSuffix}";
+        NavigationManager.NavigateTo(url, true);
+    }
+
+}
