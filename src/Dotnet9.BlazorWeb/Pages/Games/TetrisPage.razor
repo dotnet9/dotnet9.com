@@ -1,0 +1,17 @@
+﻿@page "/games/tetris"
+
+<!--游戏源码来源：https://github.com/exceptionnotfound/BlazorGames-->
+<PageTitle>@_title</PageTitle>
+
+<MApp>
+    <OpenOtherWebsite UrlSuffix="/games/minesweeper"/>
+
+    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@_title</h2>
+
+    <Tetris />
+</MApp>
+
+
+@code {
+    private readonly string? _title = $"在线游戏-{GameKind.Tetris.GameItem()?.Name}-Dotnet9";
+}

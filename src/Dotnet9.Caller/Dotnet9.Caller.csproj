@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>	  <PackageReference Include="Masa.Contrib.Service.Caller" Version="1.0.0-preview.1" />	 
-		<PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.2.1" />
+		<PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.3" />
 
 	</ItemGroup>
 

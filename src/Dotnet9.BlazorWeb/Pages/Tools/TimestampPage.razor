@@ -1,0 +1,15 @@
+﻿@page "/tools/timestamp"
+
+<PageTitle>@_title</PageTitle>
+
+<MApp>
+    <OpenOtherWebsite UrlSuffix="/tools/timestamp"/>
+    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@_title</h2>
+
+    <Timestamp />
+</MApp>
+
+@code
+{
+    private readonly string? _title = $"在线工具-{ToolKind.Timestamp.ToolItem()?.Name}-Dotnet9";
+}
