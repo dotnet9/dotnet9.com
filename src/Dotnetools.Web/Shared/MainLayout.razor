@@ -1,0 +1,61 @@
+﻿@inherits LayoutComponentBase
+
+@inject MasaBlazor MasaBlazor
+
+<MApp Id="inspire">
+    <MAppBar App
+             Color="white"
+             Flat>
+        <MAvatar Color="@(MasaBlazor.Breakpoint.SmAndDown ? "grey darken-1" : "transparent")"
+                 Size="32">
+            <MImage Alt="Dotnet工具箱" Src="favicon.ico"></MImage>
+        </MAvatar>
+
+        <MTabs Centered
+               Class="ml-n9"
+               Color="grey darken-1">
+            <MTab Href="/">首页</MTab>
+            <MTab Href="/tools">在线工具</MTab>
+            <MTab Href="/games">在线游戏</MTab>
+            <MTab Href="https://dotnet9.com" Target="_blank">Dotnet9</MTab>
+            <MTab Href="/about">关于</MTab>
+        </MTabs>
+
+    </MAppBar>
+
+    <MMain Class="grey lighten-3">
+        <MContainer>
+            <MRow>
+                <MCol Cols="12"
+                      Sm="2">
+                    <SiteInfoSideBar/>
+                </MCol>
+
+                <MCol Cols="12"
+                      Sm="8">
+                    <MContainer>
+                        <MCard>
+                            @Body
+                        </MCard>
+                    </MContainer>
+                </MCol>
+
+                <MCol Cols="12"
+                      Sm="2">
+                    <MRow>
+                        <MCol>
+                            <RecommendedToolsSideBar/>
+                        </MCol>
+                    </MRow>
+                    <MRow>
+                        <MCol>
+                            <RecommendedGamesSideBar/>
+                        </MCol>
+                    </MRow>
+                </MCol>
+            </MRow>
+        </MContainer>
+    </MMain>
+
+    <FooterPartial/>
+</MApp>

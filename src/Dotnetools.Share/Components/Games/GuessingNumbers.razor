@@ -1,0 +1,61 @@
+﻿<div class="tool-body">
+    @if (_isGameOver)
+    {
+        <p>@_message</p>
+        <p>游戏结束！</p>
+        <p>
+            <MButton Color="lime" Class="ma-2" OnClick='StartNewGame'>开始新游戏</MButton>
+        </p>
+    }
+    else
+    {
+        <p>猜一个1到100之间的数字：</p>
+        <p>
+            <MTextField Label="数字" Type="string" TValue="int" @bind-Value="_guess"/>
+        </p>
+        <p>
+            <MButton Color="success" class="ma-2" OnClick="CheckGuess">猜！</MButton>
+        </p>
+        <p>@_message</p>
+    }
+</div>
+
+
+@code {
+    private int _targetNumber;
+    private int _guess;
+    private string? _message;
+    private bool _isGameOver;
+
+    protected override void OnInitialized()
+    {
+        StartNewGame();
+    }
+
+    private void StartNewGame()
+    {
+        var random = new Random();
+        _targetNumber = random.Next(1, 101);
+        _guess = 0;
+        _message = "";
+        _isGameOver = false;
+    }
+
+    private void CheckGuess()
+    {
+        if (_guess == _targetNumber)
+        {
+            _message = "恭喜你猜对了！";
+            _isGameOver = true;
+        }
+        else if (_guess < _targetNumber)
+        {
+            _message = "猜小了！";
+        }
+        else
+        {
+            _message = "猜大了！";
+        }
+    }
+
+}

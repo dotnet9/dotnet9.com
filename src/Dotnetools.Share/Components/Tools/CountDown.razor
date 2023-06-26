@@ -1,0 +1,93 @@
+﻿<div class="tool-body">
+    <p>
+        <MTextField Label="持续时间（秒）" Type="number" TValue="int" @bind-Value="@_duration"/>
+    </p>
+
+    <p>
+        <MButton Color="success" class="ma-2" OnClick="@StartCountdown" Disabled="@_isCountingDown">开始</MButton>
+        <MButton Color="pink" class="ma-2 white--text" OnClick="@PauseCountdown" Disabled="!_isCountingDown">暂停</MButton>
+        <MButton Color="deep-orange" class="ma-2 white--text" OnClick="@ResetCountdown" Disabled="!_isCountingDown">重置</MButton>
+        剩余时间（秒）：@_remainingTime
+    </p>
+    <div class="text-center">
+        <MProgressCircular Value="@_remainingTimePercent" Size="100" Width="15" Rotate="360" Color="teal">@_remainingTime</MProgressCircular>
+    </div>
+</div>
+
+@code {
+    private int _duration = 20;
+    private int _remainingTime;
+    private int _remainingTimePercent;
+    private bool _isCountingDown;
+    private bool _isPause;
+    private CancellationTokenSource? _countdownTokenSource;
+
+    private async Task StartCountdown()
+    {
+        if (_duration < 0)
+        {
+            _duration = 10;
+        }
+        if (_isCountingDown)
+        {
+            return;
+        }
+        _isCountingDown = true;
+        if (!_isPause || _remainingTime <= 0)
+        {
+            _remainingTime = _duration;
+            ChangeRemainingTimePercent();
+        }
+        _countdownTokenSource = new CancellationTokenSource();
+
+        await Countdown(_countdownTokenSource.Token);
+    }
+
+    private void PauseCountdown()
+    {
+        if (!_isCountingDown)
+        {
+            return;
+        }
+        _isCountingDown = false;
+        _isPause = true;
+        _countdownTokenSource?.Cancel();
+    }
+
+    private async void ResetCountdown()
+    {
+        _isPause = false;
+        if (_isCountingDown && _countdownTokenSource != null)
+        {
+            await _countdownTokenSource.CancelAsync();
+        }
+
+        _remainingTime = _duration;
+        _isCountingDown = false;
+        ChangeRemainingTimePercent();
+    }
+
+    private async Task Countdown(CancellationToken cancellationToken)
+    {
+        while (_remainingTime > 0)
+        {
+            await Task.Delay(1000, cancellationToken);
+            _remainingTime--;
+            ChangeRemainingTimePercent();
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return;
+            }
+        }
+
+        _isCountingDown = false;
+    }
+
+    private async void ChangeRemainingTimePercent()
+    {
+        _remainingTimePercent = (int)(_remainingTime * 100.0 / _duration);
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+	<ItemGroup>
+		<PackageReference Include="Masa.Blazor" Version="1.0.0-rc.4" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0-preview.5.23302.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0-preview.5.23302.2" PrivateAssets="all" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Dotnetools.Share\Dotnetools.Share.csproj" />
+	</ItemGroup>
+</Project>

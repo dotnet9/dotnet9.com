@@ -1,0 +1,41 @@
+﻿<div class="tool-body">
+    <p>
+        <MTextarea BackgroundColor="grey lighten-2"
+                   Color="cyan" Solo TValue="string" @bind-Value="_inputString"
+                   Label="输入字符串"/>
+    </p>
+
+    <p>
+        <MTextarea BackgroundColor="amber lighten-4" Solo
+                   Color="orange orange-darken-4" TValue="string" @bind-Value="_encodedOrDecodeString"
+                   Label="编/解码结果"/>
+    </p>
+
+    <p>
+        <MButton OnClick="@Encode">编码</MButton>
+        <MButton OnClick="@Decode">解码</MButton>
+        <MButton OnClick="@Clear">清空</MButton>
+    </p>
+</div>
+
+@code {
+    private string? _inputString;
+    private string? _encodedOrDecodeString;
+
+    private void Encode()
+    {
+        _encodedOrDecodeString = System.Web.HttpUtility.UrlEncode(_inputString);
+    }
+
+    private void Decode()
+    {
+        _encodedOrDecodeString = System.Web.HttpUtility.UrlDecode(_inputString);
+    }
+
+    private void Clear()
+    {
+        _inputString = string.Empty;
+        _encodedOrDecodeString = string.Empty;
+    }
+
+}

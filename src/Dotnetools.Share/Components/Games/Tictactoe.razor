@@ -1,0 +1,110 @@
+﻿<div class="tool-body">
+    @if (_isGameOver)
+    {
+        <p>@_message</p>
+        <p>游戏结束！</p>
+        <MButton Color="lime" Class="ma-2" OnClick='StartNewGame'>开始新游戏</MButton>
+    }
+    else
+    {
+        <div style="text-align: center;">
+            @for (var i = 0; i < 3; i++)
+            {
+                <div>
+                    @for (var j = 0; j < 3; j++)
+                    {
+                        var i1 = i * 3 + j;
+                        <MButton Color="lime" OnClick='() => MakeMove(i1)' Disabled='IsCellDisabled(i1)'>@_board[i1]</MButton>
+                    }
+                </div>
+            }
+        </div>
+        <p>@_message</p>
+    }
+</div>
+
+@code {
+    private string?[] _board = new string[9];
+    private string _currentPlayer = "X";
+    private string? _message;
+    private bool _isGameOver;
+
+    private void MakeMove(int index)
+    {
+        if (_board[index] != null || _isGameOver)
+        {
+            return;
+        }
+        _board[index] = _currentPlayer;
+        if (CheckWin(_currentPlayer))
+        {
+            _message = $"玩家 {_currentPlayer} 获胜！";
+            _isGameOver = true;
+        }
+        else if (_board.All(cell => cell != null))
+        {
+            _message = "平局！";
+            _isGameOver = true;
+        }
+        else
+        {
+            _currentPlayer = _currentPlayer == "X" ? "O" : "X";
+            if (_currentPlayer == "O")
+            {
+                MakeComputerMove();
+            }
+        }
+    }
+
+    private void MakeComputerMove()
+    {
+    // 简单的随机选择一个可用的方格来下棋
+        var availableMoves = Enumerable.Range(0, 9).Where(i => _board[i] == null).ToList();
+        var random = new Random();
+        var randomIndex = random.Next(availableMoves.Count);
+        var computerMove = availableMoves[randomIndex];
+        _board[computerMove] = _currentPlayer;
+
+        if (CheckWin(_currentPlayer))
+        {
+            _message = $"电脑获胜！";
+            _isGameOver = true;
+        }
+        else if (_board.All(cell => cell != null))
+        {
+            _message = "平局！";
+            _isGameOver = true;
+        }
+        else
+        {
+            _currentPlayer = _currentPlayer == "X" ? "O" : "X";
+        }
+    }
+
+    private bool CheckWin(string player)
+    {
+    // 检查所有可能的获胜组合
+        return (_board[0] == player && _board[1] == player && _board[2] == player) ||
+               (_board[3] == player && _board[4] == player && _board[5] == player) ||
+               (_board[6] == player && _board[7] == player && _board[8] == player) ||
+               (_board[0] == player && _board[3] == player && _board[6] == player) ||
+               (_board[1] == player && _board[4] == player && _board[7] == player) ||
+               (_board[2] == player && _board[5] == player && _board[8] == player) ||
+               (_board[0] == player && _board[4] == player && _board[8] == player) ||
+               (_board[2] == player && _board[4] == player && _board[6] == player);
+    }
+
+    private bool IsCellDisabled(int index)
+    {
+        return _isGameOver || _board[index] != null;
+    }
+
+    private void StartNewGame()
+    {
+        _board = new string[9];
+        _currentPlayer = "X";
+        _message = null;
+        _isGameOver = false;
+    }
+
+}

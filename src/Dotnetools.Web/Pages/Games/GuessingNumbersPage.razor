@@ -1,0 +1,19 @@
+﻿@page "/games/guessing-numbers"
+
+<PageTitle>@_title</PageTitle>
+
+
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@_title</strong>
+    </MCol>
+
+</MRow>
+
+<GuessingNumbers/>
+
+@code
+{
+    private readonly string? _title = $"在线游戏-{GameKind.GuessingNumbers.GameItem()?.Name}-Dotnet工具箱";
+}

@@ -1,0 +1,20 @@
+﻿@page "/games/tetris"
+
+<!--游戏源码来源：https://github.com/exceptionnotfound/BlazorGames-->
+<PageTitle>@_title</PageTitle>
+
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@_title</strong>
+    </MCol>
+
+</MRow>
+
+<Tetris/>
+
+@code
+{
+
+    private readonly string? _title = $"在线游戏-{GameKind.Tetris.GameItem()?.Name}-Dotnet工具箱";
+}

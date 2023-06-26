@@ -1,0 +1,21 @@
+﻿.text-primary {
+    color: #007bff;
+}
+
+.site-info {
+    width: 100%;
+    text-align: center;
+}
+
+    .site-info td {
+        padding: 10px;
+    }
+
+    .site-info a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .site-info a:hover {
+            text-decoration: underline;
+        }

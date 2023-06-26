@@ -1,0 +1,49 @@
+﻿@inject NavigationManager NavigationManager
+
+<MCard Class="mx-auto" MaxWidth="344" Outlined>
+    <MImage Src="@Cover" Height="200"></MImage>
+
+    <MCardTitle>
+        @Title
+    </MCardTitle>
+    <MCardSubtitle>
+        简述
+    </MCardSubtitle>
+
+    <MCardActions>
+        <MButton Color="orange lighten-2" Text OnClick="OpenUrl">打开</MButton>
+        <MSpacer></MSpacer>
+        <MButton Icon OnClick="() => _show = !_show">
+            <MIcon>@(_show ? "mdi-chevron-up" : "mdi-chevron-down")</MIcon>
+        </MButton>
+    </MCardActions>
+
+    <div style="@(_show ? "" : "display:none")">
+        <MDivider></MDivider>
+        <MCardText>
+            @Memo
+        </MCardText>
+    </div>
+</MCard>
+
+@code
+{
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Memo { get; set; }
+
+    [Parameter]
+    public string? Cover { get; set; }
+
+    [Parameter]
+    public string? Url { get; set; }
+
+    bool _show = false;
+
+    private void OpenUrl()
+    {
+        NavigationManager.NavigateTo(Url);
+    }
+}

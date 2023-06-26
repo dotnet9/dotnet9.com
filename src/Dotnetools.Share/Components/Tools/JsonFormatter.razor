@@ -1,0 +1,39 @@
+﻿@using System.Text.Json
+
+<div class="tool-body">
+    <div>
+        <MTextarea BackgroundColor="grey lighten-2" Solo
+                   Color="orange orange-darken-4" TValue="string" @bind-Value="_inputJson"
+                   Label="输入Json" Rows="8" style="font-size:12px;" RowHeight="15" AutoGrow/>
+    </div>
+
+    <div>
+        <MButton Color="success" class="ma-2" OnClick="() => FormatJson(true)">格式化</MButton>
+        <MButton Color="lime" OnClick="() => FormatJson(false)">压缩</MButton>
+    </div>
+
+    <div>
+        <MTextarea BackgroundColor="amber lighten-4" Solo
+                   Color="orange orange-darken-4" TValue="string" @bind-Value="_formattedJson"
+                   Label="格式化或压缩后Json" Rows="8" style="font-size:12px;" RowHeight="15" AutoGrow/>
+    </div>
+</div>
+
+@code
+{
+    private string? _inputJson;
+    private string? _formattedJson;
+
+    private void FormatJson(bool writeIndented)
+    {
+        try
+        {
+            var jsonObject = JsonDocument.Parse(_inputJson).RootElement;
+            _formattedJson = JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions { WriteIndented = writeIndented });
+        }
+        catch (JsonException)
+        {
+            _formattedJson = "无效的JSON格式";
+        }
+    }
+}

@@ -1,0 +1,73 @@
+﻿@page "/about"
+
+<PageTitle>@_title</PageTitle>
+
+<MRow Justify=JustifyTypes.SpaceAround>
+    <MCard Width="400">
+
+        <MImage Height="200" Src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg">
+
+            <MCardTitle Class="white--text mt-8">
+                <MAvatar Size=56>
+                    <MImage Src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"></MImage>
+                </MAvatar>
+                <p class="ml-3">
+                    Dotnet工具箱
+                </p>
+            </MCardTitle>
+
+        </MImage>
+
+        <MCardText>
+            <div class="font-weight-bold ml-8 mb-2">
+                至今
+            </div>
+            <MTimeline AlignTop Dense>
+                @foreach (var message in _messages)
+                {
+                    <MTimelineItem key="@message.Time" Color="@message.Color" Small>
+                        <div>
+                            <div class="font-weight-normal">
+                                <strong>@message.From</strong>@message.Time
+                            </div>
+                            <div>@message.Message</div>
+                        </div>
+                    </MTimelineItem>
+                }
+            </MTimeline>
+        </MCardText>
+
+    </MCard>
+</MRow>
+
+@code{
+
+    private readonly string? _title = $"关于-Dotnet工具箱";
+
+    readonly MessageDto[] _messages =
+    {
+        new MessageDto
+        {
+            From = "还在完善",
+            Message = "内容还很少，有什么工具需求欢迎找我沟通，更欢迎PR哦",
+            Time = "2023-06-25",
+            Color = "deep-purple lighten-1"
+        },
+        new MessageDto
+        {
+            From = "上线网站",
+            Message = "使用Blazor Wasm开发网站，将Dotnet9写好的在线工具和在线小游戏搬移过来",
+            Time = "2023-06-24",
+            Color = "deep-purple lighten-1"
+        }
+    };
+
+    class MessageDto
+    {
+        public string From { get; set; }
+        public string Message { get; set; }
+        public string Time { get; set; }
+        public string Color { get; set; }
+    }
+
+}

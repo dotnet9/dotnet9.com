@@ -1,0 +1,18 @@
+﻿@page "/games/minesweeper"
+
+<PageTitle>@_title</PageTitle>
+
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@_title</strong>
+    </MCol>
+
+</MRow>
+
+<Minesweeper/>
+
+@code
+{
+    private readonly string? _title = $"在线游戏-{GameKind.Minesweeper.GameItem()?.Name}-Dotnet工具箱";
+}

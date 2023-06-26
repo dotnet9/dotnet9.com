@@ -1,0 +1,31 @@
+﻿<MCard MaxWidth="450"
+       Class="mx-auto">
+    <MList ThreeLine>
+        <MSubheader>推荐工具</MSubheader>
+        @foreach (var item in _items)
+        {
+            <MDivider Inset="true"></MDivider>
+            <MListItem Class="tool-item">
+                <MListItemAvatar>
+                    <MImage Src="@item.Cover"></MImage>
+                </MListItemAvatar>
+
+                <MListItemContent>
+                    <MListItemTitle Class="tool-title">
+                        <a href="@item.Url">@((MarkupString)item.Name)</a>
+                    </MListItemTitle>
+                    <MListItemSubtitle Class="tool-memo">@((MarkupString)item.Memo)</MListItemSubtitle>
+                </MListItemContent>
+            </MListItem>
+        }
+    </MList>
+</MCard>
+
+@code
+{
+    readonly ToolItem[] _items =
+    {
+        ToolKind.JsonFormatter.ToolItem()!,
+        ToolKind.RegexTester.ToolItem()!
+    };
+}

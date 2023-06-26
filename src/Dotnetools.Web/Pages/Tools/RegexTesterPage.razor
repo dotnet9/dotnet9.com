@@ -1,0 +1,19 @@
+﻿@page "/tools/regextester"
+
+<PageTitle>@_title</PageTitle>
+
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@_title</strong>
+    </MCol>
+
+</MRow>
+
+<RegexTester />
+
+@code
+{
+
+    private readonly string? _title = $"工具箱-{ToolKind.RegexTester.ToolItem()?.Name}-Dotnet工具箱";
+}

@@ -1,0 +1,32 @@
+﻿@code {
+
+    [Parameter]
+    public int Row { get; set; }
+
+    [Parameter]
+    public int Column { get; set; }
+
+    [Parameter]
+    public Tetromino Tetromino { get; set; }
+
+    [Parameter]
+    public Grid Grid { get; set; }
+
+}
+
+@{
+    string extraCSS = "";
+    if (Grid.IsStarted)
+    {
+        if (Tetromino.CoveredCells.Contains(Row, Column))
+        {
+            extraCSS = "tetris-piece " + Tetromino.CssClass;
+        }
+
+        if (Grid.Cells.Contains(Row, Column))
+        {
+            extraCSS = "tetris-piece " + Grid.Cells.GetCssClass(Row, Column);
+        }
+    }
+}
+<div id="@(Row + "-" + Column)" class="tetris-cell @extraCSS"></div>

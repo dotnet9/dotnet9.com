@@ -1,0 +1,23 @@
+﻿.game-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+    .game-item:hover {
+        background-color: #f5f5f5;
+    }
+
+.game-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.game-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.game-memo {
+    color: #777;
+}
