@@ -27,7 +27,7 @@ public class PrivacyHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<PrivacyDto?>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<PrivacyDto?>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

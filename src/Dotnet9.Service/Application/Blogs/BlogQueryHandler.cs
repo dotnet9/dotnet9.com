@@ -25,7 +25,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<BlogCountBrief>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<BlogCountBrief>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
@@ -54,7 +54,7 @@ public class BlogQueryHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<List<BlogSearchCountDto>>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
@@ -83,7 +83,7 @@ public class BlogQueryHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogBrief>?>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<List<BlogBrief>?>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
@@ -119,7 +119,7 @@ public class BlogQueryHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
@@ -156,7 +156,7 @@ public class BlogQueryHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromDays(3))
+                return Task.FromResult(new CacheEntry<List<BlogBrief>>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 });
@@ -194,7 +194,7 @@ public class BlogQueryHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<BlogArchive>>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<List<BlogArchive>>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -236,7 +236,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<BlogDetails>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<BlogDetails>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -267,7 +267,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByKeywordsResponse>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByKeywordsResponse>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -305,7 +305,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByAlbumSlugResponse>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByAlbumSlugResponse>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -344,7 +344,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByCategorySlugResponse>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByCategorySlugResponse>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
@@ -385,7 +385,7 @@ public class BlogQueryHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetBlogListByTagNameResponse>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<GetBlogListByTagNameResponse>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

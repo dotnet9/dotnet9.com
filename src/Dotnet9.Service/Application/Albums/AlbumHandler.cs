@@ -24,7 +24,7 @@ public class AlbumHandler
             if (distinctAlbumList?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<AlbumBrief>>(distinctAlbumList, TimeSpan.FromDays(3))
+                return new CacheEntry<List<AlbumBrief>>(distinctAlbumList, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

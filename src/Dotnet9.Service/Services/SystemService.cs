@@ -39,7 +39,7 @@ public class SystemService : ServiceBase
             var dataFromDb = await ReadDataFromDb();
 
             timeSpan = TimeSpan.FromSeconds(30);
-            return new CacheEntry<SitemapInfo>(dataFromDb, TimeSpan.FromDays(3))
+            return new CacheEntry<SitemapInfo>(dataFromDb, TimeSpan.FromMinutes(5))
             {
                 SlidingExpiration = TimeSpan.FromMinutes(5)
             };

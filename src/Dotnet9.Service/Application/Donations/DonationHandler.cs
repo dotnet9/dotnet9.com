@@ -25,7 +25,7 @@ public class DonationHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<DonationDto>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<DonationDto>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

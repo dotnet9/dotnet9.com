@@ -25,7 +25,7 @@ public class AboutHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<AboutDto?>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<AboutDto?>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

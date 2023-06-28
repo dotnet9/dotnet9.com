@@ -25,7 +25,7 @@ public class TimelineHandler
             if (dataFromDb?.Any() == true)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<TimelineDto>?>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<List<TimelineDto>?>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };

@@ -37,7 +37,7 @@ public class FriendlyLinkHandler
             if (dataFromDb != null)
             {
                 timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<GetFriendlyLinkListResponse>(dataFromDb, TimeSpan.FromDays(3))
+                return new CacheEntry<GetFriendlyLinkListResponse>(dataFromDb, TimeSpan.FromMinutes(5))
                 {
                     SlidingExpiration = TimeSpan.FromMinutes(5)
                 };
