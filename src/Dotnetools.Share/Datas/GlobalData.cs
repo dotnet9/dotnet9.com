@@ -45,13 +45,25 @@ public static class GlobalData
                 $"{GameImagePrefix}/tictactoe.png", $"{GameUrlPrefix}tictactoe"),
         };
 
-    public static ToolItem? ToolItem(this ToolKind kind)
+    private static List<ToolItem>? _allItems;
+
+    private static List<ToolItem> AllItems
     {
-        return ToolItems.FirstOrDefault(toolItem => toolItem.Kind == kind);
+        get
+        {
+            if (_allItems == null)
+            {
+                _allItems = new();
+                _allItems.AddRange(ToolItems);
+                _allItems.AddRange(GameItems);
+            }
+
+            return _allItems;
+        }
     }
 
-    public static ToolItem? GameItem(this ToolKind kind)
+    public static ToolItem? Item(this ToolKind kind)
     {
-        return GameItems.FirstOrDefault(gameItem => gameItem.Kind == kind);
+        return AllItems.FirstOrDefault(toolItem => toolItem.Kind == kind);
     }
 }

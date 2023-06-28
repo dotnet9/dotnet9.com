@@ -1,8 +1,8 @@
-﻿<PageTitle>@($"{Kind?.GameItem()?.Name}-Dotnet9")</PageTitle>
+﻿<PageTitle>@($"{Kind?.Item()?.Name}-Dotnet9")</PageTitle>
 
 <MApp>
-    <OpenOtherWebsite UrlSuffix="@Kind?.ToolItem()?.Url"/>
-    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Kind?.GameItem()?.Name</h2>
+    <OpenOtherWebsite UrlSuffix="@Kind?.Item()?.Url"/>
+        <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Kind?.Item()?.Name</h2>
 
     @switch (Kind)
     {

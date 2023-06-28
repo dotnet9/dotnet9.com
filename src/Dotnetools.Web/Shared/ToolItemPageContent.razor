@@ -1,9 +1,8 @@
-﻿<PageTitle>@($"{Kind?.GameItem()?.Name}-Dotnet工具箱")</PageTitle>
-<ToolTitle Title="@Kind?.GameItem()?.Name"/>
+﻿<PageTitle>@($"{Kind?.Item()?.Name}-Dotnet工具箱")</PageTitle>
 <MRow>
     <MCol Class="mt-2"
           Cols="12">
-        <strong style="padding-left: 10px;">@(Kind?.GameItem()?.Name)</strong>
+            <strong style="padding-left: 10px;">@(Kind?.Item()?.Name)</strong>
     </MCol>
 
 </MRow>
@@ -16,30 +15,30 @@
         <GuessingNumbers/>
         break;
     case ToolKind.ToolRegexTester:
-        <GuessingNumbers />
+        <GuessingNumbers/>
         break;
     case ToolKind.ToolRgb:
         <RGB/>
         break;
     case ToolKind.ToolStringEncoder:
-        <StringEncoder />
+        <StringEncoder/>
         break;
     case ToolKind.ToolTimestamp:
-        <Timestamp />
+        <Timestamp/>
         break;
 
-        
+
     case ToolKind.GameMinesweeper:
-        <Minesweeper />
+        <Minesweeper/>
         break;
     case ToolKind.GameTetris:
-        <Tetris />
+        <Tetris/>
         break;
     case ToolKind.GameGuessingNumbers:
-        <GuessingNumbers />
+        <GuessingNumbers/>
         break;
     case ToolKind.GameTictactoe:
-        <Tictactoe />
+        <Tictactoe/>
         break;
 }
 
