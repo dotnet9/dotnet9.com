@@ -14,7 +14,6 @@
                     <MListItemTitle Class="tool-title">
                         <a href="@item.Url">@((MarkupString)item.Name)</a>
                     </MListItemTitle>
-                    <MListItemSubtitle Class="tool-memo">@((MarkupString)item.Memo)</MListItemSubtitle>
                 </MListItemContent>
             </MListItem>
         }
@@ -25,7 +24,7 @@
 {
     readonly ToolItem[] _items =
     {
-        ToolKind.JsonFormatter.ToolItem()!,
-        ToolKind.RegexTester.ToolItem()!
+        ToolKind.ToolJsonFormatter.ToolItem()!,
+        ToolKind.ToolRegexTester.ToolItem()!
     };
 }

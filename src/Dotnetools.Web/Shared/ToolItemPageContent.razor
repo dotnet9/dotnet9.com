@@ -1,0 +1,50 @@
+﻿<PageTitle>@($"{Kind?.GameItem()?.Name}-Dotnet工具箱")</PageTitle>
+<ToolTitle Title="@Kind?.GameItem()?.Name"/>
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@(Kind?.GameItem()?.Name)</strong>
+    </MCol>
+
+</MRow>
+@switch (Kind)
+{
+    case ToolKind.ToolCountDown:
+        <CountDown/>
+        break;
+    case ToolKind.ToolJsonFormatter:
+        <GuessingNumbers/>
+        break;
+    case ToolKind.ToolRegexTester:
+        <GuessingNumbers />
+        break;
+    case ToolKind.ToolRgb:
+        <RGB/>
+        break;
+    case ToolKind.ToolStringEncoder:
+        <StringEncoder />
+        break;
+    case ToolKind.ToolTimestamp:
+        <Timestamp />
+        break;
+
+        
+    case ToolKind.GameMinesweeper:
+        <Minesweeper />
+        break;
+    case ToolKind.GameTetris:
+        <Tetris />
+        break;
+    case ToolKind.GameGuessingNumbers:
+        <GuessingNumbers />
+        break;
+    case ToolKind.GameTictactoe:
+        <Tictactoe />
+        break;
+}
+
+@code
+{
+    [Parameter]
+    public ToolKind? Kind { get; set; }
+}

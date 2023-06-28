@@ -14,7 +14,6 @@
                     <MListItemTitle Class="game-title">
                         <a href="@item.Url">@((MarkupString)item.Name)</a>
                     </MListItemTitle>
-                    <MListItemSubtitle Class="game-memo">@((MarkupString)item.Memo)</MListItemSubtitle>
                 </MListItemContent>
             </MListItem>
         }
@@ -23,9 +22,9 @@
 
 @code
 {
-    readonly GameItem[] _items = new[]
+    readonly ToolItem[] _items = new[]
     {
-        GameKind.Tetris.GameItem()!,
-        GameKind.Minesweeper.GameItem()!
+        ToolKind.GameTetris.GameItem()!,
+        ToolKind.GameMinesweeper.GameItem()!
     };
 }

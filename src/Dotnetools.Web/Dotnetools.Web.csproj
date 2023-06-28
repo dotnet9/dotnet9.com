@@ -7,4 +7,9 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Dotnetools.Share\Dotnetools.Share.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Content Update="Pages\Tools\RgbPage.razor">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  </Content>
+	</ItemGroup>
 </Project>

@@ -1,15 +1,3 @@
 ﻿@page "/games/tictactoe"
 
-<PageTitle>@_title</PageTitle>
-
-<MApp>
-    <OpenOtherWebsite UrlSuffix="/games/tictactoe"/>
-    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@GameKind.Tictactoe.GameItem()?.Name</h2>
-
-    <Tictactoe/>
-</MApp>
-
-@code {
-
-    private readonly string? _title = $"在线游戏-{GameKind.Tictactoe.GameItem()?.Name}-Dotnet9";
-}
+<ToolItemPageContent Kind="ToolKind.GameTictactoe" />

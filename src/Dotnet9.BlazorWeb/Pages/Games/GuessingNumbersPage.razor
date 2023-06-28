@@ -1,15 +1,3 @@
 ﻿@page "/games/guessing-numbers"
 
-<PageTitle>@_title</PageTitle>
-
-<MApp>
-    <OpenOtherWebsite UrlSuffix="/games/guessing-numbers"/>
-    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@GameKind.GuessingNumbers.GameItem()?.Name</h2>
-
-    <GuessingNumbers/>
-</MApp>
-
-
-@code {
-    private readonly string? _title = $"在线游戏-{GameKind.GuessingNumbers.GameItem()?.Name}-Dotnet9";
-}
+<ToolItemPageContent Kind="ToolKind.GameGuessingNumbers" />

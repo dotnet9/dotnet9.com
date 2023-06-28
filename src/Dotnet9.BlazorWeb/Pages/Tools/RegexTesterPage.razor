@@ -1,14 +1,3 @@
 ﻿@page "/tools/regextester"
 
-<PageTitle>@_title</PageTitle>
-
-<MApp>
-    <OpenOtherWebsite UrlSuffix="/tools/regextester"/>
-    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@ToolKind.RegexTester.ToolItem()?.Name</h2>
-
-    <RegexTester/>
-</MApp>
-
-@code {
-    private readonly string? _title = $"在线工具-{ToolKind.RegexTester.ToolItem()?.Name}-Dotnet9";
-}
+<ToolItemPageContent Kind="ToolKind.ToolRegexTester" />

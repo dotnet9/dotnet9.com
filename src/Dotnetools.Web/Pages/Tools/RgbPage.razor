@@ -1,0 +1,12 @@
+﻿@page "/tools/rgb"
+@inject IJSRuntime JsRuntime
+
+<ToolItemPageContent Kind="ToolKind.ToolRgb" />
+
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JsRuntime.InvokeVoidAsync("window.showNormalColors");
+    }
+}

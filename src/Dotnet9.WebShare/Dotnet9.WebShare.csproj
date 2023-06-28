@@ -2,7 +2,7 @@
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.4" />
-    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.3" />
+    <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.3.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
   <ItemGroup>

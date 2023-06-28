@@ -1,16 +1,3 @@
 ﻿@page "/games/minesweeper"
 
-<PageTitle>@_title</PageTitle>
-
-<MApp>
-    <OpenOtherWebsite UrlSuffix="/games/minesweeper"/>
-
-    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@GameKind.Minesweeper.GameItem()?.Name</h2>
-
-    <Minesweeper/>
-</MApp>
-
-
-@code {
-    private readonly string? _title = $"在线游戏-{GameKind.Minesweeper.GameItem()?.Name}-Dotnet9";
-}
+<ToolItemPageContent Kind="ToolKind.GameMinesweeper" />

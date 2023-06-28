@@ -1,0 +1,48 @@
+﻿<PageTitle>@($"{Kind?.GameItem()?.Name}-Dotnet9")</PageTitle>
+
+<MApp>
+    <OpenOtherWebsite UrlSuffix="@Kind?.ToolItem()?.Url"/>
+    <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Kind?.GameItem()?.Name</h2>
+
+    @switch (Kind)
+    {
+        case ToolKind.ToolCountDown:
+            <CountDown/>
+            break;
+        case ToolKind.ToolJsonFormatter:
+            <GuessingNumbers/>
+            break;
+        case ToolKind.ToolRegexTester:
+            <GuessingNumbers/>
+            break;
+        case ToolKind.ToolRgb:
+            <RGB/>
+            break;
+        case ToolKind.ToolStringEncoder:
+            <StringEncoder/>
+            break;
+        case ToolKind.ToolTimestamp:
+            <Timestamp/>
+            break;
+
+
+        case ToolKind.GameMinesweeper:
+            <Minesweeper/>
+            break;
+        case ToolKind.GameTetris:
+            <Tetris/>
+            break;
+        case ToolKind.GameGuessingNumbers:
+            <GuessingNumbers/>
+            break;
+        case ToolKind.GameTictactoe:
+            <Tictactoe/>
+            break;
+    }
+</MApp>
+
+@code
+{
+    [Parameter]
+    public ToolKind? Kind { get; set; }
+}
