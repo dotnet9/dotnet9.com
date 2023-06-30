@@ -1,0 +1,26 @@
+﻿@using Jint
+
+<div class="form-group">
+    <label for="jsCode">JavaScript 代码:</label>
+    <textarea class="form-control" id="jsCode" @bind="@JsCode" rows="5"></textarea>
+</div>
+
+<button class="btn btn-primary" @onclick="ConvertJsToCSharp">转换</button>
+
+<div class="form-group">
+    <label for="csharpCode">C# 代码:</label>
+    <textarea class="form-control" id="csharpCode" readonly rows="5">@CSharpCode</textarea>
+</div>
+
+@code {
+    private string? JsCode { get; set; }
+    private string? CSharpCode { get; set; }
+
+    private void ConvertJsToCSharp()
+    {
+        var engine = new Engine();
+        engine.Execute(JsCode);
+
+        CSharpCode = engine.GetValue("result").ToString();
+    }
+}

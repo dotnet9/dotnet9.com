@@ -8,6 +8,7 @@ public enum ToolKind
     ToolRgb,
     ToolStringEncoder,
     ToolTimestamp,
+    Js2Charp,
 
     GameMinesweeper,
     GameTetris,

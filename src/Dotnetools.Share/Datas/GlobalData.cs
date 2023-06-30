@@ -29,7 +29,9 @@ public static class GlobalData
             new(ToolKind.ToolCountDown, "倒计时",
                 $"{ToolImagePrefix}/countdown.png", $"{ToolUrlPrefix}countdown"),
             new(ToolKind.ToolTimestamp, "时间戳", $"{ToolImagePrefix}/timestamp.png",
-                $"{ToolUrlPrefix}timestamp")
+                $"{ToolUrlPrefix}timestamp"),
+            new(ToolKind.ToolTimestamp, "Js代码转C#代码", $"{ToolImagePrefix}/timestamp.png",
+                $"{ToolUrlPrefix}js2csharp")
         };
 
     public static List<ToolItem> GameItems =>
