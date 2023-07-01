@@ -9,7 +9,14 @@
     {
         if (!firstRender)
         {
-            await JsRuntime.InvokeVoidAsync("window.showNormalColors");
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("window.showNormalColors");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿@switch (Kind)
+{
+    case ToolKind.ToolCountDown:
+        <CountDown/>
+        break;
+    case ToolKind.ToolJsonFormatter:
+        <GuessingNumbers/>
+        break;
+    case ToolKind.ToolRegexTester:
+        <RegexTester/>
+        break;
+    case ToolKind.ToolRgb:
+        <RGB/>
+        break;
+    case ToolKind.ToolStringEncoder:
+        <StringEncoder/>
+        break;
+    case ToolKind.ToolTimestamp:
+        <Timestamp/>
+        break;
+    case ToolKind.Js2Charp:
+        <Js2Csharp/>
+        break;
+
+
+    case ToolKind.GameMinesweeper:
+        <Minesweeper/>
+        break;
+    case ToolKind.GameTetris:
+        <Tetris/>
+        break;
+    case ToolKind.GameGuessingNumbers:
+        <GuessingNumbers/>
+        break;
+    case ToolKind.GameTictactoe:
+        <Tictactoe/>
+        break;
+}
+
+@code {
+
+    [Parameter]
+    public ToolKind? Kind { get; set; }
+
+}

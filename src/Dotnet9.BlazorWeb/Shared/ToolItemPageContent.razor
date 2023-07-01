@@ -4,44 +4,7 @@
     <OpenOtherWebsite UrlSuffix="@Kind?.Item()?.Url"/>
         <h2 style="margin-bottom: 30px; margin-top: 10px; text-align: center;">@Kind?.Item()?.Name</h2>
 
-    @switch (Kind)
-    {
-        case ToolKind.ToolCountDown:
-            <CountDown/>
-            break;
-        case ToolKind.ToolJsonFormatter:
-            <GuessingNumbers/>
-            break;
-        case ToolKind.ToolRegexTester:
-            <GuessingNumbers/>
-            break;
-        case ToolKind.ToolRgb:
-            <RGB/>
-            break;
-        case ToolKind.ToolStringEncoder:
-            <StringEncoder/>
-            break;
-        case ToolKind.ToolTimestamp:
-            <Timestamp/>
-            break;
-        case ToolKind.Js2Charp:
-            <Js2Csharp />
-            break;
-
-
-        case ToolKind.GameMinesweeper:
-            <Minesweeper/>
-            break;
-        case ToolKind.GameTetris:
-            <Tetris/>
-            break;
-        case ToolKind.GameGuessingNumbers:
-            <GuessingNumbers/>
-            break;
-        case ToolKind.GameTictactoe:
-            <Tictactoe/>
-            break;
-    }
+    <ToolItemComponent Kind="@Kind"/>
 </MApp>
 
 @code
