@@ -13,7 +13,7 @@
         <div class="group fullwidth mt-2">
             <span class="static">颜色值</span>
             <input id="input_color" class="input" @bind="_inputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
-            <button class="button primary" onclick="convert()">转换</button>
+            <button class="button primary" @onclick="ConvertRgb">转换</button>
         </div>
         <div class="flex" style="flex-wrap: wrap">
             <span class="tag tips">输入示例(大小写不敏感):</span>
@@ -30,7 +30,7 @@
             @onclick='()=>ShowSample("rgba(241,148,138,0.5)")'>
                 rgba(241,148,138,0.5)
             </span>
-            <span class="tag" style="background-color: #5FAEE3" @onclick='()=>ShowSample("#5FAEE3")'>hsl(204,70%,63%)</span>
+            <span class="tag" style="background-color: #5FAEE3" @onclick='()=>ShowSample("hsl(204,70%,63%)")'>hsl(204,70%,63%)</span>
         </div>
         <table class="table divide fullwidth mt-2">
             <thead>
@@ -118,10 +118,6 @@
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {
-        if (e.Key != "Enter" && !string.IsNullOrWhiteSpace(_inputColor))
-        {
-            return;
-        }
         ConvertRgb();
     }
 
@@ -135,14 +131,16 @@
     {
         try
         {
-            var color = RgbHelper.ParseColor(_inputColor!);
+            _color = RgbHelper.ParseColor(_inputColor!);
 
-            _hex = color.ToHex();
-            _rgba = color.ToRGBA();
+            _hex = _color.ToHex();
+            _rgba = _color.ToRGBA();
         }
         catch (Exception ex)
         {
-            // ignored
+            _color = null;
+            _hex = null;
+            _rgba = null;
         }
     }
 }

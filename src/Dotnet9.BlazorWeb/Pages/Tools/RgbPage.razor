@@ -2,21 +2,3 @@
 @inject IJSRuntime JsRuntime
 
 <ToolItemPageContent Kind="ToolKind.ToolRgb" />
-
-@code
-{
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender)
-        {
-            try
-            {
-                await JsRuntime.InvokeVoidAsync("window.showNormalColors");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-    }
-}
