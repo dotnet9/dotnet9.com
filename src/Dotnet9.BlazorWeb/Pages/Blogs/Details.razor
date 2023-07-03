@@ -1,4 +1,5 @@
 ﻿@page "/{Year}/{Month}/{Slug}"
+@using System.Reflection.Metadata
 
 @inject ISystemClientService SystemClientService
 @inject BlogService BlogService
@@ -148,6 +149,9 @@
 
 @code
 {
+    [Inject]
+    IJSRuntime JSRuntime { get; set; }
+
     [Parameter]
     public string Slug { get; set; } = null!;
 
@@ -168,5 +172,13 @@
         _blog = await BlogService.GetBlogDetailsBySlugAsync(Slug);
         _title = _blog?.Title;
         _markdownContent = _blog?.Content;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("handlePseudoLinks");
+        }
     }
 }

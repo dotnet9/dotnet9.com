@@ -96,6 +96,14 @@
                 }
             }
         };
+        function handlePseudoLinks() {
+            var pseudoLinks = document.querySelectorAll('a[href^="#"]');
+            pseudoLinks.forEach(function (link) {
+                var href = link.getAttribute('href');
+                var absoluteUri = window.location.origin + window.location.pathname + href;
+                link.setAttribute('href', absoluteUri);
+            });
+        }
     </script>
 
 <div id="reconnect-modal" style="display: none;"></div>
