@@ -1,6 +1,6 @@
-﻿<!--参考源：https://sunpma.com/other/rgb/-->
+﻿@using Dotnetools.Share.Helpers
+<!--参考源：https://sunpma.com/other/rgb/-->
 
-<PageTitle>RGBA颜色值转换</PageTitle>
 <title>RGBA颜色值转换</title>
 <meta name="keywords" content="颜色值转换,RGB转十六进制,RGB,RGBA,HEX,HSL,WEB标准色">
 <meta name="description" content="色彩在线颜色值转换工具,RGB转十六进制,RGB,RGBA,HEX,HSL,WEB标准色">
@@ -12,25 +12,25 @@
     <div class="container">
         <div class="group fullwidth mt-2">
             <span class="static">颜色值</span>
-            <input id="input_color" class="input" placeholder="#6c928c" onpaste="setTimeout(convert, 1)">
+            <input id="input_color" class="input" @bind="_inputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
             <button class="button primary" onclick="convert()">转换</button>
         </div>
         <div class="flex" style="flex-wrap: wrap">
             <span class="tag tips">输入示例(大小写不敏感):</span>
-            <span class="tag" style="background-color: #707B7C" onclick="inputExample(this)">#707B7C</span>
+            <span class="tag" style="background-color: #707B7C" @onclick='()=>ShowSample("#707B7C")'>#707B7C</span>
             <span class="tag" style="background-color: rgba(247,220,111,0.667)"
-                  onclick="inputExample(this)">
+            @onclick='()=>ShowSample("#AAF7DC6F")'>
                 #AAF7DC6F
             </span>
             <span class="tag" style="background-color: rgb(72,201,176)"
-                  onclick="inputExample(this)">
+            @onclick='()=>ShowSample("rgb(72,201,176)")'>
                 rgb(72,201,176)
             </span>
             <span class="tag" style="background-color: rgba(241,148,138,.5)"
-                  onclick="inputExample(this)">
+            @onclick='()=>ShowSample("rgba(241,148,138,0.5)")'>
                 rgba(241,148,138,0.5)
             </span>
-            <span class="tag" style="background-color: #5FAEE3" onclick="inputExample(this)">hsl(204,70%,63%)</span>
+            <span class="tag" style="background-color: #5FAEE3" @onclick='()=>ShowSample("#5FAEE3")'>hsl(204,70%,63%)</span>
         </div>
         <table class="table divide fullwidth mt-2">
             <thead>
@@ -40,8 +40,27 @@
                 <th>转换结果</th>
             </tr>
             </thead>
-            <tbody id="table_preview"></tbody>
+            <tbody id="table_preview">
+            <tr>
+                <td style="background-color:@_hex"></td><td>HEX</td><td>@_hex</td>
+            </tr>
+            <tr>
+                <td style="background-color:@_hex"></td><td>RGB</td><td>@_color?.ToRGB()</td>
+            </tr>
+            <tr>
+                <td style="background-color:@_rgba"></td><td>RGBA</td><td>@_rgba</td>
+            </tr>
+            <tr>
+                <td style="background-color:@_rgba"></td><td>ARGB</td><td>@_color?.ToARGB()</td>
+            </tr>
+            <tr>
+                <td style="background-color:@_hex"></td><td>HSL</td><td>@_color?.ToHSL()</td>
+            </tr>
+            </tbody>
+
         </table>
+
+        <!--预览颜色-->
         <h2 class="mt-2">CSS颜色表</h2>
         <div class="tile mt-2">
             HTML 和 CSS 颜色规范中定义的 147 中颜色名（17 种标准颜色加 130 种其他颜色）。下面的表格中列出了所有这些颜色，以及它们的十六进制值。
@@ -50,7 +69,35 @@
             silver,
             teal, white, yellow。
         </div>
-        <div id="table_list"></div>
+
+        @if (RgbHelper.Colors.Any())
+        {
+            foreach (var category in RgbHelper.Colors)
+            {
+                <h3 class="mt-2">@category.CategoryName</h3>
+                <table class="table fullwidth divide mt1">
+                    <thead>
+                    <tr>
+                        <th>颜色名</th>
+                        <th>预览</th>
+                        <th>HEX</th>
+                        <th>RGB</th>
+                        <th>HSL</th>
+                    </tr>
+                    </thead>
+                    @foreach (var shade in category.Shades)
+                    {
+                        <tr>
+                            <td>@shade.Name</td>
+                            <td style="background-color: @shade.HexCode"></td>
+                            <td>@shade.HexCode</td>
+                            <td>@shade.RGB</td>
+                            <td>@shade.HSL</td>
+                        </tr>
+                    }
+                </table>
+            }
+        }
     </div>
     <br>
     <hr class="hr-twill-colorful">
@@ -58,6 +105,44 @@
 
 @code
 {
-   
+    private string? _inputColor = "#6c928c";
+    private string? _hex;
+    private string? _rgba;
+    private RgbHelper.Color? _color;
 
+    protected override Task OnInitializedAsync()
+    {
+        ConvertRgb();
+        return base.OnInitializedAsync();
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key != "Enter" && !string.IsNullOrWhiteSpace(_inputColor))
+        {
+            return;
+        }
+        ConvertRgb();
+    }
+
+    private void ShowSample(string color)
+    {
+        _inputColor = color;
+        ConvertRgb();
+    }
+
+    void ConvertRgb()
+    {
+        try
+        {
+            var color = RgbHelper.ParseColor(_inputColor!);
+
+            _hex = color.ToHex();
+            _rgba = color.ToRGBA();
+        }
+        catch (Exception ex)
+        {
+            // ignored
+        }
+    }
 }
