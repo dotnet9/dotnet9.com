@@ -1,0 +1,30 @@
+﻿@using ToolItem = Dotnetools.Share.Models.ToolItem
+
+<PageTitle>@Title-Dotnet工具箱</PageTitle>
+
+<MRow>
+    <MCol Class="mt-2"
+          Cols="12">
+        <strong style="padding-left: 10px;">@Title</strong>
+    </MCol>
+
+    @foreach (var item in Items!)
+    {
+        <MCol Cols="6"
+              Md="4">
+            <CardItem Title="@item.Name" Cover="@item.Cover" Url="@item.Url" />
+        </MCol>
+    }
+</MRow>
+
+@code
+{
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? OtherUrl { get; set; }
+
+    [Parameter]
+    public List<ToolItem>? Items { get; set; }
+}

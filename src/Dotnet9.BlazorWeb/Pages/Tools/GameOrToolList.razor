@@ -1,12 +1,11 @@
-﻿@page "/tools"
-@inject ISystemClientService SystemClientService
+﻿@using ToolItem = Dotnetools.Share.Models.ToolItem
 
-<PageTitle>在线工具</PageTitle>
+<PageTitle>@Title</PageTitle>
 
 <MApp>
-    <OpenOtherWebsite UrlSuffix="/tools"/>
+    <OpenOtherWebsite UrlSuffix="@OtherUrl" />
 
-    @if (GlobalData.ToolItems is not {Count: > 0 })
+    @if (Items is not { Count: > 0 })
     {
         <div class="read_more">
             这里空空如也
@@ -16,7 +15,7 @@
     {
         <div class="blog_list">
             <ul>
-                @foreach (var toolItem in GlobalData.ToolItems)
+                @foreach (var toolItem in Items)
                 {
                     <li>
                         <a href="@toolItem.Url" class="blog_more">
@@ -37,8 +36,12 @@
 
 @code
 {
-    protected override async Task OnInitializedAsync()
-    {
-        var siteInfo = await SystemClientService.GetSiteInfoAsync();
-    }
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? OtherUrl { get; set; }
+
+    [Parameter]
+    public List<ToolItem>? Items { get; set; }
 }

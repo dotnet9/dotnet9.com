@@ -68,4 +68,9 @@ public static class GlobalData
     {
         return AllItems.FirstOrDefault(toolItem => toolItem.Kind == kind);
     }
+
+    public static ToolItem? Item(this string urlEnd)
+    {
+        return AllItems.FirstOrDefault(toolItem => toolItem.Url.EndsWith(urlEnd));
+    }
 }

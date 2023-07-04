@@ -1,0 +1,41 @@
+﻿@page "/tools/{ToolUrl}"
+@page "/games/{ToolUrl}"
+
+<PageTitle>@($"{Kind?.Item()?.Name}-Dotnet工具箱")</PageTitle>
+
+    <MRow>
+        <MCol Class="mt-2"
+              Cols="12">
+            <strong style="padding-left: 10px;">@(Kind?.Item()?.Name)</strong>
+    </MCol>
+
+</MRow>
+
+<ToolItemComponent Kind="@Kind" />
+
+@code
+{
+    [Parameter]
+    public string? ToolUrl { get; set; }
+
+    [Parameter]
+    public ToolKind? Kind { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrWhiteSpace(ToolUrl))
+        {
+            return Task.CompletedTask;
+        }
+        try
+        {
+            var toolItem = ToolUrl.Item();
+            Kind = toolItem?.Kind;
+        }
+        catch
+        {
+            Kind = ToolKind.ToolRgb;
+        }
+        return base.OnParametersSetAsync();
+    }
+}
