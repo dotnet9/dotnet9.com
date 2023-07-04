@@ -1,4 +1,35 @@
-﻿@switch (Kind)
+﻿@inject NavigationManager NavigationManager
+
+<p>
+    @if (!string.IsNullOrWhiteSpace(_item?.LearnUrl))
+    {
+        <MButton Text Small Color="#D1C4E9" OnClick="() => OpenUrl(_item.LearnUrl)">
+            参考来源
+        </MButton>
+    }
+    @if (!string.IsNullOrWhiteSpace(_serverUrl))
+    {
+        <MButton Text Small Color="#B39DDB" OnClick="() => OpenUrl(_serverUrl)">
+            Server版
+        </MButton>
+    }
+    @if (!string.IsNullOrWhiteSpace(_wasmUrl))
+    {
+        <MButton Text Small Color="#9575CD" OnClick="() => OpenUrl(_wasmUrl)">
+            WASM版
+        </MButton>
+    }
+    @if (!string.IsNullOrWhiteSpace(_github))
+    {
+        <MButton Text Small Color="#7E57C2" OnClick="() => OpenUrl(_github)">
+            工具源码
+        </MButton>
+    }
+</p>
+
+<MDivider/>
+
+@switch (Kind)
 {
     case ToolKind.ToolCountDown:
         <CountDown/>
@@ -41,5 +72,31 @@
 
     [Parameter]
     public ToolKind? Kind { get; set; }
+
+    private ToolItem? _item;
+    private string? _serverUrl;
+    private string? _wasmUrl;
+    private string? _github;
+
+    protected override Task OnInitializedAsync()
+    {
+        _item = Kind?.Item();
+        if (!string.IsNullOrWhiteSpace(_item?.Url))
+        {
+            _serverUrl = $"https://dotnet9.com{_item.Url}";
+            _wasmUrl = $"https://dotnetools.com{_item.Url}";
+        }
+        if (!string.IsNullOrWhiteSpace(_item?.Github))
+        {
+            _github = $"https://github.com/dotnet9/Dotnet9/blob/develop/src/Dotnetools.Share/Components{_item.Github}";
+        }
+
+        return base.OnInitializedAsync();
+    }
+
+    private void OpenUrl(string url)
+    {
+        NavigationManager.NavigateTo(url, true);
+    }
 
 }

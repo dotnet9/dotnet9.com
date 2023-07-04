@@ -82,6 +82,8 @@
     </div>
 }
 
+<p>在<a href="@_markdownUrl" style="color: blue;" target="_blank" title="编辑文章">Github</a>上编辑这篇文章</p>
+
 <div class="share" id="down">
     <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">
     <div class="share-text">
@@ -163,6 +165,7 @@
     string? _title;
     SiteInfoDto? _siteInfo;
     BlogDetails? _blog;
+    string? _markdownUrl;
     string? _markdownContent;
 
     protected override async Task OnParametersSetAsync()
@@ -170,6 +173,7 @@
         _siteInfo = await SystemClientService.GetSiteInfoAsync();
         _blog = await BlogService.GetBlogDetailsBySlugAsync(Slug);
         _title = _blog?.Title;
+        _markdownUrl = $"https://github.com/dotnet9/Assets.Dotnet9/blob/main/{Year}/{Month}/{Slug}.md";
         _markdownContent = _blog?.Content;
     }
 
