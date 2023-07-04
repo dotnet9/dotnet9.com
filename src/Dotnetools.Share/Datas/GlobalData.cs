@@ -24,7 +24,7 @@ public static class GlobalData
                 $"{ToolImagePrefix}/rgb.png",
                 $"{ToolUrlPrefix}rgb", 
                 LearnUrl:"https://sunpma.com/other/rgb/",
-                Github:"/Games/GuessingNumbers.razor"),
+                Github:"/Tools/RGB.razor"),
             new(ToolKind.ToolStringEncoder, "在线字符串编码工具",
                 $"{ToolImagePrefix}/stringencode.png",
                 $"{ToolUrlPrefix}string-encoder"),
