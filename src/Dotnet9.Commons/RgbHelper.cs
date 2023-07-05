@@ -399,7 +399,7 @@ public static class RgbHelper
 
         public string ToARGB()
         {
-            return "#" + Hex((int)(a * 255 - 1)) + Hex(r.Value) + Hex(g.Value) + Hex(b.Value);
+            return "#" + Hex((int)(a * 255)) + Hex(r.Value) + Hex(g.Value) + Hex(b.Value);
         }
 
         public string ToLab()
@@ -436,7 +436,7 @@ public static class RgbHelper
                 h /= 6;
             }
 
-            return "hsl(" + Math.Round(h * 360) + "," + Math.Round(s * 100) + "%" + "," + Math.Round(l * 100) + "%)";
+            return "hsl(" + Math.Round(h * 360) + "," + Math.Round(s * 100, 1) + "%" + "," + Math.Round(l * 100, 1) + "%)";
         }
 
         private string Hex(int num)
@@ -500,7 +500,7 @@ public static class RgbHelper
             }
 
             return new Color(int.Parse(colorValues[0]),
-                int.Parse(colorValues[1]), int.Parse(colorValues[2]), double.Parse(colorValues[3]) * 100);
+                int.Parse(colorValues[1]), int.Parse(colorValues[2]), double.Parse(colorValues[3]));
         }
         else if (color.StartsWith("rgb"))
         {
@@ -525,6 +525,12 @@ public static class RgbHelper
             sourceColor = sourceColor.Replace("(", "");
             sourceColor = sourceColor.Replace(")", "");
             return sourceColor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        labColor = labColor.ToLower();
+        if (!labColor.StartsWith("lab"))
+        {
+            return null;
         }
 
         var labValues = RemoveThirdChar(labColor);
