@@ -3,8 +3,10 @@
     <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.5" />
     <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.3.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dotnet9.Caller\Dotnet9.Caller.csproj" />
     <ProjectReference Include="..\Dotnet9.Contracts\Dotnet9.Contracts.csproj" />

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace Dotnet9.ASPNETCore;
+﻿namespace Dotnet9.ASPNETCore;
 
 public static class HttpContextExtensions
 {
