@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿namespace Dotnet9.Commons;
 
-namespace Dotnetools.Share.Helpers;
-
-internal static partial class RgbHelper
+public static class RgbHelper
 {
-    internal static List<ColorCategory> Colors = new List<ColorCategory>
+    public static List<ColorCategory> Colors = new List<ColorCategory>
     {
         new ColorCategory
         {
@@ -311,6 +302,65 @@ internal static partial class RgbHelper
         return str;
     }
 
+    public static string RgbaToLab(double red, double green, double blue)
+    {
+        // 将RGBA颜色值转换为XYZ颜色值
+        double r = red / 255;
+        double g = green / 255;
+        double b = blue / 255;
+
+        if (r > 0.04045)
+            r = Math.Pow((r + 0.055) / 1.055, 2.4);
+        else
+            r = r / 12.92;
+
+        if (g > 0.04045)
+            g = Math.Pow((g + 0.055) / 1.055, 2.4);
+        else
+            g = g / 12.92;
+
+        if (b > 0.04045)
+            b = Math.Pow((b + 0.055) / 1.055, 2.4);
+        else
+            b = b / 12.92;
+
+        r = r * 100;
+        g = g * 100;
+        b = b * 100;
+
+        double x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
+        double y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
+        double z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
+
+        // 将XYZ颜色值转换为Lab颜色值
+        x = x / 95.047;
+        y = y / 100.000;
+        z = z / 108.883;
+
+        if (x > 0.008856)
+            x = Math.Pow(x, 1.0 / 3.0);
+        else
+            x = (903.3 * x + 16) / 116;
+
+        if (y > 0.008856)
+            y = Math.Pow(y, 1.0 / 3.0);
+        else
+            y = (903.3 * y + 16) / 116;
+
+        if (z > 0.008856)
+            z = Math.Pow(z, 1.0 / 3.0);
+        else
+            z = (903.3 * z + 16) / 116;
+
+        double l = (116 * y) - 16;
+        double a = 500 * (x - y);
+        double bValue = 200 * (y - z);
+
+        // 返回Lab颜色值字符串
+        string labColor = $"lab({l:F2},{a:F2},{bValue:F2})";
+        return labColor;
+    }
+
 
     public class Color
     {
@@ -350,6 +400,11 @@ internal static partial class RgbHelper
         public string ToARGB()
         {
             return "#" + Hex((int)(a * 255 - 1)) + Hex(r.Value) + Hex(g.Value) + Hex(b.Value);
+        }
+
+        public string ToLab()
+        {
+            return RgbaToLab(r.Value, g.Value, b.Value);
         }
 
         public string ToHSL()
@@ -401,16 +456,22 @@ internal static partial class RgbHelper
     {
         hexColor = hexColor.TrimStart('#');
 
-        Regex regex = new(@"^([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$");
-        var match = regex.Match(hexColor);
-
-        if (match?.Success == true)
+        if (hexColor.Length == 6)
         {
-            int red = Convert.ToInt32(match.Groups[1].Value, 16);
-            int green = Convert.ToInt32(match.Groups[2].Value, 16);
-            int blue = Convert.ToInt32(match.Groups[3].Value, 16);
+            int red = Convert.ToInt32(hexColor.Substring(0, 2), 16);
+            int green = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+            int blue = Convert.ToInt32(hexColor.Substring(4, 2), 16);
 
             return new Color(red, green, blue);
+        }
+        else if (hexColor.Length == 8)
+        {
+            var alpha = Convert.ToInt32(hexColor.Substring(0, 2), 16) / 255.0;
+            int red = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+            int green = Convert.ToInt32(hexColor.Substring(4, 2), 16);
+            int blue = Convert.ToInt32(hexColor.Substring(6, 2), 16);
+
+            return new Color(red, green, blue, alpha);
         }
         else
         {
@@ -418,41 +479,78 @@ internal static partial class RgbHelper
         }
     }
 
-    public static Color? ParseRGBA(string color)
+    public static Color? ParseRGBOrRGBA(string color)
     {
-        Regex regex = new Regex(@"^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$");
-        var match = regex.Match(color);
-
-        if (match?.Success == true)
+        string[] RemoveThirdChar(string sourceColor)
         {
-            int r = int.Parse(match.Groups[1].Value);
-            int g = int.Parse(match.Groups[2].Value);
-            int b = int.Parse(match.Groups[3].Value);
-            if (!double.TryParse(match.Groups[4].Value, out double a))
+            sourceColor = sourceColor.Replace("rgba", "");
+            sourceColor = sourceColor.Replace("rgb", "");
+            sourceColor = sourceColor.Replace("(", "");
+            sourceColor = sourceColor.Replace(")", "");
+            return sourceColor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        color = color.ToLower();
+        if (color.StartsWith("rgba"))
+        {
+            var colorValues = RemoveThirdChar(color);
+            if (colorValues.Length < 4)
             {
-                a = 1;
+                return null;
             }
 
-            return new Color(r, g, b, a);
+            return new Color(int.Parse(colorValues[0]),
+                int.Parse(colorValues[1]), int.Parse(colorValues[2]), double.Parse(colorValues[3]) * 100);
+        }
+        else if (color.StartsWith("rgb"))
+        {
+            var colorValues = RemoveThirdChar(color);
+            if (colorValues.Length < 3)
+            {
+                return null;
+            }
+
+            return new Color(int.Parse(colorValues[0]),
+                int.Parse(colorValues[1]), int.Parse(colorValues[2]));
         }
 
         return null;
     }
 
-    public static Color? ParseARGB(string val)
+    public static Color? ParseLab(string labColor)
     {
-        Match argb = Regex.Match(val, @"^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$",
-            RegexOptions.IgnoreCase);
-        if (argb?.Success == true)
+        string[] RemoveThirdChar(string sourceColor)
         {
-            var r = int.Parse(argb.Groups[2].Value, NumberStyles.HexNumber);
-            var g = int.Parse(argb.Groups[3].Value, NumberStyles.HexNumber);
-            var b = int.Parse(argb.Groups[4].Value, NumberStyles.HexNumber);
-            var a = int.Parse(argb.Groups[1].Value, NumberStyles.HexNumber) / 255.0;
-            return new Color(r, g, b, a);
+            sourceColor = sourceColor.Replace("lab", "");
+            sourceColor = sourceColor.Replace("(", "");
+            sourceColor = sourceColor.Replace(")", "");
+            return sourceColor.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        return null;
+        var labValues = RemoveThirdChar(labColor);
+        if (labValues.Length < 3)
+        {
+            return null;
+        }
+
+        double l = double.Parse(labValues[0]);
+        double a = double.Parse(labValues[1]);
+        double b = double.Parse(labValues[2]);
+
+        // 将Lab颜色值转换为RGB颜色值
+        double y = (l + 16) / 116;
+        double x = a / 500 + y;
+        double z = y - b / 200;
+
+        double r = Math.Pow(x, 3) > 0.008856 ? Math.Pow(x, 3) : (x - 16 / 116) / 7.787;
+        double g = Math.Pow(y, 3) > 0.008856 ? Math.Pow(y, 3) : (y - 16 / 116) / 7.787;
+        double bValue = Math.Pow(z, 3) > 0.008856 ? Math.Pow(z, 3) : (z - 16 / 116) / 7.787;
+
+        // 将RGB颜色值转换为Hex颜色值
+        int red = (int)(r * 255);
+        int green = (int)(g * 255);
+        int blue = (int)(bValue * 255);
+        return new Color(red, green, blue);
     }
 
     public static Color? ParseHSL(string hslValue)
@@ -517,13 +615,13 @@ internal static partial class RgbHelper
             return color;
         }
 
-        color = ParseRGBA(val);
+        color = ParseRGBOrRGBA(val);
         if (color?.Valid() == true)
         {
             return color;
         }
 
-        color = ParseARGB(val);
+        color = ParseLab(val);
         if (color?.Valid() == true)
         {
             return color;

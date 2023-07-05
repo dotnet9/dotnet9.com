@@ -1,0 +1,21 @@
+﻿a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+    a:hover {
+        color: #ff6600;
+    }
+
+    a:active {
+        color: #cc3300;
+    }
+
+    a:focus {
+        outline: none;
+    }
+
+    a:visited {
+        color: #666;
+    }

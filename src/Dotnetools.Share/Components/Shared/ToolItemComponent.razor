@@ -1,29 +1,19 @@
-﻿@inject NavigationManager NavigationManager
-
-<p>
+﻿<p>
     @if (!string.IsNullOrWhiteSpace(_item?.LearnUrl))
     {
-        <MButton Text Small Color="#D1C4E9" OnClick="() => OpenUrl(_item.LearnUrl)">
-            参考来源
-        </MButton>
+        <a href="@_item.LearnUrl" target="_blank" style="color:#D1C4E9">参考来源</a>
     }
     @if (!string.IsNullOrWhiteSpace(_serverUrl))
     {
-        <MButton Text Small Color="#B39DDB" OnClick="() => OpenUrl(_serverUrl)">
-            Server版
-        </MButton>
+        <a href="@_serverUrl" target="_blank" style="color:#B39DDB">Server版</a>
     }
     @if (!string.IsNullOrWhiteSpace(_wasmUrl))
     {
-        <MButton Text Small Color="#9575CD" OnClick="() => OpenUrl(_wasmUrl)">
-            WASM版
-        </MButton>
+        <a href="@_wasmUrl" target="_blank" style="color:#9575CD">Wasm版</a>
     }
     @if (!string.IsNullOrWhiteSpace(_github))
     {
-        <MButton Text Small Color="#7E57C2" OnClick="() => OpenUrl(_github)">
-            工具源码
-        </MButton>
+        <a href="@_github" target="_blank" style="color:#7E57C2">工具源码</a>
     }
 </p>
 
@@ -35,7 +25,7 @@
         <CountDown/>
         break;
     case ToolKind.ToolJsonFormatter:
-        <GuessingNumbers/>
+        <JsonFormatter/>
         break;
     case ToolKind.ToolRegexTester:
         <RegexTester/>
@@ -48,9 +38,6 @@
         break;
     case ToolKind.ToolTimestamp:
         <Timestamp/>
-        break;
-    case ToolKind.Js2Charp:
-        <Js2Csharp/>
         break;
 
 
@@ -93,10 +80,4 @@
 
         return base.OnInitializedAsync();
     }
-
-    private void OpenUrl(string url)
-    {
-        NavigationManager.NavigateTo(url, true);
-    }
-
 }

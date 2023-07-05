@@ -1,7 +1,4 @@
-﻿@using Dotnetools.Share.Helpers
-<!--参考源：https://sunpma.com/other/rgb/-->
-
-<title>RGBA颜色值转换</title>
+﻿<title>RGBA颜色值转换</title>
 <meta name="keywords" content="颜色值转换,RGB转十六进制,RGB,RGBA,HEX,HSL,WEB标准色">
 <meta name="description" content="色彩在线颜色值转换工具,RGB转十六进制,RGB,RGBA,HEX,HSL,WEB标准色">
 <div class="tool-body">
@@ -17,20 +14,21 @@
         </div>
         <div class="flex" style="flex-wrap: wrap">
             <span class="tag tips">输入示例(大小写不敏感):</span>
-            <span class="tag" style="background-color: #707B7C" @onclick='()=>ShowSample("#707B7C")'>#707B7C</span>
-            <span class="tag" style="background-color: rgba(247,220,111,0.667)"
-            @onclick='()=>ShowSample("#AAF7DC6F")'>
+            <span class="tag" style="background-color: #707B7C" @onclick='() => ShowSample("#707B7C")'>#707B7C</span>
+            <span class="tag" style="background-color: #AAF7DC6F"
+                  @onclick='() => ShowSample("#AAF7DC6F")'>
                 #AAF7DC6F
             </span>
             <span class="tag" style="background-color: rgb(72,201,176)"
-            @onclick='()=>ShowSample("rgb(72,201,176)")'>
+                  @onclick='() => ShowSample("rgb(72,201,176)")'>
                 rgb(72,201,176)
             </span>
             <span class="tag" style="background-color: rgba(241,148,138,.5)"
-            @onclick='()=>ShowSample("rgba(241,148,138,0.5)")'>
+                  @onclick='() => ShowSample("rgba(241,148,138,0.5)")'>
                 rgba(241,148,138,0.5)
             </span>
-            <span class="tag" style="background-color: #5FAEE3" @onclick='()=>ShowSample("hsl(204,70%,63%)")'>hsl(204,70%,63%)</span>
+            <span class="tag" style="background-color: hsl(204,70%,63%)" @onclick='() => ShowSample("hsl(204,70%,63%)")'>hsl(204,70%,63%)</span>
+            <span class="tag" style="background-color: #ff7f00" @onclick='() => ShowSample("lab(20,50,30)")'>lab(20,50,30)</span>
         </div>
         <table class="table divide fullwidth mt-2">
             <thead>
@@ -45,16 +43,19 @@
                 <td style="background-color:@_hex"></td><td>HEX</td><td>@_hex</td>
             </tr>
             <tr>
-                <td style="background-color:@_hex"></td><td>RGB</td><td>@_color?.ToRGB()</td>
+                <td style="background-color:@_rgba"></td><td>ARGB</td><td>@_argb</td>
+            </tr>
+            <tr>
+                <td style="background-color:@_hex"></td><td>RGB</td><td>@_rgb</td>
             </tr>
             <tr>
                 <td style="background-color:@_rgba"></td><td>RGBA</td><td>@_rgba</td>
             </tr>
             <tr>
-                <td style="background-color:@_rgba"></td><td>ARGB</td><td>@_color?.ToARGB()</td>
+                <td style="background-color:@_hex"></td><td>HSL</td><td>@_hsl</td>
             </tr>
             <tr>
-                <td style="background-color:@_hex"></td><td>HSL</td><td>@_color?.ToHSL()</td>
+                <td style="background-color:@_hex"></td><td>LAB</td><td>@_lab</td>
             </tr>
             </tbody>
 
@@ -107,8 +108,11 @@
 {
     private string? _inputColor = "#6c928c";
     private string? _hex;
+    private string? _argb;
+    private string? _rgb;
     private string? _rgba;
-    private RgbHelper.Color? _color;
+    private string? _hsl;
+    private string? _lab;
 
     protected override Task OnInitializedAsync()
     {
@@ -131,16 +135,23 @@
     {
         try
         {
-            _color = RgbHelper.ParseColor(_inputColor!);
+            var color = RgbHelper.ParseColor(_inputColor!);
 
-            _hex = _color.ToHex();
-            _rgba = _color.ToRGBA();
+            _hex = color.ToHex();
+            _argb = color.ToARGB();
+            _rgb = color.ToRGB();
+            _rgba = color.ToRGBA();
+            _hsl = color.ToHSL();
+            _lab = color.ToLab();
         }
         catch (Exception ex)
         {
-            _color = null;
-            _hex = null;
-            _rgba = null;
+            _hex = string.Empty;
+            _argb = string.Empty;
+            _rgb = string.Empty;
+            _rgba = string.Empty;
+            _hsl = string.Empty;
+            _lab = string.Empty;
         }
     }
 }

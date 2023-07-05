@@ -28,6 +28,11 @@
     {
         try
         {
+            if (string.IsNullOrWhiteSpace(_inputJson))
+            {
+                _formattedJson = "";
+                return;
+            }
             var jsonObject = JsonDocument.Parse(_inputJson).RootElement;
             _formattedJson = JsonSerializer.Serialize(jsonObject, new JsonSerializerOptions { WriteIndented = writeIndented });
         }
