@@ -8,10 +8,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\Administrator\.nuget\packages\masa.blazor\1.0.0-rc.4\contentFiles\any\net6.0\package.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 

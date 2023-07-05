@@ -24,7 +24,7 @@
 		<PackageReference Include="Masa.Utils.Security.Cryptography" Version="1.0.0-rc.3.4" />
 		<PackageReference Include="Masa.Contrib.Data.UoW.EFCore" Version="1.0.0-rc.3.4" />
 		<PackageReference Include="Masa.Contrib.Dispatcher.IntegrationEvents.Dapr" Version="1.0.0-rc.3.4" />
-		<PackageReference Include="FluentValidation" Version="11.5.2" />
+		<PackageReference Include="FluentValidation" Version="11.6.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
 		<PackageReference Include="Dapr.Actors.AspNetCore" Version="1.11.0" />
 		<PackageReference Include="Dapr.AspNetCore" Version="1.11.0" />

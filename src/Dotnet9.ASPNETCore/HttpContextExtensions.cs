@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.ASPNETCore;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Dotnet9.ASPNETCore;
 
 public static class HttpContextExtensions
 {
