@@ -9,14 +9,15 @@
     <div class="container">
         <div class="group fullwidth mt-2">
             <span class="static">颜色值</span>
-            <input id="input_color" class="input" @bind="_inputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
+            <input id="input_color" class="input" @bind="InputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
+            <input type="color" @bind="InputColor" />
             <button class="button primary" @onclick="ConvertRgb">转换</button>
         </div>
         <div class="flex" style="flex-wrap: wrap">
             <span class="tag tips">输入示例(大小写不敏感):</span>
             <span class="tag" style="background-color: #707B7C" @onclick='() => ShowSample("#707B7C")'>#707B7C</span>
             <span class="tag" style="background-color: #AC800080"
-            @onclick='() => ShowSample("#AC800080")'>
+                  @onclick='() => ShowSample("#AC800080")'>
                 #AC800080
             </span>
             <span class="tag" style="background-color: rgb(72,201,176)"
@@ -106,7 +107,18 @@
 
 @code
 {
-    private string? _inputColor = "#6c928c";
+    private string _inputColor = "#6c928c";
+
+    private string? InputColor
+    {
+        get => _inputColor;
+        set
+        {
+            _inputColor = value;
+            ConvertRgb();
+        }
+    }
+
     private string? _hex;
     private string? _argb;
     private string? _rgb;
@@ -127,7 +139,7 @@
 
     private void ShowSample(string color)
     {
-        _inputColor = color;
+        InputColor = color;
         ConvertRgb();
     }
 
@@ -135,7 +147,7 @@
     {
         try
         {
-            var color = RgbHelper.ParseColor(_inputColor!);
+            var color = RgbHelper.ParseColor(InputColor!);
 
             _hex = color.ToHex();
             _argb = color.ToArgb();

@@ -11,7 +11,12 @@
     {
         <p>猜一个1到100之间的数字：</p>
         <p>
-            <MTextField Label="数字" Type="string" TValue="int" @bind-Value="_guess"/>
+            <MSelect Items="_items"
+                     @bind-Value="@_guess"
+                     ItemText="u => u.ToString()"
+                     ItemValue="u => u"
+                     Label="数字"
+                     Dense/>
         </p>
         <p>
             <MButton Color="success" class="ma-2" OnClick="CheckGuess">猜！</MButton>
@@ -22,6 +27,8 @@
 
 
 @code {
+    private List<int>? _items;
+    private int _guessTimes;
     private int _targetNumber;
     private int _guess;
     private string? _message;
@@ -29,12 +36,14 @@
 
     protected override void OnInitialized()
     {
+        _items = Enumerable.Range(1, 100).ToList();
         StartNewGame();
     }
 
     private void StartNewGame()
     {
         var random = new Random();
+        _guessTimes = 0;
         _targetNumber = random.Next(1, 101);
         _guess = 0;
         _message = "";
@@ -43,6 +52,7 @@
 
     private void CheckGuess()
     {
+        _guessTimes++;
         if (_guess == _targetNumber)
         {
             _message = "恭喜你猜对了！";
@@ -56,6 +66,7 @@
         {
             _message = "猜大了！";
         }
+        _message += $"尝试了{_guessTimes}次";
     }
 
 }

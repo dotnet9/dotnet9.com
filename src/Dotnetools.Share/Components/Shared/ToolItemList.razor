@@ -1,0 +1,32 @@
+﻿<PageTitle>@Title-@WebTitle</PageTitle>
+
+<h2 class="title">@Title</h2>
+
+<div>
+    @if (Items?.Any() == true)
+    {
+        @foreach (var item in Items)
+        {
+            <a href="@item.Url" class="card">
+                <img src="@item.Cover" alt="@item.Name">
+                <h3>@item.Name</h3>
+            </a>
+        }
+    }
+    else
+    {
+        <span>这里空空如也</span>
+    }
+</div>
+
+@code
+{
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? WebTitle { get; set; }
+
+    [Parameter]
+    public List<ToolItem>? Items { get; set; }
+}

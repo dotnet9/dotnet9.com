@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.31.0" />
-    <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.5" />
+    <PackageReference Include="Masa.Blazor" Version="1.0.0-rc.6" />
     <PackageReference Include="Masa.Contrib.Service.Caller.HttpClient" Version="1.0.0-rc.3.4" />
   </ItemGroup>
 	<ItemGroup>

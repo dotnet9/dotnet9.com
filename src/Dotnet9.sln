@@ -42,9 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Share", "Dotneto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Web", "Dotnetools.Web\Dotnetools.Web.csproj", "{A02F64EF-48EF-450A-84B0-7C94F1C3A2A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnetools.Helpers", "Dotnetools.Helpers\Dotnetools.Helpers.csproj", "{0AD7E0A6-9F3E-459E-8FD2-C7A7F5F96AA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Helpers", "Dotnetools.Helpers\Dotnetools.Helpers.csproj", "{0AD7E0A6-9F3E-459E-8FD2-C7A7F5F96AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnetools.Helpers.Test", "Dotnetools.Helpers.Test\Dotnetools.Helpers.Test.csproj", "{636A5ADA-EC3C-4BC7-B03D-8B015659E505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Helpers.Test", "Dotnetools.Helpers.Test\Dotnetools.Helpers.Test.csproj", "{636A5ADA-EC3C-4BC7-B03D-8B015659E505}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
