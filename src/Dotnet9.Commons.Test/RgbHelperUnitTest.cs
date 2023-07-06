@@ -15,10 +15,10 @@ public class RgbHelperUnitTest
                 var colorObj = RgbHelper.ParseColor(color!);
 
                 var hex = colorObj.ToHex();
-                var argb = colorObj.ToARGB();
-                var _rgb = colorObj.ToRGB();
-                var _rgba = colorObj.ToRGBA();
-                var _hsl = colorObj.ToHSL();
+                var argb = colorObj.ToArgb();
+                var _rgb = colorObj.ToRgb();
+                var _rgba = colorObj.ToRgba();
+                var _hsl = colorObj.ToHsl();
                 var _lab = colorObj.ToLab();
             }
             catch (Exception ex)

@@ -92,8 +92,8 @@
                             <td>@shade.Name</td>
                             <td style="background-color: @shade.HexCode"></td>
                             <td>@shade.HexCode</td>
-                            <td>@shade.RGB</td>
-                            <td>@shade.HSL</td>
+                            <td>@shade.Rgb</td>
+                            <td>@shade.Hsl</td>
                         </tr>
                     }
                 </table>
@@ -138,10 +138,10 @@
             var color = RgbHelper.ParseColor(_inputColor!);
 
             _hex = color.ToHex();
-            _argb = color.ToARGB();
-            _rgb = color.ToRGB();
-            _rgba = color.ToRGBA();
-            _hsl = color.ToHSL();
+            _argb = color.ToArgb();
+            _rgb = color.ToRgb();
+            _rgba = color.ToRgba();
+            _hsl = color.ToHsl();
             _lab = color.ToLab();
         }
         catch (Exception ex)
