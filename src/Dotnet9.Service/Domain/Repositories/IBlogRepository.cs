@@ -3,7 +3,7 @@
 public interface IBlogRepository : IRepository<Blog, Guid>
 {
     Task CreateBlogViewCount(string slug, string ip, DateTime creationTime);
-    Task CreateBlogSearchCount(string keywords, string ip, DateTime creationTime);
+    Task CreateBlogSearchCount(string keywords, bool isEmpty, string ip, DateTime creationTime);
     Task<Blog?> FindByIdAsync(Guid id);
     Task<Blog?> FindByTitleAsync(string name);
     Task<Blog?> FindBySlugAsync(string slug);

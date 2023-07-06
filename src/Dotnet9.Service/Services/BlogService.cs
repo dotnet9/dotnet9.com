@@ -92,7 +92,7 @@ public class BlogService : ServiceBase
 
         if (!keywords.IsNullOrWhiteSpace())
         {
-            var recordSearchCountCommand = new CreateBlogSearchCountCommand(keywords,
+            var recordSearchCountCommand = new CreateBlogSearchCountCommand(keywords, queryEvent.Result.Total <= 0,
                 httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
             await EventBus.PublishAsync(recordSearchCountCommand, cancellationToken);
         }

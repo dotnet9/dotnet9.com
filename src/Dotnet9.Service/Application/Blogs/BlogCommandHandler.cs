@@ -50,6 +50,7 @@ public class BlogCommandHandler
     [EventHandler(1)]
     public async Task CreateBlogSearchCount(CreateBlogSearchCountCommand command, CancellationToken cancellationToken)
     {
-        await _blogRepository.CreateBlogSearchCount(command.Keywords, command.Ip, command.CreationTime);
+        await _blogRepository.CreateBlogSearchCount(command.Keywords, command.IsEmpty, command.Ip,
+            command.CreationTime);
     }
 }

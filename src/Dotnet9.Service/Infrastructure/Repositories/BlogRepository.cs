@@ -12,9 +12,9 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         await Context.SaveChangesAsync();
     }
 
-    public async Task CreateBlogSearchCount(string keywords, string ip, DateTime creationTime)
+    public async Task CreateBlogSearchCount(string keywords, bool isEmpty, string ip, DateTime creationTime)
     {
-        await Context.BlogsSearchCounts.AddAsync(new BlogSearchCount(keywords, ip, creationTime));
+        await Context.BlogsSearchCounts.AddAsync(new BlogSearchCount(keywords, isEmpty, ip, creationTime));
         await Context.SaveChangesAsync();
     }
 
@@ -245,6 +245,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     public async Task<List<BlogSearchCountDto>?> GetTopSearchKeywordsAsync()
     {
         var countFromDb = Context.Set<BlogSearchCount>().AsNoTracking()
+            .Where(count => !count.IsEmpty)
             .GroupBy(count => count.Keywords)
             .Select(group => new BlogSearchCountDto(group.Key, group.Count()))
             .AsEnumerable()
