@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dotnet9.Commons\Dotnet9.Commons.csproj" />
+    <ProjectReference Include="..\Dotnetools.Helpers\Dotnetools.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Commons;
+﻿namespace Dotnetools.Helpers.Tools;
 
 public static class RgbHelper
 {

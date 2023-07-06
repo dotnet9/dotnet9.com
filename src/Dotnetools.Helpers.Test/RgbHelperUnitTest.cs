@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.Commons.Test;
+namespace Dotnetools.Helpers.Test;
 
 public class RgbHelperUnitTest
 {
