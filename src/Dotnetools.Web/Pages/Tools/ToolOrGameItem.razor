@@ -3,15 +3,7 @@
 
 <PageTitle>@($"{Kind?.Item()?.Name}-Dotnet工具箱")</PageTitle>
 
-    <MRow>
-        <MCol Class="mt-2"
-              Cols="12">
-            <strong style="padding-left: 10px;">@(Kind?.Item()?.Name)</strong>
-    </MCol>
-
-</MRow>
-
-<ToolItemComponent Kind="@Kind" />
+<ToolItemComponent Kind="@Kind"/>
 
 @code
 {

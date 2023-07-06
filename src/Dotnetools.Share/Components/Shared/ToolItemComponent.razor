@@ -1,19 +1,21 @@
-﻿<p>
+﻿<h2 class="title">@Kind?.Item()?.Name</h2>
+
+<p>
     @if (!string.IsNullOrWhiteSpace(_item?.LearnUrl))
     {
-        <a href="@_item.LearnUrl" target="_blank" style="color:#D1C4E9">参考来源</a>
+        <a href="@_item.LearnUrl" target="_blank" class="link">参考来源</a>
     }
     @if (!string.IsNullOrWhiteSpace(_serverUrl))
     {
-        <a href="@_serverUrl" target="_blank" style="color:#B39DDB">Server版</a>
+        <a href="@_serverUrl" target="_blank" class="link server">Server版</a>
     }
     @if (!string.IsNullOrWhiteSpace(_wasmUrl))
     {
-        <a href="@_wasmUrl" target="_blank" style="color:#9575CD">Wasm版</a>
+        <a href="@_wasmUrl" target="_blank" class="link wasm">Wasm版</a>
     }
     @if (!string.IsNullOrWhiteSpace(_github))
     {
-        <a href="@_github" target="_blank" style="color:#7E57C2">工具源码</a>
+        <a href="@_github" target="_blank" class="link github">工具源码</a>
     }
 </p>
 
@@ -80,4 +82,5 @@
 
         return base.OnInitializedAsync();
     }
+
 }

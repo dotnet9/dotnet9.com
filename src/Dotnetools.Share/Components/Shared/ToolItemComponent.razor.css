@@ -1,21 +1,36 @@
-﻿a {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
+﻿.title {
+    margin-bottom: 30px;
+    margin-top: 20px;
+    text-align: center;
 }
 
-    a:hover {
-        color: #ff6600;
+.link {
+    margin-right: 10px;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+    .link a {
+        color: #D1C4E9;
+        text-decoration: none;
     }
 
-    a:active {
-        color: #cc3300;
-    }
+        .link a:hover {
+            text-decoration: underline;
+        }
 
-    a:focus {
-        outline: none;
-    }
+.server {
+    color: #B39DDB;
+}
 
-    a:visited {
-        color: #666;
-    }
+.wasm {
+    color: #9575CD;
+}
+
+.github {
+    color: #7E57C2;
+}
