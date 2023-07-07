@@ -3,37 +3,28 @@
 public class AlbumHandler
 {
     private readonly IAlbumRepository _repository;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
 
     public AlbumHandler(IAlbumRepository repository,
-        IMultilevelCacheClient multilevelCacheClient)
+        RedisClient redisClient)
     {
         _repository = repository;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
     }
 
     [EventHandler]
     public async Task GetListAsync(AlbumsQuery query, CancellationToken cancellationToken)
     {
-        TimeSpan? timeSpan = null;
         const string key = $"{nameof(AlbumHandler)}_{nameof(GetListAsync)}";
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _redisClient.GetAsync<List<AlbumBrief>>(key);
+        if (data == null)
         {
-            var distinctAlbumList = await _repository.GetAllBriefAsync();
-
-            if (distinctAlbumList?.Any() == true)
+            data = await _repository.GetAllBriefAsync();
+            if (data != null)
             {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<AlbumBrief>>(distinctAlbumList, TimeSpan.FromMinutes(5))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
+                await _redisClient.SetAsync(key, data, 300);
             }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<AlbumBrief>>(distinctAlbumList);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+        }
 
         if (data != null)
         {

@@ -103,7 +103,6 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 (int)blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner, default,
                 default, default, blog.ViewCount, blog.CreationTime)).ToList();
         ;
-
         return dataFromDb;
     }
 

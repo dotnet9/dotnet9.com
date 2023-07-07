@@ -3,38 +3,29 @@
 public class CategoryHandler
 {
     private readonly ICategoryRepository _repository;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
 
     public CategoryHandler(ICategoryRepository repository,
-        IMultilevelCacheClient multilevelCacheClient)
+        RedisClient redisClient)
     {
         _repository = repository;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
     }
 
     [EventHandler]
     public async Task GetListAsync(CategoriesQuery query, CancellationToken cancellationToken)
     {
-        TimeSpan? timeSpan = null;
         var key = $"{nameof(CategoryHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _redisClient.GetAsync<List<CategoryBrief>>(key);
+        if (data == null)
         {
-            var dataFromDb = await _repository.GetAllBriefAsync();
-
-            if (dataFromDb?.Any() == true)
+            data = await _repository.GetAllBriefAsync();
+            if (data != null)
             {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<CategoryBrief>>(dataFromDb, TimeSpan.FromMinutes(5))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
+                await _redisClient.SetAsync(key, data, 300);
             }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<CategoryBrief>>(null);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+        }
 
         if (data != null)
         {

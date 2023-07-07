@@ -3,38 +3,29 @@
 public class TimelineHandler
 {
     private readonly ITimelineRepository _repository;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
 
     public TimelineHandler(ITimelineRepository repository,
-        IMultilevelCacheClient multilevelCacheClient)
+        RedisClient redisClient)
     {
         _repository = repository;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
     }
 
     [EventHandler]
     public async Task GetListAsync(TimelineQuery query, CancellationToken cancellationToken)
     {
-        TimeSpan? timeSpan = null;
         const string key = $"{nameof(TimelineHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _redisClient.GetAsync<List<TimelineDto>>(key);
+        if (data == null)
         {
-            var dataFromDb = _repository.GetListAsync().Result;
-
-            if (dataFromDb?.Any() == true)
+            data = await _repository.GetListAsync();
+            if (data != null)
             {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<TimelineDto>?>(dataFromDb, TimeSpan.FromMinutes(5))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
+                await _redisClient.SetAsync(key, data, 300);
             }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<TimelineDto>?>(null);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+        }
 
         if (data != null)
         {

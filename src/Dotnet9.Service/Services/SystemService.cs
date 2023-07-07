@@ -3,14 +3,14 @@
 public class SystemService : ServiceBase
 {
     private readonly Dotnet9DbContext _dataContext;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
     private IOptions<SiteOptions> Options { get; }
 
     public SystemService(IOptions<SiteOptions> options, Dotnet9DbContext dataContext,
-        IMultilevelCacheClient multilevelCacheClient) : base("/api/systems")
+        RedisClient redisClient) : base("/api/systems")
     {
         _dataContext = dataContext;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
         Options = options;
     }
 
@@ -21,7 +21,7 @@ public class SystemService : ServiceBase
 
     public async Task<SitemapInfo?> GetSitemapAsync()
     {
-        async Task<SitemapInfo> ReadDataFromDb()
+        async Task<SitemapInfo?> ReadDataFromDb()
         {
             var albums = await _dataContext.Set<Album>().Select(album => album.Slug).ToListAsync();
             var categories = await _dataContext.Set<Category>().Select(category => category.Slug).ToListAsync();
@@ -30,21 +30,17 @@ public class SystemService : ServiceBase
             return new SitemapInfo(albums.ToArray(), categories.ToArray(), blogs);
         }
 
+        const string key = $"{nameof(SystemService)}_{nameof(GetSitemapAsync)}";
 
-        TimeSpan? timeSpan = null;
-        var key = $"{nameof(SystemService)}_{nameof(GetSitemapAsync)}";
-
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _redisClient.GetAsync<SitemapInfo>(key);
+        if (data == null)
         {
-            var dataFromDb = await ReadDataFromDb();
-
-            timeSpan = TimeSpan.FromSeconds(30);
-            return new CacheEntry<SitemapInfo>(dataFromDb, TimeSpan.FromMinutes(5))
+            data = await ReadDataFromDb();
+            if (data != null)
             {
-                SlidingExpiration = TimeSpan.FromMinutes(5)
-            };
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+                await _redisClient.SetAsync(key, data, 300);
+            }
+        }
 
         return data;
     }

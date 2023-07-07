@@ -3,37 +3,28 @@
 public class TagHandler
 {
     private readonly ITagRepository _repository;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
 
-    public TagHandler(ITagRepository repository, IMultilevelCacheClient multilevelCacheClient)
+    public TagHandler(ITagRepository repository, RedisClient redisClient)
     {
         _repository = repository;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
     }
 
     [EventHandler]
     public async Task GetListAsync(TagQuery query, CancellationToken cancellationToken)
     {
-        TimeSpan? timeSpan = null;
         const string key = $"{nameof(TagHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _multilevelCacheClient.GetOrSetAsync(key, async () =>
+        var data = await _redisClient.GetAsync<List<TagBrief>>(key);
+        if (data == null)
         {
-            var dataFromDb = _repository.GetTagBriefListAsync().Result;
-
-            if (dataFromDb?.Any() == true)
+            data = await _repository.GetTagBriefListAsync();
+            if (data != null)
             {
-                timeSpan = TimeSpan.FromSeconds(30);
-                return new CacheEntry<List<TagBrief>>(dataFromDb, TimeSpan.FromMinutes(5))
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(5)
-                };
+                await _redisClient.SetAsync(key, data, 300);
             }
-
-            timeSpan = TimeSpan.FromSeconds(5);
-            return new CacheEntry<List<TagBrief>>(null);
-        }, options =>
-            options.AbsoluteExpirationRelativeToNow = timeSpan);
+        }
 
         if (data != null)
         {

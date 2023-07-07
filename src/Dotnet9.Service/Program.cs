@@ -9,6 +9,12 @@ var jwtOptions = jwtSection.Get<JwtOptions>();
 
 #endregion
 
+builder.Services.AddSingleton((service) => new RedisClient(builder.Configuration["ConnectionStrings:Redis"])
+{
+    Serialize = obj=> JsonSerializer.Serialize(obj),
+    Deserialize = (json, type) => JsonSerializer.Deserialize(json, type)
+});
+
 var siteSection = builder.Configuration.GetSection("Site");
 builder.Services.Configure<SiteOptions>(siteSection);
 builder.Services.AddHttpContextAccessor();
@@ -43,7 +49,6 @@ var app = builder.Services
             .UseNpgsql()
             .UseFilter();
     })
-    .AddMultilevelCache(distributedCacheOptions => { distributedCacheOptions.UseStackExchangeRedisCache(); })
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly())
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(options =>

@@ -3,15 +3,13 @@
 public class BlogCommandHandler
 {
     private readonly IBlogRepository _blogRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMultilevelCacheClient _multilevelCacheClient;
+    private readonly RedisClient _redisClient;
 
     public BlogCommandHandler(IBlogRepository blogRepository, IUnitOfWork unitOfWork,
-        IMultilevelCacheClient multilevelCacheClient)
+        RedisClient redisClient)
     {
         _blogRepository = blogRepository;
-        _unitOfWork = unitOfWork;
-        _multilevelCacheClient = multilevelCacheClient;
+        _redisClient = redisClient;
     }
 
     [EventHandler(1)]
@@ -37,8 +35,7 @@ public class BlogCommandHandler
         var blog = await _blogRepository.FindBySlugAsync(command.Slug);
         blog!.IncreaseViewCount();
         await _blogRepository.UpdateAsync(blog, cancellationToken);
-
-        await _multilevelCacheClient.RemoveAsync<BlogDetails>(command.Slug);
+        await _redisClient.DelAsync(command.Slug);
     }
 
     [EventHandler(1)]
