@@ -1,6 +1,12 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication();
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 #region jwt
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
@@ -11,7 +17,7 @@ var jwtOptions = jwtSection.Get<JwtOptions>();
 
 builder.Services.AddSingleton((service) => new RedisClient(builder.Configuration["ConnectionStrings:Redis"])
 {
-    Serialize = obj=> JsonSerializer.Serialize(obj),
+    Serialize = obj => JsonSerializer.Serialize(obj),
     Deserialize = (json, type) => JsonSerializer.Deserialize(json, type)
 });
 

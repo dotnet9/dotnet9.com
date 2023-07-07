@@ -1,4 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 builder.AddFrontWebShare();
 
 var app = builder.Build();
