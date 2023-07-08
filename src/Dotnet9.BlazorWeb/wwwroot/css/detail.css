@@ -54,7 +54,7 @@
 .details-content code,
 .details-content kbd,
 .details-content pre {
-  /* font-family: "Meiryo UI", "YaHei Consolas Hybrid", Consolas, "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, monospace, monospace; */
+   font-family: "Meiryo UI", "YaHei Consolas Hybrid", Consolas, "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, monospace, monospace; 
   font-size: 1em;
 }
 
@@ -472,15 +472,15 @@
   margin-bottom: 16px;
 }
 
-.details-content .highlight pre,
-.details-content pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #002451;
-  border-radius: 6px;
-}
+    .details-content .highlight pre,
+    .details-content pre {
+        padding: 16px;
+        overflow: auto;
+        font-size: 100%;
+        line-height: 1.45;
+        background-color: #f6f8fa;
+        border-radius: 6px;
+    }
 
 .details-content .highlight pre {
   margin-bottom: 0;

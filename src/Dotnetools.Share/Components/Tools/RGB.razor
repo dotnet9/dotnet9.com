@@ -9,8 +9,8 @@
     <div class="container">
         <div class="group fullwidth mt-2">
             <span class="static">颜色值</span>
-            <input id="input_color" class="input" @bind="InputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
             <input type="color" @bind="InputColor" />
+            <input id="input_color" class="input" @bind="InputColor" placeholder="#6c928c" @onkeydown="HandleKeyDown" onpaste="setTimeout(convert, 1)">
             <button class="button primary" @onclick="ConvertRgb">转换</button>
         </div>
         <div class="flex" style="flex-wrap: wrap">

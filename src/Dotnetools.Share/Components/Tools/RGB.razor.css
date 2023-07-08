@@ -59,6 +59,12 @@ input[type=color] {
     border: none;
     outline: none;
     cursor: pointer;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 input ::-webkit-color-swatch-wrapper {
