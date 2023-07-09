@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-rc.3.4" />
-    <PackageReference Include="Masa.Contrib.Configuration" Version="1.0.0-rc.3.4" />
+    <PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-rc.3.5" />
+    <PackageReference Include="Masa.Contrib.Configuration" Version="1.0.0-rc.3.5" />
   </ItemGroup>
 </Project>
