@@ -82,3 +82,4 @@ global using System.Security.Claims;
 global using System.Text;
 global using System.Text.Json;
 global using StackExchange.Redis;
+global using Dotnet9.ASPNETCore;

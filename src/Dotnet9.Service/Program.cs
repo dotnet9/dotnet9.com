@@ -1,11 +1,8 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication();
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .CreateLogger();
-
-builder.Host.UseSerilog();
+builder.AddLogging();
+builder.AddCache();
 
 #region jwt
 
@@ -15,14 +12,6 @@ var jwtOptions = jwtSection.Get<JwtOptions>();
 
 #endregion
 
-//Redis的配置
-var redisConnStr = builder.Configuration.GetValue<string>("ConnectionStrings:Redis");
-IConnectionMultiplexer redisConnMultiplexer = ConnectionMultiplexer.Connect(redisConnStr);
-builder.Services.AddSingleton(typeof(IConnectionMultiplexer), redisConnMultiplexer);
-builder.Services.AddMemoryCache();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddScoped<IMemoryCacheHelper, MemoryCacheHelper>();
-builder.Services.AddScoped<IDistributedCacheHelper, DistributedCacheHelper>();
 
 var siteSection = builder.Configuration.GetSection("Site");
 builder.Services.Configure<SiteOptions>(siteSection);

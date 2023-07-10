@@ -5,14 +5,6 @@ VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{92F40AFA-8416-40BE-9893-D35E1924C69D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dapr", "dapr", "{E011B243-0389-468B-B903-83445BED69A4}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{FBFB499A-7022-4417-881B-68F63DBDB7F4}"
-	ProjectSection(SolutionItems) = preProject
-		dapr\components\pubsub.yaml = dapr\components\pubsub.yaml
-		dapr\components\statestore.yaml = dapr\components\statestore.yaml
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{7F354265-056B-488F-9285-CB754FAAB24A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -105,7 +97,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{FBFB499A-7022-4417-881B-68F63DBDB7F4} = {E011B243-0389-468B-B903-83445BED69A4}
 		{B7E5E5CD-A307-4E8B-B39C-B1896F2B4DAE} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 		{0E96678C-76C2-4829-BF9D-93D650F4E567} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 		{4917E298-A4E1-4037-984F-2C5F7451B351} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
