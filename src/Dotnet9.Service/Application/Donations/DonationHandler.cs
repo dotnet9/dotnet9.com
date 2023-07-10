@@ -3,10 +3,10 @@
 public class DonationHandler
 {
     private readonly IDonationRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public DonationHandler(IDonationRepository repository,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -17,15 +17,7 @@ public class DonationHandler
     {
         const string key = $"{nameof(DonationRepository)}_{nameof(GetAsync)}";
 
-        var data = await _redisClient.GetAsync<DonationDto>(key);
-        if (data == null)
-        {
-            data = (await _repository.GetAsync())?.Map<DonationDto>();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>(await _repository.GetAsync())?.Map<DonationDto>());
 
         query.Result = data;
     }

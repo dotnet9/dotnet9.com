@@ -3,9 +3,9 @@
 public class TagHandler
 {
     private readonly ITagRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
-    public TagHandler(ITagRepository repository, RedisClient redisClient)
+    public TagHandler(ITagRepository repository, IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -16,15 +16,7 @@ public class TagHandler
     {
         const string key = $"{nameof(TagHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _redisClient.GetAsync<List<TagBrief>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetTagBriefListAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetTagBriefListAsync());
 
         if (data != null)
         {

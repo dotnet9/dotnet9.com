@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	
 	<ItemGroup>
-		<PackageReference Include="FreeRedis" Version="1.1.5" />
 		<PackageReference Include="Masa.BuildingBlocks.Data.MappingExtensions" Version="1.0.0-rc.3.5" />
 		<PackageReference Include="Masa.BuildingBlocks.Dispatcher.Events" Version="1.0.0-rc.3.5" />
 		<PackageReference Include="Masa.BuildingBlocks.Exceptions" Version="1.0.0-rc.3.5" />
@@ -42,6 +41,7 @@
 		<PackageReference Include="Serilog.Settings.Configuration" Version="7.0.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.1-dev-00910" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.1-dev-00947" />
+		<PackageReference Include="StackExchange.Redis" Version="2.6.122" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.4.23259.3-03" />
 	</ItemGroup>

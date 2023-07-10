@@ -6,10 +6,10 @@ namespace Dotnet9.Service.Application.FriendlyLinks;
 public class FriendlyLinkHandler
 {
     private readonly IFriendlyLinkRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public FriendlyLinkHandler(IFriendlyLinkRepository repository,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -29,16 +29,8 @@ public class FriendlyLinkHandler
     {
         const string key = $"{nameof(FriendlyLinkHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _redisClient.GetAsync<GetFriendlyLinkListResponse>(key);
-        if (data == null)
-        {
-            data = await _repository.GetFriendlyLinkListAsync(query);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
-
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetFriendlyLinkListAsync(query));
+        
         if (data != null)
         {
             query.Result = new PaginatedListBase<FriendlyLinkDto>()

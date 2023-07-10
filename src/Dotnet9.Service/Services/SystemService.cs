@@ -3,11 +3,11 @@
 public class SystemService : ServiceBase
 {
     private readonly Dotnet9DbContext _dataContext;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
     private IOptions<SiteOptions> Options { get; }
 
     public SystemService(IOptions<SiteOptions> options, Dotnet9DbContext dataContext,
-        RedisClient redisClient) : base("/api/systems")
+        IDistributedCacheHelper redisClient) : base("/api/systems")
     {
         _dataContext = dataContext;
         _redisClient = redisClient;
@@ -32,15 +32,7 @@ public class SystemService : ServiceBase
 
         const string key = $"{nameof(SystemService)}_{nameof(GetSitemapAsync)}";
 
-        var data = await _redisClient.GetAsync<SitemapInfo>(key);
-        if (data == null)
-        {
-            data = await ReadDataFromDb();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await ReadDataFromDb());
 
         return data;
     }

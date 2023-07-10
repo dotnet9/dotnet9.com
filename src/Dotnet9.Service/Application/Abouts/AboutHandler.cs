@@ -3,10 +3,10 @@
 public class AboutHandler
 {
     private readonly IAboutRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public AboutHandler(IAboutRepository repository,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -16,15 +16,7 @@ public class AboutHandler
     public async Task GetAsync(AboutQuery query, CancellationToken cancellationToken)
     {
         const string key = $"{nameof(AboutHandler)}_{nameof(GetAsync)}";
-        var data =await _redisClient.GetAsync<AboutDto>(key);
-        if (data == null)
-        {
-            data = (await _repository.GetAsync())?.Map<AboutDto?>();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data =await _redisClient.GetOrCreateAsync(key, async(e)=> (await _repository.GetAsync())?.Map<AboutDto?>());
         
         query.Result = data;
     }

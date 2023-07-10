@@ -3,10 +3,10 @@
 public class BlogCommandHandler
 {
     private readonly IBlogRepository _blogRepository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public BlogCommandHandler(IBlogRepository blogRepository, IUnitOfWork unitOfWork,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _blogRepository = blogRepository;
         _redisClient = redisClient;
@@ -35,7 +35,7 @@ public class BlogCommandHandler
         var blog = await _blogRepository.FindBySlugAsync(command.Slug);
         blog!.IncreaseViewCount();
         await _blogRepository.UpdateAsync(blog, cancellationToken);
-        await _redisClient.DelAsync(command.Slug);
+        await _redisClient.RemoveAsync(command.Slug);
     }
 
     [EventHandler(1)]

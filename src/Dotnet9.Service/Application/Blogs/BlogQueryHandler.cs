@@ -3,10 +3,10 @@
 public class BlogQueryHandler
 {
     private readonly IBlogRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public BlogQueryHandler(IBlogRepository repository,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -17,15 +17,7 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetCountBriefAsync)}";
 
-        var data = await _redisClient.GetAsync<BlogCountBrief>(key);
-        if (data == null)
-        {
-            data = await _repository.GetCountBriefAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetCountBriefAsync());
 
         if (data != null)
         {
@@ -38,15 +30,7 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetTopSearchKeywordsAsync)}";
 
-        var data = await _redisClient.GetAsync<List<BlogSearchCountDto>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetTopSearchKeywordsAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetTopSearchKeywordsAsync());
 
         if (data != null)
         {
@@ -59,15 +43,7 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListOfRecommendAsync)}";
 
-        var data = await _redisClient.GetAsync<List<BlogBrief>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListOfRecommendAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListOfRecommendAsync());
 
         if (data != null)
         {
@@ -87,15 +63,7 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListOfWeekHotAsync)}";
 
-        var data = await _redisClient.GetAsync<List<BlogBrief>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListOfWeekHotAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListOfWeekHotAsync());
 
         if (data != null)
         {
@@ -115,16 +83,8 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListOfHistoryHotAsync)}";
 
-        var data = await _redisClient.GetAsync<List<BlogBrief>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListOfHistoryHotAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
-
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListOfHistoryHotAsync());
+        
         if (data != null)
         {
             query.Result = new PaginatedListBase<BlogBrief>()
@@ -144,15 +104,7 @@ public class BlogQueryHandler
     {
         const string key = $"{nameof(BlogQueryHandler)}_{nameof(GetListArchiveAsync)}";
 
-        var data = await _redisClient.GetAsync<List<BlogArchive>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogArchiveListAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogArchiveListAsync());
 
         if (data != null)
         {
@@ -177,15 +129,7 @@ public class BlogQueryHandler
     public async Task GetItemDetailsBySlugAsync(SearchBlogDetailsBySlugQuery query, CancellationToken cancellationToken)
     {
         var key = query.Slug;
-        var data = await _redisClient.GetAsync<BlogDetails>(key);
-        if (data == null)
-        {
-            data = await _repository.FindDetailsBySlugAsync(query.Slug);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.FindDetailsBySlugAsync(query.Slug));
 
         if (data != null)
         {
@@ -199,16 +143,8 @@ public class BlogQueryHandler
         string key =
             $"{nameof(BlogQueryHandler)}_{nameof(GetListByKeywordsAsync)}_{query.Keywords}_{query.Page}_{query.PageSize}";
 
-        var data = await _redisClient.GetAsync<GetBlogListByKeywordsResponse>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListByKeywordsAsync(query);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
-
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListByKeywordsAsync(query));
+        
         if (data != null)
         {
             query.Result = new PaginatedListBase<BlogBrief>()
@@ -228,15 +164,7 @@ public class BlogQueryHandler
         var key =
             $"{nameof(BlogQueryHandler)}_{nameof(GetListByAlbumAsync)}_{query.AlbumSlug}_{query.Page}_{query.PageSize}";
 
-        var data = await _redisClient.GetAsync<GetBlogListByAlbumSlugResponse>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListByAlbumSlugAsync(query);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListByAlbumSlugAsync(query));
 
         if (data != null)
         {
@@ -258,16 +186,8 @@ public class BlogQueryHandler
         var key =
             $"{nameof(BlogQueryHandler)}_{nameof(GetListByCategoryAsync)}_{query.CategorySlug}_{query.Page}_{query.PageSize}";
 
-        var data = await _redisClient.GetAsync<GetBlogListByCategorySlugResponse>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListByCategorySlugAsync(query);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
-
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListByCategorySlugAsync(query));
+        
         if (data != null)
         {
             query.CategoryName = data.CategoryName;
@@ -290,16 +210,8 @@ public class BlogQueryHandler
         var key =
             $"{nameof(BlogQueryHandler)}_{nameof(GetListByTagAsync)}_{query.TagName}_{query.Page}_{query.PageSize}";
 
-        var data = await _redisClient.GetAsync<GetBlogListByTagNameResponse>(key);
-        if (data == null)
-        {
-            data = await _repository.GetBlogBriefListByTagNameAsync(query);
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
-
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetBlogBriefListByTagNameAsync(query));
+       
         if (data != null)
         {
             query.Result = new PaginatedListBase<BlogBrief>()

@@ -3,10 +3,10 @@
 public class CategoryHandler
 {
     private readonly ICategoryRepository _repository;
-    private readonly RedisClient _redisClient;
+    private readonly IDistributedCacheHelper _redisClient;
 
     public CategoryHandler(ICategoryRepository repository,
-        RedisClient redisClient)
+        IDistributedCacheHelper redisClient)
     {
         _repository = repository;
         _redisClient = redisClient;
@@ -17,15 +17,7 @@ public class CategoryHandler
     {
         var key = $"{nameof(CategoryHandler)}_{nameof(GetListAsync)}";
 
-        var data = await _redisClient.GetAsync<List<CategoryBrief>>(key);
-        if (data == null)
-        {
-            data = await _repository.GetAllBriefAsync();
-            if (data != null)
-            {
-                await _redisClient.SetAsync(key, data, 300);
-            }
-        }
+        var data = await _redisClient.GetOrCreateAsync(key, async(e)=>await _repository.GetAllBriefAsync());
 
         if (data != null)
         {
