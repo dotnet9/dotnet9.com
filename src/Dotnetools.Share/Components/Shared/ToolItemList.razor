@@ -1,6 +1,6 @@
 ﻿<PageTitle>@Title-@WebTitle</PageTitle>
 
-<h2 class="title">@Title</h2>
+<h2 class="title">@((MarkupString)Title!)</h2>
 
 <div>
     @if (Items?.Any() == true)
@@ -8,8 +8,8 @@
         @foreach (var item in Items)
         {
             <a href="@item.Url" class="card">
-                <img src="@item.Cover" alt="@item.Name">
-                <h3>@item.Name</h3>
+                <img src="@item.Cover">
+                <h3>@((MarkupString)item.Name)</h3>
             </a>
         }
     }

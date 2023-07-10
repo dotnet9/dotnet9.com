@@ -10,21 +10,21 @@
                 {
                     @foreach (var link in _links)
                     {
-                        <a href="@link.Url" title="@link.Description" target="_blank">@link.Name</a>
+                        <a href="@link.Url" target="_blank">@link.Name.ToMarkupString()</a>
                         <span>&nbsp;|&nbsp;</span>
                     }
                 }
             </p>
 
             <p>
-                &nbsp; 2019~@DateTimeOffset.Now.Year &nbsp;&nbsp; © <a href="@_siteInfo?.Domain">@_siteInfo?.AppName</a> &nbsp;& @_siteInfo?.Owner 保留所有权利
-                &nbsp;|&nbsp; Powered & Developed by @_siteInfo?.Owner
+                &nbsp; 2019~@DateTimeOffset.Now.Year &nbsp;&nbsp; © <a href="@_siteInfo?.Domain">@_siteInfo?.AppName</a> &nbsp;& @_siteInfo?.Owner.ToMarkupString() 保留所有权利
+                &nbsp;|&nbsp; Powered & Developed by @_siteInfo?.Owner.ToMarkupString()
                 &nbsp;|&nbsp; <a class="important-word" href="/donation" title="这是爱的力量">打赏</a>
                 &nbsp;|&nbsp; <a href="/about">关于</a>
             </p>
 
             <p>
-                备案号 <a href="@_siteInfo?.BeiAnUrl" target="_blank" rel="nofollow noopener">@_siteInfo?.BeiAn</a>
+                备案号 <a href="@_siteInfo?.BeiAnUrl" target="_blank" rel="nofollow noopener">@_siteInfo?.BeiAn.ToMarkupString()</a>
                 ｜<a href="/archives" target="_blank">归档</a>
                 ｜<a href="/timelines" target="_blank">时间轴</a>
                 ｜<a href="/sitemap.xml" target="_blank">网站地图</a>
@@ -39,7 +39,7 @@
                 &nbsp; | 后端&nbsp;<a href="https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0" target="_blank">.NET Web API</a>
                 &nbsp; | <a href="/privacy" target="_blank">隐私政策</a>
             </p>
-            <p>网站源码：版本【@_appVersion】，编译时间【@_publishTime】</p>
+            <p>网站源码：版本【@_appVersion】，编译时间【@_publishTime?.ToMarkupString()】</p>
         </div>
     </div>
 </footer>

@@ -14,7 +14,7 @@ else
             {
                 <li>
                     <a href="@blog.CreationTime.ToString("/yyyy/MM")/@blog.Slug" class="blog_more">
-                        <h2>@blog.Title</h2>
+                        <h2>@blog.Title.ToMarkupString()</h2>
                         <div class="ps">
                             @if (blog.Banner)
                             {
@@ -26,21 +26,21 @@ else
                             }
                             else if (blog.CopyrightType == (int)CopyRightType.Reprint)
                             {
-                                <span class="ps_tougao">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
+                                <span class="ps_tougao">@(((CopyRightType)blog.CopyrightType).GetDescription().ToMarkupString())</span>
                             }
                             else
                             {
-                                <span class="ps_zhuanzai">@(((CopyRightType)blog.CopyrightType).GetDescription())</span>
+                                <span class="ps_zhuanzai">@(((CopyRightType)blog.CopyrightType).GetDescription().ToMarkupString())</span>
                             }
                         </div>
                         <i>
-                            <img src="@blog.Cover" alt="@blog.Title" title="@blog.Title"/>
+                            <img src="@blog.Cover"/>
                         </i>
-                        <p title="@blog.Description">@blog.Description</p>
+                        <p>@blog.Description?.ToMarkupString()</p>
                     </a>
                     <div class="info">
                         <span class="info_user">
-                            @(blog?.Original ?? _siteInfo?.Owner)
+                            @(blog?.Original?.ToMarkupString() ?? _siteInfo?.Owner?.ToMarkupString())
                         </span>
                         <span class="info_class">
                             @if (blog!.Categories?.Any() == true || blog.Albums?.Any() == true || blog.Tags?.Any() == true)
@@ -49,21 +49,21 @@ else
                                 {
                                     @foreach (var album in blog.Albums)
                                     {
-                                        <a href="/albums/@album.Slug">@album.Name</a>
+                                        <a href="/albums/@album.Slug">@album.Name.ToMarkupString()</a>
                                     }
                                 }
                                 @if (blog.Categories?.Any() == true)
                                 {
                                     @foreach (var category in blog.Categories)
                                     {
-                                        <a href="/categories/@category.Slug">@category.Name</a>
+                                        <a href="/categories/@category.Slug">@category.Name.ToMarkupString()</a>
                                     }
                                 }
                                 @if (blog.Tags?.Any() == true)
                                 {
                                     @foreach (var tag in blog.Tags)
                                     {
-                                        <a href="/tags/@tag.Name">@tag.Name</a>
+                                        <a href="/tags/@tag.Name">@tag.Name.ToMarkupString()</a>
                                     }
                                 }
                             }

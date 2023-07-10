@@ -8,7 +8,7 @@
                 @foreach (var cat in _categories)
                 {
                     <li>
-                        <a title="@cat.Description" href="/categories/@cat.Slug">@cat.Name (@cat.BlogCount)</a>
+                        <a title="@cat.Description" href="/categories/@cat.Slug">@cat.Name.ToMarkupString() (@cat.BlogCount)</a>
                     </li>
                 }
             }

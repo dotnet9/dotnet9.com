@@ -7,8 +7,8 @@
         @foreach (var item in _items)
         {
             <li>
-                <a href="@item.Url" title="@item.Name">
-                    <p>@item.Name</p>
+                <a href="@item.Url">
+                    <p>@item.Name.ToMarkupString()</p>
                 </a>
             </li>
         }

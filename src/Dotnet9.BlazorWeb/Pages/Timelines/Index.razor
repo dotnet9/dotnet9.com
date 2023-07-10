@@ -6,8 +6,8 @@
 
 <div id="nice">
 
-    <h1>@_title</h1>
-    <p>@_description</p>
+    <h1>@_title?.ToMarkupString()</h1>
+    <p>@_description?.ToMarkupString()</p>
 
     @if (_timelines?.Any() == true)
     {
@@ -17,8 +17,8 @@
             @foreach (var timeline in groupYearAndMonth)
             {
                 <div>
-                    <h3 class="mt-0 mb-1 font-16">@timeline.Title</h3>
-                    <p>@timeline.Content</p>
+                    <h3 class="mt-0 mb-1 font-16">@timeline.Title.ToMarkupString()</h3>
+                    <p>@timeline.Content.ToMarkupString()</p>
                     ---<small>@timeline.Time.ToString("yyyy年MM月dd日")</small>
                 </div>
             }

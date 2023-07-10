@@ -11,7 +11,7 @@
             @foreach (var searchCount in _keywords)
             {
                 <li>
-                    <a href="?keywords=@searchCount.Keywords">@searchCount.Keywords (@searchCount.Count)</a>
+                    <a href="?keywords=@searchCount.Keywords">@searchCount.Keywords.ToMarkupString() (@searchCount.Count)</a>
                 </li>
             }
         </ul>

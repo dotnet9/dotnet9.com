@@ -23,8 +23,8 @@ else
             {
                 <li>
                     <a href="albums/@album.Slug" class="blog_more">
-                        <h2>@album.Name (共 @album.BlogCount 篇)</h2>
-                        <p>@album.Description</p>
+                        <h2>@album.Name.ToMarkupString() (共 @album.BlogCount 篇)</h2>
+                        <p>@album.Description.ToMarkupString()</p>
                     </a>
                 </li>
             }

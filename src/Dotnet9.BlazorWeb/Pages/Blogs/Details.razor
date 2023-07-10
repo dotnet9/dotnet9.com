@@ -4,7 +4,7 @@
 @inject BlogService BlogService
 
 <PageTitle>@_title</PageTitle>
-<h1 class="detail-title">@_title</h1>
+<h1 class="detail-title">@_title?.ToMarkupString()</h1>
 
 <div class="con_info">
     @if (_blog?.Banner == true)
@@ -27,7 +27,7 @@
 
     <span>
         <i class="con_writer"></i>
-        &nbsp; @(_blog?.Original ?? _siteInfo?.Owner)
+        &nbsp; @(_blog?.Original?.ToMarkupString() ?? _siteInfo?.Owner?.ToMarkupString())
     </span>
 
     @if (_blog?.Albums != null && _blog?.Albums.Any() == true)
@@ -37,7 +37,7 @@
             @foreach (var album in _blog!.Albums)
             {
                 <span>|</span>
-                <a href="/albums/@album.Slug">@album.Name</a>
+                <a href="/albums/@album.Slug">@album.Name.ToMarkupString()</a>
             }
         </span>
     }
@@ -50,14 +50,14 @@
             {
                 <span>|</span>
 
-                <a href="/categories/@cat.Slug">@cat.Name</a>
+                <a href="/categories/@cat.Slug">@cat.Name.ToMarkupString()</a>
             }
         </span>
     }
 
     @if (_blog?.OriginalLink?.IsNullOrWhiteSpace() == false)
     {
-        <span class="con_befrom">来源：<a href="@_blog?.OriginalLink">@_blog?.Original</a></span>
+        <span class="con_befrom">来源：<a href="@_blog?.OriginalLink">@_blog?.Original?.ToMarkupString()</a></span>
     }
 
     <time>@_blog?.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")</time>
@@ -82,7 +82,7 @@
     </div>
 }
 
-<p>在<a href="@_markdownUrl" style="color: blue;" target="_blank" title="编辑文章">Github</a>上编辑这篇文章</p>
+<p>在<a href="@_markdownUrl" style="color: blue;" target="_blank">Github</a>上编辑这篇文章</p>
 
 <div class="share" id="down">
     <img src="https://img1.dotnet9.com/site/wechatpublic.jpg" alt="">

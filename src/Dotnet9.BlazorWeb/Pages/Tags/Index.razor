@@ -2,9 +2,9 @@
 @inject TagService TagService
 
 <PageTitle>@_title</PageTitle>
-<h1 class="detail-title">@_title</h1>
+<h1 class="detail-title">@_title?.ToMarkupString()</h1>
 
-<p>@_description</p>
+<p>@_description?.ToMarkupString()</p>
 
 <div id="view-content" class="gap-solid"></div>
 
@@ -20,7 +20,7 @@ else
         @foreach (var tag in _tags)
         {
             <li>
-                <a href="/tags/@(WebUtility.UrlEncode(tag.Name))" data-weight="@tag.BlogCount">@tag.Name (@tag.BlogCount)</a>
+                <a href="/tags/@(WebUtility.UrlEncode(tag.Name))" data-weight="@tag.BlogCount">@tag.Name.ToMarkupString() (@tag.BlogCount)</a>
             </li>
         }
     </ul>
