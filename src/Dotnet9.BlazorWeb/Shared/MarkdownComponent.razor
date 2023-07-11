@@ -1,6 +1,4 @@
-﻿@inject IJSRuntime JsRuntime
-
-<div class="line-numbers">
+﻿<div class="line-numbers">
     @{
         if (HasXss)
         {
@@ -36,13 +34,4 @@
         _postHtmlContent = (MarkupString)htmlData;
         await base.OnParametersSetAsync();
     }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (!firstRender)
-        {
-            await JsRuntime.InvokeVoidAsync("highlightJsInterop.initHighlightJs");
-        }
-    }
-
 }

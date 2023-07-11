@@ -66,7 +66,7 @@
 
 <div id="view-content" class="gap-solid"></div>
 
-<div class="details-content">
+<div class="details-content" id="details-content">
     <MarkdownComponent MarkdownContent="@_markdownContent"></MarkdownComponent>
 </div>
 
@@ -182,6 +182,8 @@
         if (!firstRender)
         {
             await JSRuntime.InvokeVoidAsync("handlePseudoLinks");
+            await JSRuntime.InvokeVoidAsync("highlightJsInterop.initHighlightJs");
+            await JSRuntime.InvokeVoidAsync("window.pictureZoom");
         }
     }
 }

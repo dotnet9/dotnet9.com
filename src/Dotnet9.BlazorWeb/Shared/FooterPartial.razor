@@ -1,5 +1,6 @@
 ﻿@inject ISystemClientService SystemClientService
 @inject LinkService LinkService
+@inject IJSRuntime JsRuntime
 
 <footer>
     <div class="box">
@@ -84,7 +85,7 @@
             </a>
         </li>
         <li>
-            <a href="#" class="icon-top" title="返回顶部">
+            <a href="#" class="icon-top" @onclick:preventDefault="true" @onclick="ScrollToTop" title="返回顶部">
                 <i class="icon_fh">
                     <img src="images/ft_top.png" alt="">
                 </i>
@@ -114,6 +115,11 @@
             var lastModified = File.GetLastWriteTime(assemblyPath);
             _publishTime = lastModified.ToString("yyyy年MM月dd号 HH:mm:ss");
         }
+    }
+
+    private async Task ScrollToTop()
+    {
+        await JsRuntime.InvokeVoidAsync("scrollToTop");
     }
 
 }
