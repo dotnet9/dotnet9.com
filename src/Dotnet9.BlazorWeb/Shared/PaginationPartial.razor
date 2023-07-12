@@ -50,6 +50,7 @@ else
                                     @foreach (var album in blog.Albums)
                                     {
                                         <a href="/albums/@album.Slug">@album.Name.ToMarkupString()</a>
+                                        <span>&nbsp;</span>
                                     }
                                 }
                                 @if (blog.Categories?.Any() == true)
@@ -57,6 +58,7 @@ else
                                     @foreach (var category in blog.Categories)
                                     {
                                         <a href="/categories/@category.Slug">@category.Name.ToMarkupString()</a>
+                                        <span>&nbsp;</span>
                                     }
                                 }
                                 @if (blog.Tags?.Any() == true)
@@ -64,6 +66,7 @@ else
                                     @foreach (var tag in blog.Tags)
                                     {
                                         <a href="/tags/@tag.Name">@tag.Name.ToMarkupString()</a>
+                                        <span>&nbsp;</span>
                                     }
                                 }
                             }
