@@ -87,7 +87,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
                 (count, blog) =>
                     new BlogBrief(blog.Id, blog.Title, blog.Slug, default, default, default, default, default,
                         default,
-                        default, default, default, default, count.Count, blog.CreationTime))
+                        default, default, default, default, count.Count, blog.CreationTime, blog.ModificationTime))
             .ToList();
 
         return dataList;
@@ -101,7 +101,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .OrderByDescending(blog => blog.ViewCount)
             .Take(6).Select(blog => new BlogBrief(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover,
                 (int)blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner, default,
-                default, default, blog.ViewCount, blog.CreationTime)).ToList();
+                default, default, blog.ViewCount, blog.CreationTime, blog.ModificationTime)).ToList();
         ;
         return dataFromDb;
     }
@@ -313,7 +313,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
             blog.ViewCount,
-            blog.CreationTime);
+            blog.CreationTime,
+            blog.ModificationTime);
     }
 
     private async Task<BlogDetails> ToBlogDetails(Blog blog)
@@ -339,7 +340,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         //                      post.CreationTime)).Take(5).ToListAsync();
 
         return new BlogDetails(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover, blog.Content,
-            blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
+            blog.CopyrightType, blog.Original, blog.LastModifyUser, blog.OriginalTitle, blog.OriginalLink, blog.Banner,
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
@@ -348,6 +349,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             preview,
             next,
             default,
-            blog.CreationTime);
+            blog.CreationTime,
+            blog.ModificationTime);
     }
 }

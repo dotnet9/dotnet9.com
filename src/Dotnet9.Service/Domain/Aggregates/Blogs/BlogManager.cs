@@ -25,6 +25,7 @@ public class BlogManager : IScopedDependency
         string content,
         CopyRightType copyrightType,
         string? original,
+        string? lastModifyUser,
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
@@ -52,7 +53,7 @@ public class BlogManager : IScopedDependency
 
         if (isNew)
         {
-            oldData = new Blog(id.Value, title, slug, description, cover, content, copyrightType, original,
+            oldData = new Blog(id.Value, title, slug, description, cover, content, copyrightType, original, lastModifyUser,
                 originalAvatar, originalTitle, originalLink, draft, banner, visible);
         }
         else
@@ -84,6 +85,7 @@ public class BlogManager : IScopedDependency
         string content,
         CopyRightType copyrightType,
         string? original,
+        string? lastModifyUser,
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
@@ -93,10 +95,11 @@ public class BlogManager : IScopedDependency
         Guid[]? albumIds,
         Guid[]? categoryIds,
         Guid[]? tagIds,
-        DateTime creationTime)
+        DateTime creationTime,
+        DateTime? lastModifyDate)
     {
         Blog blog = new Blog(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
-            original,
+            original, lastModifyUser,
             originalAvatar, originalTitle, originalLink, draft, banner, visible);
         if (albumIds != null)
         {
@@ -123,6 +126,7 @@ public class BlogManager : IScopedDependency
         }
 
         blog.SetCreationTime(creationTime);
+        blog.SetLastModifyDate(lastModifyDate);
 
         return blog;
     }

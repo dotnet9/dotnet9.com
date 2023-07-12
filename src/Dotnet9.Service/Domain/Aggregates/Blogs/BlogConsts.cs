@@ -22,6 +22,8 @@ public static class BlogConsts
 
     public const int MaxOriginalLength = 128;
 
+    public const int MaxLastModifyUserLength = 128;
+
     public const int MaxOriginalAvatarLength = 128;
 
     public const int MaxOriginalTitleLength = 128;

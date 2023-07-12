@@ -12,6 +12,7 @@ public class BlogEntityTypeConfiguration : IEntityTypeConfiguration<Blog>
         builder.Property(x => x.Content).IsRequired().HasMaxLength(BlogConsts.MaxContentLength);
         builder.Property(x => x.CopyrightType);
         builder.Property(x => x.Original).HasMaxLength(BlogConsts.MaxOriginalLength);
+        builder.Property(x => x.LastModifyUser).HasMaxLength(BlogConsts.MaxLastModifyUserLength);
         builder.Property(x => x.OriginalAvatar).HasMaxLength(BlogConsts.MaxOriginalAvatarLength);
         builder.Property(x => x.OriginalTitle).HasMaxLength(BlogConsts.MaxOriginalTitleLength);
         builder.Property(x => x.OriginalLink).HasMaxLength(BlogConsts.MaxOriginalLinkLength);

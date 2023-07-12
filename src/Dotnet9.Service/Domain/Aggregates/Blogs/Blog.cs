@@ -15,6 +15,7 @@ public class Blog : FullAggregateRoot<Guid, int>
         string content,
         CopyRightType copyrightType,
         string? original,
+        string? lastModifyUser,
         string? originalAvatar,
         string? originalTitle,
         string? originalLink,
@@ -30,6 +31,7 @@ public class Blog : FullAggregateRoot<Guid, int>
         ChangeContent(content);
         ChangeCopyrightType(copyrightType);
         ChangeOriginal(original);
+        ChangeLastModifyUser(lastModifyUser);
         ChangeOriginalAvatar(originalAvatar);
         ChangeOriginalTitle(originalTitle);
         ChangeOriginalLink(originalLink);
@@ -49,6 +51,7 @@ public class Blog : FullAggregateRoot<Guid, int>
     public string Content { get; private set; } = null!;
     public CopyRightType CopyrightType { get; private set; }
     public string? Original { get; private set; }
+    public string? LastModifyUser { get; private set; }
     public string? OriginalAvatar { get; private set; }
     public string? OriginalTitle { get; private set; }
     public string? OriginalLink { get; private set; }
@@ -110,6 +113,12 @@ public class Blog : FullAggregateRoot<Guid, int>
         return this;
     }
 
+    internal Blog ChangeLastModifyUser(string? lastModifyUser)
+    {
+        LastModifyUser = Check.Length(lastModifyUser, nameof(lastModifyUser), BlogConsts.MaxLastModifyUserLength);
+        return this;
+    }
+
     internal Blog ChangeOriginalAvatar(string? originalAvatar)
     {
         OriginalAvatar = Check.Length(originalAvatar, nameof(originalAvatar),
@@ -164,6 +173,12 @@ public class Blog : FullAggregateRoot<Guid, int>
     internal Blog SetCreationTime(DateTime creationTime)
     {
         CreationTime = creationTime;
+        return this;
+    }
+
+    internal Blog SetLastModifyDate(DateTime? lastModifyDate)
+    {
+        ModificationTime = lastModifyDate ?? CreationTime;
         return this;
     }
 

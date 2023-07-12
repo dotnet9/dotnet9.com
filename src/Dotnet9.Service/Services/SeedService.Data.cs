@@ -10,6 +10,7 @@ public partial class SeedService
     private const string LastModifyDate = "lastmod: ";
     private const string Copyright = "copyright: ";
     private const string Author = "author: ";
+    private const string LastModifyUser = "lastmodifyuser: ";
     private const string OriginalTitle = "originaltitle: ";
     private const string OriginalLink = "originallink: ";
     private const string Draft = "draft: ";
@@ -209,9 +210,9 @@ public partial class SeedService
             var tagIds = tags?.Where(x => blogSeed.Tags?.Contains(x.Name) ?? false).Select(x => x.Id).ToArray();
             var blog = _blogManager.CreateForSeed(blogSeed.Title, blogSeed.Slug,
                 blogSeed.Description, blogSeed.Cover, blogSeed.Content, blogSeed.Copyright,
-                blogSeed.Author, null, blogSeed.OriginalTitle, blogSeed.OriginalLink, blogSeed.Draft, blogSeed.Banner,
+                blogSeed.Author, blogSeed.LastModifyUser, null, blogSeed.OriginalTitle, blogSeed.OriginalLink, blogSeed.Draft, blogSeed.Banner,
                 true, albumIds,
-                categoryIds, tagIds, blogSeed.Date);
+                categoryIds, tagIds, blogSeed.Date, blogSeed.LastModifyDate);
             allBlogs.Add(blog);
         }
 
@@ -397,6 +398,10 @@ public partial class SeedService
             {
                 blogOfMarkdown.Author = lines[i][Author.Length..];
             }
+            else if (lines[i].StartsWith(LastModifyUser))
+            {
+                blogOfMarkdown.LastModifyUser = lines[i][LastModifyUser.Length..];
+            }
             else if (lines[i].StartsWith(OriginalTitle))
             {
                 blogOfMarkdown.OriginalTitle = lines[i][OriginalTitle.Length..];
@@ -470,6 +475,10 @@ public partial class SeedService
         {
             lines.Add($"{Author}{blogOfMarkdown.Author}");
         }
+        if (!string.IsNullOrWhiteSpace(blogOfMarkdown.LastModifyUser))
+        {
+            lines.Add($"{LastModifyUser}{blogOfMarkdown.LastModifyUser}");
+        }
 
         if (!string.IsNullOrWhiteSpace(blogOfMarkdown.OriginalTitle))
         {
@@ -524,6 +533,7 @@ public class BlogSeedDto
     public DateTime? LastModifyDate { get; set; }
     public CopyRightType Copyright { get; set; }
     public string Author { get; set; } = null!;
+    public string LastModifyUser { get; set; } = null!;
     public string? OriginalTitle { get; set; }
     public string? OriginalLink { get; set; }
     public bool Draft { get; set; }

@@ -7,61 +7,76 @@
 <h1 class="detail-title">@_title?.ToMarkupString()</h1>
 
 <div class="con_info">
-    @if (_blog?.Banner == true)
-    {
-        <span class="con_tag">推荐</span>
-    }
+    <div>
+        @if (_blog?.Banner == true)
+        {
+            <span class="con_tag">推荐</span>
+        }
 
-    @switch (_blog?.CopyrightType)
-    {
-        case CopyRightType.Default:
-            <span class="con_tag">原创</span>
-            break;
-        case CopyRightType.Reprint:
-            <span class="con_tougao">@_blog?.CopyrightType.GetDescription()</span>
-            break;
-        default:
-            <span class="con_zhuanzai">@_blog?.CopyrightType.GetDescription()</span>
-            break;
-    }
+        @switch (_blog?.CopyrightType)
+        {
+            case CopyRightType.Default:
+                <span class="con_tag">原创</span>
+                break;
+            case CopyRightType.Reprint:
+                <span class="con_tougao">@_blog?.CopyrightType.GetDescription()</span>
+                break;
+            default:
+                <span class="con_zhuanzai">@_blog?.CopyrightType.GetDescription()</span>
+                break;
+        }
 
-    <span>
-        <i class="con_writer"></i>
-        &nbsp; @(_blog?.Original?.ToMarkupString() ?? _siteInfo?.Owner?.ToMarkupString())
-    </span>
-
-    @if (_blog?.Albums != null && _blog?.Albums.Any() == true)
-    {
-        <span class="con_class">
-            专辑：
-            @foreach (var album in _blog!.Albums)
-            {
-                <span>|</span>
-                <a href="/albums/@album.Slug">@album.Name.ToMarkupString()</a>
-            }
+        <span>
+            <i class="con_writer"></i>
+            &nbsp; @(_blog?.Original?.ToMarkupString() ?? _siteInfo?.Owner?.ToMarkupString())
         </span>
-    }
+        发表于
+        <time>@_blog?.CreationTime.ToString("yyyy-MM-dd")</time>
+        &nbsp;&nbsp;
+        @if (_blog?.LastModifyUser != null)
+        {
+            <span>
+                <i class="con_writer"></i>
+                &nbsp; @(_blog.LastModifyUser.ToMarkupString())
+            </span>
+            <span>修改于</span>
+            <time>@_blog?.ModificationTime?.ToString("yyyy-MM-dd")</time>
+        }
+    </div>
 
-    @if (_blog?.Categories != null && _blog?.Categories.Any() == true)
-    {
-        <span class="con_class">
-            分类：
-            @foreach (var cat in _blog!.Categories)
-            {
-                <span>|</span>
+    <div>
+        @if (_blog?.Albums != null && _blog?.Albums.Any() == true)
+        {
+            <span class="con_class">
+                专辑：
+                @foreach (var album in _blog!.Albums)
+                {
+                    <span>|</span>
+                    <a href="/albums/@album.Slug">@album.Name.ToMarkupString()</a>
+                }
+            </span>
+        }
 
-                <a href="/categories/@cat.Slug">@cat.Name.ToMarkupString()</a>
-            }
-        </span>
-    }
+        @if (_blog?.Categories != null && _blog?.Categories.Any() == true)
+        {
+            <span class="con_class">
+                分类：
+                @foreach (var cat in _blog!.Categories)
+                {
+                    <span>|</span>
 
-    @if (_blog?.OriginalLink?.IsNullOrWhiteSpace() == false)
-    {
-        <span class="con_befrom">来源：<a href="@_blog?.OriginalLink">@_blog?.Original?.ToMarkupString()</a></span>
-    }
+                    <a href="/categories/@cat.Slug">@cat.Name.ToMarkupString()</a>
+                }
+            </span>
+        }
 
-    <time>@_blog?.CreationTime.ToString("yyyy-MM-dd HH:mm:ss")</time>
-    <span class="con_link">@_blog?.ViewCount</span>
+        @if (_blog?.OriginalLink?.IsNullOrWhiteSpace() == false)
+        {
+            <span class="con_befrom">来源：<a href="@_blog?.OriginalLink">@_blog?.Original?.ToMarkupString()</a></span>
+        }
+
+        <span class="con_link">@_blog?.ViewCount</span>
+    </div>
 </div>
 
 <div id="view-content" class="gap-solid"></div>
