@@ -5,7 +5,7 @@ USER app
 WORKDIR /app
 EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0-preview AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0.100-preview.6-bookworm-slim-amd64 AS build
 WORKDIR /src
 COPY ["Directory.Build.Props", "."]
 COPY ["Directory.Build.Targets", "."]
