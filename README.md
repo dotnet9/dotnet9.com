@@ -18,12 +18,14 @@
 
  ## 0. 最新开发情况
 
-- [x] 前台
+- [x] Dotnet9博客前台
   1. [x] 使用 [ASP.NET Core 8 Blazor Server](https://learn.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-8.0) 搭建前台。
-  2. [x] 已有功能：文章列表、分类文章列表、专辑文章列表、文章归档、时间轴、网站地址、标签云、文章详情、RSS等。
+  2. [x] 已有功能：文章列表、分类文章列表、专辑文章列表、在线工具、在线小游戏、文章归档、时间轴、网站地址、标签云、文章详情、RSS等。
   3. [ ] 还有很多功能待开发，比如登录、前台文章创建和文章修改等。
+- [x] Dotnet工具箱前台
+  1. [x] 使用 [ASP.NET Core 8 Blazor WebAssembly](https://learn.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-8.0) 搭建前台。
 - [x] 后台前端
-  1. [ ] 技术选型中。
+  1. [ ] React + Semi Design。
 - [x] 后端
   1. [x] 使用 [ASP.NET Core 8.0 Web API](https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0) 搭建，框架选择 [Masa Framework(DDD+CQRS)](https://www.masastack.com/framework)。
   2. [x] 数据库使用 [EF Core](https://learn.microsoft.com/zh-cn/ef/core/) + [PostgreSQL](https://www.postgresql.org/)
