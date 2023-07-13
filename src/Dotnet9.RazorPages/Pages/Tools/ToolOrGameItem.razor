@@ -1,0 +1,35 @@
+﻿@page "/tools/{ToolUrl}"
+@page "/games/{ToolUrl}"
+
+<PageTitle>@($"{Kind?.Item()?.Name}-Dotnet9")</PageTitle>
+
+<MApp>
+    <ToolItemComponent Kind="@Kind"/>
+</MApp>
+
+@code
+{
+    [Parameter]
+    public string? ToolUrl { get; set; }
+
+    [Parameter]
+    public ToolKind? Kind { get; set; }
+
+    protected override Task OnParametersSetAsync()
+    {
+        if (string.IsNullOrWhiteSpace(ToolUrl))
+        {
+            return Task.CompletedTask;
+        }
+        try
+        {
+            var toolItem = ToolUrl.Item();
+            Kind = toolItem?.Kind;
+        }
+        catch
+        {
+            Kind = ToolKind.ToolRgb;
+        }
+        return base.OnParametersSetAsync();
+    }
+}

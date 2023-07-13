@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Helpers", "Dotne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetools.Helpers.Test", "Dotnetools.Helpers.Test\Dotnetools.Helpers.Test.csproj", "{636A5ADA-EC3C-4BC7-B03D-8B015659E505}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.RazorPages", "Dotnet9.RazorPages\Dotnet9.RazorPages.csproj", "{851D7573-B630-4398-BA38-E4E4FB633352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{636A5ADA-EC3C-4BC7-B03D-8B015659E505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636A5ADA-EC3C-4BC7-B03D-8B015659E505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636A5ADA-EC3C-4BC7-B03D-8B015659E505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851D7573-B630-4398-BA38-E4E4FB633352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851D7573-B630-4398-BA38-E4E4FB633352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851D7573-B630-4398-BA38-E4E4FB633352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851D7573-B630-4398-BA38-E4E4FB633352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{A02F64EF-48EF-450A-84B0-7C94F1C3A2A8} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 		{0AD7E0A6-9F3E-459E-8FD2-C7A7F5F96AA8} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 		{636A5ADA-EC3C-4BC7-B03D-8B015659E505} = {BFB92BD5-482F-49F4-B76C-EF8F697D3F99}
+		{851D7573-B630-4398-BA38-E4E4FB633352} = {92F40AFA-8416-40BE-9893-D35E1924C69D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B83BA2BA-19E5-41FB-A92A-16A03DA229E4}
