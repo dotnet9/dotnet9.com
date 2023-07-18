@@ -11,6 +11,7 @@ public enum ToolKind
 
     GameMinesweeper,
     GameTetris,
+    GameGobang,
     GameGuessingNumbers,
     GameTictactoe
 }

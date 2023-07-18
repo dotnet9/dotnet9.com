@@ -65,6 +65,13 @@ public static class GlobalData
                 Github: $"/Games/{nameof(Minesweeper)}.razor",
                 LearnUrl: "https://github.com/jarDotNet/BlazorMinesweeper"),
 
+            new(ToolKind.GameGobang,
+                "五子棋",
+                $"{GameImagePrefix}/gobang.png",
+                $"{GameUrlPrefix}gobang",
+                Github: $"/Games/{nameof(Gobang)}.razor",
+                LearnUrl: "https://github.com/ut32/gobang"),
+
             new(ToolKind.GameGuessingNumbers,
                 "猜数字游戏",
                 $"{GameImagePrefix}/guessing-numbers.png",
