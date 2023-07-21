@@ -142,7 +142,7 @@ else
     bool _showLast;
     List<int>? pages;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         _siteInfo = await SystemClientService.GetSiteInfoAsync();
         _showFirst = Model!.PageCount > 1;
