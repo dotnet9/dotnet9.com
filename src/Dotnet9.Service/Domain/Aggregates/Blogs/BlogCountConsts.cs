@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Service.Domain.Aggregates.Blogs;
 
-public static class BlogViewCountConsts
+public static class BlogCountConsts
 {
     public const int MaxIpLength = 128;
 

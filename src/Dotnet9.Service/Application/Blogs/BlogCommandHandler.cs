@@ -3,45 +3,22 @@
 public class BlogCommandHandler
 {
     private readonly IBlogRepository _blogRepository;
+    private BlogManager _blogManager;
     private readonly IDistributedCacheHelper _redisClient;
 
-    public BlogCommandHandler(IBlogRepository blogRepository, IUnitOfWork unitOfWork,
+    public BlogCommandHandler(IBlogRepository blogRepository, BlogManager blogManager, IUnitOfWork unitOfWork,
         IDistributedCacheHelper redisClient)
     {
         _blogRepository = blogRepository;
+        _blogManager = blogManager;
         _redisClient = redisClient;
     }
 
     [EventHandler(1)]
-    public async Task VerifyBlogBySlug(IncreaseBlogViewCountCommand command)
+    public async Task CreateBlogCount(CreateBlogCountCommand command, CancellationToken cancellationToken)
     {
-        if (await _blogRepository.FindBySlugAsync(command.Slug) == null)
-        {
-            throw new Exception($"不存在的博文: {command.Slug}");
-        }
-    }
-
-    [EventHandler(2)]
-    public async Task IncreaseBlogViewCount(IncreaseBlogViewCountCommand command, CancellationToken cancellationToken)
-    {
-        var blog = await _blogRepository.FindBySlugAsync(command.Slug);
-        blog!.IncreaseViewCount();
+        var blog = await _blogManager.CreateBlogCount(command.BlogId, command.Ip, command.Kind);
         await _blogRepository.UpdateAsync(blog, cancellationToken);
-    }
-
-    [EventHandler(3)]
-    public async Task ClearBlogViewCountCache(IncreaseBlogViewCountCommand command, CancellationToken cancellationToken)
-    {
-        var blog = await _blogRepository.FindBySlugAsync(command.Slug);
-        blog!.IncreaseViewCount();
-        await _blogRepository.UpdateAsync(blog, cancellationToken);
-        await _redisClient.RemoveAsync(command.Slug);
-    }
-
-    [EventHandler(1)]
-    public async Task CreateBlogViewCount(CreateBlogViewCountCommand command, CancellationToken cancellationToken)
-    {
-        await _blogRepository.CreateBlogViewCount(command.Slug, command.Ip, command.CreationTime);
     }
 
     [EventHandler(1)]

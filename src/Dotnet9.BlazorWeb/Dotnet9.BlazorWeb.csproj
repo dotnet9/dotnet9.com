@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<ItemGroup>
-		<PackageReference Include="Markdig" Version="0.31.0" />
+		<PackageReference Include="Markdig" Version="0.32.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Dotnet9.Caller\Dotnet9.Caller.csproj" />

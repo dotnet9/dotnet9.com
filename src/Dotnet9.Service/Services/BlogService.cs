@@ -65,15 +65,38 @@ public class BlogService : ServiceBase
             Slug = slug
         };
         await EventBus.PublishAsync(queryEvent, cancellationToken);
-
-        var increaseViewCountCommand = new IncreaseBlogViewCountCommand(slug);
-        await EventBus.PublishAsync(increaseViewCountCommand, cancellationToken);
+        if (queryEvent.Result?.Id == null)
+        {
+            return queryEvent.Result;
+        }
 
         var recordViewCountCommand =
-            new CreateBlogViewCountCommand(slug, httpContextAccessor.HttpContext!.GetClientIp()!, DateTime.Now);
+            new CreateBlogCountCommand(queryEvent.Result.Id, httpContextAccessor.HttpContext!.GetClientIp()!,
+                BlogCountKind.View);
         await EventBus.PublishAsync(recordViewCountCommand, cancellationToken);
 
         return queryEvent.Result;
+    }
+
+    [RoutePattern(pattern: "/api/blogs/{slug}/like")]
+    public async Task BrowserBlogDetailsBySlugAsync(CancellationToken cancellationToken,
+        [FromRoute] string slug, [FromServices] IHttpContextAccessor httpContextAccessor)
+    {
+        var queryEvent = new SearchBlogDetailsBySlugQuery
+        {
+            Slug = slug
+        };
+        await EventBus.PublishAsync(queryEvent, cancellationToken);
+
+        if (queryEvent.Result.Id == null)
+        {
+            throw new Exception($"文章不存在：{slug}");
+        }
+
+        var recordLikeCountCommand =
+            new CreateBlogCountCommand(queryEvent.Result.Id, httpContextAccessor.HttpContext!.GetClientIp()!,
+                BlogCountKind.Like);
+        await EventBus.PublishAsync(recordLikeCountCommand, cancellationToken);
     }
 
     [RoutePattern(pattern: "/api/blogs/search")]

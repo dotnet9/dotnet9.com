@@ -1,15 +1,12 @@
-﻿namespace Dotnet9.Service.Infrastructure.Repositories;
+﻿using Dotnet9.Service.Domain.Aggregates.Blogs;
+using Serilog;
+
+namespace Dotnet9.Service.Infrastructure.Repositories;
 
 public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRepository
 {
     public BlogRepository(Dotnet9DbContext context, IUnitOfWork unitOfWork) : base(context, unitOfWork)
     {
-    }
-
-    public async Task CreateBlogViewCount(string slug, string ip, DateTime creationTime)
-    {
-        await Context.BlogsViewCounts.AddAsync(new BlogViewCount(slug, ip, creationTime));
-        await Context.SaveChangesAsync();
     }
 
     public async Task CreateBlogSearchCount(string keywords, bool isEmpty, string ip, DateTime creationTime)
@@ -48,6 +45,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(blogPost => blogPost.Albums)
             .Include(blogPost => blogPost.Categories)
             .Include(blogPost => blogPost.Tags)
+            .Include(blog => blog.Counts)
             .FirstOrDefaultAsync(x => x.Slug == slug);
         return blog == null ? null : await ToBlogDetails(blog);
     }
@@ -59,8 +57,9 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(x => x.Categories)
             .Include(x => x.Albums)
             .Include(x => x.Tags)
+            .Include(x => x.Counts)
             .Where(blog => blog.Banner && !blog.Draft)
-            .OrderByDescending(blog => blog.ViewCount);
+            .OrderByDescending(blog => blog.Counts!.Count(x => x.Kind == BlogCountKind.View));
 
         var dataList = dataFromDb.Take(30).AsEnumerable().OrderBy(_ => Guid.NewGuid())
             .ToList().Take(6)
@@ -74,20 +73,21 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
         var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek);
         var endOfWeek = startOfWeek.AddDays(7).AddSeconds(-1);
 
-        var weekReadCount = await Context.Set<BlogViewCount>()
-            .Where(count => count.CreationTime >= startOfWeek && count.CreationTime <= endOfWeek)
-            .GroupBy(count => count.Slug)
-            .Select(group => new { Slug = group.Key, Count = group.Count() })
+        var weekReadCount = await Context.Set<BlogCount>()
+            .Where(count => count.CreationTime >= startOfWeek && count.CreationTime <= endOfWeek &&
+                            count.Kind == BlogCountKind.View)
+            .GroupBy(count => count.BlogId)
+            .Select(group => new { BlogId = group.Key, Count = group.Count() })
             .OrderByDescending(group => group.Count)
             .Take(6).ToListAsync();
 
         var dataList = weekReadCount.Join(Context.Blogs,
-                count => count.Slug,
-                blog => blog.Slug,
+                count => count.BlogId,
+                blog => blog.Id,
                 (count, blog) =>
                     new BlogBrief(blog.Id, blog.Title, blog.Slug, default, default, default, default, default,
                         default,
-                        default, default, default, default, count.Count, blog.CreationTime, blog.ModificationTime))
+                        default, default, default, default, count.Count, 0, blog.CreationTime, blog.ModificationTime))
             .ToList();
 
         return dataList;
@@ -97,11 +97,13 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
     public async Task<List<BlogBrief>?> GetBlogBriefListOfHistoryHotAsync()
     {
         var dataFromDb = Context.Set<Blog>()
+            .Include(blog => blog.Counts)
             .Where(blog => !blog.Draft)
-            .OrderByDescending(blog => blog.ViewCount)
+            .OrderByDescending(blog => blog.Counts!.Count(x => x.Kind == BlogCountKind.View))
             .Take(6).Select(blog => new BlogBrief(blog.Id, blog.Title, blog.Slug, blog.Description, blog.Cover,
                 (int)blog.CopyrightType, blog.Original, blog.OriginalTitle, blog.OriginalLink, blog.Banner, default,
-                default, default, blog.ViewCount, blog.CreationTime, blog.ModificationTime)).ToList();
+                default, default, blog.Counts!.Count(x => x.Kind == BlogCountKind.View),
+                0, blog.CreationTime, blog.ModificationTime)).ToList();
         ;
         return dataFromDb;
     }
@@ -125,6 +127,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(x => x.Categories)
             .Include(x => x.Albums)
             .Include(x => x.Tags)
+            .Include(x => x.Counts)
             .Where(blog => !blog.Draft && (isKeywordsEmpty ||
                                            (EF.Functions.Like(blog.Title.ToLower(), $"%{keywords}%")
                                             || EF.Functions.Like(blog.Description.ToLower(), $"%{keywords}%"))));
@@ -159,6 +162,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(x => x.Categories)
             .Include(x => x.Albums)
             .Include(x => x.Tags)
+            .Include(x => x.Counts)
             .Where(x => !x.Draft && x.Albums != null && x.Albums.Any(y => y.AlbumId == album.Id));
         var total = await dataListFromDb.CountAsync();
         var dataList = dataListFromDb.Skip((page - 1) * pageSize)
@@ -191,6 +195,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(x => x.Categories)
             .Include(x => x.Albums)
             .Include(x => x.Tags)
+            .Include(x => x.Counts)
             .Where(x => !x.Draft && x.Categories != null && x.Categories.Any(y => y.CategoryId == category.Id));
         var total = await dataListFromDb.CountAsync();
         var dataList = dataListFromDb.Skip((page - 1) * pageSize)
@@ -224,6 +229,7 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             .Include(x => x.Categories)
             .Include(x => x.Albums)
             .Include(x => x.Tags)
+            .Include(x => x.Counts)
             .Where(x => !x.Draft && x.Tags != null && x.Tags.Any(y => y.TagId == tag.Id));
         var total = await dataListFromDb.CountAsync();
         var dataList = dataListFromDb.Skip((page - 1) * pageSize)
@@ -312,7 +318,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
-            blog.ViewCount,
+            blog.Counts?.Count(x => x.Kind == BlogCountKind.View) ?? 0,
+            blog.Counts?.Count(x => x.Kind == BlogCountKind.Like) ?? 0,
             blog.CreationTime,
             blog.ModificationTime);
     }
@@ -344,8 +351,8 @@ public class BlogRepository : Repository<Dotnet9DbContext, Blog, Guid>, IBlogRep
             GetCategoryBriefs(blog),
             GetAlbumBriefs(blog),
             GetTagBriefs(blog),
-            blog.ViewCount,
-            blog.LikeCount,
+            blog.Counts?.Count(x => x.Kind == BlogCountKind.View) ?? 0,
+            blog.Counts?.Count(x => x.Kind == BlogCountKind.Like) ?? 0,
             preview,
             next,
             default,

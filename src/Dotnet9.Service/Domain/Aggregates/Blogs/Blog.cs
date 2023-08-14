@@ -58,12 +58,11 @@ public class Blog : FullAggregateRoot<Guid, int>
     public bool Draft { get; private set; }
     public bool Banner { get; private set; }
     public bool Visible { get; private set; }
-    public int ViewCount { get; private set; }
-    public int LikeCount { get; private set; }
 
     public List<BlogAlbum>? Albums { get; }
     public List<BlogCategory>? Categories { get; }
     public List<BlogTag>? Tags { get; }
+    public List<BlogCount>? Counts { get; private set; }
 
 
     internal Blog ChangeTitle(string title)
@@ -155,18 +154,6 @@ public class Blog : FullAggregateRoot<Guid, int>
     internal Blog ChangeVisible(bool visible)
     {
         Visible = visible;
-        return this;
-    }
-
-    public Blog IncreaseViewCount()
-    {
-        ViewCount++;
-        return this;
-    }
-
-    public Blog IncreaseLikeCount()
-    {
-        LikeCount++;
         return this;
     }
 
@@ -301,6 +288,48 @@ public class Blog : FullAggregateRoot<Guid, int>
     private bool IsInTag(Guid tagId)
     {
         return Tags!.Any(x => x.TagId == tagId);
+    }
+
+    #endregion
+
+    #region count
+
+    public void AddCount(string ip, BlogCountKind kind)
+    {
+        if (IsInCount(ip, kind))
+        {
+            return;
+        }
+
+        Counts?.Add(new BlogCount(Id, ip, kind, DateTime.Now));
+    }
+
+    public void RemoveViewCount(string ip, BlogCountKind kind)
+    {
+        if (!IsInCount(ip, kind))
+        {
+            return;
+        }
+
+        Counts?.RemoveAll(x => x.Ip == ip && x.Kind == kind);
+    }
+
+    public void RemoveAllCountsExceptGivenIps(List<string> ips, BlogCountKind kind)
+    {
+        Check.NotNullOrEmpty(ips, nameof(ips));
+
+        Counts?.RemoveAll(x => x.Kind == kind && !ips.Contains(x.Ip));
+    }
+
+    public void RemoveAllCounts(BlogCountKind kind)
+    {
+        Counts?.RemoveAll(x => x.BlogId == Id && x.Kind == kind);
+    }
+
+    private bool IsInCount(string ip, BlogCountKind kind)
+    {
+        Counts ??= new List<BlogCount>();
+        return Counts!.Any(x => x.Ip == ip && x.Kind == kind);
     }
 
     #endregion

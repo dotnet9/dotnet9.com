@@ -8,7 +8,6 @@ public class Dotnet9DbContext : MasaDbContext<Dotnet9DbContext>
     public DbSet<Album> Albums { get; set; } = default!;
     public DbSet<Tag> Tags { get; set; } = default!;
     public DbSet<Blog> Blogs { get; set; } = default!;
-    public DbSet<BlogViewCount> BlogsViewCounts { get; set; } = default!;
     public DbSet<BlogSearchCount> BlogsSearchCounts { get; set; } = default!;
     public DbSet<Donation> Donations { get; set; } = default!;
     public DbSet<Privacy> Privacies { get; set; } = default!;

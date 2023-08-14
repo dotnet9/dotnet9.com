@@ -53,7 +53,8 @@ public class BlogManager : IScopedDependency
 
         if (isNew)
         {
-            oldData = new Blog(id.Value, title, slug, description, cover, content, copyrightType, original, lastModifyUser,
+            oldData = new Blog(id.Value, title, slug, description, cover, content, copyrightType, original,
+                lastModifyUser,
                 originalAvatar, originalTitle, originalLink, draft, banner, visible);
         }
         else
@@ -232,7 +233,6 @@ public class BlogManager : IScopedDependency
         }
     }
 
-
     public async Task<Blog> ChangeVisible(Guid id, bool visible)
     {
         Blog? oldData = await _blogRepository.FindByIdAsync(id);
@@ -243,5 +243,17 @@ public class BlogManager : IScopedDependency
 
         oldData.ChangeVisible(visible);
         return oldData;
+    }
+
+    public async Task<Blog> CreateBlogCount(Guid id, string ip, BlogCountKind kind)
+    {
+        Blog? oldData = await _blogRepository.FindByIdAsync(id);
+        if (oldData != null)
+        {
+            oldData.AddCount(ip, kind);
+            return oldData;
+        }
+
+        throw new Exception($"不存在的文章: {id}");
     }
 }

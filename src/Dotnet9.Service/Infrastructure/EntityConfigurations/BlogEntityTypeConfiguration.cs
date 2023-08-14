@@ -18,8 +18,6 @@ public class BlogEntityTypeConfiguration : IEntityTypeConfiguration<Blog>
         builder.Property(x => x.OriginalLink).HasMaxLength(BlogConsts.MaxOriginalLinkLength);
         builder.Property(x => x.Banner);
         builder.Property(x => x.Visible);
-        builder.Property(x => x.ViewCount);
-        builder.Property(x => x.LikeCount);
         // TODO GIN索引异常，暂时注释
         builder.HasIndex(x => x.Title); //.HasMethod("GIN");
         builder.HasIndex(x => x.Slug); //.HasMethod("GIN");
@@ -30,5 +28,6 @@ public class BlogEntityTypeConfiguration : IEntityTypeConfiguration<Blog>
         builder.HasMany(x => x.Albums).WithOne().HasForeignKey(x => x.BlogId).IsRequired();
         builder.HasMany(x => x.Categories).WithOne().HasForeignKey(x => x.BlogId).IsRequired();
         builder.HasMany(x => x.Tags).WithOne().HasForeignKey(x => x.BlogId).IsRequired();
+        builder.HasMany(x => x.Counts).WithOne().HasForeignKey(x => x.BlogId).IsRequired();
     }
 }
