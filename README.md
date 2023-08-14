@@ -12,9 +12,15 @@
 
  ![dotnet-version](https://img.shields.io/badge/.NET%208.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
 
+ ![我的Github](https://github-readme-stats.vercel.app/api?username=dotnet9&show_icons=true&theme=radical)
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/dotnet9/Dotnet9.svg)](https://starchart.cc/dotnet9/Dotnet9)
+
  </div>
 
- ![我的Github](https://github-readme-stats.vercel.app/api?username=dotnet9&show_icons=true&theme=radical)
 
  ## 0. 最新开发情况
 
