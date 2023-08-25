@@ -3,9 +3,9 @@
     <div class="login-card">
       <div class="login-title">管理员登录</div>
       <el-form status-icon :model="loginForm" :rules="rules" ref="ruleForm" class="login-form">
-        <el-form-item prop="username">
+        <el-form-item prop="account">
           <el-input
-            v-model="loginForm.username"
+            v-model="loginForm.account"
             prefix-icon="el-icon-user-solid"
             placeholder="用户名"
             @keyup.enter.native="login" />
@@ -30,11 +30,11 @@ export default {
   data: function () {
     return {
       loginForm: {
-        username: '',
+        account: '',
         password: ''
       },
       rules: {
-        username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
+        account: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
         password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
       }
     }
@@ -44,10 +44,7 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           const that = this
-          let param = new URLSearchParams()
-          param.append('username', that.loginForm.username)
-          param.append('password', that.loginForm.password)
-          that.axios.post('/api/users/login', param).then(({ data }) => {
+          that.axios.post('/api/auth/LoginByAccount', that.loginForm).then(({ data }) => {
             if (data.flag) {
               that.$store.commit('login', data.data)
               generaMenu()

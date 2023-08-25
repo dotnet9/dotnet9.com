@@ -33,6 +33,7 @@ public class CommandHandler
             user.IncreaseLoginFailCount();
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitAsync();
             throw new UserFriendlyException(UserFriendlyExceptionCodes.UserVerificationFailed, user.Account);
         }
 
@@ -41,12 +42,14 @@ public class CommandHandler
             user.LockedUser();
             await _userRepository.UpdateAsync(user);
             await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitAsync();
             throw new UserFriendlyException(UserFriendlyExceptionCodes.UserAccountIsLocked, user.Account);
         }
 
         user.ResetLoginFailCount();
         await _userRepository.UpdateAsync(user);
         await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.CommitAsync();
 
         var claimsIdentity = JwtHelper.GetClaimsIdentity(user);
         var token = JwtHelper.GeneratorAccessToken(claimsIdentity, _jwtOptions);
