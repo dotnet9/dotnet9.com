@@ -29,15 +29,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.WebAPI.Domain", "Dotnet9.Admin.WebAPI\Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj", "{868C61EA-E21D-4ABE-9B60-443C56711316}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web", "Dotnet9.Web.RazorPages\Dotnet9.Web\Dotnet9.Web.csproj", "{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.Service", "Dotnet9.Web.RazorPages\Dotnet9.Web.Service\Dotnet9.Web.Service.csproj", "{56AD1208-7A5B-4D34-A70A-CD93828F74A8}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.ViewModel", "Dotnet9.Web.RazorPages\Dotnet9.Web.ViewModel\Dotnet9.Web.ViewModel.csproj", "{01D64427-183D-47CC-8772-E1D33CF44D27}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Admin", "Admin", "{1AEE75DE-EC93-44AE-9E1F-C90AB847897D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{979B12BF-C060-45E7-95FD-320DFEFA8C20}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.build.props = Directory.build.props
+		Directory.Build.Targets = Directory.Build.Targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,18 +86,6 @@ Global
 		{868C61EA-E21D-4ABE-9B60-443C56711316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868C61EA-E21D-4ABE-9B60-443C56711316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{868C61EA-E21D-4ABE-9B60-443C56711316}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56AD1208-7A5B-4D34-A70A-CD93828F74A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56AD1208-7A5B-4D34-A70A-CD93828F74A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56AD1208-7A5B-4D34-A70A-CD93828F74A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56AD1208-7A5B-4D34-A70A-CD93828F74A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01D64427-183D-47CC-8772-E1D33CF44D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01D64427-183D-47CC-8772-E1D33CF44D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01D64427-183D-47CC-8772-E1D33CF44D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01D64427-183D-47CC-8772-E1D33CF44D27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,9 +102,6 @@ Global
 		{3268AEEF-6220-41CA-9D6B-ACADB629705E} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
 		{BFC54F53-9DC7-49B6-B766-C27CD5097E14} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
 		{868C61EA-E21D-4ABE-9B60-443C56711316} = {9D645E3E-49AE-43F9-A6D7-29060BF7867E}
-		{4947F61E-A78A-40DB-AB5A-BA2EA78E9377} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
-		{56AD1208-7A5B-4D34-A70A-CD93828F74A8} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
-		{01D64427-183D-47CC-8772-E1D33CF44D27} = {ABAEEE32-C5F1-40DF-9206-BA7BF35EAAE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23F5EB67-5874-4763-88EF-473C3EB6DD51}

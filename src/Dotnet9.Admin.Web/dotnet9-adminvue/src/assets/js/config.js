@@ -1,4 +1,0 @@
-export default {
-  TENCENT_CAPTCHA: '2000864473',
-  UPLOAD_SIZE: 200
-}
