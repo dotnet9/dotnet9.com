@@ -12,6 +12,6 @@ public class AuthService : ServiceBase
     {
         var command = new LoginByAccountCommand(model);
         await eventBus.PublishAsync(command);
-        return ResponseResult<UserDto?>.GetSuccess(command.Result);
+        return command.Result;
     }
 }

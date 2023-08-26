@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Dotnet9.ASPNETCore.Filters;
+
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication();
 
 builder.AddLogging();
@@ -22,6 +24,7 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
+builder.Services.Configure<MvcOptions>(options => { options.Filters.Add<GlobalExceptionFilter>(); });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var corsPolicyName = "CorsPolicy";
 var app = builder.Services
