@@ -7,10 +7,11 @@ public class AuthService : ServiceBase
     }
 
     [AllowAnonymous]
-    public async Task<UserDto?> PostLoginByAccountAsync(IEventBus eventBus, [FromBody] LoginByAccountDto model)
+    public async Task<ResponseResult<UserDto?>> PostLoginByAccountAsync(IEventBus eventBus,
+        [FromBody] LoginByAccountDto model)
     {
         var command = new LoginByAccountCommand(model);
         await eventBus.PublishAsync(command);
-        return command.Result;
+        return ResponseResult<UserDto?>.GetSuccess(command.Result);
     }
 }

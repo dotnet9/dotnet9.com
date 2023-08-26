@@ -9,3 +9,5 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using StackExchange.Redis;
 global using Serilog;
+global using System.Net;
+global using System.Text.Json.Serialization;
