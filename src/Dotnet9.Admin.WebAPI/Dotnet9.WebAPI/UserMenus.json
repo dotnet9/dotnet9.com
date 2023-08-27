@@ -48,14 +48,6 @@
         "children": null
       },
       {
-        "name": "专辑管理",
-        "path": "/albums",
-        "component": "/album/Album.vue",
-        "icon": "el-icon-myfenlei",
-        "hidden": false,
-        "children": null
-      },
-      {
         "name": "分类管理",
         "path": "/categories",
         "component": "/category/Category.vue",
@@ -68,23 +60,6 @@
         "path": "/tags",
         "component": "/tag/Tag.vue",
         "icon": "el-icon-myicontag",
-        "hidden": false,
-        "children": null
-      }
-    ]
-  },
-  {
-    "name": "消息管理",
-    "path": "/message-submenu",
-    "component": "Layout",
-    "icon": "el-icon-myxiaoxi",
-    "hidden": false,
-    "children": [
-      {
-        "name": "评论管理",
-        "path": "/comments",
-        "component": "/comment/Comment.vue",
-        "icon": "el-icon-mypinglunzu",
         "hidden": false,
         "children": null
       }
@@ -124,6 +99,56 @@
     ]
   },
   {
+    "name": "消息管理",
+    "path": "/message-submenu",
+    "component": "Layout",
+    "icon": "el-icon-myxiaoxi",
+    "hidden": false,
+    "children": [
+      {
+        "name": "评论管理",
+        "path": "/comments",
+        "component": "/comment/Comment.vue",
+        "icon": "el-icon-mypinglunzu",
+        "hidden": false,
+        "children": null
+      }
+    ]
+  },
+  {
+    "name": "权限管理",
+    "path": "/permission-submenu",
+    "component": "Layout",
+    "icon": "el-icon-mydaohanglantubiao_quanxianguanli",
+    "hidden": false,
+    "children": [
+      {
+        "name": "菜单管理",
+        "path": "/menus",
+        "component": "/menu/Menu.vue",
+        "icon": "el-icon-mycaidan",
+        "hidden": false,
+        "children": null
+      },
+      {
+        "name": "接口管理",
+        "path": "/resources",
+        "component": "/resource/Resource.vue",
+        "icon": "el-icon-myjiekouguanli",
+        "hidden": false,
+        "children": null
+      },
+      {
+        "name": "角色管理",
+        "path": "/roles",
+        "component": "/role/Role.vue",
+        "icon": "el-icon-myjiaoseliebiao",
+        "hidden": false,
+        "children": null
+      }
+    ]
+  },
+  {
     "name": "用户管理",
     "path": "/users-submenu",
     "component": "Layout",
@@ -149,34 +174,34 @@
     ]
   },
   {
-    "name": "权限管理",
-    "path": "/permission-submenu",
+    "name": "相册管理",
+    "path": "/album-submenu",
     "component": "Layout",
-    "icon": "el-icon-mydaohanglantubiao_quanxianguanli",
+    "icon": "el-icon-myimage-fill",
     "hidden": false,
     "children": [
       {
-        "name": "角色管理",
-        "path": "/roles",
-        "component": "/role/Role.vue",
-        "icon": "el-icon-myjiaoseliebiao",
+        "name": "照片管理",
+        "path": "/albums/:albumId",
+        "component": "/album/Photo.vue",
+        "icon": "el-icon-myzhaopian",
+        "hidden": true,
+        "children": null
+      },
+      {
+        "name": "相册列表",
+        "path": "/albums",
+        "component": "/album/Album.vue",
+        "icon": "el-icon-myzhaopian",
         "hidden": false,
         "children": null
       },
       {
-        "name": "接口管理",
-        "path": "/resources",
-        "component": "/resource/Resource.vue",
-        "icon": "el-icon-myjiekouguanli",
-        "hidden": false,
-        "children": null
-      },
-      {
-        "name": "菜单管理",
-        "path": "/menus",
-        "component": "/menu/Menu.vue",
-        "icon": "el-icon-mycaidan",
-        "hidden": false,
+        "name": "照片回收站",
+        "path": "/photos/delete",
+        "component": "/album/Delete.vue",
+        "icon": "el-icon-myhuishouzhan",
+        "hidden": true,
         "children": null
       }
     ]
@@ -223,39 +248,6 @@
     ]
   },
   {
-    "name": "相册管理",
-    "path": "/photo-submenu",
-    "component": "Layout",
-    "icon": "el-icon-myimage-fill",
-    "hidden": false,
-    "children": [
-      {
-        "name": "相册列表",
-        "path": "/photos",
-        "component": "/photo/Photo.vue",
-        "icon": "el-icon-myzhaopian",
-        "hidden": false,
-        "children": null
-      },
-      {
-        "name": "照片管理",
-        "path": "/photos/:photoId",
-        "component": "/photo/Photo.vue",
-        "icon": "el-icon-myzhaopian",
-        "hidden": true,
-        "children": null
-      },
-      {
-        "name": "照片回收站",
-        "path": "/photos/delete",
-        "component": "/photo/Delete.vue",
-        "icon": "el-icon-myhuishouzhan",
-        "hidden": true,
-        "children": null
-      }
-    ]
-  },
-  {
     "name": "日志管理",
     "path": "/log-submenu",
     "component": "Layout",
@@ -263,17 +255,17 @@
     "hidden": false,
     "children": [
       {
-        "name": "操作日志",
-        "path": "/operation/log",
-        "component": "/log/OperationLog.vue",
+        "name": "异常日志",
+        "path": "/exception/log",
+        "component": "/log/ExceptionLog.vue",
         "icon": "el-icon-myguanyuwo",
         "hidden": false,
         "children": null
       },
       {
-        "name": "异常日志",
-        "path": "/exception/log",
-        "component": "/log/ExceptionLog.vue",
+        "name": "操作日志",
+        "path": "/operation/log",
+        "component": "/log/OperationLog.vue",
         "icon": "el-icon-myguanyuwo",
         "hidden": false,
         "children": null

@@ -115,6 +115,24 @@ public class UserAdminController : ControllerBase
         return Ok();
     }
 
+    [HttpPut]
+    [Route("/api/user/{id}/updatebase")]
+    public async Task<ActionResult> UpdateUserBase(Guid id, [FromBody] EditUserBaseRequest req)
+    {
+        User? user = await _repository.FindByIdAsync(id);
+        if (user == null)
+        {
+            return NotFound("用户没找到");
+        }
+
+        user.NickName = req.NickName;
+        user.Brief = req.Brief;
+        user.WebSite = req.WebSite;
+        await _userManager.UpdateAsync(user);
+
+        return Ok(req);
+    }
+
     [HttpPost]
     [Route("{id}")]
     public async Task<ActionResult<ResetPasswordResponse>> ResetUserPassword(Guid id)

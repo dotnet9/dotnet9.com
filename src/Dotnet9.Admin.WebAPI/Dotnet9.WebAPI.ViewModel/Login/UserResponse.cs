@@ -18,6 +18,9 @@ public class UserResponse
     public string? Address { get; set; }
     public string? Phone { get; set; }
     public string? Token { get; set; }
+    public string? NickName { get; set; }
+    public string? Brief { get; set; }
+    public string? WebSite { get; set; }
 }
 
 public record Geographic(KeyValue Province, KeyValue City);

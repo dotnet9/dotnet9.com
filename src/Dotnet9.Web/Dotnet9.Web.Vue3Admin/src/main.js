@@ -74,14 +74,14 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (response) => {
     switch (response.data.code) {
-      case 40001:
+      case 400:
         Vue.prototype.$message({
           type: 'error',
           message: response.data.message
         })
         router.push({ path: '/login' })
         break
-      case 50000:
+      case 500:
         Vue.prototype.$message({
           type: 'error',
           message: response.data.message

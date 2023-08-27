@@ -11,7 +11,7 @@ public record CategoryCount(Guid Id, string Name, int BlogPostCount);
 
 public record TagCount(Guid Id, string Name, int BlogPostCount);
 
-public record BlogPostStatistics(string Day, int BlogPostCount);
+public record BlogPostStatistics(string Day, int Count);
 
 public record BlogPostViewCount(string Day, int BlogPostCount);
 

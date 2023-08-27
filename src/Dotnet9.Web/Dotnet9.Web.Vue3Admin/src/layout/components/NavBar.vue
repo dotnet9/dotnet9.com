@@ -76,7 +76,7 @@ export default {
         this.$router.push({ path: '/setting' })
       }
       if (command == 'logout') {
-        this.axios.post('/api/users/logout').then(({ data }) => {
+        this.axios.post('/api/login/logout').then(({ data }) => {
           this.$store.commit('logout')
           this.$store.commit('resetTab')
           resetRouter()

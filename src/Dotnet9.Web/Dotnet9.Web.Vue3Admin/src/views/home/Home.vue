@@ -30,7 +30,7 @@
           </div>
           <div class="card-desc">
             <div class="card-title">文章量</div>
-            <div class="card-count">{{ articleCount }}</div>
+            <div class="card-count">{{ blogPostCount }}</div>
           </div>
         </el-card>
       </el-col>
@@ -55,7 +55,7 @@
     <el-card style="margin-top: 1.25rem">
       <div class="e-title">文章贡献统计</div>
       <div v-loading="loading">
-        <calendar-heatmap :end-date="new Date()" :values="articleStatisticsDTOs" />
+        <calendar-heatmap :end-date="new Date()" :values="blogPostStatistics" />
       </div>
     </el-card>
     <el-row :gutter="20" style="margin-top: 1.25rem">
@@ -117,8 +117,8 @@ export default {
       viewsCount: 0,
       messageCount: 0,
       userCount: 0,
-      articleCount: 0,
-      articleStatisticsDTOs: [],
+      blogPostCount: 0,
+      blogPostStatistics: [],
       tagDTOs: [],
       viewCount: {
         tooltip: {
@@ -277,16 +277,16 @@ export default {
   },
   methods: {
     getData() {
-      this.axios.get('/api/admin').then(({ data }) => {
+      this.axios.get('/api/Login/DashboardCount').then(({ data }) => {
         this.viewsCount = data.data.viewsCount
         this.messageCount = data.data.messageCount
         this.userCount = data.data.userCount
-        this.articleCount = data.data.articleCount
-        this.articleStatisticsDTOs = data.data.articleStatisticsDTOs
-        if (data.data.uniqueViewDTOs != null) {
-          data.data.uniqueViewDTOs.forEach((item) => {
+        this.blogPostCount = data.data.blogPostCount
+        this.blogPostStatistics = data.data.blogPostStatistics
+        if (data.data.uniqueViewCounts != null) {
+          data.data.uniqueViewCounts.forEach((item) => {
             this.viewCount.xAxis.data.push(item.day)
-            this.viewCount.series[0].data.push(item.viewsCount)
+            this.viewCount.series[0].data.push(item.blogPostCount)
           })
         }
 

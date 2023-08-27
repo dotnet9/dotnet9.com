@@ -29,12 +29,18 @@ public class LoginController : ControllerBase
 
         return new UserResponse
         {
-            UserId = user.Id, Name = user.UserName, Phone = user.PhoneNumber, Avatar =
-                "https://img1.dotnet9.com/site/logo.png"
+            UserId = user.Id,
+            Name = user.UserName,
+            Phone = user.PhoneNumber,
+            Avatar =
+                "https://img1.dotnet9.com/site/logo.png",
+            NickName = user.NickName,
+            Brief = user.Brief,
+            WebSite = user.WebSite
         };
     }
 
-    [HttpPost]
+    [HttpPut]
     [Authorize]
     public async Task<ResponseResult<bool>> ChangePassword(ChangeMyPasswordRequest req)
     {
@@ -96,6 +102,9 @@ public class LoginController : ControllerBase
             UserId = user!.Id,
             Name = user.UserName,
             Phone = user.PhoneNumber,
+            NickName = user.NickName,
+            Brief = user.Brief,
+            WebSite = user.WebSite,
             Avatar =
                 "https://img1.dotnet9.com/site/logo.png",
             Token = token
@@ -104,6 +113,7 @@ public class LoginController : ControllerBase
 
     [HttpGet]
     [NoWrapper]
+    [Authorize]
     public async Task<ResponseResult<List<UserMenuItem>>> Menus()
     {
         // TODO the data should be from database, not hard code

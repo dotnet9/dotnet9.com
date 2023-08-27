@@ -1,5 +1,5 @@
 {
-  "name": "aurora-admin",
+  "name": "dotnet9-admin",
   "version": "0.1.0",
   "private": true,
   "scripts": {

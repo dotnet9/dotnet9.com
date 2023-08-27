@@ -14,13 +14,13 @@
           </el-upload>
           <el-form label-width="70px" :model="infoForm" style="width: 320px; margin-left: 3rem">
             <el-form-item label="昵称">
-              <el-input v-model="infoForm.nickname" size="small" />
+              <el-input v-model="infoForm.nickName" size="small" />
             </el-form-item>
             <el-form-item label="个人简介">
-              <el-input v-model="infoForm.intro" size="small" />
+              <el-input v-model="infoForm.brief" size="small" />
             </el-form-item>
             <el-form-item label="个人网站">
-              <el-input v-model="infoForm.website" size="small" />
+              <el-input v-model="infoForm.webSite" size="small" />
             </el-form-item>
             <el-button @click="updateInfo" type="primary" size="medium" style="margin-left: 4.375rem"> 修改 </el-button>
           </el-form>
@@ -61,9 +61,9 @@ export default {
   data: function () {
     return {
       infoForm: {
-        nickname: this.$store.state.userInfo.nickname,
-        intro: this.$store.state.userInfo.intro,
-        website: this.$store.state.userInfo.website
+        nickName: this.$store.state.userInfo.nickName,
+        brief: this.$store.state.userInfo.brief,
+        webSite: this.$store.state.userInfo.webSite
       },
       passwordForm: {
         oldPassword: '',
@@ -91,12 +91,12 @@ export default {
       }
     },
     updateInfo() {
-      if (this.infoForm.nickname.trim() == '') {
+      if (this.infoForm.nickName.trim() == '') {
         this.$message.error('昵称不能为空')
         return false
       }
-      this.axios.put('/api/users/info', this.infoForm).then(({ data }) => {
-        if (data.flag) {
+      this.axios.put('/api/user/'+this.$store.state.userInfo.userId+'/updatebase', this.infoForm).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: '修改成功'
@@ -127,8 +127,8 @@ export default {
         this.$message.error('两次密码输入不一致')
         return false
       }
-      this.axios.put('/api/admin/users/password', this.passwordForm).then(({ data }) => {
-        if (data.flag) {
+      this.axios.put('/api/login/changePassword', this.passwordForm).then(({ data }) => {
+        if (data.success) {
           this.passwordForm.oldPassword = ''
           this.passwordForm.newPassword = ''
           this.passwordForm.confirmPassword = ''

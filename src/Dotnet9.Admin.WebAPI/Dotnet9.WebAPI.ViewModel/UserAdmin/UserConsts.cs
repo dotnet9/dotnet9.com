@@ -11,4 +11,10 @@ public static class UserConsts
     public const int MaxPasswordLength = 20;
 
     public const int MaxPhoneNumberLength = 11;
+
+    public const int MaxNickNameLength = 20;
+
+    public const int MaxBriefLength = 500;
+
+    public const int MaxWebSiteLength = 50;
 }

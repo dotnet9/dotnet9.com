@@ -18,6 +18,7 @@ public class ResponseResult<T>
         return new ResponseResult<T>
         {
             Success = true,
+            HttpStatusCode = HttpStatusCode.OK,
             Data = data
         };
     }
