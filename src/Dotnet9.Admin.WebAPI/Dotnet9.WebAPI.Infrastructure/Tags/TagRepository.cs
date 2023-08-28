@@ -11,8 +11,10 @@ internal class TagRepository : ITagRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        List<Tag> logs = await _dbContext.Tags!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
-        _dbContext.RemoveRange(logs);
+        List<Tag> tags = await _dbContext.Tags!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        _dbContext.RemoveRange(tags);
+        await _dbContext.Set<BlogPostTag>().Where(tag => ids.Contains(tag.TagId)).ExecuteDeleteAsync();
+
         return await _dbContext.SaveChangesAsync();
     }
 
@@ -32,7 +34,7 @@ internal class TagRepository : ITagRepository
         IQueryable<Tag> query = _dbContext.Tags!.AsQueryable();
         if (!request.Keywords.IsNullOrWhiteSpace())
         {
-            query = query.Where(log => EF.Functions.Like(log.Name!, $"%{request.Keywords}%"));
+            query = query.Where(log => EF.Functions.Like(log.Name.ToLower()!, $"%{request.Keywords!.ToLower()}%"));
         }
 
         TagDto[] dataFromDb = await query.OrderByDescending(tag => tag.CreationTime)

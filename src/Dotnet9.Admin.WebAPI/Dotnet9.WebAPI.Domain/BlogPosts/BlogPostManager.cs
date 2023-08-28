@@ -225,8 +225,7 @@ public class BlogPostManager
             blogPost.AddTag(id);
         }
     }
-
-
+    
     public async Task<BlogPost> ChangeVisible(Guid id, bool visible)
     {
         BlogPost? oldData = await _blogPostRepository.FindByIdAsync(id);

@@ -20,8 +20,8 @@ internal class BlogPostRepository : IBlogPostRepository
 
     public async Task<int> DeleteAsync(Guid[] ids)
     {
-        List<BlogPost> logs = await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
-        _dbContext.RemoveRange(logs);
+        List<BlogPost> tags = await _dbContext.BlogPosts!.Where(cat => ids.Contains(cat.Id)).ToListAsync();
+        _dbContext.RemoveRange(tags);
         return await _dbContext.SaveChangesAsync();
     }
 

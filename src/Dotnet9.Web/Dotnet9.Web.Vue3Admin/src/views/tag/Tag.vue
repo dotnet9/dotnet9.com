@@ -26,18 +26,18 @@
     </div>
     <el-table border :data="tags" v-loading="loading" @selection-change="selectionChange">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="tagName" label="标签名" align="center">
+      <el-table-column prop="name" label="标签名" align="center">
         <template slot-scope="scope">
           <el-tag>
-            {{ scope.row.tagName }}
+            {{ scope.row.name }}
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="articleCount" label="文章量" align="center" />
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="blogPostCount" label="文章量" align="center" />
+      <el-table-column prop="creationTime" label="创建时间" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 5px" />
-          {{ scope.row.createTime | date }}
+          {{ scope.row.creationTime | date }}
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="160">
@@ -71,7 +71,7 @@
       <div class="dialog-title-container" slot="title" ref="tagTitle" />
       <el-form label-width="80px" size="medium" :model="tagForm">
         <el-form-item label="标签名">
-          <el-input style="width: 220px" v-model="tagForm.tagName" />
+          <el-input style="width: 220px" v-model="tagForm.name" />
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -98,7 +98,7 @@ export default {
       tagIds: [],
       tagForm: {
         id: null,
-        tagName: ''
+        name: ''
       },
       current: 1,
       size: 10,
@@ -128,12 +128,12 @@ export default {
     deleteTag(id) {
       var param = {}
       if (id == null) {
-        param = { data: this.tagIds }
+        param = { ids: this.tagIds }
       } else {
-        param = { data: [id] }
+        param = { ids: [id] }
       }
-      this.axios.delete('/api/admin/tags', param).then(({ data }) => {
-        if (data.flag) {
+      this.axios.delete('/api/tags', { data: param }).then(({ data }) => {
+        if (data.success) {
           this.$notify.success({
             title: '成功',
             message: data.message
@@ -150,10 +150,10 @@ export default {
     },
     listTags() {
       this.axios
-        .get('/api/admin/tags', {
+        .get('/api/tags', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.size,
             keywords: this.keywords
           }
         })
@@ -169,30 +169,47 @@ export default {
         this.$refs.tagTitle.innerHTML = '修改标签'
       } else {
         this.tagForm.id = null
-        this.tagForm.tagName = ''
+        this.tagForm.name = ''
         this.$refs.tagTitle.innerHTML = '添加标签'
       }
       this.addOrEdit = true
     },
     addOrEditTag() {
-      if (this.tagForm.tagName.trim() == '') {
+      if (this.tagForm.name.trim() == '') {
         this.$message.error('标签名不能为空')
         return false
       }
-      this.axios.post('/api/admin/tags', this.tagForm).then(({ data }) => {
-        if (data.flag) {
-          this.$notify.success({
-            title: '成功',
-            message: data.message
-          })
-          this.listTags()
-        } else {
-          this.$notify.error({
-            title: '失败',
-            message: data.message
-          })
-        }
-      })
+      if (this.tagForm.id === null) {
+        this.axios.post('/api/tags', this.tagForm).then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listTags()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
+      } else {
+        this.axios.put('/api/tags/' + this.tagForm.id, this.tagForm).then(({ data }) => {
+          if (data.success) {
+            this.$notify.success({
+              title: '成功',
+              message: data.message
+            })
+            this.listTags()
+          } else {
+            this.$notify.error({
+              title: '失败',
+              message: data.message
+            })
+          }
+        })
+      }
       this.addOrEdit = false
     }
   }
