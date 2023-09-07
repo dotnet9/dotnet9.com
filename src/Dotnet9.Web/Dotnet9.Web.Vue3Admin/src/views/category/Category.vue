@@ -31,18 +31,30 @@
     </div>
     <el-table border :data="categories" @selection-change="selectionChange" v-loading="loading">
       <el-table-column type="selection" width="55" />
-      <el-table-column prop="categoryName" label="分类名" align="center" />
-      <el-table-column prop="articleCount" label="文章量" align="center" />
-      <el-table-column prop="createTime" label="创建时间" align="center">
+      <el-table-column prop="cover" label="封面" align="center">
+        <template slot-scope="scope">
+          <img :src="scope.row.cover" alt="封面" style="width: 100px;"/>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="分类名" align="center" />
+      <el-table-column prop="slug" label="别名" align="center" />
+      <el-table-column prop="parentName" label="父分类名" align="center" />
+      <el-table-column prop="blogPostCount" label="文章量" align="center" />
+      <el-table-column prop="visible" label="可见性" align="center">
+        <template slot-scope="scope">
+          <el-checkbox v-model="scope.row.visible" true-label="显示" false-label="隐藏" @change="chagneCategoryVisible(scope.row)"/>
+        </template>
+      </el-table-column>
+      <el-table-column prop="creationTime" label="创建时间" align="center">
         <template slot-scope="scope">
           <i class="el-icon-time" style="margin-right: 5px" />
-          {{ scope.row.createTime | date }}
+          {{ scope.row.creationTime | date }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="160" align="center">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="openModel(scope.row)"> 编辑 </el-button>
-          <el-popconfirm title="确定删除吗？" style="margin-left: 1rem" @confirm="deleteCategory(scope.row.id)">
+          <el-popconfirm title="确定删除吗？" style="margin-left: 1rem" @confirm="deleteCategory(scope.row)">
             <el-button size="mini" type="danger" slot="reference"> 删除 </el-button>
           </el-popconfirm>
         </template>
@@ -149,10 +161,10 @@ export default {
     },
     listCategories() {
       this.axios
-        .get('/api/admin/categories', {
+        .get('/api/categories/details', {
           params: {
             current: this.current,
-            size: this.size,
+            pageSize: this.size,
             keywords: this.keywords
           }
         })
@@ -161,6 +173,23 @@ export default {
           this.count = data.data.count
           this.loading = false
         })
+    },
+    chagneCategoryVisible(category) {
+      let data =  { id: category.id, visible: !category.visible }
+      this.axios.put('/api/categories/'+id+'/changeVisible', data).then(({ data }) => {
+        if (data.success) {
+          this.$notify.success({
+            title: '成功',
+            message: data.message
+          })
+          this.listCategories()
+        } else {
+          this.$notify.error({
+            title: '失败',
+            message: data.message
+          })
+        }
+      })
     },
     openModel(category) {
       if (category != null) {
