@@ -1,0 +1,61 @@
+﻿@using Dotnet9.Services.Config
+@using Dotnet9.Services.Config.Services
+<!DOCTYPE html>
+@inject ConfigService Config;
+@{
+    ViewData["siteName"] = await Config.GetString<SiteConfig>(a => a.SiteName, "未设置");
+}
+<html>
+<head>
+    <title>@ViewData["title"] - @ViewData["siteName"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @await Html.PartialAsync("Partial/_css")
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    @await RenderSectionAsync("css", false)
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">@ViewData["siteName"]</a>
+    </div>
+</nav>
+<main>
+    <div class="container-fluid container-md mt-4">
+        @RenderBody()
+    </div>
+</main>
+<footer>
+    <div class="container-fluid bg-dark footer mt-4 text-light">
+        <div class="container pt-4">
+            <div class="row ">
+                <div class="col-12">
+                    @await Html.PartialAsync("Partial/_FriendLinkView")
+                </div>
+            </div>
+            @{
+                var icp = await Config.GetString<SiteConfig>(a => a.ICP);
+            }
+            @if (string.IsNullOrWhiteSpace(icp) == false)
+            {
+                <div class="row text-light mt-2">
+                    <div class="col-12">
+                        <p class="beian">
+                            备案号:<a href="https://beian.miit.gov.cn/" target="_blank" rel="external nofollow">@icp</a>
+                        </p>
+                    </div>
+                </div>
+            }
+            <div class="row mt-2">
+                <div class="col">
+                    <p>本站基于<a href="https://dotnet.microsoft.com/zh-cn/" target="_blank" class="text-info">.NET 7.0</a> 构建,使用RazorPages + EntityFrameWorkCore 7.0 + Vue.js 3.0技术开发</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+@await Html.PartialAsync("Partial/_js")
+@await RenderSectionAsync("js", false)
+</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@page
+@model Index
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>系统安装初始化配置</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @await Html.PartialAsync("Partial/_css")
+</head>
+
+<body>
+<div>
+    <div class="container">
+        <h1 class="mb-5 mt-3 text-dark">初始化配置</h1>
+        <form method="post">
+            <div class="form-group mb-3">
+                <label asp-for="SiteInitModel.UserName" class="form-label"></label>
+                <input asp-for="SiteInitModel.UserName" class="form-control"/>
+                <span asp-validation-for="SiteInitModel.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="SiteInitModel.UserPwd" class="form-label"></label>
+                <input asp-for="SiteInitModel.UserPwd" class="form-control"/>
+                <span asp-validation-for="SiteInitModel.UserPwd" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" asp-page-handler="InstallSave">确定</button>
+        </form>
+
+    </div>
+</div>
+</body>
+@await Html.PartialAsync("Partial/_js")
+<script></script>
+</html>

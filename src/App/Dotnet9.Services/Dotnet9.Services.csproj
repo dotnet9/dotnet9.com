@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <NoWarn>8618</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Dotnet9Tools\Dotnet9Tools.csproj" />
+        <ProjectReference Include="..\Dotnet9.Models\Dotnet9.Models.csproj" />
+        <ProjectReference Include="..\Dotnet9.Repositoies\Dotnet9.Repositoies.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": [
+      "element-plus/global"
+    ],
+    "paths": {
+      "@/shared/*": [
+        "./src/shared/*"
+      ],
+      "@/views/*": [
+        "./src/views/*"
+      ],
+      "@/router/*": [
+        "./src/router/*"
+      ],
+      "@/styles/*": [
+        "./src/styles"
+      ],
+      "@/store/*": [
+        "./src/store/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ]
+    },
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "ts-node": {
+    "esm": true
+  }
+}

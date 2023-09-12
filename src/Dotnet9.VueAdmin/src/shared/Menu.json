@@ -1,0 +1,33 @@
+[
+    {
+        "path": "dashboard",
+        "name": "仪表盘",
+        "icon": ""
+    },
+    {
+        "name": "博客",
+        "icon": "",
+        "childreen": [
+            {
+                "path": "post",
+                "nmae": "文章"
+            },
+            {
+                "path": "cate",
+                "name": "分类"
+            },
+            {
+                "path": "tag",
+                "name": "标签"
+            },
+            {
+                "path": "friendlink",
+                "name": "友情链接"
+            },
+            {
+                "path": "setting",
+                "name": "站点设置"
+            }
+        ]
+    }
+]

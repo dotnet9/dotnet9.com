@@ -1,0 +1,22 @@
+﻿@page "/cate/{cateId}-{index}"
+@model Category
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "分类:" + Model.CateName;
+}
+
+
+<div class="row bg-white">
+    <div class="col">
+        <h1 class="cate-name">
+            分类:@Model.CateName
+        </h1>
+    </div>
+</div>
+<div class="row bg-white mt-2 pt-4">
+    <div class="col">
+        @await Html.PartialAsync("Partial/_PostItemView", Model.pageDto.Data)
+        @await Html.PartialAsync("Partial/_PageView", new PageViewModel(Model.pageDto.Total, Model.PageSize, Model.PageIndex, index => $"/cate/{Model.CateId}/{index}"))
+    </div>
+</div>

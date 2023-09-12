@@ -1,0 +1,20 @@
+﻿@using Dotnet9.Models.Dtos.Blogs.Dto
+@using Dotnet9.Services
+@inject FriendLinkService FlService
+@{
+    var res = await FlService.GetLinkList(new GetFriendLinkModel
+    {
+        Index = 1,
+        PageSize = 50
+    });
+}
+@if (res.Total > 0)
+{
+    <p class="friend-links">
+        <span class="me-2">友情链接:</span>
+        @foreach (var item in res.Data)
+        {
+            <a class="link-light" href="@item.Url" target="_blank">@item.Name</a>
+        }
+    </p>
+}

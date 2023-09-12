@@ -1,0 +1,46 @@
+{
+  "name": "site-admin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build --base=/admin/ --emptyOutDir",
+    "preview": "vite preview",
+    "swagger": "node ./swagger.js",
+    "build-all": "node ./build.js"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
+    "axios": "^1.4.0",
+    "default-passive-events": "^2.0.0",
+    "echarts": "^5.4.0",
+    "element-plus": "^2.3.9",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.27",
+    "pinia-plugin-persistedstate": "^3.0.1",
+    "vue": "^3.2.36",
+    "vue-cropper": "^1.0.5",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.11.9",
+    "@types/nprogress": "^0.2.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "fs-extra": "^11.1.0",
+    "less": "^4.2.0",
+    "node-exec-promise": "^1.0.2",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "sass": "^1.65.1",
+    "swagger-axios-codegen": "^0.15.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.6.4",
+    "vite": "^4.4.9",
+    "vue-tsc": "^1.8.8"
+  }
+}

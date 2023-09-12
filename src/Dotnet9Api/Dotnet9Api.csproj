@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <DocumentationFile>./PnadaApi.xml</DocumentationFile>
+        <NoWarn>8618,1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\App\Dotnet9.Models\Dotnet9.Models.csproj" />
+        <ProjectReference Include="..\App\Dotnet9.Repositoies\Dotnet9.Repositoies.csproj" />
+        <ProjectReference Include="..\App\Dotnet9.Services\Dotnet9.Services.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+﻿<div class="d-flex flex-column shadow-sm bg-white p-3">
+    <div class="rank-title">
+        <h3>文章分类</h3>
+    </div>
+    <ul class="rank-list pt-2">
+        @{
+            var index = 1;
+        }
+        @foreach (var item in Model.RankList)
+        {
+            <li>
+                <span class="rank-index">@index</span>
+                <a href="@item.Url">@item.Text</a>
+            </li>
+            index += 1;
+        }
+    </ul>
+</div>
