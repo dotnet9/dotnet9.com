@@ -7,9 +7,9 @@
 		
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'QingCheng.Site.Web' " />
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'QingCheng.Site.Data.Swagger' " />
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'QingCheng.Site.Data.Production' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Dotnet9.Web' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Dotnet9.Swagger' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'Dotnet9.Production' " />
     <ItemGroup>
         <ProjectReference Include="..\App\Dotnet9.Services\Dotnet9.Services.csproj" />
         <ProjectReference Include="..\Dotnet9Api\Dotnet9Api.csproj" />

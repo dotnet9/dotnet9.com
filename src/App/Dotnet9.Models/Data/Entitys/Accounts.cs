@@ -29,7 +29,7 @@ public static class AccountModelCreating
             Id = Guid.NewGuid(),
             UserName = "admin",
             Pwd = "admin123".GetSHA256(),
-            Email = "chenxinandroid@gmail.com"
+            Email = "qq1012434131@gmail.com"
         });
     }
 }

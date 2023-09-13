@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Dotnet9.Services.Account;
+﻿using Dotnet9.Services.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySqlConnector;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dotnet9Site.Pages.Install;
 
@@ -26,22 +25,6 @@ public class Index : PageModel
         if (isInit)
         {
             return Redirect("/");
-        }
-
-        return Page();
-    }
-
-
-    public async Task<IActionResult> TestConnect()
-    {
-        try
-        {
-            await using MySqlConnection conn = new MySqlConnection(SiteInitModel.DbConnectString);
-            await conn.OpenAsync();
-        }
-        catch (Exception)
-        {
-            IsConnect = false;
         }
 
         return Page();

@@ -49,7 +49,7 @@
 //     {
 //         var list = meta.Where(a => a.TABLE_NAME == tableName).ToList();
 //         var sb = new StringBuilder();
-//         sb.AppendLine("namespace QingCheng.xx.Model;");
+//         sb.AppendLine("namespace Dotnet9.xx.Model;");
 //         sb.AppendLine("using System.ComponentModel.DataAnnotations;");
 //         sb.AppendLine();
 //         sb.AppendLine($"public class {tableName} {{");

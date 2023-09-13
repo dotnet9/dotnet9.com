@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "QingCheng.Site.Web": {
+    "Dotnet9.Web": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:51775",
@@ -8,7 +8,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "QingCheng.Site.Data.Swagger": {
+    "Dotnet9.Swagger": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "QingCheng.Site.Data.Production": {
+    "Dotnet9.Production": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "http://localhost:51775",

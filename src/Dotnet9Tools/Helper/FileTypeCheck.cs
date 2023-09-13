@@ -122,7 +122,7 @@ public class FileTypeCheck
     /// <param name="fileData">文件头字节数组，请传200个以内</param>
     /// <param name="allowedChars">允许的例外字节数组</param>
     /// <returns></returns>
-    public static bool IsValidFileExtension(string fileName, byte[] fileData, byte[] allowedChars = null)
+    public static bool IsValidFileExtension(string fileName, byte[] fileData, byte[]? allowedChars = null)
     {
         if (string.IsNullOrEmpty(fileName) || fileData == null || fileData.Length == 0)
         {

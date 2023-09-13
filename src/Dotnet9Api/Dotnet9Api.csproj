@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <DocumentationFile>./PnadaApi.xml</DocumentationFile>
+        <DocumentationFile>./Dotnet9Api.xml</DocumentationFile>
         <NoWarn>8618,1591</NoWarn>
     </PropertyGroup>
 

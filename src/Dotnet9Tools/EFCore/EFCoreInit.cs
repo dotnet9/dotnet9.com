@@ -24,16 +24,6 @@ public static class EFExtensions
         services.AddScoped<DbContext>(a => { return a.GetService<TDB>()!; });
     }
 
-    /// <summary>
-    ///     添加Mysql
-    /// </summary>
-    /// <typeparam name="DB"></typeparam>
-    /// <param name="services"></param>
-    /// <param name="connString"></param>
-    public static void AddEFMySql<DB>(this IServiceCollection services, string connString) where DB : DbContext
-    {
-        services.AddEFCore<DB>(options => { options.UseMySql(connString, ServerVersion.AutoDetect(connString)); });
-    }
 
     public static void AddPgSql<DB>(this IServiceCollection service, IConfiguration configuration) where DB : DbContext
     {

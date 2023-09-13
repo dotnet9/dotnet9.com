@@ -69,7 +69,7 @@ public static class CookieAuthExtensions
                     {
                         HttpOnly = true,
                         SameSite = SameSiteMode.Strict,
-                        Name = "QingCheng.Blog"
+                        Name = "Dotnet9.Blog"
                     };
                     opt.Events.OnRedirectToLogin = async context =>
                     {

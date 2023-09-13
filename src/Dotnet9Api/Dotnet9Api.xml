@@ -45,7 +45,7 @@
         </member>
         <member name="M:Dotnet9Api.Account.AccountController.GetLoginRecord(Dotnet9.Models.Dtos.BasePageModel)">
             <summary>
-            获取最近登录记录
+                获取最近登录记录
             </summary>
             <param name="model"></param>
             <returns></returns>
@@ -142,7 +142,7 @@
         </member>
         <member name="M:Dotnet9Api.Blogs.PostController.Publish(Dotnet9.Models.Dtos.BaseIdModel{System.Int32})">
             <summary>
-            发布/隐藏
+                发布/隐藏
             </summary>
             <param name="model"></param>
         </member>
@@ -160,7 +160,7 @@
         </member>
         <member name="M:Dotnet9Api.Common.CommonController.Upload(Microsoft.AspNetCore.Hosting.IWebHostEnvironment,System.Boolean)">
             <summary>
-            上传
+                上传
             </summary>
             <param name="host"></param>
             <param name="isTag"></param>
@@ -168,7 +168,7 @@
         </member>
         <member name="M:Dotnet9Api.Common.CommonController.GetCaptcha(Lazy.Captcha.Core.ICaptcha,Dotnet9.Models.ValidateCodeType)">
             <summary>
-            获取验证码
+                获取验证码
             </summary>
             <param name="captcha"></param>
             <param name="type"></param>
@@ -176,7 +176,7 @@
         </member>
         <member name="T:Dotnet9Api.Common.DashBoardController">
             <summary>
-            首页面板数据
+                首页面板数据
             </summary>
         </member>
         <member name="T:Dotnet9Api.Common.ResourceController">
