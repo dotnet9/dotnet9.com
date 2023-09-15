@@ -24,17 +24,16 @@ export default defineConfig({
   server: {
     proxy: {
       '/admin': {
-        target: 'http://localhost:51775', //'http://localhost:51775',
-        changeOrigin: true
+        target: 'http://localhost:5000',
       },
       '/file': {
-        target: 'http://localhost:51775',
+        target: 'http://localhost:5000',
         changeOrigin: true
       }
     }
   },
   build: {
-    outDir: '../Server/PandaSite/wwwroot/admin',
+    outDir: '../Dotnet9Site/wwwroot/admin',
   }
 
 })
