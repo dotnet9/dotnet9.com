@@ -27,6 +27,7 @@ public static class EFExtensions
 
     public static void AddPgSql<DB>(this IServiceCollection service, IConfiguration configuration) where DB : DbContext
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         service.AddDbContext<DB>(opt => { opt.UseNpgsql(configuration.GetConnectionString("pgsql")); });
         service.AddScoped<DbContext>(a => a.GetService<DB>()!);
     }

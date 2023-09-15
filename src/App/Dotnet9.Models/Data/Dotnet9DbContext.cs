@@ -58,7 +58,7 @@ public class Dotnet9DbContext : BaseDbContext<Accounts>
                 if (entity.GetType().GetProperty("UpdateTime") != null)
                 {
                     Type type = entity.GetType();
-                    type.GetProperty("UpdateTime")?.SetValue(type, DateTime.Now);
+                    type.GetProperty("UpdateTime")?.SetValue(entity, DateTime.Now);
                 }
 
                 break;

@@ -34,7 +34,8 @@ public class AccountLoginRecordRepository : BaseRepository<AccountLoginRecord, i
             Ip = ip,
             IsLogin = loginSuccess,
             UA = ua,
-            Message = message
+            Message = message,
+            CreateTime = DateTime.Now
         });
         await Ctx.SaveChangesAsync();
     }
