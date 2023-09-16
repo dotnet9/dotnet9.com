@@ -7,7 +7,7 @@
             <ElInput v-model="form.icp"></ElInput>
         </ElFormItem>
         <ElFormItem label="网站描述">
-            <ElInput></ElInput>
+            <ElInput v-model="form.siteDesc"></ElInput>
         </ElFormItem>
         <ElFormItem>
             <ElButton type="primary" @click="save()" native-type="submit">保存</ElButton>
@@ -24,7 +24,7 @@ const loading = ref(false)
 
 const form = ref<SiteConfig>({
     siteName: '',
-    age: 0,
+    siteDesc: '',
     icp: '',
 });
 
