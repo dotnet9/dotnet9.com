@@ -8,7 +8,7 @@ public class FriendLinkModel
 
     public int Order { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public bool IsPublish { get; set; }
 }

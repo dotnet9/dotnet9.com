@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Entitys;
 
-public class AccountLoginRecord : BaseEntity<int>
+public class AccountLoginRecord : BaseEntity<Guid>
 {
     /// <summary>
     ///     账户

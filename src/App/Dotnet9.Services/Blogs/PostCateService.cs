@@ -30,7 +30,7 @@ public class PostCateService
         return res ?? new List<CateCountItem>();
     }
 
-    public async Task<string?> GetCateNameById(int Id)
+    public async Task<string?> GetCateNameById(Guid Id)
     {
         return await _context.Set<PostCates>().AsNoTracking().Where(a => a.Id == Id).Select(a => a.CateName)
             .FirstOrDefaultAsync();

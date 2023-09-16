@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		Directory.Build.Targets = Directory.Build.Targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Core", "Dotnet9.Core\Dotnet9.Core.csproj", "{5B0F5A3C-4E85-4A78-9D77-9F9F2487F78E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{1DC55CD1-6A72-4FB0-981E-BF60CAF93C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DC55CD1-6A72-4FB0-981E-BF60CAF93C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DC55CD1-6A72-4FB0-981E-BF60CAF93C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B0F5A3C-4E85-4A78-9D77-9F9F2487F78E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0F5A3C-4E85-4A78-9D77-9F9F2487F78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0F5A3C-4E85-4A78-9D77-9F9F2487F78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0F5A3C-4E85-4A78-9D77-9F9F2487F78E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

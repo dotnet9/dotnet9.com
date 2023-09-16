@@ -16,7 +16,7 @@ public class Post : PageModel
 
     public PostDetailModel Item { get; set; }
 
-    public async Task<IActionResult> OnGet(int Id)
+    public async Task<IActionResult> OnGet(Guid Id)
     {
         Console.WriteLine("Id" + Id);
         PostDetailModel? item = await _postService.Get(Id);

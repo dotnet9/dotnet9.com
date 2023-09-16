@@ -31,7 +31,7 @@ public static class BlogModel
         builder.Entity<PostVisitRecord>().Property(a => a.UA).HasMaxLength(500);
         builder.Entity<PostVisitRecord>().Property(a => a.UId).HasMaxLength(32);
         //PostTags
-        builder.Entity<PostTags>().Property(a => a.TagName).HasMaxLength(10).IsRequired();
+        builder.Entity<PostTags>().Property(a => a.TagName).HasMaxLength(32).IsRequired();
         builder.Entity<PostTags>().HasMany(a => a.TagRelation)
             .WithOne(a => a.PostTags);
 

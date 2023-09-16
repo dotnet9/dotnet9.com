@@ -18,7 +18,7 @@ namespace Dotnet9.Models.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RoleName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -30,13 +30,13 @@ namespace Dotnet9.Models.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     UserName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Pwd = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
-                    LockedTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LockedTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     LoginFailCount = table.Column<int>(type: "integer", nullable: false),
-                    UpdateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    UpdateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,13 +47,12 @@ namespace Dotnet9.Models.Migrations
                 name: "FriendLinks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Url = table.Column<string>(type: "text", nullable: false),
                     Order = table.Column<int>(type: "integer", nullable: false),
                     IsPublish = table.Column<bool>(type: "boolean", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -64,10 +63,9 @@ namespace Dotnet9.Models.Migrations
                 name: "PostCates",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CateName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -78,8 +76,7 @@ namespace Dotnet9.Models.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Title = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     Thumb = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
@@ -88,8 +85,8 @@ namespace Dotnet9.Models.Migrations
                     IsPublish = table.Column<bool>(type: "boolean", nullable: false),
                     IsTop = table.Column<bool>(type: "boolean", nullable: false),
                     IsDelete = table.Column<bool>(type: "boolean", nullable: false),
-                    UpdateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    UpdateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -100,10 +97,9 @@ namespace Dotnet9.Models.Migrations
                 name: "PostTags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TagName = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -114,13 +110,12 @@ namespace Dotnet9.Models.Migrations
                 name: "SysConfig",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Key = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Value = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     Description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     GroupName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -131,14 +126,13 @@ namespace Dotnet9.Models.Migrations
                 name: "AccountLoginRecord",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AccountId = table.Column<Guid>(type: "uuid", nullable: false),
                     UA = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Ip = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Message = table.Column<string>(type: "text", nullable: false),
                     IsLogin = table.Column<bool>(type: "boolean", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,11 +149,10 @@ namespace Dotnet9.Models.Migrations
                 name: "AccountRoleRelation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AccountId = table.Column<Guid>(type: "uuid", nullable: false),
                     AccountRoleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -191,7 +184,7 @@ namespace Dotnet9.Models.Migrations
                     Size = table.Column<long>(type: "bigint", nullable: false),
                     StorageType = table.Column<int>(type: "integer", nullable: false),
                     StorageDomain = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -207,11 +200,10 @@ namespace Dotnet9.Models.Migrations
                 name: "PostCateRelations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PostCateId = table.Column<int>(type: "integer", nullable: false),
-                    PostId = table.Column<int>(type: "integer", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostCateId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -233,14 +225,13 @@ namespace Dotnet9.Models.Migrations
                 name: "PostComments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     NickName = table.Column<string>(type: "text", nullable: false),
                     Pid = table.Column<int>(type: "integer", nullable: false),
-                    PostId = table.Column<int>(type: "integer", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -257,13 +248,12 @@ namespace Dotnet9.Models.Migrations
                 name: "PostVisitRecord",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PostId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
                     IP = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     UA = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     UId = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -280,11 +270,10 @@ namespace Dotnet9.Models.Migrations
                 name: "PostTagRelations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PostId = table.Column<int>(type: "integer", nullable: false),
-                    PostTagsId = table.Column<int>(type: "integer", nullable: false),
-                    CreateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()")
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PostTagsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()")
                 },
                 constraints: table =>
                 {
@@ -306,7 +295,7 @@ namespace Dotnet9.Models.Migrations
             migrationBuilder.InsertData(
                 table: "Accounts",
                 columns: new[] { "Id", "Email", "LockedTime", "LoginFailCount", "Pwd", "UpdateTime", "UserName" },
-                values: new object[] { new Guid("7c4a3173-246d-411c-bce0-687e9a18a53a"), "qq1012434131@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=", null, "admin" });
+                values: new object[] { new Guid("f5a726be-12f3-47b0-9245-d4b77d41ea4f"), "qq1012434131@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=", null, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccountLoginRecord_AccountId",

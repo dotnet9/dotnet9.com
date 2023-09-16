@@ -2,7 +2,7 @@
 
 public class PostItemModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Title { get; set; }
 
@@ -30,7 +30,7 @@ public class PostItemModel
 
 public class TagItem
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string TagName { get; set; }
 }
@@ -42,7 +42,7 @@ public class TagCountItem : TagItem
 
 public class CateItem
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string CateName { get; set; }
 }
 

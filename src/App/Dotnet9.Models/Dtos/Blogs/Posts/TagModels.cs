@@ -6,7 +6,7 @@ internal class TagModels
 
 public class TagDtoModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string TagName { get; set; }
 

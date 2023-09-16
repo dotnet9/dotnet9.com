@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Dotnet9.Models.Migrations
 {
     [DbContext(typeof(Dotnet9DbContext))]
-    [Migration("20230913151801_InitDB")]
+    [Migration("20230916145510_InitDB")]
     partial class InitDB
     {
         /// <inheritdoc />
@@ -27,15 +27,13 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.FriendLink", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<bool>("IsPublish")
@@ -59,22 +57,20 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostCateRelation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("PostCateId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostCateId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -87,11 +83,9 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostCates", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CateName")
                         .IsRequired()
@@ -99,8 +93,8 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("character varying(20)");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.HasKey("Id");
@@ -110,19 +104,17 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostComments", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Email")
@@ -136,8 +128,8 @@ namespace Dotnet9.Models.Migrations
                     b.Property<int>("Pid")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -148,22 +140,20 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostTagRelation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
 
-                    b.Property<int>("PostTagsId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostTagsId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -176,15 +166,13 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostTags", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("TagName")
@@ -199,15 +187,13 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.PostVisitRecord", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("IP")
@@ -215,8 +201,8 @@ namespace Dotnet9.Models.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("UA")
                         .IsRequired()
@@ -237,19 +223,17 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Blogs.Posts", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<bool>("IsDelete")
@@ -279,7 +263,7 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("character varying(150)");
 
                     b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
@@ -288,18 +272,15 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Entitys.AccountLoginRecord", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Ip")
                         .IsRequired()
@@ -327,11 +308,9 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Entitys.AccountRoleRelation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("AccountId")
                         .HasColumnType("uuid");
@@ -340,8 +319,8 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.HasKey("Id");
@@ -360,8 +339,8 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("RoleName")
@@ -382,8 +361,8 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Email")
@@ -392,7 +371,7 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("LockedTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("LoginFailCount")
                         .HasColumnType("integer");
@@ -403,7 +382,7 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("character varying(2000)");
 
                     b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -417,7 +396,7 @@ namespace Dotnet9.Models.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7c4a3173-246d-411c-bce0-687e9a18a53a"),
+                            Id = new Guid("f5a726be-12f3-47b0-9245-d4b77d41ea4f"),
                             CreateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "qq1012434131@gmail.com",
                             LockedTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -429,15 +408,13 @@ namespace Dotnet9.Models.Migrations
 
             modelBuilder.Entity("Dotnet9.Models.Data.Entitys.SysConfig", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
@@ -483,8 +460,8 @@ namespace Dotnet9.Models.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("CreateTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Path")

@@ -7,7 +7,7 @@ public class AccountRoles : BaseEntity<Guid>
     public List<AccountRoleRelation> AccountRoleRelations { get; set; } = new();
 }
 
-public class AccountRoleRelation : BaseEntity<int>
+public class AccountRoleRelation : BaseEntity<Guid>
 {
     public Accounts Account { get; set; }
 

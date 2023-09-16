@@ -72,7 +72,7 @@ const router = useRouter();
 
 const form = ref<PostEditRequest>({
     content: '',
-    id: 0,
+    id: '',
     title: '',
     tagsStr: '',
     cates: [],

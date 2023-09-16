@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Repositoies.Blogs;
 
-public class TagRepository : BaseRepository<PostTags, int>
+public class TagRepository : BaseRepository<PostTags, Guid>
 {
     public TagRepository(DbContext dbContext) : base(dbContext)
     {

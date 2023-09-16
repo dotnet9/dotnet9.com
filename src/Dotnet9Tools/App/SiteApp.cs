@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Dotnet9Tools.Auth;
 using Dotnet9Tools.Configs;
+using Dotnet9Tools.Configs.Models;
 using Dotnet9Tools.Exceptions;
 using Dotnet9Tools.MiddleWare;
 using Dotnet9Tools.Serilog;
@@ -24,6 +25,9 @@ public class SiteApp
             builder.AddLog();
             IServiceCollection services = builder.Services;
 
+            var siteSection = builder.Configuration.GetSection(nameof(SiteOptions));
+            builder.Services.Configure<SiteOptions>(siteSection);
+
             services.InjectSuffix(Assembly.Load("Dotnet9.Services"));
             services.InjectSuffix(Assembly.Load("Dotnet9Api"));
             services.InjectSuffix(Assembly.Load("Dotnet9.Repositoies"), "Repository");
@@ -33,9 +37,10 @@ public class SiteApp
             services.AddDistributedMemoryCache();
             builder.AddApplication();
             builder.Services.AddCookieAuth();
+
+
             action?.Invoke(services, builder.Configuration);
             WebApplication app = builder.Build();
-
 
             // Configure the HTTP request pipeline.
             Console.WriteLine("当前环境:" + app.Environment.EnvironmentName);

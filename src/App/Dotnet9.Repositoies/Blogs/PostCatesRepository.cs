@@ -1,12 +1,12 @@
 ﻿namespace Dotnet9.Repositoies.Blogs;
 
-public class PostCatesRepository : BaseRepository<PostCates, int>
+public class PostCatesRepository : BaseRepository<PostCates, Guid>
 {
     public PostCatesRepository(DbContext dbContext) : base(dbContext)
     {
     }
 
-    public async Task<List<PostCates>> GetCatesAsync(List<int> ids)
+    public async Task<List<PostCates>> GetCatesAsync(List<Guid> ids)
     {
         return await Ctx.Set<PostCates>().Where(a => ids.Contains(a.Id)).ToListAsync();
     }

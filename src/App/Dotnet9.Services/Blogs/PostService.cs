@@ -32,7 +32,7 @@ public class PostService
         _postCatesRepository = postCatesRepository;
     }
 
-    public async Task<PostDetailModel> Get(int id)
+    public async Task<PostDetailModel> Get(Guid id)
     {
         PostDetailModel? res = await _postRepository.GetById(id);
         return res!;
@@ -55,7 +55,7 @@ public class PostService
         Posts? post;
         List<PostTags> tagList = await _tagRepository.GetTagsAsync(request.Tags);
         List<PostCates> cateList = await _postCatesRepository.GetCatesAsync(request.Cates);
-        if (request.Id > 0)
+        if (request.Id != null)
         {
             post = await _postRepository.FindByIdAsync(request.Id);
             request.Adapt(post);
@@ -88,7 +88,7 @@ public class PostService
     /// <param name="userAgent"></param>
     /// <param name="uid"></param>
     /// <returns></returns>
-    public async Task Visit(int postId, string ip, string? userAgent, string? uid)
+    public async Task Visit(Guid postId, string ip, string? userAgent, string? uid)
     {
         Posts? post = await _postRepository.FindByIdAsync(postId);
         if (post == null)
@@ -100,13 +100,13 @@ public class PostService
         await _visitRecordRepository.VisitAsync(post, ip, userAgent, uid);
     }
 
-    public async Task Top(int Id)
+    public async Task Top(Guid Id)
     {
         await _postRepository.Top(Id);
     }
 
     [HttpPost]
-    public async Task Publish(int Id)
+    public async Task Publish(Guid Id)
     {
         await _postRepository.Publish(Id);
     }

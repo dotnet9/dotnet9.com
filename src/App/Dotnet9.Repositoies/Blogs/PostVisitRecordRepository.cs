@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Repositoies.Blogs;
 
-public class PostVisitRecordRepository : BaseRepository<PostVisitRecord, int>
+public class PostVisitRecordRepository : BaseRepository<PostVisitRecord, Guid>
 {
     public PostVisitRecordRepository(DbContext dbContext) : base(dbContext)
     {

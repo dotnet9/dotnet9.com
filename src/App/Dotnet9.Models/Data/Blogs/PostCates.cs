@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class PostCates : BaseEntity<int>
+public class PostCates : BaseEntity<Guid>
 {
     public PostCates()
     {
@@ -8,6 +8,7 @@ public class PostCates : BaseEntity<int>
 
     public PostCates(string cateName)
     {
+        Id = Guid.NewGuid();
         CateName = cateName;
     }
 
@@ -16,7 +17,7 @@ public class PostCates : BaseEntity<int>
     public List<PostCateRelation> PostCateRelations { get; set; }
 }
 
-public class PostCateRelation : BaseEntity<int>
+public class PostCateRelation : BaseEntity<Guid>
 {
     public PostCateRelation()
     {

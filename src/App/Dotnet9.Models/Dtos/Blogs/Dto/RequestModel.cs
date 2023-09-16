@@ -2,9 +2,9 @@
 
 public class PostRequestModel : BasePageModel
 {
-    public int? CateId { get; set; }
+    public Guid? CateId { get; set; }
 
-    public int? TagId { get; set; }
+    public Guid? TagId { get; set; }
 
     public bool FilterPublish { get; set; }
 

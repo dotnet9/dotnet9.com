@@ -3,7 +3,7 @@
 /// <summary>
 ///     系统配置表
 /// </summary>
-public class SysConfig : BaseEntity<int>
+public class SysConfig : BaseEntity<Guid>
 {
     /// <summary>
     ///     key

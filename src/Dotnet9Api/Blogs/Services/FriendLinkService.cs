@@ -31,7 +31,7 @@ public class FriendLinkService
 
     public async Task Edit(FriendLinkModel model)
     {
-        if (model.Id > 0)
+        if (model.Id != null)
         {
             FriendLink? item = await _context.FriendLinks.FirstOrDefaultAsync(a => a.Id == model.Id);
             if (item != null)

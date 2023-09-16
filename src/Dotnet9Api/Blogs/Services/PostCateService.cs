@@ -28,7 +28,7 @@ public class PostCateService
 
     public async Task Edit(CateRequest request)
     {
-        if (request.Id > 0)
+        if (request.Id != null)
         {
             PostCates? item = await _context.PostCates.FirstOrDefaultAsync(a => a.Id == request.Id);
             if (item == null)
@@ -46,7 +46,7 @@ public class PostCateService
         }
     }
 
-    public async Task Delete(int Id)
+    public async Task Delete(Guid Id)
     {
         PostCates? item = await _context.PostCates.Include(a => a.PostCateRelations).Where(a => a.Id == Id)
             .FirstOrDefaultAsync();

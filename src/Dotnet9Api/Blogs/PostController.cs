@@ -19,7 +19,7 @@ public class PostController : BaseAdminController
     }
 
     [HttpGet]
-    public async Task<PostDetailModel> Get(int id)
+    public async Task<PostDetailModel> Get(Guid id)
     {
         return await _post.Get(id);
     }
@@ -30,7 +30,7 @@ public class PostController : BaseAdminController
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task Top(BaseIdModel<int> model)
+    public async Task Top(BaseIdModel<Guid> model)
     {
         await _post.Top(model.Id);
     }
@@ -64,7 +64,7 @@ public class PostController : BaseAdminController
     /// </summary>
     /// <param name="model"></param>
     [HttpPost]
-    public async Task Publish(BaseIdModel<int> model)
+    public async Task Publish(BaseIdModel<Guid> model)
     {
         await _post.Publish(model.Id);
     }

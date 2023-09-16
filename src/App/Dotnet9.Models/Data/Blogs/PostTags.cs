@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class PostTags : BaseEntity<int>
+public class PostTags : BaseEntity<Guid>
 {
     public PostTags()
     {
@@ -8,6 +8,7 @@ public class PostTags : BaseEntity<int>
 
     public PostTags(string tagName)
     {
+        Id = Guid.NewGuid();
         TagName = tagName;
     }
 
@@ -16,7 +17,7 @@ public class PostTags : BaseEntity<int>
     public List<PostTagRelation> TagRelation { get; set; }
 }
 
-public class PostTagRelation : BaseEntity<int>
+public class PostTagRelation : BaseEntity<Guid>
 {
     public PostTagRelation()
     {

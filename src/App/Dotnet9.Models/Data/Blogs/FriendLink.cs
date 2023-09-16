@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class FriendLink : BaseEntity<int>
+public class FriendLink : BaseEntity<Guid>
 {
     public string Name { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class Posts : BaseEntity<int>
+public class Posts : BaseEntity<Guid>
 {
     /// <summary>
     ///     标题

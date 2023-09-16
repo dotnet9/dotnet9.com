@@ -3,13 +3,13 @@ using Dotnet9Tools.Helper;
 
 namespace Dotnet9.Repositoies.Blogs;
 
-public class PostRepository : BaseRepository<Posts, int>
+public class PostRepository : BaseRepository<Posts, Guid>
 {
     public PostRepository(DbContext dbContext) : base(dbContext)
     {
     }
 
-    public async Task<PostDetailModel?> GetById(int Id)
+    public async Task<PostDetailModel?> GetById(Guid Id)
     {
         PostDetailModel? item = await Ctx.Set<Posts>().AsNoTracking()
             .Include(a => a.CateRelations)
@@ -80,7 +80,7 @@ public class PostRepository : BaseRepository<Posts, int>
     }
 
 
-    public async Task<PostEditRequest> Get(int Id)
+    public async Task<PostEditRequest> Get(Guid Id)
     {
         PostEditRequest? item = await Ctx.Set<Posts>().Include(a => a.CateRelations).Where(a => a.Id == Id).Select(a =>
             new PostEditRequest
@@ -109,7 +109,7 @@ public class PostRepository : BaseRepository<Posts, int>
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
-    public async Task Delete(int Id)
+    public async Task Delete(Guid Id)
     {
         Posts? post = await FindByIdAsync(Id);
         if (post != null)
@@ -123,7 +123,7 @@ public class PostRepository : BaseRepository<Posts, int>
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
-    public async Task Top(int Id)
+    public async Task Top(Guid Id)
     {
         Posts? item = await Ctx.Set<Posts>().FirstOrDefaultAsync(a => a.Id == Id);
         if (item != null)
@@ -137,7 +137,7 @@ public class PostRepository : BaseRepository<Posts, int>
     ///     发布
     /// </summary>
     /// <param name="Id"></param>
-    public async Task Publish(int Id)
+    public async Task Publish(Guid Id)
     {
         Posts? item = await Ctx.Set<Posts>().FirstOrDefaultAsync(a => a.Id == Id);
         if (item != null)

@@ -8,7 +8,7 @@ internal class PostModel
 
 public class PostEditRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     /// <summary>
     ///     标题
@@ -46,7 +46,7 @@ public class PostEditRequest
     /// <summary>
     ///     分类
     /// </summary>
-    public List<int> Cates { get; set; } = new();
+    public List<Guid> Cates { get; set; } = new();
 
 
     /// <summary>

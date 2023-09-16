@@ -1,8 +1,8 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class PostVisitRecord : BaseEntity<int>
+public class PostVisitRecord : BaseEntity<Guid>
 {
-    public int PostId { get; set; }
+    public Guid PostId { get; set; }
 
     public Posts Post { get; set; }
 

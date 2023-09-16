@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Models.Data.Blogs;
 
-public class PostComments : BaseEntity<int>
+public class PostComments : BaseEntity<Guid>
 {
     public PostComments()
     {

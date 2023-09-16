@@ -51,7 +51,7 @@ public class CommonController : BaseAdminController
                 await using FileStream stream = System.IO.File.Create(filePath);
                 if (isTag)
                 {
-                    ImageHelper.WriteWaterTag(ms.ToArray(), "iwscl.com", 10);
+                    ImageHelper.WriteWaterTag(ms.ToArray(), "dotnet9.com", 10);
                 }
                 else
                 {

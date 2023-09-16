@@ -43,7 +43,7 @@ const loading = ref(false)
 
 const form = ref<FriendLinkModel>({
     order: 0,
-    id: 0,
+    id: '',
     isPublish: false
 })
 

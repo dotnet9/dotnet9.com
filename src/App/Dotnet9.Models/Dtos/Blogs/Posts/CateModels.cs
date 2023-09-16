@@ -6,7 +6,7 @@ internal class CateModels
 
 public class CateDtoModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string CateName { get; set; }
 
@@ -17,7 +17,7 @@ public class CateDtoModel
 
 public class CateRequest
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string CateName { get; set; }
 }

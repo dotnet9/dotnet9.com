@@ -44,7 +44,7 @@ public class CateController : BaseAdminController
     /// <param name="Id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public async Task Delete(int Id)
+    public async Task Delete(Guid Id)
     {
         await _postCateService.Delete(Id);
     }

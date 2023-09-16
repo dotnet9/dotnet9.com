@@ -7,7 +7,7 @@ public class TestController : Controller
 {
     [HttpGet("/TestWaterTag")]
     public async Task<IActionResult> TestWaterTag([FromServices] IWebHostEnvironment environment,
-        string name = "iwscl.com")
+        string name = "dotnet9.com")
     {
         string filePath = Path.Combine(environment.WebRootPath, "img", "test.jpg");
         await using FileStream fs = System.IO.File.Open(filePath, FileMode.Open);

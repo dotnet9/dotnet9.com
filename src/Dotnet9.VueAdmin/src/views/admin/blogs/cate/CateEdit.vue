@@ -46,7 +46,7 @@ onMounted(() => {
 
 const formModel = reactive<CateRequest>({
     cateName: '',
-    id: 0
+    id: ''
 })
 
 

@@ -8,19 +8,19 @@ public class PostCateModel
 {
     public string CateName { get; set; }
 
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 }
 
 public class PostTagModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string TagName { get; set; }
 }
 
 public class PostDetailModel
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public string Title { get; set; }
 

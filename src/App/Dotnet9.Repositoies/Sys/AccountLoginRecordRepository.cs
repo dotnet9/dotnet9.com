@@ -6,7 +6,7 @@ namespace Dotnet9.Repositoies.Sys;
 /// <summary>
 ///     登录日志
 /// </summary>
-public class AccountLoginRecordRepository : BaseRepository<AccountLoginRecord, int>
+public class AccountLoginRecordRepository : BaseRepository<AccountLoginRecord, Guid>
 {
     public AccountLoginRecordRepository(DbContext ctx) : base(ctx)
     {

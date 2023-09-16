@@ -21,13 +21,13 @@ public class Category : PageModel
     }
 
     public int PageIndex { get; set; }
-    public int CateId { get; set; }
+    public Guid CateId { get; set; }
 
     public int PageSize { get; set; } = 10;
 
     public string? CateName { get; set; }
 
-    public async Task OnGet(int cateid)
+    public async Task OnGet(Guid cateid)
     {
         PageIndex = 1;
         CateId = cateid;

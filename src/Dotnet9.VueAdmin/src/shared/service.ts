@@ -324,7 +324,7 @@ export class CateService {
   static delete(
     params: {
       /**  */
-      id?: number;
+      id?: string;
     } = {} as any,
     options: IRequestOptions = {}
   ): Promise<any> {
@@ -470,7 +470,7 @@ export class PostService {
   static get(
     params: {
       /**  */
-      id?: number;
+      id?: string;
     } = {} as any,
     options: IRequestOptions = {}
   ): Promise<PostEditRequest> {
@@ -491,7 +491,7 @@ export class PostService {
   static top(
     params: {
       /**  */
-      id?: number;
+      id?: string;
     } = {} as any,
     options: IRequestOptions = {}
   ): Promise<any> {
@@ -512,9 +512,9 @@ export class PostService {
   static list(
     params: {
       /**  */
-      cateId?: number;
+      cateid?: string;
       /**  */
-      tagId?: number;
+      tagid?: string;
       /** 页码 */
       index?: number;
       /** 页大小 */
@@ -686,7 +686,7 @@ export interface AccountItemModelPageDto {
 
 export interface CateDtoModel {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   cateName?: string;
@@ -711,7 +711,7 @@ export interface CateDtoModelPageDto {
 
 export interface CateItem {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   cateName?: string;
@@ -719,7 +719,7 @@ export interface CateItem {
 
 export interface CateRequest {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   cateName?: string;
@@ -755,7 +755,7 @@ export interface FriendLinkModel {
   order?: number;
 
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   isPublish?: boolean;
@@ -782,7 +782,7 @@ export interface LoginModel {
 
 export interface PostEditRequest {
   /**  */
-  id?: number;
+  id?: string;
 
   /** 标题 */
   title: string;
@@ -811,7 +811,7 @@ export interface PostEditRequest {
 
 export interface PostItemModel {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   title?: string;
@@ -887,7 +887,7 @@ export interface SiteConfig {
 
 export interface TagDtoModel {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   tagName?: string;
@@ -906,7 +906,7 @@ export interface TagDtoModelPageDto {
 
 export interface TagItem {
   /**  */
-  id?: number;
+  id?: string;
 
   /**  */
   tagName?: string;
