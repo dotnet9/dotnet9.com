@@ -7,7 +7,7 @@ public class BasePageModel
     /// <summary>
     ///     页码
     /// </summary>
-    public int Index { get; set; }
+    public int PageIndex { get; set; }
 
     /// <summary>
     ///     页大小
@@ -19,7 +19,17 @@ public class BasePageModel
     {
         get
         {
-            int v = (Index - 1) * PageSize;
+            if (PageIndex < 1)
+            {
+                PageIndex = 1;
+            }
+
+            if (PageSize < 10)
+            {
+                PageSize = 10;
+            }
+
+            int v = (PageIndex - 1) * PageSize;
             return v <= 0 ? 0 : v;
         }
     }

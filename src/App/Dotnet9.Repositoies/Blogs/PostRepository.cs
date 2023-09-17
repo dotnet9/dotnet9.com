@@ -1,5 +1,6 @@
 ﻿using Dotnet9.Models.Dtos.Blogs.Posts;
 using Dotnet9Tools.Helper;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Dotnet9.Repositoies.Blogs;
 
@@ -40,6 +41,14 @@ public class PostRepository : BaseRepository<Posts, Guid>
     public async Task<PageDto<PostItemModel>> GetHomeList(PostRequestModel request)
     {
         IQueryable<Posts> query = Ctx.Set<Posts>().AsQueryable();
+        if (!request.Keywords.IsNullOrEmpty())
+        {
+            var keywords = $"%{request.Keywords}%";
+            query = query.Where(post =>
+                EF.Functions.Like(post.Title, keywords)
+                || EF.Functions.Like(post.Slug, keywords)
+                || EF.Functions.Like(post.Content, keywords));
+        }
 
         int count = await query.CountAsync();
         List<PostItemModel> list = await query
@@ -57,7 +66,9 @@ public class PostRepository : BaseRepository<Posts, Guid>
             {
                 Id = a.Id,
                 Title = a.Title,
+                Slug = a.Slug,
                 Content = a.Content,
+                CreateTime = a.CreateTime,
                 LastUpdateTime = a.UpdateTime,
                 Snippet = a.Snippet,
                 CateItems = a.CateRelations.Select(x => new CateItem

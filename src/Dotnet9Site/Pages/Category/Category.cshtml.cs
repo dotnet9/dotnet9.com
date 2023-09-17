@@ -34,7 +34,7 @@ public class Category : PageModel
         pageDto = await _postService.GetHomeList(new PostRequestModel
         {
             CateId = CateId,
-            Index = PageIndex,
+            PageIndex = PageIndex,
             PageSize = PageSize,
             FilterPublish = true,
             PublishStatus = true

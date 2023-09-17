@@ -2,14 +2,14 @@
 
 public class PageViewModel
 {
-    private readonly Func<int, string> _func;
+    private readonly Func<int, string> _getNewUrlfunc;
 
-    public PageViewModel(int total, int pageSize, int currIndex, Func<int, string> func)
+    public PageViewModel(int total, int pageSize, int pageIndex, Func<int, string> getNewUrlFunc)
     {
         Total = total;
         PageSize = pageSize;
-        CurrIndex = currIndex;
-        _func = func;
+        PageIndex = pageIndex;
+        _getNewUrlfunc = getNewUrlFunc;
     }
 
     private int Total { get; }
@@ -17,7 +17,7 @@ public class PageViewModel
 
     private int PageSize { get; }
 
-    private int CurrIndex { get; }
+    private int PageIndex { get; }
 
     public List<PageItem> GetUrls()
     {
@@ -28,24 +28,24 @@ public class PageViewModel
             return list;
         }
 
-        if (CurrIndex > 1)
+        if (PageIndex > 1)
         {
             list.Add(new PageItem
             {
                 Text = "上一页",
-                Url = _func.Invoke(CurrIndex - 1)
+                Url = _getNewUrlfunc.Invoke(PageIndex - 1)
             });
         }
 
 
-        for (int i = CurrIndex - 3; i < CurrIndex; i++)
+        for (int i = PageIndex - 3; i < PageIndex; i++)
         {
             if (i <= 0)
             {
                 continue;
             }
 
-            string url = _func.Invoke(i);
+            string url = _getNewUrlfunc.Invoke(i);
             list.Add(new PageItem
             {
                 Url = url,
@@ -55,12 +55,12 @@ public class PageViewModel
 
         list.Add(new PageItem
         {
-            Url = _func.Invoke(CurrIndex),
+            Url = _getNewUrlfunc.Invoke(PageIndex),
             IsActive = true,
-            Text = CurrIndex.ToString()
+            Text = PageIndex.ToString()
         });
 
-        for (int i = CurrIndex + 1; i < CurrIndex + 1 + 3; i++)
+        for (int i = PageIndex + 1; i < PageIndex + 1 + 3; i++)
         {
             if (i > maxPage)
             {
@@ -69,7 +69,7 @@ public class PageViewModel
 
             list.Add(new PageItem
             {
-                Url = _func.Invoke(i),
+                Url = _getNewUrlfunc.Invoke(i),
                 Text = i.ToString()
             });
         }
@@ -81,7 +81,7 @@ public class PageViewModel
 
         list.Add(new PageItem
         {
-            Url = _func.Invoke(CurrIndex + 1),
+            Url = _getNewUrlfunc.Invoke(PageIndex + 1),
             Text = "下一页"
         });
 

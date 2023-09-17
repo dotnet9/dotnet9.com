@@ -1,6 +1,6 @@
-﻿@page "/{pageIndex:int=1}"
+﻿@page
 @using Dotnet9.Services.Blogs
-@model HomeModel
+@model IndexModel
 @inject PostCateService PostCateService;
 @{
     var cateList = await PostCateService.GetCateList(20);
@@ -20,9 +20,9 @@
 <div class="row">
     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-9">
         <div class="d-flex flex-column">
-            @await Html.PartialAsync("Partial/_PostItemView", Model.list)
+            @await Html.PartialAsync("Partial/_PostItemView", Model.Posts)
 
-            @await Html.PartialAsync("Partial/_PageView", new PageViewModel(Model.Total, 10, Model.PageIndex, index => $"/{index}"))
+            @await Html.PartialAsync("Partial/_PageView", new PageViewModel(Model.Total, 10, Model.PageIndex, pageIndex => $"?keywords={Model.Keywords}&pageIndex={pageIndex}&pageSize={Model.PageSize}"))
         </div>
     </div>
     <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-3">

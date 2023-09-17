@@ -47,7 +47,7 @@ public class AccountLoginRecordRepository : BaseRepository<AccountLoginRecord, G
             .WhereIf(accountId != null, a => a.Account.Id == accountId)
             .Include(a => a.Account)
             .OrderByDescending(a => a.CreateTime)
-            .Page(model.Index, model.PageSize).Select(
+            .Page(model.PageIndex, model.PageSize).Select(
                 a => new AccountLoginRecordDto
                 {
                     AccountName = a.Account.UserName,

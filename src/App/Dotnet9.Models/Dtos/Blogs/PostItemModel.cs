@@ -5,6 +5,7 @@ public class PostItemModel
     public Guid Id { get; set; }
 
     public string Title { get; set; }
+    public string Slug { get; set; }
 
     public string Thumb { get; set; }
 
@@ -12,7 +13,7 @@ public class PostItemModel
 
     public string Snippet { get; set; }
 
-
+    public DateTime CreateTime { get; set; }
     public DateTime LastUpdateTime { get; set; }
 
     public int ReadCount { get; set; }

@@ -8,6 +8,11 @@ public class Posts : BaseEntity<Guid>
     public string Title { get; set; }
 
     /// <summary>
+    /// 别名
+    /// </summary>
+    public string Slug { get; set; }
+
+    /// <summary>
     ///     缩略图
     /// </summary>
     public string Thumb { get; set; }
