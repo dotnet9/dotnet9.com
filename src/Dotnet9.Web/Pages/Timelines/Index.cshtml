@@ -1,0 +1,33 @@
+﻿@page "/timeline"
+@model IndexModel
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@{
+    ViewData["Title"] = "时间轴";
+}
+
+@section Headers{
+    <link rel="stylesheet" href="/css/blogpost.css"/>
+}
+
+<div id="nice">
+    
+    <h1>时间轴</h1>
+    <p>记录网站的成长</p>
+
+    @if (Model.Timelines != null)
+    {
+        @foreach (var groupYearAndMonth in Model.Timelines.GroupBy(x => x.Time.ToString("yyyy年MM月")).OrderByDescending(x => x.Key))
+        {
+            <h2 class="m-0 time-show-name">@groupYearAndMonth.Key</h2>
+            @foreach (var timeline in groupYearAndMonth)
+            {
+                <div>
+                    <h3 class="mt-0 mb-1 font-16">@timeline.Title</h3>
+                    <p>@timeline.Content</p>
+                    ---<small>@timeline.Time.ToString("yyyy年MM月dd日")</small>
+                </div>
+            }
+        }
+    }
+
+</div>

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.0-rc.1.23421.29" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.DomainCommons\Dotnet9.DomainCommons.csproj" />
+    <ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
+    <ProjectReference Include="..\Dotnet9.WebAPI.ViewModel\Dotnet9.WebAPI.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>

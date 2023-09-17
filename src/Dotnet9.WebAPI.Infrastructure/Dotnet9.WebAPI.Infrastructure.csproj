@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0-pre06" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0-rc.1.23421.29" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.1" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.0.0-preview.7.23375.4-03" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dotnet9.Infrastructure\Dotnet9.Infrastructure.csproj" />
+    <ProjectReference Include="..\Dotnet9.JWT\Dotnet9.JWT.csproj" />
+    <ProjectReference Include="..\Dotnet9.WebAPI.Domain\Dotnet9.WebAPI.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

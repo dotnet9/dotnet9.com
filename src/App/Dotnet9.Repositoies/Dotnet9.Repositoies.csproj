@@ -1,8 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Dotnet9.Core\Dotnet9.Core.csproj" />
-        <ProjectReference Include="..\Dotnet9.Models\Dotnet9.Models.csproj" />
-    </ItemGroup>
-
-</Project>

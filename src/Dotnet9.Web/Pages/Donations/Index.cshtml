@@ -1,0 +1,38 @@
+﻿@page "/donation"
+@model IndexModel
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@{
+    ViewData["Title"] = "赞助我们";
+}
+
+@section Headers{
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+    <link rel="stylesheet" href="~/css/prism.css"/>
+}
+
+<div class="page whitebg">
+    <div class="page-title" id="pageContents">
+        <ul>
+            <li>
+                <a href="/about">关于我们</a>
+            </li>
+            <li>
+                <a href="/donation">赞助我们</a>
+            </li>
+            <li>
+                <a href="/privacy">隐私政策</a>
+            </li>
+        </ul>
+    </div>
+    <div class="page-box">
+        <h2 class="page-box-title">赞助我们</h2>
+        <div class="page-box-content">
+            <div id="nice">@Html.Raw(Model.ContentHtml)</div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/prism.js"></script>
+}

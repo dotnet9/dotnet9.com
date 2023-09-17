@@ -1,0 +1,62 @@
+﻿@page "/tag/{Name?}/"
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@using Dotnet9.Web.ViewModel.Commons
+@model IndexModel
+@{
+    ViewData["Title"] = "标签云";
+    var buttonsClasses = new[]
+    {
+        "#EE2C2C", "#ff7070", "#EEC900", "#4876FF", "#ff6100",
+        "#7DC67D", "#E17572", "#7898AA", "#C35CFF", "#33BCBA", "#C28F5C",
+        "#FF8533", "#6E6E6E", "#428BCA", "#5cb85c", "#FF674F", "#E9967A",
+        "#66CDAA", "#00CED1", "#9F79EE", "#CD3333", "#FFC125", "#32CD32",
+        "#00BFFF", "#68A2D5", "#FF69B4", "#DB7093", "#CD3278", "#607B8B"
+    };
+}
+
+@section Headers {
+    <!--Blog post-->
+    <link rel="stylesheet" href="~/css/blogpost.css"/>
+
+}
+
+<article>
+    @if (Model.Tags != null)
+    {
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="/tag/@WebUtility.UrlEncode(tag.Name)" alt="@tag.Name" style="background-color: @(buttonsClasses[Random.Shared.Next(buttonsClasses.Length)]); height: 30px; margin: 12px 5px;">
+                @tag.Name (@tag.BlogCount)
+            </a>
+        }
+    }
+    else
+    {
+        <div class="pics-list-box whitebg">
+
+            <div class="news-title">
+                <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+                <h2>@Model.TagName</h2>
+            </div>
+            <ul>
+                @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+                {
+                    @foreach (var item in Model.BlogPosts)
+                    {
+                        <li>
+                            <a href="/@item.CreationTime.ToString("yyyy/MM")/@item.Slug">
+                                <i>
+                                    <img src="@item.Cover" alt="@item.Title">
+                                </i>
+                                <h2>@item.Title</h2>
+                                <p>@item.Description</p>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            
+            @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
+        </div>
+    }
+</article>
