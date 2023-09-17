@@ -29,29 +29,19 @@
   2. [x] 已有功能：文章列表、分类文章列表、文章详情+评论、归档+评论、关于+评论等
   3. [ ] 还有很多功能待开发，比如隐私、登录、前台文章创建和文章修改等
 - [x] 后台前端
-  1. [x] 使用最新的Vue 2.x搭建
+  1. [x] 使用Vue 2.x搭建，有空有能力的话升级为3.x
   2. [x] 基础表的CRUD
   3. [ ] 文章管理正在开发中
   4. [ ] 文件管理，目前使用的腾讯cos
   5. [ ] 其他功能
 - [x] 后端
-  1. [x] 使用ASP.NET Core 8 Web API搭建
+  1. [x] 使用ASP.NET Core 8 Web API + EF Core 8.0 + PostgreSQL搭建
   2. [x] 使用微软自家的Identity实现权限认证
   3. [x] 基础表的接口管理
   4. [ ] 根据前台和后台前端的功能迭代，进行维护中
 
-- [x] Dotnet9博客前台
-  1. [x] 使用 [ASP.NET Core 8 Blazor Server](https://learn.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-8.0) 搭建前台。
-  2. [x] 已有功能：文章列表、分类文章列表、专辑文章列表、在线工具、在线小游戏、文章归档、时间轴、网站地址、标签云、文章详情、RSS等。
-  3. [ ] 还有很多功能待开发，比如登录、前台文章创建和文章修改等。
 - [x] Dotnet工具箱前台
   1. [x] 使用 [ASP.NET Core 8 Blazor WebAssembly](https://learn.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-8.0) 搭建前台。
-- [x] 后台前端
-  1. [ ] React + Semi Design。
-- [x] 后端
-  1. [x] 使用 [ASP.NET Core 8.0 Web API](https://learn.microsoft.com/zh-cn/aspnet/core/web-api/?view=aspnetcore-8.0) 搭建，框架选择 [Masa Framework(DDD+CQRS)](https://www.masastack.com/framework)。
-  2. [x] 数据库使用 [EF Core](https://learn.microsoft.com/zh-cn/ef/core/) + [PostgreSQL](https://www.postgresql.org/)
-  3. [ ] 根据前台和后台前端的功能迭代，进行维护中。
 
 ## ✨ 1. 特性
 
@@ -94,8 +84,19 @@ MIT
 
 ## 感谢
 
+- [NETBookMaterials](https://github.com/yangzhongke/NETBookMaterials)
+
+杨中科老师的开源项目提供网站的整体架构指导，杨老师的英语学习网站【YouZack-英语听力精听、背单词】：https://www.youzack.com/
+
+- [aurora](https://github.com/linhaojun857/aurora)
+
+本站博客后台前端参考开源博客系统【花未眠的个人博客】：www.linhaojun.top
+
+- [杨青青个人博客](https://www.yangqq.com/)
+
+本站前台模板购自杨青青个人博客，非常优秀的前端小姐姐【杨青青个人博客】：https://www.yangqq.com/。
+
 ## 💕 支持本项目
 
-<div align="center">
-<img src="./assets/WeChatPay.jpg" width="256" alt="Wechat"><img src="./assets/AliPay.jpg" style="margin-left: 5px; margin-right: 5px;" width="256" alt="Alipay"><img src="./assets/QQPay.jpg" width="256" alt="QQpay">
-</div>
+| ![](assets/WeChatPay.jpg) | ![](assets/AliPay.jpg) | ![](assets/QQPay.jpg) |
+| ------------------------- | ---------------------- | --------------------- |
