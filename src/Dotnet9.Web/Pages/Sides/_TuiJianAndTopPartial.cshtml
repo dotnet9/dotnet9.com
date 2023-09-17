@@ -1,0 +1,83 @@
+﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@inject IBlogPostService BlogPostService
+@inject IDistributedCacheHelper CacheHelper
+
+@{
+    const string cacheKeyForCategories = "_TuiJianAndTopPartial";
+
+    async Task<TuiJianAndTopViewModel> GetDataFromDb()
+    {
+        TuiJianAndTopViewModel vm = new();
+        vm.Top10TuiJian = await BlogPostService.BlogPostBriefListByBanner(20);
+        vm.Top10Like = await BlogPostService.TopLikeBlogPostBriefListAsync(9);
+        return vm;
+    }
+
+    var datas = await CacheHelper.GetOrCreateAsync(cacheKeyForCategories,
+        async e => await GetDataFromDb());
+    var top1TuiJian = datas?.Top10TuiJian?.FirstOrDefault();
+    var topTuiJianList = datas?.Top10TuiJian?.Skip(1).Take(9).ToList();
+    var top1Like = datas?.Top10Like?.FirstOrDefault();
+    var topLikeList = datas?.Top10Like?.Skip(1).Take(8).ToList();
+}
+
+<div class="side-tab">
+    <ul id="sidetab">
+        <li class="sidetab-current">站长推荐</li>
+        <li>点击排行</li>
+    </ul>
+    <div id="sidetab-content">
+        <section>
+            <div class="tuijian">
+                @if (top1TuiJian != null)
+                {
+                    <section class="topnews imgscale">
+                        <a target="_blank" href="@top1TuiJian.CreationTime.ToString("/yyyy/MM")/@top1TuiJian.Slug">
+                            <img alt="@top1TuiJian.Title" src="@top1TuiJian.Cover"><span>@top1TuiJian.Title</span>
+                        </a>
+                    </section>
+                }
+                @if (topLikeList is { Count: > 0 })
+                {
+                    <ul>
+                        @foreach (var post in topLikeList)
+                        {
+                            <li>
+                                <a href="@post.CreationTime.ToString("/yyyy/MM")/@post.Slug" title="@post.Title" target="_blank">
+                                    <i>
+                                        <img src="@post.Cover" alt="@post.Title">
+                                    </i>
+                                    <p>@post.Title</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </section>
+        <section>
+            <div class="paihang">
+                @if (top1Like != null)
+                {
+                    <section class="topnews imgscale">
+                        <a target="_blank" href="@top1Like.CreationTime.ToString("/yyyy/MM")/@top1Like.Slug">
+                            <img alt="@top1Like.Title" src="@top1Like.Cover"><span>@top1Like.Title</span>
+                        </a>
+                    </section>
+                }
+                @if (topLikeList is { Count: > 0 })
+                {
+                    <ul>
+                        @foreach (var post in topLikeList)
+                        {
+                            <li>
+                                <i></i>
+                                <a href="@post.CreationTime.ToString("/yyyy/MM")/@post.Slug" title="@post.Title" target="_blank">@post.Title</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </section>
+    </div>
+</div>

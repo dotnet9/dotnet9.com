@@ -1,0 +1,87 @@
+﻿@model Dotnet9.Web.ViewModels.Comments.CommentViewModel
+@inject HttpClient HttpClient
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+
+@{
+    var comments = await HttpClient.GetFromJsonAsync<List<CommentDto>>($"/api/comment?url={Model.Url}&current=1&pagesize=1000");
+}
+
+<div class="row">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">留言</h3>
+                <p class="comment-msg"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo"
+                         src="~/images/avatar.jpg"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <textarea class="form-control" cols="15" id="commentInput"></textarea>
+                    </div>
+                    <div class="panel-heading comment-action">
+                        <div class="submit-comment" id="addNewCommentBtn">
+                            回复
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("Comments/_CommentListPartial", new CommentListViewModel(Model.Url, null, comments))
+    </div>
+</div>
+
+<script id="comment-template" type="text/x-handlebars-template">
+    <li class="comment" data-id="{{id}}">
+        <div class="avatar">
+            <a href="javascript:void(0);">
+                <img src="@SiteOptions.Value.Domain/images/avatar.jpg" width="55" height="55">
+            </a>
+        </div>
+        <div class="comment-body">
+            <header>
+                <a href="javascript:void(0);" class="userlink">{{userName}}</a> - <span class="pubdate">
+                    posted {{creationTime}}
+                </span>
+            </header>
+            <p>
+                {{content}}
+            </p>
+            <footer>
+                <a class="reply-link" href="{{id}}">回复</a>
+            </footer>
+        </div>
+
+    </li>
+</script>
+
+<script id="reply-template" type="text/template">
+    <div style="padding-top:10px" class="row reply-form">
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="~/images/avatar.jpg">
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <textarea cols="15" id="replyInput" class="form-control" placeholder="回复对话.."></textarea>
+                    </div>
+                    <div class="panel-heading comment-action">
+                        <div class="submit-comment">
+                            <a class="addReplyBtn" href="#">提交</a>
+                            <input type="hidden" name="hidParentId" class="hidParentId"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>

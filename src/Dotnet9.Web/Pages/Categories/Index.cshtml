@@ -1,0 +1,33 @@
+﻿@page "/cat/{Slug}/"
+@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@using Dotnet9.Web.ViewModel.Commons
+@model IndexModel
+@{
+    ViewData["Title"] = "分类";
+}
+
+<div class="pics-list-box whitebg">
+
+    <div class="news-title">
+        <span class="weizhi">联系请关注微信公众号：Dotnet9</span>
+        <h2>@Model.CategoryName</h2>
+    </div>
+    <ul>
+        @if (Model.BlogPosts != null && Model.BlogPosts.Any())
+        {
+            @foreach (var item in Model.BlogPosts)
+            {
+                <li>
+                    <a href="/@item.CreationTime.ToString("yyyy/MM")/@item.Slug">
+                        <i>
+                            <img src="@item.Cover" alt="@item.Title">
+                        </i>
+                        <h2>@item.Title</h2>
+                        <p>@item.Description</p>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+    @await Html.PartialAsync("_PaginationPartial", new PaginationModel(Model.Current, Model.Pages, Model.Total, Model.PageSize, Model.PageCount))
+</div>

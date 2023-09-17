@@ -1,0 +1,46 @@
+﻿@model Dotnet9.Web.ViewModel.Commons.PaginationModel
+@{
+    var showFirst = Model.Current > 1;
+    var showPrev = Model.Current > 1;
+    var prevPageIndex = Model.Current - 1;
+    var showNext = Model.Current != Model.PageCount;
+    var nextPageIndex = Model.Current + 1;
+    var showLast = Model.Current < Model.PageCount;
+    var defaultQueryString = !Model.DefaultParams.IsNullOrWhiteSpace() ? $"?{Model.DefaultParams}&" : "?";
+}
+
+<div class="pagelist">
+    <a title="Total record">
+        共&nbsp;<b>@Model.Total</b>条
+    </a>
+    @if (showFirst)
+    {
+        <a href="@(defaultQueryString)current=1?pageSize=@Model.PageSize">首页</a>
+    }
+    @if (showPrev)
+    {
+        <a href="@(defaultQueryString)current=@prevPageIndex?pageSize=@Model.PageSize">上一页</a>
+    }
+    @if (Model.Pages?.Any() == true)
+    {
+        @foreach (var pageIndex in Model.Pages)
+        {
+            @if (pageIndex == Model.Current)
+            {
+                <b>@pageIndex</b>
+            }
+            else
+            {
+                <a href="@(defaultQueryString)current=@pageIndex&pageSize=@Model.PageSize">@pageIndex</a>
+            }
+        }
+    }
+    @if (showNext)
+    {
+        <a href="@(defaultQueryString)current=@nextPageIndex&pageSize=@Model.PageSize">下一页</a>
+    }
+    @if (showLast)
+    {
+        <a href="@(defaultQueryString)current=@Model.PageCount&pageSize=@Model.PageSize">尾页</a>
+    }
+</div>

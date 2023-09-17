@@ -1,0 +1,52 @@
+﻿@inject IOptionsSnapshot<SiteOptions> SiteOptions
+@inject ICategoryService CategoryService
+@inject IDistributedCacheHelper CacheHelper
+
+@{
+    const string cacheKeyForCategories = "PersonalPartial_Categories";
+
+    async Task<List<CategoryBrief>?> GetCategoryFromDb()
+    {
+        return await CategoryService.CategoriesAsync();
+    }
+
+    var categories = await CacheHelper.GetOrCreateAsync(cacheKeyForCategories,
+        async e => await GetCategoryFromDb());
+}
+
+<div class="personal">
+    <div class="personal-box">
+        <img class="personal-avatar" src="@SiteOptions.Value.WechatPublic1" alt="@SiteOptions.Value.Owner"/>
+        <h1 class="personal-name">@SiteOptions.Value.WechatPublic1Name</h1>
+        <p class="personal-desc">@SiteOptions.Value.OwnerDesc</p>
+        <span class="gap-dashed"></span>
+        <ul class="personal-action">
+            <li>
+                <i class="iconfont icon-bilibili-line"></i>
+                <a href="@SiteOptions.Value.Bilibili" target="_blank"> Bilibili</a>
+            </li>
+            <li>
+                <i class="iconfont icon-zhihu-circle"></i>
+                <a href="@SiteOptions.Value.Zhihu" target="_blank"> 知乎</a>
+            </li>
+        </ul>
+    </div>
+    <span class="gap-solid"></span>
+    <div class="personal-box">
+        <div class="personal-cteg">
+            <h2>分类：</h2>
+            @if (categories != null)
+            {
+                @foreach (var cat in categories)
+                {
+                    <div>
+                        <i class="iconfont icon-fenlei-copy"></i>
+                        <a href="/cat/@cat.Slug" title="@cat.Description">@cat.Name (@cat.BlogCount)</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <img class="personal-avatar" src="@SiteOptions.Value.WechatPublic2" alt="@SiteOptions.Value.Owner"/>
+    <h1 class="personal-name">@SiteOptions.Value.WechatPublic2Name</h1>
+</div>
