@@ -20,6 +20,7 @@ public class BlogPostManager
         Guid? id,
         string title,
         string slug,
+        string shortId,
         string description,
         string cover,
         string content,
@@ -51,7 +52,7 @@ public class BlogPostManager
 
         if (isNew)
         {
-            oldData = new BlogPost(id.Value, title, slug, description, cover, content, copyrightType, original,
+            oldData = new BlogPost(id.Value, title, slug, shortId, description, cover, content, copyrightType, original,
                 originalAvatar, originalTitle, originalLink, banner, visible);
         }
         else
@@ -78,6 +79,7 @@ public class BlogPostManager
     public BlogPost CreateForSeed(
         string title,
         string slug,
+        string shortId,
         string description,
         string cover,
         string content,
@@ -93,7 +95,8 @@ public class BlogPostManager
         Guid[]? tagIds,
         DateTime creationTime)
     {
-        BlogPost blogPost = new BlogPost(Guid.NewGuid(), title, slug, description, cover, content, copyrightType,
+        BlogPost blogPost = new BlogPost(Guid.NewGuid(), title, slug, shortId, description, cover, content,
+            copyrightType,
             original,
             originalAvatar, originalTitle, originalLink, banner, visible);
         if (albumIds != null)

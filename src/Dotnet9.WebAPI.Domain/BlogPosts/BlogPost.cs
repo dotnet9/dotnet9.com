@@ -10,6 +10,7 @@ public record BlogPost : AggregateRootEntity
         Guid id,
         string title,
         string slug,
+        string shortId,
         string description,
         string cover,
         string content,
@@ -24,6 +25,7 @@ public record BlogPost : AggregateRootEntity
         Id = id;
         ChangeTitle(title);
         ChangeSlug(slug);
+        ChangeShortId(shortId);
         ChangeDescription(description);
         ChangeCover(cover);
         ChangeContent(content);
@@ -43,6 +45,7 @@ public record BlogPost : AggregateRootEntity
     public new DateTime CreationTime { get; private set; }
     public string Title { get; private set; } = null!;
     public string Slug { get; private set; } = null!;
+    public string ShortId { get; private set; } = null!;
     public string Description { get; private set; } = null!;
     public string Cover { get; private set; } = null!;
     public string Content { get; private set; } = null!;
@@ -72,6 +75,13 @@ public record BlogPost : AggregateRootEntity
     {
         Slug = Check.NotNullOrWhiteSpace(slug, nameof(slug), BlogPostConsts.MaxSlugLength,
             BlogPostConsts.MinSlugLength);
+        return this;
+    }
+
+    internal BlogPost ChangeShortId(string shortId)
+    {
+        ShortId = Check.NotNullOrWhiteSpace(shortId, nameof(shortId), BlogPostConsts.MaxShortIdLength,
+            BlogPostConsts.MinShortIdLength);
         return this;
     }
 

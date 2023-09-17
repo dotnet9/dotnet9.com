@@ -7,6 +7,7 @@ internal class BlogPostConfig : IEntityTypeConfiguration<BlogPost>
         builder.ToTable($"{Dotnet9Consts.DbTablePrefix}BlogPosts", Dotnet9Consts.DbSchema);
         builder.Property(x => x.Title).IsRequired().HasMaxLength(BlogPostConsts.MaxTitleLength);
         builder.Property(x => x.Slug).IsRequired().HasMaxLength(BlogPostConsts.MaxSlugLength);
+        builder.Property(x => x.ShortId).IsRequired().HasMaxLength(BlogPostConsts.MaxShortIdLength);
         builder.Property(x => x.Description).HasMaxLength(BlogPostConsts.MaxDescriptionLength);
         builder.Property(x => x.Cover).HasMaxLength(BlogPostConsts.MaxCoverLength);
         builder.Property(x => x.Content).IsRequired().HasMaxLength(BlogPostConsts.MaxContentLength);

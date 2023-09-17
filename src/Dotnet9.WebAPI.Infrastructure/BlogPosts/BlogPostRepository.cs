@@ -39,6 +39,13 @@ internal class BlogPostRepository : IBlogPostRepository
             .FirstOrDefaultAsync(x => x.Slug == slug);
     }
 
+    public async Task<BlogPost?> FindByShortIdAsync(string shortId)
+    {
+        return await _dbContext.BlogPosts!.Include(blogPost => blogPost.Albums)
+            .Include(blogPost => blogPost.Categories).Include(blogPost => blogPost.Tags)
+            .FirstOrDefaultAsync(x => x.ShortId == shortId);
+    }
+
     public async Task<(BlogPost[]? BlogPosts, long Count)> GetListAsync(GetBlogPostListRequest request)
     {
         IQueryable<BlogPost> query = _dbContext.BlogPosts!.AsQueryable();

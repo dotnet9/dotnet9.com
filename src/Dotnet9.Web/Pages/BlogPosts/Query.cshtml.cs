@@ -4,9 +4,9 @@ public class QueryModel : PageModel
 {
     private readonly IBlogPostService _blogPostService;
     private readonly IDistributedCacheHelper _cacheHelper;
-    private readonly ILogger<IndexModel> _logger;
+    private readonly ILogger<QueryModel> _logger;
 
-    public QueryModel(ILogger<IndexModel> logger, IBlogPostService blogPostService,
+    public QueryModel(ILogger<QueryModel> logger, IBlogPostService blogPostService,
         IDistributedCacheHelper cacheHelper)
     {
         _logger = logger;

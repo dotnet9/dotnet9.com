@@ -206,6 +206,7 @@ public partial class SeedService
                 .Select(x => x.Id).ToArray();
             var tagIds = tags?.Where(x => blogPostSeed.Tags?.Contains(x.Name) ?? false).Select(x => x.Id).ToArray();
             var blogPost = _blogPostManager.CreateForSeed(blogPostSeed.Title, blogPostSeed.Slug,
+                blogPostSeed.Slug.GetHashids(),
                 blogPostSeed.Description, blogPostSeed.Cover, blogPostSeed.Content, blogPostSeed.Copyright,
                 blogPostSeed.Author, null, blogPostSeed.OriginalTitle, blogPostSeed.OriginalLink, blogPostSeed.Banner,
                 true, albumIds,

@@ -10,6 +10,10 @@ public static class BlogPostConsts
 
     public const int MinSlugLength = 2;
 
+    public const int MaxShortIdLength = 10;
+
+    public const int MinShortIdLength = 2;
+
     public const int MaxDescriptionLength = 256;
 
     public const int MinDescriptionLength = 2;

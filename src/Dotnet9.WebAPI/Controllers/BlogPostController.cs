@@ -100,7 +100,8 @@ public class BlogPostController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<BlogPostDto?> Add([FromBody] AddBlogPostRequest request)
     {
-        BlogPost data = await _manager.CreateAsync(null, request.Title, request.Slug, request.Description,
+        BlogPost data = await _manager.CreateAsync(null, request.Title, request.Slug, request.Slug.GetHashids(),
+            request.Description,
             request.Cover,
             request.Content, request.CopyRightType, request.Original, request.OriginalAvatar, request.OriginalTitle,
             request.OriginalLink, request.Banner, request.Visible, request.AlbumIds, request.CategoryIds,
@@ -116,7 +117,8 @@ public class BlogPostController : ControllerBase
     [Authorize(Roles = UserRoleConst.Admin)]
     public async Task<BlogPostDto?> Update(Guid id, [FromBody] UpdateBlogPostRequest request)
     {
-        BlogPost data = await _manager.CreateAsync(id, request.Title, request.Slug, request.Description, request.Cover,
+        BlogPost data = await _manager.CreateAsync(id, request.Title, request.Slug, request.Slug.GetHashids(),
+            request.Description, request.Cover,
             request.Content, request.CopyRightType, request.Original, request.OriginalAvatar, request.OriginalTitle,
             request.OriginalLink, request.Banner, request.Visible, request.AlbumIds, request.CategoryIds,
             request.TagIds);

@@ -1,13 +1,13 @@
 namespace Dotnet9.Web.Pages.BlogPosts;
 
-public class IndexModel : PageModel
+public class DetailsBySlugModel : PageModel
 {
     private readonly IDistributedCacheHelper _cacheHelper;
     private readonly IEventBus _eventBus;
     private readonly IBlogPostService _service;
     private readonly Dotnet9DbContext _dbContext;
 
-    public IndexModel(IBlogPostService service, Dotnet9DbContext dbContext, IEventBus eventBus,
+    public DetailsBySlugModel(IBlogPostService service, Dotnet9DbContext dbContext, IEventBus eventBus,
         IDistributedCacheHelper cacheHelper)
     {
         _service = service;

@@ -1,4 +1,5 @@
 ﻿using Dotnet9.WebAPI.Domain.BlogPosts;
+using System.Linq.Expressions;
 
 namespace Dotnet9.Web.Service.BlogPosts;
 
@@ -228,10 +229,20 @@ internal class BlogPostService : IBlogPostService
 
     public async Task<BlogPostDetails?> BlogPostDetailsBySlugAsync(string slug)
     {
+        return await BlogPostDetailsByAsync(x => x.Slug == slug);
+    }
+
+    public async Task<BlogPostDetails?> BlogPostDetailsByShortIdAsync(string shortId)
+    {
+        return await BlogPostDetailsByAsync(x => x.ShortId == shortId);
+    }
+
+    private async Task<BlogPostDetails?> BlogPostDetailsByAsync(Expression<Func<BlogPost, bool>> predicate)
+    {
         BlogPost? blogPost = await _dbContext.BlogPosts!.Include(x => x.Albums)
             .Include(x => x.Categories)
             .Include(x => x.Tags)
-            .FirstOrDefaultAsync(x => x.Slug == slug);
+            .FirstOrDefaultAsync(predicate);
         if (blogPost == null)
         {
             return null;

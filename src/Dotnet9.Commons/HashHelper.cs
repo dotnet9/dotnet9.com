@@ -50,7 +50,7 @@ public static class HashHelper
             return ToHashString(bytes);
         }
     }
-    public static string GetHashids(string sourceStr, int number = 9)
+    public static string GetHashids(this string sourceStr, int number = 9)
     {
         var hashids = new Hashids(sourceStr);
         return hashids.Encode(number);

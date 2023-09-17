@@ -17,6 +17,7 @@ public interface IBlogPostService
         GetBlogPostBriefListByTagNameRequest request);
 
     Task<BlogPostDetails?> BlogPostDetailsBySlugAsync(string slug);
+    Task<BlogPostDetails?> BlogPostDetailsByShortIdAsync(string slug);
 
     Task<List<BlogPostArchiveItem>?> ArchivesAsync();
 }

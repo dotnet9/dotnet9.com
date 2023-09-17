@@ -88,6 +88,7 @@
                         <p>原文标题：<a href="@Model?.OriginalLink">@(Model?.OriginalTitle ?? Model?.Title)</a></p>
                         <p>原文链接：<a href="@Model?.OriginalLink">@Model?.OriginalLink</a></p>
                     }
+                    <p>本文短链接：<a href="/@Model?.Slug.GetHashids()">@SiteOptions.Value.Domain/@Model?.Slug.GetHashids()</a></p>
                 </div>
             </div>
             <div class="clear"></div>
