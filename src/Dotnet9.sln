@@ -44,6 +44,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.Service", "Dotn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnet9.Web.ViewModel", "Dotnet9.Web.ViewModel\Dotnet9.Web.ViewModel.csproj", "{0D6DB9D7-B80C-44B1-9B6B-08211C64EF72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnet9.Commons.Test", "Dotnet9.Commons.Test\Dotnet9.Commons.Test.csproj", "{EC9B7930-960D-43F6-BF59-C470724E4DE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,10 @@ Global
 		{0D6DB9D7-B80C-44B1-9B6B-08211C64EF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6DB9D7-B80C-44B1-9B6B-08211C64EF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6DB9D7-B80C-44B1-9B6B-08211C64EF72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9B7930-960D-43F6-BF59-C470724E4DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9B7930-960D-43F6-BF59-C470724E4DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9B7930-960D-43F6-BF59-C470724E4DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9B7930-960D-43F6-BF59-C470724E4DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +131,7 @@ Global
 		{8AA17229-23E1-4AF3-9E0C-A365F16F6154} = {36ED8805-8E49-43CB-B833-93074A13A82A}
 		{FEFDCE89-AB84-4672-AD9C-95509DA7B720} = {36ED8805-8E49-43CB-B833-93074A13A82A}
 		{0D6DB9D7-B80C-44B1-9B6B-08211C64EF72} = {36ED8805-8E49-43CB-B833-93074A13A82A}
+		{EC9B7930-960D-43F6-BF59-C470724E4DE0} = {6E4DC158-674C-483C-B2BD-76B13146C9E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD05E3AF-6F47-4C01-BDC2-D163D343C7D9}
