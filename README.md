@@ -10,7 +10,7 @@
 
 一个使用`Dotnet 8.0`开发的`博客`系统，一直在开发中...
 
- ![dotnet-version](https://img.shields.io/badge/.NET%208.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
+ ![dotnet-version](https://img.shields.io/badge/.NET%207.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
 
  </div>
 
@@ -20,17 +20,27 @@
 
 - [x] 前台
   1. [x] 使用ASP.NET Core 8 Razor Pages搭建前台
+  2. [x] 已有功能：文章列表、分类文章列表、文章详情+评论、归档+评论、关于+评论等
+  3. [ ] 还有很多功能待开发，比如隐私、登录、前台文章创建和文章修改等
 - [x] 后台前端
-  1. [x] Vue 3.0
+  1. [x] 使用最新的Vue 2.x搭建
+  2. [x] 基础表的CRUD
+  3. [ ] 文章管理正在开发中
+  4. [ ] 文件管理，目前使用的腾讯cos
+  5. [ ] 其他功能
 - [x] 后端
   1. [x] 使用ASP.NET Core 8 Web API搭建
+  2. [x] 使用微软自家的Identity实现权限认证
+  3. [x] 基础表的接口管理
+  4. [ ] 根据前台和后台前端的功能迭代，进行维护中
 
 得空学习下dapr，尝试加入本系统中...
 
 ## ✨ 1. 特性
 
-1. 使用`ASP.NET Core 8.0`开发
+1. 使用`ASP.NET Core Razor Pages 8.0`开发
 2. 带博客浏览功能
+3. 带工具使用
 
 ## 🌈 2. 在线示例
 
@@ -81,9 +91,9 @@ MIT
 
 ## 感谢
 
-- [Panda](https://github.com/coolqingcheng/Panda)
+- [NETBookMaterials](https://github.com/yangzhongke/NETBookMaterials)
 
-参考青城大佬的开源博客网站搭建，多谢开源力量。
+参考杨中科杨老师的项目重构了后端，多谢开源力量。
 
 ## 💕 支持本项目
 
