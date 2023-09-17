@@ -1,10 +1,5 @@
-﻿@page "/post/{Id}.html"
-@model Post
-
-@{
-    Layout = "_Layout";
-    ViewData["Title"] = Model.Item.Title;
-}
+﻿@using Dotnet9.Core
+@model PostDetailModel
 
 <div class="row ">
     <div class="col-12 ">
@@ -13,19 +8,19 @@
             文章
             </div>*@
             <div class="post-box px-4 py-4">
-                <h1 class="post-title h1">@Model.Item.Title</h1>
+                <h1 class="post-title h1">@Model.Title</h1>
 
                 <div class="post-cate mt-2 text-black-50">
                     <span>
-                        @foreach (var item in Model.Item.Cates)
+                        @foreach (var item in Model.Cates)
                         {
                             <a asp-page="/Category/Category" asp-route-cateId="@item.Id" asp-route-index="1">@item.CateName</a>
                         }
-                    </span><span>@Model.Item.UpdateTime.ToString("D")</span> <span>阅读人数：@Model.Item.ReadCount</span>
+                    </span><span>@Model.UpdateTime.ToString("D")</span> <span>阅读人数：@Model.ReadCount</span>
                 </div>
 
                 <div class="post-body  my-3 text-body">
-                    @Html.Raw(Model.Item.Content)
+                    @Html.Raw(Model.Content.Convert2Html())
                 </div>
             </div>
         </div>
@@ -39,10 +34,11 @@
 @section js{
 
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((el) => {
-                hljs.highlightElement(el);
+        document.addEventListener('DOMContentLoaded',
+            (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
             });
-        });
     </script>
 }

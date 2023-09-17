@@ -1,3 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <PackageReference Include="Hashids.net" Version="1.7.0" />
+    <PackageReference Include="Markdig" Version="0.33.0" />
+  </ItemGroup>
 </Project>

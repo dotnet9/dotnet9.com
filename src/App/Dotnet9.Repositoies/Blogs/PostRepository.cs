@@ -1,6 +1,7 @@
 ﻿using Dotnet9.Models.Dtos.Blogs.Posts;
 using Dotnet9Tools.Helper;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq.Expressions;
 
 namespace Dotnet9.Repositoies.Blogs;
 
@@ -10,12 +11,27 @@ public class PostRepository : BaseRepository<Posts, Guid>
     {
     }
 
-    public async Task<PostDetailModel?> GetById(Guid Id)
+    public async Task<PostDetailModel?> GetById(Guid id)
+    {
+        return await GetDetails(post => post.Id == id);
+    }
+
+    public async Task<PostDetailModel?> GetBySlug(string slug)
+    {
+        return await GetDetails(post => post.Slug == slug);
+    }
+
+    public async Task<PostDetailModel?> GetByShortId(string shortId)
+    {
+        return await GetDetails(post => post.ShortId == shortId);
+    }
+
+    private async Task<PostDetailModel?> GetDetails(Expression<Func<Posts, bool>> predicate)
     {
         PostDetailModel? item = await Ctx.Set<Posts>().AsNoTracking()
             .Include(a => a.CateRelations)
             .Include(a => a.TagRelations)
-            .Where(a => a.Id == Id).Select(a => new PostDetailModel
+            .Where(predicate).Select(a => new PostDetailModel
             {
                 Id = a.Id,
                 Title = a.Title,
@@ -67,6 +83,7 @@ public class PostRepository : BaseRepository<Posts, Guid>
                 Id = a.Id,
                 Title = a.Title,
                 Slug = a.Slug,
+                ShortId = a.ShortId,
                 Content = a.Content,
                 CreateTime = a.CreateTime,
                 LastUpdateTime = a.UpdateTime,

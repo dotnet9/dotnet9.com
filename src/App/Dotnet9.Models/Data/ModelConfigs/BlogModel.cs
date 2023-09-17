@@ -17,6 +17,7 @@ public static class BlogModel
 
         builder.Entity<Posts>().Property(a => a.Title).IsRequired().HasMaxLength(150);
         builder.Entity<Posts>().Property(a => a.Slug).IsRequired().HasMaxLength(256);
+        builder.Entity<Posts>().Property(a => a.ShortId).IsRequired().HasMaxLength(10);
         builder.Entity<Posts>().Property(a => a.Content).IsRequired().HasColumnType("text");
         builder.Entity<Posts>().Property(a => a.Snippet).IsRequired().HasMaxLength(200);
         builder.Entity<Posts>().HasMany(a => a.TagRelations).WithOne(a => a.Post)

@@ -38,6 +38,18 @@ public class PostService
         return res!;
     }
 
+    public async Task<PostDetailModel> GetBySlug(string slug)
+    {
+        PostDetailModel? res = await _postRepository.GetBySlug(slug);
+        return res!;
+    }
+
+    public async Task<PostDetailModel> GetByShortId(string shortId)
+    {
+        PostDetailModel? res = await _postRepository.GetByShortId(shortId);
+        return res!;
+    }
+
     public async Task<PageDto<PostItemModel>> GetHomeList(PostRequestModel request)
     {
         return await _postRepository.GetHomeList(request);

@@ -1,0 +1,10 @@
+﻿@page "/{Year}/{Month}/{Slug}"
+
+@model DetailsBySlugModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Item?.Title;
+}
+
+@await Html.PartialAsync("_Details", Model.Item)

@@ -7,7 +7,7 @@
 
         <div class="post-item">
             <div class="post-item-title">
-                <a class="link-success" asp-page="/Post/Post" asp-route-Id="@item.Id" target="_blank">@item.Title</a>
+                <a class="link-success" href="/@item.CreateTime.ToString("yyyy/MM")/@item.Slug" target="_blank">@item.Title</a>
             </div>
 
             <div class="post-item-desc  text-body">
@@ -19,7 +19,7 @@
                         <span>
                             @foreach (var cateItem in item.CateItems)
                             {
-                                <a class="link-info" asp-page="/Category/Category" asp-route-cateId="@cateItem.Id" asp-route-index="1">@cateItem.CateName</a>
+                                <a class="link-info" asp-page="/ategories/Category" asp-route-cateId="@cateItem.Id" asp-route-index="1">@cateItem.CateName</a>
                             }
                         </span>
 

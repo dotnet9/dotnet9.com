@@ -226,6 +226,7 @@ public partial class ConfigController
                 Id = Guid.NewGuid(),
                 Title = blogSeed.Title,
                 Slug = blogSeed.Slug,
+                ShortId = HashidsUtil.GetHashids(blogSeed.Slug),
                 Thumb = blogSeed.Cover,
                 Content = blogSeed.Content,
                 Snippet = blogSeed.Description,

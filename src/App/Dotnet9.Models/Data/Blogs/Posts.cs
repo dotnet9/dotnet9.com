@@ -13,6 +13,11 @@ public class Posts : BaseEntity<Guid>
     public string Slug { get; set; }
 
     /// <summary>
+    /// 根据别名生成的短Id
+    /// </summary>
+    public string ShortId { get; set; }
+
+    /// <summary>
     ///     缩略图
     /// </summary>
     public string Thumb { get; set; }
