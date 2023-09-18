@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.ViewModel.Login;
+﻿namespace Dotnet9.WebAPI.ViewModel.Auth;
 
 public class UserResponse
 {

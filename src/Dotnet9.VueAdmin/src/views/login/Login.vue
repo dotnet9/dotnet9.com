@@ -31,7 +31,8 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        type: 'account'
       },
       rules: {
         username: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
@@ -44,11 +45,8 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           const that = this
-          let param = new URLSearchParams()
-          param.append('username', that.loginForm.username)
-          param.append('password', that.loginForm.password)
-          that.axios.post('/api/users/login', param).then(({ data }) => {
-            if (data.flag) {
+          that.axios.post('/api/auth/login', that.loginForm).then(({ data }) => {
+            if (data.success) {
               that.$store.commit('login', data.data)
               generaMenu()
               that.$message.success('登录成功')
@@ -56,6 +54,8 @@ export default {
             } else {
               that.$message.error(data.message)
             }
+          }).catch((err) =>{
+            this.$message.error(err)
           })
         } else {
           return false

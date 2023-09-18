@@ -1,16 +1,15 @@
-﻿using Dotnet9.ASPNETCore.ResponseResults;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
+﻿using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Dotnet9.WebAPI.Controllers;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class LoginController : ControllerBase
+public class AuthController : ControllerBase
 {
     private readonly IdManager _manager;
     private readonly IIdRepository _repository;
 
-    public LoginController(IdManager manager, IIdRepository repository)
+    public AuthController(IdManager manager, IIdRepository repository)
     {
         _manager = manager;
         _repository = repository;
@@ -63,7 +62,7 @@ public class LoginController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [NoWrapper]
-    public async Task<ResponseResult<UserResponse>> Account(LoginRequest req)
+    public async Task<ResponseResult<UserResponse>> Login(LoginRequest req)
     {
         (SignInResult Result, string? Token) loginResult;
         if (LoginRequestType.Account == req.Type)

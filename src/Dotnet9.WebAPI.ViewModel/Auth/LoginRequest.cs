@@ -1,4 +1,4 @@
-﻿namespace Dotnet9.WebAPI.ViewModel.Login;
+﻿namespace Dotnet9.WebAPI.ViewModel.Auth;
 
 public record LoginRequest(string UserName, string Password, bool? AutoLogin, string? Type);
 
