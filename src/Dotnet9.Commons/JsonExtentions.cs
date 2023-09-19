@@ -7,7 +7,7 @@ public static class JsonExtentions
 
     public static JsonSerializerOptions CreateJsonSerializerOptions(bool camelCase = false)
     {
-        var opt = new JsonSerializerOptions { Encoder = Encoder };
+        JsonSerializerOptions opt = new JsonSerializerOptions { Encoder = Encoder };
         if (camelCase)
         {
             opt.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
@@ -20,18 +20,18 @@ public static class JsonExtentions
 
     public static string ToJsonString(this object value, bool camelCase = false)
     {
-        var opt = CreateJsonSerializerOptions(camelCase);
+        JsonSerializerOptions opt = CreateJsonSerializerOptions(camelCase);
         return JsonSerializer.Serialize(value, value.GetType(), opt);
     }
 
-    public static T? ParseJson<T>(this string value)
+    public static T? ParseJson<T>(this string value, bool camelCase = false)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
             return default;
         }
 
-        var opt = CreateJsonSerializerOptions();
+        JsonSerializerOptions opt = CreateJsonSerializerOptions(camelCase);
         return JsonSerializer.Deserialize<T>(value, opt);
     }
 }

@@ -81,7 +81,7 @@ public class AuthController : ControllerBase
         {
             if (LoginRequestType.Account != req.Type)
             {
-                return ResponseResult<UserResponse>.GetSuccess(new UserResponse() { Token = token });
+                return ResponseResult<UserResponse>.GetSuccess(new UserResponse { Token = token });
             }
 
             User? user = await _repository.FindByNameAsync(req.UserName);
@@ -94,7 +94,8 @@ public class AuthController : ControllerBase
                 Name = user.UserName,
                 Phone = user.PhoneNumber,
                 Avatar =
-                    "https://img1.dotnet9.com/site/logo.png"
+                    "https://img1.dotnet9.com/site/logo.png",
+                Token = token
             });
         }
 
