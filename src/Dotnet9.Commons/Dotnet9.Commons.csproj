@@ -3,8 +3,8 @@
 	<ItemGroup>
 		<PackageReference Include="AsmResolver.DotNet" Version="5.4.0" />
 		<PackageReference Include="FluentValidation" Version="11.7.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.1.23419.4" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-rc.1.23419.4" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0-rc.2.23479.6" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-rc.2.23479.6" />
 		<PackageReference Include="Hashids.net" Version="1.7.0" />
 		<PackageReference Include="Markdig" Version="0.33.0" />
 	</ItemGroup>

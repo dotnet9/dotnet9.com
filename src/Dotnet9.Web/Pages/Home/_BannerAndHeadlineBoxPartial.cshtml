@@ -29,7 +29,7 @@
                 @foreach (var blogPost in bannerPosts)
                 {
                     <div class="swiper-slide">
-                        <a href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug">
+                        <a href="@blogPost.CreationTime.ToString("/yyyy/MM")/@blogPost.Slug" target="_blank">
                             <img src="@blogPost.Cover"><span>@blogPost.Title</span>
                         </a>
                     </div>

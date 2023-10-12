@@ -74,21 +74,21 @@
                             <p>本文来自网友投稿，如若转载请联系原作者。</p>
                             break;
                         default:
-                            <p>本文由本站(<a href="@SiteOptions.Value.Domain">@SiteOptions.Value.Domain</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
+                            <p>本文由本站(<a href="@SiteOptions.Value.Domain" target="_blank">@SiteOptions.Value.Domain</a>)整理或创作，如若转载请保留原文标题及原文链接</p>
                             break;
                     }
-                    <p>原文作者：<a style="color: #262626;" href="#">@(Model?.Original ?? @SiteOptions.Value.Owner)</a></p>
+                    <p>原文作者：<a style="color: #262626;" href="#" target="_blank">@(Model?.Original ?? @SiteOptions.Value.Owner)</a></p>
                     @if (Model?.CopyrightType == CopyRightType.Default)
                     {
-                        <p>原文标题：<a href="/@Model.CreationTime.ToString("yyyy/MM")/@Model.Slug">@Model.Title</a></p>
-                        <p>原文链接：<a href="/@Model.CreationTime.ToString("yyyy/MM")/@Model.Slug">@SiteOptions.Value.Domain/@($"{Model.CreationTime:yyyy/MM}/{Model.Slug}")</a></p>
+                        <p>原文标题：<a href="/@Model.CreationTime.ToString("yyyy/MM")/@Model.Slug" target="_blank">@Model.Title</a></p>
+                        <p>原文链接：<a href="/@Model.CreationTime.ToString("yyyy/MM")/@Model.Slug" target="_blank">@SiteOptions.Value.Domain/@($"{Model.CreationTime:yyyy/MM}/{Model.Slug}")</a></p>
                     }
                     else
                     {
-                        <p>原文标题：<a href="@Model?.OriginalLink">@(Model?.OriginalTitle ?? Model?.Title)</a></p>
-                        <p>原文链接：<a href="@Model?.OriginalLink">@Model?.OriginalLink</a></p>
+                        <p>原文标题：<a href="@Model?.OriginalLink" target="_blank">@(Model?.OriginalTitle ?? Model?.Title)</a></p>
+                        <p>原文链接：<a href="@Model?.OriginalLink" target="_blank">@Model?.OriginalLink</a></p>
                     }
-                    <p>本文短链接：<a href="/@Model?.Slug.GetHashids()">@SiteOptions.Value.Domain/@Model?.Slug.GetHashids()</a></p>
+                    <p>本文短链接：<a href="/@Model?.Slug.GetHashids()" target="_blank">@SiteOptions.Value.Domain/@Model?.Slug.GetHashids()</a></p>
                 </div>
             </div>
             <div class="clear"></div>
@@ -97,7 +97,7 @@
                     @if (Model?.Preview != null)
                     {
                         <li>
-                            <a href="/@Model.Preview.CreationTime.ToString("yyyy/MM")/@Model.Preview.Slug">
+                            <a href="/@Model.Preview.CreationTime.ToString("yyyy/MM")/@Model.Preview.Slug" target="_blank">
                                 <i>
                                     <em>上一篇</em><img alt="@Model.Preview.Title" src="@Model.Preview.Cover">
                                 </i>
@@ -109,7 +109,7 @@
                     @if (Model?.Next != null)
                     {
                         <li>
-                            <a href="/@Model.Next.CreationTime.ToString("yyyy/MM")/@Model.Next.Slug">
+                            <a href="/@Model.Next.CreationTime.ToString("yyyy/MM")/@Model.Next.Slug" target="_blank">
                                 <i>
                                     <em>下一篇</em><img alt="@Model.Next.Title" src="@Model.Next.Cover">
                                 </i>

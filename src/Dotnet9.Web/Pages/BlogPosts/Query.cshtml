@@ -20,7 +20,7 @@
             @foreach (var item in Model.BlogPosts)
             {
                 <li>
-                    <a href="/@item.CreationTime.ToString("yyyy/MM")/@item.Slug">
+                    <a href="/@item.CreationTime.ToString("yyyy/MM")/@item.Slug" target="_blank">
                         <i>
                             <img src="@item.Cover" alt="@item.Title">
                         </i>
