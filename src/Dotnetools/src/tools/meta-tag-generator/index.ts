@@ -2,7 +2,7 @@ import { Tags } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: '开放图谱元生成器',
+  name: '网页Meta生成器',
   path: '/og-meta-generator',
   description: '为您的网站生成开放图形和社交html元标签。',
   keywords: [

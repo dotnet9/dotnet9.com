@@ -55,8 +55,8 @@ const secretValidationRules = [
   <div style="max-width: 350px">
     <c-input-text
       v-model:value="secret"
-      label="Secret"
-      placeholder="Paste your TOTP secret..."
+      label="密钥"
+      placeholder="粘贴您的一次性密码密钥..."
       mb-5
       :validation-rules="secretValidationRules"
     >
@@ -67,7 +67,7 @@ const secretValidationRules = [
               <icon-mdi-refresh />
             </c-button>
           </template>
-          Generate secret token
+          生成密钥token
         </n-tooltip>
       </template>
     </c-input-text>
@@ -77,22 +77,22 @@ const secretValidationRules = [
 
       <n-progress :percentage="(100 * interval) / 30" :color="theme.primaryColor" :show-indicator="false" />
       <div style="text-align: center">
-        Next in {{ String(Math.floor(30 - interval)).padStart(2, '0') }}s
+        {{ String(Math.floor(30 - interval)).padStart(2, '0') }}s后下一个
       </div>
     </div>
     <div mt-4 flex flex-col items-center justify-center gap-3>
       <n-image :src="qrcode" />
       <c-button :href="keyUri" target="_blank">
-        Open Key URI in new tab
+        在新选项卡中打开密钥 URI
       </c-button>
     </div>
   </div>
   <div style="max-width: 350px">
     <InputCopyable
-      label="Secret in hexadecimal"
+      label="十六进制的密钥"
       :value="base32toHex(secret)"
       readonly
-      placeholder="Secret in hex will be displayed here"
+      placeholder="十六进制的密钥将显示在此处"
       mb-5
     />
 
@@ -104,12 +104,12 @@ const secretValidationRules = [
       placeholder="Epoch in sec will be displayed here"
     />
 
-    <p>Iteration</p>
+    <p>迭代</p>
 
     <InputCopyable
       :value="String(getCounterFromTime({ now, timeStep: 30 }))"
       readonly
-      label="Count:"
+      label="计数:"
       label-position="left"
       label-width="90px"
       label-align="right"

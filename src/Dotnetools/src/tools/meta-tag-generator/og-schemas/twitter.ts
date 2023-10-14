@@ -1,30 +1,30 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
 
 export const twitter: OGSchemaType = {
-  name: 'Twitter',
+  name: '推特',
   elements: [
     {
       type: 'select',
       options: [
-        { label: 'Summary', value: 'summary' },
-        { label: 'Summary with large image', value: 'summary_large_image' },
-        { label: 'Application', value: 'app' },
+        { label: '总结', value: 'summary' },
+        { label: '大图像摘要', value: 'summary_large_image' },
+        { label: '应用', value: 'app' },
         { label: 'Player', value: 'player' },
       ],
-      label: 'Card type',
+      label: 'Card类型',
       placeholder: 'The Twitter card type...',
       key: 'twitter:card',
     },
     {
       type: 'input',
-      label: 'Site account',
-      placeholder: 'The name of the Twitter account of the site (ex: @ittoolsdottech)...',
+      label: '站点账户',
+      placeholder: '该网站的推特账户的名称 (例如: @dotnetoolscom)...',
       key: 'twitter:site',
     },
     {
       type: 'input',
-      label: 'Creator acc.',
-      placeholder: 'The name of the Twitter account of the creator (ex: @cthmsst)...',
+      label: '创作者账户',
+      placeholder: '创作者的推特账号名称 (例如: @dotnetools)...',
       key: 'twitter:creator',
     },
   ],

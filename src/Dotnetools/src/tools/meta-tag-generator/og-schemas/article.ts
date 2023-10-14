@@ -1,33 +1,33 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
 
 export const article: OGSchemaType = {
-  name: 'Article',
+  name: '文章',
   elements: [
     {
       type: 'input',
-      label: 'Publishing date',
+      label: '出版日期',
       key: 'article:published_time',
-      placeholder: 'When the article was first published...',
+      placeholder: '当文章首次发表时...',
     },
     {
       type: 'input',
-      label: 'Modification date',
+      label: '修改日期',
       key: 'article:modified_time',
-      placeholder: 'When the article was last changed...',
+      placeholder: '文章上次更改时...',
     },
     {
       type: 'input',
-      label: 'Expiration date',
+      label: '有效期',
       key: 'article:expiration_time',
-      placeholder: 'When the article is out of date after...',
+      placeholder: '当文章过期时...',
     },
-    { type: 'input', label: 'Author', key: 'article:author', placeholder: 'Writers of the article...' },
+    { type: 'input', label: '作者', key: 'article:author', placeholder: '文章的作者...' },
     {
       type: 'input',
-      label: 'Section',
+      label: '章节',
       key: 'article:section',
-      placeholder: 'A high-level section name. E.g. Technology..',
+      placeholder: '重点章节名称，例如科技..',
     },
-    { type: 'input', label: 'Tag', key: 'article:tag', placeholder: 'Tag words associated with this article...' },
+    { type: 'input', label: '标签', key: 'article:tag', placeholder: '与文章相关的字词...' },
   ],
 };

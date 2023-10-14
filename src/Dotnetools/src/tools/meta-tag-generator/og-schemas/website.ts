@@ -1,13 +1,13 @@
 import type { OGSchemaType } from '../OGSchemaType.type';
 
 const typeOptions = [
-  { label: 'Website', value: 'website' },
-  { label: 'Article', value: 'article' },
-  { label: 'Book', value: 'book' },
-  { label: 'Profile', value: 'profile' },
+  { label: '网站', value: 'website' },
+  { label: '文章', value: 'article' },
+  { label: '书籍', value: 'book' },
+  { label: '简介', value: 'profile' },
   {
     type: 'group',
-    label: 'Music',
+    label: '音乐',
     key: 'Music',
     children: [
       { label: 'Song', value: 'music.song' },
@@ -18,7 +18,7 @@ const typeOptions = [
   },
   {
     type: 'group',
-    label: 'Video',
+    label: '视频',
     key: 'Video',
     children: [
       { label: 'Movie', value: 'video.movie' },
@@ -30,26 +30,26 @@ const typeOptions = [
 ];
 
 export const website: OGSchemaType = {
-  name: 'General information',
+  name: '基本信息',
   elements: [
     {
       type: 'select',
-      label: 'Page type',
-      placeholder: 'Select the type of your website...',
+      label: '页面类型',
+      placeholder: '选择网站类型...',
       key: 'type',
       options: typeOptions,
     },
-    { type: 'input', label: 'Title', placeholder: 'Enter the title of your website...', key: 'title' },
+    { type: 'input', label: '标题', placeholder: '输入您网站的标题...', key: 'title' },
     {
       type: 'input',
-      label: 'Description',
-      placeholder: 'Enter the description of your website...',
+      label: '描述',
+      placeholder: '输入您网站的描述...',
       key: 'description',
     },
     {
       type: 'input',
-      label: 'Page URL',
-      placeholder: 'Enter the url of your website...',
+      label: '页面网址',
+      placeholder: '输入您网站的网址...',
       key: 'url',
     },
   ],

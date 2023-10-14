@@ -13,13 +13,13 @@ const { tokens } = toRefs(props);
   <div>
     <div class="labels" w-full flex items-center>
       <div flex-1 text-left>
-        Previous
+        上一个
       </div>
       <div flex-1 text-center>
-        Current OTP
+        当前一次性密码
       </div>
       <div flex-1 text-right>
-        Next
+        下一个
       </div>
     </div>
     <n-input-group>
@@ -29,7 +29,7 @@ const { tokens } = toRefs(props);
             {{ tokens.previous }}
           </c-button>
         </template>
-        <div>{{ previousCopied ? 'Copied !' : 'Copy previous OTP' }}</div>
+        <div>{{ previousCopied ? '已复制!' : '复制上一个一次性密码' }}</div>
       </n-tooltip>
       <n-tooltip trigger="hover" placement="bottom">
         <template #trigger>
@@ -42,7 +42,7 @@ const { tokens } = toRefs(props);
             {{ tokens.current }}
           </c-button>
         </template>
-        <div>{{ currentCopied ? 'Copied !' : 'Copy current OTP' }}</div>
+        <div>{{ currentCopied ? '已复制!' : '复制当前一次性密码' }}</div>
       </n-tooltip>
       <n-tooltip trigger="hover" placement="bottom">
         <template #trigger>
@@ -52,7 +52,7 @@ const { tokens } = toRefs(props);
             }}
           </c-button>
         </template>
-        <div>{{ nextCopied ? 'Copied !' : 'Copy next OTP' }}</div>
+        <div>{{ nextCopied ? '已复制!' : '复制下一个一次性密码' }}</div>
       </n-tooltip>
     </n-input-group>
   </div>

@@ -105,7 +105,7 @@ const sections: UserAgentResultSection[] = [
   <div>
     <c-input-text
       v-model:value="ua"
-      label="User agent string"
+      label="用户代理字符串-User agent string"
       multiline
       placeholder="Put your user-agent here..."
       clearable
