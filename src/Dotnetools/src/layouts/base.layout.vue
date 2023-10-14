@@ -75,7 +75,13 @@ const tools = computed<ToolCategory[]>(() => [
           </div>
           <div>
             © 2022 - {{ new Date().getFullYear() }}
-            <c-link target="_blank" rel="noopener" href="https://github.com/dotnet9">
+            <c-link target="_blank" rel="noopener" href="https://github.com/dotnet9/Dotnet9">
+              Github
+            </c-link>
+          </div>
+          <div>
+            博客：
+            <c-link target="_blank" rel="noopener" href="https://dotnet9.com">
               Dotnet9
             </c-link>
           </div>

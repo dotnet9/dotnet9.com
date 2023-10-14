@@ -18,19 +18,19 @@ const baseConfig = {
   stripRegexp: /[^A-Za-zÀ-ÖØ-öø-ÿ]+/gi,
 };
 
-const input = ref('lorem ipsum dolor sit amet');
+const input = ref('He must be very happy.');
 
 const formats = computed(() => [
   {
-    label: 'Lowercase:',
+    label: '小写:',
     value: noCase(input.value, baseConfig).toLocaleLowerCase(),
   },
   {
-    label: 'Uppercase:',
+    label: '大写:',
     value: noCase(input.value, baseConfig).toLocaleUpperCase(),
   },
   {
-    label: 'Camelcase:',
+    label: '小驼峰命名法（Camelcase）:',
     value: camelCase(input.value, baseConfig),
   },
   {
@@ -38,7 +38,7 @@ const formats = computed(() => [
     value: capitalCase(input.value, baseConfig),
   },
   {
-    label: 'Constantcase:',
+    label: '大蛇式命名法（Constantcase）:',
     value: constantCase(input.value, baseConfig),
   },
   {
@@ -58,7 +58,7 @@ const formats = computed(() => [
     value: paramCase(input.value, baseConfig),
   },
   {
-    label: 'Pascalcase:',
+    label: '大驼峰命名法（Pascalcase）:',
     value: pascalCase(input.value, baseConfig),
   },
   {
@@ -70,7 +70,7 @@ const formats = computed(() => [
     value: sentenceCase(input.value, baseConfig),
   },
   {
-    label: 'Snakecase:',
+    label: '小蛇式命名法（Snakecase）:',
     value: snakeCase(input.value, baseConfig),
   },
 ]);
@@ -86,8 +86,8 @@ const inputLabelAlignmentConfig = {
   <c-card>
     <c-input-text
       v-model:value="input"
-      label="Your string:"
-      placeholder="Your string..."
+      label="输入字符串:"
+      placeholder="输入字符串..."
       raw-text
       v-bind="inputLabelAlignmentConfig"
     />

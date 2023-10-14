@@ -18,9 +18,9 @@ const rules: UseValidationRule<string>[] = [
 
 <template>
   <format-transformer
-    input-label="Your YAML"
-    input-placeholder="Paste your YAML here..."
-    output-label="TOML from your YAML"
+    input-label="YAML"
+    input-placeholder="这里粘贴yaml..."
+    output-label="转换后的TOML格式"
     output-language="toml"
     :input-validation-rules="rules"
     :transformer="transformer"

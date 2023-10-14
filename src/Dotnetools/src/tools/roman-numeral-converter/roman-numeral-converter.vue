@@ -41,7 +41,7 @@ const { copy: copyArabic } = useCopy({ source: () => String(outputNumeral), text
 
 <template>
   <div>
-    <c-card title="Arabic to roman">
+    <c-card title="阿拉伯数字转罗马数字">
       <div flex items-center justify-between>
         <n-form-item v-bind="validationNumeral as any">
           <n-input-number v-model:value="inputNumeral" :min="1" style="width: 200px" :show-button="false" />
@@ -50,11 +50,11 @@ const { copy: copyArabic } = useCopy({ source: () => String(outputNumeral), text
           {{ outputRoman }}
         </div>
         <c-button autofocus :disabled="validationNumeral.validationStatus === 'error'" @click="copyRoman()">
-          Copy
+          复制
         </c-button>
       </div>
     </c-card>
-    <c-card title="Roman to arabic" mt-5>
+    <c-card title="罗马数字转阿拉伯数字" mt-5>
       <div flex items-center justify-between>
         <c-input-text v-model:value="inputRoman" style="width: 200px" :validation="validationRoman" />
 
@@ -62,7 +62,7 @@ const { copy: copyArabic } = useCopy({ source: () => String(outputNumeral), text
           {{ outputNumeral }}
         </div>
         <c-button :disabled="!validationRoman.isValid" @click="copyArabic()">
-          Copy
+          复制
         </c-button>
       </div>
     </c-card>

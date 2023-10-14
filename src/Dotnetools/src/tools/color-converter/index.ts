@@ -2,9 +2,9 @@ import { Palette } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Color converter',
+  name: '颜色转换器',
   path: '/color-converter',
-  description: 'Convert color between the different formats (hex, rgb, hsl and css name)',
+  description: '在不同格式之间转换颜色 (hex, rgb, hsl and css name)',
   keywords: ['color', 'converter'],
   component: () => import('./color-converter.vue'),
   icon: Palette,

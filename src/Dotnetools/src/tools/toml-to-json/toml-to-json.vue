@@ -16,9 +16,9 @@ const rules: UseValidationRule<string>[] = [
 
 <template>
   <format-transformer
-    input-label="Your TOML"
-    input-placeholder="Paste your TOML here..."
-    output-label="JSON from your TOML"
+    input-label="TOML"
+    input-placeholder="这里输入TOML..."
+    output-label="转换后的JSON格式"
     output-language="json"
     :input-validation-rules="rules"
     :transformer="transformer"

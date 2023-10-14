@@ -2,9 +2,9 @@ import { Link } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Encode/decode url formatted strings',
+  name: 'URL字符串编解码',
   path: '/url-encoder',
-  description: 'Encode to url-encoded format (also known as "percent-encoded") or decode from it.',
+  description: '编码为url编码格式（也称为“百分比编码”）或从中解码。',
   keywords: ['url', 'encode', 'decode', 'percent', '%20', 'format'],
   component: () => import('./url-encoder.vue'),
   icon: Link,

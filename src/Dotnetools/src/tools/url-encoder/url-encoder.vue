@@ -36,61 +36,61 @@ const { copy: copyDecoded } = useCopy({ source: decodeOutput, text: 'Decoded str
 </script>
 
 <template>
-  <c-card title="Encode">
+  <c-card title="编码">
     <c-input-text
       v-model:value="encodeInput"
-      label="Your string :"
+      label="待编码字符串:"
       :validation="encodedValidation"
       multiline
       autosize
-      placeholder="The string to encode"
+      placeholder="待编码字符串"
       rows="2"
       mb-3
     />
 
     <c-input-text
-      label="Your string encoded :"
+      label="已编码字符串:"
       :value="encodeOutput"
       multiline
       autosize
       readonly
-      placeholder="Your string encoded"
+      placeholder="已编码字符串"
       rows="2"
       mb-3
     />
 
     <div flex justify-center>
       <c-button @click="copyEncoded()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>
-  <c-card title="Decode">
+  <c-card title="解码">
     <c-input-text
       v-model:value="decodeInput"
-      label="Your encoded string :"
+      label="待解码字符串:"
       :validation="decodeValidation"
       multiline
       autosize
-      placeholder="The string to decode"
+      placeholder="待解码字符串"
       rows="2"
       mb-3
     />
 
     <c-input-text
-      label="Your string decoded :"
+      label="已解码字符串:"
       :value="decodeOutput"
       multiline
       autosize
       readonly
-      placeholder="Your string decoded"
+      placeholder="已解码字符串"
       rows="2"
       mb-3
     />
 
     <div flex justify-center>
       <c-button @click="copyDecoded()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>

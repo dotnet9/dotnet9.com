@@ -5,12 +5,12 @@ import type { ConvertOptions } from './list-converter.types';
 
 const sortOrderOptions = [
   {
-    label: 'Sort ascending',
+    label: '升序排列',
     value: 'asc',
     disabled: false,
   },
   {
-    label: 'Sort descending',
+    label: '降序排列',
     value: 'desc',
     disabled: false,
   },
@@ -41,14 +41,14 @@ function transformer(value: string) {
       <c-card>
         <div flex>
           <div>
-            <n-form-item label="Trim list items" label-placement="left" label-width="150" :show-feedback="false" mb-2>
+            <n-form-item label="清空空白字符" label-placement="left" label-width="150" :show-feedback="false" mb-2>
               <n-switch v-model:value="conversionConfig.trimItems" />
             </n-form-item>
-            <n-form-item label="Remove duplicates" label-placement="left" label-width="150" :show-feedback="false" mb-2>
+            <n-form-item label="去重" label-placement="left" label-width="150" :show-feedback="false" mb-2>
               <n-switch v-model:value="conversionConfig.removeDuplicates" data-test-id="removeDuplicates" />
             </n-form-item>
             <n-form-item
-              label="Convert to lowercase"
+              label="转换为小写"
               label-placement="left"
               label-width="150"
               :show-feedback="false"
@@ -56,14 +56,14 @@ function transformer(value: string) {
             >
               <n-switch v-model:value="conversionConfig.lowerCase" />
             </n-form-item>
-            <n-form-item label="Keep line breaks" label-placement="left" label-width="150" :show-feedback="false" mb-2>
+            <n-form-item label="保留换行符" label-placement="left" label-width="150" :show-feedback="false" mb-2>
               <n-switch v-model:value="conversionConfig.keepLineBreaks" />
             </n-form-item>
           </div>
           <div flex-1>
             <c-select
               v-model:value="conversionConfig.sortList"
-              label="Sort list"
+              label="列表排序"
               label-position="left"
               label-width="120px"
               label-align="right"
@@ -72,12 +72,12 @@ function transformer(value: string) {
               w-full
               :disabled="conversionConfig.reverseList"
               data-test-id="sortList"
-              placeholder="Sort alphabetically"
+              placeholder="按字母顺序排序"
             />
 
             <c-input-text
               v-model:value="conversionConfig.separator"
-              label="Separator"
+              label="分隔符"
               label-position="left"
               label-width="120px"
               label-align="right"
@@ -85,27 +85,27 @@ function transformer(value: string) {
               placeholder=","
             />
 
-            <n-form-item label="Wrap item" label-placement="left" label-width="120" :show-feedback="false" mb-2>
+            <n-form-item label="每项前后缀" label-placement="left" label-width="120" :show-feedback="false" mb-2>
               <c-input-text
                 v-model:value="conversionConfig.itemPrefix"
-                placeholder="Item prefix"
+                placeholder="每项前缀"
                 test-id="itemPrefix"
               />
               <c-input-text
                 v-model:value="conversionConfig.itemSuffix"
-                placeholder="Item suffix"
+                placeholder="每项后缀"
                 test-id="itemSuffix"
               />
             </n-form-item>
-            <n-form-item label="Wrap list" label-placement="left" label-width="120" :show-feedback="false" mb-2>
+            <n-form-item label="列表前后缀" label-placement="left" label-width="120" :show-feedback="false" mb-2>
               <c-input-text
                 v-model:value="conversionConfig.listPrefix"
-                placeholder="List prefix"
+                placeholder="列表前缀"
                 test-id="listPrefix"
               />
               <c-input-text
                 v-model:value="conversionConfig.listSuffix"
-                placeholder="List suffix"
+                placeholder="列表后缀"
                 test-id="listSuffix"
               />
             </n-form-item>
@@ -115,9 +115,9 @@ function transformer(value: string) {
     </div>
   </div>
   <format-transformer
-    input-label="Your input data"
-    input-placeholder="Paste your input data here..."
-    output-label="Your transformed data"
+    input-label="输入列表数据（每项单独成行）"
+    input-placeholder="这里输入换行的列表数据..."
+    output-label="转换后数据"
     :transformer="transformer"
   />
 </template>

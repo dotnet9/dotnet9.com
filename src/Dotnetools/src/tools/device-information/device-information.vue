@@ -5,51 +5,51 @@ const { width, height } = useWindowSize();
 
 const sections = [
   {
-    name: 'Screen',
+    name: '屏幕',
     information: [
       {
-        label: 'Screen size',
+        label: '屏幕大小',
         value: computed(() => `${window.screen.availWidth} x ${window.screen.availHeight}`),
       },
       {
-        label: 'Orientation',
+        label: '方向',
         value: computed(() => window.screen.orientation.type),
       },
       {
-        label: 'Orientation angle',
+        label: '定向角',
         value: computed(() => `${window.screen.orientation.angle}°`),
       },
       {
-        label: 'Color depth',
+        label: '颜色深度',
         value: computed(() => `${window.screen.colorDepth} bits`),
       },
       {
-        label: 'Pixel ratio',
+        label: '像素比',
         value: computed(() => `${window.devicePixelRatio} dppx`),
       },
       {
-        label: 'Window size',
+        label: '窗口大小',
         value: computed(() => `${width.value} x ${height.value}`),
       },
     ],
   },
   {
-    name: 'Device',
+    name: '设备',
     information: [
       {
-        label: 'Browser vendor',
+        label: '浏览器供应商',
         value: computed(() => navigator.vendor),
       },
       {
-        label: 'Languages',
+        label: '语言',
         value: computed(() => navigator.languages.join(', ')),
       },
       {
-        label: 'Platform',
+        label: '平台',
         value: computed(() => navigator.platform),
       },
       {
-        label: 'User agent',
+        label: '用户代理',
         value: computed(() => navigator.userAgent),
       },
     ],

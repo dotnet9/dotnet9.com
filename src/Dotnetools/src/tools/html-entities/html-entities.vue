@@ -3,33 +3,33 @@ import { escape, unescape } from 'lodash';
 
 import { useCopy } from '@/composable/copy';
 
-const escapeInput = ref('<title>IT Tool</title>');
+const escapeInput = ref('<title>Dotnet工具箱</title>');
 const escapeOutput = computed(() => escape(escapeInput.value));
 const { copy: copyEscaped } = useCopy({ source: escapeOutput });
 
-const unescapeInput = ref('&lt;title&gt;IT Tool&lt;/title&gt;');
+const unescapeInput = ref('&lt;title&gt;Dotnet工具箱&lt;/title&gt;');
 const unescapeOutput = computed(() => unescape(unescapeInput.value));
 const { copy: copyUnescaped } = useCopy({ source: unescapeOutput });
 </script>
 
 <template>
-  <c-card title="Escape html entities">
-    <n-form-item label="Your string :">
+  <c-card title="html元素转义">
+    <n-form-item label="待转义字符串:">
       <c-input-text
         v-model:value="escapeInput"
         multiline
-        placeholder="The string to escape"
+        placeholder="待转义字符串"
         rows="3"
         autosize
         raw-text
       />
     </n-form-item>
 
-    <n-form-item label="Your string escaped :">
+    <n-form-item label="已转义字符串:">
       <c-input-text
         multiline
         readonly
-        placeholder="Your string escaped"
+        placeholder="已转义字符串"
         :value="escapeOutput"
         rows="3"
         autosize
@@ -38,28 +38,28 @@ const { copy: copyUnescaped } = useCopy({ source: unescapeOutput });
 
     <div flex justify-center>
       <c-button @click="copyEscaped()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>
-  <c-card title="Unescape html entities">
-    <n-form-item label="Your escaped string :">
+  <c-card title="取消html元素转义">
+    <n-form-item label="已转义字符串:">
       <c-input-text
         v-model:value="unescapeInput"
         multiline
-        placeholder="The string to unescape"
+        placeholder="需要取消转义的字符串"
         rows="3"
         autosize
         raw-text
       />
     </n-form-item>
 
-    <n-form-item label="Your string unescaped :">
+    <n-form-item label="已取消转义的字符串:">
       <c-input-text
         :value="unescapeOutput"
         multiline
         readonly
-        placeholder="Your string unescaped"
+        placeholder="已取消转义的字符串"
         rows="3"
         autosize
       />
@@ -67,7 +67,7 @@ const { copy: copyUnescaped } = useCopy({ source: unescapeOutput });
 
     <div flex justify-center>
       <c-button @click="copyUnescaped()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>

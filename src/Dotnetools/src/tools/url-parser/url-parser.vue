@@ -3,7 +3,7 @@ import InputCopyable from '../../components/InputCopyable.vue';
 import { isNotThrowing } from '@/utils/boolean';
 import { withDefaultOnError } from '@/utils/defaults';
 
-const urlToParse = ref('https://me:pwd@it-tools.tech:3000/url-parser?key1=value&key2=value2#the-hash');
+const urlToParse = ref('https://dotnet9:123456@dotnetools.com:3000/url-parser?key1=value&key2=value2#the-hash');
 
 const urlParsed = computed(() => withDefaultOnError(() => new URL(urlToParse.value), undefined));
 const urlValidationRules = [
@@ -14,13 +14,13 @@ const urlValidationRules = [
 ];
 
 const properties: { title: string; key: keyof URL }[] = [
-  { title: 'Protocol', key: 'protocol' },
-  { title: 'Username', key: 'username' },
-  { title: 'Password', key: 'password' },
-  { title: 'Hostname', key: 'hostname' },
-  { title: 'Port', key: 'port' },
-  { title: 'Path', key: 'pathname' },
-  { title: 'Params', key: 'search' },
+  { title: '协议-Protocol', key: 'protocol' },
+  { title: '用户名-Username', key: 'username' },
+  { title: '密码-Password', key: 'password' },
+  { title: '域名-Hostname', key: 'hostname' },
+  { title: '端口-Port', key: 'port' },
+  { title: '路径-Path', key: 'pathname' },
+  { title: '参数-Params', key: 'search' },
 ];
 </script>
 
@@ -28,8 +28,8 @@ const properties: { title: string; key: keyof URL }[] = [
   <c-card>
     <c-input-text
       v-model:value="urlToParse"
-      label="Your url to parse:"
-      placeholder="Your url to parse..."
+      label="需要分析的Url:"
+      placeholder="需要分析的Url..."
       raw-text
       :validation-rules="urlValidationRules"
     />
