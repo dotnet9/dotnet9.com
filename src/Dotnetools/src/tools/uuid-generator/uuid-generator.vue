@@ -15,7 +15,7 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
 <template>
   <div>
     <div flex items-center justify-center gap-3>
-      Quantity :
+      生成数量 :
       <n-input-number v-model:value="count" :min="1" :max="50" placeholder="UUID quantity" />
     </div>
 
@@ -35,10 +35,10 @@ const { copy } = useCopy({ source: uuids, text: 'UUIDs copied to the clipboard' 
 
     <div flex justify-center gap-3>
       <c-button autofocus @click="copy()">
-        Copy
+        全部复制
       </c-button>
       <c-button @click="refreshUUIDs">
-        Refresh
+        重新生成
       </c-button>
     </div>
   </div>

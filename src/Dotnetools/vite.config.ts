@@ -56,7 +56,7 @@ export default defineConfig({
         name: 'Dotnetools',
         description: '为开发人员提供的一组有用的工具。',
         display: 'standalone',
-        lang: 'fr-FR',
+        lang: 'zh-cn',
         start_url: `${baseUrl}?utm_source=pwa&utm_medium=pwa`,
         orientation: 'any',
         theme_color: '#18a058',

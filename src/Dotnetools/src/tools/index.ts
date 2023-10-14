@@ -74,11 +74,11 @@ import { tool as xmlFormatter } from './xml-formatter';
 
 export const toolsByCategory: ToolCategory[] = [
   {
-    name: '加密',
+    name: '加解密',
     components: [tokenGenerator, hashText, bcrypt, uuidGenerator, ulidGenerator, cypher, bip39, hmacGenerator, rsaKeyPairGenerator, passwordStrengthAnalyser],
   },
   {
-    name: 'Converter',
+    name: '换算器',
     components: [
       dateTimeConverter,
       baseConverter,

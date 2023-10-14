@@ -47,18 +47,18 @@ const { copy } = useCopy({ source: hmac });
 
 <template>
   <div flex flex-col gap-4>
-    <c-input-text v-model:value="plainText" multiline raw-text placeholder="Plain text to compute the hash..." rows="3" autosize autofocus label="Plain text to compute the hash" />
-    <c-input-text v-model:value="secret" raw-text placeholder="Enter the secret key..." label="Secret key" clearable />
+    <c-input-text v-model:value="plainText" multiline raw-text placeholder="用于计算哈希的纯文本..." rows="3" autosize autofocus label="用于计算哈希的纯文本" />
+    <c-input-text v-model:value="secret" raw-text placeholder="输入密钥..." label="密钥" clearable />
 
     <div flex gap-2>
       <c-select
-        v-model:value="hashFunction" label="Hashing function"
+        v-model:value="hashFunction" label="哈希函数"
         flex-1
         placeholder="Select an hashing function..."
         :options="Object.keys(algos).map((label) => ({ label, value: label }))"
       />
       <c-select
-        v-model:value="encoding" label="Output encoding"
+        v-model:value="encoding" label="输出编码"
         flex-1
         placeholder="Select the result encoding..."
         :options="[
@@ -81,10 +81,10 @@ const { copy } = useCopy({ source: hmac });
         ]"
       />
     </div>
-    <input-copyable v-model:value="hmac" type="textarea" placeholder="The result of the HMAC..." label="HMAC of your text" />
+    <input-copyable v-model:value="hmac" type="textarea" placeholder="The result of the HMAC..." label="生成的HMAC" />
     <div flex justify-center>
       <c-button @click="copy()">
-        Copy HMAC
+        复制 HMAC
       </c-button>
     </div>
   </div>

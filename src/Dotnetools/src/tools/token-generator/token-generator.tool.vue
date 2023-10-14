@@ -51,7 +51,7 @@ const { copy } = useCopy({ source: token, text: 'Token copied to the clipboard' 
         </div>
       </n-form>
 
-      <n-form-item :label="`Length (${length})`" label-placement="left">
+      <n-form-item :label="`Token长度 (${length})`" label-placement="left">
         <n-slider v-model:value="length" :step="1" :min="1" :max="512" />
       </n-form-item>
 
@@ -67,10 +67,10 @@ const { copy } = useCopy({ source: token, text: 'Token copied to the clipboard' 
 
       <div mt-5 flex justify-center gap-3>
         <c-button @click="copy()">
-          Copy
+          {{ t('tools.token-generator.copy') }}
         </c-button>
         <c-button @click="refreshToken">
-          Refresh
+          {{ t('tools.token-generator.refresh') }}
         </c-button>
       </div>
     </c-card>

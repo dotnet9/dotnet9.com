@@ -7,3 +7,5 @@ tools:
     lowercase: Lowercase (abc...)
     numbers: Numbers (123...)
     symbols: Symbols (!-;...)
+    copy: Copy
+    refresh: Refresh

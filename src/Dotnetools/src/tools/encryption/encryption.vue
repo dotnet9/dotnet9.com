@@ -17,54 +17,54 @@ const decryptOutput = computed(() =>
 </script>
 
 <template>
-  <c-card title="Encrypt">
+  <c-card title="加密">
     <div flex gap-3>
       <c-input-text
         v-model:value="cypherInput"
-        label="Your text:"
-        placeholder="The string to cypher"
+        label="需要加密的文本:"
+        placeholder="这里是文本"
         rows="4"
         multiline raw-text monospace autosize flex-1
       />
       <div flex flex-1 flex-col gap-2>
-        <c-input-text v-model:value="cypherSecret" label="Your secret key:" clearable raw-text />
+        <c-input-text v-model:value="cypherSecret" label="密钥:" clearable raw-text />
 
         <c-select
           v-model:value="cypherAlgo"
-          label="Encryption algorithm:"
+          label="加密算法:"
           :options="Object.keys(algos).map((label) => ({ label, value: label }))"
         />
       </div>
     </div>
     <c-input-text
-      label="Your text encrypted:"
+      label="加密后的文本:"
       :value="cypherOutput"
       rows="3"
       placeholder="Your string hash"
       multiline monospace readonly autosize mt-5
     />
   </c-card>
-  <c-card title="Decrypt">
+  <c-card title="解密">
     <div flex gap-3>
       <c-input-text
         v-model:value="decryptInput"
-        label="Your encrypted text:"
-        placeholder="The string to cypher"
+        label="需要解密的文本:"
+        placeholder="这里是文本"
         rows="4"
         multiline raw-text monospace autosize flex-1
       />
       <div flex flex-1 flex-col gap-2>
-        <c-input-text v-model:value="decryptSecret" label="Your secret key:" clearable raw-text />
+        <c-input-text v-model:value="decryptSecret" label="密钥:" clearable raw-text />
 
         <c-select
           v-model:value="decryptAlgo"
-          label="Encryption algorithm:"
+          label="解密算法:"
           :options="Object.keys(algos).map((label) => ({ label, value: label }))"
         />
       </div>
     </div>
     <c-input-text
-      label="Your decrypted text:"
+      label="解密后的文本:"
       :value="decryptOutput"
       placeholder="Your string hash"
       rows="3"

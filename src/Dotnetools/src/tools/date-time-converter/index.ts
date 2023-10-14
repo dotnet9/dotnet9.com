@@ -2,9 +2,9 @@ import { Calendar } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Date-time converter',
+  name: '日期时间转换器',
   path: '/date-converter',
-  description: 'Convert date and time into the various different formats',
+  description: '将日期和时间转换为各种不同的格式',
   keywords: ['date', 'time', 'converter', 'iso', 'utc', 'timezone', 'year', 'month', 'day', 'minute', 'seconde'],
   component: () => import('./date-time-converter.vue'),
   icon: Calendar,

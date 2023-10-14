@@ -124,7 +124,7 @@ const tools = computed<ToolCategory[]>(() => [
               :bordered="false"
               @click="() => tracker.trackEvent({ eventName: 'Support button clicked' })"
             >
-              帮我买杯奶茶
+              请我喝奶茶
               <NIcon v-if="!styleStore.isSmallScreen" :component="Heart" ml-2 />
             </c-button>
           </template>

@@ -6,7 +6,7 @@ const crackTimeEstimation = computed(() => getPasswordCrackTimeEstimation({ pass
 
 const details = computed(() => [
   {
-    label: 'Password length:',
+    label: '密码长度:',
     value: crackTimeEstimation.value.passwordLength,
   },
   {
@@ -14,11 +14,11 @@ const details = computed(() => [
     value: Math.round(crackTimeEstimation.value.entropy * 100) / 100,
   },
   {
-    label: 'Character set size:',
+    label: '字符集大小:',
     value: crackTimeEstimation.value.charsetLength,
   },
   {
-    label: 'Score:',
+    label: '分数:',
     value: `${Math.round(crackTimeEstimation.value.score * 100)} / 100`,
   },
 ]);
@@ -29,7 +29,7 @@ const details = computed(() => [
     <c-input-text
       v-model:value="password"
       type="password"
-      placeholder="Enter a password..."
+      placeholder="输入密码..."
       clearable
       autofocus
       raw-text
@@ -38,7 +38,7 @@ const details = computed(() => [
 
     <c-card text-center>
       <div op-60>
-        Duration to crack this password with brute force
+        使用暴力破解此密码的持续时间
       </div>
       <div text-2xl data-test-id="crack-duration">
         {{ crackTimeEstimation.crackDurationFormatted }}
@@ -55,8 +55,8 @@ const details = computed(() => [
       </div>
     </c-card>
     <div op-70>
-      <span font-bold>Note: </span>
-      The computed strength is based on the time it would take to crack the password using a brute force approach, it does not take into account the possibility of a dictionary attack.
+      <span font-bold>备注: </span>
+      计算的强度是基于使用暴力方法破解密码所需的时间，它没有考虑字典攻击的可能性。
     </div>
   </div>
 </template>

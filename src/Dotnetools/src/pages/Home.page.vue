@@ -8,7 +8,7 @@ import { config } from '@/config';
 
 const toolStore = useToolStore();
 
-useHead({ title: 'IT工具-为开发人员提供方便的在线工具' });
+useHead({ title: 'Dotnet工具箱-为开发人员提供方便的在线工具' });
 const { t } = useI18n();
 </script>
 

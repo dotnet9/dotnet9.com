@@ -7,3 +7,5 @@ tools:
     lowercase: Minuscules (abc...)
     numbers: Chiffres (123...)
     symbols: Symboles (!-;...)
+    copy: Copy
+    refresh: Refresh

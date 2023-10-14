@@ -87,7 +87,7 @@ const { copy: copyPassphrase } = useCopy({ source: passphrase, text: 'Passphrase
         <c-select
           v-model:value="language"
           searchable
-          label="Language:"
+          label="语言:"
           :options="Object.keys(languages)"
         />
       </n-gi>
