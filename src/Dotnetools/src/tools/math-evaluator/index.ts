@@ -2,9 +2,9 @@ import { Math } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Math evaluator',
+  name: '数学计算器',
   path: '/math-evaluator',
-  description: 'Evaluate math expression, like a calculator on steroid (you can use function like sqrt, cos, sin, abs, ...)',
+  description: '执行数学表达式，就像执行计算器一样（您可以使用sqrt，cos，sin，abs等函数...（Evaluate math expression, like a calculator on steroid (you can use function like sqrt, cos, sin, abs, ...)）',
   keywords: [
     'math',
     'evaluator',

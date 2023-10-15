@@ -2,9 +2,9 @@ import { Percentage } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Percentage calculator',
+  name: '百分比计算器',
   path: '/percentage-calculator',
-  description: 'Easily calculate percentages from a value to another value, or from a percentage to a value.',
+  description: '轻松计算从一个值到另一个值的百分比，或从一个百分比到一个值的百分比。',
   keywords: ['percentage', 'calculator', 'calculate', 'value', 'number', '%'],
   component: () => import('./percentage-calculator.vue'),
   icon: Percentage,

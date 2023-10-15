@@ -51,7 +51,7 @@ function onInputEnter(index: number) {
 
     <c-button @click="addValue">
       <n-icon :component="Plus" depth="3" mr-2 size="18" />
-      Add a measure
+      添加度量值
     </c-button>
   </div>
 </template>

@@ -15,10 +15,10 @@ const { copy } = useCopy({ source: port, text: 'Port copied to the clipboard' })
     </div>
     <div flex justify-center gap-3>
       <c-button @click="copy()">
-        Copy
+        复制
       </c-button>
       <c-button @click="refreshPort">
-        Refresh
+        重新生成
       </c-button>
     </div>
   </c-card>

@@ -10,15 +10,15 @@ const convertedSections = computed(() => {
 
   return [
     {
-      label: 'Decimal: ',
+      label: '十进制: ',
       value: String(ipInDecimal),
     },
     {
-      label: 'Hexadecimal: ',
+      label: '十六进制: ',
       value: convertBase({ fromBase: 10, toBase: 16, value: String(ipInDecimal) }).toUpperCase(),
     },
     {
-      label: 'Binary: ',
+      label: '二进制: ',
       value: convertBase({ fromBase: 10, toBase: 2, value: String(ipInDecimal) }),
     },
     {
@@ -26,7 +26,7 @@ const convertedSections = computed(() => {
       value: ipv4ToIpv6({ ip: rawIpAddress.value }),
     },
     {
-      label: 'Ipv6 (short): ',
+      label: 'Ipv6 (短): ',
       value: ipv4ToIpv6({ ip: rawIpAddress.value, prefix: '::ffff:' }),
     },
   ];
@@ -40,7 +40,7 @@ const { attrs: validationAttrs } = useValidation({
 
 <template>
   <div>
-    <c-input-text v-model:value="rawIpAddress" label="The ipv4 address:" placeholder="The ipv4 address..." />
+    <c-input-text v-model:value="rawIpAddress" label="ipv4 地址:" placeholder="The ipv4 address..." />
 
     <n-divider />
 

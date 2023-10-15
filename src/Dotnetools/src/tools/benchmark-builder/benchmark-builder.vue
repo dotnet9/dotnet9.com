@@ -52,10 +52,10 @@ const { copy } = useCopy({ createToast: false });
 
 const header = {
   title: 'Suite',
-  size: 'Samples',
+  size: '示例',
   mean: 'Mean',
-  variance: 'Variance',
-  position: 'Position',
+  variance: '方差',
+  position: '位置',
 };
 
 function copyAsMarkdown() {
@@ -86,13 +86,13 @@ function copyAsBulletList() {
           <c-input-text
             v-model:value="suite.title"
             label-position="left"
-            label="Suite name"
+            label="名称"
             placeholder="Suite name..."
             clearable
           />
 
           <n-divider />
-          <n-form-item label="Suite values" :show-feedback="false">
+          <n-form-item label="值" :show-feedback="false">
             <DynamicValues v-model:values="suite.data" />
           </n-form-item>
         </c-card>
@@ -100,14 +100,14 @@ function copyAsBulletList() {
         <div flex justify-center>
           <c-button v-if="suites.length > 1" variant="text" @click="suites.splice(index, 1)">
             <n-icon :component="Trash" depth="3" mr-2 size="18" />
-            Delete suite
+            删除
           </c-button>
           <c-button
             variant="text"
             @click="suites.splice(index + 1, 0, { data: [0], title: `Suite ${suites.length + 1}` })"
           >
             <n-icon :component="Plus" depth="3" mr-2 size="18" />
-            Add suite
+            添加
           </c-button>
         </div>
       </div>
@@ -117,17 +117,17 @@ function copyAsBulletList() {
   <div style="flex: 0 0 100%">
     <div style="max-width: 600px; margin: 0 auto">
       <div mx-auto max-w-sm flex justify-center gap-3>
-        <c-input-text v-model:value="unit" placeholder="Unit (eg: ms)" label="Unit" label-position="left" mb-4 />
+        <c-input-text v-model:value="unit" placeholder="单位 (比如: ms（毫秒）)" label="Unit" label-position="left" mb-4 />
 
         <c-button
           @click="
             suites = [
-              { title: 'Suite 1', data: [] },
-              { title: 'Suite 2', data: [] },
+              { title: '名称 1', data: [] },
+              { title: '名称 2', data: [] },
             ]
           "
         >
-          Reset suites
+          重置
         </c-button>
       </div>
 
@@ -153,10 +153,10 @@ function copyAsBulletList() {
       </n-table>
       <div mt-5 flex justify-center gap-3>
         <c-button @click="copyAsMarkdown()">
-          Copy as markdown table
+          复制为markdown表格
         </c-button>
         <c-button @click="copyAsBulletList()">
-          Copy as bullet list
+          复制为项目符号列表
         </c-button>
       </div>
     </div>

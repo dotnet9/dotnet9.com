@@ -2,9 +2,9 @@ import { Braces } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'JSON minify',
+  name: 'JSON压缩',
   path: '/json-minify',
-  description: 'Minify and compress your JSON by removing unnecessary white spaces.',
+  description: '通过删除不必要的空格来缩小和压缩 JSON。',
   keywords: ['json', 'minify', 'format'],
   component: () => import('./json-minify.vue'),
   icon: Braces,

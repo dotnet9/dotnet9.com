@@ -37,14 +37,14 @@ const rawJsonValidation = useValidation({
   </div>
 
   <n-form-item
-    label="Your raw JSON"
+    label="原始JSON"
     :feedback="rawJsonValidation.message"
     :validation-status="rawJsonValidation.status"
   >
     <c-input-text
       ref="inputElement"
       v-model:value="rawJson"
-      placeholder="Paste your raw JSON here..."
+      placeholder="这里粘贴原始JSON..."
       rows="20"
       multiline
       autocomplete="off"
@@ -54,7 +54,7 @@ const rawJsonValidation = useValidation({
       monospace
     />
   </n-form-item>
-  <n-form-item label="Prettified version of your JSON">
+  <n-form-item label="美化及格式化后的JSON">
     <TextareaCopyable :value="cleanJson" language="json" :follow-height-of="inputElement" />
   </n-form-item>
 </template>

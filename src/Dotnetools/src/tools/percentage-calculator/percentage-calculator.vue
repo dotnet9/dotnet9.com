@@ -37,14 +37,14 @@ const percentageIncreaseDecrease = computed(() => {
           What is
         </div>
         <div flex gap-2>
-          <div hidden pt-1 sm:block style="min-width: 48px;">
-            What is
+          <n-input-number v-model:value="percentageY" data-test-id="percentageY" placeholder="Y" />
+          <div min-w-fit pt-1>
+            的
           </div>
           <n-input-number v-model:value="percentageX" data-test-id="percentageX" placeholder="X" />
           <div min-w-fit pt-1>
-            % of
+            % 是
           </div>
-          <n-input-number v-model:value="percentageY" data-test-id="percentageY" placeholder="Y" />
           <input-copyable v-model:value="percentageResult" data-test-id="percentageResult" readonly placeholder="Result" style="max-width: 150px;" />
         </div>
       </c-card>
@@ -56,16 +56,22 @@ const percentageIncreaseDecrease = computed(() => {
         <div flex gap-2>
           <n-input-number v-model:value="numberX" data-test-id="numberX" placeholder="X" />
           <div hidden min-w-fit pt-1 sm:block>
-            is what percent of
+            占
           </div>
           <n-input-number v-model:value="numberY" data-test-id="numberY" placeholder="Y" />
+          <div hidden min-w-fit pt-1 sm:block>
+            的
+          </div>
           <input-copyable v-model:value="numberResult" data-test-id="numberResult" readonly placeholder="Result" style="max-width: 150px;" />
+          <div hidden min-w-fit pt-1 sm:block>
+            %
+          </div>
         </div>
       </c-card>
 
       <c-card mb-3>
         <div mb-3>
-          What is the percentage increase/decrease
+          增加/减少的百分比是多少
         </div>
         <div flex gap-2>
           <n-input-number v-model:value="numberFrom" data-test-id="numberFrom" placeholder="From" />

@@ -13,22 +13,22 @@ const { copy } = useCopy({ source: obfuscatedString });
 
 <template>
   <div>
-    <c-input-text v-model:value="str" raw-text placeholder="Enter string to obfuscate" label="String to obfuscate:" clearable multiline />
+    <c-input-text v-model:value="str" raw-text placeholder="Enter string to obfuscate" label="要混淆的字符串:" clearable multiline />
 
     <div mt-4 flex gap-10px>
       <div>
-        <div>Keep first:</div>
+        <div>前面保留:</div>
         <n-input-number v-model:value="keepFirst" min="0" />
       </div>
 
       <div>
-        <div>Keep last:</div>
+        <div>后面保留:</div>
         <n-input-number v-model:value="keepLast" min="0" />
       </div>
 
       <div>
         <div mb-5px>
-          Keep&nbsp;spaces:
+          保留空格
         </div>
         <n-switch v-model:value="keepSpace" />
       </div>

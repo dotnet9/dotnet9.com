@@ -17,17 +17,17 @@ const calculatedValues: {
   getNewValue: (result: Ipv4RangeExpanderResult | undefined) => string | undefined
 }[] = [
   {
-    label: 'Start address',
+    label: '起始地址',
     getOldValue: () => rawStartAddress.value,
     getNewValue: result => result?.newStart,
   },
   {
-    label: 'End address',
+    label: '结束地址',
     getOldValue: () => rawEndAddress.value,
     getNewValue: result => result?.newEnd,
   },
   {
-    label: 'Addresses in range',
+    label: '地址在范围内',
     getOldValue: result => result?.oldSize?.toLocaleString(),
     getNewValue: result => result?.newSize?.toLocaleString(),
   },
@@ -61,7 +61,7 @@ function onSwitchStartEndClicked() {
     <div mb-4 flex gap-4>
       <c-input-text
         v-model:value="rawStartAddress"
-        label="Start address"
+        label="起始地址"
         placeholder="Start IPv4 address..."
         :validation="startIpValidation"
         clearable
@@ -69,7 +69,7 @@ function onSwitchStartEndClicked() {
 
       <c-input-text
         v-model:value="rawEndAddress"
-        label="End address"
+        label="结束地址"
         placeholder="End IPv4 address..."
         :validation="endIpValidation"
         clearable
@@ -83,10 +83,10 @@ function onSwitchStartEndClicked() {
 &nbsp;
           </th>
           <th scope="col">
-            old value
+            旧值
           </th>
           <th scope="col">
-            new value
+            新值
           </th>
         </tr>
       </thead>

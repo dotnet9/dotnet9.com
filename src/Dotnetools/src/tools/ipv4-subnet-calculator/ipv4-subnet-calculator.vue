@@ -26,43 +26,43 @@ const sections: {
   undefinedFallback?: string
 }[] = [
   {
-    label: 'Netmask',
+    label: '网络掩码-Netmask',
     getValue: block => block.toString(),
   },
   {
-    label: 'Network address',
+    label: '网络地址-Network address',
     getValue: ({ base }) => base,
   },
   {
-    label: 'Network mask',
+    label: '网络掩码-Network mask',
     getValue: ({ mask }) => mask,
   },
   {
-    label: 'Network mask in binary',
+    label: '二进制形式的网络掩码-Network mask in binary',
     getValue: ({ bitmask }) => ('1'.repeat(bitmask) + '0'.repeat(32 - bitmask)).match(/.{8}/g)?.join('.') ?? '',
   },
   {
-    label: 'CIDR notation',
+    label: '网段表示法-CIDR notation',
     getValue: ({ bitmask }) => `/${bitmask}`,
   },
   {
-    label: 'Wildcard mask',
+    label: '通配符掩码-Wildcard mask',
     getValue: ({ hostmask }) => hostmask,
   },
   {
-    label: 'Network size',
+    label: '网络大小-Network size',
     getValue: ({ size }) => String(size),
   },
   {
-    label: 'First address',
+    label: '第一个地址',
     getValue: ({ first }) => first,
   },
   {
-    label: 'Last address',
+    label: '最后地址',
     getValue: ({ last }) => last,
   },
   {
-    label: 'Broadcast address',
+    label: '广播地址',
     getValue: ({ broadcast }) => broadcast,
     undefinedFallback: 'No broadcast address with this mask',
   },
@@ -86,7 +86,7 @@ function switchToBlock({ count = 1 }: { count?: number }) {
   <div>
     <c-input-text
       v-model:value="ip"
-      label="An IPv4 address with or without mask"
+      label="带或不带掩码的 IPv4 地址"
       placeholder="The ipv4 address..."
       :validation-rules="ipValidationRules"
       mb-4
@@ -112,10 +112,10 @@ function switchToBlock({ count = 1 }: { count?: number }) {
       <div mt-3 flex items-center justify-between>
         <c-button @click="switchToBlock({ count: -1 })">
           <n-icon :component="ArrowLeft" />
-          Previous block
+          上一个块-Previous block
         </c-button>
         <c-button @click="switchToBlock({ count: 1 })">
-          Next block
+          下一个块-Next block
           <n-icon :component="ArrowRight" />
         </c-button>
       </div>

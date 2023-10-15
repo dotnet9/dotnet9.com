@@ -37,14 +37,14 @@ function pause() {
     </c-card>
     <div mt-5 flex justify-center gap-3>
       <c-button v-if="!isRunning" type="primary" @click="resume">
-        Start
+        开始
       </c-button>
       <c-button v-else type="warning" @click="pause">
-        Stop
+        停止
       </c-button>
 
       <c-button @click="counter = 0">
-        Reset
+        重置
       </c-button>
     </div>
   </div>

@@ -10,10 +10,10 @@ const text = ref('');
     <c-input-text v-model:value="text" multiline placeholder="Your text..." rows="5" />
 
     <div mt-5 flex>
-      <n-statistic label="Character count" :value="text.length" flex-1 />
-      <n-statistic label="Word count" :value="text === '' ? 0 : text.split(/\s+/).length" flex-1 />
-      <n-statistic label="Line count" :value="text === '' ? 0 : text.split(/\r\n|\r|\n/).length" flex-1 />
-      <n-statistic label="Byte size" :value="formatBytes(getStringSizeInBytes(text))" flex-1 />
+      <n-statistic label="字符数" :value="text.length" flex-1 />
+      <n-statistic label="字数" :value="text === '' ? 0 : text.split(/\s+/).length" flex-1 />
+      <n-statistic label="行数" :value="text === '' ? 0 : text.split(/\r\n|\r|\n/).length" flex-1 />
+      <n-statistic label="字节大小" :value="formatBytes(getStringSizeInBytes(text))" flex-1 />
     </div>
   </c-card>
 </template>

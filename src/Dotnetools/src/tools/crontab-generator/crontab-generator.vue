@@ -127,13 +127,13 @@ const cronValidationRules = [
 
     <div flex justify-center>
       <n-form :show-feedback="false" label-width="170" label-placement="left">
-        <n-form-item label="Verbose">
+        <n-form-item label="详细">
           <n-switch v-model:value="cronstrueConfig.verbose" />
         </n-form-item>
-        <n-form-item label="Use 24 hour time format">
+        <n-form-item label="使用24小时制时间格式">
           <n-switch v-model:value="cronstrueConfig.use24HourTimeFormat" />
         </n-form-item>
-        <n-form-item label="Days start at 0">
+        <n-form-item label="日从 0 开始">
           <n-switch v-model:value="cronstrueConfig.dayOfWeekStartIndexZero" />
         </n-form-item>
       </n-form>
@@ -141,29 +141,29 @@ const cronValidationRules = [
   </c-card>
   <c-card>
     <pre>
-┌──────────── [optional] seconds (0 - 59)
-| ┌────────── minute (0 - 59)
-| | ┌──────── hour (0 - 23)
-| | | ┌────── day of month (1 - 31)
-| | | | ┌──── month (1 - 12) OR jan,feb,mar,apr ...
-| | | | | ┌── day of week (0 - 6, sunday=0) OR sun,mon ...
+┌──────────── [可选] 秒 (0 - 59)
+| ┌────────── 分 (0 - 59)
+| | ┌──────── 时 (0 - 23)
+| | | ┌────── 每月几号 (1 - 31)
+| | | | ┌──── 月 (1 - 12) OR jan,feb,mar,apr ...
+| | | | | ┌── 周几 (0 - 6, 星期天=0) 或者 sun,mon ...
 | | | | | |
-* * * * * * command</pre>
+* * * * * * 命令</pre>
 
     <div v-if="styleStore.isSmallScreen">
       <c-card v-for="{ symbol, meaning, example, equivalent } in helpers" :key="symbol" mb-3 important:border-none>
         <div>
-          Symbol: <strong>{{ symbol }}</strong>
+          符号: <strong>{{ symbol }}</strong>
         </div>
         <div>
-          Meaning: <strong>{{ meaning }}</strong>
+          说明: <strong>{{ meaning }}</strong>
         </div>
         <div>
-          Example:
+          举例:
           <strong><code>{{ example }}</code></strong>
         </div>
         <div>
-          Equivalent: <strong>{{ equivalent }}</strong>
+          等效: <strong>{{ equivalent }}</strong>
         </div>
       </c-card>
     </div>
@@ -171,16 +171,16 @@ const cronValidationRules = [
       <thead>
         <tr>
           <th class="text-left" scope="col">
-            Symbol
+            符号
           </th>
           <th class="text-left" scope="col">
-            Meaning
+            说明
           </th>
           <th class="text-left" scope="col">
-            Example
+            举例
           </th>
           <th class="text-left" scope="col">
-            Equivalent
+            等效
           </th>
         </tr>
       </thead>
