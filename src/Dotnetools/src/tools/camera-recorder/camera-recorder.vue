@@ -144,7 +144,7 @@ function downloadMedia({ type, value, createdAt }: Media) {
 
       <div v-if="!isMediaStreamAvailable" mt-3 flex justify-center>
         <c-button type="primary" @click="start">
-          Start webcam
+          启动网络摄像头
         </c-button>
       </div>
 

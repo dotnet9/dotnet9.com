@@ -47,11 +47,11 @@ async function onUpload({ file: { file } }: { file: UploadFileInfo }) {
 </script>
 
 <template>
-  <c-card title="Base64 to file">
+  <c-card title="Base64转文件">
     <c-input-text
       v-model:value="base64Input"
       multiline
-      placeholder="Put your base64 file string here..."
+      placeholder="把您的base64文件字符串放在这里..."
       rows="5"
       :validation="base64InputValidation"
       mb-2
@@ -59,28 +59,28 @@ async function onUpload({ file: { file } }: { file: UploadFileInfo }) {
 
     <div flex justify-center>
       <c-button :disabled="base64Input === '' || !base64InputValidation.isValid" @click="downloadFile()">
-        Download file
+        下载文件
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="File to base64">
+  <c-card title="文件转base64">
     <n-upload v-model:file-list="fileList" :show-file-list="true" :on-before-upload="onUpload" list-type="image">
       <n-upload-dragger>
         <div mb-2>
           <n-icon size="35" :depth="3" :component="Upload" />
         </div>
         <div op-60>
-          Click or drag a file to this area to upload
+          单击或拖动文件到此区域进行上传
         </div>
       </n-upload-dragger>
     </n-upload>
 
-    <c-input-text :value="fileBase64" multiline readonly placeholder="File in base64 will be here" rows="5" mb-2 />
+    <c-input-text :value="fileBase64" multiline readonly placeholder="base64的文件字符串将在这里" rows="5" mb-2 />
 
     <div flex justify-center>
       <c-button @click="copyFileBase64()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>

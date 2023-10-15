@@ -2,7 +2,7 @@ import { BrandGit } from '@vicons/tabler';
 import { defineTool } from '../tool';
 
 export const tool = defineTool({
-  name: 'Git cheatsheet',
+  name: 'Git备忘单',
   path: '/git-memo',
   description:
     'Git is a decentralized version management software. With this cheatsheet you will have a quick access to the most common git commands.',

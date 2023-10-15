@@ -93,7 +93,7 @@ const { copy: copyPassphrase } = useCopy({ source: passphrase, text: 'Passphrase
       </n-gi>
       <n-gi span="2">
         <n-form-item
-          label="Entropy (seed):"
+          label="熵（种子）-Entropy (seed):"
           :feedback="entropyValidation.message"
           :validation-status="entropyValidation.status"
         >
@@ -115,7 +115,7 @@ const { copy: copyPassphrase } = useCopy({ source: passphrase, text: 'Passphrase
       </n-gi>
     </n-grid>
     <n-form-item
-      label="Passphrase (mnemonic):"
+      label="密码短语（助记符）-Passphrase (mnemonic):"
       :feedback="mnemonicValidation.message"
       :validation-status="mnemonicValidation.status"
     >

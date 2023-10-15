@@ -46,28 +46,28 @@ const error = computed(() =>
       <n-divider />
 
       <InputCopyable
-        label="二进制"
+        label="二进制（2）"
         v-bind="inputProps"
         :value="errorlessConvert({ value: input, fromBase: inputBase, toBase: 2 })"
         placeholder="Binary version will be here..."
       />
 
       <InputCopyable
-        label="八进制"
+        label="八进制（8）"
         v-bind="inputProps"
         :value="errorlessConvert({ value: input, fromBase: inputBase, toBase: 8 })"
         placeholder="Octal version will be here..."
       />
 
       <InputCopyable
-        label="十进制"
+        label="十进制（10）"
         v-bind="inputProps"
         :value="errorlessConvert({ value: input, fromBase: inputBase, toBase: 10 })"
         placeholder="Decimal version will be here..."
       />
 
       <InputCopyable
-        label="十六进制"
+        label="十六进制（16）"
         v-bind="inputProps"
         :value="errorlessConvert({ value: input, fromBase: inputBase, toBase: 16 })"
         placeholder="Hexadecimal version will be here..."
@@ -82,7 +82,7 @@ const error = computed(() =>
 
       <div flex items-baseline>
         <n-input-group style="width: 160px; margin-right: 10px">
-          <n-input-group-label> Custom: </n-input-group-label>
+          <n-input-group-label> 自定义: </n-input-group-label>
           <n-input-number v-model:value="outputBase" max="64" min="2" />
         </n-input-group>
 

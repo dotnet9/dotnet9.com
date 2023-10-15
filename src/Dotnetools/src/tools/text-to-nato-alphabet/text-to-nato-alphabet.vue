@@ -11,7 +11,7 @@ const { copy } = useCopy({ source: natoText, text: 'NATO alphabet string copied.
   <div>
     <c-input-text
       v-model:value="input"
-      label="要转换为北约拼音的文本"
+      label="要转换为北约音标的文本"
       placeholder="这里输入文本..."
       clearable
       mb-5
