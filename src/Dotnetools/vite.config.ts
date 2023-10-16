@@ -53,7 +53,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       strategies: 'generateSW',
       manifest: {
-        name: 'Dotnetools',
+        name: 'Dotne工具箱',
         description: '为开发人员提供的一组有用的工具。',
         display: 'standalone',
         lang: 'zh-cn',

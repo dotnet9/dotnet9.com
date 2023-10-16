@@ -4,7 +4,7 @@ import { defineTool } from '../tool';
 import { codesByCategories } from './http-status-codes.constants';
 
 export const tool = defineTool({
-  name: 'HTTP 状态代码',
+  name: 'HTTP 状态代码查询',
   path: '/http-status-codes',
   description: '所有 HTTP 状态代码的列表，其名称和含义。',
   keywords: [
