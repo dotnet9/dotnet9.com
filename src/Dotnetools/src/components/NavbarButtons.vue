@@ -7,40 +7,30 @@ const { isDarkTheme } = toRefs(styleStore);
 </script>
 
 <template>
-  <n-tooltip trigger="hover">
-    <template #trigger>
-      <c-button
-        circle
-        variant="text"
-        href="https://github.com/dotnet9/Dotnet9"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Dotnet工具箱GitHub仓库"
-      >
-        <n-icon size="25" :component="BrandGithub" />
-      </c-button>
-    </template>
-    Github仓库
-  </n-tooltip>
+  <c-tooltip tooltip="Github仓库" position="bottom">
+    <c-button
+      circle
+      variant="text"
+      href="https://github.com/dotnet9/Dotnet9"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Dotnet工具箱GitHub仓库"
+    >
+      <n-icon size="25" :component="BrandGithub" />
+    </c-button>
+  </c-tooltip>
 
-  <n-tooltip trigger="hover">
-    <template #trigger>
-      <c-button circle variant="text" to="/about" aria-label="About">
-        <n-icon size="25" :component="InfoCircle" />
-      </c-button>
-    </template>
-    关于
-  </n-tooltip>
-  <n-tooltip trigger="hover">
-    <template #trigger>
-      <c-button circle variant="text" aria-label="Toggle dark/light mode" @click="() => styleStore.toggleDark()">
-        <n-icon v-if="isDarkTheme" size="25" :component="Sun" />
-        <n-icon v-else size="25" :component="Moon" />
-      </c-button>
-    </template>
-    <span v-if="isDarkTheme">浅色模式</span>
-    <span v-else>深色模式</span>
-  </n-tooltip>
+  <c-tooltip tooltip="关于 Dotnet工具箱" position="bottom">
+    <c-button circle variant="text" to="/about" aria-label="About">
+      <n-icon size="25" :component="InfoCircle" />
+    </c-button>
+  </c-tooltip>
+  <c-tooltip :tooltip="isDarkTheme ? '浅色模式' : '深色模式'" position="bottom">
+    <c-button circle variant="text" aria-label="切换 深色/浅色 模式" @click="() => styleStore.toggleDark()">
+      <n-icon v-if="isDarkTheme" size="25" :component="Sun" />
+      <n-icon v-else size="25" :component="Moon" />
+    </c-button>
+  </c-tooltip>
 </template>
 
 <style lang="less" scoped>

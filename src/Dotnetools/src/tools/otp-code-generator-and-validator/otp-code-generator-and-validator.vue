@@ -61,14 +61,11 @@ const secretValidationRules = [
       :validation-rules="secretValidationRules"
     >
       <template #suffix>
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <c-button circle variant="text" size="small" @click="refreshSecret">
-              <icon-mdi-refresh />
-            </c-button>
-          </template>
-          生成密钥token
-        </n-tooltip>
+        <c-tooltip tooltip="生成随机密钥">
+          <c-button circle variant="text" size="small" @click="refreshSecret">
+            <icon-mdi-refresh />
+          </c-button>
+        </c-tooltip>
       </template>
     </c-input-text>
 

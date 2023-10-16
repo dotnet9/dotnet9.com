@@ -41,7 +41,7 @@ const tools = computed<ToolCategory[]>(() => [
           </div>
           <div class="divider" />
           <div class="subtitle">
-            开发人员的方便工具
+            开发人员的在线便捷工具
           </div>
         </div>
       </RouterLink>
@@ -100,18 +100,17 @@ const tools = computed<ToolCategory[]>(() => [
           <NIcon size="25" :component="Menu2" />
         </c-button>
 
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <c-button to="/" circle variant="text" aria-label="首页">
-              <NIcon size="25" :component="Home2" />
-            </c-button>
-          </template>
-          首页
-        </n-tooltip>
+        <c-tooltip tooltip="首页" position="bottom">
+          <c-button to="/" circle variant="text" aria-label="首页">
+            <NIcon size="25" :component="Home2" />
+          </c-button>
+        </c-tooltip>
 
-        <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" aria-label="UI Lib">
-          <icon-mdi:brush-variant text-20px />
-        </c-button>
+        <c-tooltip tooltip="UI库" position="bottom">
+          <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" aria-label="UI库">
+            <icon-mdi:brush-variant text-20px />
+          </c-button>
+        </c-tooltip>
 
         <command-palette />
 
@@ -119,23 +118,20 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <c-button
-              round
-              href="https://dotnet9.com/donation"
-              rel="noopener"
-              target="_blank"
-              class="support-button"
-              :bordered="false"
-              @click="() => tracker.trackEvent({ eventName: 'Support button clicked' })"
-            >
-              请我喝奶茶
-              <NIcon v-if="!styleStore.isSmallScreen" :component="Heart" ml-2 />
-            </c-button>
-          </template>
-          ❤ 支持Dotnet工具箱 !
-        </n-tooltip>
+        <c-tooltip position="bottom" tooltip="支持Dotnet工具箱">
+          <c-button
+            round
+            href="https://dotnet9.com/donation"
+            rel="noopener"
+            target="_blank"
+            class="support-button"
+            :bordered="false"
+            @click="() => tracker.trackEvent({ eventName: 'Support button clicked' })"
+          >
+            请我喝咖啡
+            <NIcon v-if="!styleStore.isSmallScreen" :component="Heart" ml-2 />
+          </c-button>
+        </c-tooltip>
       </div>
       <slot />
     </template>

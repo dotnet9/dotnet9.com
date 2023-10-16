@@ -75,8 +75,17 @@ const percentageIncreaseDecrease = computed(() => {
         </div>
         <div flex gap-2>
           <n-input-number v-model:value="numberFrom" data-test-id="numberFrom" placeholder="From" />
+          <div hidden min-w-fit pt-1 sm:block>
+            相对
+          </div>
           <n-input-number v-model:value="numberTo" data-test-id="numberTo" placeholder="To" />
+          <div hidden min-w-fit pt-1 sm:block>
+            增加/减少
+          </div>
           <input-copyable v-model:value="percentageIncreaseDecrease" data-test-id="percentageIncreaseDecrease" readonly placeholder="Result" style="max-width: 150px;" />
+          <div hidden min-w-fit pt-1 sm:block>
+            %
+          </div>
         </div>
       </c-card>
     </div>

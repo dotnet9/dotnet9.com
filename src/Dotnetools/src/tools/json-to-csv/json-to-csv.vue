@@ -23,7 +23,7 @@ const rules: UseValidationRule<string>[] = [
 
 <template>
   <format-transformer
-    input-label="原始JSON"
+    input-label="原始JSON（注意：因为CSV是表格数据，所以只支持JSON数组）"
     input-placeholder="这里粘贴原始JSON..."
     output-label="已转换的CSV版本"
     :input-validation-rules="rules"
