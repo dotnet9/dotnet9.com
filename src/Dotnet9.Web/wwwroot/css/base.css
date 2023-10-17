@@ -51,7 +51,7 @@ nav #starlist { margin: auto; width: 1170px; }
 #selected { position: relative }
 #starlist ul.sub { padding: 5px 0; position: absolute; left: 0; top: 50px; background: rgb(9, 118, 220); z-index: 9; display: none; }
 #starlist ul.sub li { height: 34px; line-height: 34px; margin-left: 0; width: 100%; font-size: 14px; }
-#starlist ul.sub li a { padding: 0; display: block; width: 100%; }
+#starlist ul.sub li a { padding: 0px 10px 0px 10px; display: block; width: 100%; white-space: nowrap; text-overflow: ellipsis; text-align: left; }
 #starlist ul.sub li a:hover { background: #1487f4; }
 #starlist li:hover ul.sub { display: block }
 a#selected { background: rgb(9, 118, 220); }
