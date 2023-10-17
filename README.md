@@ -26,8 +26,8 @@
 
 - [x] 前台
   1. [x] 使用ASP.NET Core 8 Razor Pages搭建前台
-  2. [x] 已有功能：文章列表、分类文章列表、文章详情+评论、归档+评论、关于+评论等
-  3. [ ] 还有很多功能待开发，比如隐私、登录、前台文章创建和文章修改等
+  2. [x] 已有功能：文章列表、分类文章列表、文章详情、归档、关于等
+  3. [ ] 还有很多功能待开发，比如隐私、登录、前台文章创建和文章修改、评论管理等
 - [x] 后台前端
   1. [x] 使用Vue 2.x搭建，有空有能力的话升级为3.x
   2. [x] 基础表的CRUD
@@ -40,8 +40,11 @@
   3. [x] 基础表的接口管理
   4. [ ] 根据前台和后台前端的功能迭代，进行维护中
 
-- [x] Dotnet工具箱前台
-  1. [x] 使用 [ASP.NET Core 8 Blazor WebAssembly](https://learn.microsoft.com/zh-cn/aspnet/core/blazor/?WT.mc_id=dotnet-35129-website&view=aspnetcore-8.0) 搭建前台。
+- [x] Dotnet工具箱
+  1. [x] 参考[it-tools](https://github.com/CorentinTh/it-tools)使用 [Vue 3.0](https://vue3js.cn/) 搭建。
+  2. [x] 目前有10大分类，在线74个小工具
+
+  ![](assets/Dotnet工具箱.png)
 
 ## ✨ 1. 特性
 
@@ -80,7 +83,8 @@ MIT
 
 ## 建站文章分享
 
-网站文章介绍：[分享我做Dotnet9博客网站时积累的一些资料](https://dotnet9.com/2022/03/Share-some-learning-materials-I-accumulated-when-I-was-a-blog-website)
+- 网站文章介绍：[分享我做Dotnet9博客网站时积累的一些资料](https://dotnet9.com/2022/03/Share-some-learning-materials-I-accumulated-when-I-was-a-blog-website)
+- Dotnet工具箱介绍：[Dotnet工具箱：开源、免费的纯前端工具网站，带你探索10大工具分类和73个实时在线小工具](https://dotnet9.com/2023/10/dotnet-toolbox-open-source-free-pure-front-end-tool-website-that-takes-you-to-explore-10-major-tool-categories-and-73-real-time-online-small-tools)
 
 ## 感谢
 
