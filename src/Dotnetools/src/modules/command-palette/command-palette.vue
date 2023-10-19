@@ -115,7 +115,7 @@ function activateOption(option: PaletteOption) {
       <span flex items-center gap-3 op-40>
 
         <icon-mdi-search />
-        Search...
+        搜索...
 
         <span hidden flex-1 border border-current border-op-40 rounded border-solid px-5px py-3px sm:inline>
           {{ isMac ? 'Cmd' : 'Ctrl' }}&nbsp;+&nbsp;K
@@ -124,7 +124,7 @@ function activateOption(option: PaletteOption) {
     </c-button>
 
     <c-modal v-model:open="isModalOpen" class="palette-modal" shadow-xl important:max-w-650px important:pa-12px @keydown="handleKeydown">
-      <c-input-text ref="inputRef" v-model:value="searchPrompt" raw-text placeholder="Type to search a tool or a command..." autofocus clearable />
+      <c-input-text ref="inputRef" v-model:value="searchPrompt" raw-text placeholder="输入搜索工具或命令..." autofocus clearable />
 
       <div v-for="(options, category) in filteredSearchResult" :key="category">
         <div ml-3 mt-3 text-sm font-bold text-primary op-60>

@@ -39,7 +39,7 @@ const { t } = useI18n();
 
       <transition name="height">
         <div v-if="toolStore.favoriteTools.length > 0">
-          <n-h3>Your favorite tools</n-h3>
+          <n-h3>你最喜欢的工具</n-h3>
           <n-grid x-gap="12" y-gap="12" cols="1 400:2 800:3 1200:4 2000:8">
             <n-gi v-for="tool in toolStore.favoriteTools" :key="tool.name">
               <ToolCard :tool="tool" />

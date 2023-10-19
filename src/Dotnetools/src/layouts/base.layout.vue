@@ -25,7 +25,7 @@ const { tracker } = useTracker();
 const toolStore = useToolStore();
 
 const tools = computed<ToolCategory[]>(() => [
-  ...(toolStore.favoriteTools.length > 0 ? [{ name: 'Your favorite tools', components: toolStore.favoriteTools }] : []),
+  ...(toolStore.favoriteTools.length > 0 ? [{ name: '你最喜欢的工具', components: toolStore.favoriteTools }] : []),
   ...toolsByCategory,
 ]);
 </script>

@@ -150,7 +150,7 @@ function onSearchInput() {
         @keydown="handleKeydown"
       >
         <div flex-1 truncate>
-          <input v-if="searchable && isOpen" ref="searchInputRef" v-model="searchQuery" type="text" placeholder="Search..." class="search-input" w-full lh-normal color-current @input="onSearchInput">
+          <input v-if="searchable && isOpen" ref="searchInputRef" v-model="searchQuery" type="text" placeholder="搜索..." class="search-input" w-full lh-normal color-current @input="onSearchInput">
           <span v-else-if="selectedOption" lh-normal>
             {{ selectedOption.label }}
           </span>

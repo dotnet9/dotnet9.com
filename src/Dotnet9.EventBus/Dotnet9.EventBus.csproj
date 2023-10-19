@@ -3,7 +3,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0-rc.2.23479.6" />
-		<PackageReference Include="RabbitMQ.Client" Version="6.6.0" />
+		<PackageReference Include="RabbitMQ.Client" Version="7.0.0-alpha.0" />
 	</ItemGroup>
 
 	<ItemGroup>
