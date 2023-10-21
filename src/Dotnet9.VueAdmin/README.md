@@ -1,5 +1,6 @@
 <div align="center">
-	<img src="https://i.hd-r.cn/6ce52e5724fae609444b5b48bdc4accb.png">
+	<img src="https://img1.dotnet9.com/site/logo.png">
+	<h1>Dotnet9管理后台前端</h1>
 	<p align="center">
 		<a href="https://v3.vuejs.org/" target="_blank">
 			<img src="https://img.shields.io/badge/vue.js-vue3.x-green" alt="vue">
@@ -77,6 +78,8 @@ cnpm run build
 - <a href="https://github.com/vuejs/vue-next" target="_blank">vue-next</a>
 - <a href="https://github.com/ElemeFE/element" target="_blank">element-ui</a>
 - <a href="https://github.com/element-plus/element-plus" target="_blank">element-plus</a>
+- <a href="https://gitee.com/lyt-top/easy-admin" target="_blank">easy-admin</a>
+- <a href="https://gitee.com/lyt-top/vue-next-admin" target="_blank">vue-next-admin</a>
 - <a href="https://github.com/vuejs/vue-router-next" target="_blank">vue-router-next</a>
 - <a href="https://github.com/vuejs/pinia" target="_blank">pinia</a>
 - <a href="https://github.com/apache/echarts" target="_blank">echarts</a>

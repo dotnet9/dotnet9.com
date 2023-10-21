@@ -1,5 +1,3 @@
-using Dotnet9.WebAPI.Services;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -50,6 +48,8 @@ else
     builder.Services.AddScoped<IEmailSender, SendCloudEmailSender>();
     builder.Services.AddScoped<ISmsSender, SendCloudSmsSender>();
 }
+
+builder.Services.InstallCaptcha(builder.Configuration); // ×¢²áÍ¼ÐÎÑéÖ¤Âë
 
 builder.Services.AddScoped<ISeedService, SeedService>();
 

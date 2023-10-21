@@ -1,8 +1,8 @@
 {
-	"name": "vue-next-admin",
-	"version": "2.4.33",
-	"description": "vue3 vite next admin template",
-	"author": "lyt_20201208",
+	"name": "admin",
+	"version": "0.0.1",
+	"description": "Dotnet9管理后台",
+	"author": "沙漠尽头的狼",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite",
@@ -70,7 +70,7 @@
 		"not dead"
 	],
 	"bugs": {
-		"url": "https://gitee.com/lyt-top/vue-next-admin/issues"
+		"url": "https://github.com/dotnet9/Dotnet9/issues"
 	},
 	"engines": {
 		"node": ">=16.0.0",
@@ -87,6 +87,6 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://gitee.com/lyt-top/vue-next-admin.git"
+		"url": "https://github.com/dotnet9/Dotnet9.git"
 	}
 }

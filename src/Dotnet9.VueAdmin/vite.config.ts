@@ -30,7 +30,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			hmr: true,
 			proxy: {
 				'/api': {
-					target: 'http://localhost:53785',
+					target: 'http://localhost:5000',
 					ws: true,
 					changeOrigin: true,
 					secure: false, //解决target使用https出错问题

@@ -8,11 +8,13 @@ public class AuthController : ControllerBase
 {
     private readonly IdManager _manager;
     private readonly IIdRepository _repository;
+    private readonly ICaptcha _captcha;
 
-    public AuthController(IdManager manager, IIdRepository repository)
+    public AuthController(IdManager manager, IIdRepository repository, ICaptcha captcha)
     {
         _manager = manager;
         _repository = repository;
+        _captcha = captcha;
     }
 
 
@@ -109,5 +111,18 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<bool>?> OutLogin()
     {
         return await Task.FromResult(true);
+    }
+
+    /// <summary>
+    /// 获取验证码
+    /// </summary>
+    /// <param name="id">验证码唯一id</param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> Captcha([FromQuery] string id)
+    {
+        var data = _captcha.Generate(id);
+        var stream = new MemoryStream(data.Bytes);
+        return await Task.FromResult(new FileStreamResult(stream, "image/gif"));
     }
 }
