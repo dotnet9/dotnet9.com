@@ -1,0 +1,3299 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dotnet9.Application</name>
+    </assembly>
+    <members>
+        <member name="T:Dotnet9.Application.Auth.AuthManager">
+            <summary>
+            用户授权信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.AuthManager.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.AuthManager.IsSuperAdmin">
+            <summary>
+            是否是超级管理员
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.AuthManager.Account">
+            <summary>
+            登录名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.AuthManager.UniqueId">
+            <summary>
+            登录唯一Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.AuthManager.AuthPlatformType">
+            <summary>
+            授权平台类型
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Auth.AuthService">
+            <summary>
+            用户授权
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Auth.AuthService.SignIn(Dotnet9.Application.Auth.Dtos.AdminLoginInput)">
+            <summary>
+            系统用户登录
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Auth.AuthService.Captcha(System.String)">
+            <summary>
+            获取验证码
+            </summary>
+            <param name="id">验证码唯一id</param>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.Dtos.AdminLoginInput.Account">
+            <summary>
+            登录名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.Dtos.AdminLoginInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.Dtos.AdminLoginInput.Id">
+            <summary>
+            验证码唯一ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Auth.Dtos.AdminLoginInput.Code">
+            <summary>
+            验证码
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.BaseService`1.Delete(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除信息
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.BaseService`1.SetStatus(Dotnet9.Core.Shared.AvailabilityDto)">
+            <summary>
+            修改状态
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.BaseService`1.ClearCache">
+            <summary>
+            清除缓存
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.AlbumsService">
+            <summary>
+            相册管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Add(Dotnet9.Application.Blog.Dtos.AddAlbumsInput)">
+            <summary>
+            新增相册
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Update(Dotnet9.Application.Blog.Dtos.UpdateAlbumsInput)">
+            <summary>
+            更新相册
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.ArticleCategoryService">
+            <summary>
+            文章所属栏目管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleCategoryService.Add(System.Int64,System.Int64)">
+            <summary>
+            添加文章所属栏目
+            </summary>
+            <param name="articleId">文章ID</param>
+            <param name="categoryId">栏目ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleCategoryService.Update(System.Int64,System.Int64)">
+            <summary>
+            更新文章所属栏目
+            </summary>
+            <param name="articleId">文章ID</param>
+            <param name="categoryId">栏目ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.ArticleService">
+            <summary>
+            文章管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleService.Page(Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput)">
+            <summary>
+            文章列表分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleService.Add(Dotnet9.Application.Blog.Dtos.AddArticleInput)">
+            <summary>
+            添加文章
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleService.Update(Dotnet9.Application.Blog.Dtos.UpdateArticleInput)">
+            <summary>
+            更新文章
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleService.Detail(System.Int64)">
+            <summary>
+            文章详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.CategoryService">
+            <summary>
+            文章栏目管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.CategoryService.Page(System.String)">
+            <summary>
+            文章栏目列表
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.CategoryService.Add(Dotnet9.Application.Blog.Dtos.AddCategoryInput)">
+            <summary>
+            添加文章栏目
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.CategoryService.Update(Dotnet9.Application.Blog.Dtos.UpdateCategoryInput)">
+            <summary>
+            更新文章栏目
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.CategoryService.TreeSelect">
+            <summary>
+            获取文章栏目下拉选项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Name">
+            <summary>
+            相册名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Type">
+            <summary>
+            相册类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Summary">
+            <summary>
+            概要
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Link">
+            <summary>
+            原文地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.CreationType">
+            <summary>
+            创作类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Content">
+            <summary>
+            文章正文（Html或markdown）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.IsHtml">
+            <summary>
+            文章正文是否为html代码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.ExpiredTime">
+            <summary>
+            过期时间（过期后文章不显示）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.CategoryId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Name">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Link">
+            <summary>
+            网站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Logo">
+            <summary>
+            网站logo
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Url">
+            <summary>
+            对方博客友链的地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.IsIgnoreCheck">
+            <summary>
+            是否忽略对方站点是否存在本站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddPictureInput.AlbumId">
+            <summary>
+            相册Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddPictureInput.Url">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Color">
+            <summary>
+            标签颜色
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Icon">
+            <summary>
+            标签图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTagInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.Content">
+            <summary>
+            说说正文
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.Images">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Id">
+            <summary>
+            相册ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Type">
+            <summary>
+            相册类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.IsVisible">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput.Name">
+            <summary>
+            相册名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput.Type">
+            <summary>
+            相册类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Summary">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Link">
+            <summary>
+            原文地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Content">
+            <summary>
+            文章内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.IsHtml">
+            <summary>
+            是个是HTML
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.CreationType">
+            <summary>
+            创作类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.ExpiredTime">
+            <summary>
+            过期时间（过期后文章不显示）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.CategoryId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.CreationType">
+            <summary>
+            创作类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Views">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.CategoryName">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.CategoryId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Id">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Name">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Children">
+            <summary>
+            子栏目
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Id">
+            <summary>
+            友情链接主键
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.IsIgnoreCheck">
+            <summary>
+            忽略站点检查
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Link">
+            <summary>
+            友链
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Logo">
+            <summary>
+            Logo链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Url">
+            <summary>
+            对方博客友情链接地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Remark">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageQueryInput.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.PicturesPageQueryInput.Id">
+            <summary>
+            相册ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Id">
+            <summary>
+            标签ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Cover">
+            <summary>
+            标签封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Icon">
+            <summary>
+            标签图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Color">
+            <summary>
+            标签颜色 
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageQueryInput.Name">
+            <summary>
+            标签名称 
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.Images">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.IsPraise">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageOutput.CreatedTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.TalksPageQueryInput.Keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateArticleInput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateCategoryInput.Id">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateFriendLinkInput.Id">
+            <summary>
+            友链主键
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateTagInput.Id">
+            <summary>
+            标签ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateTalksInput.Id">
+            <summary>
+            说说主键
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.FriendLinkService">
+            <summary>
+            友情链接
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.FriendLinkService.Page(Dotnet9.Application.Blog.Dtos.FriendLinkPageQueryInput)">
+            <summary>
+            友情链接分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.FriendLinkService.Add(Dotnet9.Application.Blog.Dtos.AddFriendLinkInput)">
+            <summary>
+            添加友情链接
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.PicturesService">
+            <summary>
+            相册图片管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.PicturesService.Page(Dotnet9.Application.Blog.Dtos.PicturesPageQueryInput)">
+            <summary>
+            相册图片分页
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.PicturesService.Add(Dotnet9.Application.Blog.Dtos.AddPictureInput)">
+            <summary>
+            上传图片到相册
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.PicturesService.Delete(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除上册图片
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.TagsService">
+            <summary>
+            文章标签管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TagsService.Page(Dotnet9.Application.Blog.Dtos.TagsPageQueryInput)">
+            <summary>
+            文章标签列表非要查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TagsService.Add(Dotnet9.Application.Blog.Dtos.AddTagInput)">
+            <summary>
+            添加文章标签
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TagsService.Update(Dotnet9.Application.Blog.Dtos.UpdateTagInput)">
+            <summary>
+            更新文章标签
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TagsService.Select">
+            <summary>
+            文章标签下拉选项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Blog.TalksService">
+            <summary>
+            说说管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TalksService.Page(Dotnet9.Application.Blog.Dtos.TalksPageQueryInput)">
+            <summary>
+            说说分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TalksService.Add(Dotnet9.Application.Blog.Dtos.AddTalksInput)">
+            <summary>
+            添加说说
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.TalksService.Update(Dotnet9.Application.Blog.Dtos.UpdateTalksInput)">
+            <summary>
+            更新说说
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Client.AlbumsController">
+            <summary>
+            相册
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.AlbumsController.Get(SqlSugar.Pagination)">
+            <summary>
+            相册列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.AlbumsController.Pictures(Dotnet9.Application.Client.Dtos.PicturesQueryInput)">
+            <summary>
+            相册下的图片
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Client.AppController">
+            <summary>
+            博客基本信息
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.AppController.Info">
+            <summary>
+            博客基本信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.AppController.Links">
+            <summary>
+            友情链接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Client.ArticleController">
+            <summary>
+            博客文章
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Get(Dotnet9.Application.Client.Dtos.ArticleListQueryInput)">
+            <summary>
+            文章表查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Tags">
+            <summary>
+            标签列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Categories">
+            <summary>
+            文章栏目分类
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Report">
+            <summary>
+            文章信息统计
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Info(System.Int64)">
+            <summary>
+            文章详情
+            </summary>
+            <param name="id">文章ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Latest">
+            <summary>
+            最新文章
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Client.CommentController">
+            <summary>
+            评论
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CommentController.Get(Dotnet9.Application.Client.Dtos.CommentPageQueryInput)">
+            <summary>
+            评论列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CommentController.ReplyList(Dotnet9.Application.Client.Dtos.CommentPageQueryInput)">
+            <summary>
+            回复分页
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CommentController.Add(Dotnet9.Application.Client.Dtos.AddCommentInput)">
+            <summary>
+            评论、回复
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CommentController.Praise(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            点赞/取消点赞
+            </summary>
+            <param name="dto">对象ID</param>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.ModuleId">
+            <summary>
+             对应模块ID（null表留言，0代表友链的评论）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.RootId">
+            <summary>
+            顶级楼层评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.ParentId">
+            <summary>
+            被回复的评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.ReplyAccountId">
+            <summary>
+            回复人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.Content">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.Link">
+            <summary>
+            网站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.Logo">
+            <summary>
+            网站logo
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.Url">
+            <summary>
+            对方博客友链的地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.Remark">
+            <summary>
+            网站介绍
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Id">
+            <summary>
+            相册ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Name">
+            <summary>
+            相册名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Cover">
+            <summary>
+            相册封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Remark">
+            <summary>
+            相册描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Content">
+            <summary>
+            文章内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Summary">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Views">
+            <summary>
+            浏览量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CreationType">
+            <summary>
+            转载类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.IsHtml">
+            <summary>
+            是否是html
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Link">
+            <summary>
+            转载链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.PraiseTotal">
+            <summary>
+            点赞数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.IsPraise">
+            <summary>
+            当前用户是否已点赞
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategoryId">
+            <summary>
+            栏目Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategoryName">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.UpdatedTime">
+            <summary>
+            最后更新时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Prev">
+            <summary>
+            上一篇
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Next">
+            <summary>
+            下一篇
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Random">
+            <summary>
+            随机
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.TagId">
+            <summary>
+            标签ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.CategoryId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.Keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Id">
+            <summary>
+            文章ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryId">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryName">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CreationType">
+            <summary>
+            创作类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Summary">
+            <summary>
+            简介
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.ArticleCount">
+            <summary>
+            文章数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.TagCount">
+            <summary>
+            标签数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.CategoryCount">
+            <summary>
+            栏目数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.UserCount">
+            <summary>
+            用户量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.LinkCount">
+            <summary>
+            友链数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.BlogOutput.Site">
+            <summary>
+            博客基本设置信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.BlogOutput.Info">
+            <summary>
+            博主信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.BlogOutput.Covers">
+            <summary>
+            各个页面封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Id">
+            <summary>
+            栏目ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.ParentId">
+            <summary>
+            父级ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Name">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Total">
+            <summary>
+            文章条数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.Id">
+            <summary>
+            评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.IsBlogger">
+            <summary>
+            博主标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.AccountId">
+            <summary>
+            评论人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.Index">
+            <summary>
+            楼层
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.Content">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.ReplyCount">
+            <summary>
+            回复条数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.PraiseTotal">
+            <summary>
+            点赞数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.IsPraise">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.IP">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.Geolocation">
+            <summary>
+            Ip归属地
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.CreatedTime">
+            <summary>
+            评论时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentOutput.ReplyList">
+            <summary>
+            回复
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CommentPageQueryInput.Id">
+            <summary>
+            对应模块ID或评论ID（null表留言，0代表友链的评论）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.Id">
+            <summary>
+            友链ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.Link">
+            <summary>
+            友链
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.Logo">
+            <summary>
+            logo
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.Remark">
+            <summary>
+            网站描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Link">
+            <summary>
+            网站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Logo">
+            <summary>
+            logo 
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Url">
+            <summary>
+            对方博客友链地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.OAuthAccountDetailOutput.Remark">
+            <summary>
+            网站介绍
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.PictureOutput.Id">
+            <summary>
+            图片ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.PictureOutput.Url">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.PicturesQueryInput.AlbumId">
+            <summary>
+            相册ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.Id">
+            <summary>
+            评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.Content">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.IsBlogger">
+            <summary>
+            博主标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.RootId">
+            <summary>
+            顶级楼层评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.ParentId">
+            <summary>
+            上级评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.AccountId">
+            <summary>
+            当前评论人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.ReplyAccountId">
+            <summary>
+            回复人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.NickName">
+            <summary>
+            当前人昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.RelyNickName">
+            <summary>
+            回复人昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.Avatar">
+            <summary>
+            当前评论人头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.IP">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.PraiseTotal">
+            <summary>
+            点赞数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.IsPraise">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.Geolocation">
+            <summary>
+            Ip所属地
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.CreatedTime">
+            <summary>
+            评论时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TagsOutput.Id">
+            <summary>
+            标签ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TagsOutput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TagsOutput.Name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TagsOutput.Color">
+            <summary>
+            颜色
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalkDetailOutput.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.Content">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.Images">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.IsPraise">
+            <summary>
+            是否已点赞
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.Upvote">
+            <summary>
+            点赞数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.Comments">
+            <summary>
+            评论数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.TalksOutput.CreatedTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Client.OAuthController">
+            <summary>
+            第三方授权登录
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Application.Client.OAuthController.OAuthKey">
+            <summary>
+            第三方授权缓存
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Application.Client.OAuthController.OAuthRedirectKey">
+            <summary>
+            授权成功后回调页面缓存键
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.OAuthController.Get(System.String)">
+            <summary>
+            获取授权地址
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.OAuthController.Callback(System.String,System.String,System.String)">
+            <summary>
+            授权回调
+            </summary>
+            <param name="type">授权类型</param>
+            <param name="code"></param>
+            <param name="state">缓存唯一ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.OAuthController.Login(System.String)">
+            <summary>
+            登录
+            </summary>
+            <param name="code"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.OAuthController.UserInfo">
+            <summary>
+            获取用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.OAuthController.AddLink(Dotnet9.Application.Client.Dtos.AddLinkOutput)">
+            <summary>
+            申请友链
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Client.TalksController">
+            <summary>
+            博客说说
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.TalksController.Get(SqlSugar.Pagination)">
+            <summary>
+            说说列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.TalksController.TalkDetail(System.Int64)">
+            <summary>
+            说说详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Config.CustomConfigItemService">
+            <summary>
+            自定义配置项
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigItemService.Page(Dotnet9.Application.Config.Dtos.CustomConfigItemQueryInput)">
+            <summary>
+            自定义配置项分页列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigItemService.AddItem(Dotnet9.Application.Config.Dtos.AddCustomConfigItemInput)">
+            <summary>
+            添加自定义配置子项
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigItemService.UpdateItem(Dotnet9.Application.Config.Dtos.UpdateCustomConfigItemInput)">
+            <summary>
+            修改自定义配置子项
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Config.CustomConfigService">
+            <summary>
+            自定义配置业务
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.Get``1">
+            <summary>
+            获取强类型配置
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.GetConfig(System.String)">
+            <summary>
+            获取自定义配置
+            </summary>
+            <param name="code">自定义配置唯一编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.Page(Dotnet9.Application.Config.Dtos.CustomConfigQueryInput)">
+            <summary>
+            自定义配置分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.AddConfig(Dotnet9.Application.Config.Dtos.AddCustomConfigInput)">
+            <summary>
+            添加自定义配置
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.UpdateConfig(Dotnet9.Application.Config.Dtos.UpdateCustomConfigInput)">
+            <summary>
+            修改自定义配置
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.GetFormJson(System.Int64,System.Nullable{System.Int64})">
+            <summary>
+            获取配置表单设计和表单数据
+            </summary>
+            <param name="id"></param>
+            <param name="itemId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.SetJson(Dotnet9.Application.Config.Dtos.CustomConfigSetJsonInput)">
+            <summary>
+            修改配置表单设计
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.Generate(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            生成自定配置类
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.DeleteClass(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除自定义配置类
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.ResolveJson(System.String)">
+            <summary>
+            解析表单设计
+            </summary>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Config.CustomConfigService.GenerateCode(System.String,System.Collections.Generic.List{Dotnet9.Application.Config.Dtos.CustomControl})">
+            <summary>
+            生成类文件
+            </summary>
+            <param name="className">类名</param>
+            <param name="options"></param>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.Name">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.Code">
+            <summary>
+            配置唯一编码（类名）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.IsMultiple">
+            <summary>
+            是否是多项（集合）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.AllowCreationEntity">
+            <summary>
+            是否允许创建实体
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigItemInput.ConfigId">
+            <summary>
+            自定义配置Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.AddCustomConfigItemInput.Json">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigDetailOutput.FormJson">
+            <summary>
+            表单渲染Json
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigDetailOutput.DataJson">
+            <summary>
+            表单数据
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigDetailOutput.ItemId">
+            <summary>
+            配置项Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigItemQueryInput.Id">
+            <summary>
+            配置ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.Id">
+            <summary>
+            自定义配置Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.Name">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.Code">
+            <summary>
+            唯一编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.IsMultiple">
+            <summary>
+            是否是多项配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.AllowCreationEntity">
+            <summary>
+            是否允许创建实体
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.IsGenerate">
+            <summary>
+            是否已生成实体
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigQueryInput.Name">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigQueryInput.Code">
+            <summary>
+            配置唯一编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigSetJsonInput.Id">
+            <summary>
+            自定义配置ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomConfigSetJsonInput.Json">
+            <summary>
+            表单设计
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomControl.Type">
+            <summary>
+            控件类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.CustomControl.Options">
+            <summary>
+            控件配置项
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Name">
+            <summary>
+            控件唯一名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Label">
+            <summary>
+            控件中文名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.DefaultValue">
+            <summary>
+            默认值
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Placeholder">
+            <summary>
+            控件占位符
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Required">
+            <summary>
+            是否必填
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.LabelToolTip">
+            <summary>
+            说明
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Precision">
+            <summary>
+            精度
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Step">
+            <summary>
+            递增值
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.AllowHalf">
+            <summary>
+            允许半选
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Limit">
+            <summary>
+            附件最大上传数量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.ControlOptions.Multiple">
+            <summary>
+            是否启用多选
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Config.Dtos.UpdateCustomConfigInput.Id">
+            <summary>
+            配置id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.File.Dtos.UploadFileOutput.Name">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.File.Dtos.UploadFileOutput.Url">
+            <summary>
+            附件链接
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.File.FileService.Upload(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            上传附件
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.LogPageQueryInput.Keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.LogPageQueryInput.LogLevel">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.LogPageQueryInput.Account">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Id">
+            <summary>
+            日志ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Description">
+            <summary>
+            日志描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.LogLevel">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Message">
+            <summary>
+            日志详细信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.ActionName">
+            <summary>
+            路由名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.HttpMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.HttpStatusCode">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Elapsed">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Location">
+            <summary>
+            地理位置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.RemoteIp">
+            <summary>
+            ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.OsDescription">
+            <summary>
+            客户端系统信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.UserAgent">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Parameter">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Response">
+            <summary>
+            响应参数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.RequestUrl">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.Account">
+            <summary>
+            操作人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.OperationLogPageOutput.CreatedTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.Id">
+            <summary>
+            日志ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.RemoteIp">
+            <summary>
+            ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.Location">
+            <summary>
+            地理位置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.OsDescription">
+            <summary>
+            客户端系统信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.UserAgent">
+            <summary>
+            客户端浏览器信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.CreatedTime">
+            <summary>
+            登录时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Logging.Dtos.SigninLogPageOutput.Account">
+            <summary>
+            登录人账户名
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Logging.SysOperationLogService">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Logging.SysOperationLogService.List(Dotnet9.Application.Logging.Dtos.LogPageQueryInput)">
+            <summary>
+            操作日志列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Logging.SysOperationLogService.Clear">
+            <summary>
+            清除日志
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.Logging.SysSigninLogService">
+            <summary>
+            登录日志
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Logging.SysSigninLogService.List(Dotnet9.Application.Logging.Dtos.LogPageQueryInput)">
+            <summary>
+            登录日志分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Type">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Code">
+            <summary>
+            权限编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.ParentId">
+            <summary>
+            父级菜单
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.RouteName">
+            <summary>
+            路由名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Component">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Icon">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.IsIframe">
+            <summary>
+            是否内嵌页面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Link">
+            <summary>
+            外链地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.IsFixed">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.AddSysMenuInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.CheckPermissionOutput.Code">
+            <summary>
+            权限标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.CheckPermissionOutput.Access">
+            <summary>
+            是否有访问权限
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.IsLink">
+            <summary>
+            外链
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.IsHide">
+            <summary>
+            是否隐藏
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.IsAffix">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.Icon">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterMetaOutput.Type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterOutput.Name">
+            <summary>
+            路由名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterOutput.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterOutput.Component">
+            <summary>
+            组件
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterOutput.Meta">
+            <summary>
+            路由扩展信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.RouterOutput.Children">
+            <summary>
+            子菜单
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Id">
+            <summary>
+            菜单Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Code">
+            <summary>
+            权限标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Component">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.IsFixed">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.IsIframe">
+            <summary>
+            是否内嵌
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Link">
+            <summary>
+            外链
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.RouteName">
+            <summary>
+            路由名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuDetailOutput.Type">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Id">
+            <summary>
+             菜单Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Code">
+            <summary>
+            权限标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Icon">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Type">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Component">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.SysMenuPageOutput.Children">
+            <summary>
+            子菜单
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Menu.Dtos.UpdateSysMenuInput.Id">
+            <summary>
+            菜单/按钮Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Menu.SysMenuService">
+            <summary>
+            系统菜单管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.Page(System.String)">
+            <summary>
+            菜单列表查询
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.AddMenu(Dotnet9.Application.Menu.Dtos.AddSysMenuInput)">
+            <summary>
+            添加菜单/按钮
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.UpdateMenu(Dotnet9.Application.Menu.Dtos.UpdateSysMenuInput)">
+            <summary>
+            修改菜单/按钮
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.Detail(System.Int64)">
+            <summary>
+            根据菜单Id获取系统菜单详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.TreeSelect">
+            <summary>
+            菜单下拉树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.Delete(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除菜单/按钮
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.SetStatus(Dotnet9.Core.Shared.AvailabilityDto)">
+            <summary>
+            修改菜单/按钮状态
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.PermissionMenus">
+            <summary>
+            获取当前登录用户可用菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.TreeMenuButton">
+            <summary>
+            菜单按钮树
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.CheckPermission(System.String)">
+            <summary>
+            校验权限
+            </summary>
+            <param name="code">权限标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.GetAuthButtonCodeList(System.Int64)">
+            <summary>
+            获取指定用户的访问权限集合
+            </summary>
+            <param name="userId">系统用户id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Menu.SysMenuService.RemoveButton(System.Collections.Generic.List{Dotnet9.Core.Entities.SysMenu})">
+            <summary>
+            移除菜单中的按钮
+            </summary>
+            <param name="menus"></param>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.Name">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.Code">
+            <summary>
+            部门编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.AddOrgInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Id">
+            <summary>
+            组织机构Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Name">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Code">
+            <summary>
+            部门编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.SysOrgPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Organization.Dtos.UpdateOrgInput.Id">
+            <summary>
+            部门Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Organization.SysOrganizationService">
+            <summary>
+            组织机构管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Organization.SysOrganizationService.Page(System.String)">
+            <summary>
+            组织机构列表查询
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Organization.SysOrganizationService.AddOrg(Dotnet9.Application.Organization.Dtos.AddOrgInput)">
+            <summary>
+            添加组织机构
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Organization.SysOrganizationService.UpdateOrg(Dotnet9.Application.Organization.Dtos.UpdateOrgInput)">
+            <summary>
+            更新组织机构
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Organization.SysOrganizationService.TreeSelect">
+            <summary>
+            获取机构下拉选项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Code">
+            <summary>
+            角色编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Sort">
+            <summary>
+            排序值
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.AddSysRoleInput.Menus">
+            <summary>
+            授权按钮菜单Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Code">
+            <summary>
+            角色编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Sort">
+            <summary>
+            排序值
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRolePageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.SysRoleQueryInput.Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Role.Dtos.UpdateSysRoleInput.Id">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.Role.SysRoleService">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.Page(Dotnet9.Application.Role.Dtos.SysRoleQueryInput)">
+            <summary>
+            角色分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.AddRole(Dotnet9.Application.Role.Dtos.AddSysRoleInput)">
+            <summary>
+            添加角色
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.UpdateRole(Dotnet9.Application.Role.Dtos.UpdateSysRoleInput)">
+            <summary>
+            更新角色
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.GetRuleMenu(System.Int64)">
+            <summary>
+            获取角色可访问的菜单和按钮id
+            </summary>
+            <param name="id">角色id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.SetStatus(Dotnet9.Core.Shared.AvailabilityDto)">
+            <summary>
+            修改角色状态
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.Delete(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除角色
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Role.SysRoleService.RoleSelect">
+            <summary>
+            角色下拉选项
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Dotnet9.Application.User.AuthAccountService">
+            <summary>
+            博客授权用户
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.User.AuthAccountService.List(Dotnet9.Application.User.Dtos.AuthAccountPageQueryInput)">
+            <summary>
+            博客授权用户列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.AuthAccountService.SetBlogger(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            设置博主
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.AuthAccountService.Delete(Dotnet9.Core.Shared.KeyDto)">
+            <summary>
+            删除博客用户
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Account">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.OrgId">
+            <summary>
+            组织机构id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AddSysUserInput.Roles">
+            <summary>
+            角色
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.Name">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.Type">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.IsBlogger">
+            <summary>
+            是否是博主
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageOutput.CreatedTime">
+            <summary>
+            注册时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.AuthAccountPageQueryInput.Name">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.ChangePasswordOutput.OriginalPwd">
+            <summary>
+            原密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.ChangePasswordOutput.Password">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.QuerySysUserInput.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.QuerySysUserInput.OrgId">
+            <summary>
+            组织机构Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.QuerySysUserInput.Mobile">
+            <summary>
+            手机号
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.QuerySysUserInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.ResetPasswordInput.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Account">
+            <summary>
+            账户名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.LastLoginIp">
+            <summary>
+            最后登录ip
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.LastLoginAddress">
+            <summary>
+            最后登录IP所属地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.OrgId">
+            <summary>
+            机构id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.OrgName">
+            <summary>
+            机构名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserInfoOutput.AuthBtnList">
+            <summary>
+            授权按钮
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Account">
+            <summary>
+            账户名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.SysUserPageOutput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateCurrentUserInput.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.User.Dtos.UpdateSysUserInput.Id">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Application.User.SysUserService">
+            <summary>
+            系统用户管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.Page(Dotnet9.Application.User.Dtos.QuerySysUserInput)">
+            <summary>
+            系统用户分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.AddUser(Dotnet9.Application.User.Dtos.AddSysUserInput)">
+            <summary>
+            添加系统用户
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.UpdateUser(Dotnet9.Application.User.Dtos.UpdateSysUserInput)">
+            <summary>
+            更新系统用户信息
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.Detail(System.Int64)">
+            <summary>
+            系统用户详情
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.Reset(Dotnet9.Application.User.Dtos.ResetPasswordInput)">
+            <summary>
+            重置系统用户密码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.CurrentUserInfo">
+            <summary>
+            获取当前登录用户的信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.ChangePassword(Dotnet9.Application.User.Dtos.ChangePasswordOutput)">
+            <summary>
+            用户修改账户密码
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.UploadAvatar(System.String)">
+            <summary>
+            用户修改头像
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.User.SysUserService.UpdateCurrentUser(Dotnet9.Application.User.Dtos.UpdateCurrentUserInput)">
+            <summary>
+            系统用户修改自己的信息
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

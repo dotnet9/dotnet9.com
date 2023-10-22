@@ -1,0 +1,1911 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dotnet9.Core</name>
+    </assembly>
+    <members>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.NikeName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.QQ">
+            <summary>
+            QQ
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.Github">
+            <summary>
+            Github
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.Gitee">
+            <summary>
+            码云
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.Motto">
+            <summary>
+            个性签名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.About">
+            <summary>
+            关于我
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Logo">
+            <summary>
+            网站Logo
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Favicon">
+            <summary>
+            站点图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.IsRewards">
+            <summary>
+            开启打赏
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.AliPay">
+            <summary>
+            支付宝
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.WxPay">
+            <summary>
+            微信收款码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.IsAllowMessage">
+            <summary>
+            允许留言
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.IsAllowComments">
+            <summary>
+            允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Announcement">
+            <summary>
+            公告
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Motto">
+            <summary>
+            首页格言
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.RunTime">
+            <summary>
+            网站运营时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Copyright">
+            <summary>
+            站点版权
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Description">
+            <summary>
+            站点描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.BlogSetting.Filing">
+            <summary>
+            备案号
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.SysSecuritySetting.Password">
+            <summary>
+            用户默认密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.SysSecuritySetting.Times">
+            <summary>
+            密码错误次数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.SysSecuritySetting.PasswordRule">
+            <summary>
+            密码规则
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.SysSecuritySetting.RuleMessage">
+            <summary>
+            密码规则提示语
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Config.SysSecuritySetting.TokenExpired">
+            <summary>
+            Token有效期(分钟)
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.AuthClaimsConst.AuthIdKey">
+            <summary>
+            用户唯一ID
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.AuthClaimsConst.AccountKey">
+            <summary>
+            授权账户名键
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.AuthClaimsConst.UuidKey">
+            <summary>
+            登录唯一ID
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.AuthClaimsConst.AuthPlatformTypeKey">
+            <summary>
+            授权平台类型
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.CacheConst.PermissionKey">
+            <summary>
+            权限缓存键
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.CacheConst.PermissionMenuKey">
+            <summary>
+            用户菜单信息权限缓存键（构建ui左侧菜单）
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.CacheConst.PermissionButtonCodeKey">
+            <summary>
+            用户可访问的按钮权限编码缓存键（权限编码集合）
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Const.CacheConst.ConfigCacheKey">
+            <summary>
+            自定义配置缓存键
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Entity`1">
+            <summary>
+            表实体继承
+            </summary>
+            <typeparam name="TKey">主键类型</typeparam>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Entity`1.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Albums">
+            <summary>
+            相册表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Name">
+            <summary>
+            相册名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Type">
+            <summary>
+            相册类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Article">
+            <summary>
+            文章表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Summary">
+            <summary>
+            概要
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Views">
+            <summary>
+            浏览量
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Author">
+            <summary>
+            作者
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Link">
+            <summary>
+            原文地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.CreationType">
+            <summary>
+            创作类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Content">
+            <summary>
+            文章正文（Html或markdown）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.IsHtml">
+            <summary>
+            文章正文是否为html代码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.PublishTime">
+            <summary>
+            发布时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.ExpiredTime">
+            <summary>
+            过期时间（过期后文章不显示）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Article.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.ArticleCategory">
+            <summary>
+            文章所属栏目表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleCategory.ArticleId">
+            <summary>
+            文章Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleCategory.CategoryId">
+            <summary>
+            栏目Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.ArticleTag">
+            <summary>
+            文章标签表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleTag.ArticleId">
+            <summary>
+            文章Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleTag.TagId">
+            <summary>
+            标签Id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.AuthAccount">
+            <summary>
+            博客授权用户
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.OAuthId">
+            <summary>
+            授权唯一标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.Type">
+            <summary>
+            授权类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.IsBlogger">
+            <summary>
+            博主标识
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.Name">
+            <summary>
+            姓名（昵称）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.AuthAccount.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Categories">
+            <summary>
+            文章栏目表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Name">
+            <summary>
+            栏目名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.ParentId">
+            <summary>
+            父级id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Children">
+            <summary>
+            子栏目
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Comments">
+            <summary>
+            评论表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.ModuleId">
+            <summary>
+             对应模块ID（null表留言，0代表友链的评论）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.RootId">
+            <summary>
+            顶级楼层评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.ParentId">
+            <summary>
+            被回复的评论ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.AccountId">
+            <summary>
+            当前评论人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.ReplyAccountId">
+            <summary>
+            回复人ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.Content">
+            <summary>
+            评论内容
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.IP">
+            <summary>
+            Ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.Geolocation">
+            <summary>
+            IP所属地
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Comments.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.CustomConfig">
+            <summary>
+            自定义配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.Name">
+            <summary>
+            配置名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.Code">
+            <summary>
+            配置唯一编码（类名）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.IsMultiple">
+            <summary>
+            是否是多项（集合）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.Json">
+            <summary>
+            配置界面设计（json）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.AllowCreationEntity">
+            <summary>
+            是否允许创建实体
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.IsGenerate">
+            <summary>
+            是否已生成实体
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfig.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.CustomConfigItem">
+            <summary>
+            自定义配置子项
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.ConfigId">
+            <summary>
+            自定义配置Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.Json">
+            <summary>
+            配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.CustomConfigItem.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.FriendLink">
+            <summary>
+            友情链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.AppUserId">
+            <summary>
+            博客用户Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.SiteName">
+            <summary>
+            网站名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Link">
+            <summary>
+            网站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Logo">
+            <summary>
+            网站logo
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Url">
+            <summary>
+            对方博客友链的地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.IsIgnoreCheck">
+            <summary>
+            是否忽略对方站点是否存在本站链接
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.FriendLink.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.IAvailability">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.IAvailability.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.ICreatedTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ICreatedTime.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ICreatedUserId.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.IEntity">
+            <summary>
+            所有实体类继承
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.IEntity`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TKey">主键类型</typeparam>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.IEntity`1.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.ISoftDelete">
+            <summary>
+            软删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ISoftDelete.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.ISortable">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ISortable.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.IUpdatedTime.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Pictures">
+            <summary>
+            相册图片表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Pictures.AlbumId">
+            <summary>
+            相册Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Pictures.Url">
+            <summary>
+            图片地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Pictures.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Pictures.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Praise">
+            <summary>
+            点赞表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Praise.AccountId">
+            <summary>
+            用户ID 
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Praise.ObjectId">
+            <summary>
+            点赞对象ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Praise.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysMenu">
+            <summary>
+            系统菜单表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Name">
+            <summary>
+            菜单名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Type">
+            <summary>
+            菜单类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Code">
+            <summary>
+            权限编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.ParentId">
+            <summary>
+            父级菜单
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.RouteName">
+            <summary>
+            路由名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Path">
+            <summary>
+            路由地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Component">
+            <summary>
+            组件路径
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Redirect">
+            <summary>
+            重定向地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Icon">
+            <summary>
+            菜单图标
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.IsIframe">
+            <summary>
+            是否内嵌页面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Link">
+            <summary>
+            外链地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.IsKeepAlive">
+            <summary>
+            是否缓存
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.IsFixed">
+            <summary>
+            是否固定
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysMenu.Children">
+            <summary>
+            子菜单
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysOperationLog">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.UserId">
+            <summary>
+            操作用户ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.LogLevel">
+            <summary>
+            日志级别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Description">
+            <summary>
+            接口描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.ActionName">
+            <summary>
+            路由名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.HttpMethod">
+            <summary>
+            请求方式
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.TraceId">
+            <summary>
+            请求跟踪唯一ID （同一次请求ID相同）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.ThreadId">
+            <summary>
+            线程ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.UserAgent">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.RequestUrl">
+            <summary>
+            请求地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.RemoteIp">
+            <summary>
+            ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.OsDescription">
+            <summary>
+            用户系统信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Elapsed">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Location">
+            <summary>
+            Ip归属地
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.HttpStatusCode">
+            <summary>
+            http状态码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Parameter">
+            <summary>
+            请求参数
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Response">
+            <summary>
+            响应结果
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Message">
+            <summary>
+            详细信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.Exception">
+            <summary>
+            异常信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOperationLog.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysOrganization">
+            <summary>
+            组织机构信息表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.ParentId">
+            <summary>
+            父级Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Name">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Code">
+            <summary>
+            部门编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysOrganization.Children">
+            <summary>
+            子部门
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysRole">
+            <summary>
+            角色表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.Name">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.Code">
+            <summary>
+            角色编码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.Sort">
+            <summary>
+            排序值
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRole.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysRoleMenu">
+            <summary>
+            角色权限表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRoleMenu.RoleId">
+            <summary>
+            角色id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysRoleMenu.MenuId">
+            <summary>
+            菜单按钮id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysSigninLog">
+            <summary>
+            用户登录日志
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.RemoteIp">
+            <summary>
+            ip地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.UserAgent">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.Location">
+            <summary>
+            Ip归属地
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.OsDescription">
+            <summary>
+            用户系统信息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysSigninLog.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.SysUser">
+            <summary>
+            系统用户表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Account">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Name">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.OrgId">
+            <summary>
+            组织机构id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Birthday">
+            <summary>
+            生日
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Mobile">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.LastLoginIp">
+            <summary>
+            最后一次登录IP地址
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.LastLoginAddress">
+            <summary>
+            最后一次登录位置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.LastLoginTime">
+            <summary>
+            最后登录时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.UpdatedTime">
+            <summary>
+            更新时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.LockExpired">
+            <summary>
+            账号锁定过期时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUser.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUserRole.UserId">
+            <summary>
+            用户id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.SysUserRole.RoleId">
+            <summary>
+            角色id
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Entities.Tags">
+            <summary>
+            标签信息表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Name">
+            <summary>
+            标签名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Color">
+            <summary>
+            标签颜色
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Tags.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.IsTop">
+            <summary>
+            是否置顶
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.Content">
+            <summary>
+            说说正文
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.Images">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.IsAllowComments">
+            <summary>
+            是否允许评论
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Talks.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Enum.AuthPlatformType">
+            <summary>
+            登录账户类型
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.AuthPlatformType.Manager">
+            <summary>
+            后台
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.AuthPlatformType.Blog">
+            <summary>
+            博客
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Enum.AvailabilityStatus">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.AvailabilityStatus.Enable">
+            <summary>
+            启用
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.AvailabilityStatus.Disable">
+            <summary>
+            禁用
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Enum.CoverType">
+            <summary>
+            博客封面类型
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Home">
+            <summary>
+            首页封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Archives">
+            <summary>
+            归档封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Category">
+            <summary>
+            分类封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Tag">
+            <summary>
+            标签封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Album">
+            <summary>
+            相册封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Talk">
+            <summary>
+            说说封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.About">
+            <summary>
+            关于封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Message">
+            <summary>
+            留言封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.User">
+            <summary>
+            个人中心封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Link">
+            <summary>
+            友情链接封面图
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.TagList">
+            <summary>
+            标签列表封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Categories">
+            <summary>
+            分类列表封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CreationType.Original">
+            <summary>
+            原创
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CreationType.Reprinted">
+            <summary>
+            转载
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.EventType.SignIn">
+            <summary>
+            登录事件
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.EventType.Operation">
+            <summary>
+            操作事件
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.EventType.Exception">
+            <summary>
+            异常事件
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Enum.Gender">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.Gender.Male">
+            <summary>
+            男
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.Gender.Female">
+            <summary>
+            女
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.Gender.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.MenuType.Catalog">
+            <summary>
+            目录
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.MenuType.Menu">
+            <summary>
+            菜单
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.MenuType.Button">
+            <summary>
+            按钮
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Core.Logging.DatabaseLoggingWriter.Dispose">
+            <summary>
+            释放服务作用域
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Options.DbConnectionOptions">
+            <summary>
+            数据库选项配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.DbConnectionOptions.Connections">
+            <summary>
+            数据库配置
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Options.ConnectionConfigExt">
+            <summary>
+            数据库连接扩展
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.ConnectionConfigExt.EnableInitDb">
+            <summary>
+            是否初始化数据库
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.ConnectionConfigExt.EnableSeed">
+            <summary>
+            启用表数据初始化
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Options.OssConnectionOptions">
+            <summary>
+            对象存储连接配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.OssConnectionOptions.Bucket">
+            <summary>
+            默认存目录
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.OssConnectionOptions.Domain">
+            <summary>
+            外网访问域名或IP
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.OssConnectionOptions.Enable">
+            <summary>
+            是否启用对象存储（不启用将存储至站点目录）
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Options.SnowIdOptions">
+            <summary>
+            雪花id配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Shared.AvailabilityDto.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Shared.KeyDto.Id">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Shared.SelectOutput">
+            <summary>
+            下拉框
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Shared.SelectOutput.Label">
+            <summary>
+            文本
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Shared.SelectOutput.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:Dotnet9.Core.Shared.TreeSelectOutput">
+            <summary>
+            树形下拉框
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Shared.TreeSelectOutput.Children">
+            <summary>
+            子选项
+            </summary>
+        </member>
+        <member name="M:Easy.Core.HttpContextExtension.GetRemoteIp(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            获取ip
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Easy.Core.HttpContextExtension.GetGeolocation(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            获取Ip所属详细地理位置
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Easy.Core.HttpContextExtension.GetGeolocation(System.String)">
+            <summary>
+            获取ip详细信息
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.Ip">
+            <summary>
+            ip
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.Province">
+            <summary>
+            省份
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.ProCode">
+            <summary>
+            省编码
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.City">
+            <summary>
+            城市
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.CityCode">
+            <summary>
+            城市编码
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.Region">
+            <summary>
+            区域
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.RegionCode">
+            <summary>
+            区编码
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.Address">
+            <summary>
+            IP归属地
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.RegionNames">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Easy.Core.IpInfoDto.Error">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="M:Easy.Core.ServiceCollectionExtension.AddCustomOptions(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加自定义选项
+            </summary>
+            <param name="service"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Easy.Core.YitIdHelperExtension.Salt">
+            <summary>
+            盐值
+            </summary>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册雪花ID服务（默认配置）
+            </summary>
+            <param name="service"></param>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            注册雪花ID服务（自定义配置）
+            </summary>
+            <param name="service"></param>
+            <param name="sectionName"></param>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.AddIdGenerator(Microsoft.Extensions.DependencyInjection.IServiceCollection,Yitter.IdGenerator.IdGeneratorOptions)">
+            <summary>
+            注册雪花ID服务（自定义配置）
+            </summary>
+            <param name="service"></param>
+            <param name="options">配置</param>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.NextId(Yitter.IdGenerator.IIdGenerator)">
+            <summary>
+            生成ID
+            </summary>
+            <param name="generator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.Encode(Yitter.IdGenerator.IIdGenerator,System.Int64,System.String)">
+            <summary>
+            加密ID（生成短ID）
+            </summary>
+            <param name="generator"></param>
+            <param name="id">long类型ID</param>
+            <param name="salt">盐值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.Decode(Yitter.IdGenerator.IIdGenerator,System.String,System.String)">
+            <summary>
+            解密加密ID（解密短ID）
+            </summary>
+            <param name="generator"></param>
+            <param name="text">密文</param>
+            <param name="salt">盐值</param>
+            <returns></returns>
+        </member>
+        <member name="P:SqlSugar.IPagination.PageNo">
+            <summary>
+            当前页码
+            </summary>
+        </member>
+        <member name="P:SqlSugar.IPagination.PageSize">
+            <summary>
+            页码容量
+            </summary>
+        </member>
+        <member name="P:SqlSugar.PageResult`1.PageNo">
+            <summary>
+            当前页
+            </summary>
+        </member>
+        <member name="P:SqlSugar.PageResult`1.PageSize">
+            <summary>
+            页容量
+            </summary>
+        </member>
+        <member name="P:SqlSugar.PageResult`1.Pages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:SqlSugar.PageResult`1.Total">
+            <summary>
+            总条数
+            </summary>
+        </member>
+        <member name="P:SqlSugar.PageResult`1.Rows">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:SqlSugar.Pagination">
+            <summary>
+            分页查询基类
+            </summary>
+        </member>
+        <member name="P:SqlSugar.Pagination.PageNo">
+            <summary>
+            当前页码
+            </summary>
+        </member>
+        <member name="P:SqlSugar.Pagination.PageSize">
+            <summary>
+            页码容量
+            </summary>
+        </member>
+        <member name="T:SqlSugar.ISqlSugarRepository`1">
+            <summary>
+            泛型仓储
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:SqlSugar.SqlSugarRepository`1">
+            <summary>
+            泛型仓储
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:SqlSugar.SqlSugarCache">
+            <summary>
+            SqlSugar ORM框架所需缓存配置
+            </summary>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.AddSqlSugar(Microsoft.Extensions.DependencyInjection.IServiceCollection,Dotnet9.Core.Options.ConnectionConfigExt,System.Action{SqlSugar.ISqlSugarClient})">
+            <summary>
+            添加 SqlSugar 拓展（适用于单个数据库）
+            </summary>
+            <param name="services"></param>
+            <param name="config">数据库连接对象</param>
+            <param name="buildAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.AddSqlSugar(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Collections.Generic.List{Dotnet9.Core.Options.ConnectionConfigExt},System.Action{SqlSugar.SqlSugarClient})">
+            <summary>
+            添加 SqlSugar 拓展（适用于多数据库）
+            </summary>
+            <param name="services"></param>
+            <param name="configs">数据库连接对象集合</param>
+            <param name="buildAction"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.Init(SqlSugar.SqlSugarScope,Dotnet9.Core.Options.ConnectionConfigExt)">
+            <summary>
+            初始化数据库
+            </summary>
+            <param name="client"></param>
+            <param name="config"></param>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.AddSqlSugar(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加 SqlSugar 服务
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="F:SqlSugar.SqlSugarExtensions.Aop">
+            <summary>
+            拦截器
+            </summary>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitData(SqlSugar.SqlSugarScope)">
+            <summary>
+            初始化基础数据
+            </summary>
+        </member>
+        <member name="T:SqlSugar.SqlSugarUnitOfWork">
+            <summary>
+            数据库事务（工作单元保证数据的一致性）
+            </summary>
+        </member>
+        <member name="M:SqlSugar.SqlSugarUnitOfWork.BeginTransaction(Microsoft.AspNetCore.Mvc.Filters.FilterContext,Furion.DatabaseAccessor.UnitOfWorkAttribute)">
+            <summary>
+            开启事务
+            </summary>
+            <param name="context"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:SqlSugar.SqlSugarUnitOfWork.CommitTransaction(Microsoft.AspNetCore.Mvc.Filters.FilterContext,Furion.DatabaseAccessor.UnitOfWorkAttribute)">
+            <summary>
+            提交事务
+            </summary>
+            <param name="resultContext"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:SqlSugar.SqlSugarUnitOfWork.RollbackTransaction(Microsoft.AspNetCore.Mvc.Filters.FilterContext,Furion.DatabaseAccessor.UnitOfWorkAttribute)">
+            <summary>
+            回滚
+            </summary>
+            <param name="resultContext"></param>
+            <param name="unitOfWork"></param>
+        </member>
+        <member name="M:SqlSugar.SqlSugarUnitOfWork.OnCompleted(Microsoft.AspNetCore.Mvc.Filters.FilterContext,Microsoft.AspNetCore.Mvc.Filters.FilterContext)">
+            <summary>
+            释放连接对象
+            </summary>
+            <param name="context"></param>
+            <param name="resultContext"></param>
+        </member>
+        <member name="T:SqlSugar.SugarQueryableExtensions">
+            <summary>
+            扩展SqlSugar SugarQueryable进行分页
+            </summary>
+        </member>
+        <member name="M:SqlSugar.SugarQueryableExtensions.ToPagedList``1(SqlSugar.ISugarQueryable{``0},SqlSugar.IPagination)">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="queryable"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SqlSugar.SugarQueryableExtensions.ToPagedListAsync``1(SqlSugar.ISugarQueryable{``0},SqlSugar.IPagination)">
+            <summary>
+            分页拓展
+            </summary>
+            <param name="queryable"></param>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

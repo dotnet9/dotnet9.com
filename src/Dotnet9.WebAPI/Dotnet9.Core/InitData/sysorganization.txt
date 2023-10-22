@@ -1,0 +1,26 @@
+[
+  {
+    "Id": "68411661271045",
+    "ParentId": null,
+    "Name": "集团",
+    "Code": "group",
+    "Status": "0",
+    "Sort": "100",
+    "Remark": "",
+    "CreatedUserId": "1",
+    "DeleteMark": "0",
+    "CreatedTime": "2023-06-01"
+  },
+  {
+    "Id": "68411771580421",
+    "ParentId": "68411661271045",
+    "Name": "子公司",
+    "Code": "subcompany",
+    "Status": "0",
+    "Sort": "100",
+    "Remark": "",
+    "CreatedUserId": "1",
+    "DeleteMark": "0",
+    "CreatedTime": "2023-06-01"
+  }
+]

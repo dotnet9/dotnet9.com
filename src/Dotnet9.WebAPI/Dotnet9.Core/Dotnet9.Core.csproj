@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<NoWarn>1701;1702;1591;8632</NoWarn>
+		<DocumentationFile>Dotnet9.Core.xml</DocumentationFile>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<None Remove="Dotnet9.Core.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+		<PackageReference Include="EasyCaching.CSRedis" Version="1.9.1" />
+		<PackageReference Include="EasyCaching.InMemory" Version="1.9.1" />
+		<PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.8.8.48" />
+		<PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.8.8.48" />
+		<PackageReference Include="Furion.Pure" Version="4.8.8.48" />
+		<PackageReference Include="Hashids.net" Version="1.7.0" />
+		<PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
+		<PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.1" />
+		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.113-preview02" />
+		<PackageReference Include="UAParser" Version="3.1.47" />
+		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Config\" />
+	  <Folder Include="Shared\" />
+	  <Folder Include="Const\" />
+	  <Folder Include="Logging\" />
+	  <Folder Include="InitData\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="InitData\albums.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\article.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\articlecategory.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\articletag.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\categories.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\customconfig.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\customconfigitem.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\pictures.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysmenu.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysorganization.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysrole.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysrolemenu.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysuser.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\sysuserrole.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\tags.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="InitData\talks.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

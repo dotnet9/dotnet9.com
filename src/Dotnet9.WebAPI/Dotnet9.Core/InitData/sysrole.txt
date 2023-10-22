@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "49940114792453",
+    "Name": "管理员",
+    "Code": "admin",
+    "Status": "0",
+    "Sort": "100",
+    "Remark": "",
+    "DeleteMark": "0",
+    "CreatedTime": "2023-06-01"
+  },
+  {
+    "Id": "49955444563973",
+    "Name": "测试",
+    "Code": "test",
+    "Status": "0",
+    "Sort": "100",
+    "Remark": "",
+    "DeleteMark": "0",
+    "CreatedTime": "2023-06-01"
+  }
+]

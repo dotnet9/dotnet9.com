@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<NoWarn>1701;1702;1591</NoWarn>
+		<DocumentationFile>Dotnet9.Application.xml</DocumentationFile>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<None Remove="applicationsettings.json" />
+		<None Remove="Dotnet9.Application.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="applicationsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dotnet9.Core\Dotnet9.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Auth\Dtos\" />
+		<Folder Include="Blog\Dtos\" />
+		<Folder Include="Config\Dtos\" />
+		<Folder Include="File\Dtos\" />
+		<Folder Include="Logging\Dtos\" />
+		<Folder Include="Menu\Dtos\" />
+		<Folder Include="Organization\Dtos\" />
+	</ItemGroup>
+
+</Project>
