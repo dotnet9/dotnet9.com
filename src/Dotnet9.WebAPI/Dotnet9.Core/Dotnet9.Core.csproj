@@ -25,7 +25,7 @@
 		<PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.1" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
-		<PackageReference Include="SqlSugarCore" Version="5.1.4.113-preview04" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.113-preview05" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 	</ItemGroup>

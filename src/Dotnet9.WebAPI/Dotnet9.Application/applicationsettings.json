@@ -1,22 +1,22 @@
 ﻿{
   "$schema": "https://gitee.com/dotnetchina/Furion/raw/v4/schemas/v4/furion-schema.json",
   "SpecificationDocumentSettings": {
-    "DocumentTitle": "Furion | 规范化接口",
+    "DocumentTitle": "Dotnet9 | 规范化接口",
     "GroupOpenApiInfos": [
       {
         "Group": "Default",
-        "Title": "后端接口",
-        "Description": "让 .NET 开发更简单，更通用，更流行。",
-        "Version": "1.0.0",
-        "TermsOfService": "https://furion.baiqian.ltd",
+        "Title": "博客后端接口",
+        "Description": "Dotnet9后端",
+        "Version": "0.0.1",
+        "TermsOfService": "https://github.com/dotnet9",
         "Contact": {
-          "Name": "百小僧",
-          "Url": "https://gitee.com/monksoul",
-          "Email": "monksoul@outlook.com"
+          "Name": "沙漠尽头的狼",
+          "Url": "https://github.com/dotnet9",
+          "Email": "632871194@qq.com"
         },
         "License": {
-          "Name": "Apache-2.0",
-          "Url": "https://gitee.com/dotnetchina/Furion/blob/rc1/LICENSE"
+          "Name": "MIT",
+          "Url": "https://github.com/dotnet9"
         }
       }
     ]
@@ -123,7 +123,7 @@
       "ReturnValueThreshold": 0, // 配置返回值字符串阈值，默认 0，全量输出，Furion 4.3.9+ 有效
       "JsonBehavior": "None", // 配置 LoggingMonitor Json 输出行为，默认 None，Furion 4.5.2+ 有效
       "JsonIndented": false, // 配置 LoggingMonitor Json 格式化行为，默认 false，Furion 4.8.2+ 有效
-      "ContractResolver": "CamelCase", // 配置 LoggingMonitor 序列化属性命名规则，默认 CamelCase，Furion 4.8.6.12+ 有效
+      "ContractResolver": "CamelCase" // 配置 LoggingMonitor 序列化属性命名规则，默认 CamelCase，Furion 4.8.6.12+ 有效
       //"MethodsSettings": [
       //  // 配置被监视方法更多信息，Furion 4.3.9+ 有效
       //  {
