@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MrHuo.OAuth;
 using MrHuo.OAuth.QQ;
 using OnceMi.AspNetCore.OSS;
+using System;
 
 namespace Dotnet9.Web.Core;
 
@@ -82,6 +83,7 @@ public class Startup : AppStartup
         });
 
         // 配置ORM 文档：https://www.donet5.com/Home/Doc
+        //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         services.AddSqlSugar();
 
         //远程请求 文档：https://furion.baiqian.ltd/docs/http

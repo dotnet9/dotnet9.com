@@ -54,7 +54,7 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// <summary>
     /// 文章正文（Html或markdown）
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string Content { get; set; }
 
     /// <summary>

@@ -25,7 +25,7 @@
 		<PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.1" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
-		<PackageReference Include="SqlSugarCore" Version="5.1.4.113-preview02" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.113-preview04" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 	</ItemGroup>
@@ -35,56 +35,55 @@
 	  <Folder Include="Shared\" />
 	  <Folder Include="Const\" />
 	  <Folder Include="Logging\" />
-	  <Folder Include="InitData\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="InitData\albums.txt">
+	  <None Update="InitData\albums.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\article.txt">
+	  <None Update="InitData\article.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\articlecategory.txt">
+	  <None Update="InitData\articlecategory.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\articletag.txt">
+	  <None Update="InitData\articletag.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\categories.txt">
+	  <None Update="InitData\categories.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\customconfig.txt">
+	  <None Update="InitData\customconfig.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\customconfigitem.txt">
+	  <None Update="InitData\customconfigitem.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\pictures.txt">
+	  <None Update="InitData\pictures.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\sysmenu.txt">
+	  <None Update="InitData\sysmenu.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\sysorganization.txt">
+	  <None Update="InitData\sysorganization.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\sysrole.txt">
+	  <None Update="InitData\sysrole.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\sysrolemenu.txt">
+	  <None Update="InitData\sysrolemenu.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	  <None Update="InitData\sysuser.txt">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\sysuserrole.txt">
+	  <None Update="InitData\sysuserrole.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\tags.txt">
+	  <None Update="InitData\tags.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="InitData\talks.txt">
+	  <None Update="InitData\talks.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

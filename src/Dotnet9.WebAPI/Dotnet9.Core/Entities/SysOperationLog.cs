@@ -95,25 +95,25 @@ public class SysOperationLog : Entity<long>, ICreatedTime
     /// <summary>
     /// 请求参数
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string? Parameter { get; set; }
 
     /// <summary>
     /// 响应结果
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string? Response { get; set; }
 
     /// <summary>
     /// 详细信息
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string Message { get; set; }
 
     /// <summary>
     /// 异常信息
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string? Exception { get; set; }
 
     /// <summary>

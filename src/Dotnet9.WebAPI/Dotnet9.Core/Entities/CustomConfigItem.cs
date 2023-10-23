@@ -14,7 +14,7 @@ public class CustomConfigItem : Entity<long>, IAvailability, ICreatedUserId, ISo
     /// <summary>
     /// 配置
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string Json { get; set; }
 
     /// <summary>

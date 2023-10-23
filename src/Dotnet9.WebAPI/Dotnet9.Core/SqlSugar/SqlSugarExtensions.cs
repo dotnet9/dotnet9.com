@@ -209,7 +209,7 @@ public static class SqlSugarExtensions
 
         string path = Path.Combine(AppContext.BaseDirectory, "InitData");
         var dir = new DirectoryInfo(path);
-        var files = dir.GetFiles("*.txt");
+        var files = dir.GetFiles("*.json");
         foreach (var file in files)
         {
             using var reader = file.OpenText();
@@ -219,7 +219,7 @@ public static class SqlSugarExtensions
             {
                 continue;
             }
-            table.TableName = file.Name.Replace(".txt", "");
+            table.TableName = file.Name.Replace(".json", "");
 
             client.Storageable(table).WhereColumns("Id").ToStorage().AsInsertable.ExecuteCommand();
         }

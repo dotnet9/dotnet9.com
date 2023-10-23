@@ -26,7 +26,7 @@ public class CustomConfig : Entity<long>, IAvailability, ICreatedUserId, ISoftDe
     /// <summary>
     /// 配置界面设计（json）
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string? Json { get; set; }
 
     /// <summary>

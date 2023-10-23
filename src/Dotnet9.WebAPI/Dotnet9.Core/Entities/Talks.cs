@@ -12,7 +12,7 @@ public class Talks : Entity<long>, ISoftDelete, ICreatedTime, IAvailability
     /// <summary>
     /// 说说正文
     /// </summary>
-    [SugarColumn(Length = int.MaxValue)]
+    [SugarColumn(ColumnDataType = "text")]
     public string Content { get; set; }
 
     /// <summary>
