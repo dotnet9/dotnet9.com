@@ -1,4 +1,57 @@
 home:
   categories:
     newestTools: Newest tools
-
+    favoriteTools: 'Your favorite tools'
+    allTools: 'All the tools'
+  title: "Dotnetools"
+  subtitle: 'Handy tools for developers'
+  blog: 'Blog:'
+  toggleMenu: 'Toggle menu'
+  home: Home
+  uiLib: 'UI Lib'
+  buyMeACoffee: 'Buy me a coffee'
+  supportDotnetools: 'Support Dotnetools'
+  follow:
+    title: 'You like Dotnetools?'
+    p1: 'Give us a star on'
+    githubRepository: 'Dotnetools GitHub repository'
+    p2: 'or follow us on'
+    twitterAccount: 'Dotnetools Twitter account'
+    thankYou: 'Thank you !'
+  nav:
+    github: 'GitHub repository'
+    githubRepository: 'Dotnetools GitHub repository'
+    twitter: 'Twitter account'
+    twitterAccount: 'Dotnetools Twitter account'
+    about: 'About  Dotnetools'
+    aboutLabel: 'About'
+    darkMode: 'Dark mode'
+    lightMode: 'Light mode'
+    mode: 'Toggle dark/light mode'
+about:
+  h1: 'About Dotnetools'
+  h1p1: 'Reference open source projects'
+  h1p2: 'build, thank you for the power of open source.'
+  h1p3: 'This is a great website, created by'
+  h1p4: ' and open source sharing, webmasters can refer to building, modifying, and personalized deployment.'
+  h1p5: "The Dotnet toolbox has collected useful tools for developers and IT workers. If you find it useful, please feel free to share it with people you think may also be useful, and don't forget to add bookmarks in the shortcut bar!"
+  h1p6: 'The Dotnet toolkit is open source (based on the MIT protocol) and free, and will always be, but hosting and renewing domain names require me to pay. If you want to support my work and encourage me to add more tools, please consider'
+  h1p7: 'sponsor me'
+  h2: Technologies
+  h2p1: "The Dotnet toolbox is created using Vue.js (Vue3) and Naive UI component library and is hosted by Huawei Cloud. Some tools use third-party open source libraries, which you can find in the"
+  h2p2: 'file of the repository.'
+  h3: 'Found a bug? A tool is missing?'
+  h3p1: 'If you need a tool that is currently not present here, and you think can be useful, you are welcome to submit a feature request in the'
+  h3p2: 'issues section'
+  h3p3: 'in the GitHub repository.'
+  h3p4: "And if you found a bug, or something doesn't work as expected, please file a bug report in the"
+  h3p5: 'issues section'
+  h3p6: 'in the GitHub repository.'
+404:
+  notFound: '404 Not Found'
+  sorry: 'Sorry, this page does not seem to exist'
+  maybe: 'Maybe the cache is doing tricky things, try force-refreshing?'
+  backHome: 'Back home'
+toolCard:
+  new: New
+  

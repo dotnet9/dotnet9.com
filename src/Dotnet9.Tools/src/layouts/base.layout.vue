@@ -37,11 +37,11 @@ const tools = computed<ToolCategory[]>(() => [
         <HeroGradient class="gradient" />
         <div class="text-wrapper">
           <div class="title">
-            Dotnet工具箱
+            {{ $t('home.title') }}
           </div>
           <div class="divider" />
           <div class="subtitle">
-            开发人员的在线便捷工具
+            {{ $t('home.subtitle') }}
           </div>
         </div>
       </RouterLink>
@@ -55,7 +55,7 @@ const tools = computed<ToolCategory[]>(() => [
 
         <div class="footer">
           <div>
-            Dotnet工具箱
+            {{ $t('home.title') }}
 
             <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
               v{{ version }}
@@ -80,7 +80,7 @@ const tools = computed<ToolCategory[]>(() => [
             </c-link>
           </div>
           <div>
-            博客：
+            {{ $t('home.blog') }}
             <c-link target="_blank" rel="noopener" href="https://dotnet9.com">
               Dotnet9
             </c-link>
@@ -100,14 +100,14 @@ const tools = computed<ToolCategory[]>(() => [
           <NIcon size="25" :component="Menu2" />
         </c-button>
 
-        <c-tooltip tooltip="首页" position="bottom">
-          <c-button to="/" circle variant="text" aria-label="首页">
+        <c-tooltip :tooltip="$t('home.home')" position="bottom">
+          <c-button to="/" circle variant="text" :aria-label="$t('home.home')">
             <NIcon size="25" :component="Home2" />
           </c-button>
         </c-tooltip>
 
-        <c-tooltip tooltip="UI库" position="bottom">
-          <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" aria-label="UI库">
+        <c-tooltip :tooltip="$t('home.uiLib')" position="bottom">
+          <c-button v-if="config.app.env === 'development'" to="/c-lib" circle variant="text" :aria-label="$t('home.uiLib')">
             <icon-mdi:brush-variant text-20px />
           </c-button>
         </c-tooltip>
@@ -118,7 +118,7 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
-        <c-tooltip position="bottom" tooltip="支持Dotnet工具箱">
+        <c-tooltip position="bottom" :tooltip="$t('home.supportDotnetools')">
           <c-button
             round
             href="https://dotnet9.com/donation"
@@ -128,7 +128,7 @@ const tools = computed<ToolCategory[]>(() => [
             :bordered="false"
             @click="() => tracker.trackEvent({ eventName: 'Support button clicked' })"
           >
-            请我喝咖啡
+            {{ $t('home.buyMeACoffee') }}
             <NIcon v-if="!styleStore.isSmallScreen" :component="Heart" ml-2 />
           </c-button>
         </c-tooltip>

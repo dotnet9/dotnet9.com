@@ -1,4 +1,57 @@
 home:
   categories:
     newestTools: 最新工具
-
+    favoriteTools: '你最喜欢的工具'
+    allTools: '所有工具'
+  title: "Dotnet工具箱"
+  subtitle: '开发人员的方便工具'
+  blog: '博客：'
+  toggleMenu: '切换菜单'
+  home: 首页
+  uiLib: 'UI库'
+  buyMeACoffee: '请我喝咖啡'
+  supportDotnetools: '支持Dotnet工具箱'
+  follow:
+    title: '你喜欢Dotnet工具箱吗?'
+    p1: '给我们一颗星'
+    githubRepository: 'Dotnet工具箱GitHub仓库'
+    p2: '或者继续关注我们'
+    twitterAccount: 'Dotnet工具箱Twitter账号'
+    thankYou: '感谢!'
+  nav:
+    github: 'GitHub仓库'
+    githubRepository: 'Dotnet工具箱GitHub仓库'
+    twitter: 'Twitter账号'
+    twitterAccount: 'Dotnet工具箱Twitter账号'
+    about: '关于Dotnet工具箱'
+    aboutLabel: '关于'
+    darkMode: '深色模式'
+    lightMode: '浅色模式'
+    mode: '切换 深色/浅色 模式'
+about:
+  h1: '关于Dotnet工具箱'
+  h1p1: '参考开源项目'
+  h1p2: '搭建，感谢开源的力量。'
+  h1p3: '这是一个很棒的网站，由'
+  h1p4: '开源分享，站长再参考搭建、修改、个性化完善部署。'
+  h1p5: 'Dotnet工具箱为开发人员和IT工作者收集了有用的工具。如果你觉得它有用，请随时将它分享给你认为可能也有用的人，别忘了在快捷栏中添加书签！'
+  h1p6: 'Dotnet工具箱是开源的（基于MIT协议）和免费的，而且永远都是，但托管和续订域名需要我花钱。如果你想支持我的工作，并鼓励我添加更多工具，请考虑'
+  h1p7: '打赏我'
+  h2: 技术
+  h2p1: 'Dotnet工具箱是用Vue.js（Vue3）和Naive UI组件库制作的，由华为云托管。一些工具中使用了第三方开源库，您可以在'
+  h2p2: '文件中找到完整的列表。'
+  h3: '发现bug了吗？工具不见了？'
+  h3p1: '如果您需要一个当前不存在的工具，并且您认为它可能有用，欢迎您在'
+  h3p2: 'issues部分'
+  h3p3: '记录'
+  h3p4: '如果你发现了一个错误，或者某个工具无法按预期工作，请在'
+  h3p5: 'issues部分'
+  h3p6: '记录'
+404:
+  notFound: '404未找到'
+  sorry: '抱歉，此页面似乎不存在'
+  maybe: '也许缓存正在做一些棘手的事情，尝试强制刷新？'
+  backHome: '返回首页'
+toolCard:
+  new: 新
+  
