@@ -46,25 +46,25 @@ export const useApp = defineStore("app", () => {
     const { data } = await AppApi.info();
     const covers = data!.covers!;
     app.info = data!.info ?? {
-      nikeName: "可乐不加冰",
-      motto: "凡是过往，皆为序章",
-      qq: "823302316",
-      avatar: "/default.jpg",
+      nikeName: "Dotnet9",
+      motto: "时间如流水，只能流去不流回",
+      qq: "632871194",
+      avatar: "/logo.png",
     };
     app.blogSetting = data!.site ?? {
-      siteName: "可乐不加冰",
-      motto: "凡是过往，皆为序章",
+      siteName: "Dotnet9",
+      motto: "时间如流水，只能流去不流回",
       isAllowComments: true,
       isAllowMessage: true,
-      runTime: new Date("2023/06/01"),
-      copyright: "©2023 By 可乐不加冰",
-      description: "可乐不加冰的博客",
-      filing: "鄂ICP备2020020251号-2",
+      runTime: new Date("2019/11/12"),
+      copyright: "©2023 By 沙漠尽头的狼",
+      description: "一个专注互联网分享精神的博客网站",
+      filing: "蜀ICP备19038256号-1",
       favicon: "favicon.ico",
-      keyword: "可乐不加冰的博客",
+      keyword: "Dotnet9",
       visitorNumbers: 0,
     };
-    app.covers.home = covers.home ?? ["/cover/default.jpg"];
+    app.covers.home = covers.home ?? ["/cover/logo.png"];
     app.covers.about = covers.about ?? ["/cover/about.jpg"];
     app.covers.archives = covers.archives ?? ["/cover/archives.jpg"];
     app.covers.category = covers.category ?? ["/cover/category.jpg"];
@@ -73,9 +73,9 @@ export const useApp = defineStore("app", () => {
     app.covers.talk = covers.talk ?? ["/cover/talk.jpg"];
     app.covers.message = covers.message ?? ["/cover/message.png"];
     app.covers.user = covers.user ?? ["/cover/user.jpg"];
-    app.covers.link = covers.link ?? ["/cover/default.jpg"];
-    app.covers.tagList = covers.tagList ?? ["/cover/default.jpg"];
-    app.covers.categories = covers.categories ?? ["/cover/default.jpg"];
+    app.covers.link = covers.link ?? ["/cover/logo.png"];
+    app.covers.tagList = covers.tagList ?? ["/cover/logo.png"];
+    app.covers.categories = covers.categories ?? ["/cover/logo.png"];
   };
   /**
    * 首页cover

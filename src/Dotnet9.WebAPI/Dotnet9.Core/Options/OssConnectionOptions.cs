@@ -1,7 +1,7 @@
-﻿using Furion.ConfigurableOptions;
-using OnceMi.AspNetCore.OSS;
+﻿using OnceMi.AspNetCore.OSS;
 
 namespace Dotnet9.Core.Options;
+
 /// <summary>
 /// 对象存储连接配置
 /// </summary>

@@ -8,7 +8,7 @@
     <!-- 手机端导航栏 -->
     <div class="d-md-none nav-mobile-container">
       <div style="font-size: 18px; font-weight: bold">
-        <router-link to="/"> 可乐不加冰 </router-link>
+        <router-link to="/"> Dotnet9 </router-link>
       </div>
       <div style="margin-left: auto">
         <a @click="searchModelHandel">
@@ -24,7 +24,7 @@
     <!-- 电脑导航栏 -->
     <div class="d-md-block d-none nav-container">
       <div class="float-left blog-title">
-        <router-link to="/"> 可乐不加冰 </router-link>
+        <router-link to="/"> Dotnet9 </router-link>
       </div>
       <div class="float-right nav-title">
         <div class="menus-item">

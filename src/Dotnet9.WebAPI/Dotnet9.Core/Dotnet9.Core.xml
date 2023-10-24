@@ -1576,6 +1576,16 @@
             是否启用对象存储（不启用将存储至站点目录）
             </summary>
         </member>
+        <member name="T:Dotnet9.Core.Options.SiteOptions">
+            <summary>
+            网站基本信息配置
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.SiteOptions.Assets">
+            <summary>
+            网站资源目录，需要从https://github.com/dotnet9/Assets.Dotnet9克隆后的本地绝对路径
+            </summary>
+        </member>
         <member name="T:Dotnet9.Core.Options.SnowIdOptions">
             <summary>
             雪花id配置
@@ -1852,6 +1862,21 @@
             <summary>
             初始化基础数据
             </summary>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitDataFromFile(SqlSugar.SqlSugarScope)">
+            <summary>
+            获取初始化文件列表
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitFriendLink(SqlSugar.SqlSugarScope,System.String)">
+            <summary>
+            初始化友情链接数据
+            </summary>
+            <param name="client"></param>
+            <param name="assetsDir"></param>
+            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="T:SqlSugar.SqlSugarUnitOfWork">
             <summary>

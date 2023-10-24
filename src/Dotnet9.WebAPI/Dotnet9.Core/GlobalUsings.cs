@@ -7,3 +7,4 @@ global using SqlSugar;
 global using Furion;
 global using Furion.DatabaseAccessor;
 global using Microsoft.AspNetCore.Mvc.Filters;
+global using Furion.ConfigurableOptions;

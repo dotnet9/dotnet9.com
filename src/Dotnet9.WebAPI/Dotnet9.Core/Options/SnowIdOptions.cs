@@ -1,5 +1,4 @@
-﻿using Furion.ConfigurableOptions;
-using Yitter.IdGenerator;
+﻿using Yitter.IdGenerator;
 
 namespace Dotnet9.Core.Options;
 
@@ -8,5 +7,4 @@ namespace Dotnet9.Core.Options;
 /// </summary>
 public sealed class SnowIdOptions : IdGeneratorOptions, IConfigurableOptions
 {
-
 }

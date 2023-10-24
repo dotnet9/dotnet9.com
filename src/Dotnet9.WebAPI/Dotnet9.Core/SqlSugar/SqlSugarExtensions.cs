@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Reflection;
@@ -21,7 +22,8 @@ public static class SqlSugarExtensions
     /// <param name="config">数据库连接对象</param>
     /// <param name="buildAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSqlSugar(this IServiceCollection services, ConnectionConfigExt config, Action<ISqlSugarClient> buildAction = default)
+    public static IServiceCollection AddSqlSugar(this IServiceCollection services, ConnectionConfigExt config,
+        Action<ISqlSugarClient> buildAction = default)
     {
         return services.AddSqlSugar(new List<ConnectionConfigExt>()
         {
@@ -36,17 +38,15 @@ public static class SqlSugarExtensions
     /// <param name="configs">数据库连接对象集合</param>
     /// <param name="buildAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddSqlSugar(this IServiceCollection services, List<ConnectionConfigExt> configs, Action<SqlSugarClient> buildAction = default)
+    public static IServiceCollection AddSqlSugar(this IServiceCollection services, List<ConnectionConfigExt> configs,
+        Action<SqlSugarClient> buildAction = default)
     {
         SqlSugarScope sqlSugarScope = new SqlSugarScope(configs.Adapt<List<ConnectionConfig>>(), buildAction ?? Aop);
-        configs.ForEach(x =>
-        {
-            Init(sqlSugarScope, x);
-        });
-        services.AddSingleton<ISqlSugarClient>(sqlSugarScope);//使用单例注入
+        configs.ForEach(x => { Init(sqlSugarScope, x); });
+        services.AddSingleton<ISqlSugarClient>(sqlSugarScope); //使用单例注入
         services.AddSingleton<ITenant>(sqlSugarScope);
-        services.AddUnitOfWork<SqlSugarUnitOfWork>();//事务
-        services.AddScoped(typeof(ISqlSugarRepository<>), typeof(SqlSugarRepository<>));//注入泛型仓储
+        services.AddUnitOfWork<SqlSugarUnitOfWork>(); //事务
+        services.AddScoped(typeof(ISqlSugarRepository<>), typeof(SqlSugarRepository<>)); //注入泛型仓储
 
         return services;
     }
@@ -62,10 +62,12 @@ public static class SqlSugarExtensions
         {
             return;
         }
+
         SqlSugarScopeProvider provider = client.GetConnectionScope(config.ConfigId);
         //创建数据库
         provider.DbMaintenance.CreateDatabase();
-        IEnumerable<Type> types = App.EffectiveTypes.Where(x => !x.IsInterface && x.IsClass && !x.IsAbstract && typeof(IEntity).IsAssignableFrom(x));
+        IEnumerable<Type> types = App.EffectiveTypes.Where(x =>
+            !x.IsInterface && x.IsClass && !x.IsAbstract && typeof(IEntity).IsAssignableFrom(x));
         provider.CodeFirst.InitTables(types.ToArray());
 
         //初始化数据
@@ -101,9 +103,7 @@ public static class SqlSugarExtensions
                         column.IsNullable = true;
                     }
                 })
-
             };
-
         });
         return AddSqlSugar(services, options.Connections, Aop);
     }
@@ -125,15 +125,20 @@ public static class SqlSugarExtensions
                     {
                         entity.Id = YitIdHelper.NextId();
                     }
+
                     //如果当前实体继承ICreatedTime就设置创建时间
-                    if (entityInfo.EntityValue is ICreatedTime createdTime && createdTime.CreatedTime == DateTime.MinValue)
+                    if (entityInfo.EntityValue is ICreatedTime createdTime &&
+                        createdTime.CreatedTime == DateTime.MinValue)
                     {
                         createdTime.CreatedTime = DateTime.Now;
                     }
+
                     if (entityInfo.EntityValue is ICreatedUserId { CreatedUserId: 0 } createdUserId)
                     {
-                        createdUserId.CreatedUserId = App.User.FindFirst(AuthClaimsConst.AuthIdKey)!.Value.Adapt<long>();
+                        createdUserId.CreatedUserId =
+                            App.User.FindFirst(AuthClaimsConst.AuthIdKey)!.Value.Adapt<long>();
                     }
+
                     break;
                 case DataFilterType.UpdateByObject:
                     if (entityInfo.EntityValue is IUpdatedTime { UpdatedTime: null } updatedTime)
@@ -153,23 +158,31 @@ public static class SqlSugarExtensions
             var originColor = Console.ForegroundColor;
             if (sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase))
                 Console.ForegroundColor = ConsoleColor.Green;
-            if (sql.StartsWith("UPDATE", StringComparison.OrdinalIgnoreCase) || sql.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase))
+            if (sql.StartsWith("UPDATE", StringComparison.OrdinalIgnoreCase) ||
+                sql.StartsWith("INSERT", StringComparison.OrdinalIgnoreCase))
                 Console.ForegroundColor = ConsoleColor.Yellow;
             if (sql.StartsWith("DELETE", StringComparison.OrdinalIgnoreCase))
                 Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("【" + DateTime.Now + "——执行SQL】\r\n" + UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, parameters) + "\r\n");
+            Console.WriteLine("【" + DateTime.Now + "——执行SQL】\r\n" +
+                              UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, sql, parameters) + "\r\n");
             Console.ForegroundColor = originColor;
-            App.PrintToMiniProfiler("SqlSugar", "Info", sql + "\r\n" + db.Utilities.SerializeObject(parameters.ToDictionary(it => it.ParameterName, it => it.Value)));
+            App.PrintToMiniProfiler("SqlSugar", "Info",
+                sql + "\r\n" +
+                db.Utilities.SerializeObject(parameters.ToDictionary(it => it.ParameterName, it => it.Value)));
         };
         db.Aop.OnError = ex =>
         {
             if (ex.Parametres == null) return;
             var originColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            var pars = db.Utilities.SerializeObject(((SugarParameter[])ex.Parametres).ToDictionary(it => it.ParameterName, it => it.Value));
-            Console.WriteLine("【" + DateTime.Now + "——错误SQL】\r\n" + UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, ex.Sql, (SugarParameter[])ex.Parametres) + "\r\n");
+            var pars = db.Utilities.SerializeObject(
+                ((SugarParameter[])ex.Parametres).ToDictionary(it => it.ParameterName, it => it.Value));
+            Console.WriteLine("【" + DateTime.Now + "——错误SQL】\r\n" +
+                              UtilMethods.GetSqlString(db.CurrentConnectionConfig.DbType, ex.Sql,
+                                  (SugarParameter[])ex.Parametres) + "\r\n");
             Console.ForegroundColor = originColor;
-            App.PrintToMiniProfiler("SqlSugar", "Error", $"{ex.Message}{Environment.NewLine}{ex.Sql}{pars}{Environment.NewLine}");
+            App.PrintToMiniProfiler("SqlSugar", "Error",
+                $"{ex.Message}{Environment.NewLine}{ex.Sql}{pars}{Environment.NewLine}");
         };
 
         //配置逻辑删除过滤器（查询数据时过滤掉已被标记删除的数据）
@@ -209,7 +222,8 @@ public static class SqlSugarExtensions
 
         string path = Path.Combine(AppContext.BaseDirectory, "InitData");
         var dir = new DirectoryInfo(path);
-        var files = dir.GetFiles("*.json");
+        var files = dir.GetFiles("*.json").ToList();
+        InitDataFromFile(client);
         foreach (var file in files)
         {
             using var reader = file.OpenText();
@@ -219,9 +233,50 @@ public static class SqlSugarExtensions
             {
                 continue;
             }
+
             table.TableName = file.Name.Replace(".json", "");
 
             client.Storageable(table).WhereColumns("Id").ToStorage().AsInsertable.ExecuteCommand();
         }
+    }
+
+    /// <summary>
+    /// 获取初始化文件列表
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    private static void InitDataFromFile(SqlSugarScope client)
+    {
+        var siteOptions = App.GetConfig<SiteOptions>("Site");
+        if (string.IsNullOrWhiteSpace(siteOptions.Assets) || !Directory.Exists(siteOptions.Assets))
+        {
+            throw new Exception("请配置资源目录");
+        }
+
+        InitFriendLink(client, siteOptions.Assets);
+    }
+
+    /// <summary>
+    /// 初始化友情链接数据
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="assetsDir"></param>
+    /// <exception cref="Exception"></exception>
+    private static void InitFriendLink(SqlSugarScope client, string assetsDir)
+    {
+        var filePath = Path.Combine(assetsDir, "site", "FriendLink.json");
+        if (!File.Exists(filePath))
+        {
+            throw new Exception($"请配置友情链接文件：{filePath}");
+        }
+
+        var friendLinks = JsonConvert.DeserializeObject<List<FriendLink>>(File.ReadAllText(filePath));
+        var id = 0;
+        friendLinks.ForEach(link =>
+        {
+            link.Id = ++id;
+            link.Link = link.Url;
+        });
+        client.Storageable(friendLinks).ToStorage().AsInsertable.ExecuteCommand();
     }
 }

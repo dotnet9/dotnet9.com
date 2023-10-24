@@ -21,6 +21,9 @@
       }
     ]
   },
+  "Site": {
+    "Assets": "F:\\github_gitee\\Assets.Dotnet9"
+  },
   "DynamicApiControllerSettings": {
     "CamelCaseSeparator": ""
   },

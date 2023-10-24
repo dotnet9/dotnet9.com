@@ -59,7 +59,7 @@ const state = reactive({
   links: [] as FriendLinkOutput[],
 });
 const avatar = computed(() => {
-  return location.origin + "/default.jpg";
+  return location.origin + "/logo.png";
 });
 // 封面图
 const cover = computed(() => {

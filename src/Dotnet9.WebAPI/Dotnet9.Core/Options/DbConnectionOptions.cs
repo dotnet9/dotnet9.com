@@ -1,6 +1,4 @@
-﻿using Furion.ConfigurableOptions;
-
-namespace Dotnet9.Core.Options;
+﻿namespace Dotnet9.Core.Options;
 
 /// <summary>
 /// 数据库选项配置
