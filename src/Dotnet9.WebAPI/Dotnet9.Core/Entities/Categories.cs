@@ -3,15 +3,21 @@
 namespace Dotnet9.Core.Entities;
 
 /// <summary>
-/// 文章栏目表
+/// 文章分类表
 /// </summary>
 public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId, ISoftDelete, ICreatedTime
 {
     /// <summary>
-    /// 栏目名称
+    /// 名称
     /// </summary>
     [SugarColumn(Length = 32)]
     public string Name { get; set; }
+
+    /// <summary>
+    /// 别名
+    /// </summary>
+    [SugarColumn(Length = 132)]
+    public string Slug { get; set; }
 
     /// <summary>
     /// 父级id
@@ -56,7 +62,7 @@ public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId
     public DateTime CreatedTime { get; set; }
 
     /// <summary>
-    /// 子栏目
+    /// 子分类
     /// </summary>
     [SugarColumn(IsIgnore = true)]
     public List<Categories> Children { get; set; } = new();

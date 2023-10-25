@@ -3,9 +3,9 @@
 public class AddCategoryInput
 {
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
-    [MaxLength(32, ErrorMessage = "栏目名称限制32个字符内")]
+    [MaxLength(32, ErrorMessage = "分类名称限制32个字符内")]
     public string Name { get; set; }
 
     /// <summary>

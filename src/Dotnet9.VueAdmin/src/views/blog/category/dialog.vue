@@ -5,17 +5,17 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="封面" prop="cover">
-							<el-upload class="avatar-uploader" action="/api/file/upload" accept="image/*" :show-file-list="false" :on-success="onCoverSuccess">
+							<el-upload class="avatar-uploader" action="/api/file/upload" :headers="state.uploadHeaders" accept="image/*" :show-file-list="false" :on-success="onCoverSuccess">
 								<img v-if="state.ruleForm.cover" :src="state.ruleForm.cover" class="avatar" />
 								<el-icon v-else class="avatar-uploader-icon fa fa-plus"> </el-icon>
 							</el-upload>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-form-item label="上级栏目" prop="parentId">
+						<el-form-item label="上级分类" prop="parentId">
 							<el-tree-select
 								v-model="state.ruleForm.parentId"
-								placeholder="请选择栏目"
+								placeholder="请选择分类"
 								:data="state.categoryData"
 								check-strictly
 								:render-after-expand="false"
@@ -25,8 +25,8 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="栏目名称" prop="name">
-							<el-input v-model="state.ruleForm.name" maxlength="23" placeholder="请输入栏目名称" clearable></el-input>
+						<el-form-item label="分类名称" prop="name">
+							<el-input v-model="state.ruleForm.name" maxlength="23" placeholder="请输入分类名称" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -35,7 +35,7 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="栏目状态" prop="status">
+						<el-form-item label="分类状态" prop="status">
 							<el-switch
 								v-model="state.ruleForm.status"
 								inline-prompt
@@ -48,7 +48,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
 						<el-form-item label="备注" prop="remark">
-							<el-input v-model="state.ruleForm.remark" type="textarea" placeholder="请输入栏目描述" maxlength="200"></el-input>
+							<el-input v-model="state.ruleForm.remark" type="textarea" placeholder="请输入分类描述" maxlength="200"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -65,9 +65,11 @@
 
 <script setup lang="ts" name="systemDeptDialog">
 import { reactive, ref, nextTick } from 'vue';
+import { accessTokenKey, refreshAccessTokenKey } from '/@/utils/http'
 import type { UpdateCategoryInput, TreeSelectOutput } from '/@/api/models';
 import CategoryApi from '/@/api/CategoryApi';
 import type { FormInstance, FormRules } from 'element-plus';
+import { Session } from '/@/utils/storage';
 
 // 定义子组件向父组件传值/事件
 const emit = defineEmits(['refresh']);
@@ -78,7 +80,7 @@ const rules = reactive<FormRules>({
 	name: [
 		{
 			required: true,
-			message: '请输入栏目名称',
+			message: '请输入分类名称',
 		},
 	],
 	sort: [
@@ -99,13 +101,15 @@ const rules = reactive<FormRules>({
 		},
 	],
 });
+const accessToken = Session.get<string>(accessTokenKey);
+const refreshAccessToken = Session.get<string>(refreshAccessTokenKey);
 const state = reactive({
 	ruleForm: {
 		id: 0,
 		status: 0,
 		sort: 100,
 	} as UpdateCategoryInput,
-	categoryData: [] as TreeSelectOutput[], // 栏目数据
+	categoryData: [] as TreeSelectOutput[], // 分类数据
 	dialog: {
 		isShowDialog: false,
 		type: '',
@@ -113,13 +117,17 @@ const state = reactive({
 		submitTxt: '',
 		loading: true,
 	},
+	uploadHeaders: {
+		Authorization: `Bearer ${accessToken}`,
+		'X-Authorization': `Bearer ${refreshAccessToken}`
+	}
 });
 
 // 打开弹窗
 const openDialog = async (row: UpdateCategoryInput | null = null) => {
 	if (row !== null) {
 		state.ruleForm = { ...row };
-		state.dialog.title = '修改栏目';
+		state.dialog.title = '修改分类';
 		state.dialog.submitTxt = '修 改';
 	} else {
 		state.ruleForm = {
@@ -127,7 +135,7 @@ const openDialog = async (row: UpdateCategoryInput | null = null) => {
 			status: 0,
 			sort: 100,
 		};
-		state.dialog.title = '新增栏目';
+		state.dialog.title = '新增分类';
 		state.dialog.submitTxt = '新 增';
 		nextTick(() => {
 			categoryDialogFormRef.value?.resetFields();

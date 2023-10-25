@@ -30,7 +30,7 @@ class ArticleApi {
   };
 
   /**
-   * 所有栏目
+   * 所有分类
    * @returns
    */
   categories = () => {

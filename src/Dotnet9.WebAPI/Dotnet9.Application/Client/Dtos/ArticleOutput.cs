@@ -12,11 +12,11 @@ public class ArticleOutput
     public string Title { get; set; }
 
     /// <summary>
-    /// 栏目ID
+    /// 分类ID
     /// </summary>
     public long CategoryId { get; set; }
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
     public string CategoryName { get; set; }
     /// <summary>

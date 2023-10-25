@@ -6,7 +6,7 @@ class CategoryApi extends BaseApi<AddCategoryInput, UpdateCategoryInput, Categor
 		super('/category/');
 	}
 	/**
-	 * 栏目树形下拉
+	 * 分类树形下拉
 	 * @returns
 	 */
 	treeSelect = () => {

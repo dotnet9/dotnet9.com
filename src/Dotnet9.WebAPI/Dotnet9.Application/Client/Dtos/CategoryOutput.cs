@@ -3,7 +3,7 @@
 public class CategoryOutput
 {
     /// <summary>
-    /// 栏目ID
+    /// 分类ID
     /// </summary>
     public long Id { get; set; }
     /// <summary>
@@ -15,7 +15,7 @@ public class CategoryOutput
     /// </summary>
     public int Sort { get; set; }
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
     public string Name { get; set; }
     /// <summary>

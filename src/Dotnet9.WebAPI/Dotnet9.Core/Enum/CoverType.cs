@@ -73,6 +73,6 @@ public enum CoverType
     /// <summary>
     /// 分类列表封面
     /// </summary>
-    [Description("栏目列表封面")]
+    [Description("分类列表封面")]
     Categories
 }

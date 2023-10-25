@@ -3,12 +3,12 @@
 public class CategoryPageOutput
 {
     /// <summary>
-    /// 栏目ID
+    /// 分类ID
     /// </summary>
     public long Id { get; set; }
 
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
     public string Name { get; set; }
 
@@ -43,7 +43,7 @@ public class CategoryPageOutput
     public DateTime CreatedTime { get; set; }
 
     /// <summary>
-    /// 子栏目
+    /// 子分类
     /// </summary>
     public List<CategoryPageOutput> Children { get; set; } = new();
 }

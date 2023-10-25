@@ -2,7 +2,7 @@
 
 namespace Dotnet9.Application.Blog;
 /// <summary>
-/// 文章栏目管理
+/// 文章分类管理
 /// </summary>
 public class CategoryService : BaseService<Categories>
 {
@@ -14,11 +14,11 @@ public class CategoryService : BaseService<Categories>
     }
 
     /// <summary>
-    /// 文章栏目列表
+    /// 文章分类列表
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [DisplayName("文章栏目列表")]
+    [DisplayName("文章分类列表")]
     [HttpGet]
     public async Task<List<CategoryPageOutput>> Page([FromQuery] string name)
     {
@@ -36,11 +36,11 @@ public class CategoryService : BaseService<Categories>
     }
 
     /// <summary>
-    /// 添加文章栏目
+    /// 添加文章分类
     /// </summary>
     /// <param name="dto"></param>
     /// <returns></returns>
-    [DisplayName("添加文章栏目")]
+    [DisplayName("添加文章分类")]
     [HttpPost("add")]
     public async Task Add(AddCategoryInput dto)
     {
@@ -49,10 +49,10 @@ public class CategoryService : BaseService<Categories>
     }
 
     /// <summary>
-    /// 更新文章栏目
+    /// 更新文章分类
     /// </summary>
     /// <returns></returns>
-    [DisplayName("更新文章栏目")]
+    [DisplayName("更新文章分类")]
     [HttpPut("edit")]
     public async Task Update(UpdateCategoryInput dto)
     {
@@ -63,10 +63,10 @@ public class CategoryService : BaseService<Categories>
     }
 
     /// <summary>
-    /// 获取文章栏目下拉选项
+    /// 获取文章分类下拉选项
     /// </summary>
     /// <returns></returns>
-    [DisplayName("获取文章栏目下拉选项")]
+    [DisplayName("获取文章分类下拉选项")]
     [HttpGet]
     public async Task<List<TreeSelectOutput>> TreeSelect()
     {

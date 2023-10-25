@@ -1,6 +1,6 @@
 ﻿namespace Dotnet9.Core.Entities;
 /// <summary>
-/// 文章所属栏目表
+/// 文章所属分类表
 /// </summary>
 public class ArticleCategory : Entity<long>
 {
@@ -10,7 +10,7 @@ public class ArticleCategory : Entity<long>
     public long ArticleId { get; set; }
 
     /// <summary>
-    /// 栏目Id
+    /// 分类Id
     /// </summary>
     public long CategoryId { get; set; }
 }

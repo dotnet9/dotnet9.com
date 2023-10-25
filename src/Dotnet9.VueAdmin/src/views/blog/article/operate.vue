@@ -109,10 +109,10 @@
 								</el-form-item>
 							</el-col>
 							<el-col class="mb20">
-								<el-form-item label="栏目" prop="categoryId">
+								<el-form-item label="分类" prop="categoryId">
 									<el-tree-select
 										v-model="state.form.categoryId"
-										placeholder="请选择栏目"
+										placeholder="请选择分类"
 										:data="state.categoryData"
 										check-strictly
 										:render-after-expand="false"
@@ -264,7 +264,7 @@ const rules = reactive<FormRules>({
 	categoryId: [
 		{
 			required: true,
-			message: '请选择栏目',
+			message: '请选择分类',
 			trigger: 'change',
 		},
 	],
@@ -429,7 +429,7 @@ const onCancel = () => {
 };
 
 onMounted(async () => {
-	// 获取栏目和标签
+	// 获取分类和标签
 	const [c, t] = await Promise.all([CategoryApi.treeSelect(), TagsApi.select()]);
 	state.form.id = (route.query.id as never) ?? 0;
 	if (state.form.id > 0) {

@@ -91,7 +91,7 @@ const state = reactive({
     categoryId: route.params.id as never,
     tagId: route.params.tid as never,
   } as ArticleListQueryInput,
-  name: "", //标签名或栏目名称
+  name: "", //标签名或分类名称
   cover: "",
   pages: 0,
   articles: [] as ArticleOutput[],

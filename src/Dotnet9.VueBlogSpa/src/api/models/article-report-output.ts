@@ -4,7 +4,7 @@ export interface ArticleReportOutput {
    */
   articleCount: number;
   /**
-   * 栏目总数
+   * 分类总数
    */
   categoryCount: number;
   /**

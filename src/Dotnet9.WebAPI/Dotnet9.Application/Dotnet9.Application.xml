@@ -114,23 +114,23 @@
         </member>
         <member name="T:Dotnet9.Application.Blog.ArticleCategoryService">
             <summary>
-            文章所属栏目管理
+            文章所属分类管理
             </summary>
         </member>
         <member name="M:Dotnet9.Application.Blog.ArticleCategoryService.Add(System.Int64,System.Int64)">
             <summary>
-            添加文章所属栏目
+            添加文章所属分类
             </summary>
             <param name="articleId">文章ID</param>
-            <param name="categoryId">栏目ID</param>
+            <param name="categoryId">分类ID</param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.ArticleCategoryService.Update(System.Int64,System.Int64)">
             <summary>
-            更新文章所属栏目
+            更新文章所属分类
             </summary>
             <param name="articleId">文章ID</param>
-            <param name="categoryId">栏目ID</param>
+            <param name="categoryId">分类ID</param>
             <returns></returns>
         </member>
         <member name="T:Dotnet9.Application.Blog.ArticleService">
@@ -167,32 +167,32 @@
         </member>
         <member name="T:Dotnet9.Application.Blog.CategoryService">
             <summary>
-            文章栏目管理
+            文章分类管理
             </summary>
         </member>
         <member name="M:Dotnet9.Application.Blog.CategoryService.Page(System.String)">
             <summary>
-            文章栏目列表
+            文章分类列表
             </summary>
             <param name="name"></param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.CategoryService.Add(Dotnet9.Application.Blog.Dtos.AddCategoryInput)">
             <summary>
-            添加文章栏目
+            添加文章分类
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.CategoryService.Update(Dotnet9.Application.Blog.Dtos.UpdateCategoryInput)">
             <summary>
-            更新文章栏目
+            更新文章分类
             </summary>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.CategoryService.TreeSelect">
             <summary>
-            获取文章栏目下拉选项
+            获取文章分类下拉选项
             </summary>
             <returns></returns>
         </member>
@@ -308,12 +308,12 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.CategoryId">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Name">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.ParentId">
@@ -583,7 +583,7 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.CategoryId">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.PublishTime">
@@ -643,7 +643,7 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.CategoryName">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.Title">
@@ -653,17 +653,17 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.CategoryId">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Id">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Name">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.ParentId">
@@ -698,7 +698,7 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Children">
             <summary>
-            子栏目
+            子分类
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Id">
@@ -858,7 +858,7 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.UpdateCategoryInput.Id">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.UpdateFriendLinkInput.Id">
@@ -1035,7 +1035,7 @@
         </member>
         <member name="M:Dotnet9.Application.Client.ArticleController.Categories">
             <summary>
-            文章栏目分类
+            文章分类
             </summary>
             <returns></returns>
         </member>
@@ -1267,12 +1267,12 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategoryId">
             <summary>
-            栏目Id
+            分类Id
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategoryName">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.UpdatedTime">
@@ -1307,7 +1307,7 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.CategoryId">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.Keyword">
@@ -1327,12 +1327,12 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryId">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryName">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.IsTop">
@@ -1377,7 +1377,7 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.CategoryCount">
             <summary>
-            栏目数量
+            分类数量
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.UserCount">
@@ -1407,7 +1407,7 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Id">
             <summary>
-            栏目ID
+            分类ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.ParentId">
@@ -1422,7 +1422,7 @@
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Name">
             <summary>
-            栏目名称
+            分类名称
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Total">

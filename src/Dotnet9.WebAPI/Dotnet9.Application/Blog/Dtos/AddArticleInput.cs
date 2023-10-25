@@ -91,8 +91,8 @@ public class AddArticleInput
     public List<long> Tags { get; set; }
 
     /// <summary>
-    /// 栏目ID
+    /// 分类ID
     /// </summary>
-    [Required(ErrorMessage = "请选择文章栏目")]
+    [Required(ErrorMessage = "请选择文章分类")]
     public long CategoryId { get; set; }
 }

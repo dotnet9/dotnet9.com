@@ -64,11 +64,11 @@ public class ArticleInfoOutput
     /// </summary>
     public bool IsPraise { get; set; }
     /// <summary>
-    /// 栏目Id
+    /// 分类Id
     /// </summary>
     public long CategoryId { get; set; }
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
     public string CategoryName { get; set; }
     /// <summary>

@@ -67,7 +67,7 @@ public class ArticleDetailOutput
     public List<long> Tags { get; set; }
 
     /// <summary>
-    /// 栏目ID
+    /// 分类ID
     /// </summary>
     public long? CategoryId { get; set; }
 

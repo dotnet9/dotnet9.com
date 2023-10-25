@@ -63,7 +63,7 @@ export interface ArticleInfoOutput {
    */
   views?: number;
   /**
-   * 栏目ID
+   * 分类ID
    * @type {number}
    * @memberof ArticleInfoOutput
    */
@@ -77,7 +77,7 @@ export interface ArticleInfoOutput {
    */
   isPraise?: boolean;
   /**
-   * 栏目名称
+   * 分类名称
    * @type {string}
    * @memberof ArticleInfoOutput
    */

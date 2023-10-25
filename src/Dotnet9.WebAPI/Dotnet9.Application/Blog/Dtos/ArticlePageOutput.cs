@@ -43,7 +43,7 @@ public class ArticlePageOutput
     /// </summary>
     public int Views { get; set; }
     /// <summary>
-    /// 栏目名称
+    /// 分类名称
     /// </summary>
     public string CategoryName { get; set; }
 }

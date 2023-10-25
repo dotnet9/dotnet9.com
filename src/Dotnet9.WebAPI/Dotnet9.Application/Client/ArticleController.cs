@@ -105,7 +105,7 @@ public class ArticleController : IDynamicApiController
     }
 
     /// <summary>
-    /// 文章栏目分类
+    /// 文章分类
     /// </summary>
     /// <returns></returns>
     [HttpGet]
@@ -147,7 +147,7 @@ public class ArticleController : IDynamicApiController
 
         //标签统计
         int tagCount = await _tagsRepository.AsQueryable().Where(x => x.Status == AvailabilityStatus.Enable).CountAsync();
-        //栏目统计
+        //分类统计
         int categoryCount = await _categoryRepository.AsQueryable().Where(x => x.Status == AvailabilityStatus.Enable).CountAsync();
 
         int userCount = await _authAccountRepository.AsQueryable().CountAsync();

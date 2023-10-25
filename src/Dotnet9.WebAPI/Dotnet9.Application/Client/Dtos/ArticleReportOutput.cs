@@ -12,7 +12,7 @@ public class ArticleReportOutput
     public int TagCount { get; set; }
 
     /// <summary>
-    /// 栏目数量
+    /// 分类数量
     /// </summary>
     public int CategoryCount { get; set; }
 

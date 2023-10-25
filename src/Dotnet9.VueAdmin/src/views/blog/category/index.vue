@@ -4,6 +4,14 @@
 			<template #tools>
 				<el-button v-auth="'category:add'" type="primary" icon="ele-Plus" @click="onOpenDialog(null)"> 新增 </el-button>
 			</template>
+			<template #cover="{ row }">
+				<el-image
+					shape="square"
+					:size="100"
+					fit="cover"
+					:src="row.cover"
+				/>
+			</template>
 			<template #status="scope">
 				<el-tag :type="scope.row.status === 0 ? 'success' : 'danger'"> {{ scope.row.status === 0 ? '启用' : '禁用' }}</el-tag>
 			</template>
@@ -39,9 +47,14 @@ const tableRef = ref<InstanceType<typeof ProTable>>();
 const columns = reactive<ColumnProps[]>([
 	{
 		prop: 'name',
-		label: '栏目名称',
+		label: '分类名称',
 		search: { el: 'input' },
 		align: 'left',
+	},
+	{
+		prop: 'cover',
+		label: '封面',
+		width: 180,
 	},
 	{
 		prop: 'status',
@@ -63,7 +76,7 @@ const columns = reactive<ColumnProps[]>([
 	},
 ]);
 
-// 打开新增栏目弹窗
+// 打开新增分类弹窗
 const onOpenDialog = async (row: UpdateCategoryInput | null = null) => {
 	await categoryDialogRef.value?.openDialog(row);
 };

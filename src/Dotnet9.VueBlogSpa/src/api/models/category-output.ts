@@ -18,7 +18,7 @@
  */
 export interface CategoryOutput {
     /**
-     * 栏目ID
+     * 分类ID
      * @type {number}
      * @memberof CategoryOutput
      */
@@ -36,7 +36,7 @@ export interface CategoryOutput {
      */
     sort?: number;
     /**
-     * 栏目名称
+     * 分类名称
      * @type {string}
      * @memberof CategoryOutput
      */

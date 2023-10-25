@@ -223,7 +223,7 @@ public static class SqlSugarExtensions
         string path = Path.Combine(AppContext.BaseDirectory, "InitData");
         var dir = new DirectoryInfo(path);
         var files = dir.GetFiles("*.json").ToList();
-        InitDataFromFile(client);
+        InitDataFromFile(client, users[0]);
         foreach (var file in files)
         {
             using var reader = file.OpenText();
@@ -245,15 +245,16 @@ public static class SqlSugarExtensions
     /// </summary>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    private static void InitDataFromFile(SqlSugarScope client)
+    private static void InitDataFromFile(SqlSugarScope client, SysUser user)
     {
         var siteOptions = App.GetConfig<SiteOptions>("Site");
-        if (string.IsNullOrWhiteSpace(siteOptions.Assets) || !Directory.Exists(siteOptions.Assets))
+        if (string.IsNullOrWhiteSpace(siteOptions.AssetsDir) || !Directory.Exists(siteOptions.AssetsDir))
         {
             throw new Exception("请配置资源目录");
         }
 
-        InitFriendLink(client, siteOptions.Assets);
+        InitFriendLink(client, siteOptions.AssetsDir);
+        InitCategory(client, siteOptions.AssetsDir, user);
     }
 
     /// <summary>
@@ -278,5 +279,63 @@ public static class SqlSugarExtensions
             link.Link = link.Url;
         });
         client.Storageable(friendLinks).ToStorage().AsInsertable.ExecuteCommand();
+    }
+
+    /// <summary>
+    /// 初始化分类
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="assetsDir"></param>
+    /// <exception cref="Exception"></exception>
+    private static void InitCategory(SqlSugarScope client, string assetsDir, SysUser user)
+    {
+        void UpdateCategory(List<Categories> all, Categories category, string assetsUrl, ref long id)
+        {
+            if (category.Children.Count <= 0)
+            {
+                return;
+            }
+
+            foreach (var cat in category.Children)
+            {
+                cat.Id = ++id;
+                cat.ParentId = category.Id;
+                cat.CreatedUserId = user.Id;
+                cat.Cover = $"{assetsUrl}/{cat.Cover}";
+                all.Add(cat);
+
+                UpdateCategory(all, cat, assetsUrl, ref id);
+            }
+        }
+
+        var filePath = Path.Combine(assetsDir, "cats", "category.json");
+        if (!File.Exists(filePath))
+        {
+            throw new Exception($"请配置友情链接文件：{filePath}");
+        }
+
+        var siteOptions = App.GetConfig<SiteOptions>("Site");
+        if (string.IsNullOrWhiteSpace(siteOptions.AssetsUrl))
+        {
+            throw new Exception("请配置资源Url");
+        }
+
+        var categories = JsonConvert.DeserializeObject<List<Categories>>(File.ReadAllText(filePath));
+        var allCategories = new List<Categories>();
+
+
+        long id = 0;
+        foreach (var cat in categories)
+        {
+            cat.Id = ++id;
+            cat.ParentId = null;
+            cat.CreatedUserId = user.Id;
+            cat.Cover = $"{siteOptions.AssetsUrl}/{cat.Cover}";
+            allCategories.Add(cat);
+
+            UpdateCategory(allCategories, cat, siteOptions.AssetsUrl, ref id);
+        }
+
+        client.Storageable(allCategories).ToStorage().AsInsertable.ExecuteCommand();
     }
 }

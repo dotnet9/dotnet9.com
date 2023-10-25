@@ -347,7 +347,7 @@
         </member>
         <member name="T:Dotnet9.Core.Entities.ArticleCategory">
             <summary>
-            文章所属栏目表
+            文章所属分类表
             </summary>
         </member>
         <member name="P:Dotnet9.Core.Entities.ArticleCategory.ArticleId">
@@ -357,7 +357,7 @@
         </member>
         <member name="P:Dotnet9.Core.Entities.ArticleCategory.CategoryId">
             <summary>
-            栏目Id
+            分类Id
             </summary>
         </member>
         <member name="T:Dotnet9.Core.Entities.ArticleTag">
@@ -432,12 +432,17 @@
         </member>
         <member name="T:Dotnet9.Core.Entities.Categories">
             <summary>
-            文章栏目表
+            文章分类表
             </summary>
         </member>
         <member name="P:Dotnet9.Core.Entities.Categories.Name">
             <summary>
-            栏目名称
+            名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Categories.Slug">
+            <summary>
+            别名
             </summary>
         </member>
         <member name="P:Dotnet9.Core.Entities.Categories.ParentId">
@@ -482,7 +487,7 @@
         </member>
         <member name="P:Dotnet9.Core.Entities.Categories.Children">
             <summary>
-            子栏目
+            子分类
             </summary>
         </member>
         <member name="T:Dotnet9.Core.Entities.Comments">
@@ -1581,9 +1586,14 @@
             网站基本信息配置
             </summary>
         </member>
-        <member name="P:Dotnet9.Core.Options.SiteOptions.Assets">
+        <member name="P:Dotnet9.Core.Options.SiteOptions.AssetsDir">
             <summary>
             网站资源目录，需要从https://github.com/dotnet9/Assets.Dotnet9克隆后的本地绝对路径
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.SiteOptions.AssetsUrl">
+            <summary>
+            网站资源Url，用于拼接资源的全路径，比如：https://img1.dotnet9.com/
             </summary>
         </member>
         <member name="T:Dotnet9.Core.Options.SnowIdOptions">
@@ -1863,7 +1873,7 @@
             初始化基础数据
             </summary>
         </member>
-        <member name="M:SqlSugar.SqlSugarExtensions.InitDataFromFile(SqlSugar.SqlSugarScope)">
+        <member name="M:SqlSugar.SqlSugarExtensions.InitDataFromFile(SqlSugar.SqlSugarScope,Dotnet9.Core.Entities.SysUser)">
             <summary>
             获取初始化文件列表
             </summary>
@@ -1873,6 +1883,14 @@
         <member name="M:SqlSugar.SqlSugarExtensions.InitFriendLink(SqlSugar.SqlSugarScope,System.String)">
             <summary>
             初始化友情链接数据
+            </summary>
+            <param name="client"></param>
+            <param name="assetsDir"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitCategory(SqlSugar.SqlSugarScope,System.String,Dotnet9.Core.Entities.SysUser)">
+            <summary>
+            初始化分类
             </summary>
             <param name="client"></param>
             <param name="assetsDir"></param>
