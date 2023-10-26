@@ -18,11 +18,11 @@
  */
 export interface AddPictureInput {
     /**
-     * 相册Id
+     * 模块封面Id
      * @type {number}
      * @memberof AddPictureInput
      */
-    albumId: number;
+    coverId: number;
     /**
      * 图片地址
      * @type {string}

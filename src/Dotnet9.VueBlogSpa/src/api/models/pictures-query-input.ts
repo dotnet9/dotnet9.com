@@ -2,7 +2,7 @@ import { Pagination } from "./pagination";
 
 export interface PicturesQueryInput extends Pagination {
   /**
-   * 相册ID
+   * 模块ID
    */
-  albumId: number;
+  coverId: number;
 }

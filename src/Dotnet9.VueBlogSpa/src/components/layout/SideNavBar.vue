@@ -52,10 +52,10 @@
         </router-link>
       </div>
       <div class="menus-item">
-        <router-link to="/albums">
+        <router-link to="/covers">
           <!-- <i class="iconfont iconxiangce1" />  -->
           <v-icon size="small">mdi mdi-image-size-select-actual</v-icon>
-          相册
+          模块封面
         </router-link>
       </div>
       <div class="menus-item">

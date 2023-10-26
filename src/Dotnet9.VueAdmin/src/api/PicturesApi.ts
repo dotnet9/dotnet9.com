@@ -4,7 +4,7 @@ import http from '../utils/http';
 
 class PicturesApi {
 	/**
-	 * 相册图片列表
+	 * 模块封面图片列表
 	 * @param params
 	 * @returns
 	 */
@@ -13,7 +13,7 @@ class PicturesApi {
 	};
 
 	/**
-	 * 添加相册图片
+	 * 添加模块封面图片
 	 * @param pic 图片信息
 	 * @returns
 	 */

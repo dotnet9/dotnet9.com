@@ -1,14 +1,14 @@
 ﻿namespace Dotnet9.Core.Entities;
 
 /// <summary>
-/// 相册图片表
+/// 模块封面图片表
 /// </summary>
 public class Pictures : Entity<long>, ICreatedTime
 {
     /// <summary>
-    /// 相册Id
+    /// 封面Id
     /// </summary>
-    public long AlbumId { get; set; }
+    public long CoverId { get; set; }
 
     /// <summary>
     /// 图片地址

@@ -87,10 +87,10 @@
           </a>
           <ul class="menus-submenu">
             <li>
-              <a href="/albums">
+              <a href="/covers">
                 <!-- <i class="iconfont iconxiangce1" /> -->
                 <v-icon size="small">mdi mdi-image-size-select-actual</v-icon>
-                相册
+                模块封面
               </a>
             </li>
             <li>

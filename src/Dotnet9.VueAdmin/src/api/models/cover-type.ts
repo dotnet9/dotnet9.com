@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 /**
- * 博客封面类型<br />&nbsp;首页封面图 Home = 0<br />&nbsp;归档封面图 Archives = 1<br />&nbsp;分类封面图 Category = 2<br />&nbsp;标签封面图 Tag = 3<br />&nbsp;相册封面图 Album = 4<br />&nbsp;说说封面图 Talk = 5<br />&nbsp;关于封面图 About = 6<br />&nbsp;留言封面图 Message = 7<br />&nbsp;个人中心封面图 User = 8<br />
+ * 博客封面类型<br />&nbsp;首页封面图 Home = 0<br />&nbsp;归档封面图 Archives = 1<br />&nbsp;分类封面图 Category = 2<br />&nbsp;标签封面图 Tag = 3<br />&nbsp;模块封面图 Cover = 4<br />&nbsp;说说封面图 Talk = 5<br />&nbsp;关于封面图 About = 6<br />&nbsp;留言封面图 Message = 7<br />&nbsp;个人中心封面图 User = 8<br />
  * @export
  * @enum {string}
  */

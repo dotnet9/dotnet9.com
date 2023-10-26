@@ -11,17 +11,17 @@ namespace Dotnet9.Application.Client;
 public class AppController : IDynamicApiController
 {
     private readonly CustomConfigService _customConfigService;
-    private readonly ISqlSugarRepository<Albums> _albumsRepository;
+    private readonly ISqlSugarRepository<Covers> _coversRepository;
     private readonly AuthManager _authManager;
     private readonly ISqlSugarRepository<FriendLink> _linkRepository;
 
     public AppController(CustomConfigService customConfigService,
-        ISqlSugarRepository<Albums> albumsRepository,
+        ISqlSugarRepository<Covers> coversRepository,
         AuthManager authManager,
         ISqlSugarRepository<FriendLink> linkRepository)
     {
         _customConfigService = customConfigService;
-        _albumsRepository = albumsRepository;
+        _coversRepository = coversRepository;
         _authManager = authManager;
         _linkRepository = linkRepository;
     }
@@ -37,12 +37,12 @@ public class AppController : IDynamicApiController
 
         var info = await _customConfigService.Get<BloggerInfo>();
 
-        var pics = await _albumsRepository.AsQueryable().InnerJoin<Pictures>((albums, pictures) => albums.Id == pictures.AlbumId)
-            .Where(albums => albums.Type.HasValue)
+        var pics = await _coversRepository.AsQueryable().InnerJoin<Pictures>((covers, pictures) => covers.Id == pictures.CoverId)
+            .Where(covers => covers.Type.HasValue)
             .WithCache()
-            .Select((albums, pictures) => new
+            .Select((covers, pictures) => new
             {
-                albums.Type,
+                covers.Type,
                 pictures.Url
             }).ToListAsync();
         var dictionary = pics.GroupBy(x => x.Type)

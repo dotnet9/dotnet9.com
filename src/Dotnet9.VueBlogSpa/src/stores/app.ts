@@ -17,7 +17,7 @@ export const useApp = defineStore("app", () => {
       archives: [] as string[],
       category: [] as string[],
       tag: [] as string[],
-      album: [] as string[],
+      cover: [] as string[],
       talk: [] as string[],
       message: [] as string[],
       user: [] as string[],
@@ -69,7 +69,7 @@ export const useApp = defineStore("app", () => {
     app.covers.archives = covers.archives ?? ["/cover/archives.jpg"];
     app.covers.category = covers.category ?? ["/cover/category.jpg"];
     app.covers.tag = covers.tag ?? ["/cover/tag.png"];
-    app.covers.album = covers.album ?? ["/cover/album.jpg"];
+    app.covers.cover = covers.cover ?? ["/cover/cover.jpg"];
     app.covers.talk = covers.talk ?? ["/cover/talk.jpg"];
     app.covers.message = covers.message ?? ["/cover/message.png"];
     app.covers.user = covers.user ?? ["/cover/user.jpg"];
@@ -113,10 +113,10 @@ export const useApp = defineStore("app", () => {
     return arr[randomNumber(0, arr.length - 1)];
   };
   /**
-   * 相册
+   * 模块封面
    */
-  const albumCover = () => {
-    const arr = app.covers.album;
+  const coverCover = () => {
+    const arr = app.covers.cover;
     return arr[randomNumber(0, arr.length - 1)];
   };
   /**
@@ -197,7 +197,7 @@ export const useApp = defineStore("app", () => {
     archivesCover,
     categoryCover,
     tagCover,
-    albumCover,
+    coverCover,
     talkCover,
     messageCover,
     userCover,

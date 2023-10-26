@@ -3,10 +3,10 @@
 public class AddPictureInput
 {
     /// <summary>
-    /// 相册Id
+    /// 封面Id
     /// </summary>
     [Required(ErrorMessage = "缺少必要参数")]
-    public long AlbumId { get; set; }
+    public long CoverId { get; set; }
 
     /// <summary>
     /// 图片地址

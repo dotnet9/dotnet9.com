@@ -190,61 +190,6 @@
             主键
             </summary>
         </member>
-        <member name="T:Dotnet9.Core.Entities.Albums">
-            <summary>
-            相册表
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Name">
-            <summary>
-            相册名称
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Cover">
-            <summary>
-            封面图
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Type">
-            <summary>
-            相册类型
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Status">
-            <summary>
-            可用状态
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Sort">
-            <summary>
-            排序值（值越小越靠前）
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.IsVisible">
-            <summary>
-            是否可见
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.CreatedUserId">
-            <summary>
-            创建人
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.DeleteMark">
-            <summary>
-            标记删除
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Core.Entities.Albums.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
         <member name="T:Dotnet9.Core.Entities.Article">
             <summary>
             文章表
@@ -545,6 +490,61 @@
             创建时间
             </summary>
         </member>
+        <member name="T:Dotnet9.Core.Entities.Covers">
+            <summary>
+            模块封面表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Type">
+            <summary>
+            模块类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Covers.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="T:Dotnet9.Core.Entities.CustomConfig">
             <summary>
             自定义配置
@@ -768,12 +768,12 @@
         </member>
         <member name="T:Dotnet9.Core.Entities.Pictures">
             <summary>
-            相册图片表
+            模块封面图片表
             </summary>
         </member>
-        <member name="P:Dotnet9.Core.Entities.Pictures.AlbumId">
+        <member name="P:Dotnet9.Core.Entities.Pictures.CoverId">
             <summary>
-            相册Id
+            封面Id
             </summary>
         </member>
         <member name="P:Dotnet9.Core.Entities.Pictures.Url">
@@ -1431,9 +1431,9 @@
             标签封面
             </summary>
         </member>
-        <member name="F:Dotnet9.Core.Enum.CoverType.Album">
+        <member name="F:Dotnet9.Core.Enum.CoverType.Cover">
             <summary>
-            相册封面图
+            模块封面图
             </summary>
         </member>
         <member name="F:Dotnet9.Core.Enum.CoverType.Talk">

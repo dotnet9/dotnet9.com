@@ -88,17 +88,17 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    name: "albums",
-    path: "/albums",
-    component: () => import("../views/album/Album.vue"),
+    name: "covers",
+    path: "/covers",
+    component: () => import("../views/cover/Cover.vue"),
     meta: {
-      title: "相册",
+      title: "模块封面",
     },
   },
   {
     name: "photo",
-    path: "/albums/:id",
-    component: () => import("../views/album/Photo.vue"),
+    path: "/covers/:id",
+    component: () => import("../views/cover/Photo.vue"),
     meta: {
       title: "图片",
     },

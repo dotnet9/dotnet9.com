@@ -93,25 +93,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Dotnet9.Application.Blog.AlbumsService">
-            <summary>
-            相册管理
-            </summary>
-        </member>
-        <member name="M:Dotnet9.Application.Blog.AlbumsService.Add(Dotnet9.Application.Blog.Dtos.AddAlbumsInput)">
-            <summary>
-            新增相册
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dotnet9.Application.Blog.AlbumsService.Update(Dotnet9.Application.Blog.Dtos.UpdateAlbumsInput)">
-            <summary>
-            更新相册
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
         <member name="T:Dotnet9.Application.Blog.ArticleCategoryService">
             <summary>
             文章所属分类管理
@@ -196,40 +177,24 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Name">
+        <member name="T:Dotnet9.Application.Blog.CoversService">
             <summary>
-            相册名称
+            模块封面管理
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Cover">
+        <member name="M:Dotnet9.Application.Blog.CoversService.Add(Dotnet9.Application.Blog.Dtos.AddCoversInput)">
             <summary>
-            封面图
+            新增模块封面
             </summary>
+            <param name="dto"></param>
+            <returns></returns>
         </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Type">
+        <member name="M:Dotnet9.Application.Blog.CoversService.Update(Dotnet9.Application.Blog.Dtos.UpdateCoversInput)">
             <summary>
-            相册类型
+            更新模块封面
             </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Status">
-            <summary>
-            可用状态
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Sort">
-            <summary>
-            排序值（值越小越靠前）
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumsInput.IsVisible">
-            <summary>
-            是否可见
-            </summary>
+            <param name="dto"></param>
+            <returns></returns>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Title">
             <summary>
@@ -341,6 +306,41 @@
             备注
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Type">
+            <summary>
+            模块类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCoversInput.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddFriendLinkInput.SiteName">
             <summary>
             网站名称
@@ -381,9 +381,9 @@
             可用状态
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AddPictureInput.AlbumId">
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddPictureInput.CoverId">
             <summary>
-            相册Id
+            封面Id
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddPictureInput.Url">
@@ -449,61 +449,6 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.AddTalksInput.Status">
             <summary>
             可用状态
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Id">
-            <summary>
-            相册ID
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Name">
-            <summary>
-            名称
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Type">
-            <summary>
-            相册类型
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Status">
-            <summary>
-            状态
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.IsVisible">
-            <summary>
-            是否显示
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Sort">
-            <summary>
-            排序
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Cover">
-            <summary>
-            封面
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.CreatedTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput.Name">
-            <summary>
-            相册名称
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput.Type">
-            <summary>
-            相册类型
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Id">
@@ -701,6 +646,61 @@
             子分类
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Id">
+            <summary>
+            模块封面ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Type">
+            <summary>
+            模块类型
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.IsVisible">
+            <summary>
+            是否显示
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.Cover">
+            <summary>
+            封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageQueryInput.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CoversPageQueryInput.Type">
+            <summary>
+            模块类型
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.FriendLinkPageOutput.Id">
             <summary>
             友情链接主键
@@ -758,7 +758,7 @@
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.PicturesPageQueryInput.Id">
             <summary>
-            相册ID
+            模块封面ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.TagsPageOutput.Id">
@@ -897,26 +897,26 @@
         </member>
         <member name="T:Dotnet9.Application.Blog.PicturesService">
             <summary>
-            相册图片管理
+            模块封面图片管理
             </summary>
         </member>
         <member name="M:Dotnet9.Application.Blog.PicturesService.Page(Dotnet9.Application.Blog.Dtos.PicturesPageQueryInput)">
             <summary>
-            相册图片分页
+            模块封面分页
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.PicturesService.Add(Dotnet9.Application.Blog.Dtos.AddPictureInput)">
             <summary>
-            上传图片到相册
+            上传图片到模块
             </summary>
             <param name="dto"></param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Blog.PicturesService.Delete(Dotnet9.Core.Shared.KeyDto)">
             <summary>
-            删除上册图片
+            删除模块图片
             </summary>
             <param name="dto"></param>
             <returns></returns>
@@ -975,25 +975,6 @@
         <member name="M:Dotnet9.Application.Blog.TalksService.Update(Dotnet9.Application.Blog.Dtos.UpdateTalksInput)">
             <summary>
             更新说说
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Dotnet9.Application.Client.AlbumsController">
-            <summary>
-            相册
-            </summary>
-        </member>
-        <member name="M:Dotnet9.Application.Client.AlbumsController.Get(SqlSugar.Pagination)">
-            <summary>
-            相册列表
-            </summary>
-            <param name="dto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dotnet9.Application.Client.AlbumsController.Pictures(Dotnet9.Application.Client.Dtos.PicturesQueryInput)">
-            <summary>
-            相册下的图片
             </summary>
             <param name="dto"></param>
             <returns></returns>
@@ -1090,6 +1071,25 @@
             <param name="dto">对象ID</param>
             <returns></returns>
         </member>
+        <member name="T:Dotnet9.Application.Client.CoversController">
+            <summary>
+            模块封面控制器
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CoversController.Get(SqlSugar.Pagination)">
+            <summary>
+            模块封面列表
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Client.CoversController.Pictures(Dotnet9.Application.Client.Dtos.PicturesQueryInput)">
+            <summary>
+            模块下的图片
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.AddCommentInput.ModuleId">
             <summary>
              对应模块ID（null表留言，0代表友链的评论）
@@ -1138,31 +1138,6 @@
         <member name="P:Dotnet9.Application.Client.Dtos.AddLinkOutput.Remark">
             <summary>
             网站介绍
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Id">
-            <summary>
-            相册ID
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Name">
-            <summary>
-            相册名称
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Cover">
-            <summary>
-            相册封面
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.Remark">
-            <summary>
-            相册描述
-            </summary>
-        </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.AlbumsOutput.CreatedTime">
-            <summary>
-            创建时间
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Id">
@@ -1505,6 +1480,31 @@
             对应模块ID或评论ID（null表留言，0代表友链的评论）
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CoversOutput.Id">
+            <summary>
+            模块ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CoversOutput.Name">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CoversOutput.Cover">
+            <summary>
+            模块封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CoversOutput.Remark">
+            <summary>
+            模块描述
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CoversOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.FriendLinkOutput.Id">
             <summary>
             友链ID
@@ -1585,9 +1585,9 @@
             图片地址
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.PicturesQueryInput.AlbumId">
+        <member name="P:Dotnet9.Application.Client.Dtos.PicturesQueryInput.CoverId">
             <summary>
-            相册ID
+            模块封面ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ReplyOutput.Id">

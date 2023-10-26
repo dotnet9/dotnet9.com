@@ -3,7 +3,7 @@
 public class PicturesQueryInput : Pagination
 {
     /// <summary>
-    /// 相册ID
+    /// 模块封面ID
     /// </summary>
-    public long AlbumId { get; set; }
+    public long CoverId { get; set; }
 }

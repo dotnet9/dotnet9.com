@@ -4,7 +4,7 @@ using Dotnet9.Application.Blog.Dtos;
 namespace Dotnet9.Application.Blog;
 
 /// <summary>
-/// 相册图片管理
+/// 模块封面图片管理
 /// </summary>
 public class PicturesService : IDynamicApiController
 {
@@ -18,28 +18,28 @@ public class PicturesService : IDynamicApiController
         _authManager = authManager;
     }
     /// <summary>
-    /// 相册图片分页
+    /// 模块封面分页
     /// </summary>
     /// <param name="dto"></param>
     /// <returns></returns>
-    [DisplayName("相册图片分页")]
+    [DisplayName("模块封面分页")]
     [HttpGet]
     [AllowAnonymous]
     public async Task<PageResult<PicturesPageOutput>> Page([FromQuery] PicturesPageQueryInput dto)
     {
-        return await _repository.AsQueryable().InnerJoin<Albums>((pictures, albums) => pictures.AlbumId == albums.Id)
-            .Where(pictures => pictures.AlbumId == dto.Id)
-            .WhereIF(_authManager.AuthPlatformType is null or AuthPlatformType.Blog, (pictures, albums) => albums.IsVisible)
+        return await _repository.AsQueryable().InnerJoin<Covers>((pictures, covers) => pictures.CoverId == covers.Id)
+            .Where(pictures => pictures.CoverId == dto.Id)
+            .WhereIF(_authManager.AuthPlatformType is null or AuthPlatformType.Blog, (pictures, covers) => covers.IsVisible)
             .Select(pictures => new PicturesPageOutput { Id = pictures.Id, Url = pictures.Url })
             .ToPagedListAsync(dto);
     }
 
     /// <summary>
-    /// 上传图片到相册
+    /// 上传图片到模块
     /// </summary>
     /// <param name="dto"></param>
     /// <returns></returns>
-    [DisplayName("上传图片到相册")]
+    [DisplayName("上传图片到模块")]
     [HttpPost("add")]
     public async Task Add(AddPictureInput dto)
     {
@@ -48,11 +48,11 @@ public class PicturesService : IDynamicApiController
     }
 
     /// <summary>
-    /// 删除上册图片
+    /// 删除模块图片
     /// </summary>
     /// <param name="dto"></param>
     /// <returns></returns>
-    [DisplayName("删除相册图片")]
+    [DisplayName("删除模块图片")]
     [HttpDelete("delete")]
     public async Task Delete(KeyDto dto)
     {
