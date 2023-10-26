@@ -350,5 +350,5 @@ MigrationBackup/
 .ionide/
 *.jwk
 appsettings.*.json
+applicationsettings.*.json
 *.exe
-src/Dotnet9.WebAPI/Dotnet9.Application/applicationsettings.Development.json

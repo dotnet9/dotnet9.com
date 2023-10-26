@@ -82,15 +82,15 @@
   //对象存储配置 文档：https://github.com/oncemi/OnceMi.AspNetCore.OSS
   "OssConnection": {
     "Enable": false, //是否启用对象存储（不启用将存储至站点目录）
-    "Provider": "Minio", //OSS提供者；允许值：Minio/Aliyun/QCloud/Qiniu/HuaweiCloud/（Invalid：代表附件存储到当前站点下）
-    "Endpoint": "192.168.1.123:9000", //节点
-    "AccessKey": "test", //Key
-    "SecretKey": "12324565", //秘钥
-    //"Region": "ap-chengdu",//地域
-    "IsEnableHttps": false, //是否启用HTTPS
+    "Provider": "QCloud", //OSS提供者；允许值：Minio/Aliyun/QCloud/Qiniu/HuaweiCloud/（Invalid：代表附件存储到当前站点下）
+    "Endpoint": "125***3", //节点
+    "AccessKey": "AKI******xPaU7", //Key
+    "SecretKey": "NTIp**xKQGp", //秘钥
+    "Region": "ap-beijing", //地域，如果是QCloud必须要加上，OSS包上传会使用
+    "IsEnableHttps": true, //是否启用HTTPS
     "IsEnableCache": true, //是否启用缓存(启用后将缓存签名URL，以减少请求次数)
-    "Bucket": "oss", //默认存储根目录
-    "Domain": "https://oss.okay123.top" //外网访问域名或IP
+    "Bucket": "img2-dotnet9", //默认存储根目录，也就是桶名，如果是QCloud，去掉桶名后台的APP ID后缀（即Endpoint值）
+    "Domain": "https://img1.dotnet9.com" //外网访问域名或IP
   },
   // 接入第三方授权登录 文档：https://github.com/mrhuo/MrHuo.OAuth
   "oauth": {

@@ -39,6 +39,7 @@ public class FileService : IDynamicApiController, ITransient
         {
             throw Oops.Oh("请上传文件");
         }
+
         var options = _ossOptionsMonitor.CurrentValue;
         var now = DateTime.Today;
         string name = _idGenerator.Encode(_idGenerator.NewLong());
@@ -47,12 +48,13 @@ public class FileService : IDynamicApiController, ITransient
         {
             throw Oops.Bah("无效文件");
         }
+
         //文件路径
         string filePath = $"/{now.Year}/{now.Month:D2}/{now.Day:D2}/";
         // 文件完整名称
         if (!options.Enable)
         {
-            filePath = string.Concat(options.Bucket.TrimEnd('/'), filePath);//ptions.Bucket.TrimEnd('/') + filePath;
+            filePath = string.Concat(options.Bucket.TrimEnd('/'), filePath); //ptions.Bucket.TrimEnd('/') + filePath;
             string s = Path.Combine(_webHostEnvironment.WebRootPath, filePath);
             if (!Directory.Exists(s))
             {
@@ -73,14 +75,16 @@ public class FileService : IDynamicApiController, ITransient
                 }
             };
         }
+
         string fileName = $"{filePath}{name}{extension}";
+        var exist = _ossService.BucketExistsAsync(options.Bucket);
         await _ossService.PutObjectAsync(options.Bucket, fileName, file.OpenReadStream());
         return new List<UploadFileOutput>()
         {
             new()
             {
                 Name = $"{name}{extension}",
-                Url = $"{options.Domain.TrimEnd('/')}/{options.Bucket}{fileName}"
+                Url = $"{options.Domain.TrimEnd('/')}/{fileName.TrimStart('/')}"
             }
         };
     }
