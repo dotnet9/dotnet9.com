@@ -255,6 +255,7 @@ public static class SqlSugarExtensions
 
         InitFriendLink(client, siteOptions.AssetsDir);
         InitCategory(client, siteOptions.AssetsDir, user);
+        InitAlbum(client, siteOptions.AssetsDir, user);
     }
 
     /// <summary>
@@ -311,7 +312,7 @@ public static class SqlSugarExtensions
         var filePath = Path.Combine(assetsDir, "cats", "category.json");
         if (!File.Exists(filePath))
         {
-            throw new Exception($"请配置友情链接文件：{filePath}");
+            throw new Exception($"请配置分类文件：{filePath}");
         }
 
         var siteOptions = App.GetConfig<SiteOptions>("Site");
@@ -337,5 +338,39 @@ public static class SqlSugarExtensions
         }
 
         client.Storageable(allCategories).ToStorage().AsInsertable.ExecuteCommand();
+    }
+
+    /// <summary>
+    /// 初始化专辑
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="assetsDir"></param>
+    /// <exception cref="Exception"></exception>
+    private static void InitAlbum(SqlSugarScope client, string assetsDir, SysUser user)
+    {
+        var filePath = Path.Combine(assetsDir, "albums", "album.json");
+        if (!File.Exists(filePath))
+        {
+            throw new Exception($"请配置专辑文件：{filePath}");
+        }
+
+        var siteOptions = App.GetConfig<SiteOptions>("Site");
+        if (string.IsNullOrWhiteSpace(siteOptions.AssetsUrl))
+        {
+            throw new Exception("请配置资源Url");
+        }
+
+        var albums = JsonConvert.DeserializeObject<List<Albums>>(File.ReadAllText(filePath));
+
+
+        long id = 0;
+        foreach (var album in albums)
+        {
+            album.Id = ++id;
+            album.CreatedUserId = user.Id;
+            album.Cover = $"{siteOptions.AssetsUrl}/{album.Cover}";
+        }
+
+        client.Storageable(albums).ToStorage().AsInsertable.ExecuteCommand();
     }
 }

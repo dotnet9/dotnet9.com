@@ -190,6 +190,56 @@
             主键
             </summary>
         </member>
+        <member name="T:Dotnet9.Core.Entities.Albums">
+            <summary>
+            专辑信息表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Name">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Slug">
+            <summary>
+            别名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.CreatedUserId">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.DeleteMark">
+            <summary>
+            标记删除
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.Albums.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
         <member name="T:Dotnet9.Core.Entities.Article">
             <summary>
             文章表
@@ -1891,6 +1941,14 @@
         <member name="M:SqlSugar.SqlSugarExtensions.InitCategory(SqlSugar.SqlSugarScope,System.String,Dotnet9.Core.Entities.SysUser)">
             <summary>
             初始化分类
+            </summary>
+            <param name="client"></param>
+            <param name="assetsDir"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitAlbum(SqlSugar.SqlSugarScope,System.String,Dotnet9.Core.Entities.SysUser)">
+            <summary>
+            初始化专辑
             </summary>
             <param name="client"></param>
             <param name="assetsDir"></param>

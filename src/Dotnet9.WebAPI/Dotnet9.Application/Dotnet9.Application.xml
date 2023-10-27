@@ -93,6 +93,38 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Dotnet9.Application.Blog.AlbumsService">
+            <summary>
+            文章专辑管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Page(Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput)">
+            <summary>
+            文章专辑列表分页查询
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Add(Dotnet9.Application.Blog.Dtos.AddAlbumInput)">
+            <summary>
+            添加文章专辑
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Update(Dotnet9.Application.Blog.Dtos.UpdateAlbumInput)">
+            <summary>
+            更新文章专辑
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.AlbumsService.Select">
+            <summary>
+            文章专辑下拉选项
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Dotnet9.Application.Blog.ArticleCategoryService">
             <summary>
             文章所属分类管理
@@ -196,6 +228,36 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Name">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Slug">
+            <summary>
+            专辑别名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Cover">
+            <summary>
+            封面图
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Status">
+            <summary>
+            可用状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Sort">
+            <summary>
+            排序值（值越小越靠前）
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddAlbumInput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Title">
             <summary>
             标题
@@ -279,6 +341,11 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Name">
             <summary>
             分类名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Slug">
+            <summary>
+            分类别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.ParentId">
@@ -451,6 +518,51 @@
             可用状态
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Id">
+            <summary>
+            专辑ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Name">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Slug">
+            <summary>
+            专辑别名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.Cover">
+            <summary>
+            标签封面
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageOutput.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AlbumsPageQueryInput.Name">
+            <summary>
+            专辑名称 
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Id">
             <summary>
             文章ID
@@ -609,6 +721,11 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Name">
             <summary>
             分类名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Slug">
+            <summary>
+            专辑别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.ParentId">
@@ -851,6 +968,11 @@
             关键词
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.UpdateAlbumInput.Id">
+            <summary>
+            标签ID
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.UpdateArticleInput.Id">
             <summary>
             文章ID
@@ -928,7 +1050,7 @@
         </member>
         <member name="M:Dotnet9.Application.Blog.TagsService.Page(Dotnet9.Application.Blog.Dtos.TagsPageQueryInput)">
             <summary>
-            文章标签列表非要查询
+            文章标签列表分页查询
             </summary>
             <param name="dto"></param>
             <returns></returns>

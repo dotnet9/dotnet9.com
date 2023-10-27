@@ -1,29 +1,26 @@
 ﻿namespace Dotnet9.Application.Blog.Dtos;
 
-public class AddCategoryInput
+public class AddAlbumInput
 {
     /// <summary>
-    /// 分类名称
+    /// 专辑名称
     /// </summary>
-    [MaxLength(32, ErrorMessage = "分类名称限制32个字符内")]
+    [Required(ErrorMessage = "专辑名称为必填项")]
+    [MaxLength(32, ErrorMessage = "专辑名限制32个字符内")]
     public string Name { get; set; }
 
     /// <summary>
-    /// 分类别名
+    /// 专辑别名
     /// </summary>
-    [Required(ErrorMessage = "分类别名为必填项")]
-    [MaxLength(128, ErrorMessage = "分类别名制128个字符内")]
+    [Required(ErrorMessage = "专辑别名为必填项")]
+    [MaxLength(128, ErrorMessage = "专辑别名制128个字符内")]
     public string Slug { get; set; }
-
-    /// <summary>
-    /// 父级id
-    /// </summary>
-    public long? ParentId { get; set; }
 
     /// <summary>
     /// 封面图
     /// </summary>
     [MaxLength(256)]
+    [Required(ErrorMessage = "请上传封面图")]
     public string Cover { get; set; }
 
     /// <summary>
@@ -34,6 +31,7 @@ public class AddCategoryInput
     /// <summary>
     /// 排序值（值越小越靠前）
     /// </summary>
+    [Required(ErrorMessage = "排序值为必填项")]
     public int Sort { get; set; }
 
     /// <summary>

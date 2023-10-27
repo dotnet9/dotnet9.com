@@ -15,7 +15,7 @@ public class TagsService : BaseService<Tags>
     }
 
     /// <summary>
-    /// 文章标签列表非要查询
+    /// 文章标签列表分页查询
     /// </summary>
     /// <param name="dto"></param>
     /// <returns></returns>

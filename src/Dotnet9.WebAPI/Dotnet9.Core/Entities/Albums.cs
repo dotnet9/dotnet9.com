@@ -1,14 +1,12 @@
-﻿using Dotnet9.Core.Enum;
-
-namespace Dotnet9.Core.Entities;
+﻿namespace Dotnet9.Core.Entities;
 
 /// <summary>
-/// 文章分类表
+/// 专辑信息表
 /// </summary>
-public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId, ISoftDelete, ICreatedTime
+public class Albums : Entity<long>, ISortable, IAvailability, ICreatedUserId, ISoftDelete, ICreatedTime
 {
     /// <summary>
-    /// 名称
+    /// 专辑名称
     /// </summary>
     [SugarColumn(Length = 32)]
     public string Name { get; set; }
@@ -18,11 +16,6 @@ public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId
     /// </summary>
     [SugarColumn(Length = 128)]
     public string Slug { get; set; }
-
-    /// <summary>
-    /// 父级id
-    /// </summary>
-    public long? ParentId { get; set; }
 
     /// <summary>
     /// 封面图
@@ -43,7 +36,6 @@ public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId
     /// <summary>
     /// 备注
     /// </summary>
-    [SugarColumn(Length = 256)]
     public string? Remark { get; set; }
 
     /// <summary>
@@ -60,10 +52,4 @@ public class Categories : Entity<long>, IAvailability, ISortable, ICreatedUserId
     /// 创建时间
     /// </summary>
     public DateTime CreatedTime { get; set; }
-
-    /// <summary>
-    /// 子分类
-    /// </summary>
-    [SugarColumn(IsIgnore = true)]
-    public List<Categories> Children { get; set; } = new();
 }
