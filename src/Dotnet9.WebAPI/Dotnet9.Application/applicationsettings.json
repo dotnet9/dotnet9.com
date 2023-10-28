@@ -22,8 +22,11 @@
     ]
   },
   "Site": {
+    "Domain": "https://dotnet9.com",
     "AssetsDir": "F:\\github_gitee\\Assets.Dotnet9",
-    "AssetsUrl": "https://img1.dotnet9.com"
+    "AssetsUrl": "https://img1.dotnet9.com",
+    "Owner": "沙漠尽头的狼",
+    "Start": 2019
   },
   "DynamicApiControllerSettings": {
     "CamelCaseSeparator": ""

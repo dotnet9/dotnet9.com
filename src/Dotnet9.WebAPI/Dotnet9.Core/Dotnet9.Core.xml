@@ -250,6 +250,11 @@
             标题
             </summary>
         </member>
+        <member name="P:Dotnet9.Core.Entities.Article.Slug">
+            <summary>
+            别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Core.Entities.Article.Summary">
             <summary>
             概要
@@ -1551,6 +1556,11 @@
             原创
             </summary>
         </member>
+        <member name="F:Dotnet9.Core.Enum.CreationType.Contributes">
+            <summary>
+            投稿
+            </summary>
+        </member>
         <member name="F:Dotnet9.Core.Enum.CreationType.Reprinted">
             <summary>
             转载
@@ -1661,6 +1671,11 @@
             网站基本信息配置
             </summary>
         </member>
+        <member name="P:Dotnet9.Core.Options.SiteOptions.Domain">
+            <summary>
+            网站地址，比如：https://dotnet9.com
+            </summary>
+        </member>
         <member name="P:Dotnet9.Core.Options.SiteOptions.AssetsDir">
             <summary>
             网站资源目录，需要从https://github.com/dotnet9/Assets.Dotnet9克隆后的本地绝对路径
@@ -1669,6 +1684,16 @@
         <member name="P:Dotnet9.Core.Options.SiteOptions.AssetsUrl">
             <summary>
             网站资源Url，用于拼接资源的全路径，比如：https://img1.dotnet9.com/
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.SiteOptions.Owner">
+            <summary>
+            网站所有人
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Options.SiteOptions.Start">
+            <summary>
+            网站创建年份，比如：2019
             </summary>
         </member>
         <member name="T:Dotnet9.Core.Options.SnowIdOptions">
@@ -1979,6 +2004,17 @@
             <param name="client"></param>
             <param name="assetsDir"></param>
             <param name="user"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitArticles(SqlSugar.SqlSugarScope,Dotnet9.Core.Options.SiteOptions,Dotnet9.Core.Entities.SysUser,System.Collections.Generic.List{Dotnet9.Core.Entities.Categories},System.Collections.Generic.List{Dotnet9.Core.Entities.Albums})">
+            <summary>
+            初始化文章
+            </summary>
+            <param name="client"></param>
+            <param name="siteInfo"></param>
+            <param name="user"></param>
+            <param name="categories"></param>
+            <param name="albums"></param>
             <exception cref="T:System.Exception"></exception>
         </member>
         <member name="T:SqlSugar.SqlSugarUnitOfWork">

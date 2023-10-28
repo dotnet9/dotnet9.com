@@ -1,6 +1,7 @@
 ﻿using Dotnet9.Core.Enum;
 
 namespace Dotnet9.Core.Entities;
+
 /// <summary>
 /// 文章表
 /// </summary>
@@ -11,6 +12,12 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// </summary>
     [SugarColumn(Length = 128)]
     public string Title { get; set; }
+
+    /// <summary>
+    /// 别名
+    /// </summary>
+    [SugarColumn(Length = 256)]
+    public string Slug { get; set; }
 
     /// <summary>
     /// 概要
@@ -37,7 +44,7 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// <summary>
     /// 作者
     /// </summary>
-    [SugarColumn(Length = 32)]
+    [SugarColumn(Length = 64)]
     public string Author { get; set; }
 
     /// <summary>
