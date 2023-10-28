@@ -36,7 +36,7 @@ public static class HttpContextExtension
             //获取ip信息
             return GetGeolocation(ip);
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return string.Empty;
         }

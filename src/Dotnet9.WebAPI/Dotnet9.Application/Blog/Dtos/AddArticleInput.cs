@@ -95,4 +95,10 @@ public class AddArticleInput
     /// </summary>
     [Required(ErrorMessage = "请选择文章分类")]
     public long CategoryId { get; set; }
+
+    /// <summary>
+    /// 专辑ID
+    /// </summary>
+    [Required(ErrorMessage = "请选择文章专辑")]
+    public long AlbumId { get; set; }
 }

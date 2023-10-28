@@ -36,27 +36,30 @@ public class ArticleService : BaseService<Article>
             categoryList = list.Select(x => x.Id).ToList();
             categoryList.Add(dto.CategoryId.Value);
         }
+
         return await _repository.AsQueryable().LeftJoin<ArticleCategory>((article, ac) => article.Id == ac.ArticleId)
-              .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
-              .WhereIF(!string.IsNullOrWhiteSpace(dto.Title), article => article.Title.Contains(dto.Title) || article.Summary.Contains(dto.Title) || article.Content.Contains(dto.Title))
-              .WhereIF(categoryList.Any(), (article, ac) => categoryList.Contains(ac.CategoryId))
-              .OrderByDescending(article => article.IsTop)
-              .OrderBy(article => article.Sort)
-              .OrderByDescending(article => article.PublishTime)
-              .Select((article, ac, c) => new ArticlePageOutput
-              {
-                  Id = article.Id,
-                  Title = article.Title,
-                  Status = article.Status,
-                  Sort = article.Sort,
-                  Cover = article.Cover,
-                  IsTop = article.IsTop,
-                  CreatedTime = article.CreatedTime,
-                  CreationType = article.CreationType,
-                  PublishTime = article.PublishTime,
-                  Views = article.Views,
-                  CategoryName = c.Name
-              }).ToPagedListAsync(dto);
+            .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
+            .WhereIF(!string.IsNullOrWhiteSpace(dto.Title),
+                article => article.Title.Contains(dto.Title) || article.Summary.Contains(dto.Title) ||
+                           article.Content.Contains(dto.Title))
+            .WhereIF(categoryList.Any(), (article, ac) => categoryList.Contains(ac.CategoryId))
+            .OrderByDescending(article => article.IsTop)
+            .OrderBy(article => article.Sort)
+            .OrderByDescending(article => article.PublishTime)
+            .Select((article, ac, c) => new ArticlePageOutput
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Status = article.Status,
+                Sort = article.Sort,
+                Cover = article.Cover,
+                IsTop = article.IsTop,
+                CreatedTime = article.CreatedTime,
+                CreationType = article.CreationType,
+                PublishTime = article.PublishTime,
+                Views = article.Views,
+                CategoryName = c.Name
+            }).ToPagedListAsync(dto);
     }
 
     /// <summary>
@@ -84,6 +87,12 @@ public class ArticleService : BaseService<Article>
             CategoryId = dto.CategoryId
         };
         await _repository.AsSugarClient().Insertable(articleCategory).ExecuteCommandAsync();
+        var articleAlbum = new ArticleAlbum()
+        {
+            ArticleId = article.Id,
+            AlbumId = dto.AlbumId
+        };
+        await _repository.AsSugarClient().Insertable(articleAlbum).ExecuteCommandAsync();
     }
 
     /// <summary>
@@ -115,6 +124,11 @@ public class ArticleService : BaseService<Article>
             .SetColumns(x => x.CategoryId == dto.CategoryId)
             .Where(x => x.ArticleId == dto.Id)
             .ExecuteCommandHasChangeAsync();
+        await _repository.AsSugarClient()
+            .Updateable<ArticleAlbum>()
+            .SetColumns(x => x.AlbumId == dto.AlbumId)
+            .Where(x => x.ArticleId == dto.Id)
+            .ExecuteCommandHasChangeAsync();
     }
 
     /// <summary>
@@ -127,29 +141,29 @@ public class ArticleService : BaseService<Article>
     public async Task<ArticleDetailOutput> Detail([FromQuery] long id)
     {
         return await _repository.AsQueryable().LeftJoin<ArticleCategory>((article, ac) => article.Id == ac.ArticleId)
-             .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
-             .Where(article => article.Id == id)
-             .Select((article, ac, c) => new ArticleDetailOutput
-             {
-                 Id = article.Id,
-                 Title = article.Title,
-                 Summary = article.Summary,
-                 Cover = article.Cover,
-                 Status = article.Status,
-                 Link = article.Link,
-                 IsTop = article.IsTop,
-                 Sort = article.Sort,
-                 Author = article.Author,
-                 Content = article.Content,
-                 IsAllowComments = article.IsAllowComments,
-                 IsHtml = article.IsHtml,
-                 CreationType = article.CreationType,
-                 CategoryId = c.Id,
-                 ExpiredTime = article.ExpiredTime,
-                 PublishTime = article.PublishTime,
-                 Tags = SqlFunc.Subqueryable<Tags>().InnerJoin<ArticleTag>((tags, at) => tags.Id == at.TagId)
-                     .Where((tags, at) => at.ArticleId == article.Id && tags.Status == AvailabilityStatus.Enable)
-                     .ToList(tags => tags.Id)
-             }).FirstAsync();
+            .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
+            .Where(article => article.Id == id)
+            .Select((article, ac, c) => new ArticleDetailOutput
+            {
+                Id = article.Id,
+                Title = article.Title,
+                Summary = article.Summary,
+                Cover = article.Cover,
+                Status = article.Status,
+                Link = article.Link,
+                IsTop = article.IsTop,
+                Sort = article.Sort,
+                Author = article.Author,
+                Content = article.Content,
+                IsAllowComments = article.IsAllowComments,
+                IsHtml = article.IsHtml,
+                CreationType = article.CreationType,
+                CategoryId = c.Id,
+                ExpiredTime = article.ExpiredTime,
+                PublishTime = article.PublishTime,
+                Tags = SqlFunc.Subqueryable<Tags>().InnerJoin<ArticleTag>((tags, at) => tags.Id == at.TagId)
+                    .Where((tags, at) => at.ArticleId == article.Id && tags.Status == AvailabilityStatus.Enable)
+                    .ToList(tags => tags.Id)
+            }).FirstAsync();
     }
 }

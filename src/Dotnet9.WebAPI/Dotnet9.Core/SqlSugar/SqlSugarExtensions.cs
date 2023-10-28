@@ -287,6 +287,7 @@ public static class SqlSugarExtensions
     /// </summary>
     /// <param name="client"></param>
     /// <param name="assetsDir"></param>
+    /// <param name="user"></param>
     /// <exception cref="Exception"></exception>
     private static void InitCategory(SqlSugarScope client, string assetsDir, SysUser user)
     {
@@ -345,6 +346,7 @@ public static class SqlSugarExtensions
     /// </summary>
     /// <param name="client"></param>
     /// <param name="assetsDir"></param>
+    /// <param name="user"></param>
     /// <exception cref="Exception"></exception>
     private static void InitAlbum(SqlSugarScope client, string assetsDir, SysUser user)
     {

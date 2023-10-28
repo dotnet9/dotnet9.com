@@ -17,7 +17,7 @@
  * @enum {string}
  */
 export enum AvailabilityStatus {
-    NUMBER_0 = 0,
-    NUMBER_1 = 1
+    Enable = 'Enable',
+    Disable = 'Disable'
 }
 

@@ -72,6 +72,14 @@ public class ArticleInfoOutput
     /// </summary>
     public string CategoryName { get; set; }
     /// <summary>
+    /// 专辑Id
+    /// </summary>
+    public long AlbumId { get; set; }
+    /// <summary>
+    /// 专辑名称
+    /// </summary>
+    public string AlbumName { get; set; }
+    /// <summary>
     /// 最后更新时间
     /// </summary>
     public DateTime? UpdatedTime { get; set; }

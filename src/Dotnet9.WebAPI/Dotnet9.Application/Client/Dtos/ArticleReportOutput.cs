@@ -6,6 +6,7 @@ public class ArticleReportOutput
     /// 文章数量
     /// </summary>
     public int ArticleCount { get; set; }
+
     /// <summary>
     /// 标签数量
     /// </summary>
@@ -15,6 +16,11 @@ public class ArticleReportOutput
     /// 分类数量
     /// </summary>
     public int CategoryCount { get; set; }
+
+    /// <summary>
+    /// 专辑数量
+    /// </summary>
+    public int AlbumCount { get; set; }
 
     /// <summary>
     /// 用户量

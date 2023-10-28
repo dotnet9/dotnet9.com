@@ -7,7 +7,7 @@ export interface ArticleListQueryInput extends Pagination {
   tagId?: number;
 
   /**
-   * 栏目ID
+   * 分类ID
    */
   categoryId?: number;
   /**

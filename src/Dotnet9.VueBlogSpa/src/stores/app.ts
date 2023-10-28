@@ -16,6 +16,7 @@ export const useApp = defineStore("app", () => {
       about: [] as string[],
       archives: [] as string[],
       category: [] as string[],
+      album: [] as string[],
       tag: [] as string[],
       cover: [] as string[],
       talk: [] as string[],
@@ -24,6 +25,7 @@ export const useApp = defineStore("app", () => {
       link: [] as string[],
       tagList: [] as string[],
       categories: [] as string[],
+      albums: [] as string[],
     },
     info: {} as BloggerInfo,
     isInit: false,
@@ -62,12 +64,12 @@ export const useApp = defineStore("app", () => {
       filing: "蜀ICP备19038256号-1",
       favicon: "favicon.ico",
       keyword: "Dotnet9",
-      visitorNumbers: 0,
     };
     app.covers.home = covers.home ?? ["/cover/logo.png"];
     app.covers.about = covers.about ?? ["/cover/about.jpg"];
     app.covers.archives = covers.archives ?? ["/cover/archives.jpg"];
     app.covers.category = covers.category ?? ["/cover/category.jpg"];
+    app.covers.album = covers.album ?? ["/cover/category.jpg"];
     app.covers.tag = covers.tag ?? ["/cover/tag.png"];
     app.covers.cover = covers.cover ?? ["/cover/cover.jpg"];
     app.covers.talk = covers.talk ?? ["/cover/talk.jpg"];
@@ -76,6 +78,7 @@ export const useApp = defineStore("app", () => {
     app.covers.link = covers.link ?? ["/cover/logo.png"];
     app.covers.tagList = covers.tagList ?? ["/cover/logo.png"];
     app.covers.categories = covers.categories ?? ["/cover/logo.png"];
+    app.covers.albums = covers.albums ?? ["/cover/logo.png"];
   };
   /**
    * 首页cover
@@ -103,6 +106,13 @@ export const useApp = defineStore("app", () => {
    */
   const categoryCover = () => {
     const arr = app.covers.category;
+    return arr[randomNumber(0, arr.length - 1)];
+  };
+  /**
+   * 分类
+   */
+  const albumCover = () => {
+    const arr = app.covers.album;
     return arr[randomNumber(0, arr.length - 1)];
   };
   /**
@@ -163,6 +173,13 @@ export const useApp = defineStore("app", () => {
     const arr = app.covers.categories;
     return arr[randomNumber(0, arr.length - 1)];
   };
+  /**
+   * 专辑列表封面
+   */
+  const albumsCover = () => {
+    const arr = app.covers.albums;
+    return arr[randomNumber(0, arr.length - 1)];
+  };
 
   /**
    * 是否已初始化
@@ -196,6 +213,7 @@ export const useApp = defineStore("app", () => {
     aboutCover,
     archivesCover,
     categoryCover,
+    albumCover,
     tagCover,
     coverCover,
     talkCover,
@@ -204,6 +222,7 @@ export const useApp = defineStore("app", () => {
     linkCover,
     tagListCover,
     categoriesCover,
+    albumsCover,
     getSiteReport,
     isInit,
     info,

@@ -30,11 +30,19 @@ class ArticleApi {
   };
 
   /**
-   * 所有栏目
+   * 所有分类
    * @returns
    */
   categories = () => {
     return http.get<Array<CategoryOutput>>("/article/categories");
+  };
+
+  /**
+   * 所有专辑
+   * @returns
+   */
+  albums = () => {
+    return http.get<Array<CategoryOutput>>("/article/albums");
   };
 
   /**

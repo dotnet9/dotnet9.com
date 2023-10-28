@@ -17,11 +17,12 @@
  * @interface BloggerInfo
  */
 export interface BloggerInfo {
-  /**
-   * 头像
-   * @type {string}
-   */
-  avatar: string | null;
+    /**
+     * 头像
+     * @type {string}
+     * @memberof BloggerInfo
+     */
+    avatar?: string | null;
     /**
      * 昵称
      * @type {string}

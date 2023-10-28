@@ -25,6 +25,12 @@ export interface UpdateCategoryInput {
      */
     name?: string | null;
     /**
+     * 分类别名
+     * @type {string}
+     * @memberof UpdateCategoryInput
+     */
+    slug: string;
+    /**
      * 父级id
      * @type {number}
      * @memberof UpdateCategoryInput

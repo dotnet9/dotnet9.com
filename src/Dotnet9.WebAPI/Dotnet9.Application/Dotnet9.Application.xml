@@ -125,6 +125,27 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Dotnet9.Application.Blog.ArticleAlbumService">
+            <summary>
+            文章所属专辑管理
+            </summary>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleAlbumService.Add(System.Int64,System.Int64)">
+            <summary>
+            添加文章所属专辑
+            </summary>
+            <param name="articleId">文章ID</param>
+            <param name="albumId">专辑ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dotnet9.Application.Blog.ArticleAlbumService.Update(System.Int64,System.Int64)">
+            <summary>
+            更新文章所属专辑
+            </summary>
+            <param name="articleId">文章ID</param>
+            <param name="albumId">专辑ID</param>
+            <returns></returns>
+        </member>
         <member name="T:Dotnet9.Application.Blog.ArticleCategoryService">
             <summary>
             文章所属分类管理
@@ -336,6 +357,11 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.CategoryId">
             <summary>
             分类ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.AlbumId">
+            <summary>
+            专辑ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddCategoryInput.Name">
@@ -643,6 +669,11 @@
             分类ID
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.AlbumId">
+            <summary>
+            专辑ID
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.PublishTime">
             <summary>
             发布时间
@@ -703,6 +734,11 @@
             分类名称
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.AlbumName">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.Title">
             <summary>
             标题
@@ -711,6 +747,11 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.CategoryId">
             <summary>
             分类ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageQueryInput.AlbumId">
+            <summary>
+            专辑ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.CategoryPageOutput.Id">
@@ -1142,6 +1183,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Dotnet9.Application.Client.ArticleController.Albums">
+            <summary>
+            标签列表
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Dotnet9.Application.Client.ArticleController.Report">
             <summary>
             文章信息统计
@@ -1262,6 +1309,31 @@
             网站介绍
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumOutput.Id">
+            <summary>
+            专辑ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumOutput.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumOutput.Name">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumOutput.Slug">
+            <summary>
+            专辑别名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.AlbumOutput.Total">
+            <summary>
+            文章条数
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Id">
             <summary>
             文章ID
@@ -1372,6 +1444,16 @@
             分类名称
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.AlbumId">
+            <summary>
+            专辑Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.AlbumName">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.UpdatedTime">
             <summary>
             最后更新时间
@@ -1405,6 +1487,11 @@
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.CategoryId">
             <summary>
             分类ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.AlbumId">
+            <summary>
+            专辑ID
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.Keyword">
@@ -1477,6 +1564,11 @@
             分类数量
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.AlbumCount">
+            <summary>
+            专辑数量
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleReportOutput.UserCount">
             <summary>
             用户量
@@ -1520,6 +1612,11 @@
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Name">
             <summary>
             分类名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Slug">
+            <summary>
+            分类别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.CategoryOutput.Total">

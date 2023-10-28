@@ -57,6 +57,12 @@ const columns = reactive<ColumnProps[]>([
 		width: 180,
 	},
 	{
+		prop: 'slug',
+		label: '分类别名',
+		search: { el: 'input' },
+		width: 300,
+	},
+	{
 		prop: 'status',
 		label: '状态',
 	},

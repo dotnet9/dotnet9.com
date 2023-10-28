@@ -21,6 +21,11 @@ public enum CoverType
     [Description("分类封面图")] Category,
 
     /// <summary>
+    /// 专辑封面
+    /// </summary>
+    [Description("专辑封面图")] Album,
+
+    /// <summary>
     /// 标签封面
     /// </summary>
     [Description("标签封面图")] Tag,
@@ -63,5 +68,10 @@ public enum CoverType
     /// <summary>
     /// 分类列表封面
     /// </summary>
-    [Description("分类列表封面")] Categories
+    [Description("分类列表封面")] Categories,
+
+    /// <summary>
+    /// 专辑列表封面
+    /// </summary>
+    [Description("专辑列表封面")] Albums
 }

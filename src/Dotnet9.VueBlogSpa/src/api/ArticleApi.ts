@@ -38,6 +38,14 @@ class ArticleApi {
   };
 
   /**
+   * 所有专辑
+   * @returns
+   */
+  albums = () => {
+    return http.get<Array<CategoryOutput>>("/article/albums");
+  };
+
+  /**
    * 博客统计
    * @returns
    */

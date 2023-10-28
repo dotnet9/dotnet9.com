@@ -42,6 +42,12 @@ export interface CategoryOutput {
      */
     name?: string | null;
     /**
+     * 分类别名
+     * @type {string}
+     * @memberof CategoryOutput
+     */
+    slug?: string | null;
+    /**
      * 文章条数
      * @type {number}
      * @memberof CategoryOutput

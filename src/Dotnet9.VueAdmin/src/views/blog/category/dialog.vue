@@ -30,6 +30,11 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="分类别名" prop="slug">
+							<el-input v-model="state.ruleForm.slug" maxlength="23" placeholder="请输入分类别名" clearable></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="排序" prop="sort">
 							<el-input-number v-model="state.ruleForm.sort" controls-position="right" placeholder="请输入排序" class="w100" />
 						</el-form-item>
@@ -83,6 +88,12 @@ const rules = reactive<FormRules>({
 			message: '请输入分类名称',
 		},
 	],
+	slug: [
+		{
+			required: true,
+			message: '请输入分类别名',
+		},
+	],
 	sort: [
 		{
 			required: true,
@@ -134,6 +145,7 @@ const openDialog = async (row: UpdateCategoryInput | null = null) => {
 			id: 0,
 			status: 0,
 			sort: 100,
+			slug: ''
 		};
 		state.dialog.title = '新增分类';
 		state.dialog.submitTxt = '新 增';

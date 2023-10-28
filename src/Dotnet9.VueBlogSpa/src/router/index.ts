@@ -40,6 +40,22 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    name: "album",
+    path: "/album",
+    component: () => import("../views/article/Album.vue"),
+    meta: {
+      title: "专辑",
+    },
+  },
+  {
+    name: "albums",
+    path: "/albums/:id",
+    component: () => import("../views/article/CategoryList.vue"),
+    meta: {
+      title: "专辑",
+    },
+  },
+  {
     name: "tags",
     path: "/tags",
     component: () => import("../views/article/Tag.vue"),
@@ -52,7 +68,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/tags/:tid",
     component: () => import("../views/article/CategoryList.vue"),
     meta: {
-      title: "分类",
+      title: "标签",
     },
   },
   {

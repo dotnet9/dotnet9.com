@@ -340,6 +340,21 @@
             创建时间
             </summary>
         </member>
+        <member name="T:Dotnet9.Core.Entities.ArticleAlbum">
+            <summary>
+            文章所属专辑表
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleAlbum.ArticleId">
+            <summary>
+            文章Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Core.Entities.ArticleAlbum.AlbumId">
+            <summary>
+            专辑Id
+            </summary>
+        </member>
         <member name="T:Dotnet9.Core.Entities.ArticleCategory">
             <summary>
             文章所属分类表
@@ -1476,6 +1491,11 @@
             分类封面
             </summary>
         </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Album">
+            <summary>
+            专辑封面
+            </summary>
+        </member>
         <member name="F:Dotnet9.Core.Enum.CoverType.Tag">
             <summary>
             标签封面
@@ -1519,6 +1539,11 @@
         <member name="F:Dotnet9.Core.Enum.CoverType.Categories">
             <summary>
             分类列表封面
+            </summary>
+        </member>
+        <member name="F:Dotnet9.Core.Enum.CoverType.Albums">
+            <summary>
+            专辑列表封面
             </summary>
         </member>
         <member name="F:Dotnet9.Core.Enum.CreationType.Original">
@@ -1944,6 +1969,7 @@
             </summary>
             <param name="client"></param>
             <param name="assetsDir"></param>
+            <param name="user"></param>
             <exception cref="T:System.Exception"></exception>
         </member>
         <member name="M:SqlSugar.SqlSugarExtensions.InitAlbum(SqlSugar.SqlSugarScope,System.String,Dotnet9.Core.Entities.SysUser)">
@@ -1952,6 +1978,7 @@
             </summary>
             <param name="client"></param>
             <param name="assetsDir"></param>
+            <param name="user"></param>
             <exception cref="T:System.Exception"></exception>
         </member>
         <member name="T:SqlSugar.SqlSugarUnitOfWork">

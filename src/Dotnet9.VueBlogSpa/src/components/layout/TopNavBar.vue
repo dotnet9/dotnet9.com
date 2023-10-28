@@ -65,6 +65,13 @@
               </router-link>
             </li>
             <li>
+              <router-link to="/album">
+                <!-- <i class="iconfont iconfenlei" />  -->
+                <v-icon size="small">mdi mdi-view-grid</v-icon>
+                专辑
+              </router-link>
+            </li>
+            <li>
               <router-link to="/tags">
                 <!-- <i class="iconfont iconbiaoqian" />  -->
                 <v-icon size="small">mdi mdi-tag-multiple</v-icon>

@@ -32,13 +32,13 @@ export interface ArticleOutput {
      */
     title?: string | null;
     /**
-     * 栏目ID
+     * 分类ID
      * @type {number}
      * @memberof ArticleOutput
      */
     categoryId?: number;
     /**
-     * 栏目名称
+     * 分类名称
      * @type {string}
      * @memberof ArticleOutput
      */

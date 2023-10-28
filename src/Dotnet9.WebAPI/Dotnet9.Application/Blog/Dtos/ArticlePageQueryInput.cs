@@ -11,4 +11,9 @@ public class ArticlePageQueryInput : Pagination
     /// 分类ID
     /// </summary>
     public long? CategoryId { get; set; }
+
+    /// <summary>
+    /// 专辑ID
+    /// </summary>
+    public long? AlbumId { get; set; }
 }
