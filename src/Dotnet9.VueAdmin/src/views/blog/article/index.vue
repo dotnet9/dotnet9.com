@@ -17,6 +17,14 @@
 						新增
 					</el-button></template
 				>
+				<template #cover="{ row }">
+				<el-image
+					shape="square"
+					:size="100"
+					fit="cover"
+					:src="row.cover"
+				/>
+			</template>
 				<template #isTop="{ row }">
 					<el-tag :type="row.isTop ? 'danger' : 'info'"> {{ row.isTop ? '是' : '否' }}</el-tag>
 				</template>
@@ -24,7 +32,7 @@
 					<el-tag :type="row.status === 0 ? 'success' : 'danger'"> {{ row.status === 0 ? '启用' : '禁用' }}</el-tag>
 				</template>
 				<template #creationType="{ row }">
-					<el-tag :type="row.creationType === 0 ? 'success' : 'danger'"> {{ row.creationType === 0 ? '原创' : '转载' }}</el-tag>
+					<el-tag :type="row.creationType === CreationType.Reprinted ? 'danger' : 'success'"> {{ row.creationType === CreationType.Original ? '原创' : (row.creationType === CreationType.Contributes ? '投稿' : '转载') }}</el-tag>
 				</template>
 				<template #action="{ row }">
 					<el-button
@@ -58,6 +66,7 @@ import ProTable from '/@/components/ProTable/index.vue';
 import TreeFilter from '/@/components/TreeFilter/index.vue';
 import ArticleApi from '/@/api/ArticleApi';
 import CategoryApi from '/@/api/CategoryApi';
+import { CreationType } from '/@/api/models/creation-type'
 import type { ColumnProps } from '/@/components/ProTable/interface';
 import { auths } from '/@/utils/authFunction';
 import { useRouter } from 'vue-router';
@@ -72,8 +81,20 @@ const initParam = reactive<{ categoryId?: number | string }>({ categoryId: '' })
 const columns = reactive<ColumnProps[]>([
 	{ type: 'index', label: '序号', width: 60 },
 	{
+		prop: 'cover',
+		label: '封面',
+		width: 180,
+	},
+	{
 		prop: 'title',
 		label: '标题',
+		search: {
+			el: 'input',
+		},
+	},
+	{
+		prop: 'slug',
+		label: '别名',
 		search: {
 			el: 'input',
 		},

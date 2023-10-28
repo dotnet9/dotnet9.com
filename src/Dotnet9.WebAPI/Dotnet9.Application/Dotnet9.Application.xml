@@ -284,6 +284,11 @@
             标题
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Slug">
+            <summary>
+            别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.AddArticleInput.Summary">
             <summary>
             概要
@@ -599,6 +604,11 @@
             标题
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Slug">
+            <summary>
+            别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticleDetailOutput.Summary">
             <summary>
             简介
@@ -687,6 +697,11 @@
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Title">
             <summary>
             标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Slug">
+            <summary>
+            文章别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Blog.Dtos.ArticlePageOutput.Status">
@@ -1354,6 +1369,11 @@
             标题
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.Slug">
+            <summary>
+            别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleBasicsOutput.PublishTime">
             <summary>
             发布时间
@@ -1367,6 +1387,11 @@
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Title">
             <summary>
             标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Slug">
+            <summary>
+            别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Content">
@@ -1507,6 +1532,11 @@
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Title">
             <summary>
             标题
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.Slug">
+            <summary>
+            别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryId">

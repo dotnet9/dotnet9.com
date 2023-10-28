@@ -26,6 +26,12 @@ export interface AddArticleInput {
      */
     title: string;
     /**
+     * 别名
+     * @type {string}
+     * @memberof AddArticleInput
+     */
+    slug: string;
+    /**
      * 概要
      * @type {string}
      * @memberof AddArticleInput
@@ -115,4 +121,10 @@ export interface AddArticleInput {
      * @memberof AddArticleInput
      */
     categoryId: number;
+    /**
+     * 专辑ID
+     * @type {number}
+     * @memberof AddArticleInput
+     */
+    albumId: number;
 }

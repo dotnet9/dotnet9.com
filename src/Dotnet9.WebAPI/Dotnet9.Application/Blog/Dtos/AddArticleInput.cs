@@ -10,6 +10,13 @@ public class AddArticleInput
     public string Title { get; set; }
 
     /// <summary>
+    /// 别名
+    /// </summary>
+    [Required(ErrorMessage = "别名为必填项")]
+    [MaxLength(128, ErrorMessage = "别名限制256个字符内")]
+    public string Slug { get; set; }
+
+    /// <summary>
     /// 概要
     /// </summary>
     [Required(ErrorMessage = "概要为必填项")]

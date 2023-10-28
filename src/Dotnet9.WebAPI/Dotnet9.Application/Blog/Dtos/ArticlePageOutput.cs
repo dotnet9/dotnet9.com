@@ -13,6 +13,11 @@ public class ArticlePageOutput
     public string Title { get; set; }
 
     /// <summary>
+    /// 文章别名
+    /// </summary>
+    public string Slug { get; set; }
+
+    /// <summary>
     /// 状态
     /// </summary>
     public AvailabilityStatus Status { get; set; }

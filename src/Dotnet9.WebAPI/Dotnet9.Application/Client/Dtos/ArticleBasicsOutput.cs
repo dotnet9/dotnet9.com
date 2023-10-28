@@ -6,18 +6,26 @@ public class ArticleBasicsOutput
     /// 文章ID
     /// </summary>
     public long Id { get; set; }
+
     /// <summary>
     /// 封面图
     /// </summary>
     public string Cover { get; set; }
+
     /// <summary>
     /// 类型
     /// </summary>
     public int Type { get; set; }
+
     /// <summary>
     /// 标题
     /// </summary>
     public string Title { get; set; }
+
+    /// <summary>
+    /// 别名
+    /// </summary>
+    public string Slug { get; set; }
 
     /// <summary>
     /// 发布时间

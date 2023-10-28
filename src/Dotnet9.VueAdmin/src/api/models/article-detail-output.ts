@@ -14,111 +14,123 @@
 import { AvailabilityStatus } from './availability-status';
 import { CreationType } from './creation-type';
 /**
- *
+ * 
  * @export
  * @interface ArticleDetailOutput
  */
 export interface ArticleDetailOutput {
-	/**
-	 * 文章ID
-	 * @type {number}
-	 * @memberof ArticleDetailOutput
-	 */
-	id?: number;
-	/**
-	 * 标题
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	title?: string | null;
-	/**
-	 * 简介
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	summary?: string | null;
-	/**
-	 * 封面
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	cover?: string | null;
-	/**
-	 *
-	 * @type {AvailabilityStatus}
-	 * @memberof ArticleDetailOutput
-	 */
-	status?: AvailabilityStatus;
-	/**
-	 * 原文地址
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	link?: string | null;
-	/**
-	 * 是否置顶
-	 * @type {boolean}
-	 * @memberof ArticleDetailOutput
-	 */
-	isTop?: boolean;
-	/**
-	 * 排序
-	 * @type {number}
-	 * @memberof ArticleDetailOutput
-	 */
-	sort?: number;
-	/**
-	 * 作者
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	author?: string | null;
-	/**
-	 * 文章内容
-	 * @type {string}
-	 * @memberof ArticleDetailOutput
-	 */
-	content?: string | null;
-	/**
-	 * 是否允许评论
-	 * @type {boolean}
-	 * @memberof ArticleDetailOutput
-	 */
-	isAllowComments?: boolean;
-	/**
-	 * 是个是HTML
-	 * @type {boolean}
-	 * @memberof ArticleDetailOutput
-	 */
-	isHtml?: boolean;
-	/**
-	 *
-	 * @type {CreationType}
-	 * @memberof ArticleDetailOutput
-	 */
-	creationType?: CreationType;
-	/**
-	 * 过期时间（过期后文章不显示）
-	 * @type {Date}
-	 * @memberof ArticleDetailOutput
-	 */
-	expiredTime?: Date | null;
-	/**
-	 * 发布时间
-	 * @type {Date}
-	 * @memberof ArticleDetailOutput
-	 */
-	publishTime?: Date | null;
-	/**
-	 * 标签
-	 * @type {Array<number>}
-	 * @memberof ArticleDetailOutput
-	 */
-	tags?: Array<number> | null;
-	/**
-	 * 分类ID
-	 * @type {number}
-	 * @memberof ArticleDetailOutput
-	 */
-	categoryId?: number | null;
+    /**
+     * 文章ID
+     * @type {number}
+     * @memberof ArticleDetailOutput
+     */
+    id?: number;
+    /**
+     * 标题
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    title?: string | null;
+    /**
+     * 别名
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    slug?: string | null;
+    /**
+     * 简介
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    summary?: string | null;
+    /**
+     * 封面
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    cover?: string | null;
+    /**
+     * 
+     * @type {AvailabilityStatus}
+     * @memberof ArticleDetailOutput
+     */
+    status?: AvailabilityStatus;
+    /**
+     * 原文地址
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    link?: string | null;
+    /**
+     * 是否置顶
+     * @type {boolean}
+     * @memberof ArticleDetailOutput
+     */
+    isTop?: boolean;
+    /**
+     * 排序
+     * @type {number}
+     * @memberof ArticleDetailOutput
+     */
+    sort?: number;
+    /**
+     * 作者
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    author?: string | null;
+    /**
+     * 文章内容
+     * @type {string}
+     * @memberof ArticleDetailOutput
+     */
+    content?: string | null;
+    /**
+     * 是否允许评论
+     * @type {boolean}
+     * @memberof ArticleDetailOutput
+     */
+    isAllowComments?: boolean;
+    /**
+     * 是个是HTML
+     * @type {boolean}
+     * @memberof ArticleDetailOutput
+     */
+    isHtml?: boolean;
+    /**
+     * 
+     * @type {CreationType}
+     * @memberof ArticleDetailOutput
+     */
+    creationType?: CreationType;
+    /**
+     * 过期时间（过期后文章不显示）
+     * @type {Date}
+     * @memberof ArticleDetailOutput
+     */
+    expiredTime?: Date | null;
+    /**
+     * 标签
+     * @type {Array<number>}
+     * @memberof ArticleDetailOutput
+     */
+    tags?: Array<number> | null;
+    /**
+     * 分类ID
+     * @type {number}
+     * @memberof ArticleDetailOutput
+     */
+    categoryId?: number | null;
+    /**
+     * 专辑ID
+     * @type {number}
+     * @memberof ArticleDetailOutput
+     */
+    albumId?: number | null;
+    /**
+     * 发布时间
+     * @type {Date}
+     * @memberof ArticleDetailOutput
+     */
+    publishTime?: Date;
 }

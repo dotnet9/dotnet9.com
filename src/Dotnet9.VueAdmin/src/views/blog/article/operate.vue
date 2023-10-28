@@ -12,6 +12,11 @@
 									</el-form-item>
 								</el-col>
 								<el-col class="mb20">
+									<el-form-item label="文章别名" prop="slug" label-width="80">
+										<el-input maxlength="128" v-model="state.form.slug" placeholder="请输入文章别名" clearable></el-input>
+									</el-form-item>
+								</el-col>
+								<el-col class="mb20">
 									<el-form-item label="内容摘要" prop="summary" label-width="80">
 										<el-input
 											resize="none"
@@ -98,12 +103,13 @@
 							<el-col class="mb20">
 								<el-form-item label="创作类型" prop="creationType">
 									<el-select v-model="state.form.creationType" placeholder="创作类型" clearable class="w100">
-										<el-option label="原创" :value="0" />
-										<el-option label="转载" :value="1" />
+										<el-option label="原创" :value="CreationType.Original" />
+										<el-option label="投稿" :value="CreationType.Contributes" />
+										<el-option label="转载" :value="CreationType.Reprinted" />
 									</el-select>
 								</el-form-item>
 							</el-col>
-							<el-col class="mb20" v-show="state.form.creationType === 1">
+							<el-col class="mb20">
 								<el-form-item label="来源链接" prop="link">
 									<el-input maxlength="32" v-model="state.form.link" placeholder="请输入来源外链" clearable></el-input>
 								</el-form-item>
@@ -218,6 +224,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import type { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor';
 import type { SelectOutput, TreeSelectOutput, UpdateArticleInput } from '/@/api/models';
 import CategoryApi from '/@/api/CategoryApi';
+import { CreationType } from '/@/api/models/creation-type'
 import TagsApi from '/@/api/TagsApi';
 import http from '/@/utils/http';
 import { type FormRules, type FormInstance, ElMessage } from 'element-plus';
@@ -240,6 +247,12 @@ const rules = reactive<FormRules>({
 		{
 			required: true,
 			message: '标题不能为空',
+		},
+	],
+	slug: [
+		{
+			required: true,
+			message: '别名不能为空',
 		},
 	],
 	summary: [

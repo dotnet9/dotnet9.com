@@ -50,6 +50,7 @@ public class ArticleService : BaseService<Article>
             {
                 Id = article.Id,
                 Title = article.Title,
+                Slug = article.Slug,
                 Status = article.Status,
                 Sort = article.Sort,
                 Cover = article.Cover,
@@ -147,6 +148,7 @@ public class ArticleService : BaseService<Article>
             {
                 Id = article.Id,
                 Title = article.Title,
+                Slug = article.Slug,
                 Summary = article.Summary,
                 Cover = article.Cover,
                 Status = article.Status,

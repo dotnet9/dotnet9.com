@@ -269,6 +269,7 @@ public static partial class SqlSugarExtensions
                 Content = blogPostOfMarkdown.Content,
                 CreatedUserId = user.Id,
                 CreatedTime = blogPostOfMarkdown.Date,
+                PublishTime = blogPostOfMarkdown.Date,
                 UpdatedTime = blogPostOfMarkdown.LastModifyDate
             };
             if (article.CreationType == CreationType.Original)

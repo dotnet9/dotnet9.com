@@ -13,6 +13,11 @@ public class ArticleDetailOutput
     public string Title { get; set; }
 
     /// <summary>
+    /// 别名
+    /// </summary>
+    public string Slug { get; set; }
+
+    /// <summary>
     /// 简介
     /// </summary>
     public string Summary { get; set; }

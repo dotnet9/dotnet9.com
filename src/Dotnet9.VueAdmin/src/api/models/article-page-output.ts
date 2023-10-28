@@ -32,6 +32,12 @@ export interface ArticlePageOutput {
      */
     title?: string | null;
     /**
+     * 文章别名
+     * @type {string}
+     * @memberof ArticlePageOutput
+     */
+    slug?: string | null;
+    /**
      * 
      * @type {AvailabilityStatus}
      * @memberof ArticlePageOutput
@@ -85,4 +91,10 @@ export interface ArticlePageOutput {
      * @memberof ArticlePageOutput
      */
     categoryName?: string | null;
+    /**
+     * 专辑名称
+     * @type {string}
+     * @memberof ArticlePageOutput
+     */
+    albumName?: string | null;
 }
