@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Application.Blog.Dtos;
+﻿using Newtonsoft.Json.Converters;
+
+namespace Dotnet9.Application.Blog.Dtos;
 
 public class AddArticleInput
 {
@@ -52,6 +54,7 @@ public class AddArticleInput
     /// <summary>
     /// 创作类型
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public CreationType CreationType { get; set; }
 
     /// <summary>

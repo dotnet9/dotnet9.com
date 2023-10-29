@@ -128,6 +128,17 @@
 								</el-form-item>
 							</el-col>
 							<el-col class="mb20">
+								<el-form-item label="专辑" prop="albumId">
+									<el-select 
+										v-model="state.form.albumId" 
+										placeholder="请选择专辑" 
+										clearable 
+										class="w100">		
+										<el-option v-for="item in state.albumsData" :key="item.value" :label="item.label" :value="item.value" />								
+									</el-select>
+								</el-form-item>
+							</el-col>
+							<el-col class="mb20">
 								<el-form-item label="标签" prop="tags">
 									<el-select
 										multiple
@@ -224,6 +235,7 @@ import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import type { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor';
 import type { SelectOutput, TreeSelectOutput, UpdateArticleInput } from '/@/api/models';
 import CategoryApi from '/@/api/CategoryApi';
+import AlbumApi from '/@/api/AlbumsApi';
 import { CreationType } from '/@/api/models/creation-type'
 import TagsApi from '/@/api/TagsApi';
 import http from '/@/utils/http';
@@ -309,7 +321,7 @@ const rules = reactive<FormRules>({
 	link: [
 		{
 			validator(rule: any, value?: string, callback?: any) {
-				if (state.form.creationType === 1 && !value) {
+				if (state.form.creationType === CreationType.Reprinted && !value) {
 					callback(new Error('请输入文章来源链接'));
 				} else {
 					callback();
@@ -329,6 +341,7 @@ const state = reactive({
 		id: 0,
 	} as UpdateArticleInput,
 	categoryData: [] as TreeSelectOutput[],
+	albumsData: [] as SelectOutput[],
 	tagsData: [] as SelectOutput[],
 	editorConfig: {
 		placeholder: '请输入内容...',
@@ -443,7 +456,7 @@ const onCancel = () => {
 
 onMounted(async () => {
 	// 获取分类和标签
-	const [c, t] = await Promise.all([CategoryApi.treeSelect(), TagsApi.select()]);
+	const [c, a, t] = await Promise.all([CategoryApi.treeSelect(), AlbumApi.select(), TagsApi.select()]);
 	state.form.id = (route.query.id as never) ?? 0;
 	if (state.form.id > 0) {
 		const { data, succeeded } = await ArticleApi.detail(state.form.id);
@@ -452,6 +465,7 @@ onMounted(async () => {
 		}
 	}
 	state.categoryData = c.data ?? [];
+	state.albumsData = a.data ?? [];
 	state.tagsData = t.data ?? [];
 });
 

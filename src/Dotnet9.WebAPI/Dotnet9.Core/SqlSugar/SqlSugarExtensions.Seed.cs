@@ -348,6 +348,7 @@ public static partial class SqlSugarExtensions
         client.Storageable(tags).ToStorage().AsInsertable.ExecuteCommand();
         client.Storageable(articleCategories).ToStorage().AsInsertable.ExecuteCommand();
         client.Storageable(articleAlbums).ToStorage().AsInsertable.ExecuteCommand();
+        client.Deleteable<ArticleTag>().ExecuteCommand();
         client.Storageable(articleTags).ToStorage().AsInsertable.ExecuteCommand();
     }
 

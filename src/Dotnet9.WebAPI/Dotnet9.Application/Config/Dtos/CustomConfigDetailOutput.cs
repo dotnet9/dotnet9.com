@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace Dotnet9.Application.Config.Dtos;
+﻿namespace Dotnet9.Application.Config.Dtos;
 
 public class CustomConfigDetailOutput
 {

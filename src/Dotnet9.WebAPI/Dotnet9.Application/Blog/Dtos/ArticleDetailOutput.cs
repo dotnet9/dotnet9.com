@@ -1,4 +1,7 @@
-﻿namespace Dotnet9.Application.Blog.Dtos;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json.Converters;
+
+namespace Dotnet9.Application.Blog.Dtos;
 
 public class ArticleDetailOutput
 {
@@ -70,6 +73,7 @@ public class ArticleDetailOutput
     /// <summary>
     /// 创作类型
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public CreationType CreationType { get; set; }
 
     /// <summary>

@@ -1,5 +1,4 @@
 ﻿using Dotnet9.Application.Blog.Dtos;
-using Dotnet9.Core.Entities;
 
 namespace Dotnet9.Application.Blog;
 
@@ -143,8 +142,10 @@ public class ArticleService : BaseService<Article>
     {
         return await _repository.AsQueryable().LeftJoin<ArticleCategory>((article, ac) => article.Id == ac.ArticleId)
             .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
+            .LeftJoin<ArticleAlbum>((article, ac, c, aa) => article.Id == aa.ArticleId)
+            .LeftJoin<Albums>((article, ac, c, aa, a) => aa.AlbumId == a.Id)
             .Where(article => article.Id == id)
-            .Select((article, ac, c) => new ArticleDetailOutput
+            .Select((article, ac, c, aa, a) => new ArticleDetailOutput
             {
                 Id = article.Id,
                 Title = article.Title,
@@ -161,6 +162,7 @@ public class ArticleService : BaseService<Article>
                 IsHtml = article.IsHtml,
                 CreationType = article.CreationType,
                 CategoryId = c.Id,
+                AlbumId = a.Id,
                 ExpiredTime = article.ExpiredTime,
                 PublishTime = article.PublishTime,
                 Tags = SqlFunc.Subqueryable<Tags>().InnerJoin<ArticleTag>((tags, at) => tags.Id == at.TagId)
