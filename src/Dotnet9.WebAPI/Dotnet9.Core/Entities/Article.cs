@@ -20,6 +20,12 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     public string Slug { get; set; }
 
     /// <summary>
+    /// 短别名
+    /// </summary>
+    [SugarColumn(Length = 8)]
+    public string ShortSlug { get; set; }
+
+    /// <summary>
     /// 概要
     /// </summary>
     [SugarColumn(Length = 256)]

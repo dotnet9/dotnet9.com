@@ -94,6 +94,10 @@
             <a :href="link!" target="_blank">{{ link }}</a>
           </div>
           <div>
+            <span>本站短链接：</span>
+            <a :href="shortLink" target="_blank">{{ shortLink }}</a>
+          </div>
+          <div>
             <span>版权声明：</span>本博客所有文章除特别声明外，均采用
             <a
               href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
@@ -214,7 +218,7 @@
         <hr />
         <!-- 评论 -->
         <Comment
-          :type="state.id"
+          :type="state.slugOrShortSlug"
           @getCommentCount="getCommentCount"
           v-if="state.info.isAllowComments && blogSetting.isAllowComments"
         />
@@ -304,7 +308,7 @@ const toastStore = useToast();
 const { blogSetting } = storeToRefs(appStore);
 const route = useRoute();
 const state = reactive({
-  id: 0,
+  slugOrShortSlug: '',
   info: {} as ArticleInfoOutput,
   latest: [] as ArticleBasicsOutput[],
 });
@@ -319,7 +323,11 @@ const cover = computed(() => {
 });
 // 文章链接
 const link = computed(() => {
-  return state.info.creationType === 0 ? location.href : state.info.link;
+  return state.info.link === '' || state.info.link === null ? location.href : state.info.link;
+});
+// 文章短链接
+const shortLink = computed(() => {
+  return location.host + '/' + state.info.shortSlug;
 });
 // 评论数量
 const commentCount = ref<number>(0);
@@ -353,9 +361,11 @@ const onPraise = async () => {
   }
 };
 onMounted(async () => {
-  state.id = route.params.id as never as number;
+  var slug = route.params.slug as never as string;
+  var shortSlug = route.params.shortSlug as never as string;
+  state.slugOrShortSlug = slug === undefined ? shortSlug : slug;
   const [first, last] = await Promise.all([
-    ArticleApi.info(state.id),
+    ArticleApi.info(state.slugOrShortSlug),
     ArticleApi.latest(),
   ]);
   state.info = first.data ?? {};

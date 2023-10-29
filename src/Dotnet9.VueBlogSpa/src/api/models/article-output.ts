@@ -32,6 +32,12 @@ export interface ArticleOutput {
      */
     title?: string | null;
     /**
+     * 别名
+     * @type {string}
+     * @memberof ArticleOutput
+     */
+    slug?: string | null;
+    /**
      * 分类ID
      * @type {number}
      * @memberof ArticleOutput
@@ -43,6 +49,30 @@ export interface ArticleOutput {
      * @memberof ArticleOutput
      */
     categoryName?: string | null;
+    /**
+     * 分类别名
+     * @type {string}
+     * @memberof ArticleOutput
+     */
+    categorySlug?: string | null;
+    /**
+     * 专辑ID
+     * @type {number}
+     * @memberof ArticleOutput
+     */
+    albumId?: number;
+    /**
+     * 专辑名称
+     * @type {string}
+     * @memberof ArticleOutput
+     */
+    albumName?: string | null;
+    /**
+     * 专辑别名
+     * @type {string}
+     * @memberof ArticleOutput
+     */
+    albumSlug?: string | null;
     /**
      * 是否置顶
      * @type {boolean}

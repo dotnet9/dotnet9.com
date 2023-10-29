@@ -28,6 +28,26 @@ public class ArticleOutput
     public string CategoryName { get; set; }
 
     /// <summary>
+    /// 分类别名
+    /// </summary>
+    public string CategorySlug { get; set; }
+
+    /// <summary>
+    /// 专辑ID
+    /// </summary>
+    public long AlbumId { get; set; }
+
+    /// <summary>
+    /// 专辑名称
+    /// </summary>
+    public string AlbumName { get; set; }
+
+    /// <summary>
+    /// 专辑别名
+    /// </summary>
+    public string AlbumSlug { get; set; }
+
+    /// <summary>
     /// 是否置顶
     /// </summary>
     public bool IsTop { get; set; }
@@ -35,6 +55,7 @@ public class ArticleOutput
     /// <summary>
     /// 创作类型
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public CreationType CreationType { get; set; }
 
     /// <summary>

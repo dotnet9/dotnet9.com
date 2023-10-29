@@ -57,9 +57,9 @@ class ArticleApi {
    * @param id 文章ID
    * @returns
    */
-  info = (id: number) => {
+  info = (slugOrShortSlug: string) => {
     return http.get<ArticleInfoOutput>("/article/info", {
-      params: { id },
+      params: { slugOrShortSlug },
     });
   };
   /**

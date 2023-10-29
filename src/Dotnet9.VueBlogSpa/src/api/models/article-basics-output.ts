@@ -42,6 +42,12 @@ export interface ArticleBasicsOutput {
      */
     title?: string | null;
     /**
+     * 别名
+     * @type {string}
+     * @memberof ArticleBasicsOutput
+     */
+    slug?: string | null;
+    /**
      * 发布时间
      * @type {Date}
      * @memberof ArticleBasicsOutput

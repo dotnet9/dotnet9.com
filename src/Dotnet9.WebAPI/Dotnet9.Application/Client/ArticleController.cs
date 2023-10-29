@@ -63,9 +63,12 @@ public class ArticleController : IDynamicApiController
         return await _articleRepository.AsQueryable()
             .LeftJoin<ArticleCategory>((article, ac) => article.Id == ac.ArticleId)
             .InnerJoin<Categories>((article, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
+            .LeftJoin<ArticleAlbum>((article, ac, c, aa) => article.Id == aa.ArticleId)
+            .LeftJoin<Albums>((article, ac, c, aa, a) => aa.AlbumId == a.Id)
             .Where(article => article.Status == AvailabilityStatus.Enable && article.PublishTime <= SqlFunc.GetDate())
             .Where(article => article.ExpiredTime == null || SqlFunc.GetDate() < article.ExpiredTime)
             .WhereIF(dto.CategoryId.HasValue, (article, ac) => ac.CategoryId == dto.CategoryId)
+            .WhereIF(dto.AlbumId.HasValue, (article, ac, c, aa, a) => aa.AlbumId == dto.AlbumId)
             .WhereIF(!string.IsNullOrWhiteSpace(dto.Keyword),
                 article => article.Title.Contains(dto.Keyword) || article.Summary.Contains(dto.Keyword) ||
                            article.Content.Contains(dto.Keyword))
@@ -76,12 +79,17 @@ public class ArticleController : IDynamicApiController
             .OrderByDescending(article => article.IsTop)
             .OrderBy(article => article.Sort)
             .OrderByDescending(article => article.PublishTime)
-            .Select((article, ac, c) => new ArticleOutput
+            .Select((article, ac, c, aa, a) => new ArticleOutput
             {
                 Id = article.Id,
                 Title = article.Title,
+                Slug = article.Slug,
                 CategoryId = c.Id,
                 CategoryName = c.Name,
+                CategorySlug = c.Slug,
+                AlbumId = a.Id,
+                AlbumName = a.Name,
+                AlbumSlug = a.Slug,
                 IsTop = article.IsTop,
                 CreationType = article.CreationType,
                 Summary = article.Summary,
@@ -220,21 +228,25 @@ public class ArticleController : IDynamicApiController
     /// <summary>
     /// 文章详情
     /// </summary>
-    /// <param name="id">文章ID</param>
+    /// <param name="slugOrShortSlug">文章别名或短别名</param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<ArticleInfoOutput> Info([FromQuery] long id)
+    public async Task<ArticleInfoOutput> Info([FromQuery] string slugOrShortSlug)
     {
         long userId = _authManager.UserId;
         var article = await _articleRepository.AsQueryable()
             .LeftJoin<ArticleCategory>((x, ac) => x.Id == ac.ArticleId)
             .InnerJoin<Categories>((x, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
-            .Where(x => x.Id == id && x.PublishTime <= DateTime.Now && x.Status == AvailabilityStatus.Enable)
+            .Where(x => (x.Slug == slugOrShortSlug || x.ShortSlug == slugOrShortSlug) &&
+                        x.PublishTime <= DateTime.Now &&
+                        x.Status == AvailabilityStatus.Enable)
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
             .Select((x, ac, c) => new ArticleInfoOutput
             {
                 Id = x.Id,
                 Title = x.Title,
+                Slug = x.Slug,
+                ShortSlug = x.ShortSlug,
                 Content = x.Content,
                 Summary = x.Summary,
                 Cover = x.Cover,
@@ -267,35 +279,34 @@ public class ArticleController : IDynamicApiController
             Views = x.Views + 1
         }, x => x.Id == article.Id);
         //上一篇
-        var prevQuery = _articleRepository.AsQueryable().Where(x =>
-                x.PublishTime < article.PublishTime && x.PublishTime <= DateTime.Now &&
+        var prevQuery = await _articleRepository.AsQueryable().Where(x =>
+                SqlFunc.LessThan(x.PublishTime, article.PublishTime)
+                && SqlFunc.LessThan(x.PublishTime, DateTime.Now) &&
                 x.Status == AvailabilityStatus.Enable)
-            .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
+            .Where(x => x.ExpiredTime == null || SqlFunc.GreaterThan(x.ExpiredTime, DateTime.Now))
             .OrderByDescending(x => x.PublishTime)
             .Select(x => new ArticleBasicsOutput
-                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = null, Type = 0 }).Take(1).MergeTable();
+                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 0 }).FirstAsync();
         //下一篇
-        var nextQuery = _articleRepository.AsQueryable().Where(x =>
+        var nextQuery = await _articleRepository.AsQueryable().Where(x =>
                 x.PublishTime > article.PublishTime && x.PublishTime <= DateTime.Now &&
                 x.Status == AvailabilityStatus.Enable)
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
             .OrderBy(x => x.PublishTime)
             .Select(x => new ArticleBasicsOutput
-                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = null, Type = 1 }).Take(1).MergeTable();
+                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 1 }).FirstAsync();
         //随机6条
-        var randomQuery = _articleRepository.AsQueryable().Where(x => x.Id != id)
+        var randomQuery = await _articleRepository.AsQueryable().Where(x => x.Id != article.Id)
             .Where(x => x.PublishTime <= DateTime.Now && x.Status == AvailabilityStatus.Enable)
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
             .OrderBy(x => SqlFunc.GetRandom())
             .Select(x => new ArticleBasicsOutput
                 { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 2 })
-            .Take(6).MergeTable();
-        //相关文章
-        var relevant = await _articleRepository.AsSugarClient().Union(prevQuery, nextQuery, randomQuery)
-            .OrderBy(x => x.PublishTime).ToListAsync();
-        article.Prev = relevant.FirstOrDefault(x => x.Type == 0);
-        article.Next = relevant.FirstOrDefault(x => x.Type == 1);
-        article.Random = relevant.Where(x => x.Type == 2).ToList();
+            .Take(6).ToListAsync();
+
+        article.Prev = prevQuery;
+        article.Next = nextQuery;
+        article.Random = randomQuery;
         article.Views++;
         return article;
     }

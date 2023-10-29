@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Data;
 using System.IO;
 using Dotnet9.Core.SqlSugar.Seed;
+using Easy.Core;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
 
 namespace SqlSugar;
@@ -261,6 +262,7 @@ public static partial class SqlSugarExtensions
                 Id = articles.Count + 1,
                 Title = blogPostOfMarkdown.Title,
                 Slug = blogPostOfMarkdown.Slug,
+                ShortSlug = blogPostOfMarkdown.Slug.Encode(),
                 CreationType = blogPostOfMarkdown.Copyright,
                 Cover = $"{blogPostOfMarkdown.Cover}",
                 IsTop = blogPostOfMarkdown.Banner,

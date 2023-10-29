@@ -1210,11 +1210,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Dotnet9.Application.Client.ArticleController.Info(System.Int64)">
+        <member name="M:Dotnet9.Application.Client.ArticleController.Info(System.String)">
             <summary>
             文章详情
             </summary>
-            <param name="id">文章ID</param>
+            <param name="slugOrShortSlug">文章别名或短别名</param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Client.ArticleController.Latest">
@@ -1394,6 +1394,11 @@
             别名
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.ShortSlug">
+            <summary>
+            短别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.Content">
             <summary>
             文章内容
@@ -1547,6 +1552,26 @@
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryName">
             <summary>
             分类名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategorySlug">
+            <summary>
+            分类别名
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.AlbumId">
+            <summary>
+            专辑ID
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.AlbumName">
+            <summary>
+            专辑名称
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.AlbumSlug">
+            <summary>
+            专辑别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.IsTop">

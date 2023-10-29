@@ -1,4 +1,6 @@
-﻿namespace Dotnet9.Application.Client.Dtos;
+﻿using Newtonsoft.Json.Converters;
+
+namespace Dotnet9.Application.Client.Dtos;
 
 public class ArticleInfoOutput
 {
@@ -16,6 +18,11 @@ public class ArticleInfoOutput
     /// 别名
     /// </summary>
     public string Slug { get; set; }
+
+    /// <summary>
+    /// 短别名
+    /// </summary>
+    public string ShortSlug { get; set; }
 
     /// <summary>
     /// 文章内容
@@ -50,6 +57,7 @@ public class ArticleInfoOutput
     /// <summary>
     /// 转载类型
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public CreationType CreationType { get; set; }
 
     /// <summary>

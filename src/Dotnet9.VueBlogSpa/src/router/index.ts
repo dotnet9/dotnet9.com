@@ -72,11 +72,19 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    name: "detail",
-    path: "/articles/:id",
+    name: "detail1",
+    path: "/:year/:month/:slug",
     component: () => import("../views/article/Detail.vue"),
     meta: {
-      title: "详情",
+      title: "详情1",
+    },
+  },
+  {
+    name: "detail2",
+    path: "/:shortSlug",
+    component: () => import("../views/article/Detail.vue"),
+    meta: {
+      title: "详情2",
     },
   },
   {

@@ -255,6 +255,11 @@
             别名
             </summary>
         </member>
+        <member name="P:Dotnet9.Core.Entities.Article.ShortSlug">
+            <summary>
+            短别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Core.Entities.Article.Summary">
             <summary>
             概要
@@ -1861,6 +1866,14 @@
             </summary>
             <param name="generator"></param>
             <param name="text">密文</param>
+            <param name="salt">盐值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Easy.Core.YitIdHelperExtension.Encode(System.String,System.Int32)">
+            <summary>
+            将长字符串生成短字符串
+            </summary>
+            <param name="text">需要缩短的原字符串</param>
             <param name="salt">盐值</param>
             <returns></returns>
         </member>

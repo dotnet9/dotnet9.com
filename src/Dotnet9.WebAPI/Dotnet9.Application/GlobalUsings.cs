@@ -29,3 +29,4 @@ global using Newtonsoft.Json;
 global using Newtonsoft.Json.Linq;
 global using System.Text.RegularExpressions;
 global using Dotnet9.Core.Config;
+global using Newtonsoft.Json.Converters;

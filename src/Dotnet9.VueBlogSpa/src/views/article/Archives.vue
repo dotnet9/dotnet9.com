@@ -15,7 +15,7 @@
           <div class="time">{{ item.publishTime }}</div>
           <!-- 文章标题 -->
           <router-link
-            :to="'/articles/' + item.id"
+            :to="'/articles/' + item.publishTime?.getFullYear + '/' + item.publishTime?.getMonth + '/' + item.slug"
             style="color: #666; text-decoration: none"
           >
             {{ item.title }}

@@ -49,7 +49,7 @@
       >
         <!-- 文章封面图 -->
         <div :class="isRight(index)">
-          <router-link :to="'/articles/' + item.id">
+          <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
             <v-img
               class="on-hover"
               width="100%"
@@ -62,7 +62,7 @@
         <!-- 文章信息 -->
         <div class="article-wrapper">
           <div style="line-height: 1.4">
-            <router-link :to="'/articles/' + item.id">
+            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
               {{ item.title }}
             </router-link>
           </div>
@@ -79,15 +79,21 @@
             {{ $formatDate(item.publishTime!, "YYYY-MM-DD") }}
             <span class="separator">|</span>
             <!-- 文章分类 -->
-            <router-link :to="'/categories/' + item.categoryId">
+            <router-link :to="'/cat/' + item.categorySlug">
               <v-icon size="14">mdi-inbox-full</v-icon>
               {{ item.categoryName }}
+            </router-link>
+            <span class="separator">|</span>
+            <!-- 文章专辑 -->
+            <router-link :to="'/album/' + item.albumSlug">
+              <v-icon size="14">mdi-inbox-full</v-icon>
+              {{ item.albumName }}
             </router-link>
             <span class="separator">|</span>
             <!-- 文章标签 -->
             <router-link
               :style="{ display: 'inline-block' }"
-              :to="'/tags/' + tag.id"
+              :to="'/tags/' + tag.name"
               class="mr-1"
               v-for="tag of item.tags"
               :key="tag.id"
@@ -139,6 +145,14 @@
                 <div style="font-size: 0.875rem">分类</div>
                 <div style="font-size: 1.25rem">
                   {{ report.categoryCount }}
+                </div>
+              </router-link>
+            </div>
+            <div class="blog-info-data">
+              <router-link to="/album">
+                <div style="font-size: 0.875rem">专辑</div>
+                <div style="font-size: 1.25rem">
+                  {{ report.albumCount }}
                 </div>
               </router-link>
             </div>
@@ -276,7 +290,7 @@ const articlePage = async () => {
 const runTime = (): void => {
   const timespan: number =
     new Date().getTime() -
-    dayjs(blogSetting.value.runTime ?? "2023/06/01")
+    dayjs(blogSetting.value.runTime ?? "2019/11/12")
       .toDate()
       .getTime();
   const msPerDay: number = 24 * 60 * 60 * 1000;

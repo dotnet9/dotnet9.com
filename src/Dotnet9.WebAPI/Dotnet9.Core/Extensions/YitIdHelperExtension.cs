@@ -77,4 +77,15 @@ public static class YitIdHelperExtension
     {
         return new Hashids(salt).DecodeSingleLong(text);
     }
+
+    /// <summary>
+    /// 将长字符串生成短字符串
+    /// </summary>
+    /// <param name="text">需要缩短的原字符串</param>
+    /// <param name="salt">盐值</param>
+    /// <returns></returns>
+    public static string Encode(this string text, int salt = 9)
+    {
+        return new Hashids(text).Encode(salt);
+    }
 }

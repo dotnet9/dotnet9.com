@@ -33,6 +33,18 @@ export interface ArticleInfoOutput {
      */
     title?: string | null;
     /**
+     * 别名
+     * @type {string}
+     * @memberof ArticleInfoOutput
+     */
+    slug?: string | null;
+    /**
+     * 短别名
+     * @type {string}
+     * @memberof ArticleInfoOutput
+     */
+    shortSlug?: string | null;
+    /**
      * 文章内容
      * @type {string}
      * @memberof ArticleInfoOutput
