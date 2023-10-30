@@ -92,6 +92,7 @@ public static partial class SqlSugarExtensions
         }
 
         InitFriendLink(client, siteOptions.AssetsDir);
+        InitTimelines(client, siteOptions.AssetsDir);
         var cats = InitCategory(client, siteOptions.AssetsDir, user);
         var albums = InitAlbum(client, siteOptions.AssetsDir, user);
         InitArticles(client, siteOptions, user, cats, albums);
@@ -119,6 +120,32 @@ public static partial class SqlSugarExtensions
             link.Link = link.Url;
         });
         client.Storageable(friendLinks).ToStorage().AsInsertable.ExecuteCommand();
+    }
+
+    /// <summary>
+    /// 初始化时间线（说说）数据
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="assetsDir"></param>
+    /// <exception cref="Exception"></exception>
+    private static void InitTimelines(SqlSugarScope client, string assetsDir)
+    {
+        var filePath = Path.Combine(assetsDir, "site", "timelines.json");
+        if (!File.Exists(filePath))
+        {
+            throw new Exception($"请配置时间线文件：{filePath}");
+        }
+
+        var timelines = JsonConvert.DeserializeObject<List<TimelineSeedDto>>(File.ReadAllText(filePath));
+        var id = 0;
+        var allTimelines = timelines.Select(timeline => new Talks()
+        {
+            Id = ++id,
+            Content = timeline.Content,
+            CreatedTime = timeline.Time,
+            IsAllowComments = true
+        }).ToList();
+        client.Storageable(allTimelines).ToStorage().AsInsertable.ExecuteCommand();
     }
 
     /// <summary>

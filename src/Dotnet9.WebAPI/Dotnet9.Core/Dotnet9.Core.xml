@@ -2001,6 +2001,14 @@
             <param name="assetsDir"></param>
             <exception cref="T:System.Exception"></exception>
         </member>
+        <member name="M:SqlSugar.SqlSugarExtensions.InitTimelines(SqlSugar.SqlSugarScope,System.String)">
+            <summary>
+            初始化时间线（说说）数据
+            </summary>
+            <param name="client"></param>
+            <param name="assetsDir"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
         <member name="M:SqlSugar.SqlSugarExtensions.InitCategory(SqlSugar.SqlSugarScope,System.String,Dotnet9.Core.Entities.SysUser)">
             <summary>
             初始化分类
