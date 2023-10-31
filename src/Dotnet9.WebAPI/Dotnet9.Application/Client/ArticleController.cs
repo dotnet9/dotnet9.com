@@ -44,20 +44,44 @@ public class ArticleController : IDynamicApiController
     [HttpGet]
     public async Task<PageResult<ArticleOutput>> Get([FromQuery] ArticleListQueryInput dto)
     {
-        if (dto.TagId.HasValue)
+        Tags? tag = null;
+        if (!string.IsNullOrWhiteSpace(dto.TagName))
         {
-            var tag = await _tagsRepository.AsQueryable()
-                .Where(x => x.Id == dto.TagId && x.Status == AvailabilityStatus.Enable)
-                .Select(x => new { x.Name, x.Cover }).FirstAsync();
+            tag = await _tagsRepository.AsQueryable()
+                .Where(x => x.Name == dto.TagName && x.Status == AvailabilityStatus.Enable)
+                .FirstAsync();
+            if (tag == null)
+            {
+                throw Oops.Bah($"不存在标签名：{dto.TagName}").StatusCode(404);
+            }
+
             UnifyContext.Fill(new { tag.Name, tag.Cover });
         }
 
-        if (dto.CategoryId.HasValue)
+        Categories? category = null;
+        if (!string.IsNullOrWhiteSpace(dto.CategorySlug))
         {
-            var category = await _categoryRepository.AsQueryable()
-                .Where(x => x.Id == dto.CategoryId && x.Status == AvailabilityStatus.Enable)
-                .Select(x => new { x.Name, x.Cover }).FirstAsync();
+            category = await _categoryRepository.AsQueryable()
+                .Where(x => x.Slug == dto.CategorySlug && x.Status == AvailabilityStatus.Enable).FirstAsync();
+            if (category == null)
+            {
+                throw Oops.Bah($"不存在分类别名：{dto.CategorySlug}").StatusCode(404);
+            }
+
             UnifyContext.Fill(new { category.Name, category.Cover });
+        }
+
+        Albums? album = null;
+        if (!string.IsNullOrWhiteSpace(dto.AlbumSlug))
+        {
+            album = await _albumRepository.AsQueryable()
+                .Where(x => x.Slug == dto.AlbumSlug && x.Status == AvailabilityStatus.Enable).FirstAsync();
+            if (album == null)
+            {
+                throw Oops.Bah($"不存在专辑别名：{dto.AlbumSlug}").StatusCode(404);
+            }
+
+            UnifyContext.Fill(new { album.Name, album.Cover });
         }
 
         return await _articleRepository.AsQueryable()
@@ -67,15 +91,15 @@ public class ArticleController : IDynamicApiController
             .LeftJoin<Albums>((article, ac, c, aa, a) => aa.AlbumId == a.Id)
             .Where(article => article.Status == AvailabilityStatus.Enable && article.PublishTime <= SqlFunc.GetDate())
             .Where(article => article.ExpiredTime == null || SqlFunc.GetDate() < article.ExpiredTime)
-            .WhereIF(dto.CategoryId.HasValue, (article, ac) => ac.CategoryId == dto.CategoryId)
-            .WhereIF(dto.AlbumId.HasValue, (article, ac, c, aa, a) => aa.AlbumId == dto.AlbumId)
+            .WhereIF(category != null, (article, ac, c, aa, a) => c.Slug == category.Slug)
+            .WhereIF(album != null, (article, ac, c, aa, a) => a.Slug == album.Slug)
             .WhereIF(!string.IsNullOrWhiteSpace(dto.Keyword),
                 article => article.Title.Contains(dto.Keyword) || article.Summary.Contains(dto.Keyword) ||
                            article.Content.Contains(dto.Keyword))
-            .WhereIF(dto.TagId.HasValue,
+            .WhereIF(tag != null,
                 article => SqlFunc.Subqueryable<Tags>().InnerJoin<ArticleTag>((tags, at) => tags.Id == at.TagId)
                     .Where((tags, at) => tags.Status == AvailabilityStatus.Enable && at.ArticleId == article.Id &&
-                                         tags.Id == dto.TagId).Any())
+                                         tags.Id == tag.Id).Any())
             .OrderByDescending(article => article.IsTop)
             .OrderBy(article => article.Sort)
             .OrderByDescending(article => article.PublishTime)
@@ -286,7 +310,8 @@ public class ArticleController : IDynamicApiController
             .Where(x => x.ExpiredTime == null || SqlFunc.GreaterThan(x.ExpiredTime, DateTime.Now))
             .OrderByDescending(x => x.PublishTime)
             .Select(x => new ArticleBasicsOutput
-                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 0 }).FirstAsync();
+                { Id = x.Id, Cover = x.Cover, Title = x.Title, Slug = x.Slug, PublishTime = x.PublishTime, Type = 0 })
+            .FirstAsync();
         //下一篇
         var nextQuery = await _articleRepository.AsQueryable().Where(x =>
                 x.PublishTime > article.PublishTime && x.PublishTime <= DateTime.Now &&
@@ -294,14 +319,15 @@ public class ArticleController : IDynamicApiController
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
             .OrderBy(x => x.PublishTime)
             .Select(x => new ArticleBasicsOutput
-                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 1 }).FirstAsync();
+                { Id = x.Id, Cover = x.Cover, Title = x.Title, Slug = x.Slug, PublishTime = x.PublishTime, Type = 1 })
+            .FirstAsync();
         //随机6条
         var randomQuery = await _articleRepository.AsQueryable().Where(x => x.Id != article.Id)
             .Where(x => x.PublishTime <= DateTime.Now && x.Status == AvailabilityStatus.Enable)
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
             .OrderBy(x => SqlFunc.GetRandom())
             .Select(x => new ArticleBasicsOutput
-                { Id = x.Id, Cover = x.Cover, Title = x.Title, PublishTime = x.PublishTime, Type = 2 })
+                { Id = x.Id, Cover = x.Cover, Title = x.Title, Slug = x.Slug, PublishTime = x.PublishTime, Type = 2 })
             .Take(6).ToListAsync();
 
         article.Prev = prevQuery;

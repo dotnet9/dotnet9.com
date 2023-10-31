@@ -24,32 +24,32 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    name: "category",
-    path: "/category",
+    name: "categories",
+    path: "/cats",
     component: () => import("../views/article/Category.vue"),
     meta: {
       title: "分类",
     },
   },
   {
-    name: "categories",
-    path: "/categories/:id",
+    name: "category",
+    path: "/cat/:categorySlug",
     component: () => import("../views/article/CategoryList.vue"),
     meta: {
       title: "分类",
     },
   },
   {
-    name: "album",
-    path: "/album",
+    name: "albums",
+    path: "/albums",
     component: () => import("../views/article/Album.vue"),
     meta: {
       title: "专辑",
     },
   },
   {
-    name: "albums",
-    path: "/albums/:id",
+    name: "album",
+    path: "/album/:albumSlug",
     component: () => import("../views/article/CategoryList.vue"),
     meta: {
       title: "专辑",
@@ -64,8 +64,8 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    name: "tagsList",
-    path: "/tags/:tid",
+    name: "tag",
+    path: "/tag/:name",
     component: () => import("../views/article/CategoryList.vue"),
     meta: {
       title: "标签",

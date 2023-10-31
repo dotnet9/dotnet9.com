@@ -164,7 +164,7 @@
         <div class="pagination-post">
           <!-- 上一篇 -->
           <div :class="isFull(state.info.prev.id)" v-if="state.info.prev">
-            <router-link :to="'/articles/' + state.info.prev.id">
+            <router-link :to="'/' + $formatDate(state.info.prev.publishTime!, 'YYYY/DD') + '/' + state.info.prev.slug">
               <img class="post-cover" :src="state.info.prev.cover!" />
               <div class="post-info">
                 <div class="label">上一篇</div>
@@ -176,7 +176,7 @@
           </div>
           <!-- 下一篇 -->
           <div :class="isFull(state.info.next.id)" v-if="state.info.next">
-            <router-link :to="'/articles/' + state.info.next.id">
+            <router-link :to="'/' + $formatDate(state.info.next.publishTime!, 'YYYY/DD') + '/' + state.info.next.slug">
               <img class="post-cover" :src="state.info.next.cover!" />
               <div class="post-info" style="text-align: right">
                 <div class="label">下一篇</div>
@@ -201,7 +201,7 @@
               v-for="item of state.info.random"
               :key="item.id"
             >
-              <router-link :to="'/articles/' + item.id">
+              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
                 <img class="recommend-cover" :src="item.cover!" />
                 <div class="recommend-info">
                   <div class="recommend-date">

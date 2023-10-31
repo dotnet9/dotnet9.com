@@ -6,16 +6,19 @@ public class TagsOutput
     /// 标签ID
     /// </summary>
     public long Id { get; set; }
+
     /// <summary>
     /// 图标
     /// </summary>
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
+
     /// <summary>
     /// 标签名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
+
     /// <summary>
     /// 颜色
     /// </summary>
-    public string Color { get; set; }
+    public string? Color { get; set; }
 }

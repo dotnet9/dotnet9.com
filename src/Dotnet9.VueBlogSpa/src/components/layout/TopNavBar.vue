@@ -58,14 +58,14 @@
               </router-link>
             </li>
             <li>
-              <router-link to="/category">
+              <router-link to="/cats">
                 <!-- <i class="iconfont iconfenlei" />  -->
                 <v-icon size="small">mdi mdi-view-grid</v-icon>
                 分类
               </router-link>
             </li>
             <li>
-              <router-link to="/album">
+              <router-link to="/albums">
                 <!-- <i class="iconfont iconfenlei" />  -->
                 <v-icon size="small">mdi mdi-view-grid</v-icon>
                 专辑

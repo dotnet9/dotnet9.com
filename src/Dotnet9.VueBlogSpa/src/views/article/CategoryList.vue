@@ -11,7 +11,7 @@
         <!-- 文章 -->
         <v-card class="animated zoomIn article-item-card">
           <div class="article-item-cover">
-            <router-link :to="'/articles/' + item.id">
+            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
               <!-- 缩略图 -->
               <v-img
                 class="on-hover"
@@ -25,21 +25,30 @@
           <div class="article-item-info">
             <!-- 文章标题 -->
             <div>
-              <router-link :to="'/articles/' + item.id">
+              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
                 {{ item.title }}
               </router-link>
             </div>
             <div style="margin-top: 0.375rem">
               <!-- 发表时间 -->
               <v-icon size="20">mdi-clock-outline</v-icon>
-              {{ item.publishTime }}
-              <!-- 文章分类 -->
-              <router-link
-                :to="'/categories/' + item.categoryId"
-                class="float-right"
-              >
-                <v-icon>mdi-bookmark</v-icon>{{ item.categoryName }}
-              </router-link>
+              {{ $formatDate(item.publishTime!, "YYYY-MM-DD") }}
+              <div class="float-right">
+                <!-- 文章分类 -->
+                <router-link
+                  :to="'/cat/' + item.categorySlug"
+                  
+                >
+                  <v-icon size="20">mdi-inbox-full</v-icon>{{ item.categoryName }}
+                </router-link>
+                <span class="separator" v-if="item.albumName">|</span>
+                <!-- 文章专辑 -->
+                <router-link v-if="item.albumName"
+                  :to="'/album/' + item.albumSlug"
+                  >
+                  <v-icon size="20">mdi-inbox-full</v-icon>{{ item.albumName }}
+                </router-link>
+              </div>
             </div>
           </div>
           <!-- 分割线 -->
@@ -47,7 +56,7 @@
           <!-- 文章标签 -->
           <div class="tag-wrapper">
             <router-link
-              :to="'/tags/' + tag.id"
+              :to="'/tag/' + tag.name"
               class="tag-btn"
               v-for="tag of item.tags ?? []"
               :key="tag.id"
@@ -88,8 +97,9 @@ const state = reactive({
   query: {
     pageNo: 1,
     pageSize: 10,
-    categoryId: route.params.id as never,
-    tagId: route.params.tid as never,
+    categorySlug: route.params.categorySlug as never,
+    albumSlug: route.params.albumSlug as never,
+    tagName: route.params.name as never,
   } as ArticleListQueryInput,
   name: "", //标签名或分类名称
   cover: "",

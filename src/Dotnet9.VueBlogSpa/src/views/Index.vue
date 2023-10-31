@@ -83,13 +83,13 @@
               <v-icon size="14">mdi-inbox-full</v-icon>
               {{ item.categoryName }}
             </router-link>
-            <span class="separator">|</span>
+            <span class="separator"  v-if="item.albumName">|</span>
             <!-- 文章专辑 -->
-            <router-link :to="'/album/' + item.albumSlug">
+            <router-link v-if="item.albumName" :to="'/album/' + item.albumSlug">
               <v-icon size="14">mdi-inbox-full</v-icon>
               {{ item.albumName }}
             </router-link>
-            <span class="separator">|</span>
+            <span class="separator" v-if="item.tags">|</span>
             <!-- 文章标签 -->
             <router-link
               :style="{ display: 'inline-block' }"

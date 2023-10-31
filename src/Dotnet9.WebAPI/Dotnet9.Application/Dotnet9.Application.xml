@@ -1509,17 +1509,17 @@
             标签
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.TagId">
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.TagName">
             <summary>
-            标签ID
+            标签名
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.CategoryId">
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.CategorySlug">
             <summary>
-            分类ID
+            分类别名
             </summary>
         </member>
-        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.AlbumId">
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleListQueryInput.AlbumSlug">
             <summary>
             专辑ID
             </summary>

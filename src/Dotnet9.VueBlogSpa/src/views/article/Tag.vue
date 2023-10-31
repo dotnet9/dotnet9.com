@@ -11,7 +11,7 @@
         :style="{ 'font-size': Math.floor(Math.random() * 10) + 18 + 'px' }"
         v-for="item of state.tags"
         :key="item.id"
-        :to="'/tags/' + item.id"
+        :to="'/tag/' + item.name"
       >
         {{ item.name }}
       </router-link>

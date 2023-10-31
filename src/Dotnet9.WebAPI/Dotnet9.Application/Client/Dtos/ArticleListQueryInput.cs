@@ -3,17 +3,19 @@
 public class ArticleListQueryInput : Pagination
 {
     /// <summary>
-    /// 标签ID
+    /// 标签名
     /// </summary>
-    public long? TagId { get; set; }
+    public string? TagName { get; set; }
+
     /// <summary>
-    /// 分类ID
+    /// 分类别名
     /// </summary>
-    public long? CategoryId { get; set; }
+    public string? CategorySlug { get; set; }
+
     /// <summary>
     /// 专辑ID
     /// </summary>
-    public long? AlbumId { get; set; }
+    public string? AlbumSlug { get; set; }
 
     /// <summary>
     /// 关键词

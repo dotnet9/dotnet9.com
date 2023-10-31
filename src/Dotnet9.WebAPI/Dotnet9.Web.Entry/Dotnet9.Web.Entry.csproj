@@ -9,6 +9,7 @@
 		<PublishReadyToRunComposite>true</PublishReadyToRunComposite>
 		<UserSecretsId>dbe8130a-ff52-4e0b-97b7-1cd416d74122</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 

@@ -12,7 +12,7 @@
         v-for="item of state.categories"
         :key="item.id"
       >
-        <router-link :to="'/categories/' + item.id">
+        <router-link :to="'/cat/' + item.slug">
           {{ item.name }}
           <span class="category-count">({{ item.total }})</span>
         </router-link>
