@@ -11,7 +11,7 @@
         <!-- 文章 -->
         <v-card class="animated zoomIn article-item-card">
           <div class="article-item-cover">
-            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
+            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
               <!-- 缩略图 -->
               <v-img
                 class="on-hover"
@@ -25,7 +25,7 @@
           <div class="article-item-info">
             <!-- 文章标题 -->
             <div>
-              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
+              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
                 {{ item.title }}
               </router-link>
             </div>

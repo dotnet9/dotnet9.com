@@ -261,11 +261,13 @@ public class ArticleController : IDynamicApiController
         var article = await _articleRepository.AsQueryable()
             .LeftJoin<ArticleCategory>((x, ac) => x.Id == ac.ArticleId)
             .InnerJoin<Categories>((x, ac, c) => ac.CategoryId == c.Id && c.Status == AvailabilityStatus.Enable)
+            .LeftJoin<ArticleAlbum>((x, ac, c, aa) => x.Id == aa.ArticleId)
+            .LeftJoin<Albums>((x, ac, c, aa, a) => aa.AlbumId == a.Id)
             .Where(x => (x.Slug == slugOrShortSlug || x.ShortSlug == slugOrShortSlug) &&
                         x.PublishTime <= DateTime.Now &&
                         x.Status == AvailabilityStatus.Enable)
             .Where(x => x.ExpiredTime == null || x.ExpiredTime > DateTime.Now)
-            .Select((x, ac, c) => new ArticleInfoOutput
+            .Select((x, ac, c, aa, a) => new ArticleInfoOutput
             {
                 Id = x.Id,
                 Title = x.Title,
@@ -284,9 +286,13 @@ public class ArticleController : IDynamicApiController
                 Link = x.Link,
                 UpdatedTime = x.UpdatedTime,
                 CategoryId = c.Id,
+                CategoryName = c.Name,
+                CategorySlug = c.Slug,
+                AlbumId = a.Id,
+                AlbumName = a.Name,
+                AlbumSlug = a.Slug,
                 PraiseTotal = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id).Count(),
                 IsPraise = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id && p.AccountId == userId).Any(),
-                CategoryName = c.Name,
                 Tags = SqlFunc.Subqueryable<Tags>().InnerJoin<ArticleTag>((tags, at) => tags.Id == at.TagId)
                     .Where((tags, at) => tags.Status == AvailabilityStatus.Enable && at.ArticleId == x.Id)
                     .ToList(tags => new TagsOutput

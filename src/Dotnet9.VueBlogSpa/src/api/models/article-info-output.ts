@@ -135,6 +135,12 @@ export interface ArticleInfoOutput {
      */
     categoryName?: string | null;
     /**
+     * 分类别名
+     * @type {string}
+     * @memberof ArticleInfoOutput
+     */
+    categorySlug?: string | null;
+    /**
      * 专辑Id
      * @type {number}
      * @memberof ArticleInfoOutput
@@ -146,6 +152,12 @@ export interface ArticleInfoOutput {
      * @memberof ArticleInfoOutput
      */
     albumName?: string | null;
+    /**
+     * 专辑别名
+     * @type {string}
+     * @memberof ArticleInfoOutput
+     */
+    albumSlug?: string | null;
     /**
      * 最后更新时间
      * @type {Date}

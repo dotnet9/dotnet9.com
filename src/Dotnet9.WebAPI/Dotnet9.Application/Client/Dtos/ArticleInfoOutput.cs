@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Converters;
-
-namespace Dotnet9.Application.Client.Dtos;
+﻿namespace Dotnet9.Application.Client.Dtos;
 
 public class ArticleInfoOutput
 {
@@ -12,32 +10,32 @@ public class ArticleInfoOutput
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 短别名
     /// </summary>
-    public string ShortSlug { get; set; }
+    public string ShortSlug { get; set; } = null!;
 
     /// <summary>
     /// 文章内容
     /// </summary>
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 简介
     /// </summary>
-    public string Summary { get; set; }
+    public string Summary { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 发布时间
@@ -47,7 +45,7 @@ public class ArticleInfoOutput
     /// <summary>
     /// 作者
     /// </summary>
-    public string Author { get; set; }
+    public string Author { get; set; } = null!;
 
     /// <summary>
     /// 浏览量
@@ -78,7 +76,7 @@ public class ArticleInfoOutput
     /// <summary>
     /// 转载链接
     /// </summary>
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
     /// <summary>
     /// 点赞数量
@@ -96,9 +94,14 @@ public class ArticleInfoOutput
     public long CategoryId { get; set; }
 
     /// <summary>
+    /// 分类别名
+    /// </summary>
+    public string CategorySlug { get; set; } = null!;
+
+    /// <summary>
     /// 分类名称
     /// </summary>
-    public string CategoryName { get; set; }
+    public string CategoryName { get; set; } = null!;
 
     /// <summary>
     /// 专辑Id
@@ -106,9 +109,14 @@ public class ArticleInfoOutput
     public long AlbumId { get; set; }
 
     /// <summary>
+    /// 专辑别名
+    /// </summary>
+    public string? AlbumSlug { get; set; }
+
+    /// <summary>
     /// 专辑名称
     /// </summary>
-    public string AlbumName { get; set; }
+    public string? AlbumName { get; set; }
 
     /// <summary>
     /// 最后更新时间
@@ -118,20 +126,20 @@ public class ArticleInfoOutput
     /// <summary>
     /// 上一篇
     /// </summary>
-    public ArticleBasicsOutput Prev { get; set; }
+    public ArticleBasicsOutput? Prev { get; set; }
 
     /// <summary>
     /// 下一篇
     /// </summary>
-    public ArticleBasicsOutput Next { get; set; }
+    public ArticleBasicsOutput? Next { get; set; }
 
     /// <summary>
     /// 随机
     /// </summary>
-    public List<ArticleBasicsOutput> Random { get; set; }
+    public List<ArticleBasicsOutput>? Random { get; set; }
 
     /// <summary>
     /// 标签
     /// </summary>
-    public List<TagsOutput> Tags { get; set; }
+    public List<TagsOutput>? Tags { get; set; }
 }

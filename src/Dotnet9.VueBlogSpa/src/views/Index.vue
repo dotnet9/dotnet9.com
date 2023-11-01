@@ -49,7 +49,7 @@
       >
         <!-- 文章封面图 -->
         <div :class="isRight(index)">
-          <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
+          <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
             <v-img
               class="on-hover"
               width="100%"
@@ -62,7 +62,7 @@
         <!-- 文章信息 -->
         <div class="article-wrapper">
           <div style="line-height: 1.4">
-            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
+            <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
               {{ item.title }}
             </router-link>
           </div>
@@ -93,7 +93,7 @@
             <!-- 文章标签 -->
             <router-link
               :style="{ display: 'inline-block' }"
-              :to="'/tags/' + tag.name"
+              :to="'/tag/' + tag.name"
               class="mr-1"
               v-for="tag of item.tags"
               :key="tag.id"

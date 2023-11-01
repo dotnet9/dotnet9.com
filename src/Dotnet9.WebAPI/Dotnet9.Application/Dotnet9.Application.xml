@@ -1469,6 +1469,11 @@
             分类Id
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategorySlug">
+            <summary>
+            分类别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.CategoryName">
             <summary>
             分类名称
@@ -1477,6 +1482,11 @@
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.AlbumId">
             <summary>
             专辑Id
+            </summary>
+        </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.AlbumSlug">
+            <summary>
+            专辑别名
             </summary>
         </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleInfoOutput.AlbumName">

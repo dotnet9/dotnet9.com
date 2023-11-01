@@ -27,7 +27,7 @@
             <!-- 文章分类 -->
             <span class="article-category">
               <i class="iconfont iconfenlei1" />
-              <router-link :to="'/categories/' + state.info.categoryId">
+              <router-link :to="'/cat/' + state.info.categorySlug">
                 {{ state.info.categoryName }}
               </router-link>
             </span>
@@ -114,7 +114,7 @@
             <router-link
               v-for="item of state.info.tags"
               :key="item.id"
-              :to="'/tags/' + item.id"
+              :to="'/tag/' + item.id"
             >
               {{ item.name }}
             </router-link>
@@ -164,7 +164,7 @@
         <div class="pagination-post">
           <!-- 上一篇 -->
           <div :class="isFull(state.info.prev.id)" v-if="state.info.prev">
-            <router-link :to="'/' + $formatDate(state.info.prev.publishTime!, 'YYYY/DD') + '/' + state.info.prev.slug">
+            <router-link :to="'/' + $formatDate(state.info.prev.publishTime!, 'YYYY/MM') + '/' + state.info.prev.slug">
               <img class="post-cover" :src="state.info.prev.cover!" />
               <div class="post-info">
                 <div class="label">上一篇</div>
@@ -176,7 +176,7 @@
           </div>
           <!-- 下一篇 -->
           <div :class="isFull(state.info.next.id)" v-if="state.info.next">
-            <router-link :to="'/' + $formatDate(state.info.next.publishTime!, 'YYYY/DD') + '/' + state.info.next.slug">
+            <router-link :to="'/' + $formatDate(state.info.next.publishTime!, 'YYYY/MM') + '/' + state.info.next.slug">
               <img class="post-cover" :src="state.info.next.cover!" />
               <div class="post-info" style="text-align: right">
                 <div class="label">下一篇</div>
@@ -201,7 +201,7 @@
               v-for="item of state.info.random"
               :key="item.id"
             >
-              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/DD') + '/' + item.slug">
+              <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
                 <img class="recommend-cover" :src="item.cover!" />
                 <div class="recommend-info">
                   <div class="recommend-date">
@@ -251,9 +251,11 @@
             >
               <router-link
                 :to="{
-                  name: 'detail',
+                  name: 'detail1',
                   params: {
-                    id: item.id,
+                    year: $formatDate(item.publishTime!, 'YYYY'),
+                    month: $formatDate(item.publishTime!, 'MM'),
+                    slug: item.slug
                   },
                 }"
                 class="content-cover"
@@ -264,9 +266,11 @@
                 <div class="content-title">
                   <router-link
                     :to="{
-                      name: 'detail',
+                      name: 'detail1',
                       params: {
-                        id: item.id,
+                        year: $formatDate(item.publishTime!, 'YYYY'),
+                        month: $formatDate(item.publishTime!, 'MM'),
+                        slug: item.slug
                       },
                     }"
                   >
@@ -369,6 +373,9 @@ onMounted(async () => {
     ArticleApi.latest(),
   ]);
   state.info = first.data ?? {};
+  if(state.info !== null) {
+    document.title = state.info.title!;
+  }
   state.latest = last.data ?? [];
   nextTick(() => {
     //复制代码
