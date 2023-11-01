@@ -114,7 +114,7 @@
             <router-link
               v-for="item of state.info.tags"
               :key="item.id"
-              :to="'/tag/' + item.id"
+              :to="'/tag/' + item.name"
             >
               {{ item.name }}
             </router-link>

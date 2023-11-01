@@ -1,8 +1,10 @@
 ﻿using Dotnet9.Application.Auth;
 using Dotnet9.Application.Client.Dtos;
 using Dotnet9.Application.Config;
+using Dotnet9.Core.Options;
 
 namespace Dotnet9.Application.Client;
+
 /// <summary>
 /// 博客基本信息
 /// </summary>
@@ -36,8 +38,13 @@ public class AppController : IDynamicApiController
         var blogSetting = await _customConfigService.Get<BlogSetting>();
 
         var info = await _customConfigService.Get<BloggerInfo>();
+        info.About = await
+            System.IO.File.ReadAllTextAsync(Path.Combine(App.GetConfig<SiteOptions>("Site").AssetsDir, "site",
+                "about.md"));
 
-        var pics = await _coversRepository.AsQueryable().InnerJoin<Pictures>((covers, pictures) => covers.Id == pictures.CoverId)
+
+        var pics = await _coversRepository.AsQueryable()
+            .InnerJoin<Pictures>((covers, pictures) => covers.Id == pictures.CoverId)
             .Where(covers => covers.Type.HasValue)
             .WithCache()
             .Select((covers, pictures) => new
@@ -58,15 +65,15 @@ public class AppController : IDynamicApiController
     public async Task<List<FriendLinkOutput>> Links()
     {
         return await _linkRepository.AsQueryable().Where(x => x.Status == AvailabilityStatus.Enable)
-              .OrderBy(x => x.Sort)
-              .OrderBy(x => x.Id)
-              .Select(x => new FriendLinkOutput
-              {
-                  Id = x.Id,
-                  Link = x.Link,
-                  Logo = x.Logo,
-                  SiteName = x.SiteName,
-                  Remark = x.Remark
-              }).ToListAsync();
+            .OrderBy(x => x.Sort)
+            .OrderBy(x => x.Id)
+            .Select(x => new FriendLinkOutput
+            {
+                Id = x.Id,
+                Link = x.Link,
+                Logo = x.Logo,
+                SiteName = x.SiteName,
+                Remark = x.Remark
+            }).ToListAsync();
     }
 }
