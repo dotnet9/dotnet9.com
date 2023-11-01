@@ -38,6 +38,12 @@ export interface ArticleOutput {
      */
     slug?: string | null;
     /**
+     * 别名
+     * @type {string}
+     * @memberof ArticleOutput
+     */
+    shortSlug?: string | null;
+    /**
      * 分类ID
      * @type {number}
      * @memberof ArticleOutput

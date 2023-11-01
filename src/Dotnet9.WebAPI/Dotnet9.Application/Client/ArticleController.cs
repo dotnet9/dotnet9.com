@@ -108,6 +108,7 @@ public class ArticleController : IDynamicApiController
                 Id = article.Id,
                 Title = article.Title,
                 Slug = article.Slug,
+                ShortSlug = article.ShortSlug,
                 CategoryId = c.Id,
                 CategoryName = c.Name,
                 CategorySlug = c.Slug,

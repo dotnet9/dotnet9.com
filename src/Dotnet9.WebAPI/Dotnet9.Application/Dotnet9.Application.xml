@@ -1554,6 +1554,11 @@
             别名
             </summary>
         </member>
+        <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.ShortSlug">
+            <summary>
+            短别名
+            </summary>
+        </member>
         <member name="P:Dotnet9.Application.Client.Dtos.ArticleOutput.CategoryId">
             <summary>
             分类ID

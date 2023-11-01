@@ -88,14 +88,17 @@ public static partial class SqlSugarExtensions
         var siteOptions = App.GetConfig<SiteOptions>("Site");
         if (string.IsNullOrWhiteSpace(siteOptions.AssetsDir) || !Directory.Exists(siteOptions.AssetsDir))
         {
-            throw new Exception("请配置资源目录");
+            return;
         }
 
         InitFriendLink(client, siteOptions.AssetsDir);
         InitTimelines(client, siteOptions.AssetsDir);
         var cats = InitCategory(client, siteOptions.AssetsDir, user);
         var albums = InitAlbum(client, siteOptions.AssetsDir, user);
-        InitArticles(client, siteOptions, user, cats, albums);
+        if (cats?.Count > 0 && albums?.Count > 0)
+        {
+            InitArticles(client, siteOptions, user, cats, albums);
+        }
     }
 
     /// <summary>
@@ -109,7 +112,7 @@ public static partial class SqlSugarExtensions
         var filePath = Path.Combine(assetsDir, "site", "FriendLink.json");
         if (!File.Exists(filePath))
         {
-            throw new Exception($"请配置友情链接文件：{filePath}");
+            return;
         }
 
         var friendLinks = JsonConvert.DeserializeObject<List<FriendLink>>(File.ReadAllText(filePath));
@@ -133,7 +136,7 @@ public static partial class SqlSugarExtensions
         var filePath = Path.Combine(assetsDir, "site", "timelines.json");
         if (!File.Exists(filePath))
         {
-            throw new Exception($"请配置时间线文件：{filePath}");
+            return;
         }
 
         var timelines = JsonConvert.DeserializeObject<List<TimelineSeedDto>>(File.ReadAllText(filePath));
@@ -155,7 +158,7 @@ public static partial class SqlSugarExtensions
     /// <param name="assetsDir"></param>
     /// <param name="user"></param>
     /// <exception cref="Exception"></exception>
-    private static List<Categories> InitCategory(SqlSugarScope client, string assetsDir, SysUser user)
+    private static List<Categories>? InitCategory(SqlSugarScope client, string assetsDir, SysUser user)
     {
         void UpdateCategory(List<Categories> all, Categories category, string assetsUrl, ref long id)
         {
@@ -179,7 +182,7 @@ public static partial class SqlSugarExtensions
         var filePath = Path.Combine(assetsDir, "cats", "category.json");
         if (!File.Exists(filePath))
         {
-            throw new Exception($"请配置分类文件：{filePath}");
+            return null;
         }
 
         var siteOptions = App.GetConfig<SiteOptions>("Site");
@@ -215,12 +218,12 @@ public static partial class SqlSugarExtensions
     /// <param name="assetsDir"></param>
     /// <param name="user"></param>
     /// <exception cref="Exception"></exception>
-    private static List<Albums> InitAlbum(SqlSugarScope client, string assetsDir, SysUser user)
+    private static List<Albums>? InitAlbum(SqlSugarScope client, string assetsDir, SysUser user)
     {
         var filePath = Path.Combine(assetsDir, "albums", "album.json");
         if (!File.Exists(filePath))
         {
-            throw new Exception($"请配置专辑文件：{filePath}");
+            return null;
         }
 
         var siteOptions = App.GetConfig<SiteOptions>("Site");

@@ -23,15 +23,15 @@
         <hr class="divider" />
         <ul>
           <li
-            class="search-reslut"
+            class="search-result"
             v-for="item of articleList.list"
             :key="item.id"
           >
             <!-- 文章标题 -->
-            <a @click="goTo(item.id)" v-html="item.title" />
+            <a @click="goTo(item.shortSlug)" v-html="item.title" />
             <!-- 文章内容 -->
             <p
-              class="search-reslut-content text-justify"
+              class="search-result-content text-justify"
               v-html="item.summary"
             />
           </li>
@@ -62,13 +62,13 @@ const emit = defineEmits<{ (e: "update:isShow", isShow: boolean): void }>();
 const closeHandle = () => {
   emit("update:isShow", false);
 };
-const goTo = (id: any) => {
+const goTo = (shortSlug: any) => {
   emit("update:isShow", false);
   articleList.list = [];
   router.push({
-    name: "detail",
+    name: "detail2",
     params: {
-      id,
+      shortSlug
     },
   });
 };
@@ -139,13 +139,13 @@ watch(isMobile, () => {
     overflow: auto;
   }
 }
-.search-reslut a {
+.search-result a {
   color: #555;
   font-weight: bold;
   border-bottom: 1px solid #999;
   text-decoration: none;
 }
-.search-reslut-content {
+.search-result-content {
   color: #555;
   cursor: pointer;
   border-bottom: 1px dashed #ccc;
