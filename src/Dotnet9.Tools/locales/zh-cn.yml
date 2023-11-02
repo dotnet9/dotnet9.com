@@ -54,4 +54,18 @@ about:
   backHome: '返回首页'
 toolCard:
   new: 新
-  
+search:
+  label: 搜索
+tools:
+  categories:
+    favorite-tools: '您最喜欢的工具'
+    crypto: 加密
+    converter: 转换
+    web: Web
+    images and videos: '图片 & 视频'
+    development: 开发
+    network: 网络
+    math: 当堂
+    measurement: 测量
+    text: 文字
+    data: 数据

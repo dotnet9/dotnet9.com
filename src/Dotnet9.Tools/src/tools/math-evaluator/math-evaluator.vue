@@ -16,6 +16,9 @@ const result = computed(() => withDefaultOnError(() => evaluate(expression.value
       multiline
       placeholder="您的数学表达式 (例如: 2*sqrt(6) )..."
       raw-text
+      monospace
+      autofocus
+      autosize
     />
 
     <c-card v-if="result !== ''" title="结果 " mt-5>

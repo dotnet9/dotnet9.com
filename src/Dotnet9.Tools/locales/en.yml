@@ -54,4 +54,18 @@ about:
   backHome: 'Back home'
 toolCard:
   new: New
-  
+search:
+  label: Search
+tools:
+  categories:
+    favorite-tools: 'Your favorite tools'
+    crypto: Crypto
+    converter: Converter
+    web: Web
+    images and videos: 'Images & Videos'
+    development: Development
+    network: Network
+    math: Math
+    measurement: Measurement
+    text: Text
+    data: Data

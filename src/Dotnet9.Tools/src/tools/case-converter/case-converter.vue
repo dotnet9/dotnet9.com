@@ -73,6 +73,13 @@ const formats = computed(() => [
     label: '小蛇式命名法（Snakecase）:',
     value: snakeCase(input.value, baseConfig),
   },
+  {
+    label: 'Mockingcase:',
+    value: noCase(input.value, baseConfig)
+      .split('')
+      .map((char, index) => (index % 2 === 0 ? char.toUpperCase() : char.toLowerCase()))
+      .join(''),
+  },
 ]);
 
 const inputLabelAlignmentConfig = {

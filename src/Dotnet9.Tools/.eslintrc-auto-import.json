@@ -4,14 +4,10 @@
     "ComponentPublicInstance": true,
     "ComputedRef": true,
     "EffectScope": true,
-    "ExtractDefaultPropTypes": true,
-    "ExtractPropTypes": true,
-    "ExtractPublicPropTypes": true,
     "InjectionKey": true,
     "PropType": true,
     "Ref": true,
     "VNode": true,
-    "WritableComputedRef": true,
     "asyncComputed": true,
     "autoResetRef": true,
     "computed": true,
@@ -43,7 +39,6 @@
     "h": true,
     "ignorableWatch": true,
     "inject": true,
-    "injectLocal": true,
     "isDefined": true,
     "isProxy": true,
     "isReactive": true,
@@ -73,7 +68,6 @@
     "onUpdated": true,
     "pausableWatch": true,
     "provide": true,
-    "provideLocal": true,
     "reactify": true,
     "reactifyObject": true,
     "reactive": true,
@@ -102,7 +96,6 @@
     "toReactive": true,
     "toRef": true,
     "toRefs": true,
-    "toValue": true,
     "triggerRef": true,
     "tryOnBeforeMount": true,
     "tryOnBeforeUnmount": true,
@@ -292,6 +285,7 @@
     "watchThrottled": true,
     "watchTriggerable": true,
     "watchWithFilter": true,
-    "whenever": true
+    "whenever": true,
+    "toValue": true
   }
 }
