@@ -89,13 +89,17 @@
               {{ state.info.author }}
             </a>
           </div>
-          <div>
+          <div v-if="link">
             <span>文章链接：</span>
             <a :href="link!" target="_blank">{{ link }}</a>
           </div>
           <div>
-            <span>本站短链接：</span>
-            <a :href="shortLink" target="_blank">{{ shortLink }}</a>
+            <span>文章短链接：</span>
+            <router-link
+              :to="'/' + state.info.shortSlug"
+            >
+              {{ shortLink }}
+            </router-link> 
           </div>
           <div>
             <span>版权声明：</span>本博客所有文章除特别声明外，均采用
