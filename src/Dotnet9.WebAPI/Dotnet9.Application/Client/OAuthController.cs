@@ -4,6 +4,7 @@ using MrHuo.OAuth.QQ;
 using System.Security.Policy;
 
 namespace Dotnet9.Application.Client;
+
 /// <summary>
 /// 第三方授权登录
 /// </summary>
@@ -14,10 +15,12 @@ public class OAuthController : IDynamicApiController
     /// 第三方授权缓存
     /// </summary>
     private const string OAuthKey = "oauth.";
+
     /// <summary>
     /// 授权成功后回调页面缓存键
     /// </summary>
     private const string OAuthRedirectKey = "oauth.redirect.";
+
     private readonly QQOAuth _qqoAuth;
     private readonly AuthManager _authManager;
     private readonly ISqlSugarRepository<AuthAccount> _accountRepository;
@@ -46,15 +49,15 @@ public class OAuthController : IDynamicApiController
     /// <summary>
     /// 获取授权地址
     /// </summary>
-    /// <param name="type"></param>
+    /// <param name="type">登录方式：qq</param>
+    /// <param name="requestUrl">请求登录的当前地址</param>
     /// <returns></returns>
     [HttpGet("{type}")]
     [AllowAnonymous]
-    public async Task<string> Get(string type)
+    public async Task<string> Get(string type, [FromQuery] string requestUrl)
     {
         string code = _idGenerator.Encode(_idGenerator.NewLong());
-        var referer = _httpContextAccessor.HttpContext!.Request.Headers.FirstOrDefault(x => x.Key.Equals("Referer", StringComparison.CurrentCultureIgnoreCase)).Value;
-        await _easyCachingProvider.SetAsync($"{OAuthRedirectKey}{code}", referer, TimeSpan.FromMinutes(5));
+        await _easyCachingProvider.SetAsync($"{OAuthRedirectKey}{code}", requestUrl, TimeSpan.FromMinutes(5));
         string url = type.ToLower() switch
         {
             "qq" => _qqoAuth.GetAuthorizeUrl(code),
@@ -78,6 +81,7 @@ public class OAuthController : IDynamicApiController
         {
             throw Oops.Oh("缺少参数");
         }
+
         AuthAccount account;
         switch (type.ToLower())
         {
@@ -87,19 +91,21 @@ public class OAuthController : IDynamicApiController
                 {
                     throw Oops.Bah(auth.ErrorMessage);
                 }
+
                 var info = auth.UserInfo;
                 string openId = await _qqoAuth.GetOpenId(auth.AccessToken.AccessToken);
-                account = await _accountRepository.AsQueryable().FirstAsync(x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == "qq");
+                account = await _accountRepository.AsQueryable()
+                    .FirstAsync(x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == "qq");
                 var gender = info.Gender == "男" ? Gender.Male :
                     info.Gender == "女" ? Gender.Female : Gender.Unknown;
                 if (account != null)
                 {
                     await _accountRepository.UpdateAsync(x => new AuthAccount()
-                    {
-                        Avatar = string.IsNullOrWhiteSpace(info.QQ100Avatar) ? info.Avatar : info.QQ100Avatar,
-                        Name = info.Name,
-                        Gender = gender
-                    },
+                        {
+                            Avatar = string.IsNullOrWhiteSpace(info.QQ100Avatar) ? info.Avatar : info.QQ100Avatar,
+                            Name = info.Name,
+                            Gender = gender
+                        },
                         x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == "qq");
                 }
                 else
@@ -113,6 +119,7 @@ public class OAuthController : IDynamicApiController
                         Type = "QQ"
                     });
                 }
+
                 break;
 
             default:
@@ -121,6 +128,7 @@ public class OAuthController : IDynamicApiController
 
         string key = $"{OAuthKey}{state}";
         await _easyCachingProvider.SetAsync(key, account, TimeSpan.FromSeconds(30));
+
         //登录成功后的回调页面
         string url = App.Configuration["oauth:redirect_uri"];
         return new RedirectResult($"{url}?code={state}");
@@ -135,13 +143,13 @@ public class OAuthController : IDynamicApiController
     [AllowAnonymous]
     public async Task<string> Login(string code)
     {
-        long decode = _idGenerator.Decode(code);
-        string key = $"{OAuthKey}{code}", key2 = $"{OAuthRedirectKey}{decode}";
+        string key = $"{OAuthKey}{code}", key2 = $"{OAuthRedirectKey}{code}";
         var value = await _easyCachingProvider.GetAsync<AuthAccount>(key);
         if (!value.HasValue)
         {
             throw Oops.Bah("无效参数");
         }
+
         long uniqueId = _idGenerator.NewLong();
         var account = value.Value;
         string token = JWTEncryption.Encrypt(new Dictionary<string, object>()
@@ -170,7 +178,8 @@ public class OAuthController : IDynamicApiController
     public async Task<OAuthAccountDetailOutput> UserInfo()
     {
         long id = _authManager.UserId;
-        return await _accountRepository.AsQueryable().LeftJoin<FriendLink>((account, link) => account.Id == link.AppUserId)
+        return await _accountRepository.AsQueryable()
+            .LeftJoin<FriendLink>((account, link) => account.Id == link.AppUserId)
             .Where(account => account.Id == id)
             .Select((account, link) => new OAuthAccountDetailOutput
             {

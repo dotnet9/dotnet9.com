@@ -2034,11 +2034,12 @@
             授权成功后回调页面缓存键
             </summary>
         </member>
-        <member name="M:Dotnet9.Application.Client.OAuthController.Get(System.String)">
+        <member name="M:Dotnet9.Application.Client.OAuthController.Get(System.String,System.String)">
             <summary>
             获取授权地址
             </summary>
-            <param name="type"></param>
+            <param name="type">登录方式：qq</param>
+            <param name="requestUrl">请求登录的当前地址</param>
             <returns></returns>
         </member>
         <member name="M:Dotnet9.Application.Client.OAuthController.Callback(System.String,System.String,System.String)">

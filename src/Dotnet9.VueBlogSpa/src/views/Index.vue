@@ -345,6 +345,8 @@ onMounted(async () => {
     const { data, succeeded } = await authStore.login(code as string);
     if (succeeded && data) {
       router.push(data);
+      location.href = data;
+      return;
     }
   }
   const [talks] = await Promise.all([

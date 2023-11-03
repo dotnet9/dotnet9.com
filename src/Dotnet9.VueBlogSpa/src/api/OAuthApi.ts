@@ -6,8 +6,8 @@ class OAuthApi {
    *  获取第三方登录跳转链接
    * @returns
    */
-  get = (type = "qq") => {
-    return http.get<string>("/oauth/" + type);
+  get = (type = "qq", requestUrl = location.href) => {
+    return http.get<string>("/oauth/" + type + "?requestUrl=" + requestUrl);
   };
   /**
    * 登录
