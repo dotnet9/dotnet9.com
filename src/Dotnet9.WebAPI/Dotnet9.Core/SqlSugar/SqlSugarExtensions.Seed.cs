@@ -302,7 +302,8 @@ public static partial class SqlSugarExtensions
                 CreatedUserId = user.Id,
                 CreatedTime = blogPostOfMarkdown.Date,
                 PublishTime = blogPostOfMarkdown.Date,
-                UpdatedTime = blogPostOfMarkdown.LastModifyDate
+                UpdatedTime = blogPostOfMarkdown.LastModifyDate,
+                IsAllowComments = true
             };
             if (article.CreationType == CreationType.Original)
             {
