@@ -7,7 +7,7 @@ public class SelectOutput
     /// <summary>
     /// 文本
     /// </summary>
-    public string Label { get; set; }
+    public string Label { get; set; } = null!;
 
     /// <summary>
     /// 值

@@ -9,7 +9,7 @@ public class TagsPageOutput
     /// <summary>
     /// 标签名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     /// <summary>
     /// 状态
     /// </summary>
@@ -21,15 +21,15 @@ public class TagsPageOutput
     /// <summary>
     /// 标签封面
     /// </summary>
-    public string Cover { get; set; }
+    public string? Cover { get; set; }
     /// <summary>
     /// 标签图标
     /// </summary>
-    public string Icon { get; set; }
+    public string? Icon { get; set; }
     /// <summary>
     /// 标签颜色 
     /// </summary>
-    public string Color { get; set; }
+    public string? Color { get; set; }
     /// <summary>
     /// 创建时间
     /// </summary>

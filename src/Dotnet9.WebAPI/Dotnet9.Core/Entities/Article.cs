@@ -11,31 +11,31 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// 标题
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 短别名
     /// </summary>
     [SugarColumn(Length = 8)]
-    public string ShortSlug { get; set; }
+    public string ShortSlug { get; set; } = null!;
 
     /// <summary>
     /// 概要
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Summary { get; set; }
+    public string Summary { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 是否置顶
@@ -51,7 +51,7 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// 作者
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string Author { get; set; }
+    public string Author { get; set; } = null!;
 
     /// <summary>
     /// 原文地址
@@ -68,7 +68,7 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// 文章正文（Html或markdown）
     /// </summary>
     [SugarColumn(ColumnDataType = "text")]
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 文章正文是否为html代码

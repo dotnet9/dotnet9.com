@@ -11,13 +11,13 @@ public class Covers : Entity<long>, IAvailability, ISortable, ICreatedUserId, IS
     /// 模块名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 模块类型

@@ -14,7 +14,7 @@
         public bool Draft { get; set; }
         public string Cover { get; set; } = null!;
         public string? Album { get; set; }
-        public string Category { get; set; }
+        public string Category { get; set; } = null!;
         public string[]? Tags { get; set; }
         public string Content { get; set; } = null!;
         public bool Banner { get; set; }

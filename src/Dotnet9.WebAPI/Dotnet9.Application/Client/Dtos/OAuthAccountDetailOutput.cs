@@ -10,11 +10,11 @@ public class OAuthAccountDetailOutput
     /// <summary>
     /// 昵称
     /// </summary>
-    public string NickName { get; set; }
+    public string NickName { get; set; } = null!;
     /// <summary>
     /// 头像
     /// </summary>
-    public string Avatar { get; set; }
+    public string Avatar { get; set; } = null!;
     /// <summary>
     /// 状态
     /// </summary>
@@ -22,21 +22,21 @@ public class OAuthAccountDetailOutput
     /// <summary>
     /// 网站链接
     /// </summary>
-    public string Link { get; set; }
+    public string? Link { get; set; }
     /// <summary>
     /// logo 
     /// </summary>
-    public string Logo { get; set; }
+    public string? Logo { get; set; }
     /// <summary>
     /// 网站名称
     /// </summary>
-    public string SiteName { get; set; }
+    public string? SiteName { get; set; }
     /// <summary>
     /// 对方博客友链地址
     /// </summary>
-    public string Url { get; set; }
+    public string? Url { get; set; }
     /// <summary>
     /// 网站介绍
     /// </summary>
-    public string Remark { get; set; }
+    public string? Remark { get; set; }
 }

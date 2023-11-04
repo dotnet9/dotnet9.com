@@ -13,19 +13,19 @@ public class SysSigninLog : Entity<long>, ICreatedTime
     /// ip地址
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string RemoteIp { get; set; }
+    public string? RemoteIp { get; set; }
 
     /// <summary>
     /// 浏览器
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string UserAgent { get; set; }
+    public string? UserAgent { get; set; }
 
     /// <summary>
     /// Ip归属地
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string Location { get; set; }
+    public string? Location { get; set; }
 
     /// <summary>
     /// 用户系统信息

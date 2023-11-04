@@ -7,7 +7,7 @@ public class SysSecuritySetting
     /// <summary>
     /// 用户默认密码
     /// </summary>
-    public string Password { get; set; }
+    public string Password { get; set; } = null!;
     /// <summary>
     /// 密码错误次数
     /// </summary>
@@ -15,11 +15,11 @@ public class SysSecuritySetting
     /// <summary>
     /// 密码规则
     /// </summary>
-    public string PasswordRule { get; set; }
+    public string PasswordRule { get; set; } = null!;
     /// <summary>
     /// 密码规则提示语
     /// </summary>
-    public string RuleMessage { get; set; }
+    public string RuleMessage { get; set; } = null!;
     /// <summary>
     /// Token有效期(分钟)
     /// </summary>

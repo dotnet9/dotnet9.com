@@ -9,17 +9,17 @@ public class FriendLinkOutput
     /// <summary>
     /// 友链
     /// </summary>
-    public string Link { get; set; }
+    public string Link { get; set; } = null!;
     /// <summary>
     /// logo
     /// </summary>
-    public string Logo { get; set; }
+    public string Logo { get; set; } = null!;
     /// <summary>
     /// 站点名称
     /// </summary>
-    public string SiteName { get; set; }
+    public string SiteName { get; set; } = null!;
     /// <summary>
     /// 网站描述
     /// </summary>
-    public string Remark { get; set; }
+    public string Remark { get; set; } = null!;
 }

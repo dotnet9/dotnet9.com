@@ -9,28 +9,28 @@ public class AddArticleInput
     /// </summary>
     [Required(ErrorMessage = "标题为必填项")]
     [MaxLength(128, ErrorMessage = "标题限制128个字符内")]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
     [Required(ErrorMessage = "别名为必填项")]
     [MaxLength(128, ErrorMessage = "别名限制256个字符内")]
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 概要
     /// </summary>
     [Required(ErrorMessage = "概要为必填项")]
     [MaxLength(256, ErrorMessage = "概要限制256个字符内")]
-    public string Summary { get; set; }
+    public string Summary { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [Required(ErrorMessage = "上传封面图")]
     [MaxLength(256)]
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 是否置顶
@@ -42,14 +42,14 @@ public class AddArticleInput
     /// </summary>
     [Required(ErrorMessage = "文章作者为必填项")]
     [MaxLength(32, ErrorMessage = "文章作者限制32个字符内")]
-    public string Author { get; set; }
+    public string? Author { get; set; }
 
     /// <summary>
     /// 原文地址
     /// </summary>
     [MaxLength(256, ErrorMessage = "原文地址限制256个字符内")]
     [DataValidation(ValidationTypes.Url, ErrorMessage = "请输入正确的网络链接", AllowNullValue = true)]
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
     /// <summary>
     /// 创作类型
@@ -61,7 +61,7 @@ public class AddArticleInput
     /// 文章正文（Html或markdown）
     /// </summary>
     [Required(ErrorMessage = "文章内容为必填项")]
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 文章正文是否为html代码
@@ -98,7 +98,7 @@ public class AddArticleInput
     /// 标签
     /// </summary>
     [Required(ErrorMessage = "请选择文章标签")]
-    public List<long> Tags { get; set; }
+    public List<long>? Tags { get; set; }
 
     /// <summary>
     /// 分类ID

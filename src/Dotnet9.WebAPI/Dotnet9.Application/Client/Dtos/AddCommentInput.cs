@@ -27,5 +27,5 @@ public class AddCommentInput
     /// </summary>
     [MaxLength(600, ErrorMessage = "内容限制600个字符内")]
     [Required(ErrorMessage = "请输入内容")]
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 }

@@ -10,12 +10,12 @@ public class AuthAccount : Entity<long>, IUpdatedTime, ISoftDelete, ICreatedTime
     /// <summary>
     /// 授权唯一标识
     /// </summary>
-    public string OAuthId { get; set; }
+    public string OAuthId { get; set; } = null!;
 
     /// <summary>
     /// 授权类型
     /// </summary>
-    public string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     /// <summary>
     /// 博主标识

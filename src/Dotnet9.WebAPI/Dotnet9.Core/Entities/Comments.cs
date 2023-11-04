@@ -33,19 +33,19 @@ public class Comments : Entity<long>, ISoftDelete, ICreatedTime
     /// 评论内容
     /// </summary>
     [SugarColumn(Length = 1024)]
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// Ip地址
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string IP { get; set; }
+    public string IP { get; set; } = null!;
 
     /// <summary>
     /// IP所属地
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string Geolocation { get; set; }
+    public string? Geolocation { get; set; }
 
     /// <summary>
     /// 标记删除

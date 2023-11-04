@@ -27,25 +27,25 @@ public class SysOperationLog : Entity<long>, ICreatedTime
     /// 控制器名称
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string ControllerName { get; set; }
+    public string ControllerName { get; set; } = null!;
 
     /// <summary>
     /// 路由名称
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string ActionName { get; set; }
+    public string ActionName { get; set; } = null!;
 
     /// <summary>
     /// 请求方式
     /// </summary>
     [SugarColumn(Length = 16)]
-    public string HttpMethod { get; set; }
+    public string HttpMethod { get; set; } = null!;
 
     /// <summary>
     /// 请求跟踪唯一ID （同一次请求ID相同）
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string TraceId { get; set; }
+    public string TraceId { get; set; } = null!;
 
     /// <summary>
     /// 线程ID
@@ -56,19 +56,19 @@ public class SysOperationLog : Entity<long>, ICreatedTime
     /// 浏览器
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string UserAgent { get; set; }
+    public string? UserAgent { get; set; }
 
     /// <summary>
     /// 请求地址
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string RequestUrl { get; set; }
+    public string? RequestUrl { get; set; }
 
     /// <summary>
     /// ip地址
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string RemoteIp { get; set; }
+    public string? RemoteIp { get; set; }
 
     /// <summary>
     /// 用户系统信息
@@ -85,7 +85,7 @@ public class SysOperationLog : Entity<long>, ICreatedTime
     /// Ip归属地
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string Location { get; set; }
+    public string? Location { get; set; }
 
     /// <summary>
     /// http状态码

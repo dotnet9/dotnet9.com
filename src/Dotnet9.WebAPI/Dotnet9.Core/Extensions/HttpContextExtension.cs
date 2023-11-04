@@ -14,7 +14,7 @@ public static class HttpContextExtension
     /// <returns></returns>
     public static string GetRemoteIp(this HttpContext context)
     {
-        string ip = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+        var ip = context.Request.Headers["X-Forwarded-For"].FirstOrDefault();
         if (string.IsNullOrWhiteSpace(ip))
         {
             ip = context.GetRemoteIpAddressToIPv4();

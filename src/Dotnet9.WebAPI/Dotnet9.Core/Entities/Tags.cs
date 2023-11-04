@@ -11,13 +11,13 @@ public class Tags : Entity<long>, ISortable, IAvailability, ICreatedUserId, ISof
     /// 标签名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Cover { get; set; }
+    public string? Cover { get; set; }
 
     /// <summary>
     /// 标签颜色

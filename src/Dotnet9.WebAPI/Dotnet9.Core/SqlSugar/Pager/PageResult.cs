@@ -21,5 +21,5 @@ public class PageResult<T>
     /// <summary>
     /// 数据
     /// </summary>
-    public IList<T> Rows { get; set; }
+    public IList<T>? Rows { get; set; }
 }

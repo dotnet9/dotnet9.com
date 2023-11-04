@@ -3,5 +3,5 @@
 public class PicturesPageOutput
 {
     public long Id { get; set; }
-    public string Url { get; set; }
+    public string Url { get; set; } = null!;
 }

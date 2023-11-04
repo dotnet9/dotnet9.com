@@ -40,14 +40,16 @@ public class Startup : AppStartup
             {
                 OnMessageReceived = context =>
                 {
-                    if (!context.HttpContext.Request.Headers.ContainsKey("Authorization"))
+                    if (context.HttpContext.Request.Headers.ContainsKey("Authorization"))
                     {
-                        //读取cookie中的token
-                        string token = context.HttpContext.Request.Cookies["access-token"]?.Trim('"');
-                        if (!string.IsNullOrWhiteSpace(token))
-                        {
-                            context.Token = token;
-                        }
+                        return Task.CompletedTask;
+                    }
+
+                    //读取cookie中的token
+                    var token = context.HttpContext.Request.Cookies["access-token"]?.Trim('"');
+                    if (!string.IsNullOrWhiteSpace(token))
+                    {
+                        context.Token = token;
                     }
 
                     return Task.CompletedTask;
@@ -92,12 +94,13 @@ public class Startup : AppStartup
         services.AddControllers()
             .AddNewtonsoftJson(options =>
             {
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); // 首字母小写（驼峰样式）
+                options.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver(); // 首字母小写（驼峰样式）
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss"; // 时间格式化
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // 忽略循环引用
-                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;//忽略空值
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; //忽略空值
             })
-                .AddInjectWithUnifyResult();
+            .AddInjectWithUnifyResult();
 
         //雪花id 文档：https://github.com/yitter/IdGenerator
         services.AddIdGenerator(App.GetConfig<SnowIdOptions>("SnowId"));
@@ -125,10 +128,7 @@ public class Startup : AppStartup
 
         // OSS文档：https://github.com/oncemi/OnceMi.AspNetCore.OSS
         var ossOptions = App.GetConfig<OssConnectionOptions>("OssConnection");
-        services.AddOSSService(options =>
-        {
-            ossOptions.Adapt(options);
-        });
+        services.AddOSSService(options => { ossOptions.Adapt(options); });
         var auth = new QQOAuth(OAuthConfig.LoadFrom(App.Configuration, "oauth:qq"));
         services.AddSingleton(auth);
 
@@ -160,12 +160,12 @@ public class Startup : AppStartup
             option.ImageOption.FontSize = 36; // 字体大小
             option.ImageOption.FontFamily = DefaultFontFamilys.Instance.Actionj; // 字体
 
-            /* 
+            /*
              * 中文使用kaiti，其他字符可根据喜好设置（可能部分转字符会出现绘制不出的情况）。
              * 当验证码类型为“ARITHMETIC”时，不要使用“Ransom”字体。（运算符和等号绘制不出来）
              */
 
-            option.ImageOption.TextBold = true;// 粗体，该配置2.0.3新增
+            option.ImageOption.TextBold = true; // 粗体，该配置2.0.3新增
         });
 
         #endregion
@@ -202,9 +202,6 @@ public class Startup : AppStartup
             await next.Invoke();
         });
 
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

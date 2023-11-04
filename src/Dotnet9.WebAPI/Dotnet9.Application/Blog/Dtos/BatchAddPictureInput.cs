@@ -3,5 +3,5 @@
 public class BatchAddPictureInput
 {
     [Required(ErrorMessage = "请上传图片")]
-    public List<AddPictureInput> Pictures { get; set; }
+    public List<AddPictureInput> Pictures { get; set; } = null!;
 }

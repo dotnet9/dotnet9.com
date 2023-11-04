@@ -10,12 +10,12 @@ public class AlbumsPageOutput
     /// <summary>
     /// 专辑名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 专辑别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 状态
@@ -30,12 +30,12 @@ public class AlbumsPageOutput
     /// <summary>
     /// 备注
     /// </summary>
-    public string Remark { get; set; }
+    public string? Remark { get; set; }
 
     /// <summary>
     /// 标签封面
     /// </summary>
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 创建时间

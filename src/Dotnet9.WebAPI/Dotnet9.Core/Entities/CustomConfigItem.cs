@@ -15,7 +15,7 @@ public class CustomConfigItem : Entity<long>, IAvailability, ICreatedUserId, ISo
     /// 配置
     /// </summary>
     [SugarColumn(ColumnDataType = "text")]
-    public string Json { get; set; }
+    public string Json { get; set; } = null!;
 
     /// <summary>
     /// 可用状态

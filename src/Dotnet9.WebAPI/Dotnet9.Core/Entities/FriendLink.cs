@@ -16,19 +16,19 @@ public class FriendLink : Entity<long>, ISortable, IAvailability, ISoftDelete, I
     /// 网站名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string SiteName { get; set; }
+    public string SiteName { get; set; } = null!;
 
     /// <summary>
     /// 网站链接
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Link { get; set; }
+    public string Link { get; set; } = null!;
 
     /// <summary>
     /// 网站logo
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Logo { get; set; }
+    public string Logo { get; set; } = null!;
 
     /// <summary>
     /// 对方博客友链的地址

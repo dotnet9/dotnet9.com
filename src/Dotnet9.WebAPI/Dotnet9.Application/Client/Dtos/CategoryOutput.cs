@@ -20,12 +20,12 @@ public class CategoryOutput
     /// <summary>
     /// 分类名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 分类别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 文章条数

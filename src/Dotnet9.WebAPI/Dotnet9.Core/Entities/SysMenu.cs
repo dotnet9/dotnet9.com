@@ -11,7 +11,7 @@ public class SysMenu : Entity<long>, IAvailability, ISortable, ICreatedUserId, I
     /// 菜单名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 菜单类型

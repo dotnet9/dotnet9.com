@@ -7,11 +7,11 @@ public class BlogSetting
     /// <summary>
     /// 网站Logo
     /// </summary>
-    public string Logo { get; set; }
+    public string Logo { get; set; } = null!;
     /// <summary>
     /// 站点图标
     /// </summary>
-    public string Favicon { get; set; }
+    public string Favicon { get; set; } = null!;
     /// <summary>
     /// 开启打赏
     /// </summary>
@@ -19,11 +19,11 @@ public class BlogSetting
     /// <summary>
     /// 支付宝
     /// </summary>
-    public string AliPay { get; set; }
+    public string AliPay { get; set; } = null!;
     /// <summary>
     /// 微信收款码
     /// </summary>
-    public string WxPay { get; set; }
+    public string WxPay { get; set; } = null!;
     /// <summary>
     /// 允许留言
     /// </summary>
@@ -35,15 +35,15 @@ public class BlogSetting
     /// <summary>
     /// 公告
     /// </summary>
-    public string Announcement { get; set; }
+    public string Announcement { get; set; } = null!;
     /// <summary>
     /// 站点名称
     /// </summary>
-    public string SiteName { get; set; }
+    public string SiteName { get; set; } = null!;
     /// <summary>
     /// 首页格言
     /// </summary>
-    public string Motto { get; set; }
+    public string Motto { get; set; } = null!;
     /// <summary>
     /// 网站运营时间
     /// </summary>
@@ -51,17 +51,17 @@ public class BlogSetting
     /// <summary>
     /// 站点版权
     /// </summary>
-    public string Copyright { get; set; }
+    public string Copyright { get; set; } = null!;
     /// <summary>
     /// 站点描述
     /// </summary>
-    public string Description { get; set; }
+    public string Description { get; set; } = null!;
     /// <summary>
     /// 关键词
     /// </summary>
-    public string Keyword { get; set; }
+    public string Keyword { get; set; } = null!;
     /// <summary>
     /// 备案号
     /// </summary>
-    public string Filing { get; set; }
+    public string Filing { get; set; } = null!;
 }

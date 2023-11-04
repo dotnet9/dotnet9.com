@@ -20,12 +20,12 @@ public class CommentOutput
     /// <summary>
     /// 昵称
     /// </summary>
-    public string NickName { get; set; }
+    public string? NickName { get; set; }
 
     /// <summary>
     /// 头像
     /// </summary>
-    public string Avatar { get; set; }
+    public string? Avatar { get; set; }
 
     /// <summary>
     /// 楼层
@@ -34,7 +34,7 @@ public class CommentOutput
     /// <summary>
     /// 评论内容
     /// </summary>
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 回复条数
@@ -51,11 +51,11 @@ public class CommentOutput
     /// <summary>
     /// Ip地址
     /// </summary>
-    public string IP { get; set; }
+    public string? IP { get; set; }
     /// <summary>
     /// Ip归属地
     /// </summary>
-    public string Geolocation { get; set; }
+    public string? Geolocation { get; set; }
     /// <summary>
     /// 评论时间
     /// </summary>

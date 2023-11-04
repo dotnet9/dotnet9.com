@@ -13,22 +13,22 @@ public class ArticleDetailOutput
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 简介
     /// </summary>
-    public string Summary { get; set; }
+    public string Summary { get; set; } = null!;
 
     /// <summary>
     /// 封面
     /// </summary>
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 状态
@@ -38,7 +38,7 @@ public class ArticleDetailOutput
     /// <summary>
     /// 原文地址
     /// </summary>
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
     /// <summary>
     /// 是否置顶
@@ -53,12 +53,12 @@ public class ArticleDetailOutput
     /// <summary>
     /// 作者
     /// </summary>
-    public string Author { get; set; }
+    public string Author { get; set; } = null!;
 
     /// <summary>
     /// 文章内容
     /// </summary>
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 是否允许评论
@@ -84,7 +84,7 @@ public class ArticleDetailOutput
     /// <summary>
     /// 标签
     /// </summary>
-    public List<long> Tags { get; set; }
+    public List<long>? Tags { get; set; }
 
     /// <summary>
     /// 分类ID

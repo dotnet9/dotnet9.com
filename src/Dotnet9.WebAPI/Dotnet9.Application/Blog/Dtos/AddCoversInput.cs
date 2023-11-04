@@ -7,14 +7,14 @@ public class AddCoversInput
     /// </summary>
     [Required(ErrorMessage = "模块名称为必填项")]
     [MaxLength(32, ErrorMessage = "模块名称限制32个字符")]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [Required(ErrorMessage = "请上传模块封面")]
     [MaxLength(256)]
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 模块类型
@@ -36,7 +36,7 @@ public class AddCoversInput
     /// 备注
     /// </summary>
     [MaxLength(200, ErrorMessage = "备注限制200个字符内")]
-    public string Remark { get; set; }
+    public string? Remark { get; set; }
 
     /// <summary>
     /// 是否可见

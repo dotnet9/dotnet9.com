@@ -10,7 +10,7 @@ public class ArticleBasicsOutput
     /// <summary>
     /// 封面图
     /// </summary>
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 类型
@@ -20,12 +20,12 @@ public class ArticleBasicsOutput
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 发布时间

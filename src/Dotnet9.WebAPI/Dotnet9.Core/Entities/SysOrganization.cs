@@ -16,13 +16,13 @@ public class SysOrganization : Entity<long>, IAvailability, ISortable, ICreatedU
     /// 部门名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 部门编码
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string Code { get; set; }
+    public string Code { get; set; } = null!;
 
     /// <summary>
     /// 可用状态

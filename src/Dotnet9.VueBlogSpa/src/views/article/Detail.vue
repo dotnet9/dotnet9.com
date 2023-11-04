@@ -222,7 +222,7 @@
         <hr />
         <!-- 评论 -->
         <Comment
-          :type="state.slugOrShortSlug"
+          :type="state.info.id"
           @getCommentCount="getCommentCount"
           v-if="state.info.isAllowComments && blogSetting.isAllowComments"
         />

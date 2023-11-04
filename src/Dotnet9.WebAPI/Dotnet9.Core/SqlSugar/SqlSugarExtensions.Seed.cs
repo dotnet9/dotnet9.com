@@ -58,16 +58,16 @@ public static partial class SqlSugarExtensions
         };
         client.Storageable(users).ToStorage().AsInsertable.ExecuteCommand();
 
-        string path = Path.Combine(AppContext.BaseDirectory, "InitData");
+        var path = Path.Combine(AppContext.BaseDirectory, "InitData");
         var dir = new DirectoryInfo(path);
         var files = dir.GetFiles("*.json").ToList();
         InitDataFromFile(client, users[0]);
         foreach (var file in files)
         {
             using var reader = file.OpenText();
-            string s = reader.ReadToEnd();
+            var s = reader.ReadToEnd();
             var table = JsonConvert.DeserializeObject<DataTable>(s);
-            if (table.Rows.Count == 0)
+            if (table == null || table.Rows.Count == 0)
             {
                 continue;
             }
@@ -116,11 +116,16 @@ public static partial class SqlSugarExtensions
         }
 
         var friendLinks = JsonConvert.DeserializeObject<List<FriendLink>>(File.ReadAllText(filePath));
+        if (!(friendLinks?.Count > 0))
+        {
+            return;
+        }
+
         var id = 0;
         friendLinks.ForEach(link =>
         {
             link.Id = ++id;
-            link.Link = link.Url;
+            link.Link = link.Url!;
         });
         client.Storageable(friendLinks).ToStorage().AsInsertable.ExecuteCommand();
     }
@@ -140,6 +145,11 @@ public static partial class SqlSugarExtensions
         }
 
         var timelines = JsonConvert.DeserializeObject<List<TimelineSeedDto>>(File.ReadAllText(filePath));
+        if (!(timelines?.Count > 0))
+        {
+            return;
+        }
+
         var id = 0;
         var allTimelines = timelines.Select(timeline => new Talks()
         {
@@ -192,6 +202,11 @@ public static partial class SqlSugarExtensions
         }
 
         var categories = JsonConvert.DeserializeObject<List<Categories>>(File.ReadAllText(filePath));
+        if (!(categories?.Count > 0))
+        {
+            return null;
+        }
+
         var allCategories = new List<Categories>();
 
 
@@ -233,7 +248,10 @@ public static partial class SqlSugarExtensions
         }
 
         var albums = JsonConvert.DeserializeObject<List<Albums>>(File.ReadAllText(filePath));
-
+        if (!(albums?.Count > 0))
+        {
+            return null;
+        }
 
         long id = 0;
         foreach (var album in albums)

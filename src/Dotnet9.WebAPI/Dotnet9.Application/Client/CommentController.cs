@@ -23,6 +23,7 @@ public class CommentController : IDynamicApiController
         _httpContextAccessor = httpContextAccessor;
         _authManager = authManager;
     }
+
     /// <summary>
     /// 评论列表
     /// </summary>
@@ -43,9 +44,9 @@ public class CommentController : IDynamicApiController
                 IsPraise = SqlFunc.Subqueryable<Praise>().Where(x => x.ObjectId == c.Id && x.AccountId == userId).Any(),
                 ReplyCount = SqlFunc.Subqueryable<Comments>().Where(s => s.RootId == c.Id).Count(),
                 IP = c.IP,
-                Avatar = account.Avatar,
+                Avatar = account.Avatar!,
                 AccountId = account.Id,
-                NickName = account.Name,
+                NickName = account.Name!,
                 IsBlogger = account.IsBlogger,
                 Geolocation = c.Geolocation,
                 CreatedTime = c.CreatedTime
@@ -76,27 +77,27 @@ public class CommentController : IDynamicApiController
     {
         long userId = _authManager.UserId;
         return await _repository.AsQueryable().LeftJoin<AuthAccount>((c, a1) => c.AccountId == a1.Id)
-              .LeftJoin<AuthAccount>((c, a1, a2) => c.ReplyAccountId == a2.Id)
-              .Where(c => c.RootId == dto.Id)
-              .OrderBy(c => c.Id)
-              .Select((c, a1, a2) => new ReplyOutput
-              {
-                  Id = c.Id,
-                  Content = c.Content,
-                  ParentId = c.ParentId,
-                  AccountId = c.AccountId,
-                  ReplyAccountId = c.ReplyAccountId,
-                  IsBlogger = a1.IsBlogger,
-                  NickName = a1.Name,
-                  RelyNickName = a2.Name,
-                  RootId = c.RootId,
-                  Avatar = a1.Avatar,
-                  PraiseTotal = SqlFunc.Subqueryable<Praise>().Where(x => x.ObjectId == c.Id).Count(),
-                  IsPraise = SqlFunc.Subqueryable<Praise>().Where(x => x.ObjectId == c.Id && x.AccountId == userId).Any(),
-                  IP = c.IP,
-                  Geolocation = c.Geolocation,
-                  CreatedTime = c.CreatedTime
-              }).ToPagedListAsync(dto);
+            .LeftJoin<AuthAccount>((c, a1, a2) => c.ReplyAccountId == a2.Id)
+            .Where(c => c.RootId == dto.Id)
+            .OrderBy(c => c.Id)
+            .Select((c, a1, a2) => new ReplyOutput
+            {
+                Id = c.Id,
+                Content = c.Content,
+                ParentId = c.ParentId,
+                AccountId = c.AccountId,
+                ReplyAccountId = c.ReplyAccountId,
+                IsBlogger = a1.IsBlogger,
+                NickName = a1.Name!,
+                RelyNickName = a2.Name!,
+                RootId = c.RootId,
+                Avatar = a1.Avatar!,
+                PraiseTotal = SqlFunc.Subqueryable<Praise>().Where(x => x.ObjectId == c.Id).Count(),
+                IsPraise = SqlFunc.Subqueryable<Praise>().Where(x => x.ObjectId == c.Id && x.AccountId == userId).Any(),
+                IP = c.IP,
+                Geolocation = c.Geolocation,
+                CreatedTime = c.CreatedTime
+            }).ToPagedListAsync(dto);
     }
 
     /// <summary>
@@ -107,10 +108,10 @@ public class CommentController : IDynamicApiController
     [HttpPost]
     public async Task Add(AddCommentInput dto)
     {
-        string address = _httpContextAccessor.HttpContext.GetGeolocation();
+        var address = _httpContextAccessor.HttpContext!.GetGeolocation();
         var comments = dto.Adapt<Comments>();
         comments.AccountId = _authManager.UserId;
-        comments.IP = _httpContextAccessor.HttpContext.GetRemoteIp();
+        comments.IP = _httpContextAccessor.HttpContext!.GetRemoteIp();
         comments.Geolocation = address;
         await _repository.InsertAsync(comments);
     }
@@ -125,8 +126,11 @@ public class CommentController : IDynamicApiController
     {
         if (await _praiseRepository.IsAnyAsync(x => x.ObjectId == dto.Id))
         {
-            return await _praiseRepository.DeleteAsync(x => x.ObjectId == dto.Id) ? false : throw Oops.Oh("糟糕，取消失败了...");
+            return await _praiseRepository.DeleteAsync(x => x.ObjectId == dto.Id)
+                ? false
+                : throw Oops.Oh("糟糕，取消失败了...");
         }
+
         var praise = new Praise()
         {
             AccountId = _authManager.UserId,

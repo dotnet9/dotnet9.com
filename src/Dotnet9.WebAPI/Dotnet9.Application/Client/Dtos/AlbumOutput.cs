@@ -15,12 +15,12 @@ public class AlbumOutput
     /// <summary>
     /// 专辑名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 专辑别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 文章条数

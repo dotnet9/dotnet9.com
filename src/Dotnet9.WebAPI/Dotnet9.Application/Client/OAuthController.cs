@@ -130,7 +130,7 @@ public class OAuthController : IDynamicApiController
         await _easyCachingProvider.SetAsync(key, account, TimeSpan.FromSeconds(30));
 
         //登录成功后的回调页面
-        string url = App.Configuration["oauth:redirect_uri"];
+        var url = App.Configuration["oauth:redirect_uri"]!;
         return new RedirectResult($"{url}?code={state}");
     }
 
@@ -184,14 +184,14 @@ public class OAuthController : IDynamicApiController
             .Select((account, link) => new OAuthAccountDetailOutput
             {
                 Id = account.Id,
-                Avatar = account.Avatar,
+                Avatar = account.Avatar!,
                 Status = link.Status,
-                NickName = account.Name,
+                NickName = account.Name!,
                 Link = link.Link,
                 Logo = link.Logo,
                 SiteName = link.SiteName,
-                Url = link.Url,
-                Remark = link.Remark
+                Url = link.Url!,
+                Remark = link.Remark!
             }).FirstAsync();
     }
 

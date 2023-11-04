@@ -7,5 +7,5 @@ public class TreeSelectOutput : SelectOutput
     /// <summary>
     /// 子选项
     /// </summary>
-    public List<TreeSelectOutput> Children { get; set; }
+    public List<TreeSelectOutput>? Children { get; set; }
 }

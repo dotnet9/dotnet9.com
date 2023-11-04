@@ -11,19 +11,19 @@ public class SysUser : Entity<long>, IUpdatedTime, IAvailability, ICreatedUserId
     /// 用户名
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Account { get; set; }
+    public string Account { get; set; } = null!;
 
     /// <summary>
     /// 密码
     /// </summary>
     [SugarColumn(Length = 64)]
-    public string Password { get; set; }
+    public string Password { get; set; } = null!;
 
     /// <summary>
     /// 姓名
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 性别

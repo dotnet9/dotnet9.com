@@ -5,7 +5,7 @@ public class CoversPageQueryInput : Pagination
     /// <summary>
     /// 模块名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 模块类型

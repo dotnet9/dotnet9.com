@@ -12,12 +12,12 @@ public class ArticlePageOutput
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 文章别名
     /// </summary>
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 状态
@@ -32,7 +32,7 @@ public class ArticlePageOutput
     /// <summary>
     /// 封面
     /// </summary>
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 是否置顶
@@ -63,10 +63,10 @@ public class ArticlePageOutput
     /// <summary>
     /// 分类名称
     /// </summary>
-    public string CategoryName { get; set; }
+    public string CategoryName { get; set; } = null!;
 
     /// <summary>
     /// 专辑名称
     /// </summary>
-    public string AlbumName { get; set; }
+    public string? AlbumName { get; set; }
 }

@@ -10,13 +10,13 @@ public class CustomConfig : Entity<long>, IAvailability, ICreatedUserId, ISoftDe
     /// 配置名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 配置唯一编码（类名）
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Code { get; set; }
+    public string Code { get; set; } = null!;
 
     /// <summary>
     /// 是否是多项（集合）

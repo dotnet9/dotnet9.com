@@ -9,19 +9,19 @@ public class Albums : Entity<long>, ISortable, IAvailability, ICreatedUserId, IS
     /// 专辑名称
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 别名
     /// </summary>
     [SugarColumn(Length = 128)]
-    public string Slug { get; set; }
+    public string Slug { get; set; } = null!;
 
     /// <summary>
     /// 封面图
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Cover { get; set; }
+    public string Cover { get; set; } = null!;
 
     /// <summary>
     /// 可用状态

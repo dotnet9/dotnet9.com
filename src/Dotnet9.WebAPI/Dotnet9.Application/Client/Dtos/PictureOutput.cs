@@ -9,5 +9,5 @@ public class PictureOutput
     /// <summary>
     /// 图片地址
     /// </summary>
-    public string Url { get; set; }
+    public string Url { get; set; } = null!;
 }

@@ -13,7 +13,7 @@ public class FriendLinkPageOutput
     /// <summary>
     /// 站点名称
     /// </summary>
-    public string SiteName { get; set; }
+    public string SiteName { get; set; } = null!;
     /// <summary>
     /// 创建时间
     /// </summary>
@@ -25,15 +25,15 @@ public class FriendLinkPageOutput
     /// <summary>
     /// 友链
     /// </summary>
-    public string Link { get; set; }
+    public string Link { get; set; } = null!;
     /// <summary>
     /// Logo链接
     /// </summary>
-    public string Logo { get; set; }
+    public string Logo { get; set; } = null!;
     /// <summary>
     /// 对方博客友情链接地址
     /// </summary>
-    public string Url { get; set; }
+    public string Url { get; set; } = null!;
     /// <summary>
     /// 排序
     /// </summary>
@@ -41,5 +41,5 @@ public class FriendLinkPageOutput
     /// <summary>
     /// 描述
     /// </summary>
-    public string Remark { get; set; }
+    public string Remark { get; set; } = null!;
 }

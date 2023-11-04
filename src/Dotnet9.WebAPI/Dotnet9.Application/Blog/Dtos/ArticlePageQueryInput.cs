@@ -5,7 +5,7 @@ public class ArticlePageQueryInput : Pagination
     /// <summary>
     /// 标题
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     /// <summary>
     /// 分类ID

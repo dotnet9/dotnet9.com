@@ -11,13 +11,13 @@ public class SysRole : Entity<long>, IAvailability, ISortable, ISoftDelete, ICre
     /// 角色名
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// 角色编码
     /// </summary>
     [SugarColumn(Length = 32)]
-    public string Code { get; set; }
+    public string Code { get; set; } = null!;
 
     /// <summary>
     /// 可用状态

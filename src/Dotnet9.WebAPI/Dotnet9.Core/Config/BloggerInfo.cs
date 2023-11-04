@@ -5,35 +5,35 @@ public class BloggerInfo
     /// <summary>
     /// 头像
     /// </summary>
-    public string Avatar { get; set; }
+    public string Avatar { get; set; } = null!;
 
     /// <summary>
     /// 昵称
     /// </summary>
-    public string NikeName { get; set; }
+    public string NikeName { get; set; } = null!;
 
     /// <summary>
     /// QQ
     /// </summary>
-    public string QQ { get; set; }
+    public string QQ { get; set; } = null!;
 
     /// <summary>
     /// Github
     /// </summary>
-    public string Github { get; set; }
+    public string Github { get; set; } = null!;
 
     /// <summary>
     /// 码云
     /// </summary>
-    public string Gitee { get; set; }
+    public string Gitee { get; set; } = null!;
 
     /// <summary>
     /// 个性签名
     /// </summary>
-    public string Motto { get; set; }
+    public string Motto { get; set; } = null!;
 
     /// <summary>
     /// 关于我
     /// </summary>
-    public string About { get; set; }
+    public string About { get; set; } = null!;
 }

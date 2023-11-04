@@ -14,7 +14,7 @@ public class Pictures : Entity<long>, ICreatedTime
     /// 图片地址
     /// </summary>
     [SugarColumn(Length = 256)]
-    public string Url { get; set; }
+    public string Url { get; set; } = null!;
 
     /// <summary>
     /// 备注

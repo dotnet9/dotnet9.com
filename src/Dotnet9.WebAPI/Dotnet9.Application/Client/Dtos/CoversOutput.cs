@@ -9,16 +9,16 @@ public class CoversOutput
     /// <summary>
     /// 模块名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     /// <summary>
     /// 模块封面
     /// </summary>
-    public string Cover { get; set; }
+    public string? Cover { get; set; }
     
     /// <summary>
     /// 模块描述
     /// </summary>
-    public string Remark { get; set; }
+    public string? Remark { get; set; }
 
     /// <summary>
     /// 创建时间

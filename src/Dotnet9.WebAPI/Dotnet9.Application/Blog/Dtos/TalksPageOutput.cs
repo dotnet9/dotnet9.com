@@ -13,12 +13,12 @@ public class TalksPageOutput
     /// <summary>
     /// 内容
     /// </summary>
-    public string Content { get; set; }
+    public string Content { get; set; } = null!;
 
     /// <summary>
     /// 图片
     /// </summary>
-    public string Images { get; set; }
+    public string? Images { get; set; }
 
     /// <summary>
     /// 是否允许评论

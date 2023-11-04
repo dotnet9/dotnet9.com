@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Easy.Core;
 
 namespace Dotnet9.Core.Logging;
+
 // 数据库日志
 public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
 {
@@ -21,46 +22,54 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
         _sysSigninLogRepository = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarRepository<SysSigninLog>>();
         _sysUseRepository = _serviceScope.ServiceProvider.GetRequiredService<ISqlSugarRepository<SysUser>>();
     }
+
     // 文档地址：http://furion.baiqian.ltd/docs/logging#18114-json-%E6%A0%BC%E5%BC%8F
     public void Write(LogMessage logMsg, bool flush)
     {
         var contextJson = logMsg.Context.Get("loggingMonitor").ToString()!;
         var json = JsonConvert.DeserializeObject<dynamic>(contextJson);
-        string ip = string.IsNullOrWhiteSpace(logMsg.Context.Get("ip").ToString()) ? json.remoteIPv4.ToString() : logMsg.Context.Get("ip").ToString();
-        string location = HttpContextExtension.GetGeolocation(ip);
+        var ip = string.IsNullOrWhiteSpace(logMsg.Context.Get("ip").ToString())
+            ? json.remoteIPv4.ToString()
+            : logMsg.Context.Get("ip").ToString();
+        var location = HttpContextExtension.GetGeolocation(ip);
 
         //记录登录日志
         if ("AuthService".Equals(json.controllerTypeName.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
             "SignIn".Equals(json.actionTypeName.ToString(), StringComparison.CurrentCultureIgnoreCase))
         {
             string account = json.parameters[0].value.account;
-            if (!string.IsNullOrWhiteSpace(account))
+            if (string.IsNullOrWhiteSpace(account))
             {
-                var id = _sysUseRepository.AsQueryable().Where(x => x.Account == account).Select<long>().First();
-                if (id == 0)
-                {
-                    return;
-                }
-
-                var sysSigninLog = new SysSigninLog
-                {
-                    OsDescription = $"{json.osDescription}（{json.osArchitecture}）",
-                    Location = location,
-                    RemoteIp = ip,
-                    UserAgent = json.userAgent,
-                    UserId = id,
-                    CreatedTime = logMsg.LogDateTime,
-                    Message = json.validation == null ? "登录成功" : json.validation.message
-                };
-                _sysSigninLogRepository.Insert(sysSigninLog);
+                return;
             }
+
+            var id = _sysUseRepository.AsQueryable().Where(x => x.Account == account).Select<long>().First();
+            if (id == 0)
+            {
+                return;
+            }
+
+            var sysSigninLog = new SysSigninLog
+            {
+                OsDescription = $"{json.osDescription}（{json.osArchitecture}）",
+                Location = location,
+                RemoteIp = ip,
+                UserAgent = json.userAgent,
+                UserId = id,
+                CreatedTime = logMsg.LogDateTime,
+                Message = json.validation == null ? "登录成功" : json.validation.message
+            };
+            _sysSigninLogRepository.Insert(sysSigninLog);
 
             return;
         }
 
         //不记录操作日志列表查询和博客的操作记录
-        if ("SysOperationLogService".Equals(json.controllerTypeName.ToString(), StringComparison.CurrentCultureIgnoreCase) &&
-            "List".Equals(json.actionTypeName.ToString(), StringComparison.CurrentCultureIgnoreCase) || (json.controllerTypeName.ToString().EndsWith("Controller", StringComparison.CurrentCultureIgnoreCase) && logMsg.Exception == null))
+        if ("SysOperationLogService".Equals(json.controllerTypeName.ToString(),
+                StringComparison.CurrentCultureIgnoreCase) &&
+            "List".Equals(json.actionTypeName.ToString(), StringComparison.CurrentCultureIgnoreCase) ||
+            (json.controllerTypeName.ToString().EndsWith("Controller", StringComparison.CurrentCultureIgnoreCase) &&
+             logMsg.Exception == null))
         {
             return;
         }
@@ -76,6 +85,7 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
                 break;
             }
         }
+
         //记录操作日志
         var sysOperationLog = new SysOperationLog
         {
@@ -92,7 +102,9 @@ public class DatabaseLoggingWriter : IDatabaseLoggingWriter, IDisposable
             ThreadId = logMsg.ThreadId,
             TraceId = json.traceId,
             UserId = userId,
-            Response = json.returnInformation.value == null ? null : JsonConvert.SerializeObject(json.returnInformation.value),
+            Response = json.returnInformation.value == null
+                ? null
+                : JsonConvert.SerializeObject(json.returnInformation.value),
             Parameter = json.parameters == null ? null : JsonConvert.SerializeObject(json.parameters),
             OsDescription = $"{json.osDescription}（{json.osArchitecture}）",
             Location = location,

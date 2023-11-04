@@ -9,7 +9,7 @@ public class CoversPageOutput
     /// <summary>
     /// 模块名称
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
     /// <summary>
     /// 模块类型
     /// </summary>
@@ -29,11 +29,11 @@ public class CoversPageOutput
     /// <summary>
     /// 备注
     /// </summary>
-    public string Remark { get; set; }
+    public string? Remark { get; set; }
     /// <summary>
     /// 封面
     /// </summary>
-    public string Cover { get; set; }
+    public string? Cover { get; set; }
     /// <summary>
     /// 创建时间
     /// </summary>
