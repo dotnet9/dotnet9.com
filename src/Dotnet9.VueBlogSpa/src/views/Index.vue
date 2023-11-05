@@ -141,7 +141,7 @@
               </router-link>
             </div>
             <div class="blog-info-data">
-              <router-link to="/category">
+              <router-link to="/cats">
                 <div style="font-size: 0.875rem">分类</div>
                 <div style="font-size: 1.25rem">
                   {{ report.categoryCount }}
@@ -149,7 +149,7 @@
               </router-link>
             </div>
             <div class="blog-info-data">
-              <router-link to="/album">
+              <router-link to="/albums">
                 <div style="font-size: 0.875rem">专辑</div>
                 <div style="font-size: 1.25rem">
                   {{ report.albumCount }}
