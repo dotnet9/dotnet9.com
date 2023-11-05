@@ -74,7 +74,8 @@ public class ArticleService : BaseService<Article>
     {
         var article = dto.Adapt<Article>();
         article.Id = _idGenerator.NewLong();
-        var tags = dto.Tags.Select(x => new ArticleTag()
+        article.ShortSlug = article.Slug.Encode();
+        var tags = dto.Tags?.Select(x => new ArticleTag()
         {
             ArticleId = article.Id,
             TagId = x
