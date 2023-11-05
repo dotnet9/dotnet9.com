@@ -43,7 +43,14 @@
           <v-icon size="small">mdi mdi-home</v-icon>
           首页
         </router-link>
-      </div>
+      </div>      
+      <div class="menus-item">
+          <a class="menu-btn" href="https://dotnetools.com" target="_blank">
+            <!-- <i class="iconfont iconzhuye" />  -->
+            <v-icon size="small">mdi mdi-tools</v-icon>
+            Dotnet工具箱
+          </a>
+        </div>
       <div class="menus-item">
         <router-link to="/archives">
           <!-- <i class="iconfont iconguidang" />  -->
