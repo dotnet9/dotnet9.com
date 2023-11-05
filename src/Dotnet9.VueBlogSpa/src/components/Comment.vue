@@ -205,7 +205,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, watch } from "vue";
-import img from "../assets/images/1.jpg";
+import img from "../assets/images/1.png";
 import Emoji from "./Emoji.vue";
 import Reply from "./Replay.vue";
 import Paging from "./Paging.vue";

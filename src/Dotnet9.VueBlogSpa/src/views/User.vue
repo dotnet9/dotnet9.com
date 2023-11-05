@@ -124,7 +124,7 @@
 import { reactive, onMounted } from "vue";
 import { useApp } from "@/stores/app";
 import { useAuth } from "@/stores/auth";
-import img from "../assets/images/1.jpg";
+import img from "../assets/images/1.png";
 import { storeToRefs } from "pinia";
 import { AddLinkOutput } from "@/api/models";
 import OAuthApi from "@/api/OAuthApi";

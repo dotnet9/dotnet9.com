@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { useApp } from "@/stores/app";
-import img from "../assets/images/1.jpg";
+import img from "../assets/images/1.png";
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
 import markdownToHtml from "../utils/markdown";
