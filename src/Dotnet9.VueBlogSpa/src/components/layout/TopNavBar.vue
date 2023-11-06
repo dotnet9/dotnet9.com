@@ -113,33 +113,51 @@
           </ul>
         </div>
         <div class="menus-item">
-          <router-link class="menu-btn" to="/links">
-            <!-- <i class="iconfont iconlianjie" />  -->
-            <v-icon size="small">mdi mdi-camera-iris</v-icon>
-            友链
-          </router-link>
-        </div>
-        <div class="menus-item">
-          <router-link class="menu-btn" to="/about">
-            <!-- <i class="iconfont iconzhifeiji" />  -->
-            <v-icon
-              size="small"
-              style="
-                transform: rotate(-45deg);
-                margin-bottom: 3px;
-                margin-right: 0px;
-              "
-              >mdi mdi-send-variant</v-icon
-            >
+          <a class="menu-btn">
+            <!-- <i class="iconfont iconqita" />  -->
+            <v-icon size="small">mdi mdi-clover</v-icon>
             关于
-          </router-link>
-        </div>
-        <div class="menus-item">
-          <router-link class="menu-btn" to="/message">
-            <!-- <i class="iconfont iconpinglunzu" />  -->
-            <v-icon size="small">mdi mdi-message-bulleted</v-icon>
-            留言
-          </router-link>
+            <!-- <i class="iconfont iconxiangxia2 expand" /> -->
+            <v-icon>mdi mdi-chevron-down</v-icon>
+          </a>
+          <ul class="menus-submenu">
+            <li>
+              <router-link class="menu-btn" to="/about">
+                <!-- <i class="iconfont iconzhifeiji" />  -->
+                <v-icon
+                  size="small"
+                  style="
+                    transform: rotate(-45deg);
+                    margin-bottom: 3px;
+                    margin-right: 0px;
+                  "
+                  >mdi mdi-send-variant</v-icon
+                >
+                关于
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/links">
+                <!-- <i class="iconfont iconlianjie" />  -->
+                <v-icon size="small">mdi mdi-camera-iris</v-icon>
+                友链
+              </router-link>
+            </li>
+            <li>
+              <router-link class="menu-btn" to="/message">
+                <!-- <i class="iconfont iconpinglunzu" />  -->
+                <v-icon size="small">mdi mdi-message-bulleted</v-icon>
+                留言
+              </router-link>
+            </li>
+            <li>
+              <router-link class="menu-btn" to="/donation">
+                <!-- <i class="iconfont iconpinglunzu" />  -->
+                <v-icon size="small">mdi mdi-heart</v-icon>
+                打赏
+              </router-link>
+            </li>
+          </ul>
         </div>
         <div class="menus-item">
           <!-- <a class="menu-btn"> <i class="iconfont icondenglu" /> 登录 </a> -->

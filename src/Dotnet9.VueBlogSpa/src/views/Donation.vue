@@ -1,10 +1,10 @@
 <template>
   <div class="about-banner banner" :style="cover">
-    <h1 class="banner-title">关于我</h1>
+    <h1 class="banner-title">赞助</h1>
   </div>
   <!-- 关于我内容 -->
   <v-card class="blog-container">
-    <div class="about-content markdown-body" v-html="markdownToHtml(info.about ?? '')" />
+    <div class="about-content markdown-body" v-html="markdownToHtml(info.donation ?? '')" />
   </v-card>
 </template>
 
@@ -18,7 +18,7 @@ const { info } = storeToRefs(appStore);
 const cover = computed(() => {
   return (
     "background: url(" +
-    appStore.aboutCover() +
+    appStore.donationCover() +
     ") center center / cover no-repeat"
   );
 });

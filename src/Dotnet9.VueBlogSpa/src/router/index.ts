@@ -144,6 +144,14 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    name: "donation",
+    path: "/donation",
+    component: () => import("../views/Donation.vue"),
+    meta: {
+      title: "赞助",
+    },
+  },
+  {
     name: "user",
     path: "/user",
     component: () => import("../views/User.vue"),

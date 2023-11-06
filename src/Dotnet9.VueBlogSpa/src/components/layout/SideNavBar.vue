@@ -94,7 +94,22 @@
         </router-link>
       </div>
       <div class="menus-item">
-        <router-link to="/about">
+        <router-link to="/donation">
+          <!-- <i class="iconfont iconzhifeiji" />  -->
+          <v-icon
+            size="small"
+            style="
+              transform: rotate(-45deg);
+              margin-bottom: 3px;
+              margin-right: 1.5em;
+            "
+            >mdi mdi-heart</v-icon
+          >
+          打赏
+        </router-link>
+      </div>
+      <div class="menus-item">
+        <router-link to="/donation">
           <!-- <i class="iconfont iconzhifeiji" />  -->
           <v-icon
             size="small"

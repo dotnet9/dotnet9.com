@@ -14,6 +14,7 @@ export const useApp = defineStore("app", () => {
     covers: {
       home: [] as string[],
       about: [] as string[],
+      donation: [] as string[],
       archives: [] as string[],
       category: [] as string[],
       album: [] as string[],
@@ -67,6 +68,7 @@ export const useApp = defineStore("app", () => {
     };
     app.covers.home = covers.home ?? ["/cover/logo.png"];
     app.covers.about = covers.about ?? ["/cover/about.jpg"];
+    app.covers.donation = covers.donation ?? ["/cover/about.jpg"];
     app.covers.archives = covers.archives ?? ["/cover/archives.jpg"];
     app.covers.category = covers.category ?? ["/cover/category.jpg"];
     app.covers.album = covers.album ?? ["/cover/category.jpg"];
@@ -92,6 +94,13 @@ export const useApp = defineStore("app", () => {
    */
   const aboutCover = () => {
     const arr = app.covers.about;
+    return arr[randomNumber(0, arr.length - 1)];
+  };
+  /**
+   * 打赏
+   */
+  const donationCover = () => {
+    const arr = app.covers.donation;
     return arr[randomNumber(0, arr.length - 1)];
   };
   /**
@@ -211,6 +220,7 @@ export const useApp = defineStore("app", () => {
     init,
     homeCover,
     aboutCover,
+    donationCover,
     archivesCover,
     categoryCover,
     albumCover,

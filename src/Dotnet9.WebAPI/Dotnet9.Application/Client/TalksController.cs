@@ -30,19 +30,18 @@ public class TalksController : IDynamicApiController
     {
         long userId = _authManager.UserId;
         return await _talksRepository.AsQueryable().Where(x => x.Status == AvailabilityStatus.Enable)
-              .OrderByDescending(x => x.IsTop)
-              .OrderByDescending(x => x.Id)
-              .Select(x => new TalksOutput
-              {
-                  Id = x.Id,
-                  IsTop = x.IsTop,
-                  Content = x.Content,
-                  Images = x.Images,
-                  Upvote = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id).Count(),
-                  Comments = SqlFunc.Subqueryable<Comments>().Where(c => c.ModuleId == x.Id && c.RootId == null).Count(),
-                  IsPraise = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id && p.AccountId == userId).Any(),
-                  CreatedTime = x.CreatedTime
-              }).ToPagedListAsync(dto);
+            .OrderByDescending(x => x.CreatedTime)
+            .Select(x => new TalksOutput
+            {
+                Id = x.Id,
+                IsTop = x.IsTop,
+                Content = x.Content,
+                Images = x.Images,
+                Upvote = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id).Count(),
+                Comments = SqlFunc.Subqueryable<Comments>().Where(c => c.ModuleId == x.Id && c.RootId == null).Count(),
+                IsPraise = SqlFunc.Subqueryable<Praise>().Where(p => p.ObjectId == x.Id && p.AccountId == userId).Any(),
+                CreatedTime = x.CreatedTime
+            }).ToPagedListAsync(dto);
     }
 
     /// <summary>

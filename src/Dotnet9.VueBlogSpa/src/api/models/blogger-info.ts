@@ -59,4 +59,10 @@ export interface BloggerInfo {
      * @memberof BloggerInfo
      */
     about?: string | null;
+    /**
+     * 打赏
+     * @type {string}
+     * @memberof BloggerInfo
+     */
+    donation?: string | null;
 }

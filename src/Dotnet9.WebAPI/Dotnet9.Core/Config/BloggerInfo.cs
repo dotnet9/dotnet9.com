@@ -36,4 +36,9 @@ public class BloggerInfo
     /// 关于我
     /// </summary>
     public string About { get; set; } = null!;
+
+    /// <summary>
+    /// 网站打赏
+    /// </summary>
+    public string Donation { get; set; } = null!;
 }

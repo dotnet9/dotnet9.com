@@ -42,6 +42,10 @@ public class AppController : IDynamicApiController
             System.IO.File.ReadAllTextAsync(Path.Combine(App.GetConfig<SiteOptions>("Site").AssetsDir, "site",
                 "about.md"));
 
+        info.Donation = await
+            System.IO.File.ReadAllTextAsync(Path.Combine(App.GetConfig<SiteOptions>("Site").AssetsDir, "pays",
+                "Donation.md"));
+
 
         var pics = await _coversRepository.AsQueryable()
             .InnerJoin<Pictures>((covers, pictures) => covers.Id == pictures.CoverId)

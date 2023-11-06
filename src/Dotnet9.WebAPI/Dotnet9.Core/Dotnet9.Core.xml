@@ -39,6 +39,11 @@
             关于我
             </summary>
         </member>
+        <member name="P:Dotnet9.Core.Config.BloggerInfo.Donation">
+            <summary>
+            网站打赏
+            </summary>
+        </member>
         <member name="P:Dotnet9.Core.Config.BlogSetting.Logo">
             <summary>
             网站Logo
