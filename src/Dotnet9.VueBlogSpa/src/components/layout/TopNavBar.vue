@@ -45,7 +45,7 @@
           <a  class="menu-btn" href="https://dotnetools.com" target="_blank">
             <!-- <i class="iconfont iconzhuye" />  -->
             <v-icon size="small">mdi mdi-tools</v-icon>
-            Dotnet工具箱
+            工具箱
           </a>
         </div>
         <div class="menus-item">
