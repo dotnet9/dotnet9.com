@@ -1,6 +1,7 @@
 import { tool as base64FileConverter } from './base64-file-converter';
 import { tool as base64StringConverter } from './base64-string-converter';
 import { tool as basicAuthGenerator } from './basic-auth-generator';
+import { tool as numeronymGenerator } from './numeronym-generator';
 import { tool as macAddressGenerator } from './mac-address-generator';
 import { tool as textToBinary } from './text-to-binary';
 import { tool as ulidGenerator } from './ulid-generator';
@@ -80,7 +81,7 @@ export const toolsByCategory: ToolCategory[] = [
     components: [tokenGenerator, hashText, bcrypt, uuidGenerator, ulidGenerator, cypher, bip39, hmacGenerator, rsaKeyPairGenerator, passwordStrengthAnalyser],
   },
   {
-    name: '换算器',
+    name: '转换类型工具',
     components: [
       dateTimeConverter,
       baseConverter,
@@ -153,7 +154,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: '文本',
-    components: [loremIpsumGenerator, textStatistics, emojiPicker, stringObfuscator, textDiff],
+    components: [loremIpsumGenerator, textStatistics, emojiPicker, stringObfuscator, textDiff, numeronymGenerator],
   },
   {
     name: '数据',

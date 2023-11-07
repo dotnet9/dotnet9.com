@@ -23,6 +23,7 @@ const compareMatch = computed(() => compareSync(compareString.value, compareHash
       raw-text
       label="需要Hash加密的文本: "
       label-position="left"
+      label-align="right"
       label-width="120px"
       mb-2
     />
