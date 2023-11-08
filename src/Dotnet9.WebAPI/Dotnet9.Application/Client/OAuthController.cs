@@ -2,6 +2,8 @@
 using Dotnet9.Application.Client.Dtos;
 using MrHuo.OAuth.QQ;
 using System.Security.Policy;
+using MrHuo.OAuth.Gitee;
+using MrHuo.OAuth.Github;
 
 namespace Dotnet9.Application.Client;
 
@@ -22,6 +24,8 @@ public class OAuthController : IDynamicApiController
     private const string OAuthRedirectKey = "oauth.redirect.";
 
     private readonly QQOAuth _qqoAuth;
+    private readonly GiteeOAuth _giteeOAuth;
+    private readonly GithubOAuth _githubOAuth;
     private readonly AuthManager _authManager;
     private readonly ISqlSugarRepository<AuthAccount> _accountRepository;
     private readonly ISqlSugarRepository<FriendLink> _friendLinkRepository;
@@ -30,6 +34,8 @@ public class OAuthController : IDynamicApiController
     private readonly IIdGenerator _idGenerator;
 
     public OAuthController(QQOAuth qqoAuth,
+        GiteeOAuth giteeOAuth,
+        GithubOAuth githubOAuth,
         AuthManager authManager,
         ISqlSugarRepository<AuthAccount> accountRepository,
         ISqlSugarRepository<FriendLink> friendLinkRepository,
@@ -38,6 +44,8 @@ public class OAuthController : IDynamicApiController
         IIdGenerator idGenerator)
     {
         _qqoAuth = qqoAuth;
+        _giteeOAuth = giteeOAuth;
+        _githubOAuth = githubOAuth;
         _authManager = authManager;
         _accountRepository = accountRepository;
         _friendLinkRepository = friendLinkRepository;
@@ -49,7 +57,7 @@ public class OAuthController : IDynamicApiController
     /// <summary>
     /// 获取授权地址
     /// </summary>
-    /// <param name="type">登录方式：qq</param>
+    /// <param name="type">登录方式：qq,gitee, github</param>
     /// <param name="requestUrl">请求登录的当前地址</param>
     /// <returns></returns>
     [HttpGet("{type}")]
@@ -61,6 +69,8 @@ public class OAuthController : IDynamicApiController
         string url = type.ToLower() switch
         {
             "qq" => _qqoAuth.GetAuthorizeUrl(code),
+            "gitee" => _giteeOAuth.GetAuthorizeUrl(code),
+            "github" => _githubOAuth.GetAuthorizeUrl(code),
             _ => throw Oops.Bah("无效请求")
         };
         return url;
@@ -82,51 +92,89 @@ public class OAuthController : IDynamicApiController
             throw Oops.Oh("缺少参数");
         }
 
+        var oauthType = type.ToLower();
         AuthAccount account;
-        switch (type.ToLower())
+        var openId = string.Empty;
+        var name = string.Empty;
+        var avatar = string.Empty;
+        var gender = Gender.Unknown;
+        switch (oauthType)
         {
             case "qq":
-                var auth = await _qqoAuth.AuthorizeCallback(code, state);
+            {
+                var authorizeResult = await _qqoAuth.AuthorizeCallback(code, state);
+                if (!authorizeResult.IsSccess)
+                {
+                    throw Oops.Bah(authorizeResult.ErrorMessage);
+                }
+
+                var info = authorizeResult.UserInfo;
+                openId = await _qqoAuth.GetOpenId(authorizeResult.AccessToken.AccessToken);
+                name = info.Name;
+                gender = info.Gender == "男" ? Gender.Male :
+                    info.Gender == "女" ? Gender.Female : Gender.Unknown;
+                avatar = string.IsNullOrWhiteSpace(info.QQ100Avatar) ? info.Avatar : info.QQ100Avatar;
+                    break;
+            }
+            case "gitee":
+            {
+                var authorizeResult = await _giteeOAuth.AuthorizeCallback(code, state);
+                if (!authorizeResult.IsSccess)
+                {
+                    throw Oops.Bah(authorizeResult.ErrorMessage);
+                }
+
+                var info = authorizeResult.UserInfo;
+                openId ="gitee"+ info.Name;
+                name = info.Name;
+                avatar = info.Avatar;
+                    break;
+            }
+            case "github":
+            {
+                var auth = await _githubOAuth.AuthorizeCallback(code, state);
                 if (!auth.IsSccess)
                 {
                     throw Oops.Bah(auth.ErrorMessage);
                 }
 
                 var info = auth.UserInfo;
-                string openId = await _qqoAuth.GetOpenId(auth.AccessToken.AccessToken);
-                account = await _accountRepository.AsQueryable()
-                    .FirstAsync(x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == "qq");
-                var gender = info.Gender == "男" ? Gender.Male :
-                    info.Gender == "女" ? Gender.Female : Gender.Unknown;
-                if (account != null)
-                {
-                    await _accountRepository.UpdateAsync(x => new AuthAccount()
-                        {
-                            Avatar = string.IsNullOrWhiteSpace(info.QQ100Avatar) ? info.Avatar : info.QQ100Avatar,
-                            Name = info.Name,
-                            Gender = gender
-                        },
-                        x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == "qq");
-                }
-                else
-                {
-                    account = await _accountRepository.InsertReturnEntityAsync(new AuthAccount()
-                    {
-                        Gender = gender,
-                        Avatar = info.Avatar,
-                        Name = info.Name,
-                        OAuthId = openId,
-                        Type = "QQ"
-                    });
-                }
-
-                break;
+                openId = "github" + info.Name;
+                name = info.Name;
+                avatar = info.Avatar;
+                    break;
+            }
 
             default:
                 throw Oops.Bah("无效请求");
         }
 
-        string key = $"{OAuthKey}{state}";
+        account = await _accountRepository.AsQueryable()
+            .FirstAsync(x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == oauthType);
+        
+        if (account != null)
+        {
+            await _accountRepository.UpdateAsync(x => new AuthAccount()
+                {
+                    Avatar = avatar,
+                    Name = name,
+                    Gender = gender
+                },
+                x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == oauthType);
+        }
+        else
+        {
+            account = await _accountRepository.InsertReturnEntityAsync(new AuthAccount()
+            {
+                Gender = gender,
+                Avatar = avatar,
+                Name = name,
+                OAuthId = openId,
+                Type = oauthType
+            });
+        }
+
+        var key = $"{OAuthKey}{state}";
         await _easyCachingProvider.SetAsync(key, account, TimeSpan.FromSeconds(30));
 
         //登录成功后的回调页面

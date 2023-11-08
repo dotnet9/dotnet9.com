@@ -159,18 +159,43 @@
             </li>
           </ul>
         </div>
-        <div class="menus-item">
-          <!-- <a class="menu-btn"> <i class="iconfont icondenglu" /> 登录 </a> -->
-          <a v-if="!authStore.info" @click="handleLogin" class="menu-btn">
-            <!-- <i class="iconfont iconqq" />  -->
-            <v-icon size="small">mdi mdi-qqchat</v-icon>
+        <div class="menus-item" v-if="!authStore.info">
+          <a class="menu-btn">
+            <!-- <i class="iconfont iconqita" />  -->
+            <v-icon size="small">mdi mdi-login</v-icon>
             登录
+            <!-- <i class="iconfont iconxiangxia2 expand" /> -->
+            <v-icon>mdi mdi-chevron-down</v-icon>
           </a>
-
-          <template v-else>
+          <ul class="menus-submenu">
+            <li>
+              <a v-if="!authStore.info" @click="handleLogin('qq')" class="menu-btn">
+                <!-- <i class="iconfont iconqq" />  -->
+                <v-icon size="small">mdi mdi-qqchat</v-icon>
+                QQ
+              </a>
+            </li>
+            <li>
+              <a v-if="!authStore.info" @click="handleLogin('gitee')" class="menu-btn">
+                <!-- <i class="iconfont iconqq" />  -->
+                <v-icon size="small">mdi mdi-github</v-icon>
+                Gitee
+              </a>
+            </li>
+            <li>
+              <a v-if="!authStore.info" @click="handleLogin('github')" class="menu-btn">
+                <!-- <i class="iconfont iconqq" />  -->
+                <v-icon size="small">mdi mdi-github</v-icon>
+                Github
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="menus-item" v-else>
+          <template>
             <img
               class="user-avatar"
-              :src="info?.avatar!"
+              src="https://img1.dotnet9.com/site/logo.png"
               height="30"
               width="30"
             />
@@ -234,8 +259,8 @@ const searchModelHandel = () => {
   vm.isShow = true;
 };
 
-const handleLogin = async () => {
-  const { data } = await OAuthApi.get();
+const handleLogin = async (type?: string) => {
+  const { data } = await OAuthApi.get(type);
   location.href = data!;
 };
 const handleLoginOut = () => {

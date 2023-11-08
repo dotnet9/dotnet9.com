@@ -1,27 +1,28 @@
-﻿using Furion;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using SqlSugar;
-using System.Text;
-using System.Threading.Tasks;
-using AspNetCoreRateLimit;
+﻿using AspNetCoreRateLimit;
 using Dotnet9.Core.Logging;
 using Dotnet9.Core.Options;
 using Easy.Core;
+using Furion;
 using Furion.Logging;
 using Lazy.Captcha.Core;
 using Lazy.Captcha.Core.Generator;
 using Mapster;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MrHuo.OAuth;
 using MrHuo.OAuth.QQ;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OnceMi.AspNetCore.OSS;
-using System;
+using SqlSugar;
+using System.Text;
+using System.Threading.Tasks;
+using MrHuo.OAuth.Gitee;
+using MrHuo.OAuth.Github;
 
 namespace Dotnet9.Web.Core;
 
@@ -129,8 +130,12 @@ public class Startup : AppStartup
         // OSS文档：https://github.com/oncemi/OnceMi.AspNetCore.OSS
         var ossOptions = App.GetConfig<OssConnectionOptions>("OssConnection");
         services.AddOSSService(options => { ossOptions.Adapt(options); });
-        var auth = new QQOAuth(OAuthConfig.LoadFrom(App.Configuration, "oauth:qq"));
-        services.AddSingleton(auth);
+        var qqOAuth = new QQOAuth(OAuthConfig.LoadFrom(App.Configuration, "oauth:qq"));
+        services.AddSingleton(qqOAuth);
+        var giteeOAuth = new GiteeOAuth(OAuthConfig.LoadFrom(App.Configuration, "oauth:gitee"));
+        services.AddSingleton(giteeOAuth);
+        var githubOAuth = new GithubOAuth(OAuthConfig.LoadFrom(App.Configuration, "oauth:github"));
+        services.AddSingleton(githubOAuth);
 
         #region 图形验证码
 

@@ -16,10 +16,12 @@
 		<PackageReference Include="Furion.Pure" Version="4.8.8.53" />
 		<PackageReference Include="Hashids.net" Version="1.7.0" />
 		<PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
+		<PackageReference Include="MrHuo.OAuth.Gitee" Version="1.1.1" />
+		<PackageReference Include="MrHuo.OAuth.Github" Version="1.1.1" />
 		<PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.1" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
-		<PackageReference Include="SqlSugarCore" Version="5.1.4.115-preview13" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.115-preview19" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 	</ItemGroup>

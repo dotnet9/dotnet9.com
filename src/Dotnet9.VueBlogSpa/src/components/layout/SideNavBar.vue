@@ -131,11 +131,24 @@
         </router-link>
       </div>
       <div v-if="!authStore.info" class="menus-item">
-        <!-- <a><i class="iconfont icondenglu" /> 登录 </a> -->
-        <a @click="handleLogin">
+        <a @click="handleLogin('qq')">
           <!-- <i class="iconfont iconqq" />  -->
           <v-icon size="small">mdi mdi-qqchat</v-icon>
-          登录
+          QQ登录
+        </a>
+      </div>
+      <div v-if="!authStore.info" class="menus-item">
+        <a @click="handleLogin('gitee')">
+          <!-- <i class="iconfont iconqq" />  -->
+          <v-icon size="small">mdi mdi-github</v-icon>
+          Gitee登录
+        </a>
+      </div>
+      <div v-if="!authStore.info" class="menus-item">
+        <a @click="handleLogin('github')">
+          <!-- <i class="iconfont iconqq" />  -->
+          <v-icon size="small">mdi mdi-github</v-icon>
+          Github登录
         </a>
       </div>
       <template v-else>
@@ -169,8 +182,8 @@ const authStore = useAuth();
 const { drawer } = storeToRefs(useDrawerSettingStore());
 const appStore = useApp();
 const { blogSetting, info, report } = storeToRefs(appStore);
-const handleLogin = async () => {
-  const { data } = await OAuthApi.get();
+const handleLogin = async (type?: string) => {
+  const { data } = await OAuthApi.get(type);
   location.href = data!;
 };
 const handleLoginOut = () => {
