@@ -1,10 +1,5 @@
 <template>
-  <v-app-bar
-    :class="vm.navClass"
-    flat
-    :height="60"
-    :style="{ transform: `translateY(${vm.top}px)` }"
-  >
+  <v-app-bar :class="vm.navClass" flat :height="60" :style="{ transform: `translateY(${vm.top}px)` }">
     <!-- 手机端导航栏 -->
     <div class="d-md-none nav-mobile-container">
       <div style="font-size: 18px; font-weight: bold">
@@ -42,7 +37,7 @@
           </router-link>
         </div>
         <div class="menus-item">
-          <a  class="menu-btn" href="https://dotnetools.com" target="_blank">
+          <a class="menu-btn" href="https://dotnetools.com" target="_blank">
             <!-- <i class="iconfont iconzhuye" />  -->
             <v-icon size="small">mdi mdi-tools</v-icon>
             工具箱
@@ -124,15 +119,11 @@
             <li>
               <router-link class="menu-btn" to="/about">
                 <!-- <i class="iconfont iconzhifeiji" />  -->
-                <v-icon
-                  size="small"
-                  style="
+                <v-icon size="small" style="
                     transform: rotate(-45deg);
                     margin-bottom: 3px;
                     margin-right: 0px;
-                  "
-                  >mdi mdi-send-variant</v-icon
-                >
+                  ">mdi mdi-send-variant</v-icon>
                 关于
               </router-link>
             </li>
@@ -159,46 +150,41 @@
             </li>
           </ul>
         </div>
-        <div class="menus-item" v-if="!authStore.info">
-          <a class="menu-btn">
-            <!-- <i class="iconfont iconqita" />  -->
-            <v-icon size="small">mdi mdi-login</v-icon>
-            登录
-            <!-- <i class="iconfont iconxiangxia2 expand" /> -->
-            <v-icon>mdi mdi-chevron-down</v-icon>
-          </a>
-          <ul class="menus-submenu">
-            <li>
-              <a v-if="!authStore.info" @click="handleLogin('qq')" class="menu-btn">
-                <!-- <i class="iconfont iconqq" />  -->
-                <v-icon size="small">mdi mdi-qqchat</v-icon>
-                QQ
-              </a>
-            </li>
-            <li>
-              <a v-if="!authStore.info" @click="handleLogin('gitee')" class="menu-btn">
-                <!-- <i class="iconfont iconqq" />  -->
-                <v-icon size="small">mdi mdi-github</v-icon>
-                Gitee
-              </a>
-            </li>
-            <li>
-              <a v-if="!authStore.info" @click="handleLogin('github')" class="menu-btn">
-                <!-- <i class="iconfont iconqq" />  -->
-                <v-icon size="small">mdi mdi-github</v-icon>
-                Github
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="menus-item" v-else>
-          <template>
-            <img
-              class="user-avatar"
-              src="https://img1.dotnet9.com/site/logo.png"
-              height="30"
-              width="30"
-            />
+        <div class="menus-item">
+          <div v-if="!authStore.info">
+            <a class="menu-btn">
+              <!-- <i class="iconfont iconqita" />  -->
+              <v-icon size="small">mdi mdi-login</v-icon>
+              登录
+              <!-- <i class="iconfont iconxiangxia2 expand" /> -->
+              <v-icon>mdi mdi-chevron-down</v-icon>
+            </a>
+            <ul class="menus-submenu">
+              <li>
+                <a v-if="!authStore.info" @click="handleLogin('qq')" class="menu-btn">
+                  <!-- <i class="iconfont iconqq" />  -->
+                  <v-icon size="small">mdi mdi-qqchat</v-icon>
+                  QQ
+                </a>
+              </li>
+              <li>
+                <a v-if="!authStore.info" @click="handleLogin('gitee')" class="menu-btn">
+                  <!-- <i class="iconfont iconqq" />  -->
+                  <v-icon size="small">mdi mdi-github</v-icon>
+                  Gitee
+                </a>
+              </li>
+              <li>
+                <a v-if="!authStore.info" @click="handleLogin('github')" class="menu-btn">
+                  <!-- <i class="iconfont iconqq" />  -->
+                  <v-icon size="small">mdi mdi-github</v-icon>
+                  Github
+                </a>
+              </li>
+            </ul>
+          </div>
+          <template v-else>
+            <img class="user-avatar" :src="info?.avatar!" height="30" width="30" />
             <ul class="menus-submenu">
               <li>
                 <router-link to="/user">
@@ -211,8 +197,7 @@
                 <a @click="handleLoginOut">
                   <!-- <i class="iconfont icontuichu" />  -->
                   <v-icon size="small">mdi mdi-logout</v-icon>
-                  退出</a
-                >
+                  退出</a>
               </li>
             </ul>
           </template>
@@ -278,76 +263,96 @@ const drawerHandle = (): void => {
 i {
   margin-right: 4px;
 }
+
 ul {
   list-style: none;
 }
+
 .nav {
   overflow: inherit;
   background: rgba(0, 0, 0, 0) !important;
+
   a {
     color: #eee !important;
   }
+
   .menu-btn {
     text-shadow: 0.05rem 0.05rem 0.1rem rgba(0, 0, 0, 0.3);
   }
+
   .blog-title a {
     text-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
   }
 }
+
 .v-theme--light.nav-fixed {
   background: rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0.6);
 }
+
 .v-theme--dark.nav-fixed {
   background: rgba(18, 18, 18, 0.8) !important;
 }
+
 .v-theme--dark.nav-fixed a {
   color: rgba(255, 255, 255, 0.8) !important;
 }
+
 .v-theme--light.nav-fixed a {
   color: #4c4948 !important;
 }
+
 .nav-fixed {
   overflow: inherit;
+
   .menus-item a,
   .blog-title a {
     text-shadow: none;
   }
 }
+
 .nav-container {
   font-size: 14px;
   width: 100%;
   height: 100%;
 }
+
 .nav-mobile-container {
   width: 100%;
   display: flex;
   align-items: center;
 }
+
 .blog-title,
 .nav-title {
   display: flex;
   align-items: center;
   height: 100%;
 }
+
 .blog-title a {
   font-size: 18px;
   font-weight: bold;
 }
+
 .menus-item {
   position: relative;
   display: inline-block;
   margin: 0 0 0 0.875rem;
 }
+
 .menus-item a {
   transition: all 0.2s;
 }
+
 .nav-fixed .menu-btn:hover {
   color: #49b1f5 !important;
 }
+
 .menu-btn:hover:after {
   width: 100%;
 }
+
 .menus-item a:after {
   position: absolute;
   bottom: -5px;
@@ -359,13 +364,16 @@ ul {
   content: "";
   transition: all 0.3s ease-in-out;
 }
+
 .user-avatar {
   cursor: pointer;
   border-radius: 50%;
 }
+
 .menus-item:hover .menus-submenu {
   display: block;
 }
+
 .menus-submenu {
   position: absolute;
   display: none;
@@ -376,6 +384,7 @@ ul {
   background-color: #fff;
   animation: submenu 0.3s 0.1s ease both;
 }
+
 .menus-submenu:before {
   position: absolute;
   top: -8px;
@@ -384,6 +393,7 @@ ul {
   height: 20px;
   content: "";
 }
+
 .menus-submenu a {
   line-height: 2;
   color: #4c4948 !important;
@@ -391,19 +401,21 @@ ul {
   display: block;
   padding: 6px 14px;
 }
+
 .menus-submenu a:hover {
   background: #4ab1f4;
 }
+
 @keyframes submenu {
   0% {
     opacity: 0;
     filter: alpha(opacity=0);
     transform: translateY(10px);
   }
+
   100% {
     opacity: 1;
     filter: none;
     transform: translateY(0);
   }
-}
-</style>
+}</style>
