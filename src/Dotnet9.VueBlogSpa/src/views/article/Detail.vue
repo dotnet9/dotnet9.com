@@ -18,8 +18,8 @@
             更新于
             {{
               state.info.updatedTime
-                ? state.info.updatedTime
-                : state.info.publishTime
+              ? state.info.updatedTime
+              : state.info.publishTime
             }}
           </span>
           <template v-if="state.info.categoryId">
@@ -40,9 +40,9 @@
             字数统计:
             {{
               textTotal > 1000
-                ? (textTotal / 1000).toString().match(/^\d+(?:\.\d{0,1})?/) +
-                  "k"
-                : textTotal.toString()
+              ? (textTotal / 1000).toString().match(/^\d+(?:\.\d{0,1})?/) +
+              "k"
+              : textTotal.toString()
             }}
           </span>
           <span class="separator">|</span>
@@ -71,16 +71,10 @@
   <v-row class="article-container">
     <v-col md="9" cols="12">
       <v-card class="article-wrapper">
-        <div
-          id="write"
-          class="article-content markdown-body"
-          v-html="
-            state.info.isHtml
-              ? state.info.content
-              : markdownToHtml(state.info.content ?? '')
-          "
-          ref="detail"
-        />
+        <div id="write" class="article-content markdown-body" v-html="state.info.isHtml
+            ? state.info.content
+            : markdownToHtml(state.info.content ?? '')
+          " ref="detail" />
         <!-- 版权声明 -->
         <div class="aritcle-copyright">
           <div>
@@ -95,18 +89,13 @@
           </div>
           <div>
             <span>文章短链接：</span>
-            <router-link
-              :to="'/' + state.info.shortSlug"
-            >
+            <router-link :to="'/' + state.info.shortSlug">
               {{ shortLink }}
-            </router-link> 
+            </router-link>
           </div>
           <div>
             <span>版权声明：</span>本博客所有文章除特别声明外，均采用
-            <a
-              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-              target="_blank"
-            >
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
               CC BY-NC-SA 4.0
             </a>
             许可协议。转载请注明文章出处。
@@ -115,32 +104,22 @@
         <!-- 转发 -->
         <div class="article-operation">
           <div class="tag-container" v-if="state.info.tags">
-            <router-link
-              v-for="item of state.info.tags"
-              :key="item.id"
-              :to="'/tag/' + item.name"
-            >
+            <router-link v-for="item of state.info.tags" :key="item.id" :to="'/tag/' + item.name">
               {{ item.name }}
             </router-link>
           </div>
-          <Share
-            style="margin-left: auto"
-            :sites="[
-              ShareType.qq,
-              ShareType.wechat,
-              ShareType.qzone,
-              ShareType.weibo,
-            ]"
-          />
+          <Share style="margin-left: auto" :sites="[
+            ShareType.qq,
+            ShareType.wechat,
+            ShareType.qzone,
+            ShareType.weibo,
+          ]" />
           <!-- <share style="margin-left: auto" :config="config" /> -->
         </div>
         <!-- 点赞打赏等 -->
         <div class="article-reward">
           <!-- 点赞按钮 -->
-          <a
-            :class="state.info.isPraise ? 'like-btn-active' : 'like-btn'"
-            @click="onPraise"
-          >
+          <a :class="state.info.isPraise ? 'like-btn-active' : 'like-btn'" @click="onPraise">
             <!-- <i class="iconfont mdi-thumb-up"></i> -->
             <v-icon size="14" color="#fff" icon="mdi-thumb-up" /> 点赞
             <span v-show="state.info.praiseTotal ?? 0 > 0">{{
@@ -192,19 +171,12 @@
           </div>
         </div>
         <!-- 推荐文章 -->
-        <div
-          class="recommend-container"
-          v-if="(state.info.random?.length ?? 0) > 0"
-        >
+        <div class="recommend-container" v-if="(state.info.random?.length ?? 0) > 0">
           <div class="recommend-title" v-if="state.info.random">
             <v-icon size="20" color="#4c4948">mdi-thumb-up</v-icon> 相关推荐
           </div>
           <div class="recommend-list" v-if="state.info.random">
-            <div
-              class="recommend-item"
-              v-for="item of state.info.random"
-              :key="item.id"
-            >
+            <div class="recommend-item" v-for="item of state.info.random" :key="item.id">
               <router-link :to="'/' + $formatDate(item.publishTime!, 'YYYY/MM') + '/' + item.slug">
                 <img class="recommend-cover" :src="item.cover!" />
                 <div class="recommend-info">
@@ -221,11 +193,8 @@
         <!-- 分割线 -->
         <hr />
         <!-- 评论 -->
-        <Comment
-          :type="state.info.id"
-          @getCommentCount="getCommentCount"
-          v-if="state.info.isAllowComments && blogSetting.isAllowComments"
-        />
+        <Comment :type="state.info.id" @getCommentCount="getCommentCount"
+          v-if="state.info.isAllowComments && blogSetting.isAllowComments" />
       </v-card>
     </v-col>
     <!-- 侧边功能 -->
@@ -237,7 +206,9 @@
             <i class="iconfont iconhanbao" style="font-size: 16.8px" />
             <span style="margin-left: 10px">目录</span>
           </div>
-          <div id="toc"></div>
+          <div class="toc-container">
+            <div id="toc"></div>
+          </div>
           <!-- <component el=".article-content" :is="m[componentName]"></component> -->
           <!-- <Catalog container=".article-content" v-if="isShow" /> -->
         </v-card>
@@ -248,36 +219,27 @@
             <span style="margin-left: 10px">最新文章</span>
           </div>
           <div class="article-list">
-            <div
-              class="article-item"
-              v-for="item of state.latest"
-              :key="item.id"
-            >
-              <router-link
-                :to="{
-                  name: 'detail1',
-                  params: {
-                    year: $formatDate(item.publishTime!, 'YYYY'),
-                    month: $formatDate(item.publishTime!, 'MM'),
-                    slug: item.slug
-                  },
-                }"
-                class="content-cover"
-              >
+            <div class="article-item" v-for="item of state.latest" :key="item.id">
+              <router-link :to="{
+                name: 'detail1',
+                params: {
+                  year: $formatDate(item.publishTime!, 'YYYY'),
+                  month: $formatDate(item.publishTime!, 'MM'),
+                  slug: item.slug
+                },
+              }" class="content-cover">
                 <img :src="item.cover!" />
               </router-link>
               <div class="content">
                 <div class="content-title">
-                  <router-link
-                    :to="{
-                      name: 'detail1',
-                      params: {
-                        year: $formatDate(item.publishTime!, 'YYYY'),
-                        month: $formatDate(item.publishTime!, 'MM'),
-                        slug: item.slug
-                      },
-                    }"
-                  >
+                  <router-link :to="{
+                    name: 'detail1',
+                    params: {
+                      year: $formatDate(item.publishTime!, 'YYYY'),
+                      month: $formatDate(item.publishTime!, 'MM'),
+                      slug: item.slug
+                    },
+                  }">
                     {{ item.title }}
                   </router-link>
                 </div>
@@ -377,7 +339,7 @@ onMounted(async () => {
     ArticleApi.latest(),
   ]);
   state.info = first.data ?? {};
-  if(state.info !== null) {
+  if (state.info !== null) {
     document.title = state.info.title!;
   }
   state.latest = last.data ?? [];
@@ -427,21 +389,26 @@ onUnmounted(() => {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
 .article-info i {
   font-size: 14px;
 }
+
 .article-info {
   font-size: 14px;
   line-height: 1.9;
   display: inline-block;
 }
+
 @media (min-width: 760px) {
   .banner {
     color: #eee !important;
   }
+
   .article-info span {
     font-size: 95%;
   }
+
   .article-info-container {
     position: absolute;
     bottom: 6.25rem;
@@ -449,20 +416,25 @@ onUnmounted(() => {
     width: 100%;
     text-align: center;
   }
+
   .second-line,
   .third-line {
     display: inline;
   }
+
   .article-title {
     font-size: 35px;
     margin: 20px 0 8px;
   }
+
   .pagination-post {
     display: flex;
   }
+
   .post {
     width: 50%;
   }
+
   .recommend-item {
     position: relative;
     display: inline-block;
@@ -474,20 +446,25 @@ onUnmounted(() => {
     vertical-align: bottom;
   }
 }
+
 @media (max-width: 759px) {
   .banner {
     color: #eee !important;
     height: 360px;
   }
+
   .article-info span {
     font-size: 90%;
   }
+
   .separator:first-child {
     display: none;
   }
+
   .blog-container {
     margin: 322px 5px 0 5px;
   }
+
   .article-info-container {
     position: absolute;
     bottom: 1.3rem;
@@ -496,16 +473,20 @@ onUnmounted(() => {
     color: #eee;
     text-align: left;
   }
+
   .article-title {
     font-size: 1.5rem;
     margin-bottom: 0.4rem;
   }
+
   .post {
     width: 100%;
   }
+
   .pagination-post {
     display: block;
   }
+
   .recommend-item {
     position: relative;
     display: inline-block;
@@ -518,13 +499,16 @@ onUnmounted(() => {
     vertical-align: bottom;
   }
 }
+
 .article-operation {
   display: flex;
   align-items: center;
 }
+
 .article-category a {
   color: #fff !important;
 }
+
 .tag-container a {
   display: inline-block;
   margin: 0.5rem 0.5rem 0.5rem 0;
@@ -536,11 +520,13 @@ onUnmounted(() => {
   font-size: 12px;
   line-height: 2;
 }
+
 .tag-container a:hover {
   color: #fff !important;
   background: #49b1f5;
   transition: all 0.5s;
 }
+
 .aritcle-copyright {
   position: relative;
   /* margin-top: 40px; */
@@ -551,14 +537,17 @@ onUnmounted(() => {
   border: 1px solid #eee;
   margin-top: 15px;
 }
+
 .aritcle-copyright span {
   color: #49b1f5;
   font-weight: bold;
 }
+
 .aritcle-copyright a {
   text-decoration: underline !important;
   color: #99a9bf !important;
 }
+
 .aritcle-copyright:before {
   position: absolute;
   top: 0.7rem;
@@ -569,6 +558,7 @@ onUnmounted(() => {
   background: #49b1f5;
   content: "";
 }
+
 .aritcle-copyright:after {
   position: absolute;
   top: 0.95rem;
@@ -579,12 +569,14 @@ onUnmounted(() => {
   background: #fff;
   content: "";
 }
+
 .article-reward {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .reward-btn {
   position: relative;
   display: inline-block;
@@ -596,9 +588,11 @@ onUnmounted(() => {
   line-height: 36px;
   font-size: 0.875rem;
 }
+
 .reward-btn:hover .reward-main {
   display: block;
 }
+
 .reward-main {
   display: none;
   position: absolute;
@@ -608,6 +602,7 @@ onUnmounted(() => {
   padding: 0 0 15px;
   width: 100%;
 }
+
 .reward-all {
   display: inline-block;
   margin: 0 0 0 -110px;
@@ -616,6 +611,7 @@ onUnmounted(() => {
   border-radius: 4px;
   background: #f5f5f5;
 }
+
 .reward-all:before {
   position: absolute;
   bottom: -10px;
@@ -624,6 +620,7 @@ onUnmounted(() => {
   height: 20px;
   content: "";
 }
+
 .reward-all:after {
   content: "";
   position: absolute;
@@ -637,22 +634,26 @@ onUnmounted(() => {
   border-right: 13px solid transparent;
   border-left: 13px solid transparent;
 }
+
 .reward-item {
   display: inline-block;
   padding: 0 8px;
   list-style-type: none;
 }
+
 .reward-img {
   width: 130px;
   height: 130px;
   display: block;
   object-fit: cover;
 }
+
 .reward-desc {
   margin: -5px 0;
   color: #858585;
   text-align: center;
 }
+
 .like-btn {
   display: inline-block;
   width: 100px;
@@ -662,6 +663,7 @@ onUnmounted(() => {
   line-height: 36px;
   font-size: 0.875rem;
 }
+
 .like-btn-active {
   display: inline-block;
   width: 100px;
@@ -671,17 +673,20 @@ onUnmounted(() => {
   line-height: 36px;
   font-size: 0.875rem;
 }
+
 .pagination-post {
   margin-top: 40px;
   overflow: hidden;
   width: 100%;
   background: #000;
 }
+
 .post {
   position: relative;
   height: 150px;
   overflow: hidden;
 }
+
 .post-info {
   position: absolute;
   top: 50%;
@@ -691,6 +696,7 @@ onUnmounted(() => {
   line-height: 2;
   font-size: 14px;
 }
+
 .post-cover {
   position: absolute;
   width: 100%;
@@ -699,37 +705,50 @@ onUnmounted(() => {
   transition: all 0.6s;
   object-fit: cover;
 }
+
 .post a {
   position: relative;
   display: block;
   overflow: hidden;
   height: 150px;
 }
+
 .post:hover .post-cover {
   opacity: 0.8;
   transform: scale(1.1);
 }
+
 .label {
   font-size: 90%;
   color: #eee;
 }
+
 .post-title {
   font-weight: 500;
   color: #fff;
 }
+
 hr {
   position: relative;
   margin: 40px auto;
   border: 2px dashed #d2ebfd;
   width: calc(100% - 4px);
 }
+
 .full {
   width: 100% !important;
 }
+
+.toc-container {
+  max-height: 300px;
+  overflow: auto;
+}
+
 .right-container {
   padding: 20px 24px;
   font-size: 14px;
 }
+
 .right-title {
   display: flex;
   align-items: center;
@@ -737,18 +756,22 @@ hr {
   font-size: 16.8px;
   margin-bottom: 6px;
 }
+
 .right-title i {
   font-weight: bold;
 }
+
 .recommend-container {
   margin-top: 40px;
 }
+
 .recommend-title {
   font-size: 20px;
   line-height: 2;
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 .recommend-cover {
   width: 100%;
   height: 100%;
@@ -756,6 +779,7 @@ hr {
   transition: all 0.6s;
   object-fit: cover;
 }
+
 .recommend-info {
   line-height: 2;
   color: #fff;
@@ -767,36 +791,45 @@ hr {
   text-align: center;
   font-size: 14px;
 }
+
 .recommend-date {
   font-size: 90%;
 }
+
 .recommend-item:hover .recommend-cover {
   opacity: 0.8;
   transform: scale(1.1);
 }
+
 .article-item {
   display: flex;
   align-items: center;
   padding: 6px 0;
 }
+
 .article-item:first-child {
   padding-top: 0;
 }
+
 .article-item:last-child {
   padding-bottom: 0;
 }
+
 .article-item:not(:last-child) {
   border-bottom: 1px dashed #f5f5f5;
 }
+
 .article-item img {
   width: 100%;
   height: 100%;
   transition: all 0.6s;
   object-fit: cover;
 }
+
 .article-item img:hover {
   transform: scale(1.1);
 }
+
 .content {
   flex: 1;
   padding-left: 10px;
@@ -805,18 +838,22 @@ hr {
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
+
 .content-cover {
   width: 58.8px;
   height: 58.8px;
   overflow: hidden;
 }
+
 .content-title a {
   transition: all 0.2s;
   font-size: 95%;
 }
+
 .content-title a:hover {
   color: #2ba1d1;
 }
+
 .content-time {
   color: #858585;
   font-size: 85%;
@@ -832,36 +869,44 @@ pre.hljs {
   font-size: 14px !important;
   line-height: 22px !important;
   overflow: hidden !important;
+
   &:hover .copy-btn {
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
   code {
     display: block !important;
     margin: 0 10px !important;
     overflow-x: auto !important;
+
     &::-webkit-scrollbar {
       z-index: 11;
       width: 6px;
     }
+
     &::-webkit-scrollbar:horizontal {
       height: 6px;
     }
+
     &::-webkit-scrollbar-thumb {
       border-radius: 5px;
       width: 6px;
       background: #666;
     }
+
     &::-webkit-scrollbar-corner,
     &::-webkit-scrollbar-track {
       background: #1e1e1e;
     }
+
     &::-webkit-scrollbar-track-piece {
       background: #1e1e1e;
       width: 6px;
     }
   }
+
   .line-numbers-rows {
     position: absolute;
     pointer-events: none;
@@ -875,10 +920,12 @@ pre.hljs {
     border-right: 1px solid rgba(0, 0, 0, 0.66);
     user-select: none;
     counter-reset: linenumber;
+
     span {
       pointer-events: none;
       display: block;
       counter-increment: linenumber;
+
       &:before {
         content: counter(linenumber);
         color: #999;
@@ -887,6 +934,7 @@ pre.hljs {
       }
     }
   }
+
   b.name {
     position: absolute;
     top: 7px;
@@ -895,6 +943,7 @@ pre.hljs {
     color: #999;
     pointer-events: none;
   }
+
   .copy-btn {
     position: absolute;
     top: 6px;
@@ -909,5 +958,4 @@ pre.hljs {
     height: 24px;
     outline: none;
   }
-}
-</style>
+}</style>
