@@ -10,7 +10,8 @@ public class ArticleService : BaseService<Article>
     private readonly ISqlSugarRepository<Article> _repository;
     private readonly IIdGenerator _idGenerator;
 
-    public ArticleService(ISqlSugarRepository<Article> repository,
+    public ArticleService(
+        ISqlSugarRepository<Article> repository,
         IIdGenerator idGenerator) : base(repository)
     {
         _repository = repository;
@@ -74,7 +75,7 @@ public class ArticleService : BaseService<Article>
     {
         var article = dto.Adapt<Article>();
         article.Id = _idGenerator.NewLong();
-        article.ShortSlug = article.Slug.Encode();
+        article.ShortSlug = _idGenerator.Encode(article.Id);
         var tags = dto.Tags?.Select(x => new ArticleTag()
         {
             ArticleId = article.Id,

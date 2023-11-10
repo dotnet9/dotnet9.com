@@ -11,6 +11,7 @@ namespace Dotnet9.Application.Client;
 [AllowAnonymous]
 public class ArticleController : IDynamicApiController
 {
+    private readonly IEasyCachingProvider _easyCachingProvider;
     private readonly ISqlSugarRepository<Tags> _tagsRepository;
     private readonly ISqlSugarRepository<Article> _articleRepository;
     private readonly AuthManager _authManager;
@@ -19,7 +20,8 @@ public class ArticleController : IDynamicApiController
     private readonly ISqlSugarRepository<AuthAccount> _authAccountRepository;
     private readonly ISqlSugarRepository<FriendLink> _friendLinkRepository;
 
-    public ArticleController(ISqlSugarRepository<Tags> tagsRepository,
+    public ArticleController(IEasyCachingProvider easyCachingProvider,
+        ISqlSugarRepository<Tags> tagsRepository,
         ISqlSugarRepository<Article> articleRepository,
         AuthManager authManager,
         ISqlSugarRepository<Categories> categoryRepository,
@@ -27,6 +29,7 @@ public class ArticleController : IDynamicApiController
         ISqlSugarRepository<AuthAccount> authAccountRepository,
         ISqlSugarRepository<FriendLink> friendLinkRepository)
     {
+        _easyCachingProvider = easyCachingProvider;
         _tagsRepository = tagsRepository;
         _articleRepository = articleRepository;
         _authManager = authManager;
@@ -258,6 +261,12 @@ public class ArticleController : IDynamicApiController
     [HttpGet]
     public async Task<ArticleInfoOutput> Info([FromQuery] string slugOrShortSlug)
     {
+        var cacheBlogPost = await _easyCachingProvider.GetAsync<ArticleInfoOutput>(slugOrShortSlug);
+        if (cacheBlogPost.HasValue)
+        {
+            return cacheBlogPost.Value;
+        }
+
         long userId = _authManager.UserId;
         var article = await _articleRepository.AsQueryable()
             .LeftJoin<ArticleCategory>((x, ac) => x.Id == ac.ArticleId)
@@ -341,6 +350,7 @@ public class ArticleController : IDynamicApiController
         article.Next = nextQuery;
         article.Random = randomQuery;
         article.Views++;
+        await _easyCachingProvider.SetAsync(slugOrShortSlug, article, TimeSpan.FromMinutes(5));
         return article;
     }
 

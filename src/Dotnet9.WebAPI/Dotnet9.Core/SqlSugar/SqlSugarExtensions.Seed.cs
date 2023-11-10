@@ -310,7 +310,6 @@ public static partial class SqlSugarExtensions
                 Id = articles.Count + 1,
                 Title = blogPostOfMarkdown.Title,
                 Slug = blogPostOfMarkdown.Slug,
-                ShortSlug = blogPostOfMarkdown.Slug.Encode(),
                 CreationType = blogPostOfMarkdown.Copyright,
                 Cover = $"{blogPostOfMarkdown.Cover}",
                 IsTop = blogPostOfMarkdown.Banner,
@@ -323,6 +322,7 @@ public static partial class SqlSugarExtensions
                 UpdatedTime = blogPostOfMarkdown.LastModifyDate,
                 IsAllowComments = true
             };
+            article.ShortSlug = YitIdHelperExtension.Encode(null, article.Id);
             if (article.CreationType == CreationType.Original)
             {
                 article.Author = siteInfo.Owner;

@@ -1874,14 +1874,6 @@
             <param name="salt">盐值</param>
             <returns></returns>
         </member>
-        <member name="M:Easy.Core.YitIdHelperExtension.Encode(System.String,System.Int32)">
-            <summary>
-            将长字符串生成短字符串
-            </summary>
-            <param name="text">需要缩短的原字符串</param>
-            <param name="salt">盐值</param>
-            <returns></returns>
-        </member>
         <member name="P:SqlSugar.IPagination.PageNo">
             <summary>
             当前页码

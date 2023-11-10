@@ -8,7 +8,7 @@ public static class YitIdHelperExtension
     /// <summary>
     /// 盐值
     /// </summary>
-    private const string Salt = "dkjsDLVK1S7y5be8XYzoq0C2nHaEmBfA";
+    private const string Salt = "dotnet9.com";
 
     /// <summary>
     /// 注册雪花ID服务（默认配置）
@@ -76,16 +76,5 @@ public static class YitIdHelperExtension
     public static long Decode(this IIdGenerator generator, string text, string salt = Salt)
     {
         return new Hashids(salt).DecodeSingleLong(text);
-    }
-
-    /// <summary>
-    /// 将长字符串生成短字符串
-    /// </summary>
-    /// <param name="text">需要缩短的原字符串</param>
-    /// <param name="salt">盐值</param>
-    /// <returns></returns>
-    public static string Encode(this string text, int salt = 9)
-    {
-        return new Hashids(text).Encode(salt);
     }
 }
