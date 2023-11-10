@@ -26,7 +26,7 @@ const endAt = computed(() =>
 <template>
   <div>
     <div text-justify op-70>
-      举个具体的例子，如果你在 3 分钟内洗了 5 个盘子，你有 500 个盘子要洗，那么把它们全部洗干净需要 5 小时 10 分钟。（With a concrete example, if you wash 3 plates in 5 minutes and you have 500 plates to wash, it will take you 5
+      举个具体的例子，如果你在 3 分钟内洗了 5 个盘子，你有 500 个盘子要洗，那么把它们全部洗干净需要 5 小时 10 分钟。（With a concrete example, if you wash 5 plates in 3 minutes and you have 500 plates to wash, it will take you 5
       hours and 10 minutes to wash them all.）
     </div>
     <n-divider />
