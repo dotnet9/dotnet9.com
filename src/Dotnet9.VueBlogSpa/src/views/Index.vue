@@ -382,14 +382,14 @@ onMounted(async () => {
   left: 0;
   right: 0;
   // height: 106.5vh;
-  height: 100vh;
+  height: 30vh;
   background-attachment: fixed;
   text-align: center;
   color: #fff !important;
   animation: header-effect 1s;
 }
 .banner-container {
-  margin-top: 43vh;
+  margin-top: 10vh;
   line-height: 1.5;
   color: #eee;
 }
@@ -427,7 +427,7 @@ onMounted(async () => {
   }
   .home-container {
     max-width: 1200px;
-    margin: calc(100vh - 48px) auto 28px auto;
+    margin: calc(30vh - 48px) auto 28px auto;
     padding: 0 5px;
   }
   .article-card {
@@ -467,7 +467,7 @@ onMounted(async () => {
   }
   .home-container {
     width: 100%;
-    margin: calc(100vh - 66px) auto 0 auto;
+    margin: calc(30vh - 66px) auto 0 auto;
   }
   .article-card {
     margin-top: 1rem;
