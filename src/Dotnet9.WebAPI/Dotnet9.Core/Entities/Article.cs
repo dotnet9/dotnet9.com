@@ -22,7 +22,7 @@ public class Article : Entity<long>, IAvailability, ISortable, ISoftDelete, IUpd
     /// <summary>
     /// 短别名
     /// </summary>
-    [SugarColumn(Length = 8)]
+    [SugarColumn(Length = 16)]
     public string ShortSlug { get; set; } = null!;
 
     /// <summary>

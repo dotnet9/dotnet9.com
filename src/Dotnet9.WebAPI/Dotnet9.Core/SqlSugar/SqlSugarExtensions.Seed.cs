@@ -38,7 +38,7 @@ public static partial class SqlSugarExtensions
             {
                 Id = 1,
                 Account = "admin",
-                Password = "9658b68df5e6208e97ae6c8f4eac6c39",
+                Password = "38960c2ae3136d1726dfd9021492d590",
                 Name = "管理员",
                 Gender = Gender.Female,
                 NickName = "管理员",
@@ -49,7 +49,7 @@ public static partial class SqlSugarExtensions
             {
                 Id = 50048753934341,
                 Account = "test",
-                Password = "65caa9533b8d9f336bd07919dd9bf74e",
+                Password = "38960c2ae3136d1726dfd9021492d590",
                 Name = "测试",
                 Gender = Gender.Female,
                 NickName = "测试",
