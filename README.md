@@ -254,10 +254,22 @@ Dotnet工具箱-别名工具
   // 接入第三方授权登录 文档：https://github.com/mrhuo/MrHuo.OAuth
   "oauth": {
     "qq": {
-      "app_id": "101631668",
-      "app_key": "4cc9394jh6b4145a56563a49a3fc90cb4",
+      "app_id": "101434831288",
+      "app_key": "4cc9398bc588b45345454145a63a49a3fc90cb4",
       "redirect_uri": "https://dotnet9.com/api/oauth/qq/callback",
       "scope": "get_user_info"
+    },
+    "gitee": {
+      "app_id": "a4eff6b04a7f0965a0c171c5460fe9af3c1455645645651c9d44b3f6fe2960cda0e0d17b9ad",
+      "app_key": "7c8afb39d3279c4d6f654684a15c384a901b29fe0bdf788dc785675671aa899ca1e32f8916a1d",
+      "redirect_uri": "https://dotnet9.com/api/oauth/gitee/callback",
+      "scope": "user_info"
+    },
+    "github": {
+      "app_id": "2650d9528567860a42c047abf",
+      "app_key": "045ef356767addf83ffa49b4a8567d7e428f7956d4cf560dc",
+      "redirect_uri": "https://dotnet9.com/api/oauth/github/callback",
+      "scope": "repo"
     },
     "redirect_uri": "https://dotnet9.com" //授权成功后跳转地址
   },
