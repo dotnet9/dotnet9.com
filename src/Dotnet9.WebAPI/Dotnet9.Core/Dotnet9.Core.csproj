@@ -11,17 +11,17 @@
 		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
 		<PackageReference Include="EasyCaching.CSRedis" Version="1.9.2" />
 		<PackageReference Include="EasyCaching.InMemory" Version="1.9.2" />
-		<PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.1" />
-		<PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.1" />
-		<PackageReference Include="Furion.Pure" Version="4.9.1" />
+		<PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.1.7" />
+		<PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.1.7" />
+		<PackageReference Include="Furion.Pure" Version="4.9.1.7" />
 		<PackageReference Include="Hashids.net" Version="1.7.0" />
-		<PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
+		<PackageReference Include="Lazy.Captcha.Core" Version="2.0.7" />
 		<PackageReference Include="MrHuo.OAuth.Gitee" Version="1.1.1" />
 		<PackageReference Include="MrHuo.OAuth.Github" Version="1.1.1" />
 		<PackageReference Include="MrHuo.OAuth.QQ" Version="1.1.1" />
 		<PackageReference Include="OnceMi.AspNetCore.OSS" Version="1.2.0" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
-		<PackageReference Include="SqlSugarCore" Version="5.1.4.116-preview08" />
+		<PackageReference Include="SqlSugarCore" Version="5.1.4.125-preview02" />
 		<PackageReference Include="UAParser" Version="3.1.47" />
 		<PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
 	</ItemGroup>

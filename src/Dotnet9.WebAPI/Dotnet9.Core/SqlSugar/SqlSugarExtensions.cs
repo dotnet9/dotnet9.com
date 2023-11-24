@@ -136,7 +136,7 @@ public static partial class SqlSugarExtensions
 
                     break;
                 case DataFilterType.UpdateByObject:
-                    if (entityInfo.EntityValue is IUpdatedTime { UpdatedTime: null } updatedTime)
+                    if (entityInfo.EntityValue is IUpdatedTime updatedTime)
                     {
                         updatedTime.UpdatedTime = DateTime.Now;
                     }

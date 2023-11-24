@@ -62,11 +62,11 @@ public class OAuthController : IDynamicApiController
     /// <returns></returns>
     [HttpGet("{type}")]
     [AllowAnonymous]
-    public async Task<string> Get(string type, [FromQuery] string requestUrl)
+    public async Task<string> Get(string type, [FromQuery] [Required(ErrorMessage = "缺少参数")] string requestUrl)
     {
-        string code = _idGenerator.Encode(_idGenerator.NewLong());
+        var code = _idGenerator.Encode(_idGenerator.NewLong());
         await _easyCachingProvider.SetAsync($"{OAuthRedirectKey}{code}", requestUrl, TimeSpan.FromMinutes(5));
-        string url = type.ToLower() switch
+        var url = type.ToLower() switch
         {
             "qq" => _qqoAuth.GetAuthorizeUrl(code),
             "gitee" => _giteeOAuth.GetAuthorizeUrl(code),
@@ -114,7 +114,7 @@ public class OAuthController : IDynamicApiController
                 gender = info.Gender == "男" ? Gender.Male :
                     info.Gender == "女" ? Gender.Female : Gender.Unknown;
                 avatar = string.IsNullOrWhiteSpace(info.QQ100Avatar) ? info.Avatar : info.QQ100Avatar;
-                    break;
+                break;
             }
             case "gitee":
             {
@@ -125,10 +125,10 @@ public class OAuthController : IDynamicApiController
                 }
 
                 var info = authorizeResult.UserInfo;
-                openId ="gitee"+ info.Name;
+                openId = "gitee" + info.Name;
                 name = info.Name;
                 avatar = info.Avatar;
-                    break;
+                break;
             }
             case "github":
             {
@@ -142,7 +142,7 @@ public class OAuthController : IDynamicApiController
                 openId = "github" + info.Name;
                 name = info.Name;
                 avatar = info.Avatar;
-                    break;
+                break;
             }
 
             default:
@@ -151,7 +151,7 @@ public class OAuthController : IDynamicApiController
 
         account = await _accountRepository.AsQueryable()
             .FirstAsync(x => x.OAuthId == openId && SqlFunc.ToLower(x.Type) == oauthType);
-        
+
         if (account != null)
         {
             await _accountRepository.UpdateAsync(x => new AuthAccount()

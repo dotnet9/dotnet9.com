@@ -52,6 +52,7 @@
   },
   //缓存配置 文档：https://easycaching.readthedocs.io/en/latest/
   "easycaching": {
+    "type": "inmemory", //使用缓存类型
     "csredis": {
       "MaxRdSecond": 120,
       "EnableLogging": false,
