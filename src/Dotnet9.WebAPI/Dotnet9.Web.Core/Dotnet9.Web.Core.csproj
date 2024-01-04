@@ -16,7 +16,7 @@
 
 
 	<ItemGroup>
-	  <PackageReference Include="EasyCaching.Serialization.Json" Version="1.9.2" />
+	  <PackageReference Include="EasyCaching.Serialization.Json" Version="1.9.3-alpha20231127013454" />
 	</ItemGroup>
 
 	<ItemGroup>

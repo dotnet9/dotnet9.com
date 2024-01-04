@@ -6,6 +6,8 @@ using System.IO;
 using Dotnet9.Core.SqlSugar.Seed;
 using Easy.Core;
 using Microsoft.AspNetCore.Razor.Language.Extensions;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace SqlSugar;
 
@@ -110,7 +112,7 @@ public static partial class SqlSugarExtensions
     private static void InitFriendLink(SqlSugarScope client, string assetsDir)
     {
         var filePath = Path.Combine(assetsDir, "site", "FriendLink.json");
-        if (!File.Exists(filePath))
+        if (!System.IO.File.Exists(filePath))
         {
             return;
         }
@@ -280,9 +282,17 @@ public static partial class SqlSugarExtensions
         var blogPostFiles = new List<string>();
         for (var i = siteInfo.Start; i <= DateTime.Now.Year; i++)
         {
-            blogPostFiles.AddRange(Directory.GetFiles(Path.Combine(siteInfo.AssetsDir, i.ToString()),
-                "*.md",
-                SearchOption.AllDirectories));
+            var fileDir = Path.Combine(siteInfo.AssetsDir, i.ToString());
+            if (!Directory.Exists(fileDir))
+            {
+                continue;
+            }
+
+            var files = Directory.GetFiles(fileDir, "*.md", SearchOption.AllDirectories);
+            if (files.Length > 0)
+            {
+                blogPostFiles.AddRange(files);
+            }
         }
 
         var articles = new List<Article>();
