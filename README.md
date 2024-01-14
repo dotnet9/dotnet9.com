@@ -1,3 +1,5 @@
+**Dotnet9即将发布，为了避免被说碰瓷，已将该网站仓库迁移到 https://github.com/dotnet9/CodeWF ，本库停止维护 **
+
 <p align="center">
   <a href="https://dotnet9.com">
     <img src="https://img1.dotnet9.com/site/logo.png" width="128" height="128" alt="Dotnet9">
@@ -8,7 +10,7 @@
 
 <div align="center">
 
-一个使用`Dotnet 8.0`开发的`博客`系统，开发中...
+一个使用`Dotnet 8.0`开发的`博客`系统
 
  ![dotnet-version](https://img.shields.io/badge/.NET%208.0-blue)  ![Visual Studio 2022](https://img.shields.io/badge/Visual%20Studio%20-2022-blueviolet)  <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=iL6egdGSGCMPezcUyzMPEcs9qsllgwr-&jump_from=webapi"><img border="0" src="https://pub.idqqimg.com/wpa/images/group.png" alt="Dotnet9软件技术交流" title="Dotnet9软件技术交流"></a> [![码云](https://img.shields.io/badge/Gitee-%E7%A0%81%E4%BA%91-orange)](https://gitee.com/dotnet9/Dotnet9)   [![Github](https://img.shields.io/badge/%20-github-%2324292e)](https://github.com/dotnet9/Dotnet9) [![Github stars](https://img.shields.io/github/stars/dotnet9/Dotnet9)](https://github.com/dotnet9/Dotnet9)
 
